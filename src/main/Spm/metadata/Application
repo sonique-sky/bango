@@ -7,21 +7,44 @@
     "codeClass": null,
     "userConfig": {
         "models": [
-            "Agent"
+            "AgentDetails"
         ],
         "views": [
-            "HeaderContainer",
             "TabPanel",
             "NavigationPanel",
             "MyQueuesPanel",
-            "SearchPanel",
-            "LoginForm"
+            "SearchPanel"
         ],
         "autoCreateViewport": true,
         "controllers": [
-            "AgentController"
+            "AgentController",
+            "LoginController",
+            "HeaderController",
+            "SecurityController"
         ],
         "name": "Spm"
     },
-    "designerId": "application"
+    "designerId": "application",
+    "cn": [
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "launch",
+                "implHandler": [
+                    "Spm.application = this;",
+                    "this.addEvents('startAuthentication');",
+                    "this.fireEvent('startAuthentication');",
+                    "",
+                    "var login = Ext.create('Spm.view.LoginWindow');",
+                    "login.hide();"
+                ]
+            },
+            "designerId": "1ca2b8d8-2984-4c8f-a81f-e43b3a2d6bf1"
+        }
+    ]
 }

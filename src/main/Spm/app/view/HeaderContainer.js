@@ -22,7 +22,28 @@ Ext.define('Spm.view.HeaderContainer', {
     initComponent: function() {
         var me = this;
 
+        Ext.applyIf(me, {
+            tpl: [
+                '<div class="app-header">',
+                '<div class="login-info">Welcome <span id="login-name" class="login-name">{name}</span> | <span id="logout" class="logout">Logout</span></div>',
+                '<div class="app-logo"/>',
+                '</div>'
+            ],
+            listeners: {
+                click: {
+                    delegate: 'span#logout',
+                    fn: me.onLogoutClick,
+                    element: 'el',
+                    scope: me
+                }
+            }
+        });
+
         me.callParent(arguments);
+    },
+
+    onLogoutClick: function(container) {
+        Spm.application.fireEvent('logout');
     }
 
 });

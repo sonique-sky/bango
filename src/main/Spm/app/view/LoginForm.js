@@ -20,29 +20,37 @@ Ext.define('Spm.view.LoginForm', {
     height: 119,
     width: 333,
     bodyPadding: 10,
+    frameHeader: false,
+    header: false,
     title: 'Login',
 
     initComponent: function() {
         var me = this;
-
-        me.addEvents(
-            'startAuthentication'
-        );
 
         Ext.applyIf(me, {
             items: [
                 {
                     xtype: 'textfield',
                     anchor: '100%',
+                    id: 'username',
                     itemId: 'usernameField',
-                    fieldLabel: 'Username:'
+                    fieldLabel: 'Username:',
+                    allowBlank: false,
+                    listeners: {
+                        afterrender: {
+                            fn: me.grabInitialFocus,
+                            scope: me
+                        }
+                    }
                 },
                 {
                     xtype: 'textfield',
                     anchor: '100%',
+                    id: 'password',
                     itemId: 'passwordField',
                     fieldLabel: 'Password:',
-                    inputType: 'password'
+                    inputType: 'password',
+                    allowBlank: false
                 },
                 {
                     xtype: 'container',
@@ -54,6 +62,7 @@ Ext.define('Spm.view.LoginForm', {
                     items: [
                         {
                             xtype: 'button',
+                            id: 'reset-button',
                             text: 'Reset'
                         },
                         {
@@ -62,15 +71,32 @@ Ext.define('Spm.view.LoginForm', {
                         },
                         {
                             xtype: 'button',
-                            itemId: 'loginButton',
+                            formBind: true,
+                            disabled: true,
+                            id: 'login-button',
                             text: 'Login'
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                show: {
+                    fn: me.clearForm,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
+    },
+
+    grabInitialFocus: function(component, eOpts) {
+        component.focus(false, 500);
+    },
+
+    clearForm: function(component, eOpts) {
+        component.getForm().reset();
+
     }
 
 });

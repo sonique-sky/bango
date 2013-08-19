@@ -11,6 +11,8 @@
         "designer|userClassName": "LoginForm",
         "designer|userAlias": "loginForm",
         "bodyPadding": 10,
+        "frameHeader": false,
+        "header": false,
         "title": "Login"
     },
     "designerId": "2aadd114-0121-4456-b883-47280d001492",
@@ -24,11 +26,33 @@
             "codeClass": null,
             "userConfig": {
                 "layout|anchor": "100%",
+                "id": "username",
                 "itemId": "usernameField",
                 "designer|displayName": "UsernameField",
-                "fieldLabel": "Username:"
+                "fieldLabel": "Username:",
+                "value": null,
+                "allowBlank": false
             },
-            "designerId": "ce1e0287-1399-4677-a6ba-3a0cf5b19dac"
+            "designerId": "ce1e0287-1399-4677-a6ba-3a0cf5b19dac",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "grabInitialFocus",
+                        "implHandler": [
+                            "component.focus(false, 500);"
+                        ],
+                        "name": "afterrender",
+                        "scope": "me"
+                    },
+                    "designerId": "be9ec6cb-e2ca-437b-a05a-83a9d34a9d10"
+                }
+            ]
         },
         {
             "type": "Ext.form.field.Text",
@@ -39,10 +63,12 @@
             "codeClass": null,
             "userConfig": {
                 "layout|anchor": "100%",
+                "id": "password",
                 "itemId": "passwordField",
                 "designer|displayName": "PasswordField",
                 "fieldLabel": "Password:",
-                "inputType": "password"
+                "inputType": "password",
+                "allowBlank": false
             },
             "designerId": "7f5a5208-776d-441c-b160-2de449920b3f"
         },
@@ -70,6 +96,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
+                        "id": "reset-button",
                         "designer|displayName": "ResetButton",
                         "text": "Reset"
                     },
@@ -97,7 +124,10 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "itemId": "loginButton",
+                        "formBind": true,
+                        "disabled": true,
+                        "id": "login-button",
+                        "itemId": null,
                         "designer|displayName": "LoginButton",
                         "text": "Login"
                     },
@@ -106,17 +136,22 @@
             ]
         },
         {
-            "type": "customevent",
+            "type": "basiceventbinding",
             "reference": {
-                "name": "customEvents",
+                "name": "listeners",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "designer|displayName": "StartAuthenticationEvent",
-                "name": "startAuthentication"
+                "fn": "clearForm",
+                "implHandler": [
+                    "component.getForm().reset();",
+                    ""
+                ],
+                "name": "show",
+                "scope": "me"
             },
-            "designerId": "294ea44e-a0b4-4329-b00b-a041724f0ab7"
+            "designerId": "2a5517f8-3dc8-4de0-b080-d60b58e88988"
         }
     ]
 }

@@ -10,8 +10,8 @@
         "height": 126,
         "margin": "",
         "width": 266,
-        "designer|userClassName": "MyStatusPanel",
-        "designer|userAlias": "myStatusPanel",
+        "designer|userClassName": "AgentStatusPanel",
+        "designer|userAlias": "agentStatusPanel",
         "layout": "vbox",
         "bodyPadding": 5,
         "iconCls": "icon-status",
@@ -29,6 +29,7 @@
             "userConfig": {
                 "type": null,
                 "cls": "availability-indicator-off",
+                "id": null,
                 "itemId": "agentStateLabel",
                 "padding": 2,
                 "designer|displayName": "agentState",
@@ -96,6 +97,30 @@
                     "designerId": "03330183-0b29-4d9c-95d7-476f953860fc"
                 }
             ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "setAvailability",
+                "designer|params": [
+                    "isAvailable"
+                ],
+                "implHandler": [
+                    "\tvar label = this.child('label#agentStateLabel');",
+                    "\tvar button = this.child('button#makeMeAvailableButton');",
+                    "",
+                    "\tbutton.setText(isAvailable ? \"Make Me Unavailable\" : \"Make Me Available\");",
+                    "\tlabel.setText(isAvailable ? \"Available\": \"Unavailable\");",
+                    "\tlabel.removeCls(isAvailable ?\"availability-indicator-off\" :\"availability-indicator-on\");",
+                    "\tlabel.addCls(isAvailable ? \"availability-indicator-on\": \"availability-indicator-off\");"
+                ]
+            },
+            "designerId": "2310126f-bcce-4dc6-bcd0-9269bd99475b"
         }
     ]
 }

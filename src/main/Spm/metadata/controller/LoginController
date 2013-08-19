@@ -1,0 +1,98 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "views": [
+            "LoginForm"
+        ],
+        "designer|userClassName": "LoginController",
+        "designer|userAlias": "loginController"
+    },
+    "designerId": "21f07f09-dd47-4024-a284-13ef4e152f3d",
+    "cn": [
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onSpecialKey",
+                "implHandler": [
+                    "if(e.getKey() == e.ENTER) {",
+                    "\tthis.doLogin(field.up('form').getForm());",
+                    "}"
+                ],
+                "name": "specialkey",
+                "scope": "me",
+                "designer|targetType": "Ext.form.field.Text",
+                "designer|controlQuery": "textfield"
+            },
+            "designerId": "89fd9056-63e4-4e2f-aa81-b3afd37e33c4"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onLoginClick",
+                "implHandler": [
+                    "this.doLogin(button.up('form').getForm());",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me",
+                "designer|targetType": "Ext.button.Button",
+                "designer|controlQuery": "button#login-button"
+            },
+            "designerId": "39f491ff-a507-4b96-958a-81612312098f"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "doLogin",
+                "designer|params": [
+                    "form"
+                ],
+                "implHandler": [
+                    "if(form.isValid()) {",
+                    "\tSpm.application.fireEvent('performAuthentication', {'username': form.findField('username').getValue(), 'password': form.findField('password').getValue()});",
+                    "}"
+                ]
+            },
+            "designerId": "3d6e869f-eec8-4764-b467-0f87d1171ec2"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onResetClick",
+                "implHandler": [
+                    "button.up('form').getForm().reset();"
+                ],
+                "name": "click",
+                "scope": "me",
+                "designer|targetType": "Ext.button.Button",
+                "designer|controlQuery": "button#reset-button"
+            },
+            "designerId": "7ee539cd-abeb-4c88-8a25-0cf72cfa3802"
+        }
+    ]
+}

@@ -6,41 +6,43 @@
     },
     "codeClass": null,
     "userConfig": {
-        "autoLoad": true,
+        "autoLoad": false,
         "model": "Agent",
-        "storeId": "MyJsonStore",
+        "storeId": "authenticatedAgent",
         "designer|userClassName": "AuthenticatedAgent",
-        "designer|userAlias": "authenticatedAgent"
+        "designer|userAlias": "authenticatedAgent",
+        "requires": [
+            "Spm.proxy.SpmAjaxProxy"
+        ]
     },
     "designerId": "3a16544a-bc66-4df1-9bf7-29a9f5ca5c11",
     "cn": [
         {
-            "type": "Ext.data.proxy.Ajax",
+            "type": "processcfgfunction",
             "reference": {
-                "name": "proxy",
-                "type": "object"
+                "name": "items",
+                "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "designer|displayName": "AuthenticatedAgentProxy",
-                "url": "data/agent.json"
+                "fn": "processAuthenticatedAgent",
+                "designer|params": [
+                    "config"
+                ],
+                "implHandler": [
+                    "return Ext.applyIf(config, {",
+                    "    proxy: {",
+                    "        type: 'spmAjaxProxy',",
+                    "        url: 'data/Agent.json',",
+                    "        reader: {",
+                    "            type: 'json',",
+                    "            root: 'agent'",
+                    "        }",
+                    "    }",
+                    "});"
+                ]
             },
-            "designerId": "019c8d9c-d85b-4533-91b7-a08934aaaa98",
-            "cn": [
-                {
-                    "type": "Ext.data.reader.Json",
-                    "reference": {
-                        "name": "reader",
-                        "type": "object"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "root": "agent",
-                        "designer|displayName": "AuthenticatedAgentReader"
-                    },
-                    "designerId": "03f53ce4-4f2e-4095-9868-231cb36c61c5"
-                }
-            ]
+            "designerId": "c1ed19fc-677f-4cf0-ab44-f314e10fa67a"
         }
     ]
 }

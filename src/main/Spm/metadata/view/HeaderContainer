@@ -7,8 +7,58 @@
     "codeClass": null,
     "userConfig": {
         "height": 50,
+        "html": null,
         "designer|userClassName": "HeaderContainer",
         "designer|userAlias": "headerContainer"
     },
-    "designerId": "5868934d-af7a-4c1c-accc-ad7ac290d70c"
+    "designerId": "5868934d-af7a-4c1c-accc-ad7ac290d70c",
+    "cn": [
+        {
+            "type": "Ext.XTemplate",
+            "reference": {
+                "name": "tpl",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "implHandler": [
+                    "<div class=\"app-header\">",
+                    "<div class=\"login-info\">Welcome <span id=\"login-name\" class=\"login-name\">{name}</span> | <span id=\"logout\" class=\"logout\">Logout</span></div>",
+                    "<div class=\"app-logo\"/>",
+                    "</div>"
+                ],
+                "designer|displayName": "tpl"
+            },
+            "designerId": "5359ce0a-3dc0-4b19-873c-c13515c3c58c"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "delegate": "span#logout",
+                "fn": "onLogoutClick",
+                "designer|params": [
+                    "container"
+                ],
+                "implHandler": [
+                    "Spm.application.fireEvent('logout');"
+                ],
+                "element": "el",
+                "name": "click",
+                "scope": "me"
+            },
+            "designerId": "e9075fe1-6d5c-4be9-8228-2dd3d7755f7e",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "delegate",
+                    "type": "string"
+                }
+            ]
+        }
+    ]
 }

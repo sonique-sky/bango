@@ -1,0 +1,54 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "AgentDetails",
+        "designer|userAlias": "agentDetails"
+    },
+    "designerId": "63dbcfcd-9339-49b5-88fb-7efafee490d1",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "firstName"
+            },
+            "designerId": "964da852-0050-43d1-9082-704c1e4de831"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "lastName"
+            },
+            "designerId": "e647e876-9163-4d99-8d7c-041761adbc41"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "displayName",
+                "implHandler": [
+                    "return this.get('firstName') + ' ' + this.get('lastName');"
+                ]
+            },
+            "designerId": "f711a4de-6e64-4480-99e3-d1e489fa3307"
+        }
+    ]
+}

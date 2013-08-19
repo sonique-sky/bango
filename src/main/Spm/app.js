@@ -20,19 +20,30 @@ Ext.Loader.setConfig({
 
 Ext.application({
     models: [
-        'Agent'
+        'AgentDetails'
     ],
     views: [
-        'HeaderContainer',
         'TabPanel',
         'NavigationPanel',
         'MyQueuesPanel',
-        'SearchPanel',
-        'LoginForm'
+        'SearchPanel'
     ],
     autoCreateViewport: true,
     controllers: [
-        'AgentController'
+        'AgentController',
+        'LoginController',
+        'HeaderController',
+        'SecurityController'
     ],
-    name: 'Spm'
+    name: 'Spm',
+
+    launch: function() {
+        Spm.application = this;
+        this.addEvents('startAuthentication');
+        this.fireEvent('startAuthentication');
+
+        var login = Ext.create('Spm.view.LoginWindow');
+        login.hide();
+    }
+
 });

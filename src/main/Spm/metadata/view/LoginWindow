@@ -1,0 +1,30 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 127,
+        "width": 372,
+        "designer|userClassName": "LoginWindow",
+        "designer|userAlias": "loginWindow",
+        "layout": "fit",
+        "closable": false,
+        "title": "Login"
+    },
+    "designerId": "73836524-4dc8-4269-83ea-20154789abeb",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "designerId": "db916042-580d-426c-821d-4ced3fea9142",
+            "masterInstanceId": "2aadd114-0121-4456-b883-47280d001492"
+        }
+    ]
+}

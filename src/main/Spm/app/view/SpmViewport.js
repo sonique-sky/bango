@@ -18,15 +18,12 @@ Ext.define('Spm.view.SpmViewport', {
     alias: 'widget.spmViewport',
 
     requires: [
-        'Spm.view.HeaderContainer',
-        'Spm.view.TabPanel',
-        'Spm.view.NavigationPanel',
-        'Spm.view.LoginForm'
+        'Spm.view.MainContainer'
     ],
 
     itemId: 'spmViewport',
     layout: {
-        type: 'card'
+        type: 'fit'
     },
 
     initComponent: function() {
@@ -35,53 +32,12 @@ Ext.define('Spm.view.SpmViewport', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'container',
-                    itemId: 'mainContainer',
-                    width: 150,
-                    layout: {
-                        type: 'border'
-                    },
-                    items: [
-                        {
-                            xtype: 'headerContainer',
-                            region: 'north'
-                        },
-                        {
-                            xtype: 'tabPanel',
-                            region: 'center'
-                        },
-                        {
-                            xtype: 'navigationPanel',
-                            region: 'west'
-                        }
-                    ]
-                },
-                {
-                    xtype: 'container',
-                    itemId: 'loginContainer',
-                    layout: {
-                        align: 'middle',
-                        pack: 'center',
-                        type: 'hbox'
-                    },
-                    items: [
-                        {
-                            xtype: 'loginForm'
-                        }
-                    ]
+                    xtype: 'mainContainer'
                 }
             ]
         });
 
         me.callParent(arguments);
-    },
-
-    showLoginDialog: function() {
-        this.getLayout().setActiveItem('loginContainer');
-    },
-
-    showMainContainer: function() {
-        this.getLayout().setActiveItem('mainContainer');
     }
 
 });

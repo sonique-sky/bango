@@ -31,18 +31,6 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "details"
-            },
-            "designerId": "a5363ec0-0ff5-4192-9d99-32c8aa7df15a"
-        },
-        {
-            "type": "Ext.data.Field",
-            "reference": {
-                "name": "fields",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "name": "availability"
             },
             "designerId": "e3e60cbb-bd7a-41d3-bd42-21a4e46fe48e"
@@ -70,6 +58,23 @@
                 "name": "heldCount"
             },
             "designerId": "ab7c2e94-aa21-4bd8-9584-e0387c9ee329"
+        },
+        {
+            "type": "Ext.data.association.HasOne",
+            "reference": {
+                "name": "hasOne",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "associationKey": "details",
+                "model": "AgentDetails",
+                "primaryKey": null,
+                "designer|displayName": "hasOneAgentDetails",
+                "foreignKey": null,
+                "getterName": "details"
+            },
+            "designerId": "a40d0d02-db33-4bed-a982-2d343970d95e"
         }
     ]
 }

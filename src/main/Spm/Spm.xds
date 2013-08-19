@@ -6,7 +6,7 @@
         "genTimestamps": false,
         "cacheBust": true,
         "urlPrefix": "http://localhost:8080/superman",
-        "exportPath": "/Users/tim/trunk/bango/target/build/",
+        "exportPath": "/Users/dev/ExtJS_Spike/bango/target/build",
         "buildShouldOverwriteIndex": true
     },
     "xdsVersion": "2.2.2",
@@ -56,11 +56,11 @@
         },
         "606988fd-1d31-43e7-8d7a-deaf25ab8242": {
             "paths": [
-                "metadata/view/MyStatusPanel",
-                "app/view/override/MyStatusPanel.js",
-                "app/view/MyStatusPanel.js"
+                "metadata/view/AgentStatusPanel",
+                "app/view/override/AgentStatusPanel.js",
+                "app/view/AgentStatusPanel.js"
             ],
-            "className": "MyStatusPanel"
+            "className": "AgentStatusPanel"
         },
         "e1f49dae-de8b-413c-b9cc-751bf7b42751": {
             "paths": [
@@ -115,6 +115,60 @@
                 "app/view/LoginForm.js"
             ],
             "className": "LoginForm"
+        },
+        "59a3fe12-1809-4c15-a29f-56999a94ebe5": {
+            "paths": [
+                "metadata/resource/js1"
+            ],
+            "className": "js1"
+        },
+        "21f07f09-dd47-4024-a284-13ef4e152f3d": {
+            "paths": [
+                "metadata/controller/LoginController",
+                "app/controller/override/LoginController.js",
+                "app/controller/LoginController.js"
+            ],
+            "className": "LoginController"
+        },
+        "73836524-4dc8-4269-83ea-20154789abeb": {
+            "paths": [
+                "metadata/view/LoginWindow",
+                "app/view/override/LoginWindow.js",
+                "app/view/LoginWindow.js"
+            ],
+            "className": "LoginWindow"
+        },
+        "77d7cab5-fde5-4e3f-b22a-cbc0ad0a9796": {
+            "paths": [
+                "metadata/view/MainContainer",
+                "app/view/override/MainContainer.js",
+                "app/view/MainContainer.js"
+            ],
+            "className": "MainContainer"
+        },
+        "f283ecd1-e153-40d6-a1fb-f2757e406a2f": {
+            "paths": [
+                "metadata/controller/HeaderController",
+                "app/controller/override/HeaderController.js",
+                "app/controller/HeaderController.js"
+            ],
+            "className": "HeaderController"
+        },
+        "63dbcfcd-9339-49b5-88fb-7efafee490d1": {
+            "paths": [
+                "metadata/model/AgentDetails",
+                "app/model/override/AgentDetails.js",
+                "app/model/AgentDetails.js"
+            ],
+            "className": "AgentDetails"
+        },
+        "8eeac2c0-eb6f-48cc-8cc7-cb0598f14380": {
+            "paths": [
+                "metadata/controller/SecurityController",
+                "app/controller/override/SecurityController.js",
+                "app/controller/SecurityController.js"
+            ],
+            "className": "SecurityController"
         }
     },
     "viewOrderMap": {
@@ -126,20 +180,27 @@
             "606988fd-1d31-43e7-8d7a-deaf25ab8242",
             "e1f49dae-de8b-413c-b9cc-751bf7b42751",
             "407c180d-22c1-4a44-9e38-5b808a89fe98",
-            "2aadd114-0121-4456-b883-47280d001492"
+            "2aadd114-0121-4456-b883-47280d001492",
+            "73836524-4dc8-4269-83ea-20154789abeb",
+            "77d7cab5-fde5-4e3f-b22a-cbc0ad0a9796"
         ],
         "store": [
             "3a16544a-bc66-4df1-9bf7-29a9f5ca5c11"
         ],
         "controller": [
-            "bb41357a-c190-4a1c-a116-c831f1714001"
+            "bb41357a-c190-4a1c-a116-c831f1714001",
+            "21f07f09-dd47-4024-a284-13ef4e152f3d",
+            "f283ecd1-e153-40d6-a1fb-f2757e406a2f",
+            "8eeac2c0-eb6f-48cc-8cc7-cb0598f14380"
         ],
         "model": [
-            "31598ac0-8ef6-4147-9f24-cdd227a441b2"
+            "31598ac0-8ef6-4147-9f24-cdd227a441b2",
+            "63dbcfcd-9339-49b5-88fb-7efafee490d1"
         ],
         "resource": [
             "97a980d1-ecd0-421b-85db-1343d9f0e85f",
-            "47a590c9-439d-4c05-aa4d-eaff45607006"
+            "47a590c9-439d-4c05-aa4d-eaff45607006",
+            "59a3fe12-1809-4c15-a29f-56999a94ebe5"
         ],
         "app": [
             "application"

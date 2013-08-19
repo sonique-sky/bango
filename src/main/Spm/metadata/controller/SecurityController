@@ -1,0 +1,145 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "stores": [
+            "AuthenticatedAgent"
+        ],
+        "views": [
+            "LoginWindow",
+            "MainContainer"
+        ],
+        "designer|userClassName": "SecurityController",
+        "designer|userAlias": "securityController"
+    },
+    "designerId": "8eeac2c0-eb6f-48cc-8cc7-cb0598f14380",
+    "cn": [
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "mainContainer",
+                "ref": "mainContainer",
+                "selector": "mainContainer",
+                "xtype": "mainContainer"
+            },
+            "designerId": "1daef7c3-d7a3-4629-b099-58cf6dc65bc7"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "loginWindow",
+                "selector": "loginWindow",
+                "xtype": "loginWindow"
+            },
+            "designerId": "1e94a528-9350-4229-9324-c946f634765e"
+        },
+        {
+            "type": "applicationaction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onPerformAuthentication",
+                "designer|params": [
+                    "credentials"
+                ],
+                "implHandler": [
+                    "console.log(credentials);",
+                    "Spm.application.fireEvent('authenticated');"
+                ],
+                "name": "performAuthentication",
+                "scope": "this"
+            },
+            "designerId": "3464321a-b1e6-48e7-bf85-8550a19b8c00"
+        },
+        {
+            "type": "applicationaction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onAuthenticated",
+                "implHandler": [
+                    "this.getLoginWindow().hide();",
+                    "this.getMainContainer().setVisible(true);"
+                ],
+                "name": "authenticated",
+                "scope": "this"
+            },
+            "designerId": "c6fbaa9b-9752-4420-9152-e739ca17be6c"
+        },
+        {
+            "type": "applicationaction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onAuthenticationRequired",
+                "designer|params": [
+                    "response"
+                ],
+                "implHandler": [
+                    "this.getMainContainer().setVisible(false);",
+                    "this.getLoginWindow().show();"
+                ],
+                "name": "authenticationRequired",
+                "scope": "this"
+            },
+            "designerId": "73cc98d7-f774-47ea-80d4-0c2d96eb123f"
+        },
+        {
+            "type": "applicationaction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onStartAuthentication",
+                "implHandler": [
+                    "this.getAuthenticatedAgentStore().load();"
+                ],
+                "name": "startAuthentication",
+                "scope": "this"
+            },
+            "designerId": "145088c1-7508-4980-b3b2-26fb8cf81228"
+        },
+        {
+            "type": "applicationaction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onLogout",
+                "implHandler": [
+                    "Spm.application.fireEvent('authenticationRequired');"
+                ],
+                "name": "logout",
+                "scope": "this"
+            },
+            "designerId": "58ccb058-3e81-45c3-b115-4c2151c32926"
+        }
+    ]
+}

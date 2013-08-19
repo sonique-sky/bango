@@ -18,24 +18,31 @@ Ext.define('Spm.store.AuthenticatedAgent', {
     alias: 'store.authenticatedAgent',
 
     requires: [
+        'Spm.proxy.SpmAjaxProxy',
         'Spm.model.Agent'
     ],
 
     constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
-        me.callParent([Ext.apply({
-            autoLoad: true,
+        me.callParent([Ext.apply(me.processAuthenticatedAgent({
+            autoLoad: false,
             model: 'Spm.model.Agent',
-            storeId: 'MyJsonStore',
+            storeId: 'authenticatedAgent'
+        }), cfg)]);
+    },
+
+    processAuthenticatedAgent: function(config) {
+        return Ext.applyIf(config, {
             proxy: {
-                type: 'ajax',
-                url: 'data/agent.json',
+                type: 'spmAjaxProxy',
+                url: 'data/Agent.json',
                 reader: {
                     type: 'json',
                     root: 'agent'
                 }
             }
-        }, cfg)]);
+        });
     }
+
 });
