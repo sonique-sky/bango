@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.googlecode.funclate:funclate:104">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/funclate/funclate/104/funclate-104.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/funclate/funclate/104/funclate-104-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/funclate/funclate/104/funclate-104-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

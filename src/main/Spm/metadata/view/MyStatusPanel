@@ -1,0 +1,101 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "container|align": "stretch",
+        "height": 126,
+        "margin": "",
+        "width": 266,
+        "designer|userClassName": "MyStatusPanel",
+        "designer|userAlias": "myStatusPanel",
+        "layout": "vbox",
+        "bodyPadding": 5,
+        "iconCls": "icon-status",
+        "title": "My Status"
+    },
+    "designerId": "606988fd-1d31-43e7-8d7a-deaf25ab8242",
+    "cn": [
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "type": null,
+                "cls": "availability-indicator-off",
+                "itemId": "agentStateLabel",
+                "padding": 2,
+                "designer|displayName": "agentState",
+                "designer|createAlias": "",
+                "text": "Unavailable"
+            },
+            "designerId": "e822ad83-b1ad-4936-9f3b-27b13630fc71",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "type",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 0,
+                "itemId": "makeMeAvailableButton",
+                "designer|createAlias": null,
+                "text": "Make Me Available"
+            },
+            "designerId": "452aaf5c-14e0-4622-89e1-9c08e2b4b8ff"
+        },
+        {
+            "type": "Ext.view.View",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 1,
+                "id": "inbox-stats-view",
+                "designer|displayName": "inboxView",
+                "itemSelector": null,
+                "store": "AuthenticatedAgent"
+            },
+            "designerId": "49a84061-efdf-4fa5-ba78-1403d6582702",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "itemTpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "implHandler": [
+                            "<div id=\"inbox-stats\">",
+                            "\t<tpl for=\".\">",
+                            "\t\t<div id=\"inbox-active-value\">{activeCount}</div><div id=\"inbox-active-label\">Active Items:</div>",
+                            "\t\t<div id=\"inbox-hold-value\">{heldCount}</div><div id=\"inbox-hold-label\">Held Items:</div>",
+                            "\t</tpl>",
+                            "</div>"
+                        ],
+                        "designer|displayName": "inboxTemplate"
+                    },
+                    "designerId": "03330183-0b29-4d9c-95d7-476f953860fc"
+                }
+            ]
+        }
+    ]
+}

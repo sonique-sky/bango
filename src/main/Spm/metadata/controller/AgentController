@@ -1,0 +1,134 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "isAvailable": false,
+        "stores": [
+            "AuthenticatedAgent"
+        ],
+        "views": [
+            "MyStatusPanel"
+        ],
+        "designer|userClassName": "AgentController",
+        "designer|userAlias": "agentController"
+    },
+    "configAlternates": {
+        "isAvailable": "boolean"
+    },
+    "designerId": "bb41357a-c190-4a1c-a116-c831f1714001",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "isAvailable",
+            "type": "string"
+        }
+    ],
+    "cn": [
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onMakeMeAvailable",
+                "implHandler": [
+                    "var label = this.getAgentStateLabel();",
+                    "",
+                    "if(this.isAvailable) {",
+                    "    label.setText(\"Unavailable\");",
+                    "    label.removeCls(\"availability-indicator-on\");",
+                    "    label.addCls(\"availability-indicator-off\");",
+                    "} else {",
+                    "    label.setText(\"Available\");",
+                    "    label.removeCls(\"availability-indicator-off\");",
+                    "    label.addCls(\"availability-indicator-on\");",
+                    "",
+                    "}    ",
+                    "this.isAvailable = !this.isAvailable;",
+                    ""
+                ],
+                "name": "click",
+                "scope": "me",
+                "designer|targetType": "Ext.button.Button",
+                "designer|controlQuery": "button#makeMeAvailableButton"
+            },
+            "designerId": "f6533c0e-f815-4848-9275-6bd30215c775"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "agentStateLabel",
+                "selector": "label#agentStateLabel"
+            },
+            "designerId": "57c5c7d8-ef8d-4b3b-87aa-21836ac08a3b"
+        },
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onLaunch",
+                "implHandler": [
+                    "this.getSpmViewport().showLoginDialog();"
+                ]
+            },
+            "designerId": "e03e2075-8065-4fad-b4bf-2133187774db"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "spmViewport",
+                "selector": "viewport#spmViewport"
+            },
+            "designerId": "24e2dca0-9d8c-4502-87b2-daabc14e48f8"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onAgentLogin",
+                "implHandler": [
+                    "this.getSpmViewport().showMainContainer();",
+                    "",
+                    "",
+                    "Ext.Ajax.request({",
+                    "    url: '/j_spring_security_check',",
+                    "    params: {",
+                    "        'j_username': \"foo\",",
+                    "        'j_password': \"bah\"",
+                    "    }",
+                    "",
+                    "});"
+                ],
+                "name": "click",
+                "scope": "me",
+                "designer|targetType": "Ext.button.Button",
+                "designer|controlQuery": "button#loginButton"
+            },
+            "designerId": "98fde27b-74d0-4e2e-880e-7cb0140ce1f8"
+        }
+    ]
+}

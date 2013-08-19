@@ -1,0 +1,27 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "models": [
+            "Agent"
+        ],
+        "views": [
+            "HeaderContainer",
+            "TabPanel",
+            "NavigationPanel",
+            "MyQueuesPanel",
+            "SearchPanel",
+            "LoginForm"
+        ],
+        "autoCreateViewport": true,
+        "controllers": [
+            "AgentController"
+        ],
+        "name": "Spm"
+    },
+    "designerId": "application"
+}

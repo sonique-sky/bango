@@ -1,0 +1,148 @@
+{
+    "name": "Spm",
+    "settings": {
+        "spacesToIndent": 4,
+        "lineEnding": "LF",
+        "genTimestamps": false,
+        "cacheBust": true,
+        "urlPrefix": "http://localhost:8080/superman",
+        "exportPath": "/Users/tim/trunk/bango/target/build/",
+        "buildShouldOverwriteIndex": true
+    },
+    "xdsVersion": "2.2.2",
+    "xdsBuild": 991,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000503,
+    "framework": "ext42",
+    "topInstanceFileMap": {
+        "97a980d1-ecd0-421b-85db-1343d9f0e85f": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "a4eb4423-6555-4f37-91ab-8bfdc21fd53e": {
+            "paths": [
+                "metadata/view/SpmViewport",
+                "app/view/override/SpmViewport.js",
+                "app/view/SpmViewport.js",
+                "app/view/Viewport.js"
+            ],
+            "className": "SpmViewport"
+        },
+        "5868934d-af7a-4c1c-accc-ad7ac290d70c": {
+            "paths": [
+                "metadata/view/HeaderContainer",
+                "app/view/override/HeaderContainer.js",
+                "app/view/HeaderContainer.js"
+            ],
+            "className": "HeaderContainer"
+        },
+        "5f60fde5-c0e0-46d7-995f-34be8a6df486": {
+            "paths": [
+                "metadata/view/TabPanel",
+                "app/view/override/TabPanel.js",
+                "app/view/TabPanel.js"
+            ],
+            "className": "TabPanel"
+        },
+        "4f0209e2-3056-44de-8590-8d2ae92d4aa4": {
+            "paths": [
+                "metadata/view/NavigationPanel",
+                "app/view/override/NavigationPanel.js",
+                "app/view/NavigationPanel.js"
+            ],
+            "className": "NavigationPanel"
+        },
+        "606988fd-1d31-43e7-8d7a-deaf25ab8242": {
+            "paths": [
+                "metadata/view/MyStatusPanel",
+                "app/view/override/MyStatusPanel.js",
+                "app/view/MyStatusPanel.js"
+            ],
+            "className": "MyStatusPanel"
+        },
+        "e1f49dae-de8b-413c-b9cc-751bf7b42751": {
+            "paths": [
+                "metadata/view/MyQueuesPanel",
+                "app/view/override/MyQueuesPanel.js",
+                "app/view/MyQueuesPanel.js"
+            ],
+            "className": "MyQueuesPanel"
+        },
+        "407c180d-22c1-4a44-9e38-5b808a89fe98": {
+            "paths": [
+                "metadata/view/SearchPanel",
+                "app/view/override/SearchPanel.js",
+                "app/view/SearchPanel.js"
+            ],
+            "className": "SearchPanel"
+        },
+        "47a590c9-439d-4c05-aa4d-eaff45607006": {
+            "paths": [
+                "metadata/resource/css"
+            ],
+            "className": "css"
+        },
+        "bb41357a-c190-4a1c-a116-c831f1714001": {
+            "paths": [
+                "metadata/controller/AgentController",
+                "app/controller/override/AgentController.js",
+                "app/controller/AgentController.js"
+            ],
+            "className": "AgentController"
+        },
+        "3a16544a-bc66-4df1-9bf7-29a9f5ca5c11": {
+            "paths": [
+                "metadata/store/AuthenticatedAgent",
+                "app/store/override/AuthenticatedAgent.js",
+                "app/store/AuthenticatedAgent.js"
+            ],
+            "className": "AuthenticatedAgent"
+        },
+        "31598ac0-8ef6-4147-9f24-cdd227a441b2": {
+            "paths": [
+                "metadata/model/Agent",
+                "app/model/override/Agent.js",
+                "app/model/Agent.js"
+            ],
+            "className": "Agent"
+        },
+        "2aadd114-0121-4456-b883-47280d001492": {
+            "paths": [
+                "metadata/view/LoginForm",
+                "app/view/override/LoginForm.js",
+                "app/view/LoginForm.js"
+            ],
+            "className": "LoginForm"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "a4eb4423-6555-4f37-91ab-8bfdc21fd53e",
+            "5868934d-af7a-4c1c-accc-ad7ac290d70c",
+            "5f60fde5-c0e0-46d7-995f-34be8a6df486",
+            "4f0209e2-3056-44de-8590-8d2ae92d4aa4",
+            "606988fd-1d31-43e7-8d7a-deaf25ab8242",
+            "e1f49dae-de8b-413c-b9cc-751bf7b42751",
+            "407c180d-22c1-4a44-9e38-5b808a89fe98",
+            "2aadd114-0121-4456-b883-47280d001492"
+        ],
+        "store": [
+            "3a16544a-bc66-4df1-9bf7-29a9f5ca5c11"
+        ],
+        "controller": [
+            "bb41357a-c190-4a1c-a116-c831f1714001"
+        ],
+        "model": [
+            "31598ac0-8ef6-4147-9f24-cdd227a441b2"
+        ],
+        "resource": [
+            "97a980d1-ecd0-421b-85db-1343d9f0e85f",
+            "47a590c9-439d-4c05-aa4d-eaff45607006"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

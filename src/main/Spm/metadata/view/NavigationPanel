@@ -1,0 +1,55 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "container|align": "stretch",
+        "height": 730,
+        "width": 197,
+        "designer|userClassName": "NavigationPanel",
+        "designer|userAlias": "navigationPanel",
+        "layout": "vbox"
+    },
+    "designerId": "4f0209e2-3056-44de-8590-8d2ae92d4aa4",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "designerId": "6e515eeb-1031-4796-9362-f246f00e930a",
+            "masterInstanceId": "606988fd-1d31-43e7-8d7a-deaf25ab8242"
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 1
+            },
+            "designerId": "89f47169-a9fd-438a-b895-22a2b1c9db9c",
+            "masterInstanceId": "e1f49dae-de8b-413c-b9cc-751bf7b42751"
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 1
+            },
+            "designerId": "396fb438-66fa-44d7-9caa-42768d8d5e50",
+            "masterInstanceId": "407c180d-22c1-4a44-9e38-5b808a89fe98"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+	"agent": {
+		"code": "CAPTAIN.SCARLET",
+		"details": {
+			"firstName": "Captain",
+			"lastName": "Scarlet"
+		},
+		"availability": "Unavailable",
+		"activeCount" : 5,
+		"heldCount" : 10
+	}
+}

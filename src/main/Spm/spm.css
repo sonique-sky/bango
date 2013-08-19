@@ -1,0 +1,43 @@
+.availability-indicator-on {
+    font-size: 16px;
+    margin-bottom: 5px;
+    background: #008d00;
+    text-align: center;
+    color: white;
+}
+
+.availability-indicator-off {
+    font-size: 16px;
+    margin-bottom: 5px;
+    background: #cc0000;
+    text-align: center;
+    color: white;
+}
+
+.icon-status {
+    background-image:url('images/user-orange.png');
+}
+
+#inbox-stats-view #inbox-active-label {
+    margin: 3px;
+    color: #3764A0;
+}
+
+#inbox-stats-view #inbox-active-value {
+    float: right;
+    color: #3764A0;
+    font-weight: bold;
+}
+
+#inbox-stats-view #inbox-hold-label {
+    margin: 3px;
+    color: #3764A0;
+}
+
+#inbox-stats-view #inbox-hold-value {
+    float: right;
+    color: #3764A0;
+    font-weight: bold;
+}
+
+

@@ -1,0 +1,75 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Agent",
+        "designer|userAlias": "agent"
+    },
+    "designerId": "31598ac0-8ef6-4147-9f24-cdd227a441b2",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "code"
+            },
+            "designerId": "b53b7c15-13c7-4cb0-8df6-b8058004e44c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "details"
+            },
+            "designerId": "a5363ec0-0ff5-4192-9d99-32c8aa7df15a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "availability"
+            },
+            "designerId": "e3e60cbb-bd7a-41d3-bd42-21a4e46fe48e"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "activeCount"
+            },
+            "designerId": "9f94bad3-c97a-4a49-8793-7b637925820d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "heldCount"
+            },
+            "designerId": "ab7c2e94-aa21-4bd8-9584-e0387c9ee329"
+        }
+    ]
+}

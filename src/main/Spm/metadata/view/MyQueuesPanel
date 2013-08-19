@@ -1,0 +1,14 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "MyQueuesPanel",
+        "designer|userAlias": "myQueuesPanel",
+        "title": "My Queues"
+    },
+    "designerId": "e1f49dae-de8b-413c-b9cc-751bf7b42751"
+}

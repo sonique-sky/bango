@@ -1,0 +1,122 @@
+{
+    "type": "Ext.form.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 119,
+        "width": 333,
+        "designer|userClassName": "LoginForm",
+        "designer|userAlias": "loginForm",
+        "bodyPadding": 10,
+        "title": "Login"
+    },
+    "designerId": "2aadd114-0121-4456-b883-47280d001492",
+    "cn": [
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "itemId": "usernameField",
+                "designer|displayName": "UsernameField",
+                "fieldLabel": "Username:"
+            },
+            "designerId": "ce1e0287-1399-4677-a6ba-3a0cf5b19dac"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "itemId": "passwordField",
+                "designer|displayName": "PasswordField",
+                "fieldLabel": "Password:",
+                "inputType": "password"
+            },
+            "designerId": "7f5a5208-776d-441c-b160-2de449920b3f"
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|pack": "end",
+                "container|padding": "",
+                "designer|displayName": "ButtonPanel",
+                "layout": "hbox"
+            },
+            "designerId": "55d417e6-2829-474b-a11a-d218f72ff427",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "designer|displayName": "ResetButton",
+                        "text": "Reset"
+                    },
+                    "designerId": "d6054d0a-ab4a-4b80-9b03-3201a8147375"
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "width": 5
+                    },
+                    "designerId": "5c09ee28-fa4a-4b56-9e89-75597ab0b7f6"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "itemId": "loginButton",
+                        "designer|displayName": "LoginButton",
+                        "text": "Login"
+                    },
+                    "designerId": "8c7fd3e9-9487-4fea-80cc-1fe5fb3749b4"
+                }
+            ]
+        },
+        {
+            "type": "customevent",
+            "reference": {
+                "name": "customEvents",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "StartAuthenticationEvent",
+                "name": "startAuthentication"
+            },
+            "designerId": "294ea44e-a0b4-4329-b00b-a041724f0ab7"
+        }
+    ]
+}

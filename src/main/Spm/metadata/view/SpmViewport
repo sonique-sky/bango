@@ -1,0 +1,132 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "itemId": "spmViewport",
+        "designer|userClassName": "SpmViewport",
+        "designer|userAlias": "spmViewport",
+        "designer|initialView": true,
+        "layout": "card"
+    },
+    "designerId": "a4eb4423-6555-4f37-91ab-8bfdc21fd53e",
+    "cn": [
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "mainContainer",
+                "width": 150,
+                "designer|displayName": "MainContainer",
+                "layout": "border"
+            },
+            "designerId": "1dbb3e32-6cb4-4313-b010-4899a8fcc2a9",
+            "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "north"
+                    },
+                    "designerId": "6a76e068-cf4c-452b-b4b2-3c7f6c0c4ad9",
+                    "masterInstanceId": "5868934d-af7a-4c1c-accc-ad7ac290d70c"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "center"
+                    },
+                    "designerId": "115f63b6-92a8-470a-a8b1-21819fdc774a",
+                    "masterInstanceId": "5f60fde5-c0e0-46d7-995f-34be8a6df486"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "west"
+                    },
+                    "designerId": "0ea53d75-63a8-45ca-97ed-e8899dcf945a",
+                    "masterInstanceId": "4f0209e2-3056-44de-8590-8d2ae92d4aa4"
+                }
+            ]
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "middle",
+                "container|pack": "center",
+                "itemId": "loginContainer",
+                "designer|displayName": "LoginContainer",
+                "layout": "hbox"
+            },
+            "designerId": "59247afa-3134-40c6-8699-55e951f93e4c",
+            "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "9a5667a2-f246-4b22-a907-f6755e2a3d48",
+                    "masterInstanceId": "2aadd114-0121-4456-b883-47280d001492"
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showLoginDialog",
+                "implHandler": [
+                    "this.getLayout().setActiveItem('loginContainer');"
+                ]
+            },
+            "designerId": "c4738724-d722-4c4c-9028-7424dd0f55c9"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showMainContainer",
+                "implHandler": [
+                    " this.getLayout().setActiveItem('mainContainer');"
+                ]
+            },
+            "designerId": "c6c5d3af-ce5b-4fce-947c-a2e6374b742e"
+        }
+    ]
+}
