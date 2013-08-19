@@ -17,10 +17,6 @@ Ext.define('Spm.controller.LoginController', {
     extend: 'Ext.app.Controller',
     alias: 'controller.loginController',
 
-    views: [
-        'LoginForm'
-    ],
-
     onSpecialKey: function(field, e, eOpts) {
         if(e.getKey() == e.ENTER) {
             this.doLogin(field.up('form').getForm());

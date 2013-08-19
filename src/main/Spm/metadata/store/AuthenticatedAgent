@@ -33,7 +33,7 @@
                     "return Ext.applyIf(config, {",
                     "    proxy: {",
                     "        type: 'spmAjaxProxy',",
-                    "        url: 'data/Agent.json',",
+                    "        url: 'api/agent/authenticatedAgent',",
                     "        reader: {",
                     "            type: 'json',",
                     "            root: 'agent'",
@@ -43,6 +43,25 @@
                 ]
             },
             "designerId": "c1ed19fc-677f-4cf0-ab44-f314e10fa67a"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onAgentLoaded",
+                "implHandler": [
+                    "if(successful) {",
+                    "\tSpm.application.fireEvent('agentLoaded', store.first());",
+                    "}"
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "5a3f101a-5da2-4b98-aca6-703adf19f4cc"
         }
     ]
 }

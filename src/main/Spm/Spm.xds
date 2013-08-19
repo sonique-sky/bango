@@ -108,14 +108,6 @@
             ],
             "className": "Agent"
         },
-        "2aadd114-0121-4456-b883-47280d001492": {
-            "paths": [
-                "metadata/view/LoginForm",
-                "app/view/override/LoginForm.js",
-                "app/view/LoginForm.js"
-            ],
-            "className": "LoginForm"
-        },
         "59a3fe12-1809-4c15-a29f-56999a94ebe5": {
             "paths": [
                 "metadata/resource/js1"
@@ -180,7 +172,6 @@
             "606988fd-1d31-43e7-8d7a-deaf25ab8242",
             "e1f49dae-de8b-413c-b9cc-751bf7b42751",
             "407c180d-22c1-4a44-9e38-5b808a89fe98",
-            "2aadd114-0121-4456-b883-47280d001492",
             "73836524-4dc8-4269-83ea-20154789abeb",
             "77d7cab5-fde5-4e3f-b22a-cbc0ad0a9796"
         ],

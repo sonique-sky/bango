@@ -10,7 +10,6 @@
             "AuthenticatedAgent"
         ],
         "views": [
-            "LoginWindow",
             "MainContainer"
         ],
         "designer|userClassName": "SecurityController",
@@ -60,8 +59,13 @@
                     "credentials"
                 ],
                 "implHandler": [
-                    "console.log(credentials);",
-                    "Spm.application.fireEvent('authenticated');"
+                    "Ext.Ajax.request({",
+                    "    url: 'j_spring_security_check',",
+                    "    params: credentials,",
+                    "    success: function(response) {",
+                    "\t\tSpm.application.fireEvent('authenticated');",
+                    "    }",
+                    "});"
                 ],
                 "name": "performAuthentication",
                 "scope": "this"
@@ -78,8 +82,10 @@
             "userConfig": {
                 "fn": "onAuthenticated",
                 "implHandler": [
-                    "this.getLoginWindow().hide();",
-                    "this.getMainContainer().setVisible(true);"
+                    "this.getAuthenticatedAgentStore().load();",
+                    "",
+                    "this.getMainContainer().setVisible(true);",
+                    "this.getLoginWindow().close();"
                 ],
                 "name": "authenticated",
                 "scope": "this"
@@ -100,7 +106,7 @@
                 ],
                 "implHandler": [
                     "this.getMainContainer().setVisible(false);",
-                    "this.getLoginWindow().show();"
+                    "Ext.create('Spm.view.LoginWindow');"
                 ],
                 "name": "authenticationRequired",
                 "scope": "this"
@@ -134,7 +140,12 @@
             "userConfig": {
                 "fn": "onLogout",
                 "implHandler": [
-                    "Spm.application.fireEvent('authenticationRequired');"
+                    "Ext.Ajax.request({",
+                    "    url: 'j_spring_security_logout',",
+                    "    success: function(response) {",
+                    "\t\tSpm.application.fireEvent('authenticationRequired');",
+                    "    }",
+                    "});"
                 ],
                 "name": "logout",
                 "scope": "this"

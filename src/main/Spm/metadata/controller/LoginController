@@ -6,9 +6,6 @@
     },
     "codeClass": null,
     "userConfig": {
-        "views": [
-            "LoginForm"
-        ],
         "designer|userClassName": "LoginController",
         "designer|userAlias": "loginController"
     },

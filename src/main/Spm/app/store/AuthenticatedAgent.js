@@ -28,7 +28,13 @@ Ext.define('Spm.store.AuthenticatedAgent', {
         me.callParent([Ext.apply(me.processAuthenticatedAgent({
             autoLoad: false,
             model: 'Spm.model.Agent',
-            storeId: 'authenticatedAgent'
+            storeId: 'authenticatedAgent',
+            listeners: {
+                load: {
+                    fn: me.onAgentLoaded,
+                    scope: me
+                }
+            }
         }), cfg)]);
     },
 
@@ -36,13 +42,19 @@ Ext.define('Spm.store.AuthenticatedAgent', {
         return Ext.applyIf(config, {
             proxy: {
                 type: 'spmAjaxProxy',
-                url: 'data/Agent.json',
+                url: 'api/agent/authenticatedAgent',
                 reader: {
                     type: 'json',
                     root: 'agent'
                 }
             }
         });
+    },
+
+    onAgentLoaded: function(store, records, successful, eOpts) {
+        if(successful) {
+            Spm.application.fireEvent('agentLoaded', store.first());
+        }
     }
 
 });

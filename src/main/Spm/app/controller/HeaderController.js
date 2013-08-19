@@ -17,12 +17,6 @@ Ext.define('Spm.controller.HeaderController', {
     extend: 'Ext.app.Controller',
     alias: 'controller.headerController',
 
-    models: [
-        'Agent'
-    ],
-    stores: [
-        'AuthenticatedAgent'
-    ],
     views: [
         'HeaderContainer'
     ],
@@ -34,20 +28,18 @@ Ext.define('Spm.controller.HeaderController', {
         }
     ],
 
-    onAuthenticated: function() {
-        var store = this.getAuthenticatedAgentStore();
-
-        var agent = store.first();
-
+    onAgentLoaded: function(agent) {
         var headerView = this.getHeaderContainer();
 
         headerView.update({'name': agent.details().displayName()});
+
+
     },
 
     init: function(application) {
         application.on({
-            authenticated: {
-                fn: this.onAuthenticated,
+            agentLoaded: {
+                fn: this.onAgentLoaded,
                 scope: this
             }
         });

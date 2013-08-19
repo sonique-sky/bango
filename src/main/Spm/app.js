@@ -26,7 +26,8 @@ Ext.application({
         'TabPanel',
         'NavigationPanel',
         'MyQueuesPanel',
-        'SearchPanel'
+        'SearchPanel',
+        'LoginWindow'
     ],
     autoCreateViewport: true,
     controllers: [
@@ -41,9 +42,6 @@ Ext.application({
         Spm.application = this;
         this.addEvents('startAuthentication');
         this.fireEvent('startAuthentication');
-
-        var login = Ext.create('Spm.view.LoginWindow');
-        login.hide();
     }
 
 });

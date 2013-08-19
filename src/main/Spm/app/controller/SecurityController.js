@@ -21,7 +21,6 @@ Ext.define('Spm.controller.SecurityController', {
         'AuthenticatedAgent'
     ],
     views: [
-        'LoginWindow',
         'MainContainer'
     ],
 
@@ -39,18 +38,25 @@ Ext.define('Spm.controller.SecurityController', {
     ],
 
     onPerformAuthentication: function(credentials) {
-        console.log(credentials);
-        Spm.application.fireEvent('authenticated');
+        Ext.Ajax.request({
+            url: 'j_spring_security_check',
+            params: credentials,
+            success: function(response) {
+                Spm.application.fireEvent('authenticated');
+            }
+        });
     },
 
     onAuthenticated: function() {
-        this.getLoginWindow().hide();
+        this.getAuthenticatedAgentStore().load();
+
         this.getMainContainer().setVisible(true);
+        this.getLoginWindow().close();
     },
 
     onAuthenticationRequired: function(response) {
         this.getMainContainer().setVisible(false);
-        this.getLoginWindow().show();
+        Ext.create('Spm.view.LoginWindow').show();
     },
 
     onStartAuthentication: function() {
@@ -58,7 +64,12 @@ Ext.define('Spm.controller.SecurityController', {
     },
 
     onLogout: function() {
-        Spm.application.fireEvent('authenticationRequired');
+        Ext.Ajax.request({
+            url: 'j_spring_security_logout',
+            success: function(response) {
+                Spm.application.fireEvent('authenticationRequired');
+            }
+        });
     },
 
     init: function(application) {
