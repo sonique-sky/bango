@@ -109,7 +109,7 @@ public class Bango {
                     "\t\t\t\"firstName\": \"Captain\",\n" +
                     "\t\t\t\"lastName\": \"Scarlet\"\n" +
                     "\t\t},\n" +
-                    "\t\t\"availability\": \"Unavailable\",\n" +
+                    "\t\t\"availability\": \"Available\",\n" +
                     "\t\t\"activeCount\" : 5,\n" +
                     "\t\t\"heldCount\" : 22\n" +
                     "\t}\n" +

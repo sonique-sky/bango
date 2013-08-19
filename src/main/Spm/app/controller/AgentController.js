@@ -17,7 +17,6 @@ Ext.define('Spm.controller.AgentController', {
     extend: 'Ext.app.Controller',
     alias: 'controller.agentController',
 
-    isAvailable: false,
     models: [
         'Agent'
     ],
@@ -36,14 +35,26 @@ Ext.define('Spm.controller.AgentController', {
         }
     ],
 
-    onMakeMeAvailable: function(button, e, eOpts) {
-        this.getAgentStatusPanel().setAvailability(this.isAvailable = !this.isAvailable);
+    onChangeAvailability: function(button, e, eOpts) {
+        this.getAgentStatusPanel().setAvailability(this.agent.toggleAvailability());
+    },
+
+    onAgentLoaded: function(agent) {
+        this.agent = agent;
+        this.getAgentStatusPanel().setAvailability(agent.isAvailable());
     },
 
     init: function(application) {
         this.control({
-            "button#makeMeAvailableButton": {
-                click: this.onMakeMeAvailable
+            "button#changeAvailabilityButton": {
+                click: this.onChangeAvailability
+            }
+        });
+
+        application.on({
+            agentLoaded: {
+                fn: this.onAgentLoaded,
+                scope: this
             }
         });
     }

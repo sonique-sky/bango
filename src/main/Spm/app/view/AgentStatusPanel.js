@@ -43,7 +43,7 @@ Ext.define('Spm.view.AgentStatusPanel', {
                 {
                     xtype: 'button',
                     flex: 0,
-                    itemId: 'makeMeAvailableButton',
+                    itemId: 'changeAvailabilityButton',
                     text: 'Make Me Available'
                 },
                 {
@@ -68,7 +68,7 @@ Ext.define('Spm.view.AgentStatusPanel', {
 
     setAvailability: function(isAvailable) {
         var label = this.child('label#agentStateLabel');
-        var button = this.child('button#makeMeAvailableButton');
+        var button = this.child('button#changeAvailabilityButton');
 
         button.setText(isAvailable ? "Make Me Unavailable" : "Make Me Available");
         label.setText(isAvailable ? "Available": "Unavailable");

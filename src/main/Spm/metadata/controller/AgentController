@@ -6,7 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
-        "isAvailable": false,
+        "agent": [
+            "null"
+        ],
         "models": [
             "Agent"
         ],
@@ -21,13 +23,14 @@
     },
     "configAlternates": {
         "isAvailable": "boolean",
-        "listeners": "array"
+        "listeners": "array",
+        "agent": "object"
     },
     "designerId": "bb41357a-c190-4a1c-a116-c831f1714001",
     "customConfigs": [
         {
             "group": "(Custom Properties)",
-            "name": "isAvailable",
+            "name": "agent",
             "type": "string"
         }
     ],
@@ -40,14 +43,14 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onMakeMeAvailable",
+                "fn": "onChangeAvailability",
                 "implHandler": [
-                    "this.getAgentStatusPanel().setAvailability(this.isAvailable = !this.isAvailable);"
+                    "this.getAgentStatusPanel().setAvailability(this.agent.toggleAvailability());"
                 ],
                 "name": "click",
                 "scope": "me",
                 "designer|targetType": "Ext.button.Button",
-                "designer|controlQuery": "button#makeMeAvailableButton"
+                "designer|controlQuery": "button#changeAvailabilityButton"
             },
             "designerId": "f6533c0e-f815-4848-9275-6bd30215c775"
         },
@@ -64,6 +67,27 @@
                 "xtype": "agentStatusPanel"
             },
             "designerId": "57c5c7d8-ef8d-4b3b-87aa-21836ac08a3b"
+        },
+        {
+            "type": "applicationaction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onAgentLoaded",
+                "designer|params": [
+                    "agent"
+                ],
+                "implHandler": [
+                    "this.agent = agent;",
+                    "this.getAgentStatusPanel().setAvailability(agent.isAvailable());"
+                ],
+                "name": "agentLoaded",
+                "scope": "this"
+            },
+            "designerId": "27587610-213b-417c-ba1d-cd525b5a72cf"
         }
     ]
 }

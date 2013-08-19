@@ -40,5 +40,16 @@ Ext.define('Spm.model.Agent', {
         associationKey: 'details',
         model: 'Spm.model.AgentDetails',
         getterName: 'details'
+    },
+
+    isAvailable: function() {
+        return this.get('availability') == 'Available';
+    },
+
+    toggleAvailability: function() {
+        var currentAvailability = this.get('availability');
+        this.set('availability', !currentAvailability);
+        return this.get('availability');
     }
+
 });

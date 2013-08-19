@@ -75,6 +75,38 @@
                 "getterName": "details"
             },
             "designerId": "a40d0d02-db33-4bed-a982-2d343970d95e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "isAvailable",
+                "implHandler": [
+                    "return this.get('availability') == 'Available';"
+                ]
+            },
+            "designerId": "3b2a8480-da85-4f54-88d6-31d5449ec6cf"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "toggleAvailability",
+                "implHandler": [
+                    "var currentAvailability = this.get('availability');",
+                    "this.set('availability', !currentAvailability);",
+                    "return this.get('availability');"
+                ]
+            },
+            "designerId": "91b136b7-ae84-42f7-92a7-fe06567dc902"
         }
     ]
 }

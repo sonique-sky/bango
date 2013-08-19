@@ -55,7 +55,7 @@
                 "fn": "onAgentLoaded",
                 "implHandler": [
                     "if(successful) {",
-                    "\tSpm.application.fireEvent('agentLoaded', store.first());",
+                    "    Spm.application.fireEvent('agentLoaded', store.first());",
                     "}"
                 ],
                 "name": "load",

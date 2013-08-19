@@ -54,7 +54,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|flex": 0,
-                "itemId": "makeMeAvailableButton",
+                "itemId": "changeAvailabilityButton",
                 "designer|createAlias": null,
                 "text": "Make Me Available"
             },
@@ -111,13 +111,13 @@
                     "isAvailable"
                 ],
                 "implHandler": [
-                    "\tvar label = this.child('label#agentStateLabel');",
-                    "\tvar button = this.child('button#makeMeAvailableButton');",
+                    "var label = this.child('label#agentStateLabel');",
+                    "var button = this.child('button#changeAvailabilityButton');",
                     "",
-                    "\tbutton.setText(isAvailable ? \"Make Me Unavailable\" : \"Make Me Available\");",
-                    "\tlabel.setText(isAvailable ? \"Available\": \"Unavailable\");",
-                    "\tlabel.removeCls(isAvailable ?\"availability-indicator-off\" :\"availability-indicator-on\");",
-                    "\tlabel.addCls(isAvailable ? \"availability-indicator-on\": \"availability-indicator-off\");"
+                    "button.setText(isAvailable ? \"Make Me Unavailable\" : \"Make Me Available\");",
+                    "label.setText(isAvailable ? \"Available\": \"Unavailable\");",
+                    "label.removeCls(isAvailable ?\"availability-indicator-off\" :\"availability-indicator-on\");",
+                    "label.addCls(isAvailable ? \"availability-indicator-on\": \"availability-indicator-off\");"
                 ]
             },
             "designerId": "2310126f-bcce-4dc6-bcd0-9269bd99475b"
