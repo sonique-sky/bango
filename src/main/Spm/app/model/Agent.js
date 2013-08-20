@@ -17,10 +17,6 @@ Ext.define('Spm.model.Agent', {
     extend: 'Ext.data.Model',
     alias: 'model.agent',
 
-    uses: [
-        'Spm.model.AgentDetails'
-    ],
-
     fields: [
         {
             name: 'code'
@@ -33,23 +29,26 @@ Ext.define('Spm.model.Agent', {
         },
         {
             name: 'heldCount'
+        },
+        {
+            mapping: 'details.firstName',
+            name: 'firstName'
+        },
+        {
+            mapping: 'details.lastName',
+            name: 'lastName'
+        },
+        {
+            convert: function(v, rec) {
+                return rec.get('firstName') + ' ' + rec.get('lastName');
+            },
+            name: 'displayName'
+        },
+        {
+            convert: function(v, rec) {
+                return rec.get('availability') == 'Available';
+            },
+            name: 'isAvailable'
         }
-    ],
-
-    hasOne: {
-        associationKey: 'details',
-        model: 'Spm.model.AgentDetails',
-        getterName: 'details'
-    },
-
-    isAvailable: function() {
-        return this.get('availability') == 'Available';
-    },
-
-    toggleAvailability: function() {
-        var currentAvailability = this.get('availability');
-        this.set('availability', !currentAvailability);
-        return this.get('availability');
-    }
-
+    ]
 });

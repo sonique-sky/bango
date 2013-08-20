@@ -6,9 +6,6 @@
     },
     "codeClass": null,
     "userConfig": {
-        "agent": [
-            "null"
-        ],
         "models": [
             "Agent"
         ],
@@ -27,33 +24,7 @@
         "agent": "object"
     },
     "designerId": "bb41357a-c190-4a1c-a116-c831f1714001",
-    "customConfigs": [
-        {
-            "group": "(Custom Properties)",
-            "name": "agent",
-            "type": "string"
-        }
-    ],
     "cn": [
-        {
-            "type": "controlleraction",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onChangeAvailability",
-                "implHandler": [
-                    "this.getAgentStatusPanel().setAvailability(this.agent.toggleAvailability());"
-                ],
-                "name": "click",
-                "scope": "me",
-                "designer|targetType": "Ext.button.Button",
-                "designer|controlQuery": "button#changeAvailabilityButton"
-            },
-            "designerId": "f6533c0e-f815-4848-9275-6bd30215c775"
-        },
         {
             "type": "controllerref",
             "reference": {
@@ -76,18 +47,14 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onAgentLoaded",
-                "designer|params": [
-                    "agent"
-                ],
+                "fn": "onToggleAvailability",
                 "implHandler": [
-                    "this.agent = agent;",
-                    "this.getAgentStatusPanel().setAvailability(agent.isAvailable());"
+                    "console.log('toggleAvailability');"
                 ],
-                "name": "agentLoaded",
+                "name": "toggleAvailability",
                 "scope": "this"
             },
-            "designerId": "27587610-213b-417c-ba1d-cd525b5a72cf"
+            "designerId": "e90a736a-d7dc-4978-a3de-14f23f3afe07"
         }
     ]
 }

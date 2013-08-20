@@ -25,10 +25,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "designer|displayName": "mainContainer",
-                "ref": "mainContainer",
-                "selector": "mainContainer",
-                "xtype": "mainContainer"
+                "designer|displayName": "appContainer",
+                "ref": "appContainer",
+                "selector": "appContainer",
+                "xtype": "appContainer"
             },
             "designerId": "1daef7c3-d7a3-4629-b099-58cf6dc65bc7"
         },
@@ -63,7 +63,7 @@
                     "    url: 'j_spring_security_check',",
                     "    params: credentials,",
                     "    success: function(response) {",
-                    "\t\tSpm.application.fireEvent('authenticated');",
+                    "        Spm.application.fireEvent('authenticated');",
                     "    }",
                     "});"
                 ],
@@ -84,7 +84,7 @@
                 "implHandler": [
                     "this.getAuthenticatedAgentStore().load();",
                     "",
-                    "this.getMainContainer().setVisible(true);",
+                    "this.getAppContainer().setVisible(true);",
                     "this.getLoginWindow().close();"
                 ],
                 "name": "authenticated",
@@ -105,8 +105,8 @@
                     "response"
                 ],
                 "implHandler": [
-                    "this.getMainContainer().setVisible(false);",
-                    "Ext.create('Spm.view.LoginWindow');"
+                    "this.getAppContainer().setVisible(false);",
+                    "Ext.create('Spm.view.LoginWindow').show();"
                 ],
                 "name": "authenticationRequired",
                 "scope": "this"
@@ -143,7 +143,7 @@
                     "Ext.Ajax.request({",
                     "    url: 'j_spring_security_logout',",
                     "    success: function(response) {",
-                    "\t\tSpm.application.fireEvent('authenticationRequired');",
+                    "        Spm.application.fireEvent('authenticationRequired');",
                     "    }",
                     "});"
                 ],

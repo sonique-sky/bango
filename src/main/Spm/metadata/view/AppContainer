@@ -6,27 +6,14 @@
     },
     "codeClass": null,
     "userConfig": {
-        "itemId": "mainContainer",
-        "width": 150,
-        "designer|userClassName": "MainContainer",
-        "designer|userAlias": "mainContainer",
+        "itemId": "appContainer",
+        "width": null,
+        "designer|userClassName": "AppContainer",
+        "designer|userAlias": "appContainer",
         "layout": "border"
     },
     "designerId": "77d7cab5-fde5-4e3f-b22a-cbc0ad0a9796",
     "cn": [
-        {
-            "type": "linkedinstance",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "layout|region": "north"
-            },
-            "designerId": "6a76e068-cf4c-452b-b4b2-3c7f6c0c4ad9",
-            "masterInstanceId": "5868934d-af7a-4c1c-accc-ad7ac290d70c"
-        },
         {
             "type": "linkedinstance",
             "reference": {
@@ -52,6 +39,19 @@
             },
             "designerId": "0ea53d75-63a8-45ca-97ed-e8899dcf945a",
             "masterInstanceId": "4f0209e2-3056-44de-8590-8d2ae92d4aa4"
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "north"
+            },
+            "designerId": "36936f41-a016-44da-807f-89ce43211964",
+            "masterInstanceId": "993c60e6-a499-4282-aa3a-b333e408538b"
         }
     ]
 }

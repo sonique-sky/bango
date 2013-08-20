@@ -1,5 +1,5 @@
 {
-    "type": "Ext.container.Container",
+    "type": "Ext.view.View",
     "reference": {
         "name": "items",
         "type": "array"
@@ -7,29 +7,31 @@
     "codeClass": null,
     "userConfig": {
         "height": 50,
-        "html": null,
-        "designer|userClassName": "HeaderContainer",
-        "designer|userAlias": "headerContainer"
+        "designer|userClassName": "HeaderView",
+        "designer|userAlias": "headerView",
+        "disableSelection": true,
+        "itemSelector": "span#login-name",
+        "store": "AuthenticatedAgent"
     },
-    "designerId": "5868934d-af7a-4c1c-accc-ad7ac290d70c",
+    "designerId": "993c60e6-a499-4282-aa3a-b333e408538b",
     "cn": [
         {
             "type": "Ext.XTemplate",
             "reference": {
-                "name": "tpl",
+                "name": "itemTpl",
                 "type": "object"
             },
             "codeClass": null,
             "userConfig": {
                 "implHandler": [
                     "<div class=\"app-header\">",
-                    "<div class=\"login-info\">Welcome <span id=\"login-name\" class=\"login-name\">{name}</span> | <span id=\"logout\" class=\"logout\">Logout</span></div>",
-                    "<div class=\"app-logo\"/>",
+                    "    <div class=\"login-info\">Welcome <span id=\"login-name\" class=\"login-name\">{displayName}</span> | <span id=\"logout\" class=\"logout\">Logout</span></div>",
+                    "\t<div class=\"app-logo\"/>",
                     "</div>"
                 ],
-                "designer|displayName": "tpl"
+                "designer|displayName": "headerTemplate"
             },
-            "designerId": "5359ce0a-3dc0-4b19-873c-c13515c3c58c"
+            "designerId": "390bf1bd-6bf1-4f1d-a1c8-7ac028e3282a"
         },
         {
             "type": "basiceventbinding",
@@ -42,7 +44,7 @@
                 "delegate": "span#logout",
                 "fn": "onLogoutClick",
                 "designer|params": [
-                    "container"
+                    "dataview"
                 ],
                 "implHandler": [
                     "Spm.application.fireEvent('logout');"
@@ -51,7 +53,7 @@
                 "name": "click",
                 "scope": "me"
             },
-            "designerId": "e9075fe1-6d5c-4be9-8228-2dd3d7755f7e",
+            "designerId": "470d03e9-bb9a-43d4-ac31-5818fb90ada6",
             "customConfigs": [
                 {
                     "group": "(Custom Properties)",

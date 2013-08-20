@@ -6,9 +6,6 @@
     },
     "codeClass": null,
     "userConfig": {
-        "models": [
-            "AgentDetails"
-        ],
         "views": [
             "TabPanel",
             "NavigationPanel",
@@ -20,7 +17,7 @@
         "controllers": [
             "AgentController",
             "LoginController",
-            "HeaderController",
+            "AppController",
             "SecurityController"
         ],
         "name": "Spm"

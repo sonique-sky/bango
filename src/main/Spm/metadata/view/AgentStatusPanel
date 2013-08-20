@@ -20,47 +20,6 @@
     "designerId": "606988fd-1d31-43e7-8d7a-deaf25ab8242",
     "cn": [
         {
-            "type": "Ext.form.Label",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "type": null,
-                "cls": "availability-indicator-off",
-                "id": null,
-                "itemId": "agentStateLabel",
-                "padding": 2,
-                "designer|displayName": "agentState",
-                "designer|createAlias": "",
-                "text": "Unavailable"
-            },
-            "designerId": "e822ad83-b1ad-4936-9f3b-27b13630fc71",
-            "customConfigs": [
-                {
-                    "group": "(Custom Properties)",
-                    "name": "type",
-                    "type": "string"
-                }
-            ]
-        },
-        {
-            "type": "Ext.button.Button",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "layout|flex": 0,
-                "itemId": "changeAvailabilityButton",
-                "designer|createAlias": null,
-                "text": "Make Me Available"
-            },
-            "designerId": "452aaf5c-14e0-4622-89e1-9c08e2b4b8ff"
-        },
-        {
             "type": "Ext.view.View",
             "reference": {
                 "name": "items",
@@ -85,42 +44,108 @@
                     "codeClass": null,
                     "userConfig": {
                         "implHandler": [
-                            "<div id=\"inbox-stats\">",
-                            "\t<tpl for=\".\">",
+                            "<div>",
+                            "    <div class=\"{[this.labelClass(values.isAvailable)]}\">{[this.labelText(values.isAvailable)]}</div>",
+                            "    <div id=\"toggle-button-wrapper\"></div>",
+                            "\t<div id=\"inbox-stats\">",
                             "\t\t<div id=\"inbox-active-value\">{activeCount}</div><div id=\"inbox-active-label\">Active Items:</div>",
                             "\t\t<div id=\"inbox-hold-value\">{heldCount}</div><div id=\"inbox-hold-label\">Held Items:</div>",
-                            "\t</tpl>",
+                            "\t</div>",
                             "</div>"
                         ],
                         "designer|displayName": "inboxTemplate"
                     },
-                    "designerId": "03330183-0b29-4d9c-95d7-476f953860fc"
+                    "designerId": "03330183-0b29-4d9c-95d7-476f953860fc",
+                    "cn": [
+                        {
+                            "type": "templatefunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "labelClass",
+                                "designer|params": [
+                                    "isAvailable"
+                                ],
+                                "implHandler": [
+                                    "return isAvailable ? \"availability-indicator-on\": \"availability-indicator-off\";"
+                                ],
+                                "designer|displayName": "labelClass"
+                            },
+                            "designerId": "9e24c333-6541-4328-baf7-3fe3a80e2af4"
+                        },
+                        {
+                            "type": "templatefunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "labelText",
+                                "designer|params": [
+                                    "isAvailable"
+                                ],
+                                "implHandler": [
+                                    "return isAvailable ?  \"Available\" : \"Unavailable\";"
+                                ],
+                                "designer|displayName": "labelText"
+                            },
+                            "designerId": "635c1990-8203-4877-a22c-a47cb7e16d37"
+                        }
+                    ]
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "renderToggleButton",
+                        "implHandler": [
+                            "Ext.create('Ext.button.Button', {",
+                            "    renderTo: 'toggle-button-wrapper',",
+                            "    text: 'Toggle Availability',",
+                            "    width: '100%',",
+                            "    id : 'toggle-button'",
+                            "});"
+                        ],
+                        "name": "refresh",
+                        "scope": "me"
+                    },
+                    "designerId": "5ba456ee-6be8-4149-847d-bdcf91ceca7a"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "delegate": "a#toggle-button",
+                        "fn": "onToggleAvailability",
+                        "implHandler": [
+                            "Spm.application.fireEvent('toggleAvailability');"
+                        ],
+                        "element": "el",
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "designerId": "06978ecb-4c30-4f31-8f5e-c6ff8b3b41f0",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "delegate",
+                            "type": "string"
+                        }
+                    ]
                 }
             ]
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "setAvailability",
-                "designer|params": [
-                    "isAvailable"
-                ],
-                "implHandler": [
-                    "var label = this.child('label#agentStateLabel');",
-                    "var button = this.child('button#changeAvailabilityButton');",
-                    "",
-                    "button.setText(isAvailable ? \"Make Me Unavailable\" : \"Make Me Available\");",
-                    "label.setText(isAvailable ? \"Available\": \"Unavailable\");",
-                    "label.removeCls(isAvailable ?\"availability-indicator-off\" :\"availability-indicator-on\");",
-                    "label.addCls(isAvailable ? \"availability-indicator-on\": \"availability-indicator-off\");"
-                ]
-            },
-            "designerId": "2310126f-bcce-4dc6-bcd0-9269bd99475b"
         }
     ]
 }

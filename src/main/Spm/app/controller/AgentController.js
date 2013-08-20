@@ -35,25 +35,14 @@ Ext.define('Spm.controller.AgentController', {
         }
     ],
 
-    onChangeAvailability: function(button, e, eOpts) {
-        this.getAgentStatusPanel().setAvailability(this.agent.toggleAvailability());
-    },
-
-    onAgentLoaded: function(agent) {
-        this.agent = agent;
-        this.getAgentStatusPanel().setAvailability(agent.isAvailable());
+    onToggleAvailability: function() {
+        console.log('toggleAvailability');
     },
 
     init: function(application) {
-        this.control({
-            "button#changeAvailabilityButton": {
-                click: this.onChangeAvailability
-            }
-        });
-
         application.on({
-            agentLoaded: {
-                fn: this.onAgentLoaded,
+            toggleAvailability: {
+                fn: this.onToggleAvailability,
                 scope: this
             }
         });

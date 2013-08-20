@@ -19,9 +19,6 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
-    models: [
-        'AgentDetails'
-    ],
     views: [
         'TabPanel',
         'NavigationPanel',
@@ -33,7 +30,7 @@ Ext.application({
     controllers: [
         'AgentController',
         'LoginController',
-        'HeaderController',
+        'AppController',
         'SecurityController'
     ],
     name: 'Spm',

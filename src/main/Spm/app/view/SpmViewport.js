@@ -18,7 +18,7 @@ Ext.define('Spm.view.SpmViewport', {
     alias: 'widget.spmViewport',
 
     requires: [
-        'Spm.view.MainContainer'
+        'Spm.view.AppContainer'
     ],
 
     itemId: 'spmViewport',
@@ -32,7 +32,7 @@ Ext.define('Spm.view.SpmViewport', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'mainContainer'
+                    xtype: 'appContainer'
                 }
             ]
         });

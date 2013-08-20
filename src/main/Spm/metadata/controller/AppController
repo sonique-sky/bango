@@ -1,0 +1,22 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "models": [
+            "Agent"
+        ],
+        "stores": [
+            "AuthenticatedAgent"
+        ],
+        "views": [
+            "HeaderView"
+        ],
+        "designer|userClassName": "AppController",
+        "designer|userAlias": "appController"
+    },
+    "designerId": "f283ecd1-e153-40d6-a1fb-f2757e406a2f"
+}

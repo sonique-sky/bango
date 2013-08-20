@@ -26,9 +26,9 @@ Ext.define('Spm.controller.SecurityController', {
 
     refs: [
         {
-            ref: 'mainContainer',
-            selector: 'mainContainer',
-            xtype: 'mainContainer'
+            ref: 'appContainer',
+            selector: 'appContainer',
+            xtype: 'appContainer'
         },
         {
             ref: 'loginWindow',
@@ -50,12 +50,12 @@ Ext.define('Spm.controller.SecurityController', {
     onAuthenticated: function() {
         this.getAuthenticatedAgentStore().load();
 
-        this.getMainContainer().setVisible(true);
+        this.getAppContainer().setVisible(true);
         this.getLoginWindow().close();
     },
 
     onAuthenticationRequired: function(response) {
-        this.getMainContainer().setVisible(false);
+        this.getAppContainer().setVisible(false);
         Ext.create('Spm.view.LoginWindow').show();
     },
 

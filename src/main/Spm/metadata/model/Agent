@@ -60,53 +60,96 @@
             "designerId": "ab7c2e94-aa21-4bd8-9584-e0387c9ee329"
         },
         {
-            "type": "Ext.data.association.HasOne",
+            "type": "Ext.data.Field",
             "reference": {
-                "name": "hasOne",
-                "type": "object"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "associationKey": "details",
-                "model": "AgentDetails",
-                "primaryKey": null,
-                "designer|displayName": "hasOneAgentDetails",
-                "foreignKey": null,
-                "getterName": "details"
-            },
-            "designerId": "a40d0d02-db33-4bed-a982-2d343970d95e"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
+                "name": "fields",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "isAvailable",
-                "implHandler": [
-                    "return this.get('availability') == 'Available';"
-                ]
+                "mapping": "details.firstName",
+                "name": "firstName"
             },
-            "designerId": "3b2a8480-da85-4f54-88d6-31d5449ec6cf"
+            "designerId": "25678c40-17e1-4af2-93a5-26321f127590"
         },
         {
-            "type": "basicfunction",
+            "type": "Ext.data.Field",
             "reference": {
-                "name": "items",
+                "name": "fields",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "toggleAvailability",
-                "implHandler": [
-                    "var currentAvailability = this.get('availability');",
-                    "this.set('availability', !currentAvailability);",
-                    "return this.get('availability');"
-                ]
+                "mapping": "details.lastName",
+                "name": "lastName"
             },
-            "designerId": "91b136b7-ae84-42f7-92a7-fe06567dc902"
+            "designerId": "9686bd8d-62e6-4193-8a97-bb79856f69d1"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "displayName"
+            },
+            "designerId": "298bfffb-ee1e-44cb-b41f-81ecdf0b6cd6",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "convert",
+                        "designer|params": [
+                            "v",
+                            "rec"
+                        ],
+                        "implHandler": [
+                            "return rec.get('firstName') + ' ' + rec.get('lastName');"
+                        ]
+                    },
+                    "designerId": "db92bd20-d0c7-4f8c-b710-12a7c016476a"
+                }
+            ]
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "isAvailable"
+            },
+            "designerId": "8c2958de-04c2-411f-a7d0-67c589f83898",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "convert",
+                        "designer|params": [
+                            "v",
+                            "rec"
+                        ],
+                        "implHandler": [
+                            "return this.get('availability') == 'Available';"
+                        ]
+                    },
+                    "designerId": "5bfb0af8-a63c-49d4-9c77-24aca33a7189"
+                }
+            ]
         }
     ]
 }

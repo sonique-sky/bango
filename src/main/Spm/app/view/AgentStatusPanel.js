@@ -34,31 +34,40 @@ Ext.define('Spm.view.AgentStatusPanel', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'label',
-                    cls: 'availability-indicator-off',
-                    itemId: 'agentStateLabel',
-                    padding: 2,
-                    text: 'Unavailable'
-                },
-                {
-                    xtype: 'button',
-                    flex: 0,
-                    itemId: 'changeAvailabilityButton',
-                    text: 'Make Me Available'
-                },
-                {
                     xtype: 'dataview',
                     flex: 1,
                     id: 'inbox-stats-view',
-                    itemTpl: [
-                        '<div id="inbox-stats">',
-                        '	<tpl for=".">',
+                    itemTpl: Ext.create('Ext.XTemplate', 
+                        '<div>',
+                        '    <div class="{[this.labelClass(values.isAvailable)]}">{[this.labelText(values.isAvailable)]}</div>',
+                        '    <div id="toggle-button-wrapper"></div>',
+                        '	<div id="inbox-stats">',
                         '		<div id="inbox-active-value">{activeCount}</div><div id="inbox-active-label">Active Items:</div>',
                         '		<div id="inbox-hold-value">{heldCount}</div><div id="inbox-hold-label">Held Items:</div>',
-                        '	</tpl>',
-                        '</div>'
-                    ],
-                    store: 'AuthenticatedAgent'
+                        '	</div>',
+                        '</div>',
+                        {
+                            labelClass: function(isAvailable) {
+                                return isAvailable ? "availability-indicator-on": "availability-indicator-off";
+                            },
+                            labelText: function(isAvailable) {
+                                return isAvailable ?  "Available" : "Unavailable";
+                            }
+                        }
+                    ),
+                    store: 'AuthenticatedAgent',
+                    listeners: {
+                        refresh: {
+                            fn: me.renderToggleButton,
+                            scope: me
+                        },
+                        click: {
+                            delegate: 'a#toggle-button',
+                            fn: me.onToggleAvailability,
+                            element: 'el',
+                            scope: me
+                        }
+                    }
                 }
             ]
         });
@@ -66,14 +75,17 @@ Ext.define('Spm.view.AgentStatusPanel', {
         me.callParent(arguments);
     },
 
-    setAvailability: function(isAvailable) {
-        var label = this.child('label#agentStateLabel');
-        var button = this.child('button#changeAvailabilityButton');
+    renderToggleButton: function(dataview, eOpts) {
+        Ext.create('Ext.button.Button', {
+            renderTo: 'toggle-button-wrapper',
+            text: 'Toggle Availability',
+            width: '100%',
+            id : 'toggle-button'
+        });
+    },
 
-        button.setText(isAvailable ? "Make Me Unavailable" : "Make Me Available");
-        label.setText(isAvailable ? "Available": "Unavailable");
-        label.removeCls(isAvailable ?"availability-indicator-off" :"availability-indicator-on");
-        label.addCls(isAvailable ? "availability-indicator-on": "availability-indicator-off");
+    onToggleAvailability: function() {
+        Spm.application.fireEvent('toggleAvailability');
     }
 
 });
