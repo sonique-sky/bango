@@ -15,7 +15,7 @@ Ext.define('Spm.proxy.SpmAjaxProxy', {
 		}, cfg)]);
     },
     
-    onProxyException: function(proxy, response) {
+    onProxyException: function(proxy, response, operation, eOpts) {
 		Spm.application.fireEvent('authenticationRequired', response);
 	}
 });

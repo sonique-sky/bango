@@ -48,6 +48,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "height": 60,
                 "layout|region": "north"
             },
             "designerId": "36936f41-a016-44da-807f-89ce43211964",

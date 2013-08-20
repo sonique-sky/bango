@@ -17,11 +17,14 @@ Ext.define('Spm.controller.SecurityController', {
     extend: 'Ext.app.Controller',
     alias: 'controller.securityController',
 
+    models: [
+        'Agent'
+    ],
     stores: [
         'AuthenticatedAgent'
     ],
     views: [
-        'MainContainer'
+        'AppContainer'
     ],
 
     refs: [

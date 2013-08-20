@@ -43,12 +43,12 @@
 .app-header {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 14px;
-    background-image: url('../images/AppHeaderSlice.jpg');
+    background-image: url('images/AppHeaderSlice.jpg');
     background-repeat: repeat-x;
 }
 
 .app-header .app-logo {
-    background-image: url('../images/AppHeaderLeft.jpg');
+    background-image: url('images/AppHeaderLeft.jpg');
     height: 60px;
     width: 315px;
     background-repeat: no-repeat;

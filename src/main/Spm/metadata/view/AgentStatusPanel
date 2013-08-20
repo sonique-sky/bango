@@ -108,9 +108,9 @@
                         "fn": "renderToggleButton",
                         "implHandler": [
                             "Ext.create('Ext.button.Button', {",
-                            "    renderTo: 'toggle-button-wrapper',",
-                            "    text: 'Toggle Availability',",
-                            "    width: '100%',",
+                            "\trenderTo: 'toggle-button-wrapper',",
+                            "\ttext: 'Toggle Availability',",
+                            "\twidth: '100%',",
                             "    id : 'toggle-button'",
                             "});"
                         ],

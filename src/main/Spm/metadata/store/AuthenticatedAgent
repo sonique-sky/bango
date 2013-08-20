@@ -7,7 +7,9 @@
     "codeClass": null,
     "userConfig": {
         "autoLoad": false,
+        "filterOnLoad": false,
         "model": "Agent",
+        "sortOnLoad": false,
         "storeId": "authenticatedAgent",
         "designer|userClassName": "AuthenticatedAgent",
         "designer|userAlias": "authenticatedAgent",
@@ -43,25 +45,6 @@
                 ]
             },
             "designerId": "c1ed19fc-677f-4cf0-ab44-f314e10fa67a"
-        },
-        {
-            "type": "basiceventbinding",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onAgentLoaded",
-                "implHandler": [
-                    "if(successful) {",
-                    "    Spm.application.fireEvent('agentLoaded', store.first());",
-                    "}"
-                ],
-                "name": "load",
-                "scope": "me"
-            },
-            "designerId": "5a3f101a-5da2-4b98-aca6-703adf19f4cc"
         }
     ]
 }

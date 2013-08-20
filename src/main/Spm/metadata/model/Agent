@@ -144,7 +144,7 @@
                             "rec"
                         ],
                         "implHandler": [
-                            "return this.get('availability') == 'Available';"
+                            "return rec.get('availability') == 'Available';"
                         ]
                     },
                     "designerId": "5bfb0af8-a63c-49d4-9c77-24aca33a7189"

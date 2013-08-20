@@ -27,14 +27,10 @@ Ext.define('Spm.store.AuthenticatedAgent', {
         cfg = cfg || {};
         me.callParent([Ext.apply(me.processAuthenticatedAgent({
             autoLoad: false,
+            filterOnLoad: false,
             model: 'Spm.model.Agent',
-            storeId: 'authenticatedAgent',
-            listeners: {
-                load: {
-                    fn: me.onAgentLoaded,
-                    scope: me
-                }
-            }
+            sortOnLoad: false,
+            storeId: 'authenticatedAgent'
         }), cfg)]);
     },
 
@@ -49,12 +45,6 @@ Ext.define('Spm.store.AuthenticatedAgent', {
                 }
             }
         });
-    },
-
-    onAgentLoaded: function(store, records, successful, eOpts) {
-        if(successful) {
-            Spm.application.fireEvent('agentLoaded', store.first());
-        }
     }
 
 });
