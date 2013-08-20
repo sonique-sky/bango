@@ -7,3 +7,4 @@ Test harness for ExtJS project
 
 * No logic in views
 * javascript ids to be hyphen-separated not CamelCase
+* Use the stores!
