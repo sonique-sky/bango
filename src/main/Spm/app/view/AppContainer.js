@@ -23,6 +23,7 @@ Ext.define('Spm.view.AppContainer', {
         'Spm.view.HeaderView'
     ],
 
+    hidden: true,
     itemId: 'appContainer',
     layout: {
         type: 'border'

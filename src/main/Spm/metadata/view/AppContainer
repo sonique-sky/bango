@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "hidden": true,
         "itemId": "appContainer",
         "width": null,
         "designer|userClassName": "AppContainer",

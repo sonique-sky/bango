@@ -13,7 +13,7 @@
             "AuthenticatedAgent"
         ],
         "views": [
-            "AppContainer"
+            "SpmViewport"
         ],
         "designer|userClassName": "SecurityController",
         "designer|userAlias": "securityController"
@@ -66,7 +66,7 @@
                     "    url: 'j_spring_security_check',",
                     "    params: credentials,",
                     "    success: function(response) {",
-                    "        Spm.application.fireEvent('authenticated');",
+                    "        Spm.application.fireEvent('authenticated', false);",
                     "    }",
                     "});"
                 ],
@@ -84,11 +84,15 @@
             "codeClass": null,
             "userConfig": {
                 "fn": "onAuthenticated",
+                "designer|params": [
+                    "alreadyAuthenticated"
+                ],
                 "implHandler": [
-                    "this.getAuthenticatedAgentStore().load();",
-                    "",
-                    "this.getAppContainer().setVisible(true);",
-                    "this.getLoginWindow().close();"
+                    "if(!alreadyAuthenticated) {",
+                    "    this.getAuthenticatedAgentStore().load();",
+                    "\tthis.getLoginWindow().close();",
+                    "}",
+                    "this.getAppContainer().setVisible(true);"
                 ],
                 "name": "authenticated",
                 "scope": "this"
@@ -126,7 +130,14 @@
             "userConfig": {
                 "fn": "onStartAuthentication",
                 "implHandler": [
-                    "this.getAuthenticatedAgentStore().load();"
+                    "this.getAuthenticatedAgentStore().load(",
+                    "    {",
+                    "        callback : function(records,operation,success){",
+                    "            if(success) {",
+                    "                Spm.application.fireEvent('authenticated', true);",
+                    "            }",
+                    "        }",
+                    "    });"
                 ],
                 "name": "startAuthentication",
                 "scope": "this"

@@ -36,7 +36,14 @@ Ext.define('Spm.controller.AgentController', {
     ],
 
     onToggleAvailability: function() {
-        console.log('toggleAvailability');
+        var me = this;
+
+        Ext.Ajax.request({
+            url: 'api/agent/toggleAvailability',
+            success: function(response) {
+                me.getAuthenticatedAgentStore().loadRawData(response);
+            }
+        });
     },
 
     init: function(application) {

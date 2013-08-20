@@ -9,6 +9,9 @@
         "itemId": "spmViewport",
         "designer|userClassName": "SpmViewport",
         "designer|userAlias": "spmViewport",
+        "requires": [
+            "Spm.view.AppContainer"
+        ],
         "designer|initialView": true,
         "layout": "fit"
     },
@@ -21,6 +24,9 @@
                 "type": "array"
             },
             "codeClass": null,
+            "userConfig": {
+                "hidden": null
+            },
             "designerId": "82a18b02-69b0-4b28-ba4c-2a78c4af440d",
             "masterInstanceId": "77d7cab5-fde5-4e3f-b22a-cbc0ad0a9796"
         }

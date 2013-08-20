@@ -76,12 +76,14 @@ Ext.define('Spm.view.AgentStatusPanel', {
     },
 
     renderToggleButton: function(dataview, eOpts) {
-        Ext.create('Ext.button.Button', {
-            renderTo: 'toggle-button-wrapper',
-            text: 'Toggle Availability',
-            width: '100%',
-            id : 'toggle-button'
-        });
+        if(!dataview.getStore().isLoading()) {
+            Ext.create('Ext.button.Button', {
+                renderTo: 'toggle-button-wrapper',
+                text: 'Toggle Availability',
+                width: '100%',
+                id : 'toggle-button'
+            });
+        }
     },
 
     onToggleAvailability: function() {

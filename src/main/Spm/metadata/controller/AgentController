@@ -49,7 +49,14 @@
             "userConfig": {
                 "fn": "onToggleAvailability",
                 "implHandler": [
-                    "console.log('toggleAvailability');"
+                    "var me = this;",
+                    "",
+                    "Ext.Ajax.request({",
+                    "    url: 'api/agent/toggleAvailability',",
+                    "    success: function(response) {",
+                    "\t\tme.getAuthenticatedAgentStore().loadRawData(response);",
+                    "    }",
+                    "});"
                 ],
                 "name": "toggleAvailability",
                 "scope": "this"

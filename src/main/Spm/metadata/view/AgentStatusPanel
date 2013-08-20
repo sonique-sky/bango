@@ -107,12 +107,14 @@
                     "userConfig": {
                         "fn": "renderToggleButton",
                         "implHandler": [
-                            "Ext.create('Ext.button.Button', {",
-                            "\trenderTo: 'toggle-button-wrapper',",
-                            "\ttext: 'Toggle Availability',",
-                            "\twidth: '100%',",
-                            "    id : 'toggle-button'",
-                            "});"
+                            "if(!dataview.getStore().isLoading()) {",
+                            "    Ext.create('Ext.button.Button', {",
+                            "        renderTo: 'toggle-button-wrapper',",
+                            "        text: 'Toggle Availability',",
+                            "        width: '100%',",
+                            "        id : 'toggle-button'",
+                            "\t});",
+                            "}"
                         ],
                         "name": "refresh",
                         "scope": "me"

@@ -32,7 +32,7 @@ public class Bango {
         ServletContextHandler contextHandler = new ServletContextHandler(SESSIONS);
         contextHandler.setContextPath("/superman");
 
-        jsonFilesHandler(contextHandler);
+        agentApiHandler(contextHandler);
         loginHandler(contextHandler);
         logoutHandler(contextHandler);
         Handler extHandler = extFilesHandler();
@@ -53,14 +53,18 @@ public class Bango {
         return contextHandler;
     }
 
-    private void jsonFilesHandler(ServletContextHandler contextHandler) {
+    private void agentApiHandler(ServletContextHandler contextHandler) {
 
         ServletHolder servletHolder = new ServletHolder(new HttpServlet() {
             @Override
             protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
                 String sessionId = request.getSession().getId();
                 if (agentMap.containsKey(sessionId)) {
-                    String json = agentMap.get(sessionId).dataAsJason();
+                    Agent agent = agentMap.get(sessionId);
+                    if(request.getPathInfo().equals("/toggleAvailability")) {
+                        agent.toggleAvailability();
+                    }
+                    String json = agent.dataAsJason();
                     response.setStatus(200);
                     response.setContentLength(json.length());
                     response.setContentType("application/json");
@@ -101,6 +105,16 @@ public class Bango {
     }
 
     public static class Agent {
+        private static final String AVAILABLE = "Available";
+        private String availability = AVAILABLE;
+
+        public void toggleAvailability() {
+            if(AVAILABLE.equals(availability)) {
+                availability = "Unavailable";
+            }
+            else availability = AVAILABLE;
+        }
+
         public String dataAsJason() {
             return "{\n" +
                     "\t\"agent\": {\n" +
@@ -109,7 +123,7 @@ public class Bango {
                     "\t\t\t\"firstName\": \"Captain\",\n" +
                     "\t\t\t\"lastName\": \"Scarlet\"\n" +
                     "\t\t},\n" +
-                    "\t\t\"availability\": \"Available\",\n" +
+                    "\t\t\"availability\": \"" + availability + "\",\n" +
                     "\t\t\"activeCount\" : 5,\n" +
                     "\t\t\"heldCount\" : 22\n" +
                     "\t}\n" +
