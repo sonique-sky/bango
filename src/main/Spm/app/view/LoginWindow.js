@@ -23,6 +23,7 @@ Ext.define('Spm.view.LoginWindow', {
         type: 'fit'
     },
     closable: false,
+    iconCls: 'icon-lock',
     title: 'Login',
     defaultFocus: 'usernameField',
     modal: true,

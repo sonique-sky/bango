@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "cls": "search-panel",
         "designer|userClassName": "SearchPanel",
         "designer|userAlias": "searchPanel",
         "title": "Search"

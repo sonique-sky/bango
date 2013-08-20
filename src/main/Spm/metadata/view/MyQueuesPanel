@@ -6,9 +6,96 @@
     },
     "codeClass": null,
     "userConfig": {
+        "cls": "my-queues-panel",
         "designer|userClassName": "MyQueuesPanel",
         "designer|userAlias": "myQueuesPanel",
+        "layout": "fit",
+        "animCollapse": false,
+        "collapsible": true,
         "title": "My Queues"
     },
-    "designerId": "e1f49dae-de8b-413c-b9cc-751bf7b42751"
+    "designerId": "e1f49dae-de8b-413c-b9cc-751bf7b42751",
+    "cn": [
+        {
+            "type": "Ext.view.View",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "queue-chooser-view",
+                "designer|displayName": "QueueView",
+                "disableSelection": null,
+                "itemSelector": null,
+                "overItemCls": "x-item-selected",
+                "store": "AuthenticatedAgent",
+                "trackOver": true
+            },
+            "designerId": "23191534-5593-41c9-b765-3eb26d1a4745",
+            "cn": [
+                {
+                    "type": "Ext.XTemplate",
+                    "reference": {
+                        "name": "itemTpl",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "implHandler": [
+                            "<tpl for=\".\">",
+                            "\t<div class=\"queue-wrap\" id=\"queue-{id}\">",
+                            "\t\t{name}",
+                            "\t</div>",
+                            "</tpl>"
+                        ],
+                        "designer|displayName": "myQueuesTemplate"
+                    },
+                    "designerId": "71a55f34-abf6-4282-91c8-8f27e22c6f3a",
+                    "cn": [
+                        {
+                            "type": "templatefunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "foo",
+                                "designer|params": [
+                                    "stuff"
+                                ],
+                                "implHandler": [
+                                    "console.log(stuff);"
+                                ]
+                            },
+                            "designerId": "da54d255-f5ae-427f-abf9-63fec6099c75"
+                        }
+                    ]
+                },
+                {
+                    "type": "basicfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "prepareData",
+                        "designer|params": [
+                            "data",
+                            "recordIndex",
+                            "record"
+                        ],
+                        "implHandler": [
+                            "console.log(record.getData(true));",
+                            "console.log(data);",
+                            "return data;"
+                        ]
+                    },
+                    "designerId": "107cc3f8-f140-4153-8b46-253826a93f40"
+                }
+            ]
+        }
+    ]
 }

@@ -17,10 +17,45 @@ Ext.define('Spm.view.MyQueuesPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.myQueuesPanel',
 
+    cls: 'my-queues-panel',
+    layout: {
+        type: 'fit'
+    },
+    animCollapse: false,
+    collapsible: true,
     title: 'My Queues',
 
     initComponent: function() {
         var me = this;
+
+        Ext.applyIf(me, {
+            items: [
+                {
+                    xtype: 'dataview',
+                    prepareData: function(data, recordIndex, record) {
+                        console.log(record.getData(true));
+                        console.log(data);
+                        return data;
+                    },
+                    id: 'queue-chooser-view',
+                    itemTpl: Ext.create('Ext.XTemplate', 
+                        '<tpl for=".">',
+                        '	<div class="queue-wrap" id="queue-{id}">',
+                        '		{name}',
+                        '	</div>',
+                        '</tpl>',
+                        {
+                            foo: function(stuff) {
+                                console.log(stuff);
+                            }
+                        }
+                    ),
+                    overItemCls: 'x-item-selected',
+                    store: 'AuthenticatedAgent',
+                    trackOver: true
+                }
+            ]
+        });
 
         me.callParent(arguments);
     }

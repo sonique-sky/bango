@@ -7,6 +7,7 @@
         "resource": true,
         "a4eb4423-6555-4f37-91ab-8bfdc21fd53e": {
             "id": "a4eb4423-6555-4f37-91ab-8bfdc21fd53e",
+            "expanded": false,
             "cn": [
                 {
                     "id": "82a18b02-69b0-4b28-ba4c-2a78c4af440d"
@@ -60,6 +61,7 @@
         },
         "606988fd-1d31-43e7-8d7a-deaf25ab8242": {
             "id": "606988fd-1d31-43e7-8d7a-deaf25ab8242",
+            "expanded": false,
             "cn": [
                 {
                     "id": "49a84061-efdf-4fa5-ba78-1403d6582702",
@@ -87,7 +89,24 @@
         },
         "e1f49dae-de8b-413c-b9cc-751bf7b42751": {
             "id": "e1f49dae-de8b-413c-b9cc-751bf7b42751",
-            "expanded": false
+            "cn": [
+                {
+                    "id": "23191534-5593-41c9-b765-3eb26d1a4745",
+                    "cn": [
+                        {
+                            "id": "71a55f34-abf6-4282-91c8-8f27e22c6f3a",
+                            "cn": [
+                                {
+                                    "id": "da54d255-f5ae-427f-abf9-63fec6099c75"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "107cc3f8-f140-4153-8b46-253826a93f40"
+                        }
+                    ]
+                }
+            ]
         },
         "407c180d-22c1-4a44-9e38-5b808a89fe98": {
             "id": "407c180d-22c1-4a44-9e38-5b808a89fe98",
@@ -126,6 +145,7 @@
         },
         "77d7cab5-fde5-4e3f-b22a-cbc0ad0a9796": {
             "id": "77d7cab5-fde5-4e3f-b22a-cbc0ad0a9796",
+            "expanded": false,
             "cn": [
                 {
                     "id": "115f63b6-92a8-470a-a8b1-21819fdc774a"
@@ -152,6 +172,7 @@
         },
         "3a16544a-bc66-4df1-9bf7-29a9f5ca5c11": {
             "id": "3a16544a-bc66-4df1-9bf7-29a9f5ca5c11",
+            "expanded": false,
             "cn": [
                 {
                     "id": "c1ed19fc-677f-4cf0-ab44-f314e10fa67a"
@@ -194,6 +215,21 @@
                             "id": "5bfb0af8-a63c-49d4-9c77-24aca33a7189"
                         }
                     ]
+                },
+                {
+                    "id": "fb31a36c-1e68-453d-bc5d-def33e0d8b70"
+                }
+            ]
+        },
+        "8772a2cf-09c4-490d-bcf7-8a6a6f82d472": {
+            "id": "8772a2cf-09c4-490d-bcf7-8a6a6f82d472",
+            "expanded": false,
+            "cn": [
+                {
+                    "id": "9bdc0d98-ea7c-4d7b-a42e-6e2b206a2414"
+                },
+                {
+                    "id": "5757e3bb-13bc-4f69-9d47-302824d14994"
                 }
             ]
         },
@@ -264,26 +300,22 @@
     },
     "tabState": {
         "openTabs": [
-            "77d7cab5-fde5-4e3f-b22a-cbc0ad0a9796",
-            "8eeac2c0-eb6f-48cc-8cc7-cb0598f14380",
-            "993c60e6-a499-4282-aa3a-b333e408538b",
-            "606988fd-1d31-43e7-8d7a-deaf25ab8242",
-            "bb41357a-c190-4a1c-a116-c831f1714001",
-            "59a3fe12-1809-4c15-a29f-56999a94ebe5",
             "31598ac0-8ef6-4147-9f24-cdd227a441b2",
-            "3a16544a-bc66-4df1-9bf7-29a9f5ca5c11",
-            "a4eb4423-6555-4f37-91ab-8bfdc21fd53e"
+            "e1f49dae-de8b-413c-b9cc-751bf7b42751",
+            "73836524-4dc8-4269-83ea-20154789abeb",
+            "47a590c9-439d-4c05-aa4d-eaff45607006",
+            "8772a2cf-09c4-490d-bcf7-8a6a6f82d472"
         ]
     },
     "canvasState": {
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "8eeac2c0-eb6f-48cc-8cc7-cb0598f14380",
-        "selectedInstance": "3464321a-b1e6-48e7-bf85-8550a19b8c00"
+        "topInstance": "e1f49dae-de8b-413c-b9cc-751bf7b42751",
+        "selectedInstance": "71a55f34-abf6-4282-91c8-8f27e22c6f3a"
     },
     "codeState": {
-        "topInstance": "8eeac2c0-eb6f-48cc-8cc7-cb0598f14380"
+        "topInstance": "e1f49dae-de8b-413c-b9cc-751bf7b42751"
     },
     "editMode": "code"
 }

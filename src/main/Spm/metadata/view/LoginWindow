@@ -12,6 +12,7 @@
         "designer|userAlias": "loginWindow",
         "layout": "fit",
         "closable": false,
+        "iconCls": "icon-lock",
         "title": "Login",
         "defaultFocus": "usernameField",
         "modal": true

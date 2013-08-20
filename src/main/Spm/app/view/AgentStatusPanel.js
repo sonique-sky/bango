@@ -17,6 +17,7 @@ Ext.define('Spm.view.AgentStatusPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.agentStatusPanel',
 
+    cls: 'status-panel',
     height: 126,
     margin: '',
     width: 266,

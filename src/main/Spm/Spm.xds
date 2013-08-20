@@ -145,6 +145,14 @@
                 "app/view/HeaderView.js"
             ],
             "className": "HeaderView"
+        },
+        "8772a2cf-09c4-490d-bcf7-8a6a6f82d472": {
+            "paths": [
+                "metadata/model/Queue",
+                "app/model/override/Queue.js",
+                "app/model/Queue.js"
+            ],
+            "className": "Queue"
         }
     },
     "viewOrderMap": {
@@ -168,7 +176,8 @@
             "8eeac2c0-eb6f-48cc-8cc7-cb0598f14380"
         ],
         "model": [
-            "31598ac0-8ef6-4147-9f24-cdd227a441b2"
+            "31598ac0-8ef6-4147-9f24-cdd227a441b2",
+            "8772a2cf-09c4-490d-bcf7-8a6a6f82d472"
         ],
         "resource": [
             "97a980d1-ecd0-421b-85db-1343d9f0e85f",

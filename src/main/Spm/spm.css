@@ -18,6 +18,14 @@
     background-image:url('images/user-orange.png');
 }
 
+.icon-queue {
+    background: url('images/queue.png') no-repeat center left !important;
+}
+
+.icon-lock {
+    background: url('images/lock.png') no-repeat center left !important;
+}
+
 #inbox-stats-view #inbox-active-label {
     margin: 3px;
     color: #3764A0;
@@ -70,3 +78,25 @@
     cursor: pointer;
 }
 
+
+ul#queue-group {
+    list-style-image: url('images/queue.png');
+}
+
+#queue-chooser-view .queue-wrap {
+    margin: 3px;
+    padding-left: 20px;
+    height: 17px;
+}
+
+.status-panel .x-panel-body {
+    background: #F1F1F1;
+}
+
+.my-queues-panel .x-panel-body {
+    background: #F1F1F1;
+}
+
+.search-panel .x-panel-body {
+    background: #F1F1F1;
+}

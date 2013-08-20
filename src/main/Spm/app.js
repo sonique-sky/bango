@@ -19,6 +19,9 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
+    models: [
+        'Queue'
+    ],
     views: [
         'TabPanel',
         'NavigationPanel',
