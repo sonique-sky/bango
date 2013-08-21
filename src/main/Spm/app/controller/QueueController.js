@@ -44,7 +44,12 @@ Ext.define('Spm.controller.QueueController', {
     },
 
     createQueueContainer: function() {
-        return this.getQueueContainerView().create({title : this.queue.get('name'), id: this.queueTabHeaderIdFor(this.queue)});
+        return this.getQueueContainerView().create(
+        {
+            id: this.queueTabHeaderIdFor(this.queue),
+            title : this.queue.get('name')
+        }
+        );
     }
 
 });

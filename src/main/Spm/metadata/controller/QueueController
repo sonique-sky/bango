@@ -56,7 +56,12 @@
             "userConfig": {
                 "fn": "createQueueContainer",
                 "implHandler": [
-                    "return getQueueContainerView().create({title : this.queue.get('name'), id: queueTabHeaderIdFor(queue)});"
+                    "return this.getQueueContainerView().create(",
+                    "    {",
+                    "        id: this.queueTabHeaderIdFor(this.queue),",
+                    "        title : this.queue.get('name')",
+                    "    }",
+                    ");"
                 ]
             },
             "designerId": "395edf08-61e6-4965-bb68-6f2431c3c7d3"
