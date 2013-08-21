@@ -58,9 +58,7 @@
                 "implHandler": [
                     "var queueStore = Ext.data.StoreManager.lookup('QueueStore');",
                     "",
-                    "var jsonData = store.proxy.reader.jsonData;",
-                    "",
-                    "queueStore.loadRawData(jsonData);"
+                    "queueStore.loadRawData(store.proxy.reader.jsonData);"
                 ],
                 "name": "load",
                 "scope": "me"

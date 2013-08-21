@@ -21,7 +21,8 @@
         "controllers": [
             "AgentController",
             "LoginController",
-            "SecurityController"
+            "SecurityController",
+            "AppController"
         ],
         "name": "Spm"
     },

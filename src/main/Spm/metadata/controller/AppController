@@ -1,0 +1,35 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "AppController",
+        "designer|userAlias": "appController"
+    },
+    "designerId": "6a81fd15-38e0-4fd7-a7b0-7d1124ad7574",
+    "cn": [
+        {
+            "type": "applicationaction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onQueueSelected",
+                "designer|params": [
+                    "queue"
+                ],
+                "implHandler": [
+                    "console.log(queue.get('name'));"
+                ],
+                "name": "queueSelected",
+                "scope": "this"
+            },
+            "designerId": "31c6f4e0-b1a7-4d9a-a2f9-5ca635ba2271"
+        }
+    ]
+}

@@ -34,18 +34,7 @@ Ext.define('Spm.store.QueueStore', {
                     type: 'json',
                     root: 'agent.queues'
                 }
-            },
-            listeners: {
-                datachanged: {
-                    fn: me.onJsonstoreDataChangeD,
-                    scope: me
-                }
             }
         }, cfg)]);
-    },
-
-    onJsonstoreDataChangeD: function(store, eOpts) {
-        console.log('dataChanged');
     }
-
 });

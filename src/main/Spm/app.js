@@ -34,7 +34,8 @@ Ext.application({
     controllers: [
         'AgentController',
         'LoginController',
-        'SecurityController'
+        'SecurityController',
+        'AppController'
     ],
     name: 'Spm',
 

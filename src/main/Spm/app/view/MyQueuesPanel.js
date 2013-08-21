@@ -32,27 +32,24 @@ Ext.define('Spm.view.MyQueuesPanel', {
             items: [
                 {
                     xtype: 'dataview',
-                    id: 'queue-chooser-view',
-                    itemTpl: Ext.create('Ext.XTemplate', 
-                        '    {[this.stuff(values)]}',
-                        '<tpl for=".">',
-                        '    {[this.stuff(values)]}',
-                        '	<div class="queue-wrap" id="queue-{id}">',
-                        '		{name}',
-                        '	</div>',
-                        '</tpl>',
-                        {
-                            foo: function(stuff) {
-                                console.log(stuff);
-                            }
-                        }
-                    ),
-                    overItemCls: 'x-item-selected',
+                    cls: 'my-queues',
+                    tpl: [
+                        '<ul>',
+                        '	<tpl for=".">',
+                        '		<li class="queue-wrap" id="queue-{id}">',
+                        '            <div>{name}</div>',
+                        '        </li>',
+                        '	</tpl>',
+                        '</ul>',
+                        ''
+                    ],
+                    itemSelector: 'li.queue-wrap',
+                    overItemCls: 'x-item-over',
                     store: 'QueueStore',
                     trackOver: true,
                     listeners: {
-                        refresh: {
-                            fn: me.foo,
+                        select: {
+                            fn: me.onQueueSelect,
                             scope: me
                         }
                     }
@@ -63,10 +60,8 @@ Ext.define('Spm.view.MyQueuesPanel', {
         me.callParent(arguments);
     },
 
-    foo: function(dataview, eOpts) {
-        var manager = Ext.data.StoreManager;
-        debugger;
-        console.log('refresh');
+    onQueueSelect: function(dataviewmodel, record, eOpts) {
+        Spm.application.fireEvent('queueSelected', record);
     }
 
 });

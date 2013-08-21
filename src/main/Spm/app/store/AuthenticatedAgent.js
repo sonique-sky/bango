@@ -56,9 +56,7 @@ Ext.define('Spm.store.AuthenticatedAgent', {
     onAuthenticatedAgentLoaded: function(store, records, successful, eOpts) {
         var queueStore = Ext.data.StoreManager.lookup('QueueStore');
 
-        var jsonData = store.proxy.reader.jsonData;
-
-        queueStore.loadRawData(jsonData);
+        queueStore.loadRawData(store.proxy.reader.jsonData);
     }
 
 });

@@ -6,7 +6,7 @@
         "genTimestamps": false,
         "cacheBust": true,
         "urlPrefix": "http://localhost:8080/superman",
-        "exportPath": "/Users/paul/Development/Javascript/bango/target/build",
+        "exportPath": "/Users/dev/ExtJS_Spike/bango/target/build",
         "buildShouldOverwriteIndex": true
     },
     "xdsVersion": "2.2.2",
@@ -161,6 +161,14 @@
                 "app/store/QueueStore.js"
             ],
             "className": "QueueStore"
+        },
+        "6a81fd15-38e0-4fd7-a7b0-7d1124ad7574": {
+            "paths": [
+                "metadata/controller/AppController",
+                "app/controller/override/AppController.js",
+                "app/controller/AppController.js"
+            ],
+            "className": "AppController"
         }
     },
     "viewOrderMap": {
@@ -182,7 +190,8 @@
         "controller": [
             "bb41357a-c190-4a1c-a116-c831f1714001",
             "21f07f09-dd47-4024-a284-13ef4e152f3d",
-            "8eeac2c0-eb6f-48cc-8cc7-cb0598f14380"
+            "8eeac2c0-eb6f-48cc-8cc7-cb0598f14380",
+            "6a81fd15-38e0-4fd7-a7b0-7d1124ad7574"
         ],
         "model": [
             "31598ac0-8ef6-4147-9f24-cdd227a441b2",

@@ -24,11 +24,12 @@
             },
             "codeClass": null,
             "userConfig": {
-                "id": "queue-chooser-view",
+                "cls": "my-queues",
+                "id": null,
                 "designer|displayName": "QueueView",
                 "disableSelection": null,
-                "itemSelector": null,
-                "overItemCls": "x-item-selected",
+                "itemSelector": "li.queue-wrap",
+                "overItemCls": "x-item-over",
                 "store": "QueueStore",
                 "trackOver": true
             },
@@ -37,43 +38,24 @@
                 {
                     "type": "Ext.XTemplate",
                     "reference": {
-                        "name": "itemTpl",
+                        "name": "tpl",
                         "type": "object"
                     },
                     "codeClass": null,
                     "userConfig": {
                         "implHandler": [
-                            "    {[this.stuff(values)]}",
-                            "<tpl for=\".\">",
-                            "    {[this.stuff(values)]}",
-                            "\t<div class=\"queue-wrap\" id=\"queue-{id}\">",
-                            "\t\t{name}",
-                            "\t</div>",
-                            "</tpl>"
+                            "<ul>",
+                            "\t<tpl for=\".\">",
+                            "\t\t<li class=\"queue-wrap\" id=\"queue-{id}\">",
+                            "            <div>{name}</div>",
+                            "        </li>",
+                            "\t</tpl>",
+                            "</ul>",
+                            ""
                         ],
-                        "designer|displayName": "myQueuesTemplate"
+                        "designer|displayName": "tpl"
                     },
-                    "designerId": "71a55f34-abf6-4282-91c8-8f27e22c6f3a",
-                    "cn": [
-                        {
-                            "type": "templatefunction",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "foo",
-                                "designer|params": [
-                                    "stuff"
-                                ],
-                                "implHandler": [
-                                    "console.log(stuff);"
-                                ]
-                            },
-                            "designerId": "e796b20d-4e82-48fe-98cf-8ab7a917271d"
-                        }
-                    ]
+                    "designerId": "465003a8-aa18-468e-9365-b8eaddba32c9"
                 },
                 {
                     "type": "basiceventbinding",
@@ -83,16 +65,14 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fn": "foo",
+                        "fn": "onQueueSelect",
                         "implHandler": [
-                            "var manager = Ext.data.StoreManager;",
-                            "debugger;",
-                            "console.log('refresh');"
+                            "Spm.application.fireEvent('queueSelected', record);"
                         ],
-                        "name": "refresh",
+                        "name": "select",
                         "scope": "me"
                     },
-                    "designerId": "489c7719-015f-44db-bae0-32c295c13679"
+                    "designerId": "e1066754-5232-4de0-8001-13df6d6b9ceb"
                 }
             ]
         }

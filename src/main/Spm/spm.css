@@ -78,15 +78,28 @@
     cursor: pointer;
 }
 
-
-ul#queue-group {
+.my-queues ul {
     list-style-image: url('images/queue.png');
+    line-height: 1.5;
 }
 
-#queue-chooser-view .queue-wrap {
+.my-queues.queue-wrap {
     margin: 3px;
     padding-left: 20px;
     height: 17px;
+}
+
+.my-queues li {
+    padding-bottom: 2px;
+}
+
+.my-queues li.x-item-over {
+    text-decoration: underline;
+    color: #15428B;
+}
+
+.my-queues li.x-item-selected {
+    border: 1px dotted #A3BAE9 !important;
 }
 
 .status-panel .x-panel-body {

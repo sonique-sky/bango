@@ -41,23 +41,6 @@
                     "designerId": "34dc27e6-2b25-486b-b3ab-1367995b191a"
                 }
             ]
-        },
-        {
-            "type": "basiceventbinding",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onJsonstoreDataChangeD",
-                "implHandler": [
-                    "console.log('dataChanged');"
-                ],
-                "name": "datachanged",
-                "scope": "me"
-            },
-            "designerId": "8cf11f61-0c99-4ca4-8a04-a46678bb5a3d"
         }
     ]
 }
