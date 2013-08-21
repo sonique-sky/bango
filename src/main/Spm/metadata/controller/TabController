@@ -7,23 +7,12 @@
     "codeClass": null,
     "userConfig": {
         "views": [
-            "TabPanel",
-            "QueueContainer"
+            "TabPanel"
         ],
-        "designer|userClassName": "AppController",
-        "designer|userAlias": "appController"
+        "designer|userClassName": "TabController",
+        "designer|userAlias": "tabController"
     },
-    "configAlternates": {
-        "tabCache": "object"
-    },
-    "designerId": "6a81fd15-38e0-4fd7-a7b0-7d1124ad7574",
-    "customConfigs": [
-        {
-            "group": "(Custom Properties)",
-            "name": "tabCache",
-            "type": "string"
-        }
-    ],
+    "designerId": "8f056347-d5e4-47d4-a53b-24566e362dac",
     "cn": [
         {
             "type": "applicationaction",
@@ -38,16 +27,22 @@
                     "queue"
                 ],
                 "implHandler": [
-                    "//tabCache.activateTabFor(queue);",
+                    "var tabPanel = this.getTabPanel();",
                     "",
-                    "var queueContainer = Ext.create('Spm.view.QueueContainer', {closable: true, title: queue.get('name')});",
+                    "var tabHeaderId = this.tabHeaderIdFor(queue);",
+                    "var tabHeader = tabPanel.down('#' + tabHeaderId);",
                     "",
-                    "this.getTabPanel().add(queueContainer);"
+                    "if(!tabHeader) {",
+                    "\tvar tabItem = Ext.create('Spm.view.QueueContainer', {id: tabHeaderId, closable: true, title: queue.get('name')})",
+                    "\ttabPanel.add(tabItem);",
+                    "}",
+                    "",
+                    "tabPanel.setActiveTab(tabHeaderId);"
                 ],
                 "name": "queueSelected",
                 "scope": "this"
             },
-            "designerId": "31c6f4e0-b1a7-4d9a-a2f9-5ca635ba2271"
+            "designerId": "f2a0f0bc-bc90-4b6d-a033-98c9b3c3f364"
         },
         {
             "type": "controllerref",
@@ -58,29 +53,27 @@
             "codeClass": null,
             "userConfig": {
                 "ref": "tabPanel",
-                "selector": "tabPanel"
+                "selector": "#tab-panel"
             },
-            "designerId": "f06d0747-74c8-44f9-bb02-30fda45346c6"
+            "designerId": "664df860-c455-45ab-8888-ac724fc53456"
         },
         {
-            "type": "fixedfunction",
+            "type": "basicfunction",
             "reference": {
                 "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "init",
+                "fn": "tabHeaderIdFor",
                 "designer|params": [
-                    "application"
+                    "queue"
                 ],
                 "implHandler": [
-                    "tabCache = Ext.create('Spm.cache.TabCache', {",
-                    "    tabPanel: this.getTabPanel()",
-                    "});"
+                    "return 'tab-header-queue-'+queue.get('id');"
                 ]
             },
-            "designerId": "2ad0c807-3d2c-473e-9f76-764c575551d5"
+            "designerId": "249b2f85-6397-4880-b009-d74afa130c43"
         }
     ]
 }

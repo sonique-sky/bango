@@ -6,6 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
+        "id": "tab-panel",
+        "itemId": null,
         "designer|userClassName": "TabPanel",
         "designer|userAlias": "tabPanel"
     },
