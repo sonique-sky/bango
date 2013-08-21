@@ -17,11 +17,31 @@ Ext.define('Spm.controller.AppController', {
     extend: 'Ext.app.Controller',
     alias: 'controller.appController',
 
+    views: [
+        'TabPanel',
+        'QueueContainer'
+    ],
+
+    refs: [
+        {
+            ref: 'tabPanel',
+            selector: 'tabPanel'
+        }
+    ],
+
     onQueueSelected: function(queue) {
-        console.log(queue.get('name'));
+        //tabCache.activateTabFor(queue);
+
+        var queueContainer = Ext.create('Spm.view.QueueContainer', {closable: true, title: queue.get('name')});
+
+        this.getTabPanel().add(queueContainer);
     },
 
     init: function(application) {
+        tabCache = Ext.create('Spm.cache.TabCache', {
+            tabPanel: this.getTabPanel()
+        });
+
         application.on({
             queueSelected: {
                 fn: this.onQueueSelected,

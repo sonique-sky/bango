@@ -10,7 +10,6 @@
             "Queue"
         ],
         "views": [
-            "TabPanel",
             "NavigationPanel",
             "MyQueuesPanel",
             "SearchPanel",

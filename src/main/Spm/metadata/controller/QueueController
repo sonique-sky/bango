@@ -1,0 +1,13 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "QueueController",
+        "designer|userAlias": "queueController"
+    },
+    "designerId": "49af0cf0-c15d-4f28-a135-20a970c9904d"
+}

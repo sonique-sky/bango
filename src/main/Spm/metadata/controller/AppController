@@ -6,10 +6,24 @@
     },
     "codeClass": null,
     "userConfig": {
+        "views": [
+            "TabPanel",
+            "QueueContainer"
+        ],
         "designer|userClassName": "AppController",
         "designer|userAlias": "appController"
     },
+    "configAlternates": {
+        "tabCache": "object"
+    },
     "designerId": "6a81fd15-38e0-4fd7-a7b0-7d1124ad7574",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "tabCache",
+            "type": "string"
+        }
+    ],
     "cn": [
         {
             "type": "applicationaction",
@@ -24,12 +38,49 @@
                     "queue"
                 ],
                 "implHandler": [
-                    "console.log(queue.get('name'));"
+                    "//tabCache.activateTabFor(queue);",
+                    "",
+                    "var queueContainer = Ext.create('Spm.view.QueueContainer', {closable: true, title: queue.get('name')});",
+                    "",
+                    "this.getTabPanel().add(queueContainer);"
                 ],
                 "name": "queueSelected",
                 "scope": "this"
             },
             "designerId": "31c6f4e0-b1a7-4d9a-a2f9-5ca635ba2271"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "tabPanel",
+                "selector": "tabPanel"
+            },
+            "designerId": "f06d0747-74c8-44f9-bb02-30fda45346c6"
+        },
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "init",
+                "designer|params": [
+                    "application"
+                ],
+                "implHandler": [
+                    "tabCache = Ext.create('Spm.cache.TabCache', {",
+                    "    tabPanel: this.getTabPanel()",
+                    "});"
+                ]
+            },
+            "designerId": "2ad0c807-3d2c-473e-9f76-764c575551d5"
         }
     ]
 }

@@ -1,0 +1,29 @@
+{
+    "type": "Ext.container.Container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 250,
+        "width": 400,
+        "designer|userClassName": "QueueContainer",
+        "designer|userAlias": "queueContainer"
+    },
+    "designerId": "df67b972-c27c-4da3-84be-191c3504f266",
+    "cn": [
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "text": "My Label"
+            },
+            "designerId": "c89f6a9e-7f73-4bb2-8229-46ea833c07be"
+        }
+    ]
+}

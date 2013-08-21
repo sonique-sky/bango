@@ -23,7 +23,6 @@ Ext.application({
         'Queue'
     ],
     views: [
-        'TabPanel',
         'NavigationPanel',
         'MyQueuesPanel',
         'SearchPanel',

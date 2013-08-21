@@ -169,6 +169,28 @@
                 "app/controller/AppController.js"
             ],
             "className": "AppController"
+        },
+        "df67b972-c27c-4da3-84be-191c3504f266": {
+            "paths": [
+                "metadata/view/QueueContainer",
+                "app/view/override/QueueContainer.js",
+                "app/view/QueueContainer.js"
+            ],
+            "className": "QueueContainer"
+        },
+        "0a3be1c7-d2a5-4770-b95f-631fb09a3da9": {
+            "paths": [
+                "metadata/resource/js"
+            ],
+            "className": "js"
+        },
+        "49af0cf0-c15d-4f28-a135-20a970c9904d": {
+            "paths": [
+                "metadata/controller/QueueController",
+                "app/controller/override/QueueController.js",
+                "app/controller/QueueController.js"
+            ],
+            "className": "QueueController"
         }
     },
     "viewOrderMap": {
@@ -181,7 +203,8 @@
             "407c180d-22c1-4a44-9e38-5b808a89fe98",
             "73836524-4dc8-4269-83ea-20154789abeb",
             "77d7cab5-fde5-4e3f-b22a-cbc0ad0a9796",
-            "993c60e6-a499-4282-aa3a-b333e408538b"
+            "993c60e6-a499-4282-aa3a-b333e408538b",
+            "df67b972-c27c-4da3-84be-191c3504f266"
         ],
         "store": [
             "3a16544a-bc66-4df1-9bf7-29a9f5ca5c11",
@@ -191,7 +214,8 @@
             "bb41357a-c190-4a1c-a116-c831f1714001",
             "21f07f09-dd47-4024-a284-13ef4e152f3d",
             "8eeac2c0-eb6f-48cc-8cc7-cb0598f14380",
-            "6a81fd15-38e0-4fd7-a7b0-7d1124ad7574"
+            "6a81fd15-38e0-4fd7-a7b0-7d1124ad7574",
+            "49af0cf0-c15d-4f28-a135-20a970c9904d"
         ],
         "model": [
             "31598ac0-8ef6-4147-9f24-cdd227a441b2",
@@ -200,7 +224,8 @@
         "resource": [
             "97a980d1-ecd0-421b-85db-1343d9f0e85f",
             "47a590c9-439d-4c05-aa4d-eaff45607006",
-            "59a3fe12-1809-4c15-a29f-56999a94ebe5"
+            "59a3fe12-1809-4c15-a29f-56999a94ebe5",
+            "0a3be1c7-d2a5-4770-b95f-631fb09a3da9"
         ],
         "app": [
             "application"
