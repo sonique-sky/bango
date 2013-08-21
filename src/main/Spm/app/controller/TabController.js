@@ -17,6 +17,13 @@ Ext.define('Spm.controller.TabController', {
     extend: 'Ext.app.Controller',
     alias: 'controller.tabController',
 
+    mixins: [
+        'Spm.mixin.TabHeaderId'
+    ],
+    requires: [
+        'Spm.mixin.TabHeaderId'
+    ],
+
     views: [
         'TabPanel'
     ],
@@ -31,19 +38,17 @@ Ext.define('Spm.controller.TabController', {
     onQueueSelected: function(queue) {
         var tabPanel = this.getTabPanel();
 
-        var tabHeaderId = this.tabHeaderIdFor(queue);
+        var tabHeaderId = this.queueTabHeaderIdFor(queue);
+
         var tabHeader = tabPanel.down('#' + tabHeaderId);
 
         if(!tabHeader) {
-            var tabItem = Ext.create('Spm.view.QueueContainer', {id: tabHeaderId, closable: true, title: queue.get('name')});
-            tabPanel.add(tabItem);
+            var queueController = Ext.create('Spm.controller.QueueController', {queue: queue});
+
+            tabPanel.add(queueController.createQueueContainer());
         }
 
         tabPanel.setActiveTab(tabHeaderId);
-    },
-
-    tabHeaderIdFor: function(queue) {
-        return 'tab-header-queue-'+queue.get('id');
     },
 
     init: function(application) {

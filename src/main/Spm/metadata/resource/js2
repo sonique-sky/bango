@@ -1,0 +1,14 @@
+{
+    "type": "jsresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "js2",
+        "url": "app/mixin/TabHeaderId.js",
+        "id": null
+    },
+    "designerId": "ac6b070b-6a10-4df7-8574-7cd4f89107f5"
+}

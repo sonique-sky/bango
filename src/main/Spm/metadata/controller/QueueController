@@ -6,8 +6,80 @@
     },
     "codeClass": null,
     "userConfig": {
+        "queue": null,
+        "views": [
+            "QueueContainer"
+        ],
         "designer|userClassName": "QueueController",
-        "designer|userAlias": "queueController"
+        "designer|userAlias": "queueController",
+        "mixins": [
+            "[ 'Spm.mixin.TabHeaderId' ]"
+        ],
+        "requires": [
+            "Spm.mixin.TabHeaderId"
+        ]
     },
-    "designerId": "49af0cf0-c15d-4f28-a135-20a970c9904d"
+    "configAlternates": {
+        "queue": "object"
+    },
+    "designerId": "49af0cf0-c15d-4f28-a135-20a970c9904d",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "queue",
+            "type": "string"
+        }
+    ],
+    "cn": [
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getQueue",
+                "implHandler": [
+                    "return this.queue;"
+                ]
+            },
+            "designerId": "f4a16315-26e2-46f5-b6d8-8faa5b0dcb1c"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "createQueueContainer",
+                "implHandler": [
+                    "return getQueueContainerView().create({title : this.queue.get('name'), id: queueTabHeaderIdFor(queue)});"
+                ]
+            },
+            "designerId": "395edf08-61e6-4965-bb68-6f2431c3c7d3"
+        },
+        {
+            "type": "processcfgfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "processQueueController",
+                "designer|params": [
+                    "config"
+                ],
+                "implHandler": [
+                    "this.queue = config.queue;",
+                    "",
+                    "return config;"
+                ]
+            },
+            "designerId": "7b55b691-5d27-49d7-aaa8-6e2f39085235"
+        }
+    ]
 }

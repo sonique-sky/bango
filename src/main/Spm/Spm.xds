@@ -185,6 +185,12 @@
                 "app/controller/TabController.js"
             ],
             "className": "TabController"
+        },
+        "ac6b070b-6a10-4df7-8574-7cd4f89107f5": {
+            "paths": [
+                "metadata/resource/js2"
+            ],
+            "className": "js2"
         }
     },
     "viewOrderMap": {
@@ -218,7 +224,8 @@
         "resource": [
             "97a980d1-ecd0-421b-85db-1343d9f0e85f",
             "47a590c9-439d-4c05-aa4d-eaff45607006",
-            "59a3fe12-1809-4c15-a29f-56999a94ebe5"
+            "59a3fe12-1809-4c15-a29f-56999a94ebe5",
+            "ac6b070b-6a10-4df7-8574-7cd4f89107f5"
         ],
         "app": [
             "application"

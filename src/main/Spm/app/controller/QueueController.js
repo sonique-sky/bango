@@ -15,5 +15,36 @@
 
 Ext.define('Spm.controller.QueueController', {
     extend: 'Ext.app.Controller',
-    alias: 'controller.queueController'
+    alias: 'controller.queueController',
+
+    mixins: [
+        'Spm.mixin.TabHeaderId'
+    ],
+    requires: [
+        'Spm.mixin.TabHeaderId'
+    ],
+
+    views: [
+        'QueueContainer'
+    ],
+
+    constructor: function(cfg) {
+        cfg = cfg || {};
+        this.callParent(this.processQueueController(cfg));
+    },
+
+    processQueueController: function(config) {
+        this.queue = config.queue;
+
+        return config;
+    },
+
+    getQueue: function() {
+        return this.queue;
+    },
+
+    createQueueContainer: function() {
+        return this.getQueueContainerView().create({title : this.queue.get('name'), id: this.queueTabHeaderIdFor(this.queue)});
+    }
+
 });

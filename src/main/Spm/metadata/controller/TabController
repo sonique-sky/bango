@@ -10,7 +10,13 @@
             "TabPanel"
         ],
         "designer|userClassName": "TabController",
-        "designer|userAlias": "tabController"
+        "designer|userAlias": "tabController",
+        "mixins": [
+            "[ 'Spm.mixin.TabHeaderId' ]"
+        ],
+        "requires": [
+            "Spm.mixin.TabHeaderId"
+        ]
     },
     "designerId": "8f056347-d5e4-47d4-a53b-24566e362dac",
     "cn": [
@@ -29,12 +35,14 @@
                 "implHandler": [
                     "var tabPanel = this.getTabPanel();",
                     "",
-                    "var tabHeaderId = this.tabHeaderIdFor(queue);",
+                    "var tabHeaderId = queueTabHeaderIdFor(queue);",
+                    "",
                     "var tabHeader = tabPanel.down('#' + tabHeaderId);",
                     "",
                     "if(!tabHeader) {",
-                    "\tvar tabItem = Ext.create('Spm.view.QueueContainer', {id: tabHeaderId, closable: true, title: queue.get('name')})",
-                    "\ttabPanel.add(tabItem);",
+                    "    var queueController = Ext.create('Spm.controller.QueueController', {queue: queue});",
+                    "",
+                    "    tabPanel.add(queueController.createQueueContainer());",
                     "}",
                     "",
                     "tabPanel.setActiveTab(tabHeaderId);"
@@ -56,24 +64,6 @@
                 "selector": "#tab-panel"
             },
             "designerId": "664df860-c455-45ab-8888-ac724fc53456"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "tabHeaderIdFor",
-                "designer|params": [
-                    "queue"
-                ],
-                "implHandler": [
-                    "return 'tab-header-queue-'+queue.get('id');"
-                ]
-            },
-            "designerId": "249b2f85-6397-4880-b009-d74afa130c43"
         }
     ]
 }
