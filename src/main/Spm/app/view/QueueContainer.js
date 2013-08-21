@@ -28,6 +28,12 @@ Ext.define('Spm.view.QueueContainer', {
                 {
                     xtype: 'label',
                     text: 'My Label'
+                },
+                {
+                    xtype: 'button',
+                    id: 'aButton',
+                    itemId: 'aButton',
+                    text: 'MyButton'
                 }
             ]
         });

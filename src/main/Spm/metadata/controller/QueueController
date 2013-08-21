@@ -59,7 +59,8 @@
                     "return this.getQueueContainerView().create(",
                     "    {",
                     "        id: this.queueTabHeaderIdFor(this.queue),",
-                    "        title : this.queue.get('name')",
+                    "        title : this.queue.get('name'),",
+                    "        closable: true",
                     "    }",
                     ");"
                 ]
@@ -85,6 +86,25 @@
                 ]
             },
             "designerId": "7b55b691-5d27-49d7-aaa8-6e2f39085235"
+        },
+        {
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onButtonClick",
+                "implHandler": [
+                    "console.log(this.queue.get('name'));"
+                ],
+                "name": "click",
+                "scope": "me",
+                "designer|targetType": "Ext.button.Button",
+                "designer|controlQuery": "button#aButton"
+            },
+            "designerId": "04041f30-03fa-4a2f-966a-4877fb704d2e"
         }
     ]
 }

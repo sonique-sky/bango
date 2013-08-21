@@ -24,6 +24,20 @@
                 "text": "My Label"
             },
             "designerId": "c89f6a9e-7f73-4bb2-8229-46ea833c07be"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "aButton",
+                "itemId": "aButton",
+                "text": "MyButton"
+            },
+            "designerId": "0b0e7a08-0491-4ba9-aa11-a41cac22c5b4"
         }
     ]
 }
