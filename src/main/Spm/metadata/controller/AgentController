@@ -10,7 +10,8 @@
             "Agent"
         ],
         "stores": [
-            "AuthenticatedAgent"
+            "AuthenticatedAgent",
+            "QueueStore"
         ],
         "views": [
             "AgentStatusPanel"

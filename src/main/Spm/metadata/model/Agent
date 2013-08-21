@@ -150,21 +150,6 @@
                     "designerId": "5bfb0af8-a63c-49d4-9c77-24aca33a7189"
                 }
             ]
-        },
-        {
-            "type": "Ext.data.association.HasMany",
-            "reference": {
-                "name": "hasMany",
-                "type": "object"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "associationKey": "queues",
-                "model": "Queue",
-                "designer|displayName": "queues",
-                "name": "queues"
-            },
-            "designerId": "fb31a36c-1e68-453d-bc5d-def33e0d8b70"
         }
     ]
 }

@@ -32,14 +32,11 @@ Ext.define('Spm.view.MyQueuesPanel', {
             items: [
                 {
                     xtype: 'dataview',
-                    prepareData: function(data, recordIndex, record) {
-                        console.log(record.getData(true));
-                        console.log(data);
-                        return data;
-                    },
                     id: 'queue-chooser-view',
                     itemTpl: Ext.create('Ext.XTemplate', 
+                        '    {[this.stuff(values)]}',
                         '<tpl for=".">',
+                        '    {[this.stuff(values)]}',
                         '	<div class="queue-wrap" id="queue-{id}">',
                         '		{name}',
                         '	</div>',
@@ -51,13 +48,25 @@ Ext.define('Spm.view.MyQueuesPanel', {
                         }
                     ),
                     overItemCls: 'x-item-selected',
-                    store: 'AuthenticatedAgent',
-                    trackOver: true
+                    store: 'QueueStore',
+                    trackOver: true,
+                    listeners: {
+                        refresh: {
+                            fn: me.foo,
+                            scope: me
+                        }
+                    }
                 }
             ]
         });
 
         me.callParent(arguments);
+    },
+
+    foo: function(dataview, eOpts) {
+        var manager = Ext.data.StoreManager;
+        debugger;
+        console.log('refresh');
     }
 
 });

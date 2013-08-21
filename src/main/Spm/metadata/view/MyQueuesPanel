@@ -29,7 +29,7 @@
                 "disableSelection": null,
                 "itemSelector": null,
                 "overItemCls": "x-item-selected",
-                "store": "AuthenticatedAgent",
+                "store": "QueueStore",
                 "trackOver": true
             },
             "designerId": "23191534-5593-41c9-b765-3eb26d1a4745",
@@ -43,7 +43,9 @@
                     "codeClass": null,
                     "userConfig": {
                         "implHandler": [
+                            "    {[this.stuff(values)]}",
                             "<tpl for=\".\">",
+                            "    {[this.stuff(values)]}",
                             "\t<div class=\"queue-wrap\" id=\"queue-{id}\">",
                             "\t\t{name}",
                             "\t</div>",
@@ -69,31 +71,28 @@
                                     "console.log(stuff);"
                                 ]
                             },
-                            "designerId": "da54d255-f5ae-427f-abf9-63fec6099c75"
+                            "designerId": "e796b20d-4e82-48fe-98cf-8ab7a917271d"
                         }
                     ]
                 },
                 {
-                    "type": "basicfunction",
+                    "type": "basiceventbinding",
                     "reference": {
-                        "name": "items",
+                        "name": "listeners",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fn": "prepareData",
-                        "designer|params": [
-                            "data",
-                            "recordIndex",
-                            "record"
-                        ],
+                        "fn": "foo",
                         "implHandler": [
-                            "console.log(record.getData(true));",
-                            "console.log(data);",
-                            "return data;"
-                        ]
+                            "var manager = Ext.data.StoreManager;",
+                            "debugger;",
+                            "console.log('refresh');"
+                        ],
+                        "name": "refresh",
+                        "scope": "me"
                     },
-                    "designerId": "107cc3f8-f140-4153-8b46-253826a93f40"
+                    "designerId": "489c7719-015f-44db-bae0-32c295c13679"
                 }
             ]
         }

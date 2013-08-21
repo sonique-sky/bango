@@ -30,7 +30,13 @@ Ext.define('Spm.store.AuthenticatedAgent', {
             filterOnLoad: false,
             model: 'Spm.model.Agent',
             sortOnLoad: false,
-            storeId: 'authenticatedAgent'
+            storeId: 'authenticatedAgent',
+            listeners: {
+                load: {
+                    fn: me.onAuthenticatedAgentLoaded,
+                    scope: me
+                }
+            }
         }), cfg)]);
     },
 
@@ -45,6 +51,14 @@ Ext.define('Spm.store.AuthenticatedAgent', {
                 }
             }
         });
+    },
+
+    onAuthenticatedAgentLoaded: function(store, records, successful, eOpts) {
+        var queueStore = Ext.data.StoreManager.lookup('QueueStore');
+
+        var jsonData = store.proxy.reader.jsonData;
+
+        queueStore.loadRawData(jsonData);
     }
 
 });

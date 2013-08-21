@@ -45,6 +45,27 @@
                 ]
             },
             "designerId": "c1ed19fc-677f-4cf0-ab44-f314e10fa67a"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onAuthenticatedAgentLoaded",
+                "implHandler": [
+                    "var queueStore = Ext.data.StoreManager.lookup('QueueStore');",
+                    "",
+                    "var jsonData = store.proxy.reader.jsonData;",
+                    "",
+                    "queueStore.loadRawData(jsonData);"
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "8f69c9f8-4671-4b94-a70a-94107cb9d8a1"
         }
     ]
 }

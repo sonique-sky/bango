@@ -17,10 +17,6 @@ Ext.define('Spm.model.Agent', {
     extend: 'Ext.data.Model',
     alias: 'model.agent',
 
-    uses: [
-        'Spm.model.Queue'
-    ],
-
     fields: [
         {
             name: 'code'
@@ -54,11 +50,5 @@ Ext.define('Spm.model.Agent', {
             },
             name: 'isAvailable'
         }
-    ],
-
-    hasMany: {
-        associationKey: 'queues',
-        model: 'Spm.model.Queue',
-        name: 'queues'
-    }
+    ]
 });
