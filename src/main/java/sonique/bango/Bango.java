@@ -44,7 +44,7 @@ public class Bango {
 
     private Handler extFilesHandler() {
         ResourceHandler extResourceHandler = new ResourceHandler();
-        extResourceHandler.setResourceBase("target/build");
+        extResourceHandler.setResourceBase("src/main/javascript/");
         extResourceHandler.setWelcomeFiles(new String[]{"app.html", "index.html", "superman.html"});
         extResourceHandler.setDirectoriesListed(true);
 
