@@ -84,6 +84,7 @@
         },
         "73836524-4dc8-4269-83ea-20154789abeb": {
             "id": "73836524-4dc8-4269-83ea-20154789abeb",
+            "expanded": false,
             "cn": [
                 {
                     "id": "38ac5e6f-d6ca-4864-9041-850ee2952d32",
@@ -227,7 +228,6 @@
         },
         "bb41357a-c190-4a1c-a116-c831f1714001": {
             "id": "bb41357a-c190-4a1c-a116-c831f1714001",
-            "expanded": false,
             "cn": [
                 {
                     "id": "57c5c7d8-ef8d-4b3b-87aa-21836ac08a3b"
@@ -284,17 +284,28 @@
         },
         "49af0cf0-c15d-4f28-a135-20a970c9904d": {
             "id": "49af0cf0-c15d-4f28-a135-20a970c9904d",
+            "expanded": false,
             "cn": [
                 {
                     "id": "bb29622d-3bed-4005-92ae-80b2c5919569"
                 },
                 {
                     "id": "ebe8f44a-319c-4bdc-b90f-4a743ae21e75"
+                },
+                {
+                    "id": "8fea4ca0-8dc5-46a0-8dd7-fa34d7197927"
+                },
+                {
+                    "id": "0a2cd2bb-1f36-44f1-9075-ab44913a91b2"
+                },
+                {
+                    "id": "28675411-1cee-486c-b7b6-14edb34dd66e"
                 }
             ]
         },
         "8f056347-d5e4-47d4-a53b-24566e362dac": {
             "id": "8f056347-d5e4-47d4-a53b-24566e362dac",
+            "expanded": false,
             "cn": [
                 {
                     "id": "f2a0f0bc-bc90-4b6d-a033-98c9b3c3f364"
@@ -329,11 +340,11 @@
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "49af0cf0-c15d-4f28-a135-20a970c9904d",
-        "selectedInstance": "bb29622d-3bed-4005-92ae-80b2c5919569"
+        "topInstance": "73836524-4dc8-4269-83ea-20154789abeb",
+        "selectedInstance": "73836524-4dc8-4269-83ea-20154789abeb"
     },
     "codeState": {
-        "topInstance": "49af0cf0-c15d-4f28-a135-20a970c9904d"
+        "topInstance": "73836524-4dc8-4269-83ea-20154789abeb"
     },
     "editMode": "code"
 }

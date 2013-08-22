@@ -44,7 +44,7 @@
                     "var items = [];",
                     "var config = {};",
                     "",
-                    "items.push(Ext.widget('queueContainer', {queue: this.queue}));",
+                    "items.push(Ext.widget('queueContainer', {id: this.queueIdThing(), queue: this.queue}));",
                     "",
                     "config.items = items;",
                     "",
@@ -71,10 +71,71 @@
                 "implHandler": [
                     "this.queue = config.queue;",
                     "",
+                    "console.log(this.getApplication());",
+                    "console.log(Spm.application);",
+                    "",
                     "return config;"
                 ]
             },
             "designerId": "ebe8f44a-319c-4bdc-b90f-4a743ae21e75"
+        },
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "init",
+                "designer|params": [
+                    "application"
+                ],
+                "implHandler": [
+                    "console.log(selector);",
+                    "var selector = 'a#foo-'+this.queue.get('id');",
+                    "console.log(selector);",
+                    "this.control({",
+                    "    selector: {",
+                    "                click: this.onButtonClick",
+                    "            }",
+                    "        });"
+                ]
+            },
+            "designerId": "8fea4ca0-8dc5-46a0-8dd7-fa34d7197927"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "queueIdThing",
+                "implHandler": [
+                    "return 'queue-container-' + this.queue.get('id')"
+                ]
+            },
+            "designerId": "0a2cd2bb-1f36-44f1-9075-ab44913a91b2"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onButtonClick",
+                "designer|params": [
+                    "button,e,eOpts"
+                ],
+                "implHandler": [
+                    "console.log(button);"
+                ]
+            },
+            "designerId": "28675411-1cee-486c-b7b6-14edb34dd66e"
         }
     ]
 }

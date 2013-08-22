@@ -36,6 +36,9 @@ Ext.define('Spm.controller.QueueController', {
     processQueueController: function(config) {
         this.queue = config.queue;
 
+        console.log(this.getApplication());
+        console.log(Spm.application);
+
         return config;
     },
 
@@ -43,7 +46,7 @@ Ext.define('Spm.controller.QueueController', {
         var items = [];
         var config = {};
 
-        items.push(Ext.widget('queueContainer', {queue: this.queue}));
+        items.push(Ext.widget('queueContainer', {id: this.queueIdThing(), queue: this.queue}));
 
         config.items = items;
 
@@ -51,6 +54,25 @@ Ext.define('Spm.controller.QueueController', {
         config.title = this.queue.get('name');
 
         return config;
+    },
+
+    init: function(application) {
+        console.log(selector);
+        var selector = 'a#foo-'+this.queue.get('id');
+        console.log(selector);
+        this.control({
+            selector: {
+                click: this.onButtonClick
+            }
+        });
+    },
+
+    queueIdThing: function() {
+        return 'queue-container-' + this.queue.get('id')
+    },
+
+    onButtonClick: function(button,e,eOpts) {
+        console.log(button);
     }
 
 });

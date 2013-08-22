@@ -6,8 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
-        "height": 423,
-        "width": 696,
+        "height": 505,
+        "width": 536,
         "designer|userClassName": "QueueContainer",
         "designer|userAlias": "queueContainer"
     },
@@ -30,6 +30,7 @@
                     "var toolbarConfig = {};",
                     "",
                     "items.push({",
+                    "    id: 'foo-' + config.queue.get('id'),",
                     "    itemId: 'foo-' + config.queue.get('id'),",
                     "    text: config.queue.get('name')",
                     "});",

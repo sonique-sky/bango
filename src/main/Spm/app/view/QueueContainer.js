@@ -17,8 +17,8 @@ Ext.define('Spm.view.QueueContainer', {
     extend: 'Ext.container.Container',
     alias: 'widget.queueContainer',
 
-    height: 423,
-    width: 696,
+    height: 505,
+    width: 536,
 
     initComponent: function() {
         var me = this;
@@ -32,6 +32,7 @@ Ext.define('Spm.view.QueueContainer', {
         var toolbarConfig = {};
 
         items.push({
+            id: 'foo-' + config.queue.get('id'),
             itemId: 'foo-' + config.queue.get('id'),
             text: config.queue.get('name')
         });
