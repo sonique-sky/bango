@@ -17,28 +17,28 @@ Ext.define('Spm.view.QueueContainer', {
     extend: 'Ext.container.Container',
     alias: 'widget.queueContainer',
 
-    height: 250,
-    width: 400,
+    height: 423,
+    width: 696,
 
     initComponent: function() {
         var me = this;
 
-        Ext.applyIf(me, {
-            items: [
-                {
-                    xtype: 'label',
-                    text: 'My Label'
-                },
-                {
-                    xtype: 'button',
-                    id: 'aButton',
-                    itemId: 'aButton',
-                    text: 'MyButton'
-                }
-            ]
+        me.processQueueContainer(me);
+        me.callParent(arguments);
+    },
+
+    processQueueContainer: function(config) {
+        var items = [];
+        var toolbarConfig = {};
+
+        items.push({
+            itemId: 'foo-' + config.queue.get('id'),
+            text: config.queue.get('name')
         });
 
-        me.callParent(arguments);
+        toolbarConfig.items = items;
+
+        config.items = Ext.create('widget.toolbar', toolbarConfig);
     }
 
 });

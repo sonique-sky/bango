@@ -131,13 +131,13 @@
                 "fn": "onStartAuthentication",
                 "implHandler": [
                     "this.getAuthenticatedAgentStore().load(",
-                    "    {",
-                    "        callback : function(records,operation,success){",
-                    "            if(success) {",
-                    "                Spm.application.fireEvent('authenticated', true);",
-                    "            }",
+                    "{",
+                    "    callback : function(records,operation,success){",
+                    "        if(success) {",
+                    "            Spm.application.fireEvent('authenticated', true);",
                     "        }",
-                    "    });"
+                    "    }",
+                    "});"
                 ],
                 "name": "startAuthentication",
                 "scope": "this"

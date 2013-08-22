@@ -39,33 +39,22 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "getQueue",
+                "fn": "tabView",
                 "implHandler": [
-                    "return this.queue;"
+                    "var items = [];",
+                    "var config = {};",
+                    "",
+                    "items.push(Ext.widget('queueContainer', {queue: this.queue}));",
+                    "",
+                    "config.items = items;",
+                    "",
+                    "config.closable = true;",
+                    "config.title = this.queue.get('name');",
+                    "",
+                    "return config;"
                 ]
             },
-            "designerId": "f4a16315-26e2-46f5-b6d8-8faa5b0dcb1c"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "createQueueContainer",
-                "implHandler": [
-                    "return this.getQueueContainerView().create(",
-                    "    {",
-                    "        id: this.queueTabHeaderIdFor(this.queue),",
-                    "        title : this.queue.get('name'),",
-                    "        closable: true",
-                    "    }",
-                    ");"
-                ]
-            },
-            "designerId": "395edf08-61e6-4965-bb68-6f2431c3c7d3"
+            "designerId": "bb29622d-3bed-4005-92ae-80b2c5919569"
         },
         {
             "type": "processcfgfunction",
@@ -85,26 +74,7 @@
                     "return config;"
                 ]
             },
-            "designerId": "7b55b691-5d27-49d7-aaa8-6e2f39085235"
-        },
-        {
-            "type": "controlleraction",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onButtonClick",
-                "implHandler": [
-                    "console.log(this.queue.get('name'));"
-                ],
-                "name": "click",
-                "scope": "me",
-                "designer|targetType": "Ext.button.Button",
-                "designer|controlQuery": "button#aButton"
-            },
-            "designerId": "04041f30-03fa-4a2f-966a-4877fb704d2e"
+            "designerId": "ebe8f44a-319c-4bdc-b90f-4a743ae21e75"
         }
     ]
 }

@@ -39,30 +39,18 @@ Ext.define('Spm.controller.QueueController', {
         return config;
     },
 
-    onButtonClick: function(button, e, eOpts) {
-        console.log(this.queue.get('name'));
-    },
+    tabView: function() {
+        var items = [];
+        var config = {};
 
-    getQueue: function() {
-        return this.queue;
-    },
+        items.push(Ext.widget('queueContainer', {queue: this.queue}));
 
-    createQueueContainer: function() {
-        return this.getQueueContainerView().create(
-        {
-            id: this.queueTabHeaderIdFor(this.queue),
-            title : this.queue.get('name'),
-            closable: true
-        }
-        );
-    },
+        config.items = items;
 
-    init: function(application) {
-        this.control({
-            "button#aButton": {
-                click: this.onButtonClick
-            }
-        });
+        config.closable = true;
+        config.title = this.queue.get('name');
+
+        return config;
     }
 
 });

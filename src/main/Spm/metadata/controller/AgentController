@@ -55,7 +55,7 @@
                     "Ext.Ajax.request({",
                     "    url: 'api/agent/toggleAvailability',",
                     "    success: function(response) {",
-                    "\t\tme.getAuthenticatedAgentStore().loadRawData(response);",
+                    "        me.getAuthenticatedAgentStore().loadRawData(response);",
                     "    }",
                     "});"
                 ],

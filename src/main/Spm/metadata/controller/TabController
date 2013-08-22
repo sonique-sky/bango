@@ -15,7 +15,8 @@
             "[ 'Spm.mixin.TabHeaderId' ]"
         ],
         "requires": [
-            "Spm.mixin.TabHeaderId"
+            "Spm.mixin.TabHeaderId",
+            "Spm.view.QueueContainer"
         ]
     },
     "designerId": "8f056347-d5e4-47d4-a53b-24566e362dac",
@@ -35,17 +36,9 @@
                 "implHandler": [
                     "var tabPanel = this.getTabPanel();",
                     "",
-                    "var tabHeaderId = queueTabHeaderIdFor(queue);",
+                    "var queueController = Ext.create('Spm.controller.QueueController', {queue: queue});",
                     "",
-                    "var tabHeader = tabPanel.down('#' + tabHeaderId);",
-                    "",
-                    "if(!tabHeader) {",
-                    "    var queueController = Ext.create('Spm.controller.QueueController', {queue: queue});",
-                    "",
-                    "    tabPanel.add(queueController.createQueueContainer());",
-                    "}",
-                    "",
-                    "tabPanel.setActiveTab(tabHeaderId);"
+                    "tabPanel.add(queueController.tabView());"
                 ],
                 "name": "queueSelected",
                 "scope": "this"
