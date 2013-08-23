@@ -9,3 +9,4 @@ Test harness for ExtJS project
 * No event handling other than DOM events to be in Views
 * javascript ids to be hyphen-separated not CamelCase
 * Use the stores!
+* Speel Commandments correctly
