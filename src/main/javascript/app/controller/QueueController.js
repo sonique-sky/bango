@@ -43,7 +43,6 @@ Ext.define('Spm.controller.QueueController', {
     },
 
     init: function(application) {
-        console.log(selector);
         var selector = 'a#foo-'+this.queue.get('id');
         console.log(selector);
         this.control({
