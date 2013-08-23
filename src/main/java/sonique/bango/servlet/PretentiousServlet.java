@@ -8,20 +8,23 @@ import java.io.IOException;
 
 public abstract class PretentiousServlet extends HttpServlet {
 
+    protected abstract String myMyMyMyResponse(HttpServletRequest request);
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
-            String json = myMyMyMyResponse(request);
-            response.setStatus(200);
-            response.setContentLength(json.length());
-            response.setContentType("application/json");
-            response.getWriter().write(json);
+            String content = myMyMyMyResponse(request);
+            writeToResponse(response, content, 200);
         } catch (GTFOException e) {
-            response.setStatus(e.status());
+            writeToResponse(response, e.message(), e.status());
         }
     }
 
-    protected abstract String myMyMyMyResponse(HttpServletRequest request);
-
+    private void writeToResponse(HttpServletResponse response, String content, int status) throws IOException {
+        response.setStatus(status);
+        response.setContentLength(content.length());
+        response.setContentType("application/json");
+        response.getWriter().write(content);
+    }
 }
