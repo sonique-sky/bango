@@ -15,9 +15,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.googlecode.utterlyidle</groupId>
-            <artifactId>utterlyidle</artifactId>
-            <version>676</version>
+        	<groupId>com.google.guava</groupId>
+        	<artifactId>guava</artifactId>
+        	<version>14.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
