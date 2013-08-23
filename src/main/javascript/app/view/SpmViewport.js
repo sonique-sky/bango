@@ -11,7 +11,7 @@ Ext.define('Spm.view.SpmViewport', {
         type: 'fit'
     },
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {

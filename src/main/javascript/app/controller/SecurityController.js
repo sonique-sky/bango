@@ -25,50 +25,50 @@ Ext.define('Spm.controller.SecurityController', {
         }
     ],
 
-    onPerformAuthentication: function(credentials) {
+    onPerformAuthentication: function (credentials) {
         Ext.Ajax.request({
             url: 'j_spring_security_check',
             params: credentials,
-            success: function(response) {
+            success: function (response) {
                 Spm.application.fireEvent('authenticated', false);
             }
         });
     },
 
-    onAuthenticated: function(alreadyAuthenticated) {
-        if(!alreadyAuthenticated) {
+    onAuthenticated: function (alreadyAuthenticated) {
+        if (!alreadyAuthenticated) {
             this.getAuthenticatedAgentStore().load();
             this.getLoginWindow().close();
         }
         this.getAppContainer().setVisible(true);
     },
 
-    onAuthenticationRequired: function(response) {
+    onAuthenticationRequired: function (response) {
         this.getAppContainer().setVisible(false);
         Ext.create('Spm.view.LoginWindow').show();
     },
 
-    onStartAuthentication: function() {
+    onStartAuthentication: function () {
         this.getAuthenticatedAgentStore().load(
-        {
-            callback : function(records,operation,success){
-                if(success) {
-                    Spm.application.fireEvent('authenticated', true);
-                }
-            }
-        });
+                {
+                    callback: function (records, operation, success) {
+                        if (success) {
+                            Spm.application.fireEvent('authenticated', true);
+                        }
+                    }
+                });
     },
 
-    onLogout: function() {
+    onLogout: function () {
         Ext.Ajax.request({
             url: 'j_spring_security_logout',
-            success: function(response) {
+            success: function (response) {
                 Spm.application.fireEvent('authenticationRequired');
             }
         });
     },
 
-    init: function(application) {
+    init: function (application) {
         application.on({
             performAuthentication: {
                 fn: this.onPerformAuthentication,

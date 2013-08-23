@@ -15,7 +15,7 @@ Ext.define('Spm.view.NavigationPanel', {
         type: 'vbox'
     },
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {

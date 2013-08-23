@@ -21,18 +21,18 @@ Ext.define('Spm.controller.AgentController', {
         }
     ],
 
-    onToggleAvailability: function() {
+    onToggleAvailability: function () {
         var me = this;
 
         Ext.Ajax.request({
             url: 'api/agent/toggleAvailability',
-            success: function(response) {
+            success: function (response) {
                 me.getAuthenticatedAgentStore().loadRawData(response);
             }
         });
     },
 
-    init: function(application) {
+    init: function (application) {
         application.on({
             toggleAvailability: {
                 fn: this.onToggleAvailability,

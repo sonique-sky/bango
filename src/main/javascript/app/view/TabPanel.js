@@ -4,7 +4,7 @@ Ext.define('Spm.view.TabPanel', {
 
     id: 'tab-panel',
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         me.callParent(arguments);

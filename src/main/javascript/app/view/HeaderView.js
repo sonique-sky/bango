@@ -7,7 +7,7 @@ Ext.define('Spm.view.HeaderView', {
     itemSelector: 'span#login-name',
     store: 'AuthenticatedAgent',
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {
@@ -30,7 +30,7 @@ Ext.define('Spm.view.HeaderView', {
         me.callParent(arguments);
     },
 
-    onLogoutClick: function(dataview) {
+    onLogoutClick: function (dataview) {
         Spm.application.fireEvent('logout');
     }
 

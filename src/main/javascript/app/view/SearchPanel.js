@@ -5,7 +5,7 @@ Ext.define('Spm.view.SearchPanel', {
     cls: 'search-panel',
     title: 'Search',
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         me.callParent(arguments);

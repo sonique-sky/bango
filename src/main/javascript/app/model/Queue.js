@@ -9,5 +9,13 @@ Ext.define('Spm.model.Queue', {
         {
             name: 'name'
         }
-    ]
+    ],
+
+    queueId: function() {
+        return this.get('id');
+    },
+
+    queueName: function() {
+        return this.get('name');
+    }
 });

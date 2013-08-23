@@ -7,7 +7,7 @@ Ext.define('Spm.store.AuthenticatedAgent', {
         'Spm.model.Agent'
     ],
 
-    constructor: function(cfg) {
+    constructor: function (cfg) {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply(me.processAuthenticatedAgent({
@@ -25,7 +25,7 @@ Ext.define('Spm.store.AuthenticatedAgent', {
         }), cfg)]);
     },
 
-    processAuthenticatedAgent: function(config) {
+    processAuthenticatedAgent: function (config) {
         return Ext.applyIf(config, {
             proxy: {
                 type: 'spmAjaxProxy',
@@ -38,7 +38,7 @@ Ext.define('Spm.store.AuthenticatedAgent', {
         });
     },
 
-    onAuthenticatedAgentLoaded: function(store, records, successful, eOpts) {
+    onAuthenticatedAgentLoaded: function (store, records, successful, eOpts) {
         var queueStore = Ext.data.StoreManager.lookup('QueueStore');
 
         queueStore.loadRawData(store.proxy.reader.jsonData);

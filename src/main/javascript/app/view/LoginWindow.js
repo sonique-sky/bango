@@ -13,7 +13,7 @@ Ext.define('Spm.view.LoginWindow', {
     defaultFocus: 'usernameField',
     modal: true,
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {

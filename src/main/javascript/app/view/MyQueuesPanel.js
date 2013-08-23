@@ -10,7 +10,7 @@ Ext.define('Spm.view.MyQueuesPanel', {
     collapsible: true,
     title: 'My Queues',
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {
@@ -45,7 +45,7 @@ Ext.define('Spm.view.MyQueuesPanel', {
         me.callParent(arguments);
     },
 
-    onQueueSelect: function(dataviewmodel, record, eOpts) {
+    onQueueSelect: function (dataviewmodel, record, eOpts) {
         Spm.application.fireEvent('queueSelected', record);
     }
 

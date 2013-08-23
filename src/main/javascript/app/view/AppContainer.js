@@ -14,7 +14,7 @@ Ext.define('Spm.view.AppContainer', {
         type: 'border'
     },
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {

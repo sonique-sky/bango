@@ -34,11 +34,11 @@ Ext.application({
         'AgentController',
         'LoginController',
         'SecurityController',
-        'TabController'
+        'QueueTab'
     ],
     name: 'Spm',
 
-    launch: function() {
+    launch: function () {
         Spm.application = this;
         this.addEvents('startAuthentication');
         this.fireEvent('startAuthentication');

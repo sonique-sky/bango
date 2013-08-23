@@ -1,18 +1,18 @@
-Ext.define('Spm.view.QueueContainer', {
+Ext.define('Spm.view.QueueTabContent', {
     extend: 'Ext.container.Container',
-    alias: 'widget.queueContainer',
+    alias: 'widget.queueTabContent',
 
     height: 505,
     width: 536,
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         me.processQueueContainer(me);
         me.callParent(arguments);
     },
 
-    processQueueContainer: function(config) {
+    processQueueContainer: function (config) {
         var items = [];
         var toolbarConfig = {};
 
