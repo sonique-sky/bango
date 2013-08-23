@@ -5,26 +5,30 @@ Ext.define('Spm.view.QueueTabContent', {
     height: 505,
     width: 536,
 
+    config: {
+        queue: {}
+    },
+
     initComponent: function () {
         var me = this;
 
-        me.processQueueContainer(me);
-        me.callParent(arguments);
-    },
+        var queue = me.queue;
 
-    processQueueContainer: function (config) {
-        var items = [];
-        var toolbarConfig = {};
-
-        items.push({
-            id: 'foo-' + config.queue.get('id'),
-            itemId: 'foo-' + config.queue.get('id'),
-            text: config.queue.get('name')
+        Ext.applyIf(me, {
+            items: [
+                {
+                    xtype: 'toolbar',
+                    items: [
+                        {
+                            xtype: 'button',
+                            id: 'bulk-clear-' + queue.queueId(),
+                            text: 'Bulk Clear'
+                        }
+                    ]
+                }
+            ]
         });
 
-        toolbarConfig.items = items;
-
-        config.items = Ext.create('widget.toolbar', toolbarConfig);
+        me.callParent(arguments);
     }
-
 });

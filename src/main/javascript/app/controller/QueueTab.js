@@ -30,6 +30,10 @@ Ext.define('Spm.controller.QueueTab', {
         me.callParent(config);
     },
 
+    onQueueTabDestroyed: function(queueTab) {
+        this.activeQueueTabs.removeAtKey(queueTab.getQueue().queueId());
+    },
+
     onQueueSelected: function (queue) {
         var tabPanel = this.getTabPanel();
 
@@ -50,17 +54,25 @@ Ext.define('Spm.controller.QueueTab', {
                 scope: this
             }
         });
+        this.control();
     },
 
     createQueueTabConfigFor: function (queue) {
+        var me = this;
         return {
             closable: true,
             title: queue.queueName(),
             id: this.idFor(queue),
-            items: {
+            items: [{
                 queue: queue,
-                xtype: 'queueTabContent'
-            }
+                xtype: 'queueTabContent',
+                listeners: {
+                    destroy: {
+                        fn: me.onQueueTabDestroyed,
+                        scope: me
+                    }
+                }
+            }]
         };
     },
 

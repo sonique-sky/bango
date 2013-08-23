@@ -3,7 +3,6 @@ Ext.define('Spm.view.AppContainer', {
     alias: 'widget.appContainer',
 
     requires: [
-        'Spm.view.TabPanel',
         'Spm.view.NavigationPanel',
         'Spm.view.HeaderView'
     ],
@@ -20,8 +19,9 @@ Ext.define('Spm.view.AppContainer', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'tabPanel',
-                    region: 'center'
+                    xtype: 'tabpanel',
+                    region: 'center',
+                    id: 'tab-panel'
                 },
                 {
                     xtype: 'navigationPanel',
