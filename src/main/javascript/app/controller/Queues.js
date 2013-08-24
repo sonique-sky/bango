@@ -1,7 +1,6 @@
-Ext.define('Spm.controller.QueueTab', {
-
+Ext.define('Spm.controller.Queues', {
     extend: 'Ext.app.Controller',
-    alias: 'controller.queueTab',
+    alias: 'controller.queues',
 
     mixins: [
         'Spm.mixin.TabHeaderId'
@@ -27,16 +26,34 @@ Ext.define('Spm.controller.QueueTab', {
 
         me.activeQueueTabs = new Ext.util.MixedCollection();
 
-        me.callParent(config);
+        me.callParent([config]);
     },
 
-    onQueueTabDestroyed: function(queueTab) {
+    init: function (application) {
+        application.on({
+            queueSelected: {
+                fn: this.onQueueSelected,
+                scope: this
+            }
+        });
+        this.control({
+                    "button[id^=bulk-clear]": {
+                        click: this.onBulkClear
+                    }
+                }
+        )
+    },
+
+    onBulkClear: function (bulkClearButton) {
+        console.log(bulkClearButton.up('queueTabContent').getQueue());
+    },
+
+    onQueueTabDestroyed: function (queueTab) {
         this.activeQueueTabs.removeAtKey(queueTab.getQueue().queueId());
     },
 
     onQueueSelected: function (queue) {
         var tabPanel = this.getTabPanel();
-
         var queueTab = this.activeQueueTabs.getByKey(queue.queueId());
         if (!queueTab) {
             queueTab = this.createQueueTabConfigFor(queue);
@@ -47,44 +64,27 @@ Ext.define('Spm.controller.QueueTab', {
         tabPanel.setActiveTab(this.idFor(queue));
     },
 
-    init: function (application) {
-        application.on({
-            queueSelected: {
-                fn: this.onQueueSelected,
-                scope: this
-            }
-        });
-        this.control();
-    },
-
     createQueueTabConfigFor: function (queue) {
         var me = this;
         return {
             closable: true,
             title: queue.queueName(),
             id: this.idFor(queue),
-            items: [{
-                queue: queue,
-                xtype: 'queueTabContent',
-                listeners: {
-                    destroy: {
-                        fn: me.onQueueTabDestroyed,
-                        scope: me
+            items: [
+                {
+                    id: this.idFor(queue),
+                    queue: queue,
+                    xtype: 'queueTabContent',
+                    listeners: {
+                        destroy: {
+                            fn: me.onQueueTabDestroyed,
+                            scope: me
+                        }
                     }
                 }
-            }]
+            ]
         };
     },
-
-//    init: function (application) {
-//        var selector = 'a#foo-' + this.getQueue().get('id');
-//        console.log(selector);
-//        this.control({
-//            selector: {
-//                click: this.onButtonClick
-//            }
-//        });
-//    },
 
     idFor: function (queue) {
         return 'queue-tab-' + queue.queueId();

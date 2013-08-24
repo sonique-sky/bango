@@ -1,4 +1,4 @@
-Ext.define('Spm.store.AuthenticatedAgent', {
+ Ext.define('Spm.store.AuthenticatedAgent', {
     extend: 'Ext.data.Store',
     alias: 'store.authenticatedAgent',
 
