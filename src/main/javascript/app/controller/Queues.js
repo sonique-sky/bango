@@ -36,12 +36,14 @@ Ext.define('Spm.controller.Queues', {
                 scope: this
             }
         });
-        this.control({
-                    "button[id^=bulk-clear]": {
-                        click: this.onBulkClear
-                    }
+
+        this.listen({
+            component: {
+                "button[id^=bulk-clear]": {
+                    click: this.onBulkClear
                 }
-        )
+            }
+        });
     },
 
     onBulkClear: function (bulkClearButton) {
@@ -72,7 +74,6 @@ Ext.define('Spm.controller.Queues', {
             id: this.idFor(queue),
             items: [
                 {
-                    id: this.idFor(queue),
                     queue: queue,
                     xtype: 'queueTabContent',
                     listeners: {
@@ -88,10 +89,5 @@ Ext.define('Spm.controller.Queues', {
 
     idFor: function (queue) {
         return 'queue-tab-' + queue.queueId();
-    },
-
-    onButtonClick: function (button, e, eOpts) {
-        console.log(button);
     }
-
 });

@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/ext/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/Spm" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/javascript/build" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/javascript/sass/example" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
