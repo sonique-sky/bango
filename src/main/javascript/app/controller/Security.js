@@ -69,6 +69,14 @@ Ext.define('Spm.controller.Security', {
     },
 
     init: function (application) {
+        this.listen({
+            controller: {
+                '#Errors' : {
+                    authenticationRequired: this.onAuthenticationRequired
+                }
+            }
+        });
+
         application.on({
             performAuthentication: {
                 fn: this.onPerformAuthentication,

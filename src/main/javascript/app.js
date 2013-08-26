@@ -31,6 +31,7 @@ Ext.application({
     ],
     autoCreateViewport: true,
     controllers: [
+        'Errors',
         'MyQueues',
         'MyStatus',
         'Login',

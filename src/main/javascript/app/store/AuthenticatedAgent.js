@@ -3,39 +3,32 @@
     alias: 'store.authenticatedAgent',
 
     requires: [
-        'Spm.proxy.SpmAjaxProxy',
         'Spm.model.Agent'
     ],
 
     constructor: function (cfg) {
         var me = this;
         cfg = cfg || {};
-        me.callParent([Ext.apply(me.processAuthenticatedAgent({
+        me.callParent([Ext.apply({
             autoLoad: false,
             filterOnLoad: false,
             model: 'Spm.model.Agent',
             sortOnLoad: false,
-            storeId: 'authenticatedAgent',
+            proxy: {
+                type: 'ajax',
+                url: 'api/agent/authenticatedAgent',
+                reader: {
+                    type: 'json',
+                    root: 'agent'
+                }
+            },
             listeners: {
                 load: {
                     fn: me.onAuthenticatedAgentLoaded,
                     scope: me
                 }
             }
-        }), cfg)]);
-    },
-
-    processAuthenticatedAgent: function (config) {
-        return Ext.applyIf(config, {
-            proxy: {
-                type: 'spmAjaxProxy',
-                url: 'api/agent/authenticatedAgent',
-                reader: {
-                    type: 'json',
-                    root: 'agent'
-                }
-            }
-        });
+        }, cfg)]);
     },
 
     onAuthenticatedAgentLoaded: function (store, records, successful, eOpts) {
