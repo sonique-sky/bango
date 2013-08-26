@@ -16,6 +16,7 @@ Ext.define('Spm.view.MyQueuesPanel', {
         Ext.applyIf(me, {
             items: [
                 {
+                    id: 'my-queues-view',
                     xtype: 'dataview',
                     cls: 'my-queues',
                     tpl: [
@@ -31,22 +32,11 @@ Ext.define('Spm.view.MyQueuesPanel', {
                     itemSelector: 'li.queue-wrap',
                     overItemCls: 'x-item-over',
                     store: 'QueueStore',
-                    trackOver: true,
-                    listeners: {
-                        select: {
-                            fn: me.onQueueSelect,
-                            scope: me
-                        }
-                    }
+                    trackOver: true
                 }
             ]
         });
 
         me.callParent(arguments);
-    },
-
-    onQueueSelect: function (dataviewmodel, record, eOpts) {
-        Spm.application.fireEvent('queueSelected', record);
     }
-
 });

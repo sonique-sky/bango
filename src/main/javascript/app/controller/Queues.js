@@ -2,14 +2,6 @@ Ext.define('Spm.controller.Queues', {
     extend: 'Ext.app.Controller',
     alias: 'controller.queues',
 
-    mixins: [
-        'Spm.mixin.TabHeaderId'
-    ],
-
-    requires: [
-        'Spm.mixin.TabHeaderId'
-    ],
-
     views: [
         'QueueTabContent'
     ],
@@ -29,15 +21,13 @@ Ext.define('Spm.controller.Queues', {
         me.callParent([config]);
     },
 
-    init: function (application) {
-        application.on({
-            queueSelected: {
-                fn: this.onQueueSelected,
-                scope: this
-            }
-        });
-
+    init: function () {
         this.listen({
+            controller: {
+                '#MyQueues' : {
+                    queueSelected: this.onQueueSelected
+                }
+            },
             component: {
                 "button[id^=bulk-clear]": {
                     click: this.onBulkClear

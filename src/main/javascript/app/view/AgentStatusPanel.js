@@ -61,9 +61,10 @@ Ext.define('Spm.view.AgentStatusPanel', {
         me.callParent(arguments);
     },
 
-    renderToggleButton: function (dataview, eOpts) {
+    renderToggleButton: function (dataview) {
         if (!dataview.getStore().isLoading()) {
-            Ext.create('Ext.button.Button', {
+            Ext.destroy(this.toggleButton);
+            this.toggleButton = Ext.create('Ext.button.Button', {
                 renderTo: 'toggle-button-wrapper',
                 text: 'Toggle Availability',
                 width: '100%',

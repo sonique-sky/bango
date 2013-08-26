@@ -31,6 +31,7 @@ Ext.application({
     ],
     autoCreateViewport: true,
     controllers: [
+        'MyQueues',
         'AgentController',
         'LoginController',
         'SecurityController',
