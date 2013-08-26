@@ -31,9 +31,23 @@ Ext.define('Spm.controller.Queues', {
             component: {
                 "button[id^=bulk-clear]": {
                     click: this.onBulkClear
+                },
+                "#tab-panel": {
+                    tabchange: this.onTabChange
+                },
+                "queueTabContent": {
+                    destroy: this.onQueueTabDestroyed
                 }
             }
         });
+    },
+
+    onTabChange: function(tabPanel, selectedPanel) {
+        if(this.isAQueueTab(selectedPanel)) {
+            this.fireEvent('queueTabSelected', selectedPanel.down('queueTabContent'));
+        } else {
+            this.fireEvent('queueTabDeselected');
+        }
     },
 
     onBulkClear: function (bulkClearButton) {
@@ -57,7 +71,6 @@ Ext.define('Spm.controller.Queues', {
     },
 
     createQueueTabConfigFor: function (queue) {
-        var me = this;
         return {
             closable: true,
             title: queue.queueName(),
@@ -65,13 +78,7 @@ Ext.define('Spm.controller.Queues', {
             items: [
                 {
                     queue: queue,
-                    xtype: 'queueTabContent',
-                    listeners: {
-                        destroy: {
-                            fn: me.onQueueTabDestroyed,
-                            scope: me
-                        }
-                    }
+                    xtype: 'queueTabContent'
                 }
             ]
         };
@@ -79,5 +86,9 @@ Ext.define('Spm.controller.Queues', {
 
     idFor: function (queue) {
         return 'queue-tab-' + queue.queueId();
+    },
+
+    isAQueueTab: function(tab) {
+        return tab.id.indexOf('queue-tab') == 0;
     }
 });

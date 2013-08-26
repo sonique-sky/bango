@@ -1,6 +1,6 @@
-Ext.define('Spm.store.QueueStore', {
+Ext.define('Spm.store.AgentQueues', {
     extend: 'Ext.data.Store',
-    alias: 'store.queueStore',
+    alias: 'store.agentQueues',
 
     requires: [
         'Spm.model.Queue'
@@ -12,7 +12,6 @@ Ext.define('Spm.store.QueueStore', {
         me.callParent([Ext.apply({
             model: 'Spm.model.Queue',
             sortOnLoad: false,
-            storeId: 'queueStore',
             proxy: {
                 type: 'memory',
                 reader: {

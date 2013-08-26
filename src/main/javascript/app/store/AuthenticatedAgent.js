@@ -39,7 +39,7 @@
     },
 
     onAuthenticatedAgentLoaded: function (store, records, successful, eOpts) {
-        var queueStore = Ext.data.StoreManager.lookup('QueueStore');
+        var queueStore = Ext.data.StoreManager.lookup('AgentQueues');
 
         queueStore.loadRawData(store.proxy.reader.jsonData);
     }

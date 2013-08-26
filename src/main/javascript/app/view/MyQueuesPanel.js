@@ -31,7 +31,7 @@ Ext.define('Spm.view.MyQueuesPanel', {
                     ],
                     itemSelector: 'li.queue-wrap',
                     overItemCls: 'x-item-over',
-                    store: 'QueueStore',
+                    store: 'AgentQueues',
                     trackOver: true
                 }
             ]

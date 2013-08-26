@@ -7,7 +7,7 @@ Ext.define('Spm.controller.AgentController', {
     ],
     stores: [
         'AuthenticatedAgent',
-        'QueueStore'
+        'AgentQueues'
     ],
     views: [
         'AgentStatusPanel'

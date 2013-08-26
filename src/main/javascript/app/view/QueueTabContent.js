@@ -6,7 +6,7 @@ Ext.define('Spm.view.QueueTabContent', {
     width: 536,
 
     config: {
-        queue: undefined,
+        queue: undefined
     },
 
     initComponent: function () {
