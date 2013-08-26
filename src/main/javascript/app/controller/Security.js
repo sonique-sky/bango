@@ -1,6 +1,6 @@
-Ext.define('Spm.controller.SecurityController', {
+Ext.define('Spm.controller.Security', {
     extend: 'Ext.app.Controller',
-    alias: 'controller.securityController',
+    alias: 'controller.security',
 
     models: [
         'Agent'

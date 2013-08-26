@@ -1,6 +1,6 @@
-Ext.define('Spm.controller.LoginController', {
+Ext.define('Spm.controller.Login', {
     extend: 'Ext.app.Controller',
-    alias: 'controller.loginController',
+    alias: 'controller.login',
 
     onSpecialKey: function (field, e, eOpts) {
         if (e.getKey() == e.ENTER) {

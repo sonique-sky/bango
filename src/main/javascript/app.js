@@ -32,9 +32,9 @@ Ext.application({
     autoCreateViewport: true,
     controllers: [
         'MyQueues',
-        'AgentController',
-        'LoginController',
-        'SecurityController',
+        'MyStatus',
+        'Login',
+        'Security',
         'Queues'
     ],
     name: 'Spm',

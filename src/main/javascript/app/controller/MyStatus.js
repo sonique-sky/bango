@@ -1,6 +1,6 @@
-Ext.define('Spm.controller.AgentController', {
+Ext.define('Spm.controller.MyStatus', {
     extend: 'Ext.app.Controller',
-    alias: 'controller.agentController',
+    alias: 'controller.myStatus',
 
     models: [
         'Agent'
