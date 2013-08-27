@@ -75,6 +75,7 @@ Ext.define('Spm.controller.Queues', {
             closable: true,
             title: queue.queueName(),
             id: this.idFor(queue),
+            iconCls: 'icon-queue',
             items: [
                 {
                     queue: queue,
