@@ -19,7 +19,7 @@ Ext.define('Spm.controller.Login', {
 
     doLogin: function (form) {
         if (form.isValid()) {
-            Spm.application.fireEvent('performAuthentication', {'username': form.findField('username').getValue(), 'password': form.findField('password').getValue()});
+            this.fireEvent('performAuthentication', {'username': form.findField('username').getValue(), 'password': form.findField('password').getValue()});
         }
     },
 

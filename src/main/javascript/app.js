@@ -42,8 +42,8 @@ Ext.application({
 
     launch: function () {
         Spm.application = this;
-        this.addEvents('startAuthentication');
-        this.fireEvent('startAuthentication');
+//        this.addEvents('startAuthentication');
+//        this.fireEvent('startAuthentication');
     }
 
 });

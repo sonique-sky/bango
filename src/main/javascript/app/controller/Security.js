@@ -26,11 +26,12 @@ Ext.define('Spm.controller.Security', {
     ],
 
     onPerformAuthentication: function (credentials) {
+        var me = this;
         Ext.Ajax.request({
             url: 'j_spring_security_check',
             params: credentials,
             success: function (response) {
-                Spm.application.fireEvent('authenticated', false);
+                me.onAuthenticated(false);
             }
         });
     },
@@ -48,12 +49,13 @@ Ext.define('Spm.controller.Security', {
         Ext.create('Spm.view.LoginWindow').show();
     },
 
-    onStartAuthentication: function () {
+    startAuthentication: function () {
+        var me = this;
         this.getAuthenticatedAgentStore().load(
                 {
                     callback: function (records, operation, success) {
                         if (success) {
-                            Spm.application.fireEvent('authenticated', true);
+                            me.onAuthenticated(true);
                         }
                     }
                 });
@@ -73,32 +75,22 @@ Ext.define('Spm.controller.Security', {
             controller: {
                 '#Errors' : {
                     authenticationRequired: this.onAuthenticationRequired
+                },
+                '#Login' : {
+                    performAuthentication: this.onPerformAuthentication
                 }
             }
         });
 
         application.on({
-            performAuthentication: {
-                fn: this.onPerformAuthentication,
-                scope: this
-            },
-            authenticated: {
-                fn: this.onAuthenticated,
-                scope: this
-            },
-            authenticationRequired: {
-                fn: this.onAuthenticationRequired,
-                scope: this
-            },
-            startAuthentication: {
-                fn: this.onStartAuthentication,
-                scope: this
-            },
             logout: {
                 fn: this.onLogout,
                 scope: this
             }
         });
-    }
+    },
 
+    onLaunch: function() {
+        this.startAuthentication();
+    }
 });
