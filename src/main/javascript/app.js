@@ -38,12 +38,5 @@ Ext.application({
         'Security',
         'Queues'
     ],
-    name: 'Spm',
-
-    launch: function () {
-        Spm.application = this;
-//        this.addEvents('startAuthentication');
-//        this.fireEvent('startAuthentication');
-    }
-
+    name: 'Spm'
 });

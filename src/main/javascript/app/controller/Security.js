@@ -9,7 +9,8 @@ Ext.define('Spm.controller.Security', {
         'AuthenticatedAgent'
     ],
     views: [
-        'SpmViewport'
+        'SpmViewport',
+        'HeaderView'
     ],
 
     refs: [
@@ -44,7 +45,7 @@ Ext.define('Spm.controller.Security', {
         this.getAppContainer().setVisible(true);
     },
 
-    onAuthenticationRequired: function (response) {
+    onAuthenticationRequired: function () {
         this.getAppContainer().setVisible(false);
         Ext.create('Spm.view.LoginWindow').show();
     },
@@ -62,35 +63,34 @@ Ext.define('Spm.controller.Security', {
     },
 
     onLogout: function () {
+        var me = this;
         Ext.Ajax.request({
             url: 'j_spring_security_logout',
-            success: function (response) {
-                Spm.application.fireEvent('authenticationRequired');
+            success: function () {
+                me.onAuthenticationRequired();
             }
         });
     },
 
-    init: function (application) {
+    init: function () {
         this.listen({
             controller: {
-                '#Errors' : {
+                '#Errors': {
                     authenticationRequired: this.onAuthenticationRequired
                 },
-                '#Login' : {
+                '#Login': {
                     performAuthentication: this.onPerformAuthentication
+                }
+            },
+            component: {
+                'headerView': {
+                    logout: this.onLogout
                 }
             }
         });
-
-        application.on({
-            logout: {
-                fn: this.onLogout,
-                scope: this
-            }
-        });
     },
 
-    onLaunch: function() {
+    onLaunch: function () {
         this.startAuthentication();
     }
 });

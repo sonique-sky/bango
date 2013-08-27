@@ -30,8 +30,7 @@ Ext.define('Spm.view.HeaderView', {
         me.callParent(arguments);
     },
 
-    onLogoutClick: function (dataview) {
-        Spm.application.fireEvent('logout');
+    onLogoutClick: function () {
+        this.fireEvent('logout');
     }
-
 });

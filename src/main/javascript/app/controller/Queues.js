@@ -29,13 +29,13 @@ Ext.define('Spm.controller.Queues', {
                 }
             },
             component: {
-                "button[id^=bulk-clear]": {
+                'button[id^=bulk-clear]': {
                     click: this.onBulkClear
                 },
-                "#tab-panel": {
+                '#tab-panel': {
                     tabchange: this.onTabChange
                 },
-                "queueTabContent": {
+                'queueTabContent': {
                     destroy: this.onQueueTabDestroyed
                 }
             }
