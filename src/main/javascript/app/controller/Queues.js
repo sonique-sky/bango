@@ -16,7 +16,7 @@ Ext.define('Spm.controller.Queues', {
     constructor: function (config) {
         var me = this;
 
-        me.activeQueueTabs = new Ext.util.MixedCollection();
+        me.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
 
         me.callParent([config]);
     },
