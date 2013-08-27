@@ -36,7 +36,9 @@ Ext.define('Spm.controller.Queues', {
                     tabchange: this.onTabChange
                 },
                 'queueTabContent': {
-                    destroy: this.onQueueTabDestroyed
+                    destroy: this.onQueueTabDestroyed,
+                    added: this.onQueueTabRendered
+
                 }
             }
         });
@@ -52,6 +54,10 @@ Ext.define('Spm.controller.Queues', {
 
     onBulkClear: function (bulkClearButton) {
         console.log(bulkClearButton.up('queueTabContent').getQueue());
+    },
+
+    onQueueTabRendered: function(queueTab) {
+        queueTab.getStore().load({extraParams: {queueid: queueTab.getQueue().queueId()}})
     },
 
     onQueueTabDestroyed: function (queueTab) {
@@ -78,6 +84,7 @@ Ext.define('Spm.controller.Queues', {
             iconCls: 'icon-queue',
             items: [
                 {
+                    store: Ext.create('Spm.store.ServiceProblems'),
                     queue: queue,
                     xtype: 'queueTabContent'
                 }

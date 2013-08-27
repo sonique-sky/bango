@@ -1,5 +1,9 @@
 package sonique.bango;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonMethod;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -7,9 +11,10 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import sonique.bango.domain.Agent;
 import sonique.bango.servlet.AgentApiServlet;
+import sonique.bango.servlet.QueueApiServlet;
 import sonique.bango.store.AgentStore;
+import sonique.bango.store.ServiceProblemStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,23 +22,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static org.codehaus.jackson.annotate.JsonAutoDetect.Visibility.*;
+import static org.codehaus.jackson.annotate.JsonMethod.*;
+import static org.codehaus.jackson.map.SerializationConfig.Feature.*;
 import static org.eclipse.jetty.servlet.ServletContextHandler.SESSIONS;
 
 public class Bango {
 
     private final Server server;
     private final AgentStore agentStore = new AgentStore();
+    private final ServiceProblemStore serviceProblemStore = new ServiceProblemStore();
+    private final ObjectMapper objectMapper;
 
     public static void main(String[] args) throws Exception {
         new Bango().start();
     }
 
     private Bango() {
+        objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(FIELD, ANY);
+//        objectMapper.configure(WRAP_ROOT_VALUE, true);
+
         server = new Server(8080);
         ServletContextHandler contextHandler = new ServletContextHandler(SESSIONS);
         contextHandler.setContextPath("/superman");
 
         agentApiHandler(contextHandler);
+        queueApiHandler(contextHandler);
         loginHandler(contextHandler);
         logoutHandler(contextHandler);
         Handler extHandler = extFilesHandler();
@@ -55,8 +70,13 @@ public class Bango {
     }
 
     private void agentApiHandler(ServletContextHandler contextHandler) {
-        ServletHolder servletHolder = new ServletHolder(new AgentApiServlet(agentStore));
+        ServletHolder servletHolder = new ServletHolder(new AgentApiServlet(agentStore, objectMapper));
         contextHandler.addServlet(servletHolder, "/api/agent/*");
+    }
+
+    private void queueApiHandler(ServletContextHandler contextHandler) {
+        ServletHolder servletHolder = new ServletHolder(new QueueApiServlet(serviceProblemStore, objectMapper));
+        contextHandler.addServlet(servletHolder, "/api/queue/*");
     }
 
     private void loginHandler(ServletContextHandler contextHandler) {
@@ -64,7 +84,7 @@ public class Bango {
             @Override
             protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
                 String sessionId = request.getSession().getId();
-                agentStore.login(sessionId, new Agent());
+                agentStore.login(sessionId, request.getParameter("username").toUpperCase());
             }
         });
         contextHandler.addServlet(servletHolder, "/j_spring_security_check");

@@ -8,9 +8,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/app" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/sass/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/ext/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/ext/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/Spm" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/javascript/build" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/javascript/sass/example" />
@@ -31,6 +31,9 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-client:8.1.8.v20121106" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-webapp:8.1.8.v20121106" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-xml:8.1.8.v20121106" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.9" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />
   </component>
 </module>
 

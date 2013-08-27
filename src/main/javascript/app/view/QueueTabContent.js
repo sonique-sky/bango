@@ -3,8 +3,13 @@ Ext.define('Spm.view.QueueTabContent', {
     alias: 'widget.queueTabContent',
 
     config: {
-        queue: undefined
+        queue: undefined,
+        store: undefined
     },
+
+    height: 700,
+    width: 700,
+    layout: 'border',
 
     initComponent: function () {
         var me = this;
@@ -13,6 +18,7 @@ Ext.define('Spm.view.QueueTabContent', {
             items: [
                 {
                     xtype: 'toolbar',
+                    region: 'north',
                     items: [
                         {
                             xtype: 'button',
@@ -21,9 +27,27 @@ Ext.define('Spm.view.QueueTabContent', {
                         }
                     ]
                 }
+                ,
+                {
+                    xtype: 'gridpanel',
+                    region: 'center',
+                    store: me.store,
+                    columns: [
+                        {text: 'Service Problem Id', dataIndex: 'serviceProblemId'},
+                        {text: 'Status', dataIndex: 'status'},
+                        {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: this.rendy}
+                    ]
+                }
             ]
         });
 
         me.callParent(arguments);
+    },
+
+    rendy: function (value, metaData, record, rowIndex, colIndex, store, view) {
+        console.log(store);
+        var first = store.first();
+        console.log(first);
+        console.log(first.workItem());
     }
 });

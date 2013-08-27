@@ -18,8 +18,7 @@
                 type: 'ajax',
                 url: 'api/agent/authenticatedAgent',
                 reader: {
-                    type: 'json',
-                    root: 'agent'
+                    type: 'json'
                 }
             },
             listeners: {
