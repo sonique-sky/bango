@@ -10,7 +10,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 public class QueueStore {
 
-    private static final List<Queue> allQueues = newArrayList(
+    private final List<Queue> allQueues = newArrayList(
             new Queue(1, "Queue 1"),
             new Queue(2, "Queue 2"),
             new Queue(3, "Queue 3"),
@@ -23,7 +23,7 @@ public class QueueStore {
             new Queue(10, "Queue 10")
     );
 
-    public static List<Queue> allQueues() {
+    public List<Queue> allQueues() {
         return allQueues;
     }
 

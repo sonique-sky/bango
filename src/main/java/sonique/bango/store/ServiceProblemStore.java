@@ -13,10 +13,7 @@ public class ServiceProblemStore {
 
     private final List<ServiceProblem> serviceProblems = newArrayList();
 
-    private final QueueStore queueStore;
-
     public ServiceProblemStore(QueueStore queueStore) {
-        this.queueStore = queueStore;
 
         for(int index=0; index<100; index++) {
             int queueId = (index / 10) + 1;

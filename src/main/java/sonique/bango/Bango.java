@@ -1,9 +1,6 @@
 package sonique.bango;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -23,9 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static org.codehaus.jackson.annotate.JsonAutoDetect.Visibility.*;
-import static org.codehaus.jackson.annotate.JsonMethod.*;
-import static org.codehaus.jackson.map.SerializationConfig.Feature.*;
+import static org.codehaus.jackson.annotate.JsonAutoDetect.Visibility.ANY;
+import static org.codehaus.jackson.annotate.JsonMethod.FIELD;
 import static org.eclipse.jetty.servlet.ServletContextHandler.SESSIONS;
 
 public class Bango {
@@ -33,7 +29,6 @@ public class Bango {
     private final Server server;
     private final AgentStore agentStore;
     private final ServiceProblemStore serviceProblemStore;
-    private final QueueStore queueStore;
     private final ObjectMapper objectMapper;
 
     public static void main(String[] args) throws Exception {
@@ -41,13 +36,12 @@ public class Bango {
     }
 
     private Bango() {
-        agentStore = new AgentStore();
-        queueStore = new QueueStore();
+        QueueStore queueStore = new QueueStore();
+        agentStore = new AgentStore(queueStore);
         serviceProblemStore = new ServiceProblemStore(queueStore);
 
         objectMapper = new ObjectMapper();
         objectMapper.setVisibility(FIELD, ANY);
-//        objectMapper.configure(WRAP_ROOT_VALUE, true);
 
         server = new Server(8080);
         ServletContextHandler contextHandler = new ServletContextHandler(SESSIONS);
