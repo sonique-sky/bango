@@ -57,7 +57,7 @@ Ext.define('Spm.controller.Queues', {
     },
 
     onQueueTabRendered: function(queueTab) {
-        queueTab.getStore().load({extraParams: {queueid: queueTab.getQueue().queueId()}})
+        queueTab.getStore().load({params: {queueId: queueTab.getQueue().queueId()}})
     },
 
     onQueueTabDestroyed: function (queueTab) {

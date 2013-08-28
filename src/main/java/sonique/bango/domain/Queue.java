@@ -10,5 +10,11 @@ public class Queue {
         this.name = name;
     }
 
+    public Integer id() {
+        return id;
+    }
 
+    public String name() {
+        return name;
+    }
 }

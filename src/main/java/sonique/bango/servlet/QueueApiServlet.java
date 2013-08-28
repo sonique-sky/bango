@@ -17,7 +17,7 @@ public class QueueApiServlet extends PretentiousServlet {
     protected String getResponse(HttpServletRequest request) {
         if (request.getPathInfo().equals("/list")) {
 
-            return writeJson(serviceProblemStore.serviceProblemsForQueueId(request.getParameter("queueId")));
+            return writeJson(serviceProblemStore.serviceProblemsForQueueId(Integer.parseInt(request.getParameter("queueId"))));
         }
 
         throw new RuntimeException("Unknown Api!");

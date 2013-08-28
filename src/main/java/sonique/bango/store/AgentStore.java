@@ -13,13 +13,14 @@ import java.util.Map;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
+import static sonique.bango.store.QueueStore.*;
 
 public class AgentStore {
 
     private static final List<Agent> agents = newArrayList(
-            new Agent("A.A", newArrayList(new Queue(1, "Queue 1"), new Queue(2, "Queue 2"), new Queue(3, "Queue 3"), new Queue(4, "Queue 4"), new Queue(5, "Queue 5"))),
-            new Agent("B.B", newArrayList(new Queue(1, "Queue 1"), new Queue(2, "Queue 2"), new Queue(3, "Queue 3"), new Queue(4, "Queue 4"), new Queue(5, "Queue 5"))),
-            new Agent("C.C", newArrayList(new Queue(1, "Queue 1"), new Queue(2, "Queue 2"), new Queue(3, "Queue 3"), new Queue(4, "Queue 4"), new Queue(5, "Queue 5")))
+            new Agent("A.A", allQueues()),
+            new Agent("B.B", allQueues()),
+            new Agent("C.C", allQueues())
     );
 
     private static final Map<String, Agent> agentCodeToAgentMap = Maps.uniqueIndex(agents, new Function<Agent, String>() {

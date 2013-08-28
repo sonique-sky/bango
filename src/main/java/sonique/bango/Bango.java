@@ -14,6 +14,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import sonique.bango.servlet.AgentApiServlet;
 import sonique.bango.servlet.QueueApiServlet;
 import sonique.bango.store.AgentStore;
+import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
 
 import javax.servlet.ServletException;
@@ -30,8 +31,9 @@ import static org.eclipse.jetty.servlet.ServletContextHandler.SESSIONS;
 public class Bango {
 
     private final Server server;
-    private final AgentStore agentStore = new AgentStore();
-    private final ServiceProblemStore serviceProblemStore = new ServiceProblemStore();
+    private final AgentStore agentStore;
+    private final ServiceProblemStore serviceProblemStore;
+    private final QueueStore queueStore;
     private final ObjectMapper objectMapper;
 
     public static void main(String[] args) throws Exception {
@@ -39,6 +41,10 @@ public class Bango {
     }
 
     private Bango() {
+        agentStore = new AgentStore();
+        queueStore = new QueueStore();
+        serviceProblemStore = new ServiceProblemStore(queueStore);
+
         objectMapper = new ObjectMapper();
         objectMapper.setVisibility(FIELD, ANY);
 //        objectMapper.configure(WRAP_ROOT_VALUE, true);

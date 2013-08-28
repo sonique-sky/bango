@@ -46,7 +46,7 @@ Ext.define('Spm.view.QueueTabContent', {
 
     nestedPropertyRenderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
         function evaluateMe(dataIndex, associatedData) {
-            var properties = column.dataIndex.split('.');
+            var properties = dataIndex.split('.');
             var value = associatedData;
 
             Ext.Array.forEach(properties, function(property) {
