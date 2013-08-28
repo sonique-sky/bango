@@ -48,7 +48,6 @@ Ext.define('Spm.view.LoginWindow', {
                             xtype: 'container',
                             layout: {
                                 pack: 'end',
-                                padding: '',
                                 type: 'hbox'
                             },
                             items: [

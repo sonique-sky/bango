@@ -3,7 +3,8 @@ Ext.define('Spm.controller.Queues', {
     alias: 'controller.queues',
 
     views: [
-        'QueueTabContent'
+        'QueueTabContent',
+        'BulkTransferDialog'
     ],
 
     refs: [
@@ -12,6 +13,7 @@ Ext.define('Spm.controller.Queues', {
             selector: '#tab-panel'
         }
     ],
+    stores: 'AllQueues',
 
     constructor: function (config) {
         var me = this;
@@ -24,7 +26,7 @@ Ext.define('Spm.controller.Queues', {
     init: function () {
         this.listen({
             controller: {
-                '#MyQueues' : {
+                '#MyQueues': {
                     queueSelected: this.onQueueSelected
                 }
             },
@@ -32,20 +34,29 @@ Ext.define('Spm.controller.Queues', {
                 'button[id^=bulk-clear]': {
                     click: this.onBulkClear
                 },
+                'button[id^=bulk-transfer]': {
+                    click: this.onBulkTransfer
+                },
                 '#tab-panel': {
                     tabchange: this.onTabChange
                 },
                 'queueTabContent': {
                     destroy: this.onQueueTabDestroyed,
                     added: this.onQueueTabRendered
-
+                },
+                '#bulk-transfer-view': {
+                    select: this.onBulkTransferQueueSelect
                 }
             }
         });
     },
 
-    onTabChange: function(tabPanel, selectedPanel) {
-        if(this.isAQueueTab(selectedPanel)) {
+    onBulkTransferQueueSelect: function (dataviewmodel, record) {
+        console.log(record);
+    },
+
+    onTabChange: function (tabPanel, selectedPanel) {
+        if (this.isAQueueTab(selectedPanel)) {
             this.fireEvent('queueTabSelected', selectedPanel.down('queueTabContent'));
         } else {
             this.fireEvent('queueTabDeselected');
@@ -53,10 +64,37 @@ Ext.define('Spm.controller.Queues', {
     },
 
     onBulkClear: function (bulkClearButton) {
-        console.log(bulkClearButton.up('queueTabContent').getQueue());
+        var selectedServiceProblems = this.selectedServiceProblemsNear(bulkClearButton);
+        console.log(selectedServiceProblems);
     },
 
-    onQueueTabRendered: function(queueTab) {
+    onBulkTransfer: function (bulkTransferButton) {
+        var queueId = bulkTransferButton.up('queueTabContent').getQueue().queueId();
+        var selectedServiceProblems = this.selectedServiceProblemsNear(bulkTransferButton);
+        var store = this.getAllQueuesStore();
+        store.load(
+                {
+                    callback: function (records, operation, success) {
+                        if (success) {
+                            store.clearFilter();
+                            store.filter([
+                                {property: 'id', operator: '!=', value: queueId}
+                            ]);
+                        }
+                    }
+                }
+        );
+
+        Ext.create(this.getBulkTransferDialogView(), {}).show();
+    },
+
+    selectedServiceProblemsNear: function (button) {
+        var gridPanel = button.up('queueTabContent').down('gridpanel');
+        var selectedServiceProblems = gridPanel.getSelectionModel().getSelection();
+        return selectedServiceProblems;
+    },
+
+    onQueueTabRendered: function (queueTab) {
         queueTab.getStore().load({params: {queueId: queueTab.getQueue().queueId()}})
     },
 
@@ -96,7 +134,7 @@ Ext.define('Spm.controller.Queues', {
         return 'queue-tab-' + queue.queueId();
     },
 
-    isAQueueTab: function(tab) {
+    isAQueueTab: function (tab) {
         return tab.id.indexOf('queue-tab') == 0;
     }
 });

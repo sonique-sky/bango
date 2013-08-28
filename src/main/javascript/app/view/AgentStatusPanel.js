@@ -27,7 +27,7 @@ Ext.define('Spm.view.AgentStatusPanel', {
                             '<div>',
                             '    <div class="{[this.labelClass(values.isAvailable)]}">{[this.labelText(values.isAvailable)]}</div>',
                             '    <div id="toggle-button-wrapper"></div>',
-                            '	<div id="inbox-stats">',
+                            '	 <div id="inbox-stats">',
                             '		<div id="inbox-active-value">{activeCount}</div><div id="inbox-active-label">Active Items:</div>',
                             '		<div id="inbox-hold-value">{heldCount}</div><div id="inbox-hold-label">Held Items:</div>',
                             '	</div>',
@@ -45,12 +45,6 @@ Ext.define('Spm.view.AgentStatusPanel', {
                     listeners: {
                         refresh: {
                             fn: me.renderToggleButton,
-                            scope: me
-                        },
-                        click: {
-                            delegate: 'a#toggle-button',
-                            fn: me.onToggleAvailability,
-                            element: 'el',
                             scope: me
                         }
                     }
@@ -72,9 +66,4 @@ Ext.define('Spm.view.AgentStatusPanel', {
             });
         }
     },
-
-    onToggleAvailability: function () {
-        Spm.application.fireEvent('toggleAvailability');
-    }
-
 });

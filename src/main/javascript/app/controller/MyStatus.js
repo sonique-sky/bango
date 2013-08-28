@@ -33,10 +33,11 @@ Ext.define('Spm.controller.MyStatus', {
     },
 
     init: function (application) {
-        application.on({
-            toggleAvailability: {
-                fn: this.onToggleAvailability,
-                scope: this
+        this.listen({
+            component: {
+                'button#toggle-button': {
+                    click: this.onToggleAvailability
+                }
             }
         });
     }

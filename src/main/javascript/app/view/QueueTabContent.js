@@ -22,8 +22,13 @@ Ext.define('Spm.view.QueueTabContent', {
                     items: [
                         {
                             xtype: 'button',
+                            id: 'bulk-transfer-' + me.queue.queueId(),
+                            text: 'Transfer'
+                        },
+                        {
+                            xtype: 'button',
                             id: 'bulk-clear-' + me.queue.queueId(),
-                            text: 'Bulk Clear'
+                            text: 'Clear'
                         }
                     ]
                 }

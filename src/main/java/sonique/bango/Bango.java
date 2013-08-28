@@ -30,13 +30,14 @@ public class Bango {
     private final AgentStore agentStore;
     private final ServiceProblemStore serviceProblemStore;
     private final ObjectMapper objectMapper;
+    private final QueueStore queueStore;
 
     public static void main(String[] args) throws Exception {
         new Bango().start();
     }
 
     private Bango() {
-        QueueStore queueStore = new QueueStore();
+        queueStore = new QueueStore();
         agentStore = new AgentStore(queueStore);
         serviceProblemStore = new ServiceProblemStore(queueStore);
 
@@ -75,7 +76,7 @@ public class Bango {
     }
 
     private void queueApiHandler(ServletContextHandler contextHandler) {
-        ServletHolder servletHolder = new ServletHolder(new QueueApiServlet(serviceProblemStore, objectMapper));
+        ServletHolder servletHolder = new ServletHolder(new QueueApiServlet(objectMapper, serviceProblemStore, queueStore));
         contextHandler.addServlet(servletHolder, "/api/queue/*");
     }
 
