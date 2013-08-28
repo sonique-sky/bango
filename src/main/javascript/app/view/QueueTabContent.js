@@ -32,10 +32,19 @@ Ext.define('Spm.view.QueueTabContent', {
                     xtype: 'gridpanel',
                     region: 'center',
                     store: me.store,
+                    selType: 'checkboxmodel',
                     columns: [
-                        {text: 'Service Problem Id', dataIndex: 'serviceProblemId'},
-                        {text: 'Status', dataIndex: 'status'},
-                        {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: this.nestedPropertyRenderer}
+                        {text: 'Service Problem',
+                            columns: [
+                                {text: 'Service Problem Id', dataIndex: 'serviceProblemId'},
+                                {text: 'Status', dataIndex: 'status'}
+                            ]
+                        },
+                        {text: 'Work Item',
+                            columns: [
+                                {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: this.nestedPropertyRenderer}
+                            ]
+                        }
                     ]
                 }
             ]
@@ -49,7 +58,7 @@ Ext.define('Spm.view.QueueTabContent', {
             var properties = dataIndex.split('.');
             var value = associatedData;
 
-            Ext.Array.forEach(properties, function(property) {
+            Ext.Array.forEach(properties, function (property) {
                 value = value[property]
             });
 
@@ -57,8 +66,14 @@ Ext.define('Spm.view.QueueTabContent', {
         }
 
         var gridPanel = view.up('gridpanel');
+        // Hack cos Ext offsets the colIndex value if selType property is 'checkboxmodel'
+        if (gridPanel.selType == 'checkboxmodel') {
+            colIndex--;
+        }
+        // End Hack
         var column = gridPanel.columns[colIndex];
 
         return evaluateMe(column.dataIndex, record.getAssociatedData());
     }
-});
+})
+;
