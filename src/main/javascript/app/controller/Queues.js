@@ -46,9 +46,16 @@ Ext.define('Spm.controller.Queues', {
                 },
                 '#bulk-transfer-view': {
                     select: this.onBulkTransferQueueSelect
+                },
+                'button#cancel-button': {
+                    click: this.onCancelClicked
                 }
             }
         });
+    },
+
+    onCancelClicked: function (cancelButton) {
+        cancelButton.up('standardDialog').destroy();
     },
 
     onBulkTransferQueueSelect: function (dataviewmodel, record) {

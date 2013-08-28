@@ -8,7 +8,7 @@ Ext.define('Spm.view.QueueTabContent', {
     },
 
     height: 700,
-    width: 700,
+    width: '100%',
     layout: 'border',
 
     initComponent: function () {
