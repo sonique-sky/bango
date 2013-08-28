@@ -65,5 +65,6 @@ Ext.define('Spm.view.AgentStatusPanel', {
                 id: 'toggle-button'
             });
         }
-    },
+    }
+
 });

@@ -59,9 +59,6 @@ Ext.define('Spm.controller.Queues', {
 
     onOkClicked: function(okButton) {
         console.log(arguments);
-        var store = this.getAllQueuesStore();
-
-        debugger;
     },
 
     onCancelClicked: function (cancelButton) {

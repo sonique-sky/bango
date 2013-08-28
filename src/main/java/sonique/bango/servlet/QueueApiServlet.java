@@ -3,7 +3,6 @@ package sonique.bango.servlet;
 import org.codehaus.jackson.map.ObjectMapper;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
-import sun.management.resources.agent;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,7 +11,7 @@ public class QueueApiServlet extends PretentiousServlet {
     private final QueueStore queueStore;
 
     public QueueApiServlet(ObjectMapper objectMapper, ServiceProblemStore serviceProblemStore, QueueStore queueStore) {
-        super(objectMapper);
+        super("/api/queue/*", objectMapper);
         this.serviceProblemStore = serviceProblemStore;
         this.queueStore = queueStore;
     }

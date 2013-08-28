@@ -35,7 +35,7 @@ public class AgentStore {
     }
 
     public Agent agentFor(String sessionId) {
-        Agent agent = Functions.forMap(sessionIdToAgentMap).apply(sessionId);
+        Agent agent = Functions.forMap(sessionIdToAgentMap, null).apply(sessionId);
         if (agent == null) {
             throw new GTFOException(403, "No Agent!");
         }

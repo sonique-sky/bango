@@ -5,13 +5,12 @@ import sonique.bango.domain.Agent;
 import sonique.bango.store.AgentStore;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 public class AgentApiServlet extends PretentiousServlet {
     private final AgentStore agentStore;
 
-    public AgentApiServlet(AgentStore agentStore, ObjectMapper objectMapper) {
-        super(objectMapper);
+    public AgentApiServlet(ObjectMapper objectMapper, AgentStore agentStore) {
+        super("/api/agent/*", objectMapper);
         this.agentStore = agentStore;
     }
 

@@ -10,9 +10,11 @@ import java.io.IOException;
 
 public abstract class PretentiousServlet extends HttpServlet {
 
-    protected final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
+    private final String contextPath;
 
-    protected PretentiousServlet(ObjectMapper objectMapper) {
+    protected PretentiousServlet(String contextPath, ObjectMapper objectMapper) {
+        this.contextPath = contextPath;
         this.objectMapper = objectMapper;
     }
 
@@ -20,7 +22,6 @@ public abstract class PretentiousServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         try {
             String content = getResponse(request);
             writeToResponse(response, content, 200);
@@ -42,5 +43,9 @@ public abstract class PretentiousServlet extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String contextPath() {
+        return contextPath;
     }
 }
