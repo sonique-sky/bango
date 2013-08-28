@@ -18,8 +18,7 @@ Ext.define('Spm.store.ServiceProblems', {
                 type: 'ajax',
                 url: 'api/queue/list',
                 reader: {
-                    type: 'json',
-                    root: 'ServiceProblem'
+                    type: 'json'
                 }
             }
         }, cfg)]);

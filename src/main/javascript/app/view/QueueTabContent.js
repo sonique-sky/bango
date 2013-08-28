@@ -35,7 +35,7 @@ Ext.define('Spm.view.QueueTabContent', {
                     columns: [
                         {text: 'Service Problem Id', dataIndex: 'serviceProblemId'},
                         {text: 'Status', dataIndex: 'status'},
-                        {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: this.rendy}
+                        {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: this.nestedPropertyRenderer}
                     ]
                 }
             ]
@@ -44,10 +44,21 @@ Ext.define('Spm.view.QueueTabContent', {
         me.callParent(arguments);
     },
 
-    rendy: function (value, metaData, record, rowIndex, colIndex, store, view) {
-        console.log(store);
-        var first = store.first();
-        console.log(first);
-        console.log(first.workItem());
+    nestedPropertyRenderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
+        function evaluateMe(dataIndex, associatedData) {
+            var properties = column.dataIndex.split('.');
+            var value = associatedData;
+
+            Ext.Array.forEach(properties, function(property) {
+                value = value[property]
+            })
+
+            return value;
+        }
+
+        var gridPanel = view.up('gridpanel');
+        var column = gridPanel.columns[colIndex];
+
+        return evaluateMe(column.dataIndex, record.getAssociatedData());
     }
 });
