@@ -51,7 +51,7 @@ Ext.define('Spm.view.QueueTabContent', {
 
             Ext.Array.forEach(properties, function(property) {
                 value = value[property]
-            })
+            });
 
             return value;
         }
