@@ -4,7 +4,7 @@ Ext.define('Spm.view.BulkTransferDialog', {
 
     height: 200,
     width: 500,
-    iconCls: 'icon-queue',
+    iconCls: 'icon-transfer',
     title: 'Bulk Transfer',
 
     initComponent: function () {
