@@ -9,6 +9,8 @@ Ext.define('Spm.view.QueueTabToolbar', {
             items: [
                 {
                     xtype: 'button',
+                    id: 'bulk-transfer',
+                    disabled: true,
                     text: 'Transfer',
                     iconCls: 'icon-transfer',
                     handler: me.onBulkTransfer,
@@ -16,7 +18,9 @@ Ext.define('Spm.view.QueueTabToolbar', {
                 },
                 {
                     xtype: 'button',
+                    id: 'bulk-clear',
                     text: 'Clear',
+                    disabled: true,
                     handler: me.onBulkClear,
                     scope: me
                 }

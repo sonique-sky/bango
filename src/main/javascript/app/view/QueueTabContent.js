@@ -49,6 +49,10 @@ Ext.define('Spm.view.QueueTabContent', {
                     store: me.store,
                     selType: 'checkboxmodel',
                     border: 0,
+                    listeners: {
+                        select: {fn: me.onServiceProblemSelected, scope: me},
+                        deselect: {fn: me.onServiceProblemDeselected, scope: me}
+                    },
                     columns: [
                         {text: 'Service Problem',
                             columns: [
@@ -68,6 +72,16 @@ Ext.define('Spm.view.QueueTabContent', {
         ;
 
         me.callParent(arguments);
+    },
+
+    onServiceProblemSelected: function () {
+        this.down('button#bulk-transfer').setDisabled(false);
+    },
+
+    onServiceProblemDeselected: function () {
+        if (!this.selectedServiceProblems().length) {
+            this.down('button#bulk-transfer').setDisabled(true);
+        }
     },
 
     nestedPropertyRenderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
