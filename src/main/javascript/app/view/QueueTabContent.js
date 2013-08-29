@@ -34,7 +34,8 @@ Ext.define('Spm.view.QueueTabContent', {
                         },
                         {
                             xtype: 'pagingtoolbar',
-                            flex: 1.0
+                            flex: 1.0,
+                            store: me.store
                         },
                         {
                             xtype: 'tbspacer'

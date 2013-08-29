@@ -15,6 +15,8 @@ Ext.define('Spm.controller.Errors', {
     },
 
     onProxyException: function (proxy, response, operation, eOpts) {
-        this.fireEvent('authenticationRequired', response);
+        if (response.status == 403) {
+            this.fireEvent('authenticationRequired', response);
+        }
     }
 });
