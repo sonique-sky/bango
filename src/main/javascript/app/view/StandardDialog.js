@@ -7,19 +7,13 @@ Ext.define('Spm.view.StandardDialog', {
         type: 'vbox'
     },
     modal: true,
+    resizable: false,
 
     initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {
-            items: [
-                {
-                    xtype: 'container',
-                    layout: 'fit',
-                    flex: 1,
-                    width: '100%',
-                    items: [me.content]
-                },
+            dockedItems: [
                 {
                     xtype: 'container',
                     layout: {
@@ -27,7 +21,12 @@ Ext.define('Spm.view.StandardDialog', {
                         type: 'hbox'
                     },
                     width: '100%',
-                    padding: 10,
+                    padding: {
+                        top: 5,
+                        right: 0,
+                        bottom: 5
+                    },
+                    dock: 'bottom',
                     items: [
                         {
                             xtype: 'button',
@@ -47,10 +46,20 @@ Ext.define('Spm.view.StandardDialog', {
                         }
                     ]
                 }
+            ],
+            items: [
+                {
+                    xtype: 'container',
+                    layout: 'fit',
+                    flex: 1,
+                    width: '100%',
+                    items: [me.content]
+                }
             ]
         });
 
         me.callParent(arguments);
     }
 
-});
+})
+;

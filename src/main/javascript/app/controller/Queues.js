@@ -44,11 +44,11 @@ Ext.define('Spm.controller.Queues', {
                     destroy: this.onQueueTabDestroyed,
                     added: this.onQueueTabRendered
                 },
-                '#bulk-transfer-view': {
-                    select: this.onBulkTransferQueueSelect
-                },
                 'button#cancel-button': {
                     click: this.onCancelClicked
+                },
+                '#bulk-transfer-view': {
+                    select: this.onBulkTransferQueueSelect
                 },
                 'button#ok-button': {
                     click: this.onOkClicked
