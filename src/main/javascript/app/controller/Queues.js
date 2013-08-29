@@ -51,7 +51,12 @@ Ext.define('Spm.controller.Queues', {
         });
     },
 
-    onBulkTransferAccepted: function(selectedStuffFromDialog) {
+    onBulkTransferAccepted: function(destinationQueue) {
+        var tabPanel = this.getTabPanel();
+        var queueTabContent = tabPanel.getActiveTab().down('queueTabContent');
+
+//        var selectedServiceProblems = this.selectedServiceProblemsNear(bulkTransferButton);
+
         console.log(arguments);
     },
 
@@ -70,7 +75,6 @@ Ext.define('Spm.controller.Queues', {
 
     onBulkTransfer: function (bulkTransferButton) {
         var queueId = bulkTransferButton.up('queueTabContent').getQueue().queueId();
-        var selectedServiceProblems = this.selectedServiceProblemsNear(bulkTransferButton);
         var store = this.getAllQueuesStore();
         store.load(
                 {

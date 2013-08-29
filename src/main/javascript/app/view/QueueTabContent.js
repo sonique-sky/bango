@@ -79,6 +79,9 @@ Ext.define('Spm.view.QueueTabContent', {
         var column = gridPanel.columns[colIndex];
 
         return evaluateMe(column.dataIndex, record.getAssociatedData());
+    },
+
+    selectedServiceProblems: function () {
+        this.down('gridpanel').getSelectionModel().getSelection();
     }
-})
-;
+});

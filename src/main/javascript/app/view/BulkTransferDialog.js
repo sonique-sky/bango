@@ -50,6 +50,6 @@ Ext.define('Spm.view.BulkTransferDialog', {
     },
 
     getSelectedQueue: function() {
-        return this.down('#bulk-transfer-view').getSelectionModel().getSelection();
+        return this.down('dataview').getSelectionModel().getSelection()[0];
     }
 });
