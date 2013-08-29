@@ -29,4 +29,8 @@ public class ServiceProblem {
     public Queue queue() {
         return queue;
     }
+
+    public void setQueue(Queue queue) {
+        this.queue = queue;
+    }
 }

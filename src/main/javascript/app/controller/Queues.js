@@ -50,9 +50,30 @@ Ext.define('Spm.controller.Queues', {
     },
 
     onBulkTransferAccepted: function (destinationQueue) {
-        var selected = this.getTabPanel().getActiveTab().selectedServiceProblems();
+        var me = this;
 
-        console.log(selected);
+        var queueTabContent = this.getTabPanel().getActiveTab();
+        var selectedServiceProblems = queueTabContent.selectedServiceProblems();
+        var serviceProblemIds = [];
+        Ext.Array.forEach(selectedServiceProblems, function(item) {
+            serviceProblemIds.push(item.get('serviceProblemId'));
+        }, me);
+
+        Ext.Ajax.request(
+                {
+                    url: 'api/queue/bulkTransfer',
+                    params: {
+                        'originalQueueId': queueTabContent.getQueue().queueId(),
+                        'destinationQueueId': destinationQueue.queueId(),
+                        'serviceProblemIds': serviceProblemIds
+                    },
+                    success: function() {
+                        queueTabContent.getStore().reload()
+                    }
+                }
+        );
+
+        console.log(selectedServiceProblems);
     },
 
     onTabChange: function (tabPanel, selectedPanel) {

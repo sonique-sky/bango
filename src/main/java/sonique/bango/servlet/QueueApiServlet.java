@@ -1,10 +1,18 @@
 package sonique.bango.servlet;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.sun.istack.internal.Nullable;
 import org.codehaus.jackson.map.ObjectMapper;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.Collection;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 public class QueueApiServlet extends PretentiousServlet {
     private final ServiceProblemStore serviceProblemStore;
@@ -22,6 +30,15 @@ public class QueueApiServlet extends PretentiousServlet {
             return writeJson(serviceProblemStore.serviceProblemsForQueueId(Integer.parseInt(request.getParameter("queueId"))));
         } else if (pathInfo.equals("/all")) {
             return writeJson(queueStore.allQueues());
+        } else if(pathInfo.equals("/bulkTransfer")) {
+            Collection<Integer> serviceProblemIds = Collections2.transform(newArrayList(request.getParameterValues("serviceProblemIds")), new Function<String, Integer>() {
+                public Integer apply(String input) {
+                    return Integer.parseInt(input);
+                }
+            });
+            serviceProblemStore.bulkTransfer(Integer.parseInt(request.getParameter("destinationQueueId")), serviceProblemIds);
+
+            return writeJson(serviceProblemStore.serviceProblemsForQueueId(Integer.parseInt(request.getParameter("originalQueueId"))));
         }
 
         throw new RuntimeException("Unknown Api!");
