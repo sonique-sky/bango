@@ -13,38 +13,42 @@ Ext.Loader.addClassPathMappings({
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.BoxReorderer": [],
   "Spm.view.AgentStatusPanel": [],
+  "Spm.store.ServiceProblems": [],
   "Spm.view.NavigationPanel": [],
   "Ext.ux.grid.filter.Filter": [],
   "Ext.ux.GroupTabRenderer": [],
+  "Spm.controller.Security": [],
   "Ext.ux.ajax.DataSimlet": [],
   "Ext.ux.grid.TransformGrid": [],
+  "Spm.store.AllQueues": [],
+  "Spm.controller.Queues": [],
   "Spm.view.SpmViewport": [],
   "Ext.ux.FieldReplicator": [],
-  "Spm.controller.QueueController": [],
   "Spm.model.Agent": [],
-  "Spm.controller.LoginController": [],
   "Spm.view.AppContainer": [],
   "Ext.ux.grid.filter.ListFilter": [],
   "Spm.view.LoginWindow": [],
-  "Spm.view.QueueContainer": [],
   "Ext.ux.ajax.XmlSimlet": [],
   "Ext.ux.event.Driver": [],
+  "Spm.view.QueueTabToolbar": [],
   "Spm.view.HeaderView": [],
   "Ext.ux.dd.PanelFieldDragZone": [],
+  "Spm.model.ServiceProblem": [],
   "Ext.ux.DataView.DragSelector": [],
-  "Spm.store.QueueStore": [],
   "Ext.ux.grid.menu.ListMenu": [],
-  "Spm.controller.TabController": [],
   "Ext.ux.GMapPanel": [],
   "Ext.ux.form.MultiSelect": [
     "Ext.ux.Multiselect"
   ],
   "Ext.ux.DataView.LabelEditor": [],
   "Ext.ux.GroupTabPanel": [],
+  "Spm.model.WorkItem": [],
+  "Spm.controller.Login": [],
   "Ext.ux.grid.filter.StringFilter": [],
   "Ext.ux.statusbar.ValidationStatus": [],
   "Ext.ux.layout.Center": [],
   "Ext.ux.PreviewPlugin": [],
+  "Spm.view.QueueTabContent": [],
   "Spm.view.SearchPanel": [],
   "Ext.ux.DataView.Animated": [],
   "Ext.ux.ajax.SimXhr": [],
@@ -56,33 +60,34 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "Ext.ux.ajax.Simlet": [],
   "Ext.ux.SlidingPager": [],
+  "Spm.view.StandardDialog": [],
   "Ext.ux.TabReorderer": [],
   "Ext.ux.grid.filter.NumericFilter": [],
+  "Spm.store.AgentQueues": [],
   "Ext.ux.grid.menu.RangeMenu": [],
-  "Spm.controller.SecurityController": [],
+  "Spm.domain.ProxyEventDomain": [],
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
   "Ext.ux.event.Player": [],
   "Ext.ux.ajax.SimManager": [],
   "Spm.model.Queue": [],
-  "Spm.controller.AgentController": [],
   "Ext.ux.grid.filter.BooleanFilter": [],
-  "Spm.view.TabPanel": [],
   "Ext.ux.ToolbarDroppable": [],
+  "Spm.controller.Errors": [],
   "Ext.ux.event.Maker": [],
   "Spm.view.Viewport": [],
   "Spm.view.MyQueuesPanel": [],
   "Ext.ux.TabScrollerMenu": [],
-  "Spm.proxy.SpmAjaxProxy": [],
   "Ext.ux.IFrame": [],
   "Ext.ux.DataView.Draggable": [],
+  "Spm.controller.MyQueues": [],
   "Ext.ux.TabCloseMenu": [],
+  "Spm.view.BulkTransferDialog": [],
   "Ext.ux.form.SearchField": [],
   "Ext.ux.dd.CellFieldDropZone": [],
   "Ext.ux.LiveSearchGridPanel": [],
   "Ext.ux.DataTip": [],
   "Ext.ux.grid.filter.DateFilter": [],
-  "Spm.mixin.TabHeaderId": [],
   "Ext.ux.grid.filter.DateTimeFilter": [],
   "Ext.ux.TreePicker": [],
   "Ext.ux.form.ItemSelector": [
@@ -94,12 +99,16 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.store.AuthenticatedAgent": [],
   "Ext.ux.data.PagingMemoryProxy": [
     "Ext.data.PagingMemoryProxy"
-  ]
+  ],
+  "Spm.controller.MyStatus": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.BoxReorderer": [],
   "Spm.view.AgentStatusPanel": [
     "widget.agentStatusPanel"
+  ],
+  "Spm.store.ServiceProblems": [
+    "store.serviceProblems"
   ],
   "Spm.view.NavigationPanel": [
     "widget.navigationPanel"
@@ -108,20 +117,23 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.GroupTabRenderer": [
     "plugin.grouptabrenderer"
   ],
+  "Spm.controller.Security": [
+    "controller.security"
+  ],
   "Ext.ux.ajax.DataSimlet": [],
   "Ext.ux.grid.TransformGrid": [],
+  "Spm.store.AllQueues": [
+    "store.allQueues"
+  ],
+  "Spm.controller.Queues": [
+    "controller.queues"
+  ],
   "Spm.view.SpmViewport": [
     "widget.spmViewport"
   ],
   "Ext.ux.FieldReplicator": [],
-  "Spm.controller.QueueController": [
-    "controller.queueController"
-  ],
   "Spm.model.Agent": [
     "model.agent"
-  ],
-  "Spm.controller.LoginController": [
-    "controller.loginController"
   ],
   "Spm.view.AppContainer": [
     "widget.appContainer"
@@ -132,25 +144,22 @@ Ext.ClassManager.addNameAliasMappings({
   "Spm.view.LoginWindow": [
     "widget.loginWindow"
   ],
-  "Spm.view.QueueContainer": [
-    "widget.queueContainer"
-  ],
   "Ext.ux.ajax.XmlSimlet": [
     "simlet.xml"
   ],
   "Ext.ux.event.Driver": [],
+  "Spm.view.QueueTabToolbar": [
+    "widget.queueTabToolbar"
+  ],
   "Spm.view.HeaderView": [
     "widget.headerView"
   ],
   "Ext.ux.dd.PanelFieldDragZone": [],
+  "Spm.model.ServiceProblem": [
+    "model.serviceProblem"
+  ],
   "Ext.ux.DataView.DragSelector": [],
-  "Spm.store.QueueStore": [
-    "store.queueStore"
-  ],
   "Ext.ux.grid.menu.ListMenu": [],
-  "Spm.controller.TabController": [
-    "controller.tabController"
-  ],
   "Ext.ux.GMapPanel": [
     "widget.gmappanel"
   ],
@@ -162,6 +171,12 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.GroupTabPanel": [
     "widget.grouptabpanel"
   ],
+  "Spm.model.WorkItem": [
+    "model.workItem"
+  ],
+  "Spm.controller.Login": [
+    "controller.login"
+  ],
   "Ext.ux.grid.filter.StringFilter": [
     "gridfilter.string"
   ],
@@ -171,6 +186,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Ext.ux.PreviewPlugin": [
     "plugin.preview"
+  ],
+  "Spm.view.QueueTabContent": [
+    "widget.queueTabContent"
   ],
   "Spm.view.SearchPanel": [
     "widget.searchPanel"
@@ -191,14 +209,18 @@ Ext.ClassManager.addNameAliasMappings({
     "simlet.basic"
   ],
   "Ext.ux.SlidingPager": [],
+  "Spm.view.StandardDialog": [
+    "widget.standardDialog"
+  ],
   "Ext.ux.TabReorderer": [],
   "Ext.ux.grid.filter.NumericFilter": [
     "gridfilter.numeric"
   ],
-  "Ext.ux.grid.menu.RangeMenu": [],
-  "Spm.controller.SecurityController": [
-    "controller.securityController"
+  "Spm.store.AgentQueues": [
+    "store.agentQueues"
   ],
+  "Ext.ux.grid.menu.RangeMenu": [],
+  "Spm.domain.ProxyEventDomain": [],
   "Ext.ux.RowExpander": [],
   "Ext.ux.event.Recorder": [],
   "Ext.ux.event.Player": [],
@@ -206,16 +228,13 @@ Ext.ClassManager.addNameAliasMappings({
   "Spm.model.Queue": [
     "model.queue"
   ],
-  "Spm.controller.AgentController": [
-    "controller.agentController"
-  ],
   "Ext.ux.grid.filter.BooleanFilter": [
     "gridfilter.boolean"
   ],
-  "Spm.view.TabPanel": [
-    "widget.tabPanel"
-  ],
   "Ext.ux.ToolbarDroppable": [],
+  "Spm.controller.Errors": [
+    "controller.errors"
+  ],
   "Ext.ux.event.Maker": [],
   "Spm.view.Viewport": [],
   "Spm.view.MyQueuesPanel": [
@@ -224,15 +243,18 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.TabScrollerMenu": [
     "plugin.tabscrollermenu"
   ],
-  "Spm.proxy.SpmAjaxProxy": [
-    "proxy.spmAjaxProxy"
-  ],
   "Ext.ux.IFrame": [
     "widget.uxiframe"
   ],
   "Ext.ux.DataView.Draggable": [],
+  "Spm.controller.MyQueues": [
+    "controller.myQueues"
+  ],
   "Ext.ux.TabCloseMenu": [
     "plugin.tabclosemenu"
+  ],
+  "Spm.view.BulkTransferDialog": [
+    "widget.bulkTransferDialog"
   ],
   "Ext.ux.form.SearchField": [
     "widget.searchfield"
@@ -245,7 +267,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.grid.filter.DateFilter": [
     "gridfilter.date"
   ],
-  "Spm.mixin.TabHeaderId": [],
   "Ext.ux.grid.filter.DateTimeFilter": [
     "gridfilter.datetime"
   ],
@@ -268,5 +289,8 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Ext.ux.data.PagingMemoryProxy": [
     "proxy.pagingmemory"
+  ],
+  "Spm.controller.MyStatus": [
+    "controller.myStatus"
   ]
 });
