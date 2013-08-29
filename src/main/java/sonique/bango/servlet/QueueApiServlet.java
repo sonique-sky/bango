@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.Integer.*;
 
 public class QueueApiServlet extends PretentiousServlet {
     private final ServiceProblemStore serviceProblemStore;
@@ -27,18 +28,18 @@ public class QueueApiServlet extends PretentiousServlet {
     protected String getResponse(HttpServletRequest request) {
         String pathInfo = request.getPathInfo();
         if (pathInfo.equals("/list")) {
-            return writeJson(serviceProblemStore.serviceProblemsForQueueId(Integer.parseInt(request.getParameter("queueId"))));
+            return writeJson(serviceProblemStore.serviceProblemsForQueueId(parseInt(request.getParameter("queueId"))));
         } else if (pathInfo.equals("/all")) {
             return writeJson(queueStore.allQueues());
         } else if(pathInfo.equals("/bulkTransfer")) {
             Collection<Integer> serviceProblemIds = Collections2.transform(newArrayList(request.getParameterValues("serviceProblemIds")), new Function<String, Integer>() {
                 public Integer apply(String input) {
-                    return Integer.parseInt(input);
+                    return parseInt(input);
                 }
             });
-            serviceProblemStore.bulkTransfer(Integer.parseInt(request.getParameter("destinationQueueId")), serviceProblemIds);
+            serviceProblemStore.bulkTransfer(parseInt(request.getParameter("destinationQueueId")), serviceProblemIds);
 
-            return writeJson(serviceProblemStore.serviceProblemsForQueueId(Integer.parseInt(request.getParameter("originalQueueId"))));
+            return writeJson(serviceProblemStore.serviceProblemsForQueueId(parseInt(request.getParameter("originalQueueId"))));
         }
 
         throw new RuntimeException("Unknown Api!");

@@ -67,13 +67,11 @@ Ext.define('Spm.controller.Queues', {
                         'destinationQueueId': destinationQueue.queueId(),
                         'serviceProblemIds': serviceProblemIds
                     },
-                    success: function() {
-                        queueTabContent.getStore().reload()
+                    success: function(response) {
+                        queueTabContent.getStore().loadRawData(response);
                     }
                 }
         );
-
-        console.log(selectedServiceProblems);
     },
 
     onTabChange: function (tabPanel, selectedPanel) {
