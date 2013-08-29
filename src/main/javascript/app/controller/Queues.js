@@ -50,12 +50,9 @@ Ext.define('Spm.controller.Queues', {
     },
 
     onBulkTransferAccepted: function (destinationQueue) {
-        var tabPanel = this.getTabPanel();
-        var queueTabContent = tabPanel.getActiveTab().down('queueTabContent');
+        var selected = this.getTabPanel().getActiveTab().selectedServiceProblems();
 
-//        var selectedServiceProblems = this.selectedServiceProblemsNear(bulkTransferButton);
-
-        console.log(arguments);
+        console.log(selected);
     },
 
     onTabChange: function (tabPanel, selectedPanel) {
@@ -86,9 +83,7 @@ Ext.define('Spm.controller.Queues', {
                 }
         );
 
-        Ext.create(this.getBulkTransferDialogView(), {
-
-        }).show();
+        Ext.create(this.getBulkTransferDialogView()).show();
     },
 
     onQueueTabRendered: function (queueTab) {

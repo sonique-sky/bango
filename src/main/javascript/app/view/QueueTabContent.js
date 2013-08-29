@@ -93,6 +93,6 @@ Ext.define('Spm.view.QueueTabContent', {
     },
 
     selectedServiceProblems: function () {
-        this.down('gridpanel').getSelectionModel().getSelection();
-    }})
-;
+        return this.down('gridpanel').getSelectionModel().getSelection();
+    }
+});
