@@ -2,7 +2,6 @@ Ext.define('Spm.view.StandardDialog', {
     extend: 'Ext.window.Window',
     alias: 'widget.standardDialog',
 
-    id: 'die-die-die',
     layout: {
         type: 'vbox'
     },
@@ -11,12 +10,13 @@ Ext.define('Spm.view.StandardDialog', {
 
     acceptButtonText: 'OK',
     cancelButtonText: 'Cancel',
-
+    acceptButtonDefaultDisabled: false,
 
     initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {
+            collectFn: me.collectFn,
             items: [
                 {
                     xtype: 'container',
@@ -43,9 +43,12 @@ Ext.define('Spm.view.StandardDialog', {
                     items: [
                         {
                             xtype: 'button',
-                            id: 'ok-button',
+                            id: 'accept-button',
                             width: 80,
-                            text: me.acceptButtonText
+                            text: me.acceptButtonText,
+                            handler: me.onAccept,
+                            scope: me,
+                            disabled: me.acceptButtonDefaultDisabled
                         },
                         {
                             xtype: 'tbspacer',
@@ -55,7 +58,9 @@ Ext.define('Spm.view.StandardDialog', {
                             xtype: 'button',
                             id: 'cancel-button',
                             width: 80,
-                            text: me.cancelButtonText
+                            text: me.cancelButtonText,
+                            handler: me.onCancel,
+                            scope: me
                         }
                     ]
                 }
@@ -65,5 +70,16 @@ Ext.define('Spm.view.StandardDialog', {
         me.callParent(arguments);
     },
 
-})
-;
+    enableAcceptButton: function() {
+        this.down('#accept-button').setDisabled(false);
+    },
+
+    onAccept: function() {
+        this.fireEvent('accepted', this.collectFn());
+        this.close();
+    },
+
+    onCancel: function() {
+        this.close();
+    }
+});

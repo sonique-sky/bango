@@ -44,22 +44,15 @@ Ext.define('Spm.controller.Queues', {
                     destroy: this.onQueueTabDestroyed,
                     added: this.onQueueTabRendered
                 },
-                '#bulk-transfer-view': {
-                    select: this.onBulkTransferQueueSelect
-                },
-//                'bulkTransferDialg': {
-//                    accepted: this.onBulkTransferAccepted
-//                }
+                'bulkTransferDialog': {
+                    accepted: this.onBulkTransferAccepted
+                }
             }
         });
     },
 
     onBulkTransferAccepted: function(selectedStuffFromDialog) {
         console.log(arguments);
-    },
-
-    onBulkTransferQueueSelect: function (dataviewmodel, record) {
-        console.log(record);
     },
 
     onTabChange: function (tabPanel, selectedPanel) {

@@ -11,12 +11,13 @@ Ext.define('Spm.view.BulkTransferDialog', {
         var me = this;
 
         Ext.apply(me, {
+            collectFn: this.getSelectedQueue,
             acceptButtonText: 'Transfer',
+            acceptButtonDefaultDisabled: true,
             content: {
                 id: 'bulk-transfer-view',
                 xtype: 'dataview',
                 cls: 'bulk-transfer-view',
-
                 tpl: [
                     '<div id="transfer-queues-group">',
                     '   <tpl for=".">',
@@ -34,10 +35,21 @@ Ext.define('Spm.view.BulkTransferDialog', {
                 style: {
                     borderColor: '#bcb1b0',
                     borderStyle: 'solid'
+                },
+                listeners: {
+                    select: { fn: me.onQueueSelected, scope: me}
                 }
             }
         });
 
         me.callParent(arguments);
+    },
+
+    onQueueSelected: function() {
+        this.enableAcceptButton();
+    },
+
+    getSelectedQueue: function() {
+        return this.down('#bulk-transfer-view').getSelectionModel().getSelection();
     }
 });
