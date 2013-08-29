@@ -1,43 +1,53 @@
 Ext.define('Spm.view.QueueTabContent', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.panel.Panel',
     alias: 'widget.queueTabContent',
+    requires: ['Spm.view.QueueTabToolbar'],
 
     config: {
         queue: undefined,
         store: undefined
     },
 
-    height: 700,
-    width: '100%',
-    layout: 'border',
+    border: 0,
+
+    closable: true,
+    iconCls: 'icon-queue',
 
     initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {
-            items: [
+            title: me.queue.queueName(),
+            id: 'queue-tab-' + me.queue.queueId(),
+            dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    region: 'north',
+                    xtype: 'container',
+                    layout: { type: 'hbox', align: 'stretch'},
+                    dock: 'top',
+                    defaults: {
+                        border: 0
+
+                    },
                     items: [
                         {
-                            xtype: 'button',
-                            id: 'bulk-transfer-' + me.queue.queueId(),
-                            text: 'Transfer'
+                            xtype: 'queueTabToolbar'
                         },
                         {
-                            xtype: 'button',
-                            id: 'bulk-clear-' + me.queue.queueId(),
-                            text: 'Clear'
+                            xtype: 'pagingtoolbar',
+                            flex: 1.0
+                        },
+                        {
+                            xtype: 'tbspacer'
                         }
                     ]
                 }
-                ,
+            ],
+            items: [
                 {
                     xtype: 'gridpanel',
-                    region: 'center',
                     store: me.store,
                     selType: 'checkboxmodel',
+                    border: 0,
                     columns: [
                         {text: 'Service Problem',
                             columns: [
@@ -53,7 +63,8 @@ Ext.define('Spm.view.QueueTabContent', {
                     ]
                 }
             ]
-        });
+        })
+        ;
 
         me.callParent(arguments);
     },
@@ -83,5 +94,5 @@ Ext.define('Spm.view.QueueTabContent', {
 
     selectedServiceProblems: function () {
         this.down('gridpanel').getSelectionModel().getSelection();
-    }
-});
+    }})
+;

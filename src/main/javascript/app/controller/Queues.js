@@ -31,11 +31,9 @@ Ext.define('Spm.controller.Queues', {
                 }
             },
             component: {
-                'button[id^=bulk-clear]': {
-                    click: this.onBulkClear
-                },
-                'button[id^=bulk-transfer]': {
-                    click: this.onBulkTransfer
+                'queueTabToolbar': {
+                    bulkTransfer: this.onBulkTransfer,
+                    bulkClear: this.onBulkClear
                 },
                 '#tab-panel': {
                     tabchange: this.onTabChange
@@ -51,7 +49,7 @@ Ext.define('Spm.controller.Queues', {
         });
     },
 
-    onBulkTransferAccepted: function(destinationQueue) {
+    onBulkTransferAccepted: function (destinationQueue) {
         var tabPanel = this.getTabPanel();
         var queueTabContent = tabPanel.getActiveTab().down('queueTabContent');
 
@@ -68,13 +66,12 @@ Ext.define('Spm.controller.Queues', {
         }
     },
 
-    onBulkClear: function (bulkClearButton) {
-        var selectedServiceProblems = this.selectedServiceProblemsNear(bulkClearButton);
-        console.log(selectedServiceProblems);
+    onBulkClear: function () {
+        console.log('Bulk clear');
     },
 
-    onBulkTransfer: function (bulkTransferButton) {
-        var queueId = bulkTransferButton.up('queueTabContent').getQueue().queueId();
+    onBulkTransfer: function (queue) {
+        var queueId = queue.queueId();
         var store = this.getAllQueuesStore();
         store.load(
                 {
@@ -94,12 +91,6 @@ Ext.define('Spm.controller.Queues', {
         }).show();
     },
 
-    selectedServiceProblemsNear: function (button) {
-        var gridPanel = button.up('queueTabContent').down('gridpanel');
-        var selectedServiceProblems = gridPanel.getSelectionModel().getSelection();
-        return selectedServiceProblems;
-    },
-
     onQueueTabRendered: function (queueTab) {
         queueTab.getStore().load({params: {queueId: queueTab.getQueue().queueId()}})
     },
@@ -112,32 +103,16 @@ Ext.define('Spm.controller.Queues', {
         var tabPanel = this.getTabPanel();
         var queueTab = this.activeQueueTabs.getByKey(queue.queueId());
         if (!queueTab) {
-            queueTab = this.createQueueTabConfigFor(queue);
+            queueTab = this.createQueueTabFor(queue);
             this.activeQueueTabs.add(queue.queueId(), queueTab);
             tabPanel.add(queueTab);
         }
 
-        tabPanel.setActiveTab(this.idFor(queue));
+        tabPanel.setActiveTab(queueTab);
     },
 
-    createQueueTabConfigFor: function (queue) {
-        return {
-            closable: true,
-            title: queue.queueName(),
-            id: this.idFor(queue),
-            iconCls: 'icon-queue',
-            items: [
-                {
-                    store: Ext.create('Spm.store.ServiceProblems'),
-                    queue: queue,
-                    xtype: 'queueTabContent'
-                }
-            ]
-        };
-    },
-
-    idFor: function (queue) {
-        return 'queue-tab-' + queue.queueId();
+    createQueueTabFor: function (queue) {
+        return Ext.widget('queueTabContent', {queue: queue, store: Ext.create('Spm.store.ServiceProblems')});
     },
 
     isAQueueTab: function (tab) {
