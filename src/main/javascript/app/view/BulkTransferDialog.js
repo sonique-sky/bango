@@ -10,7 +10,8 @@ Ext.define('Spm.view.BulkTransferDialog', {
     initComponent: function () {
         var me = this;
 
-        Ext.applyIf(me, {
+        Ext.apply(me, {
+            acceptButtonText: 'Transfer',
             content: {
                 id: 'bulk-transfer-view',
                 xtype: 'dataview',

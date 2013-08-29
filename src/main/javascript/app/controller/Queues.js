@@ -44,25 +44,18 @@ Ext.define('Spm.controller.Queues', {
                     destroy: this.onQueueTabDestroyed,
                     added: this.onQueueTabRendered
                 },
-                'button#cancel-button': {
-                    click: this.onCancelClicked
-                },
                 '#bulk-transfer-view': {
                     select: this.onBulkTransferQueueSelect
                 },
-                'button#ok-button': {
-                    click: this.onOkClicked
-                }
+//                'bulkTransferDialg': {
+//                    accepted: this.onBulkTransferAccepted
+//                }
             }
         });
     },
 
-    onOkClicked: function(okButton) {
+    onBulkTransferAccepted: function(selectedStuffFromDialog) {
         console.log(arguments);
-    },
-
-    onCancelClicked: function (cancelButton) {
-        cancelButton.up('standardDialog').destroy();
     },
 
     onBulkTransferQueueSelect: function (dataviewmodel, record) {
@@ -99,7 +92,9 @@ Ext.define('Spm.controller.Queues', {
                 }
         );
 
-        Ext.create(this.getBulkTransferDialogView(), {}).show();
+        Ext.create(this.getBulkTransferDialogView(), {
+
+        }).show();
     },
 
     selectedServiceProblemsNear: function (button) {

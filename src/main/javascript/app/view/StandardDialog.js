@@ -9,10 +9,23 @@ Ext.define('Spm.view.StandardDialog', {
     modal: true,
     resizable: false,
 
+    acceptButtonText: 'OK',
+    cancelButtonText: 'Cancel',
+
+
     initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {
+            items: [
+                {
+                    xtype: 'container',
+                    layout: 'fit',
+                    flex: 1,
+                    width: '100%',
+                    items: [me.content]
+                }
+            ],
             dockedItems: [
                 {
                     xtype: 'container',
@@ -32,7 +45,7 @@ Ext.define('Spm.view.StandardDialog', {
                             xtype: 'button',
                             id: 'ok-button',
                             width: 80,
-                            text: 'Ok'
+                            text: me.acceptButtonText
                         },
                         {
                             xtype: 'tbspacer',
@@ -42,24 +55,15 @@ Ext.define('Spm.view.StandardDialog', {
                             xtype: 'button',
                             id: 'cancel-button',
                             width: 80,
-                            text: 'Cancel'
+                            text: me.cancelButtonText
                         }
                     ]
-                }
-            ],
-            items: [
-                {
-                    xtype: 'container',
-                    layout: 'fit',
-                    flex: 1,
-                    width: '100%',
-                    items: [me.content]
                 }
             ]
         });
 
         me.callParent(arguments);
-    }
+    },
 
 })
 ;
