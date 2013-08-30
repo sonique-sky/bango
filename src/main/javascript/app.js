@@ -19,14 +19,7 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
-    models: [
-        'Queue'
-    ],
-    views: [
-        'LoginWindow',
-        'AppContainer'
-    ],
-    autoCreateViewport: true,
+    name: 'Spm',
     controllers: [
         'Errors',
         'MyQueues',
@@ -34,5 +27,7 @@ Ext.application({
         'Security',
         'Queues'
     ],
-    name: 'Spm'
+    launch: function() {
+        Ext.create('Spm.view.application.SpmViewport');
+    }
 });

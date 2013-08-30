@@ -1,4 +1,4 @@
-Ext.define('Spm.view.LoginWindow', {
+Ext.define('Spm.view.application.LoginWindow', {
     extend: 'Spm.view.StandardDialog',
     alias: 'widget.loginWindow',
 

@@ -9,8 +9,8 @@ Ext.define('Spm.controller.Security', {
         'AuthenticatedAgent'
     ],
     views: [
-        'SpmViewport',
-        'HeaderView'
+        'application.SpmViewport',
+        'application.HeaderView'
     ],
 
     refs: [
