@@ -1,12 +1,12 @@
 Ext.define('Spm.view.SearchPanel', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.form.Panel',
     alias: 'widget.searchPanel',
 
     cls: 'search-panel',
     title: 'Search',
-    layout: 'fit',
+    layout: 'vbox',
+    collapsible: true,
     margin: 3,
-    height: 150,
 
     initComponent: function () {
         var me = this;
@@ -14,36 +14,51 @@ Ext.define('Spm.view.SearchPanel', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'fieldcontainer',
-                    defaultType: 'radiofield',
-                    layout: 'vbox',
+                    xtype: 'radiogroup',
+                    columns: 1,
+                    margin: 3,
                     items: [
                         {
                             boxLabel: 'Service Problem ID',
-                            name: 'serviceProblemId',
-                            inputValue: 'serviceProblemId',
-                            id: 'serviceProblemId'
+                            name: 'searchType',
+                            inputValue: 'serviceProblemId'
                         },
                         {
                             boxLabel: 'Service ID',
-                            name: 'serviceId',
-                            inputValue: 'serviceId',
-                            id: 'serviceId'
+                            name: 'searchType',
+                            inputValue: 'serviceId'
                         },
                         {
                             boxLabel: 'Directory Number',
-                            name: 'directoryNumber',
-                            inputValue: 'directoryNumber',
-                            id: 'directoryNumber'
+                            name: 'searchType',
+                            inputValue: 'directoryNumber'
                         },
                         {
                             boxLabel: 'MSP ID',
-                            name: 'mspId',
-                            inputValue: 'mspId',
-                            id: 'mspId'
+                            name: 'searchType',
+                            inputValue: 'mspId'
+                        }
+                    ]
+                },
+                {
+                    xtype: 'container',
+                    margin: 3,
+                    width: '100%',
+                    defaults: {
+                        width: '100%'
+                    },
+                    items: [
+                        {
+                            xtype: 'textfield'
+                        },
+                        {
+                            xtype: 'button',
+                            text: 'Search'
                         }
                     ]
                 }
+
+
             ]});
 
         me.callParent(arguments);
