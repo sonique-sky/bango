@@ -9,7 +9,7 @@ Ext.define('Spm.view.QueueTabToolbar', {
             items: [
                 {
                     xtype: 'button',
-                    id: 'bulk-transfer',
+                    id: 'bulk-transfer-' + me.queue.queueId(),
                     disabled: true,
                     text: 'Transfer',
                     iconCls: 'icon-transfer',
@@ -18,7 +18,7 @@ Ext.define('Spm.view.QueueTabToolbar', {
                 },
                 {
                     xtype: 'button',
-                    id: 'bulk-clear',
+                    id: 'bulk-clear-' + me.queue.queueId(),
                     text: 'Clear',
                     disabled: true,
                     handler: me.onBulkClear,
@@ -30,12 +30,12 @@ Ext.define('Spm.view.QueueTabToolbar', {
         me.callParent(arguments);
     },
 
-    onBulkTransfer: function() {
+    onBulkTransfer: function () {
         var queue = this.up('queueTabContent').getQueue();
         this.fireEvent('bulkTransfer', queue);
     },
 
-    onBulkClear: function() {
+    onBulkClear: function () {
         this.fireEvent('bulkClear');
     }
 });

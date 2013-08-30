@@ -41,5 +41,4 @@ Ext.define('Spm.controller.MyStatus', {
             }
         });
     }
-
 });

@@ -30,7 +30,8 @@ Ext.define('Spm.view.QueueTabContent', {
                     },
                     items: [
                         {
-                            xtype: 'queueTabToolbar'
+                            xtype: 'queueTabToolbar',
+                            queue: me.queue
                         },
                         {
                             xtype: 'pagingtoolbar',
@@ -47,7 +48,10 @@ Ext.define('Spm.view.QueueTabContent', {
                 {
                     xtype: 'gridpanel',
                     store: me.store,
-                    selType: 'checkboxmodel',
+                    selModel: {
+                        selType: 'checkboxmodel',
+                        checkOnly: true
+                    },
                     border: 0,
                     listeners: {
                         select: {fn: me.onServiceProblemSelected, scope: me},
@@ -68,19 +72,20 @@ Ext.define('Spm.view.QueueTabContent', {
                     ]
                 }
             ]
-        })
-        ;
+        });
 
         me.callParent(arguments);
     },
 
     onServiceProblemSelected: function () {
-        this.down('button#bulk-transfer').setDisabled(false);
+        this.down('button[id^=bulk-transfer]').setDisabled(false);
+        this.down('button[id^=bulk-clear]').setDisabled(false);
     },
 
     onServiceProblemDeselected: function () {
         if (!this.selectedServiceProblems().length) {
-            this.down('button#bulk-transfer').setDisabled(true);
+            this.down('button[id^=bulk-transfer]').setDisabled(true);
+            this.down('button[id^=bulk-clear]').setDisabled(true);
         }
     },
 
@@ -98,7 +103,7 @@ Ext.define('Spm.view.QueueTabContent', {
 
         var gridPanel = view.up('gridpanel');
         // Hack cos Ext offsets the colIndex value if selType property is 'checkboxmodel'
-        if (gridPanel.selType == 'checkboxmodel') {
+        if (gridPanel.selModel.selType == 'checkboxmodel') {
             colIndex--;
         }
         // End Hack

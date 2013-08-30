@@ -76,7 +76,7 @@ Ext.define('Spm.controller.Queues', {
 
     onTabChange: function (tabPanel, selectedPanel) {
         if (this.isAQueueTab(selectedPanel)) {
-            this.fireEvent('queueTabSelected', selectedPanel.down('queueTabContent'));
+            this.fireEvent('queueTabSelected', selectedPanel);
         } else {
             this.fireEvent('queueTabDeselected');
         }
@@ -130,6 +130,6 @@ Ext.define('Spm.controller.Queues', {
     },
 
     isAQueueTab: function (tab) {
-        return tab.id.indexOf('queue-tab') == 0;
+        return tab.isXType('queueTabContent');
     }
 });
