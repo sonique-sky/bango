@@ -1,7 +1,12 @@
 Ext.define('Spm.view.QueueTabContent', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.queueTabContent',
-    requires: ['Spm.view.QueueTabToolbar'],
+    requires: [
+        'Spm.view.QueueTabToolbar',
+        'Spm.store.ServiceProblems',
+        'Ext.grid.Panel',
+        'Ext.toolbar.Spacer'
+    ],
 
     config: {
         queue: undefined,

@@ -2,6 +2,9 @@ Ext.define('Spm.view.QueueTabToolbar', {
     extend: 'Ext.toolbar.Toolbar',
     alias: 'widget.queueTabToolbar',
 
+    requires: [
+        'Ext.toolbar.Paging'
+    ],
     initComponent: function () {
         var me = this;
 
