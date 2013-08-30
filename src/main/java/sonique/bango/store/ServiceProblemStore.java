@@ -21,7 +21,8 @@ public class ServiceProblemStore {
         this.queueStore = queueStore;
         for(int index=0; index<100; index++) {
             int queueId = (index % queueStore.numberOfQueues()) + 1;
-            serviceProblems.add(new ServiceProblem(index, "Open", new WorkItem(index+10, "Unassigned"), queueStore.queueById(queueId)));
+            boolean hasActiveTroubleReport = index % 2 == 0;
+            serviceProblems.add(new ServiceProblem(index, "Open", new WorkItem(index+10, "Unassigned"), queueStore.queueById(queueId), hasActiveTroubleReport));
         }
     }
 

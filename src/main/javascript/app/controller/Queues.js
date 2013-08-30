@@ -82,12 +82,18 @@ Ext.define('Spm.controller.Queues', {
         }
     },
 
-    onBulkClear: function () {
-        console.log('Bulk clear');
+    onBulkClear: function (queueTab) {
+        var selectedServiceProblems = queueTab.selectedServiceProblems();
+        var serviceProblemsWithTroubleReports = Ext.Array.filter(selectedServiceProblems, function(serviceProblem) {
+            return serviceProblem.get('hasActiveTroubleReport');
+        });
+
+        console.log(serviceProblemsWithTroubleReports.length);
+
     },
 
-    onBulkTransfer: function (queue) {
-        var queueId = queue.queueId();
+    onBulkTransfer: function (queueTab) {
+        var queueId = queueTab.getQueue().queueId();
         var store = this.getAllQueuesStore();
         store.load(
                 {

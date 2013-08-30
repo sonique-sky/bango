@@ -34,11 +34,10 @@ Ext.define('Spm.view.QueueTabToolbar', {
     },
 
     onBulkTransfer: function () {
-        var queue = this.up('queueTabContent').getQueue();
-        this.fireEvent('bulkTransfer', queue);
+        this.fireEvent('bulkTransfer', this.up('queueTabContent'));
     },
 
     onBulkClear: function () {
-        this.fireEvent('bulkClear');
+        this.fireEvent('bulkClear', this.up('queueTabContent'));
     }
 });

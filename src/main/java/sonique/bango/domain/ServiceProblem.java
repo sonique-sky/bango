@@ -6,12 +6,14 @@ public class ServiceProblem {
     private String  status;
     private WorkItem workItem;
     private Queue queue;
+    private boolean hasActiveTroubleReport;
 
-    public ServiceProblem(Integer serviceProblemId, String status, WorkItem workItem, Queue queue) {
+    public ServiceProblem(Integer serviceProblemId, String status, WorkItem workItem, Queue queue, boolean hasActiveTroubleReport) {
         this.serviceProblemId = serviceProblemId;
         this.status = status;
         this.workItem = workItem;
         this.queue = queue;
+        this.hasActiveTroubleReport = hasActiveTroubleReport;
     }
 
     public Integer serviceProblemId() {
@@ -32,5 +34,9 @@ public class ServiceProblem {
 
     public void setQueue(Queue queue) {
         this.queue = queue;
+    }
+
+    public boolean hasActiveTroubleReport() {
+        return hasActiveTroubleReport;
     }
 }

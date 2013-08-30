@@ -12,6 +12,10 @@ Ext.define('Spm.model.ServiceProblem', {
         },
         {
             name: 'status'
+        },
+        {
+            name: 'hasActiveServiceProblem',
+            type: 'boolean'
         }
     ],
 
