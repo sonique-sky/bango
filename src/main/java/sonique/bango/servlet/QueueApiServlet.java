@@ -40,6 +40,15 @@ public class QueueApiServlet extends PretentiousServlet {
             serviceProblemStore.bulkTransfer(parseInt(request.getParameter("destinationQueueId")), serviceProblemIds);
 
             return writeJson(serviceProblemStore.serviceProblemsForQueueId(parseInt(request.getParameter("originalQueueId"))));
+        } else if(pathInfo.equals("/bulkClear")) {
+            Collection<Integer> serviceProblemIds = Collections2.transform(newArrayList(request.getParameterValues("serviceProblemIds")), new Function<String, Integer>() {
+                public Integer apply(String input) {
+                    return parseInt(input);
+                }
+            });
+            serviceProblemStore.bulkClear(serviceProblemIds);
+
+            return writeJson(serviceProblemStore.serviceProblemsForQueueId(parseInt(request.getParameter("originalQueueId"))));
         }
 
         throw new RuntimeException("Unknown Api!");

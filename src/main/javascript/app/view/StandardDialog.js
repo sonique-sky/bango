@@ -16,7 +16,7 @@ Ext.define('Spm.view.StandardDialog', {
         var me = this;
 
         Ext.applyIf(me, {
-            collectFn: me.collectFn,
+            collectFn: me.collectFn || Ext.emptyFn,
             items: me.content,
             dockedItems: [
                 {

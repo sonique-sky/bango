@@ -45,20 +45,46 @@ Ext.define('Spm.controller.Queues', {
                 },
                 'bulkTransferDialog': {
                     accepted: this.onBulkTransferAccepted
+                },
+                'bulkClearDialog': {
+                    accepted: this.onBulkClearAccepted
                 }
             }
         });
     },
 
-    onBulkTransferAccepted: function (destinationQueue) {
-        var me = this;
-
-        var queueTabContent = this.getTabPanel().getActiveTab();
+    selectedServiceProblemIds: function (queueTabContent) {
         var selectedServiceProblems = queueTabContent.selectedServiceProblems();
         var serviceProblemIds = [];
-        Ext.Array.forEach(selectedServiceProblems, function(item) {
+
+        Ext.Array.forEach(selectedServiceProblems, function (item) {
             serviceProblemIds.push(item.get('serviceProblemId'));
-        }, me);
+        });
+
+        return serviceProblemIds;
+    },
+
+    onBulkClearAccepted: function () {
+        var queueTabContent = this.getTabPanel().getActiveTab();
+        var serviceProblemIds = this.selectedServiceProblemIds(queueTabContent);
+
+        Ext.Ajax.request(
+                {
+                    url: 'api/queue/bulkClear',
+                    params: {
+                        'originalQueueId': queueTabContent.getQueue().queueId(),
+                        'serviceProblemIds': serviceProblemIds
+                    },
+                    success: function (response) {
+                        queueTabContent.getStore().loadRawData(response);
+                    }
+                }
+        );
+    },
+
+    onBulkTransferAccepted: function (destinationQueue) {
+        var queueTabContent = this.getTabPanel().getActiveTab();
+        var serviceProblemIds = this.selectedServiceProblemIds(queueTabContent);
 
         Ext.Ajax.request(
                 {
@@ -68,7 +94,7 @@ Ext.define('Spm.controller.Queues', {
                         'destinationQueueId': destinationQueue.queueId(),
                         'serviceProblemIds': serviceProblemIds
                     },
-                    success: function(response) {
+                    success: function (response) {
                         queueTabContent.getStore().loadRawData(response);
                     }
                 }

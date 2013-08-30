@@ -39,4 +39,8 @@ public class ServiceProblem {
     public boolean hasActiveTroubleReport() {
         return hasActiveTroubleReport;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
