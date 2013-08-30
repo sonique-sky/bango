@@ -18,11 +18,6 @@ Ext.define('Spm.controller.Security', {
             ref: 'appContainer',
             selector: 'appContainer',
             xtype: 'appContainer'
-        },
-        {
-            ref: 'loginWindow',
-            selector: 'loginWindow',
-            xtype: 'loginWindow'
         }
     ],
 
@@ -40,7 +35,6 @@ Ext.define('Spm.controller.Security', {
     onAuthenticated: function (alreadyAuthenticated) {
         if (!alreadyAuthenticated) {
             this.getAuthenticatedAgentStore().load();
-            this.getLoginWindow().close();
         }
         this.getAppContainer().setVisible(true);
     },
@@ -85,6 +79,9 @@ Ext.define('Spm.controller.Security', {
             component: {
                 'headerView': {
                     logout: this.onLogout
+                },
+                "loginWindow": {
+                    accepted: this.onPerformAuthentication
                 }
             }
         });

@@ -34,7 +34,6 @@ Ext.application({
         'Errors',
         'MyQueues',
         'MyStatus',
-        'Login',
         'Security',
         'Queues'
     ],

@@ -70,8 +70,8 @@ Ext.define('Spm.view.StandardDialog', {
         me.callParent(arguments);
     },
 
-    enableAcceptButton: function() {
-        this.down('#accept-button').setDisabled(false);
+    setAcceptButtonDisabled: function(disabled) {
+        this.down('#accept-button').setDisabled(disabled);
     },
 
     onAccept: function() {

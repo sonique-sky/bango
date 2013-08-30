@@ -46,7 +46,7 @@ Ext.define('Spm.view.BulkTransferDialog', {
     },
 
     onQueueSelected: function() {
-        this.enableAcceptButton();
+        this.setAcceptButtonDisabled(false);
     },
 
     getSelectedQueue: function() {
