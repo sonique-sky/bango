@@ -1,9 +1,9 @@
-Ext.define('Spm.view.SpmViewport', {
+Ext.define('Spm.view.application.SpmViewport', {
     extend: 'Ext.container.Viewport',
     alias: 'widget.spmViewport',
 
     requires: [
-        'Spm.view.AppContainer'
+        'Spm.view.application.AppContainer'
     ],
 
     itemId: 'spmViewport',

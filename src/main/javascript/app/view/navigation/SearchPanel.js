@@ -1,8 +1,10 @@
 Ext.define('Spm.view.navigation.SearchPanel', {
     extend: 'Ext.form.Panel',
     alias: 'widget.searchPanel',
+    requires: ['Ext.form.RadioGroup'],
 
     cls: 'search-panel',
+    iconCls: 'icon-search',
     title: 'Search',
     layout: 'vbox',
     collapsible: true,

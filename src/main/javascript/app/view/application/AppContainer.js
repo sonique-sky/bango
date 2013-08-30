@@ -1,10 +1,12 @@
-Ext.define('Spm.view.AppContainer', {
+Ext.define('Spm.view.application.AppContainer', {
     extend: 'Ext.container.Container',
     alias: 'widget.appContainer',
 
     requires: [
+        'Ext.tab.Panel',
+        'Ext.layout.container.Border',
         'Spm.view.navigation.NavigationPanel',
-        'Spm.view.HeaderView'
+        'Spm.view.application.HeaderView'
     ],
 
     hidden: true,

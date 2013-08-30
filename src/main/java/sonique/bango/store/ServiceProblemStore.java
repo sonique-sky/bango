@@ -20,7 +20,7 @@ public class ServiceProblemStore {
     public ServiceProblemStore(QueueStore queueStore) {
         this.queueStore = queueStore;
         for(int index=0; index<100; index++) {
-            int queueId = (index / 10) + 1;
+            int queueId = (index % 10) + 1;
             serviceProblems.add(new ServiceProblem(index, "Open", new WorkItem(index+10, "Unassigned"), queueStore.queueById(queueId)));
         }
     }
