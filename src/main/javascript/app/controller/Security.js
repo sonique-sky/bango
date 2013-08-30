@@ -41,7 +41,7 @@ Ext.define('Spm.controller.Security', {
 
     onAuthenticationRequired: function () {
         this.getAppContainer().setVisible(false);
-        Ext.create('Spm.view.LoginWindow').show();
+        Ext.create('Spm.view.application.LoginWindow').show();
     },
 
     startAuthentication: function () {
