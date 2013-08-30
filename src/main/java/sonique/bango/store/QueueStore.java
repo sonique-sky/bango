@@ -34,4 +34,8 @@ public class QueueStore {
             }
         });
     }
+
+    public int numberOfQueues() {
+        return allQueues.size();
+    }
 }
