@@ -3,7 +3,7 @@ Ext.define('Spm.controller.MyQueues', {
     alias: 'controller.myQueues',
 
     views: [
-        'MyQueuesPanel'
+        'navigation.MyQueuesPanel'
     ],
 
     stores: [

@@ -1,4 +1,4 @@
-Ext.define('Spm.view.MyQueuesPanel', {
+Ext.define('Spm.view.navigation.MyQueuesPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.myQueuesPanel',
 

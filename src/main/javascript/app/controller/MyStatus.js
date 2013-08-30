@@ -10,7 +10,7 @@ Ext.define('Spm.controller.MyStatus', {
         'AgentQueues'
     ],
     views: [
-        'AgentStatusPanel'
+        'navigation.AgentStatusPanel'
     ],
 
     refs: [

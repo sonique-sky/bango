@@ -3,7 +3,7 @@ Ext.define('Spm.view.AppContainer', {
     alias: 'widget.appContainer',
 
     requires: [
-        'Spm.view.NavigationPanel',
+        'Spm.view.navigation.NavigationPanel',
         'Spm.view.HeaderView'
     ],
 

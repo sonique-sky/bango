@@ -23,9 +23,6 @@ Ext.application({
         'Queue'
     ],
     views: [
-        'NavigationPanel',
-        'MyQueuesPanel',
-        'SearchPanel',
         'LoginWindow',
         'AppContainer'
     ],

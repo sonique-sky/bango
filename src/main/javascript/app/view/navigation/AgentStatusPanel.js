@@ -1,4 +1,4 @@
-Ext.define('Spm.view.AgentStatusPanel', {
+Ext.define('Spm.view.navigation.AgentStatusPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.agentStatusPanel',
 

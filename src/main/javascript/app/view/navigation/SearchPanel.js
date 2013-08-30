@@ -1,4 +1,4 @@
-Ext.define('Spm.view.SearchPanel', {
+Ext.define('Spm.view.navigation.SearchPanel', {
     extend: 'Ext.form.Panel',
     alias: 'widget.searchPanel',
 

@@ -1,11 +1,11 @@
-Ext.define('Spm.view.NavigationPanel', {
+Ext.define('Spm.view.navigation.NavigationPanel', {
     extend: 'Ext.container.Container',
     alias: 'widget.navigationPanel',
 
     requires: [
-        'Spm.view.AgentStatusPanel',
-        'Spm.view.MyQueuesPanel',
-        'Spm.view.SearchPanel'
+        'Spm.view.navigation.AgentStatusPanel',
+        'Spm.view.navigation.MyQueuesPanel',
+        'Spm.view.navigation.SearchPanel'
     ],
 
     height: 730,
