@@ -3,6 +3,7 @@ Ext.define('Spm.view.navigation.MyQueuesPanel', {
     alias: 'widget.myQueuesPanel',
 
     cls: 'my-queues-panel',
+    iconCls: 'icon-queue',
     layout: 'fit',
     animCollapse: true,
     collapsible: true,
