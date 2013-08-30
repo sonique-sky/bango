@@ -30,7 +30,7 @@ public class BangoServletWrapper {
     public void staticResources(String resourceBase) {
         ResourceHandler extResourceHandler = new ResourceHandler();
         extResourceHandler.setResourceBase(resourceBase);
-        extResourceHandler.setWelcomeFiles(new String[]{"app.html", "index.html"});
+        extResourceHandler.setWelcomeFiles(new String[]{"superman.html", "index.html"});
         extResourceHandler.setDirectoriesListed(true);
 
         ContextHandler contextHandler = new ContextHandler(rootContext);

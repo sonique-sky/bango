@@ -36,7 +36,6 @@ Ext.define('Spm.view.application.AppContainer', {
                 },
                 {
                     xtype: 'headerView',
-                    height: 60,
                     region: 'north'
                 }
             ]

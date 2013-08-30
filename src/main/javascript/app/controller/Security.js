@@ -1,6 +1,9 @@
 Ext.define('Spm.controller.Security', {
     extend: 'Ext.app.Controller',
     alias: 'controller.security',
+    requires: [
+        'Spm.view.application.LoginWindow'
+    ],
 
     models: [
         'Agent'
@@ -26,7 +29,7 @@ Ext.define('Spm.controller.Security', {
         Ext.Ajax.request({
             url: 'j_spring_security_check',
             params: credentials,
-            success: function (response) {
+            success: function () {
                 me.onAuthenticated(false);
             }
         });
@@ -80,7 +83,7 @@ Ext.define('Spm.controller.Security', {
                 'headerView': {
                     logout: this.onLogout
                 },
-                "loginWindow": {
+                'loginWindow': {
                     accepted: this.onPerformAuthentication
                 }
             }

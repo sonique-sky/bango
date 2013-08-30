@@ -2,7 +2,7 @@ Ext.define('Spm.view.application.HeaderView', {
     extend: 'Ext.view.View',
     alias: 'widget.headerView',
 
-    height: 50,
+    height: 60,
     disableSelection: true,
     itemSelector: 'span#login-name',
     store: 'AuthenticatedAgent',
