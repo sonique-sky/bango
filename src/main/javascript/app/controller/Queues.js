@@ -4,7 +4,8 @@ Ext.define('Spm.controller.Queues', {
 
     views: [
         'QueueTabContent',
-        'BulkTransferDialog'
+        'BulkTransferDialog',
+        'BulkClearDialog'
     ],
 
     refs: [
@@ -82,14 +83,19 @@ Ext.define('Spm.controller.Queues', {
         }
     },
 
-    onBulkClear: function (queueTab) {
-        var selectedServiceProblems = queueTab.selectedServiceProblems();
-        var serviceProblemsWithTroubleReports = Ext.Array.filter(selectedServiceProblems, function(serviceProblem) {
+    hasActiveTroubleReports: function (selectedServiceProblems) {
+        var serviceProblemsWithTroubleReports = Ext.Array.filter(selectedServiceProblems, function (serviceProblem) {
             return serviceProblem.get('hasActiveTroubleReport');
         });
 
-        console.log(serviceProblemsWithTroubleReports.length);
+        return serviceProblemsWithTroubleReports.length > 0;
+    },
 
+    onBulkClear: function (queueTab) {
+        var selectedServiceProblems = queueTab.selectedServiceProblems();
+        var hasActiveTroubleReports = this.hasActiveTroubleReports(selectedServiceProblems);
+
+        Ext.create(this.getBulkClearDialogView(), {hasActiveTroubleReports: hasActiveTroubleReports}).show();
     },
 
     onBulkTransfer: function (queueTab) {

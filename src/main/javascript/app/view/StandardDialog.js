@@ -3,7 +3,7 @@ Ext.define('Spm.view.StandardDialog', {
     alias: 'widget.standardDialog',
 
     layout: {
-        type: 'vbox'
+        type: 'fit'
     },
     modal: true,
     resizable: false,
@@ -17,15 +17,7 @@ Ext.define('Spm.view.StandardDialog', {
 
         Ext.applyIf(me, {
             collectFn: me.collectFn,
-            items: [
-                {
-                    xtype: 'container',
-                    layout: 'fit',
-                    flex: 1,
-                    width: '100%',
-                    items: [me.content]
-                }
-            ],
+            items: me.content,
             dockedItems: [
                 {
                     xtype: 'container',
