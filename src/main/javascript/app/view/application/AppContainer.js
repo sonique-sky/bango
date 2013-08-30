@@ -10,6 +10,7 @@ Ext.define('Spm.view.application.AppContainer', {
     ],
 
     hidden: true,
+    cls: 'superman-app-container',
     itemId: 'appContainer',
     layout: {
         type: 'border'

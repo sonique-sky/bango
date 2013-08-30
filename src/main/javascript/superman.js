@@ -3,6 +3,8 @@ Ext.Loader.setConfig({
     enabled: true
 });
 
+Ext.require('Spm.view.application.SpmViewport');
+
 Ext.application({
     name: 'Spm',
     controllers: [
