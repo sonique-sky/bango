@@ -18,14 +18,15 @@ public class Bango {
     private final Server server;
 
     public static void main(String[] args) throws Exception {
-        new Bango().start();
-    }
-
-    private Bango() {
-        QueueStore queueStore = new QueueStore();
+        final QueueStore queueStore = new QueueStore();
         AgentStore agentStore = new AgentStore(queueStore);
         ServiceProblemStore serviceProblemStore = new ServiceProblemStore(queueStore);
 
+
+        new Bango(queueStore, agentStore, serviceProblemStore).start();
+    }
+
+    private Bango(QueueStore queueStore, AgentStore agentStore, ServiceProblemStore serviceProblemStore) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(FIELD, ANY);
 

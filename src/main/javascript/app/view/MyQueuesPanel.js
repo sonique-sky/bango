@@ -3,12 +3,12 @@ Ext.define('Spm.view.MyQueuesPanel', {
     alias: 'widget.myQueuesPanel',
 
     cls: 'my-queues-panel',
-    layout: {
-        type: 'fit'
-    },
-    animCollapse: false,
+    layout: 'fit',
+    animCollapse: true,
     collapsible: true,
     title: 'My Queues',
+    margin: 3,
+    overflowY: 'auto',
 
     initComponent: function () {
         var me = this;

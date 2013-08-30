@@ -4,7 +4,7 @@ Ext.define('Spm.view.AgentStatusPanel', {
 
     cls: 'status-panel',
     height: 126,
-    margin: '',
+    margin: 3,
     width: 266,
     layout: {
         align: 'stretch',
