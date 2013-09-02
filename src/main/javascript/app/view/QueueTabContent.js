@@ -59,8 +59,9 @@ Ext.define('Spm.view.QueueTabContent', {
                     },
                     border: 0,
                     listeners: {
-                        select: {fn: me.onServiceProblemSelected, scope: me},
-                        deselect: {fn: me.onServiceProblemDeselected, scope: me}
+                        select: {fn: me.onRowSelected, scope: me},
+                        deselect: {fn: me.onRowDeselected, scope: me},
+                        cellclick: {fn: me.onCellClicked, scope: me}
                     },
                     columns: [
                         {text: 'Service Problem',
@@ -82,12 +83,18 @@ Ext.define('Spm.view.QueueTabContent', {
         me.callParent(arguments);
     },
 
-    onServiceProblemSelected: function () {
+    onCellClicked: function(view, td, cellIndex, record) {
+        if(cellIndex > 0) {
+            this.fireEvent("serviceProblemClicked", record.get("serviceProblemId"));
+        }
+    },
+
+    onRowSelected: function () {
         this.down('button[id^=bulk-transfer]').setDisabled(false);
         this.down('button[id^=bulk-clear]').setDisabled(false);
     },
 
-    onServiceProblemDeselected: function () {
+    onRowDeselected: function () {
         if (!this.selectedServiceProblems().length) {
             this.down('button[id^=bulk-transfer]').setDisabled(true);
             this.down('button[id^=bulk-clear]').setDisabled(true);

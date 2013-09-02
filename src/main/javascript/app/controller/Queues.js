@@ -41,7 +41,8 @@ Ext.define('Spm.controller.Queues', {
                 },
                 'queueTabContent': {
                     destroy: this.onQueueTabDestroyed,
-                    added: this.onQueueTabRendered
+                    added: this.onQueueTabRendered,
+                    serviceProblemClicked: this.onServiceProblemClicked
                 },
                 'bulkTransferDialog': {
                     accepted: this.onBulkTransferAccepted
@@ -51,6 +52,10 @@ Ext.define('Spm.controller.Queues', {
                 }
             }
         });
+    },
+
+    onServiceProblemClicked: function (serviceProblemId) {
+        this.fireEvent('serviceProblemSelected', serviceProblemId);
     },
 
     selectedServiceProblemIds: function (queueTabContent) {

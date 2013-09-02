@@ -12,9 +12,10 @@ Ext.application({
         'MyQueues',
         'MyStatus',
         'Security',
-        'Queues'
+        'Queues',
+        'ServiceProblems'
     ],
-    launch: function() {
+    launch: function () {
         Ext.create('Spm.view.application.SpmViewport');
     }
 });
