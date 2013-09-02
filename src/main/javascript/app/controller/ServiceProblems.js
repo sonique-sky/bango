@@ -25,16 +25,16 @@ Ext.define('Spm.controller.ServiceProblems', {
         this.listen({
             controller: {
                 '#Queues': {
-                    serviceProblemSelected: this.displayServiceProblemTab
+                    displayServiceProblem: this.displayServiceProblem
                 },
                 '#Search': {
-                    singleServiceProblemReturned: this.displayServiceProblemTab
+                    displayServiceProblem: this.displayServiceProblem
                 }
             }
         });
     },
 
-    displayServiceProblemTab: function (serviceProblemId) {
+    displayServiceProblem: function (serviceProblemId) {
         var tabPanel = this.getTabPanel();
         var serviceProblemTab = this.activeServiceProblemTabs.getByKey(serviceProblemId);
         if (!serviceProblemTab) {

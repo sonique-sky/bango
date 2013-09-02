@@ -55,7 +55,7 @@ Ext.define('Spm.controller.Queues', {
     },
 
     onServiceProblemClicked: function (serviceProblemId) {
-        this.fireEvent('serviceProblemSelected', serviceProblemId);
+        this.fireEvent('displayServiceProblem', serviceProblemId);
     },
 
     selectedServiceProblemIds: function (queueTabContent) {
