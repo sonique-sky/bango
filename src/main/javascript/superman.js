@@ -13,7 +13,8 @@ Ext.application({
         'MyStatus',
         'Security',
         'Queues',
-        'ServiceProblems'
+        'ServiceProblems',
+        'Search'
     ],
     launch: function () {
         Ext.create('Spm.view.application.SpmViewport');

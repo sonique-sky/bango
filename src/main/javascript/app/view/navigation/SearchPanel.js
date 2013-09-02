@@ -55,7 +55,9 @@ Ext.define('Spm.view.navigation.SearchPanel', {
                         },
                         {
                             xtype: 'button',
-                            text: 'Search'
+                            text: 'Search',
+                            handler: me.onSearch,
+                            scope: me
                         }
                     ]
                 }
@@ -64,5 +66,12 @@ Ext.define('Spm.view.navigation.SearchPanel', {
             ]});
 
         me.callParent(arguments);
+    },
+
+    onSearch: function() {
+        var radioGroup = this.down('radiogroup');
+        var textField = this.down('textfield');
+
+        this.fireEvent('searchStarted', Ext.apply(radioGroup.getValue(), {searchParameter: textField.getValue()}));
     }
 });
