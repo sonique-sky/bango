@@ -2,6 +2,17 @@ Ext.define('Spm.controller.Searches', {
     extend: 'Ext.app.Controller',
     alias: 'controller.searches',
 
+    views: [
+        'SearchResultTabContent'
+    ],
+
+    refs: [
+        {
+            ref: 'tabPanel',
+            selector: '#tab-panel'
+        }
+    ],
+
     constructor: function (config) {
         this.activeSearchResultTabs = Ext.create('Ext.util.MixedCollection');
 
@@ -19,33 +30,41 @@ Ext.define('Spm.controller.Searches', {
         this.listen({
             component: {
                 'searchPanel': {
-                    searchStarted: this.onSearchStarted,
-                    searchFinished: this.onSearchFinished
+                    searchStarted: this.onSearchStarted
+                },
+                'searchResultTabContent': {
+                    destroy: this.onSearchResultTabDestroyed,
+                    serviceProblemClicked: this.onServiceProblemClicked
                 }
             }
         });
     },
 
+    onSearchResultTabDestroyed: function (searchResultTab) {
+        this.activeSearchResultTabs.removeAtKey(searchResultTab.getSearchCriteria());
+    },
+
+    doSearch: function (searchCriteria) {
+        var operation = Ext.create('Ext.data.Operation', {
+            action: 'read',
+            params: searchCriteria
+        });
+
+        this.proxy.read(operation, this.onSearchFinished, this);
+    },
+
     onSearchStarted: function (searchCriteria) {
-        var me = this;
-
         if (this.isUniqueSearch(searchCriteria)) {
-            var operation = Ext.create('Ext.data.Operation', {
-                action: 'read',
-                params: searchCriteria
-            });
-
-            me.proxy.read(operation, this.onSearchFinished, me);
+            this.doSearch(searchCriteria);
         } else {
-//            var searchResultTab = this.activeSearchResultTabs.getByKey(searchCriteria);
-//            if(searchResultTab) {
-//                searchResultTab.reload();
-//            } else {
-//                Spm.store.ServiceProblems.searchServiceProblemStore().load(searchCriteria);
-//            }
+            var searchResultTab = this.activeSearchResultTabs.getByKey(searchCriteria);
+            if (searchResultTab) {
+                searchResultTab.getStore().reload();
+                this.getTabPanel().setActiveTab(searchResultTab);
+            } else {
+                this.doSearch(searchCriteria);
+            }
         }
-
-
     },
 
     onSearchFinished: function (operation) {
@@ -60,13 +79,31 @@ Ext.define('Spm.controller.Searches', {
                 });
             } else if (records.length == 1) {
                 this.fireEvent('displayServiceProblem', records[0]);
+            } else {
+                var searchCriteria = operation.params;
+                var searchResultTab = this.activeSearchResultTabs.getByKey(searchCriteria);
+                var tabPanel = this.getTabPanel();
+                if (!searchResultTab) {
+                    searchResultTab = this.createSearchResultTabFor(searchCriteria);
+                    this.activeSearchResultTabs.add(searchCriteria, searchResultTab);
+                    tabPanel.add(searchResultTab);
+                    searchResultTab.getStore().loadRecords(records);
+                }
+
+                tabPanel.setActiveTab(searchResultTab);
             }
         }
+    },
+
+    onServiceProblemClicked: function (serviceProblem) {
+        this.fireEvent('displayServiceProblem', serviceProblem);
+    },
+
+    createSearchResultTabFor: function (searchCriteria) {
+        return Ext.widget('searchResultTabContent', {searchCriteria: searchCriteria, store: Spm.store.ServiceProblems.searchServiceProblemStore()});
     },
 
     isUniqueSearch: function (searchCriteria) {
         return searchCriteria.searchType == 'serviceProblemId';
     }
-
-
 });

@@ -7,13 +7,15 @@ public class ServiceProblem {
     private WorkItem workItem;
     private Queue queue;
     private boolean hasActiveTroubleReport;
+    private String directoryNumber;
 
-    public ServiceProblem(Integer serviceProblemId, String status, WorkItem workItem, Queue queue, boolean hasActiveTroubleReport) {
+    public ServiceProblem(Integer serviceProblemId, String status, WorkItem workItem, Queue queue, boolean hasActiveTroubleReport, String directoryNumber) {
         this.serviceProblemId = serviceProblemId;
         this.status = status;
         this.workItem = workItem;
         this.queue = queue;
         this.hasActiveTroubleReport = hasActiveTroubleReport;
+        this.directoryNumber = directoryNumber;
     }
 
     public Integer serviceProblemId() {
@@ -42,5 +44,9 @@ public class ServiceProblem {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String directoryNumber() {
+        return directoryNumber;
     }
 }

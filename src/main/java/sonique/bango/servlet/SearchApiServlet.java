@@ -22,6 +22,8 @@ public class SearchApiServlet extends PretentiousServlet {
             String searchType = request.getParameter("searchType");
             if("serviceProblemId".equals(searchType)) {
                 return writeJson(serviceProblemStore.serviceProblemById(parseInt(request.getParameter("searchParameter"))));
+            } else if("directoryNumber".equals(searchType)) {
+                return writeJson(serviceProblemStore.serviceProblemByDirectoryNumber(request.getParameter("searchParameter")));
             }
         }
 

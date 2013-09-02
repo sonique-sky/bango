@@ -1,8 +1,6 @@
 package sonique.bango.store;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.sun.istack.internal.Nullable;
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.ServiceProblem;
 import sonique.bango.domain.WorkItem;
@@ -20,10 +18,12 @@ public class ServiceProblemStore {
 
     public ServiceProblemStore(QueueStore queueStore) {
         this.queueStore = queueStore;
+        Integer directoryNumber = 111;
         for(int index=0; index<100; index++) {
             int queueId = (index / queueStore.numberOfQueues()) + 1;
             boolean hasActiveTroubleReport = index % 2 == 0;
-            serviceProblems.add(new ServiceProblem(index, "Open", new WorkItem(index+10, "Unassigned"), queueStore.queueById(queueId), hasActiveTroubleReport));
+            directoryNumber = index % 2 == 0 ? directoryNumber : ++directoryNumber;
+            serviceProblems.add(new ServiceProblem(index, "Open", new WorkItem(index+10, "Unassigned"), queueStore.queueById(queueId), hasActiveTroubleReport, directoryNumber.toString()));
         }
     }
 
@@ -54,6 +54,14 @@ public class ServiceProblemStore {
         return filter(serviceProblems, new Predicate<ServiceProblem>() {
             public boolean apply(ServiceProblem serviceProblem) {
                 return serviceProblem.serviceProblemId().equals(serviceProblemId);
+            }
+        });
+    }
+
+    public Collection<ServiceProblem> serviceProblemByDirectoryNumber(final String directoryNumber) {
+        return filter(serviceProblems, new Predicate<ServiceProblem>() {
+            public boolean apply(ServiceProblem serviceProblem) {
+                return serviceProblem.directoryNumber().equals(directoryNumber);
             }
         });
     }
