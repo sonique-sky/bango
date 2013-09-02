@@ -14,11 +14,9 @@ Ext.define('Spm.controller.ServiceProblems', {
     ],
 
     constructor: function (config) {
-        var me = this;
+        this.activeServiceProblemTabs = Ext.create('Ext.util.MixedCollection');
 
-        me.activeServiceProblemTabs = Ext.create('Ext.util.MixedCollection');
-
-        me.callParent([config]);
+        this.callParent([config]);
     },
 
     init: function () {
@@ -27,15 +25,21 @@ Ext.define('Spm.controller.ServiceProblems', {
                 '#Queues': {
                     displayServiceProblem: this.displayServiceProblem
                 },
-                '#Search': {
+                '#Searches': {
                     displayServiceProblem: this.displayServiceProblem
+                }
+            },
+            component: {
+                'serviceProblemTabContent': {
+                    destroy: this.onServiceProblemTabDestroyed
                 }
             }
         });
     },
 
-    displayServiceProblem: function (serviceProblemId) {
+    displayServiceProblem: function (serviceProblem) {
         var tabPanel = this.getTabPanel();
+        var serviceProblemId = serviceProblem.serviceProblemId();
         var serviceProblemTab = this.activeServiceProblemTabs.getByKey(serviceProblemId);
         if (!serviceProblemTab) {
             serviceProblemTab = this.createServiceProblemTabFor(serviceProblemId);
@@ -48,6 +52,10 @@ Ext.define('Spm.controller.ServiceProblems', {
 
     createServiceProblemTabFor: function (serviceProblemId) {
         return Ext.widget('serviceProblemTabContent', {serviceProblemId: serviceProblemId});
-    }
+    },
+
+    onServiceProblemTabDestroyed: function (serviceProblemTab) {
+        this.activeServiceProblemTabs.removeAtKey(serviceProblemTab.getServiceProblemId());
+    },
 
 });

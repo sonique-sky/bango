@@ -2,6 +2,7 @@ package sonique.bango.store;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.sun.istack.internal.Nullable;
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.ServiceProblem;
 import sonique.bango.domain.WorkItem;
@@ -47,6 +48,14 @@ public class ServiceProblemStore {
         for (ServiceProblem serviceProblem : serviceProblems) {
             serviceProblem.setStatus("Cleared");
         }
+    }
+
+    public Collection<ServiceProblem> serviceProblemById(final Integer serviceProblemId) {
+        return filter(serviceProblems, new Predicate<ServiceProblem>() {
+            public boolean apply(ServiceProblem serviceProblem) {
+                return serviceProblem.serviceProblemId().equals(serviceProblemId);
+            }
+        });
     }
 
     private Collection<ServiceProblem> collectServiceProblems(final Collection<Integer> serviceProblemIds) {

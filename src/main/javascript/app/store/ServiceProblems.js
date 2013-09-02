@@ -2,6 +2,15 @@ Ext.define('Spm.store.ServiceProblems', {
     extend: 'Ext.data.Store',
     alias: 'store.serviceProblems',
 
+    statics: {
+        queueServiceProblemStore: function() {
+            return Ext.create('Spm.store.ServiceProblems', {proxyUrl: 'api/queue/list'});
+        },
+        searchServiceProblemStore: function() {
+            return Ext.create('Spm.store.ServiceProblems', {proxyUrl: 'api/search/simple'});
+        }
+    },
+
     requires: [
         'Spm.model.ServiceProblem'
     ],
@@ -16,7 +25,7 @@ Ext.define('Spm.store.ServiceProblems', {
             sortOnLoad: false,
             proxy: {
                 type: 'ajax',
-                url: 'api/queue/list',
+                url: cfg.proxyUrl,
                 reader: {
                     type: 'json'
                 }

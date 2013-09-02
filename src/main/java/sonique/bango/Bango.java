@@ -2,10 +2,7 @@ package sonique.bango;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.jetty.server.Server;
-import sonique.bango.servlet.AgentApiServlet;
-import sonique.bango.servlet.BangoServletWrapper;
-import sonique.bango.servlet.QueueApiServlet;
-import sonique.bango.servlet.SecurityServlet;
+import sonique.bango.servlet.*;
 import sonique.bango.store.AgentStore;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
@@ -37,6 +34,7 @@ public class Bango {
 
         servletWrapper.add(new AgentApiServlet(objectMapper, agentStore));
         servletWrapper.add(new QueueApiServlet(objectMapper, serviceProblemStore, queueStore));
+        servletWrapper.add(new SearchApiServlet(objectMapper, serviceProblemStore));
         servletWrapper.add(new SecurityServlet(objectMapper, agentStore));
 
         server.setHandler(servletWrapper.asHandler());

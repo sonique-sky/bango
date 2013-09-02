@@ -14,7 +14,7 @@ Ext.application({
         'Security',
         'Queues',
         'ServiceProblems',
-        'Search'
+        'Searches'
     ],
     launch: function () {
         Ext.create('Spm.view.application.SpmViewport');

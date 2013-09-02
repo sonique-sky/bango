@@ -17,11 +17,9 @@ Ext.define('Spm.controller.Queues', {
     stores: 'AllQueues',
 
     constructor: function (config) {
-        var me = this;
+        this.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
 
-        me.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
-
-        me.callParent([config]);
+        this.callParent([config]);
     },
 
     init: function () {
@@ -54,8 +52,8 @@ Ext.define('Spm.controller.Queues', {
         });
     },
 
-    onServiceProblemClicked: function (serviceProblemId) {
-        this.fireEvent('displayServiceProblem', serviceProblemId);
+    onServiceProblemClicked: function (serviceProblem) {
+        this.fireEvent('displayServiceProblem', serviceProblem);
     },
 
     selectedServiceProblemIds: function (queueTabContent) {
@@ -169,7 +167,7 @@ Ext.define('Spm.controller.Queues', {
     },
 
     createQueueTabFor: function (queue) {
-        return Ext.widget('queueTabContent', {queue: queue, store: Ext.create('Spm.store.ServiceProblems')});
+        return Ext.widget('queueTabContent', {queue: queue, store: Spm.store.ServiceProblems.queueServiceProblemStore()});
     },
 
     isAQueueTab: function (tab) {

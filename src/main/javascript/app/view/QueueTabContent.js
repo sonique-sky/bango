@@ -85,7 +85,7 @@ Ext.define('Spm.view.QueueTabContent', {
 
     onCellClicked: function(view, td, cellIndex, record) {
         if(cellIndex > 0) {
-            this.fireEvent("serviceProblemClicked", record.get("serviceProblemId"));
+            this.fireEvent("serviceProblemClicked", record);
         }
     },
 
