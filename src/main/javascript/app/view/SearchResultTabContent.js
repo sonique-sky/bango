@@ -2,6 +2,10 @@ Ext.define('Spm.view.SearchResultTabContent', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.searchResultTabContent',
 
+    requires: [
+        'Spm.view.renderer.NestedPropertyRenderer'
+    ],
+
     config: {
         searchCriteria: undefined
     },
@@ -41,7 +45,7 @@ Ext.define('Spm.view.SearchResultTabContent', {
                         },
                         {text: 'Work Item',
                             columns: [
-                                {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: this.nestedPropertyRenderer}
+                                {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: Spm.view.renderer.NestedPropertyRenderer.renderer}
                             ]
                         }
                     ]
@@ -64,28 +68,5 @@ Ext.define('Spm.view.SearchResultTabContent', {
         this.up('tabpanel').setActiveTab(this);
 
         this.store.load({params: this.getSearchCriteria()});
-    },
-
-    nestedPropertyRenderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
-        function evaluateMe(dataIndex, associatedData) {
-            var properties = dataIndex.split('.');
-            var value = associatedData;
-
-            Ext.Array.forEach(properties, function (property) {
-                value = value[property]
-            });
-
-            return value;
-        }
-
-        var gridPanel = view.up('gridpanel');
-        // Hack cos Ext offsets the colIndex value if selType property is 'checkboxmodel'
-        if (gridPanel.selModel.selType == 'checkboxmodel') {
-            colIndex--;
-        }
-        // End Hack
-        var column = gridPanel.columns[colIndex];
-
-        return evaluateMe(column.dataIndex, record.getAssociatedData());
     }
 });

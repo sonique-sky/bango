@@ -2,6 +2,7 @@ Ext.define('Spm.view.QueueTabContent', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.queueTabContent',
     requires: [
+        'Spm.view.renderer.NestedPropertyRenderer',
         'Spm.view.QueueTabToolbar',
         'Spm.store.ServiceProblems',
         'Ext.grid.Panel',
@@ -71,7 +72,7 @@ Ext.define('Spm.view.QueueTabContent', {
                         },
                         {text: 'Work Item',
                             columns: [
-                                {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: this.nestedPropertyRenderer}
+                                {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: Spm.view.renderer.NestedPropertyRenderer.renderer}
                             ]
                         }
                     ]
@@ -82,16 +83,16 @@ Ext.define('Spm.view.QueueTabContent', {
         this.callParent(arguments);
     },
 
-    load: function() {
+    load: function () {
         this.store.load({params: {queueId: this.queue.queueId()}})
     },
 
-    loadWith: function(rawJsonData) {
+    loadWith: function (rawJsonData) {
         this.store.loadRawData(rawJsonData);
     },
 
-    onCellClicked: function(view, td, cellIndex, record) {
-        if(cellIndex > 0) {
+    onCellClicked: function (view, td, cellIndex, record) {
+        if (cellIndex > 0) {
             this.fireEvent("serviceProblemClicked", record);
         }
     },
@@ -106,29 +107,6 @@ Ext.define('Spm.view.QueueTabContent', {
             this.down('button[id^=bulk-transfer]').setDisabled(true);
             this.down('button[id^=bulk-clear]').setDisabled(true);
         }
-    },
-
-    nestedPropertyRenderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
-        function evaluateMe(dataIndex, associatedData) {
-            var properties = dataIndex.split('.');
-            var value = associatedData;
-
-            Ext.Array.forEach(properties, function (property) {
-                value = value[property]
-            });
-
-            return value;
-        }
-
-        var gridPanel = view.up('gridpanel');
-        // Hack cos Ext offsets the colIndex value if selType property is 'checkboxmodel'
-        if (gridPanel.selModel.selType == 'checkboxmodel') {
-            colIndex--;
-        }
-        // End Hack
-        var column = gridPanel.columns[colIndex];
-
-        return evaluateMe(column.dataIndex, record.getAssociatedData());
     },
 
     selectedServiceProblems: function () {
