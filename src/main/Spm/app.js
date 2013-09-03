@@ -27,7 +27,8 @@ Ext.application({
         'MyQueuesPanel',
         'SearchPanel',
         'LoginWindow',
-        'AppContainer'
+        'AppContainer',
+        'MyPanel'
     ],
     autoCreateViewport: true,
     controllers: [

@@ -46,7 +46,7 @@ Ext.define('Spm.controller.QueueController', {
         var items = [];
         var config = {};
 
-        items.push(Ext.widget('queueContainer', {id: this.idFor(), queue: this.queue}));
+        items.push(Ext.widget('queueContainer', {id: this.queueIdThing(), queue: this.queue}));
 
         config.items = items;
 

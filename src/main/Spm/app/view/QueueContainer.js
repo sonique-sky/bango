@@ -23,23 +23,22 @@ Ext.define('Spm.view.QueueContainer', {
     initComponent: function() {
         var me = this;
 
-        me.processQueueContainer(me);
-        me.callParent(arguments);
-    },
-
-    processQueueContainer: function(config) {
-        var items = [];
-        var toolbarConfig = {};
-
-        items.push({
-            id: 'foo-' + config.queue.get('id'),
-            itemId: 'foo-' + config.queue.get('id'),
-            text: config.queue.get('name')
+        Ext.applyIf(me, {
+            items: [
+                {
+                    xtype: 'toolbar',
+                    items: [
+                        {
+                            xtype: 'button',
+                            id: 'bulk-clear',
+                            text: 'Bulk Clear'
+                        }
+                    ]
+                }
+            ]
         });
 
-        toolbarConfig.items = items;
-
-        config.items = Ext.create('widget.toolbar', toolbarConfig);
+        me.callParent(arguments);
     }
 
 });

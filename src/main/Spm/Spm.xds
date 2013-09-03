@@ -191,6 +191,14 @@
                 "metadata/resource/js2"
             ],
             "className": "js2"
+        },
+        "86620610-a866-4874-83a9-6a0d1585cd6c": {
+            "paths": [
+                "metadata/view/MyPanel",
+                "app/view/override/MyPanel.js",
+                "app/view/MyPanel.js"
+            ],
+            "className": "MyPanel"
         }
     },
     "viewOrderMap": {
@@ -204,7 +212,8 @@
             "73836524-4dc8-4269-83ea-20154789abeb",
             "77d7cab5-fde5-4e3f-b22a-cbc0ad0a9796",
             "993c60e6-a499-4282-aa3a-b333e408538b",
-            "df67b972-c27c-4da3-84be-191c3504f266"
+            "df67b972-c27c-4da3-84be-191c3504f266",
+            "86620610-a866-4874-83a9-6a0d1585cd6c"
         ],
         "store": [
             "3a16544a-bc66-4df1-9bf7-29a9f5ca5c11",
