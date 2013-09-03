@@ -84,15 +84,11 @@ Ext.define('Spm.controller.Queues', {
     },
 
     onStartAction: function (actionName) {
-        var action = this.registeredActions.getByKey(actionName);
-
-        action.startAction.apply(action, Array.prototype.slice.call(arguments, 1));
+        this.registeredActions.getByKey(actionName).applyStartStep(arguments);
     },
 
     onFinishAction: function (actionName) {
-        var action = this.registeredActions.getByKey(actionName);
-
-        action.finishAction.apply(action, Array.prototype.slice.call(arguments, 1));
+        this.registeredActions.getByKey(actionName).applyFinishStep(arguments);
     },
 
     onQueueTabDestroyed: function (queueTab) {
