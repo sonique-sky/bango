@@ -2,6 +2,10 @@ Ext.define('Spm.controller.Queues', {
     extend: 'Ext.app.Controller',
     alias: 'controller.queues',
 
+    mixins: {
+        hasRegisteredActions: 'Spm.controller.mixins.HasRegisteredActions'
+    },
+
     requires: [
         'Spm.controller.action.queue.BulkClearAction',
         'Spm.controller.action.queue.BulkTransferAction'
@@ -23,9 +27,9 @@ Ext.define('Spm.controller.Queues', {
     ],
 
     constructor: function (config) {
-        this.registeredActions = Ext.create('Ext.util.MixedCollection');
-        this.registeredActions.add('bulkClear', Ext.create('Spm.controller.action.queue.BulkClearAction'));
-        this.registeredActions.add('bulkTransfer', Ext.create('Spm.controller.action.queue.BulkTransferAction'));
+        this.mixins.hasRegisteredActions.constructor.call(this, config);
+        this.registerAction(Ext.create('Spm.controller.action.queue.BulkClearAction'));
+        this.registerAction(Ext.create('Spm.controller.action.queue.BulkTransferAction'));
 
         this.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
 
@@ -84,11 +88,11 @@ Ext.define('Spm.controller.Queues', {
     },
 
     onStartAction: function (actionName) {
-        this.registeredActions.getByKey(actionName).applyStartStep(arguments);
+        this.registeredActionWithName(actionName).applyStartStep(arguments);
     },
 
     onFinishAction: function (actionName) {
-        this.registeredActions.getByKey(actionName).applyFinishStep(arguments);
+        this.registeredActionWithName(actionName).applyFinishStep(arguments);
     },
 
     onQueueTabDestroyed: function (queueTab) {

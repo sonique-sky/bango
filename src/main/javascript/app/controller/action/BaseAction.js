@@ -1,5 +1,13 @@
 Ext.define('Spm.controller.action.BaseAction', {
 
+    config: {
+        name: undefined
+    },
+
+    constructor: function(config) {
+        this.initConfig(config);
+    },
+
     startAction: Ext.emptyFn,
     finishAction: Ext.emptyFn,
 

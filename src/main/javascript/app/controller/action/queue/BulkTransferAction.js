@@ -5,6 +5,12 @@ Ext.define('Spm.controller.action.queue.BulkTransferAction', {
         'Spm.view.BulkTransferDialog'
     ],
 
+    constructor: function () {
+        this.callParent([Ext.apply({}, {
+            name: 'bulkTransfer'
+        })]);
+    },
+
     startAction: function (queueTab) {
         var queueId = queueTab.getQueue().queueId();
         var store = Ext.data.StoreManager.lookup('AllQueues');

@@ -5,6 +5,12 @@ Ext.define('Spm.controller.action.queue.BulkClearAction', {
         'Spm.view.BulkClearDialog'
     ],
 
+    constructor: function () {
+        this.callParent([Ext.apply({}, {
+            name: 'bulkClear'
+        })]);
+    },
+
     startAction: function(queueTab) {
         var selectedServiceProblems = queueTab.selectedServiceProblems();
         var hasActiveTroubleReports = this.hasActiveTroubleReports(selectedServiceProblems);
