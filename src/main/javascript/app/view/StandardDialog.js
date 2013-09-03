@@ -67,7 +67,10 @@ Ext.define('Spm.view.StandardDialog', {
     },
 
     onAccept: function() {
-        this.fireEvent('accepted', this.collectFn());
+        var eventArguments = this.collectFn();
+        eventArguments.unshift('accepted');
+
+        this.fireEvent.apply(this, eventArguments);
         this.close();
     },
 

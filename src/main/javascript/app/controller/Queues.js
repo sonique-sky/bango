@@ -2,10 +2,13 @@ Ext.define('Spm.controller.Queues', {
     extend: 'Ext.app.Controller',
     alias: 'controller.queues',
 
+    requires: [
+        'Spm.controller.action.queue.BulkClearAction',
+        'Spm.controller.action.queue.BulkTransferAction'
+    ],
+
     views: [
-        'QueueTabContent',
-        'BulkTransferDialog',
-        'BulkClearDialog'
+        'QueueTabContent'
     ],
 
     refs: [
@@ -14,9 +17,12 @@ Ext.define('Spm.controller.Queues', {
             selector: '#tab-panel'
         }
     ],
-    stores: 'AllQueues',
 
     constructor: function (config) {
+        this.registeredActions = Ext.create('Ext.util.MixedCollection');
+        this.registeredActions.add('bulkClear', Ext.create('Spm.controller.action.queue.BulkClearAction'));
+        this.registeredActions.add('bulkTransfer', Ext.create('Spm.controller.action.queue.BulkTransferAction'));
+
         this.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
 
         this.callParent([config]);
@@ -31,8 +37,7 @@ Ext.define('Spm.controller.Queues', {
             },
             component: {
                 'queueTabToolbar': {
-                    bulkTransfer: this.onBulkTransfer,
-                    bulkClear: this.onBulkClear
+                    startAction: this.onStartAction
                 },
                 '#tab-panel': {
                     tabchange: this.onTabChange
@@ -42,10 +47,10 @@ Ext.define('Spm.controller.Queues', {
                     serviceProblemClicked: this.onServiceProblemClicked
                 },
                 'bulkTransferDialog': {
-                    accepted: this.onBulkTransferAccepted
+                    accepted: this.onFinishAction
                 },
                 'bulkClearDialog': {
-                    accepted: this.onBulkClearAccepted
+                    accepted: this.onFinishAction
                 }
             }
         });
@@ -66,39 +71,6 @@ Ext.define('Spm.controller.Queues', {
         return serviceProblemIds;
     },
 
-    onBulkClearAccepted: function () {
-        var queueTabContent = this.getTabPanel().getActiveTab();
-        var serviceProblemIds = this.selectedServiceProblemIds(queueTabContent);
-
-        this.performBulkOperation('bulkClear', {
-            'originalQueueId': queueTabContent.getQueue().queueId(),
-            'serviceProblemIds': serviceProblemIds
-        }, queueTabContent);
-    },
-
-    onBulkTransferAccepted: function (destinationQueue) {
-        var queueTabContent = this.getTabPanel().getActiveTab();
-        var serviceProblemIds = this.selectedServiceProblemIds(queueTabContent);
-
-        this.performBulkOperation('bulkTransfer', {
-            'originalQueueId': queueTabContent.getQueue().queueId(),
-            'destinationQueueId': destinationQueue.queueId(),
-            'serviceProblemIds': serviceProblemIds
-        }, queueTabContent);
-    },
-
-    performBulkOperation: function (operation, params, queueTabContent) {
-        Ext.Ajax.request(
-                {
-                    url: 'api/queue/' + operation,
-                    params: params,
-                    success: function (response) {
-                        queueTabContent.loadWith(response);
-                    }
-                }
-        );
-    },
-
     onTabChange: function (tabPanel, selectedPanel) {
         if (this.isAQueueTab(selectedPanel)) {
             this.fireEvent('queueTabSelected', selectedPanel);
@@ -107,38 +79,16 @@ Ext.define('Spm.controller.Queues', {
         }
     },
 
-    hasActiveTroubleReports: function (selectedServiceProblems) {
-        var serviceProblemsWithTroubleReports = Ext.Array.filter(selectedServiceProblems, function (serviceProblem) {
-            return serviceProblem.get('hasActiveTroubleReport');
-        });
+    onStartAction : function(actionName, context) {
+        var action = this.registeredActions.getByKey(actionName);
 
-        return serviceProblemsWithTroubleReports.length > 0;
+        action.startAction.apply(action, Array.prototype.slice.call(arguments, 1));
     },
 
-    onBulkClear: function (queueTab) {
-        var selectedServiceProblems = queueTab.selectedServiceProblems();
-        var hasActiveTroubleReports = this.hasActiveTroubleReports(selectedServiceProblems);
+    onFinishAction : function(actionName, context) {
+        var action = this.registeredActions.getByKey(actionName);
 
-        Ext.create(this.getBulkClearDialogView(), {hasActiveTroubleReports: hasActiveTroubleReports}).show();
-    },
-
-    onBulkTransfer: function (queueTab) {
-        var queueId = queueTab.getQueue().queueId();
-        var store = this.getAllQueuesStore();
-        store.load(
-                {
-                    callback: function (records, operation, success) {
-                        if (success) {
-                            store.clearFilter();
-                            store.filter([
-                                {property: 'id', operator: '!=', value: queueId}
-                            ]);
-                        }
-                    }
-                }
-        );
-
-        Ext.create(this.getBulkTransferDialogView()).show();
+        action.finishAction.apply(action, Array.prototype.slice.call(arguments, 1));
     },
 
     onQueueTabDestroyed: function (queueTab) {

@@ -5,6 +5,7 @@ Ext.define('Spm.view.QueueTabToolbar', {
     requires: [
         'Ext.toolbar.Paging'
     ],
+
     initComponent: function () {
         var me = this;
 
@@ -35,10 +36,10 @@ Ext.define('Spm.view.QueueTabToolbar', {
     },
 
     onBulkTransfer: function () {
-        this.fireEvent('bulkTransfer', this.up('queueTabContent'));
+        this.fireEvent('startAction', 'bulkTransfer', this.up('queueTabContent'));
     },
 
     onBulkClear: function () {
-        this.fireEvent('bulkClear', this.up('queueTabContent'));
+        this.fireEvent('startAction', 'bulkClear', this.up('queueTabContent'));
     }
 });

@@ -7,11 +7,15 @@ Ext.define('Spm.view.BulkTransferDialog', {
     iconCls: 'icon-transfer',
     title: 'Bulk Transfer',
 
+    config: {
+        parentQueueTab: undefined
+    },
+
     initComponent: function () {
         var me = this;
 
         Ext.apply(me, {
-            collectFn: this.getSelectedQueue,
+            collectFn: this.getItemsOfInterestArray,
             acceptButtonText: 'Transfer',
             acceptButtonDefaultDisabled: true,
             content: {
@@ -45,11 +49,11 @@ Ext.define('Spm.view.BulkTransferDialog', {
         me.callParent(arguments);
     },
 
-    onQueueSelected: function() {
+    onQueueSelected: function () {
         this.setAcceptButtonDisabled(false);
     },
 
-    getSelectedQueue: function() {
-        return this.down('dataview').getSelectionModel().getSelection()[0];
+    getItemsOfInterestArray: function () {
+        return ['bulkTransfer', this.parentQueueTab, this.down('dataview').getSelectionModel().getSelection()[0]];
     }
 });

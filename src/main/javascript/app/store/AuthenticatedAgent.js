@@ -30,7 +30,7 @@
         }, cfg)]);
     },
 
-    onAuthenticatedAgentLoaded: function (store, records, successful, eOpts) {
+    onAuthenticatedAgentLoaded: function (store) {
         var queueStore = Ext.data.StoreManager.lookup('AgentQueues');
 
         queueStore.loadRawData(store.proxy.reader.jsonData);

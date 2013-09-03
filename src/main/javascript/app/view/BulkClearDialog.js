@@ -7,13 +7,17 @@ Ext.define('Spm.view.BulkClearDialog', {
     iconCls: 'icon-clear',
     title: 'Bulk Clear',
 
+    config: {
+        parentQueueTab: undefined
+    },
+
     initComponent: function () {
         var me = this;
 
         var message = this.messageFor(me.hasActiveTroubleReports);
 
         Ext.apply(me, {
-            collectFn: this.getSelectedQueue,
+            collectFn: this.getItemsOfInterestArray,
             acceptButtonText: 'Continue',
             content: {
                 xtype: 'label',
@@ -32,5 +36,9 @@ Ext.define('Spm.view.BulkClearDialog', {
         }
 
         return 'Are you sure you wish to clear these Service Problems?';
+    },
+
+    getItemsOfInterestArray: function() {
+        return ['bulkClear', this.parentQueueTab];
     }
 });
