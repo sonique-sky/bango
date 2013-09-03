@@ -59,8 +59,7 @@ Ext.define('Spm.controller.Searches', {
         } else {
             var searchResultTab = this.activeSearchResultTabs.getByKey(searchCriteria);
             if (searchResultTab) {
-                searchResultTab.getStore().reload();
-                this.getTabPanel().setActiveTab(searchResultTab);
+                searchResultTab.reloadAndMakeActive();
             } else {
                 this.doSearch(searchCriteria);
             }
@@ -80,14 +79,14 @@ Ext.define('Spm.controller.Searches', {
             } else if (records.length == 1) {
                 this.fireEvent('displayServiceProblem', records[0]);
             } else {
+                var tabPanel = this.getTabPanel();
                 var searchCriteria = operation.params;
                 var searchResultTab = this.activeSearchResultTabs.getByKey(searchCriteria);
-                var tabPanel = this.getTabPanel();
                 if (!searchResultTab) {
                     searchResultTab = this.createSearchResultTabFor(searchCriteria);
                     this.activeSearchResultTabs.add(searchCriteria, searchResultTab);
                     tabPanel.add(searchResultTab);
-                    searchResultTab.getStore().loadRecords(records);
+                    searchResultTab.loadWith(records);
                 }
 
                 tabPanel.setActiveTab(searchResultTab);
@@ -100,7 +99,7 @@ Ext.define('Spm.controller.Searches', {
     },
 
     createSearchResultTabFor: function (searchCriteria) {
-        return Ext.widget('searchResultTabContent', {searchCriteria: searchCriteria, store: Spm.store.ServiceProblems.searchServiceProblemStore()});
+        return Ext.widget('searchResultTabContent', {searchCriteria: searchCriteria});
     },
 
     isUniqueSearch: function (searchCriteria) {

@@ -3,7 +3,6 @@ Ext.define('Spm.view.SearchResultTabContent', {
     alias: 'widget.searchResultTabContent',
 
     config: {
-        store: undefined,
         searchCriteria: undefined
     },
 
@@ -13,25 +12,25 @@ Ext.define('Spm.view.SearchResultTabContent', {
     iconCls: 'icon-search',
 
     initComponent: function () {
-        var me = this;
+        this.store = Spm.store.ServiceProblems.searchServiceProblemStore();
 
-        Ext.applyIf(me, {
+        Ext.applyIf(this, {
             title: 'Search Results',
             id: 'search-result-tab',
             dockedItems: [
                 {
                     xtype: 'pagingtoolbar',
                     flex: 1.0,
-                    store: me.store
+                    store: this.store
                 },
             ],
             items: [
                 {
                     xtype: 'gridpanel',
-                    store: me.store,
+                    store: this.store,
                     border: 0,
                     listeners: {
-                        cellclick: {fn: me.onCellClicked, scope: me}
+                        cellclick: {fn: this.onCellClicked, scope: this}
                     },
                     columns: [
                         {text: 'Service Problem',
@@ -50,11 +49,21 @@ Ext.define('Spm.view.SearchResultTabContent', {
             ]
         });
 
-        me.callParent(arguments);
+        this.callParent(arguments);
     },
 
     onCellClicked: function (view, td, cellIndex, record) {
         this.fireEvent("serviceProblemClicked", record);
+    },
+
+    loadWith: function(serviceProblems) {
+        this.store.loadRecords(serviceProblems);
+    },
+
+    reloadAndMakeActive: function() {
+        this.up('tabpanel').setActiveTab(this);
+
+        this.store.load({params: this.getSearchCriteria()});
     },
 
     nestedPropertyRenderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
