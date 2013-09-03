@@ -18,6 +18,10 @@ Ext.define('Spm.controller.Queues', {
         }
     ],
 
+    stores: [
+        'AllQueues'
+    ],
+
     constructor: function (config) {
         this.registeredActions = Ext.create('Ext.util.MixedCollection');
         this.registeredActions.add('bulkClear', Ext.create('Spm.controller.action.queue.BulkClearAction'));
@@ -79,13 +83,13 @@ Ext.define('Spm.controller.Queues', {
         }
     },
 
-    onStartAction : function(actionName, context) {
+    onStartAction: function (actionName) {
         var action = this.registeredActions.getByKey(actionName);
 
         action.startAction.apply(action, Array.prototype.slice.call(arguments, 1));
     },
 
-    onFinishAction : function(actionName, context) {
+    onFinishAction: function (actionName) {
         var action = this.registeredActions.getByKey(actionName);
 
         action.finishAction.apply(action, Array.prototype.slice.call(arguments, 1));
