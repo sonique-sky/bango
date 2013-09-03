@@ -39,7 +39,6 @@ Ext.define('Spm.controller.Queues', {
                 },
                 'queueTabContent': {
                     destroy: this.onQueueTabDestroyed,
-                    added: this.onQueueTabRendered,
                     serviceProblemClicked: this.onServiceProblemClicked
                 },
                 'bulkTransferDialog': {
@@ -71,34 +70,30 @@ Ext.define('Spm.controller.Queues', {
         var queueTabContent = this.getTabPanel().getActiveTab();
         var serviceProblemIds = this.selectedServiceProblemIds(queueTabContent);
 
-        Ext.Ajax.request(
-                {
-                    url: 'api/queue/bulkClear',
-                    params: {
-                        'originalQueueId': queueTabContent.getQueue().queueId(),
-                        'serviceProblemIds': serviceProblemIds
-                    },
-                    success: function (response) {
-                        queueTabContent.getStore().loadRawData(response);
-                    }
-                }
-        );
+        this.performBulkOperation('bulkClear', {
+            'originalQueueId': queueTabContent.getQueue().queueId(),
+            'serviceProblemIds': serviceProblemIds
+        }, queueTabContent);
     },
 
     onBulkTransferAccepted: function (destinationQueue) {
         var queueTabContent = this.getTabPanel().getActiveTab();
         var serviceProblemIds = this.selectedServiceProblemIds(queueTabContent);
 
+        this.performBulkOperation('bulkTransfer', {
+            'originalQueueId': queueTabContent.getQueue().queueId(),
+            'destinationQueueId': destinationQueue.queueId(),
+            'serviceProblemIds': serviceProblemIds
+        }, queueTabContent);
+    },
+
+    performBulkOperation: function (operation, params, queueTabContent) {
         Ext.Ajax.request(
                 {
-                    url: 'api/queue/bulkTransfer',
-                    params: {
-                        'originalQueueId': queueTabContent.getQueue().queueId(),
-                        'destinationQueueId': destinationQueue.queueId(),
-                        'serviceProblemIds': serviceProblemIds
-                    },
+                    url: 'api/queue/' + operation,
+                    params: params,
                     success: function (response) {
-                        queueTabContent.getStore().loadRawData(response);
+                        queueTabContent.loadWith(response);
                     }
                 }
         );
@@ -146,10 +141,6 @@ Ext.define('Spm.controller.Queues', {
         Ext.create(this.getBulkTransferDialogView()).show();
     },
 
-    onQueueTabRendered: function (queueTab) {
-        queueTab.getStore().load({params: {queueId: queueTab.getQueue().queueId()}})
-    },
-
     onQueueTabDestroyed: function (queueTab) {
         this.activeQueueTabs.removeAtKey(queueTab.getQueue().queueId());
     },
@@ -160,6 +151,7 @@ Ext.define('Spm.controller.Queues', {
         if (!queueTab) {
             queueTab = this.createQueueTabFor(queue);
             this.activeQueueTabs.add(queue.queueId(), queueTab);
+            queueTab.load();
             tabPanel.add(queueTab);
         }
 
@@ -167,7 +159,7 @@ Ext.define('Spm.controller.Queues', {
     },
 
     createQueueTabFor: function (queue) {
-        return Ext.widget('queueTabContent', {queue: queue, store: Spm.store.ServiceProblems.queueServiceProblemStore()});
+        return Ext.widget('queueTabContent', {queue: queue});
     },
 
     isAQueueTab: function (tab) {

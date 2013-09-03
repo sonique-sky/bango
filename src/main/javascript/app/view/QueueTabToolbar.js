@@ -23,6 +23,7 @@ Ext.define('Spm.view.QueueTabToolbar', {
                     xtype: 'button',
                     id: 'bulk-clear-' + me.queue.queueId(),
                     text: 'Clear',
+                    iconCls: 'icon-clear',
                     disabled: true,
                     handler: me.onBulkClear,
                     scope: me

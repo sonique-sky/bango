@@ -10,7 +10,6 @@ Ext.define('Spm.view.QueueTabContent', {
 
     config: {
         queue: undefined,
-        store: undefined
     },
 
     border: 0,
@@ -19,11 +18,11 @@ Ext.define('Spm.view.QueueTabContent', {
     iconCls: 'icon-queue',
 
     initComponent: function () {
-        var me = this;
+        this.store = Spm.store.ServiceProblems.queueServiceProblemStore();
 
-        Ext.applyIf(me, {
-            title: me.queue.queueName(),
-            id: 'queue-tab-' + me.queue.queueId(),
+        Ext.applyIf(this, {
+            title: this.queue.queueName(),
+            id: 'queue-tab-' + this.queue.queueId(),
             dockedItems: [
                 {
                     xtype: 'container',
@@ -36,12 +35,12 @@ Ext.define('Spm.view.QueueTabContent', {
                     items: [
                         {
                             xtype: 'queueTabToolbar',
-                            queue: me.queue
+                            queue: this.queue
                         },
                         {
                             xtype: 'pagingtoolbar',
                             flex: 1.0,
-                            store: me.store
+                            store: this.store
                         },
                         {
                             xtype: 'tbspacer'
@@ -52,16 +51,16 @@ Ext.define('Spm.view.QueueTabContent', {
             items: [
                 {
                     xtype: 'gridpanel',
-                    store: me.store,
+                    store: this.store,
                     selModel: {
                         selType: 'checkboxmodel',
                         checkOnly: true
                     },
                     border: 0,
                     listeners: {
-                        select: {fn: me.onRowSelected, scope: me},
-                        deselect: {fn: me.onRowDeselected, scope: me},
-                        cellclick: {fn: me.onCellClicked, scope: me}
+                        select: {fn: this.onRowSelected, scope: this},
+                        deselect: {fn: this.onRowDeselected, scope: this},
+                        cellclick: {fn: this.onCellClicked, scope: this}
                     },
                     columns: [
                         {text: 'Service Problem',
@@ -80,7 +79,15 @@ Ext.define('Spm.view.QueueTabContent', {
             ]
         });
 
-        me.callParent(arguments);
+        this.callParent(arguments);
+    },
+
+    load: function() {
+        this.store.load({params: {queueId: this.queue.queueId()}})
+    },
+
+    loadWith: function(rawJsonData) {
+        this.store.loadRawData(rawJsonData);
     },
 
     onCellClicked: function(view, td, cellIndex, record) {
