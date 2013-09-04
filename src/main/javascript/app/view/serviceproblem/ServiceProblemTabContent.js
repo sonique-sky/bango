@@ -1,4 +1,4 @@
-Ext.define('Spm.view.ServiceProblemTabContent', {
+Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.serviceProblemTabContent',
 

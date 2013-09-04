@@ -3,7 +3,7 @@ Ext.define('Spm.controller.Searches', {
     alias: 'controller.searches',
 
     views: [
-        'SearchResultTabContent'
+        'search.SearchResultTabContent'
     ],
 
     refs: [

@@ -3,7 +3,7 @@ Ext.define('Spm.controller.ServiceProblems', {
     alias: 'controller.serviceProblems',
 
     views: [
-        'ServiceProblemTabContent'
+        'serviceproblem.ServiceProblemTabContent'
     ],
 
     refs: [

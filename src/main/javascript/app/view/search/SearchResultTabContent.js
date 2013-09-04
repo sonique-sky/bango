@@ -1,4 +1,4 @@
-Ext.define('Spm.view.SearchResultTabContent', {
+Ext.define('Spm.view.search.SearchResultTabContent', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.searchResultTabContent',
 
