@@ -1,5 +1,5 @@
 Ext.define('Spm.view.BulkTransferDialog', {
-    extend: 'Spm.view.StandardDialog',
+    extend: 'Spm.view.component.StandardDialog',
     alias: 'widget.bulkTransferDialog',
 
     height: 250,

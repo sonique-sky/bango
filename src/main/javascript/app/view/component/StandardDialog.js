@@ -1,6 +1,5 @@
-Ext.define('Spm.view.StandardDialog', {
+Ext.define('Spm.view.component.StandardDialog', {
     extend: 'Ext.window.Window',
-    alias: 'widget.standardDialog',
 
     layout: {
         type: 'fit'
