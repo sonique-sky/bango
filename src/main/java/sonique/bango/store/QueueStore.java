@@ -11,9 +11,11 @@ import static com.google.common.collect.Lists.newArrayList;
 public class QueueStore {
 
     private final List<Queue> allQueues = newArrayList();
+    private final int numberOfQueues;
 
-    public QueueStore() {
-        for(int i=1; i<11; i++) {
+    public QueueStore(int numberOfQueues) {
+        this.numberOfQueues = numberOfQueues;
+        for(int i=1; i<= this.numberOfQueues; i++) {
             allQueues.add(new Queue(i, "Queue "+i));
         }
     }
@@ -31,6 +33,6 @@ public class QueueStore {
     }
 
     public int numberOfQueues() {
-        return allQueues.size();
+        return numberOfQueues;
     }
 }

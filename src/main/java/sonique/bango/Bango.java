@@ -15,7 +15,7 @@ public class Bango {
     private final Server server;
 
     public static void main(String[] args) throws Exception {
-        final QueueStore queueStore = new QueueStore();
+        final QueueStore queueStore = new QueueStore(30);
         AgentStore agentStore = new AgentStore(queueStore);
         ServiceProblemStore serviceProblemStore = new ServiceProblemStore(queueStore);
 

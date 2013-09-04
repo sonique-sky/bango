@@ -7,7 +7,6 @@ Ext.define('Spm.view.navigation.SearchPanel', {
     iconCls: 'icon-search',
     title: 'Search',
     layout: 'vbox',
-    margin: 3,
 
     initComponent: function () {
         var me = this;
@@ -17,7 +16,6 @@ Ext.define('Spm.view.navigation.SearchPanel', {
                 {
                     xtype: 'radiogroup',
                     columns: 1,
-                    margin: 3,
                     items: [
                         {
                             boxLabel: 'Service Problem ID',

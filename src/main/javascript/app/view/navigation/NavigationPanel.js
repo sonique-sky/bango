@@ -9,7 +9,7 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
     ],
 
     height: 730,
-    width: 197,
+    width: 200,
     layout: {
         align: 'stretch',
         type: 'vbox'
@@ -19,6 +19,9 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
         var me = this;
 
         Ext.applyIf(me, {
+            defaults :{
+                margin: '0 5 5 5'
+            },
             items: [
                 {
                     xtype: 'agentStatusPanel'
