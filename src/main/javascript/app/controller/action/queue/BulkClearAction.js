@@ -2,7 +2,7 @@ Ext.define('Spm.controller.action.queue.BulkClearAction', {
     extend: 'Spm.controller.action.queue.BaseBulkAction',
 
     requires: [
-        'Spm.view.BulkClearDialog'
+        'Spm.view.queue.BulkClearDialog'
     ],
 
     constructor: function () {
@@ -15,7 +15,7 @@ Ext.define('Spm.controller.action.queue.BulkClearAction', {
         var selectedServiceProblems = queueTab.selectedServiceProblems();
         var hasActiveTroubleReports = this.hasActiveTroubleReports(selectedServiceProblems);
 
-        Ext.create('Spm.view.BulkClearDialog', {parentQueueTab: queueTab, hasActiveTroubleReports: hasActiveTroubleReports}).show();
+        Ext.create('Spm.view.queue.BulkClearDialog', {parentQueueTab: queueTab, hasActiveTroubleReports: hasActiveTroubleReports}).show();
     },
 
     finishAction: function (queueTab) {

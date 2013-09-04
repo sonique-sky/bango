@@ -2,7 +2,7 @@ Ext.define('Spm.controller.action.queue.BulkTransferAction', {
     extend: 'Spm.controller.action.queue.BaseBulkAction',
 
     requires: [
-        'Spm.view.BulkTransferDialog'
+        'Spm.view.queue.BulkTransferDialog'
     ],
 
     constructor: function () {
@@ -27,7 +27,7 @@ Ext.define('Spm.controller.action.queue.BulkTransferAction', {
                 }
         );
 
-        Ext.create('Spm.view.BulkTransferDialog', {parentQueueTab: queueTab}).show();
+        Ext.create('Spm.view.queue.BulkTransferDialog', {parentQueueTab: queueTab}).show();
     },
 
     finishAction: function (queueTab, destinationQueue) {

@@ -1,4 +1,4 @@
-Ext.define('Spm.view.BulkTransferDialog', {
+Ext.define('Spm.view.queue.BulkTransferDialog', {
     extend: 'Spm.view.component.StandardDialog',
     alias: 'widget.bulkTransferDialog',
 

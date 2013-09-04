@@ -1,4 +1,4 @@
-Ext.define('Spm.view.QueueTabToolbar', {
+Ext.define('Spm.view.queue.QueueTabToolbar', {
     extend: 'Spm.view.component.ActionToolbar',
     alias: 'widget.queueTabToolbar',
 

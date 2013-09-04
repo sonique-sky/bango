@@ -1,9 +1,9 @@
-Ext.define('Spm.view.QueueTabContent', {
+Ext.define('Spm.view.queue.QueueTabContent', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.queueTabContent',
     requires: [
         'Spm.view.renderer.NestedPropertyRenderer',
-        'Spm.view.QueueTabToolbar',
+        'Spm.view.queue.QueueTabToolbar',
         'Spm.store.ServiceProblems',
         'Ext.grid.Panel',
         'Ext.toolbar.Spacer'

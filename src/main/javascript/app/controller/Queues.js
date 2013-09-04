@@ -12,7 +12,7 @@ Ext.define('Spm.controller.Queues', {
     ],
 
     views: [
-        'QueueTabContent'
+        'queue.QueueTabContent'
     ],
 
     refs: [
