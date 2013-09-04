@@ -10,10 +10,10 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
     initComponent: function () {
         Ext.applyIf(this, {
             tools: [
-                Spm.view.component.ActionButton.toolBarButton('filter-event-notes', this.idSuffix, this, 'Show notes only', {padding: '2 5 2 5'}),
-                Spm.view.component.ActionButton.toolBarButton('add-note', this.idSuffix, this, 'Add a note to this service problem'),
-                Spm.view.component.ActionButton.toolBarButton('refresh-events', this.idSuffix, this, 'Refresh history'),
-                Spm.view.component.ActionButton.toolBarButton('filter-events', this.idSuffix, this, 'Filter history by type')
+                Spm.view.component.ActionButton.toolBarButton('filter-event-notes', this.idSuffix, this, 'Show notes only', {padding: '1 5 1 5'}),
+                Spm.view.component.ActionButton.toolBarButton('add-note', this.idSuffix, this, 'Add a note to this service problem', {padding: '1 5 1 5'}),
+                Spm.view.component.ActionButton.toolBarButton('refresh-events', this.idSuffix, this, 'Refresh history', {padding: '1 5 1 5'}),
+                Spm.view.component.ActionButton.toolBarButton('filter-events', this.idSuffix, this, 'Filter history by type', {padding: '1 5 1 5'})
             ],
             items: [
                 {
