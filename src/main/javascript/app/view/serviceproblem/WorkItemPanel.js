@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.form.Panel',
     alias: 'widget.workItemPanel',
 
     layout: {
@@ -8,11 +8,13 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
         type: 'vbox'
     },
     title: 'Work Item',
+    frame: true,
 
     initComponent: function() {
         var me = this;
 
         Ext.applyIf(me, {
+            itemId: 'workItemPanel',
             items: [
                 {
                     xtype: 'container',
@@ -42,6 +44,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                             items: [
                                 {
                                     xtype: 'textfield',
+                                    name: 'status',
                                     fieldLabel: 'Status'
                                 },
                                 {

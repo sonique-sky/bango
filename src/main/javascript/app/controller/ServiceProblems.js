@@ -47,6 +47,7 @@ Ext.define('Spm.controller.ServiceProblems', {
             tabPanel.add(serviceProblemTab);
         }
 
+        serviceProblemTab.load(serviceProblem);
         tabPanel.setActiveTab(serviceProblemTab);
     },
 

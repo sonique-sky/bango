@@ -71,14 +71,16 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
             ],
             items: [
                 {
-                    xtype: 'form',
-                    header: false,
-                    border: false,
+                    xtype: 'container',
                     layout: { type: 'vbox', align: 'stretch'},
                     itemId: 'serviceProblemPanel',
                     items: [
                         {
                             xtype: 'workItemPanel'
+                        },
+                        {
+                            xtype: 'panel',
+                            flex: 1
                         }
                     ]
                 },
@@ -96,6 +98,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
         });
 
         this.callParent(arguments);
+    },
+
+    load: function(serviceProblem) {
+        this.down('workItemPanel').loadRecord(serviceProblem.workItem());
+//        this.down('workItemPanel').loadRecord(serviceProblem);
     },
 
     switchView: function (button) {
