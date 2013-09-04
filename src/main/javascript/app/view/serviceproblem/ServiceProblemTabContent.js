@@ -4,7 +4,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
 
     requires: [
         'Spm.view.serviceproblem.ActionToolbar',
-        'Spm.view.serviceproblem.WorkItemPanel'
+        'Spm.view.serviceproblem.WorkItemPanel',
+        'Spm.view.serviceproblem.ServiceProblemPanel'
     ],
 
     config: {
@@ -79,8 +80,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                             xtype: 'workItemPanel'
                         },
                         {
-                            xtype: 'panel',
-                            flex: 1
+                            xtype: 'serviceProblemPanel'
                         }
                     ]
                 },
@@ -102,7 +102,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
 
     load: function(serviceProblem) {
         this.down('workItemPanel').loadRecord(serviceProblem.workItem());
-//        this.down('workItemPanel').loadRecord(serviceProblem);
+        this.down('serviceProblemPanel').loadRecord(serviceProblem);
     },
 
     switchView: function (button) {

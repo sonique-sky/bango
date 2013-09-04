@@ -1,23 +1,21 @@
-Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
+Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
     extend: 'Ext.form.Panel',
-    alias: 'widget.workItemPanel',
+    alias: 'widget.serviceProblemPanel',
 
     layout: {
         align: 'stretch',
         type: 'vbox'
     },
-    title: 'Work Item',
+    title: 'Service Problem',
     frame: true,
 
     initComponent: function() {
         var me = this;
 
         Ext.applyIf(me, {
-            itemId: 'workItemPanel',
             items: [
                 {
                     xtype: 'container',
-                    flex: 0,
                     layout: {
                         align: 'stretch',
                         type: 'hbox'
@@ -28,7 +26,6 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                     items: [
                         {
                             xtype: 'fieldcontainer',
-                            labelWidth: 110,
                             flex: 1,
                             fieldDefaults: {
                                 labelWidth: 110
@@ -36,11 +33,16 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                             items: [
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Created Date'
+                                    name: 'serviceProblemId',
+                                    fieldLabel: 'Service Problem Id'
                                 },
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Priority'
+                                    fieldLabel: 'Service Id'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    fieldLabel: 'Chordiant Acc No'
                                 }
                             ]
                         },
@@ -55,7 +57,11 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                 },
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Assigned Agent'
+                                    fieldLabel: 'Service Type'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    fieldLabel: 'Operator Ref'
                                 }
                             ]
                         },
@@ -65,11 +71,30 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                             items: [
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Type'
+                                    fieldLabel: 'Opened Date'
                                 },
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Reminder'
+                                    fieldLabel: 'Closed Date'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'fieldcontainer',
+                            flex: 1,
+                            items: [
+                                {
+                                    xtype: 'textfield',
+                                    name: 'directoryNumber',
+                                    fieldLabel: 'Directory No'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    fieldLabel: 'Customer Name'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    fieldLabel: 'Contact No'
                                 }
                             ]
                         }
@@ -77,15 +102,30 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                 },
                 {
                     xtype: 'fieldcontainer',
-                    flex: 1,
-                    layout: 'form',
                     fieldDefaults: {
                         labelWidth: 110
                     },
+                    layout: 'form',
                     items: [
                         {
                             xtype: 'textfield',
-                            fieldLabel: 'Action'
+                            fieldLabel: 'Queue'
+                        },
+                        {
+                            xtype: 'textfield',
+                            fieldLabel: 'Problem'
+                        },
+                        {
+                            xtype: 'textfield',
+                            fieldLabel: 'Fault'
+                        },
+                        {
+                            xtype: 'textfield',
+                            fieldLabel: 'Cause'
+                        },
+                        {
+                            xtype: 'textfield',
+                            fieldLabel: 'Resolution Reason'
                         }
                     ]
                 }
