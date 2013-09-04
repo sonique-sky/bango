@@ -13,17 +13,20 @@ import static com.google.common.collect.Lists.newArrayList;
 
 public class ServiceProblemStore {
 
+    private static final int SP_PER_Q = 10;
     private final List<ServiceProblem> serviceProblems = newArrayList();
     private final QueueStore queueStore;
 
     public ServiceProblemStore(QueueStore queueStore) {
         this.queueStore = queueStore;
+        int numberOfQueues = queueStore.numberOfQueues();
         Integer directoryNumber = 111;
-        for(int index=0; index<100; index++) {
-            int queueId = (index / queueStore.numberOfQueues()) + 1;
+
+        for (int index = 0; index < numberOfQueues * SP_PER_Q; index++) {
+            int queueId = (index / SP_PER_Q) + 1;
             boolean hasActiveTroubleReport = index % 2 == 0;
             directoryNumber = index % 2 == 0 ? directoryNumber : ++directoryNumber;
-            serviceProblems.add(new ServiceProblem(index, "Open", new WorkItem(index+10, "Unassigned"), queueStore.queueById(queueId), hasActiveTroubleReport, directoryNumber.toString()));
+            serviceProblems.add(new ServiceProblem(index, "Open", new WorkItem(index + SP_PER_Q, "Unassigned"), queueStore.queueById(queueId), hasActiveTroubleReport, directoryNumber.toString()));
         }
     }
 
