@@ -7,7 +7,6 @@ Ext.define('Spm.view.navigation.SearchPanel', {
     iconCls: 'icon-search',
     title: 'Search',
     layout: 'vbox',
-    collapsible: true,
     margin: 3,
 
     initComponent: function () {

@@ -24,10 +24,12 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
                     xtype: 'agentStatusPanel'
                 },
                 {
-                    xtype: 'myQueuesPanel'
+                    xtype: 'myQueuesPanel',
+                    collapsible:true
                 },
                 {
-                    xtype: 'searchPanel'
+                    xtype: 'searchPanel',
+                    collapsible:true
                 }
             ]
         });

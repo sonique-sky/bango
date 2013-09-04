@@ -5,7 +5,6 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
     cls: 'status-panel',
     height: 126,
     margin: 3,
-    width: 266,
     layout: {
         align: 'stretch',
         type: 'vbox'
