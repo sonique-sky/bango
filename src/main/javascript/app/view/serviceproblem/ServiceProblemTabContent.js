@@ -72,7 +72,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
             items: [
                 {
                     xtype: 'form',
-                    layout: 'vbox',
+                    header: false,
+                    border: false,
+                    layout: { type: 'vbox', align: 'stretch'},
                     itemId: 'serviceProblemPanel',
                     items: [
                         {
