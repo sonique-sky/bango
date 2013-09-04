@@ -20,6 +20,7 @@ Ext.define('Spm.view.QueueTabContent', {
 
     initComponent: function () {
         this.store = Spm.store.ServiceProblems.queueServiceProblemStore();
+        this.store.addManagedListener(this.store, 'refresh', this.onStoreRefreshed, this);
 
         Ext.applyIf(this, {
             title: this.queue.queueName(),
@@ -99,14 +100,21 @@ Ext.define('Spm.view.QueueTabContent', {
     },
 
     onRowSelected: function () {
-        this.down('button[id^=bulk-transfer]').setDisabled(false);
-        this.down('button[id^=bulk-clear]').setDisabled(false);
+        this.setBulkButtonsDisabled(false);
+    },
+
+    onStoreRefreshed: function() {
+        this.setBulkButtonsDisabled(true);
+    },
+
+    setBulkButtonsDisabled: function (disabled) {
+        this.down('button[id^=bulk-transfer]').setDisabled(disabled);
+        this.down('button[id^=bulk-clear]').setDisabled(disabled);
     },
 
     onRowDeselected: function () {
         if (!this.selectedServiceProblems().length) {
-            this.down('button[id^=bulk-transfer]').setDisabled(true);
-            this.down('button[id^=bulk-clear]').setDisabled(true);
+            this.setBulkButtonsDisabled(true);
         }
     },
 
