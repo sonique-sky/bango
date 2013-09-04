@@ -23,7 +23,8 @@ Ext.define('Spm.view.navigation.SearchPanel', {
                         {
                             boxLabel: 'Service Problem ID',
                             name: 'searchType',
-                            inputValue: 'serviceProblemId'
+                            inputValue: 'serviceProblemId',
+                            checked: true
                         },
                         {
                             boxLabel: 'Service ID',
