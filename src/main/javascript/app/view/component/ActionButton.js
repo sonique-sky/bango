@@ -7,15 +7,16 @@ Ext.define('Spm.view.component.ActionButton', {
     },
 
     statics: {
-        toolBarButton: function (identifier, idSuffix, scope, toolTip) {
-            return Ext.widget('actionButton', {
+        toolBarButton: function (identifier, idSuffix, scope, toolTip, config) {
+            config = config || {};
+            return Ext.widget('actionButton', Ext.applyIf(config, {
                 id: identifier + '-' + idSuffix,
                 iconCls: 'icon-' + identifier,
                 handler: scope.startAction,
                 scope: scope,
                 actionName: identifier,
                 tooltip: toolTip
-            });
+            }));
         }
     }
 });

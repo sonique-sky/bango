@@ -5,7 +5,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     requires: [
         'Spm.view.serviceproblem.ActionToolbar',
         'Spm.view.serviceproblem.WorkItemPanel',
-        'Spm.view.serviceproblem.ServiceProblemPanel'
+        'Spm.view.serviceproblem.ServiceProblemPanel',
+        'Spm.view.serviceproblem.EventHistoryPanel'
     ],
 
     config: {
@@ -81,6 +82,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                         },
                         {
                             xtype: 'serviceProblemPanel'
+                        },
+                        {
+                            xtype: 'eventHistoryPanel',
+                            flex: 1
                         }
                     ]
                 },
