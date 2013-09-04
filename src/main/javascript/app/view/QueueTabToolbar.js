@@ -3,43 +3,45 @@ Ext.define('Spm.view.QueueTabToolbar', {
     alias: 'widget.queueTabToolbar',
 
     requires: [
-        'Ext.toolbar.Paging'
+        'Ext.toolbar.Paging',
+        'Spm.view.component.ActionButton'
     ],
 
-    initComponent: function () {
-        var me = this;
+    config: {
+        idSuffix: undefined,
+        parentContainer: undefined
+    },
 
-        Ext.applyIf(me, {
+    initComponent: function () {
+        Ext.applyIf(this, {
             items: [
                 {
-                    xtype: 'button',
-                    id: 'bulk-transfer-' + me.queue.queueId(),
+                    xtype: 'actionButton',
+                    id: 'bulk-transfer-' + this.idSuffix,
                     disabled: true,
                     text: 'Transfer',
                     iconCls: 'icon-transfer',
-                    handler: me.onBulkTransfer,
-                    scope: me
+                    handler: this.startAction,
+                    scope: this,
+                    actionName: 'bulkTransfer'
                 },
                 {
-                    xtype: 'button',
-                    id: 'bulk-clear-' + me.queue.queueId(),
+                    xtype: 'actionButton',
+                    id: 'bulk-clear-' + this.idSuffix,
                     text: 'Clear',
                     iconCls: 'icon-clear',
                     disabled: true,
-                    handler: me.onBulkClear,
-                    scope: me
+                    handler: this.startAction,
+                    scope: this,
+                    actionName: 'bulkClear'
                 }
             ]
         });
 
-        me.callParent(arguments);
+        this.callParent(arguments);
     },
 
-    onBulkTransfer: function () {
-        this.fireEvent('startAction', 'bulkTransfer', this.up('queueTabContent'));
-    },
-
-    onBulkClear: function () {
-        this.fireEvent('startAction', 'bulkClear', this.up('queueTabContent'));
+    startAction: function(actionButton) {
+        this.fireEvent('startAction', actionButton.getActionName(), this.parentContainer);
     }
 });

@@ -12,13 +12,11 @@ Ext.define('Spm.view.ServiceProblemTabContent', {
     iconCls: 'icon-sp-unassigned',
 
     initComponent: function () {
-        var me = this;
-
-        Ext.applyIf(me, {
-            title: 'Service Problem [' + me.serviceProblemId + ']',
-            id: 'service-problem-tab-' + me.serviceProblemId
+        Ext.applyIf(this, {
+            title: 'Service Problem [' + this.serviceProblemId + ']',
+            id: 'service-problem-tab-' + this.serviceProblemId
         });
 
-        me.callParent(arguments);
+        this.callParent(arguments);
     }
 });
