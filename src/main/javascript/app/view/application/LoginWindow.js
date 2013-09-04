@@ -84,7 +84,7 @@ Ext.define('Spm.view.application.LoginWindow', {
 
     getFormContents: function () {
         var form = this.formPanel().getForm();
-        return {'username': form.findField('username').getValue(), 'password': form.findField('password').getValue()};
+        return [{'username': form.findField('username').getValue(), 'password': form.findField('password').getValue()}];
     },
 
     formPanel: function () {
