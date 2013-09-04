@@ -2,6 +2,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.serviceProblemTabContent',
 
+    requires: [
+        'Spm.view.serviceproblem.ActionToolbar',
+        'Spm.view.serviceproblem.WorkItemPanel'
+    ],
+
     config: {
         serviceProblemId: undefined
     },
@@ -28,21 +33,38 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                     },
                     items: [
                         {
-                            xtype: 'button',
-                            toggleGroup: 'panelToggle',
-                            text: 'Service Problem',
-                            itemId: 'serviceProblem',
-                            handler: me.switchView,
-                            pressed: true,
-                            scope: me
+                            xtype: 'toolbar',
+                            items: [
+                                {
+                                    xtype: 'buttongroup',
+                                    title: 'View',
+                                    defaults: {
+                                        xtype: 'button',
+                                        toggleGroup: 'panelToggle',
+                                        handler: me.switchView,
+                                        scope: me
+                                    },
+                                    items: [
+                                        {
+                                            text: 'Service Problem',
+                                            itemId: 'serviceProblem',
+                                            pressed: true
+                                        },
+                                        {
+                                            text: 'Trouble Report',
+                                            itemId: 'troubleReport'
+                                        }
+                                    ]
+                                }
+                            ]},
+                        {
+                            xtype: 'serviceProblemTabToolbar',
+                            idSuffix: me.serviceProblemId,
+                            parentContainer: me
                         },
                         {
-                            xtype: 'button',
-                            toggleGroup: 'panelToggle',
-                            text: 'Trouble Report',
-                            itemId: 'troubleReport',
-                            handler: me.switchView,
-                            scope: me
+                            xtype: 'toolbar',
+                            flex: 1
                         }
                     ]
                 }
@@ -50,11 +72,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
             items: [
                 {
                     xtype: 'form',
+                    layout: 'vbox',
                     itemId: 'serviceProblemPanel',
                     items: [
                         {
-                            xtype: 'label',
-                            text: 'Service Problem'
+                            xtype: 'workItemPanel'
                         }
                     ]
                 },
@@ -74,7 +96,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
         this.callParent(arguments);
     },
 
-    switchView: function(button) {
+    switchView: function (button) {
         this.getLayout().setActiveItem(button.itemId + 'Panel');
     }
-});
+})
+;
