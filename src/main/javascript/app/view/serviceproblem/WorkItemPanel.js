@@ -47,6 +47,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                         {
                             xtype: 'fieldcontainer',
                             flex: 1,
+                            margins: '0, 0, 0 3',
                             items: [
                                 {
                                     xtype: 'textfield',
@@ -62,6 +63,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                         {
                             xtype: 'fieldcontainer',
                             flex: 1,
+                            margins: '0, 0, 0 3',
                             items: [
                                 {
                                     xtype: 'textfield',
