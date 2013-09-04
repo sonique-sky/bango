@@ -10,7 +10,7 @@ Ext.define('Spm.view.QueueTabContent', {
     ],
 
     config: {
-        queue: undefined,
+        queue: undefined
     },
 
     border: 0,

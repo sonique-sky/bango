@@ -26,7 +26,7 @@ Ext.define('Spm.view.SearchResultTabContent', {
                     xtype: 'pagingtoolbar',
                     flex: 1.0,
                     store: this.store
-                },
+                }
             ],
             items: [
                 {

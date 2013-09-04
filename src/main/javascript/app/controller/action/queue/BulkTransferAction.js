@@ -32,5 +32,5 @@ Ext.define('Spm.controller.action.queue.BulkTransferAction', {
             'destinationQueueId': destinationQueue.queueId(),
             'serviceProblemIds': serviceProblemIds
         }, queueTab);
-    },
+    }
 });
