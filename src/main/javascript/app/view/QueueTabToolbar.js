@@ -1,16 +1,6 @@
 Ext.define('Spm.view.QueueTabToolbar', {
-    extend: 'Ext.toolbar.Toolbar',
+    extend: 'Spm.view.component.ActionToolbar',
     alias: 'widget.queueTabToolbar',
-
-    requires: [
-        'Ext.toolbar.Paging',
-        'Spm.view.component.ActionButton'
-    ],
-
-    config: {
-        idSuffix: undefined,
-        parentContainer: undefined
-    },
 
     initComponent: function () {
         Ext.applyIf(this, {
@@ -39,9 +29,5 @@ Ext.define('Spm.view.QueueTabToolbar', {
         });
 
         this.callParent(arguments);
-    },
-
-    startAction: function(actionButton) {
-        this.fireEvent('startAction', actionButton.getActionName(), this.parentContainer);
     }
 });
