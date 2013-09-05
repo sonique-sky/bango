@@ -20,13 +20,13 @@ public class SearchApiServlet extends PretentiousServlet {
         String pathInfo = request.getPathInfo();
         if (pathInfo.equals("/simple")) {
             String searchType = request.getParameter("searchType");
-            if("serviceProblemId".equals(searchType)) {
+            if ("serviceProblemId".equals(searchType)) {
                 return writeJson(serviceProblemStore.serviceProblemById(parseInt(request.getParameter("searchParameter"))));
-            } else if("directoryNumber".equals(searchType)) {
+            } else if ("directoryNumber".equals(searchType)) {
                 return writeJson(serviceProblemStore.serviceProblemByDirectoryNumber(request.getParameter("searchParameter")));
             }
         }
 
-        throw new RuntimeException("Dunno how to do that search!");
+        throw new GTFOException(404, "Dunno how to do that search!");
     }
 }
