@@ -7,7 +7,7 @@ Ext.define('Spm.controller.action.queue.BulkTransferAction', {
 
     constructor: function () {
         this.callParent([Ext.apply({}, {
-            name: 'bulkTransfer'
+            name: 'bulk-transfer'
         })]);
     },
 
@@ -33,7 +33,7 @@ Ext.define('Spm.controller.action.queue.BulkTransferAction', {
     finishAction: function (queueTab, destinationQueue) {
         var serviceProblemIds = this.selectedServiceProblemIds(queueTab);
 
-        this.performBulkOperation('bulkTransfer', {
+        this.performBulkOperation('bulk-transfer', {
             'originalQueueId': queueTab.getQueue().queueId(),
             'destinationQueueId': destinationQueue.queueId(),
             'serviceProblemIds': serviceProblemIds

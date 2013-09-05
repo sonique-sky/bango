@@ -3,7 +3,7 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     alias: 'widget.queueTabContent',
     requires: [
         'Spm.view.renderer.NestedPropertyRenderer',
-        'Spm.view.queue.QueueTabToolbar',
+        'Spm.view.queue.ActionToolbar',
         'Spm.store.ServiceProblems',
         'Ext.grid.Panel',
         'Ext.toolbar.Spacer'

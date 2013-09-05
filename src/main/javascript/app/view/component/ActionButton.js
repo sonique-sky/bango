@@ -6,17 +6,12 @@ Ext.define('Spm.view.component.ActionButton', {
         actionName: undefined
     },
 
-    statics: {
-        toolBarButton: function (identifier, idSuffix, scope, toolTip, config) {
-            config = config || {};
-            return Ext.widget('actionButton', Ext.applyIf(config, {
-                id: identifier + '-' + idSuffix,
-                iconCls: 'icon-' + identifier,
-                handler: scope.startAction,
-                scope: scope,
-                actionName: identifier,
-                tooltip: toolTip
-            }));
-        }
+    initComponent: function() {
+        Ext.applyIf(this, {
+            iconCls: 'icon-' + this.actionName,
+            handler: this.scope.startAction
+        });
+
+        this.callParent(arguments);
     }
 });

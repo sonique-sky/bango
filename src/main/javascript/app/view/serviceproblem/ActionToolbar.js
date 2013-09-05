@@ -3,6 +3,8 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
     alias: 'widget.serviceProblemTabToolbar',
 
     initComponent: function () {
+        var me = this;
+
         Ext.applyIf(this, {
             items: [
                 {
@@ -12,16 +14,16 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
                         padding: '2, 8, 2, 8'
                     },
                     items: [
-                        Spm.view.component.ActionButton.toolBarButton( 'refresh', this.idSuffix, this, 'Refresh'),
-                        Spm.view.component.ActionButton.toolBarButton( 'pull', this.idSuffix, this, 'Pull this item'),
-                        Spm.view.component.ActionButton.toolBarButton( 'hold', this.idSuffix, this, 'Hold this work item'),
-                        Spm.view.component.ActionButton.toolBarButton( 'reassign', this.idSuffix, this, 'Reassign service problem to another agent'),
-                        Spm.view.component.ActionButton.toolBarButton( 'transfer', this.idSuffix, this, 'Transfer to another queue'),
-                        Spm.view.component.ActionButton.toolBarButton( 'clear', this.idSuffix, this, 'Clear this service problem'),
-                        Spm.view.component.ActionButton.toolBarButton( 'line-test', this.idSuffix, this, 'Request a managed line test'),
-                        Spm.view.component.ActionButton.toolBarButton( 'feature-check', this.idSuffix, this, 'Request a feature check for this service'),
-                        Spm.view.component.ActionButton.toolBarButton( 'work-reminder', this.idSuffix, this, 'Set a work reminder'),
-                        Spm.view.component.ActionButton.toolBarButton( 'associate-msp', this.idSuffix, this, 'Associate this service problem to a MSP')
+                        {xtype: 'actionButton', actionName: 'refresh', scope: me, tooltip: 'Refresh'},
+                        {xtype: 'actionButton', actionName: 'pull', scope: me, tooltip: 'Pull this item'},
+                        {xtype: 'actionButton', actionName: 'hold', scope: me, tooltip: 'Hold this work item'},
+                        {xtype: 'actionButton', actionName: 'reassign', scope: me, tooltip: 'Reassign service problem to another agent'},
+                        {xtype: 'actionButton', actionName: 'transfer', scope: me, tooltip: 'Transfer to another queue'},
+                        {xtype: 'actionButton', actionName: 'clear', scope: me, tooltip: 'Clear this service problem'},
+                        {xtype: 'actionButton', actionName: 'line-test', scope: me, tooltip: 'Request a managed line test'},
+                        {xtype: 'actionButton', actionName: 'feature-check', scope: me, tooltip: 'Request a feature check for this service'},
+                        {xtype: 'actionButton', actionName: 'work-reminder', scope: me, tooltip: 'Set a work reminder'},
+                        {xtype: 'actionButton', actionName: 'associate-msp', scope: me, tooltip: 'Associate this service problem to a MSP'}
                     ]
                 },
                 {
@@ -31,10 +33,10 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
                         padding: '2, 8, 2, 8'
                     },
                     items: [
-                        Spm.view.component.ActionButton.toolBarButton( 'create-trouble-report', this.idSuffix, this, 'Create Trouble Report'),
-                        Spm.view.component.ActionButton.toolBarButton( 'amend-trouble-report', this.idSuffix, this, 'Amend Trouble Report'),
-                        Spm.view.component.ActionButton.toolBarButton( 'cancel-trouble-report', this.idSuffix, this, 'Cancel Trouble Report'),
-                        Spm.view.component.ActionButton.toolBarButton( 'confirm-equipment-disconnect', this.idSuffix, this, 'Confirm Equipment is Disconnected')
+                        {xtype: 'actionButton', actionName: 'create-trouble-report', scope: me, tooltip: 'Create Trouble Report'},
+                        {xtype: 'actionButton', actionName: 'amend-trouble-report', scope: me, tooltip: 'Amend Trouble Report'},
+                        {xtype: 'actionButton', actionName: 'cancel-trouble-report', scope: me, tooltip: 'Cancel Trouble Report'},
+                        {xtype: 'actionButton', actionName: 'confirm-equipment-disconnect', scope: me, tooltip: 'Confirm Equipment is Disconnected'}
                     ]
                 }
             ]

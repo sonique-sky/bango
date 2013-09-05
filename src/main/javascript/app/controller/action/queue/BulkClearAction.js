@@ -7,7 +7,7 @@ Ext.define('Spm.controller.action.queue.BulkClearAction', {
 
     constructor: function () {
         this.callParent([Ext.apply({}, {
-            name: 'bulkClear'
+            name: 'bulk-clear'
         })]);
     },
 
@@ -21,7 +21,7 @@ Ext.define('Spm.controller.action.queue.BulkClearAction', {
     finishAction: function (queueTab) {
         var serviceProblemIds = this.selectedServiceProblemIds(queueTab);
 
-        this.performBulkOperation('bulkClear', {
+        this.performBulkOperation('bulk-clear', {
             'originalQueueId': queueTab.getQueue().queueId(),
             'serviceProblemIds': serviceProblemIds
         }, queueTab);
