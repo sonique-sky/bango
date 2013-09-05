@@ -37,7 +37,6 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                     overflowY: 'auto',
                     disableSelection: true,
                     viewConfig: {
-                        stripeRows: true,
                         enableTextSelection: true,
                         trackOver: false
                     },
@@ -53,10 +52,10 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                             getAdditionalData: function (data, rowIndex, record) {
                                 var headerCt = this.view.headerCt;
                                 var colspan = headerCt.getColumnCount();
-
+                                var rowBodyCls = (rowIndex + 1) % 2 == 0 ? 'row-body-alt' : 'row-body';
                                 return {
-                                    rowBody: Ext.String.format('<div><b>{0}</b></div>', record.get('note')),
-                                    rowBodyCls: this.rowBodyCls,
+                                    rowBody: Ext.String.format('<div class={0}>{1}</div>', rowBodyCls, record.get('note')),
+                                    rowBodyCls: rowBodyCls,
                                     rowBodyColspan: colspan
                                 };
                             }

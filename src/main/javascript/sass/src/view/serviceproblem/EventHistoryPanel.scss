@@ -10,3 +10,18 @@
 .icon-filter-event-notes {
     background: url('images/comment.png');
 }
+
+.row-body {
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.row-body-alt {
+    @extend .row-body;
+    background-color: #fafafa;
+}
+
+.x-grid-row-alt {
+    background-color: #fafafa;
+}
