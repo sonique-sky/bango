@@ -1,6 +1,6 @@
-Ext.define('Spm.model.EventHistory', {
+Ext.define('Spm.model.EventHistoryItem', {
     extend: 'Ext.data.Model',
-    alias: 'model.eventHistory',
+    alias: 'model.eventHistoryItem',
 
     fields: [
         {
@@ -10,7 +10,8 @@ Ext.define('Spm.model.EventHistory', {
             name: 'note'
         },
         {
-            name: 'createdDate'
+            name: 'createdDate',
+            type: 'date'
         },
         {
             name: 'createdBy'

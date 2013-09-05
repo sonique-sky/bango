@@ -2,7 +2,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.eventHistoryPanel',
 
-    requires:[
+    requires: [
         'Spm.store.EventHistory'
     ],
 
@@ -33,10 +33,33 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
             items: [
                 {
                     xtype: 'grid',
+//                    disableSelection: true,
+//                    viewConfig: {
+//                        stripeRows: true,
+//                        enableTextSelection: true,
+//                        trackOver: false
+//                    },
+                    store: Ext.create('Spm.store.EventHistory'),
                     columns: [
-                        {text: 'Event Type', renderer: this.eventTypeRenderer},
+                        {text: 'Event Type', dataIndex: 'eventType', flex: 1},
                         {text: 'Created Date', dataIndex: 'createdDate'},
                         {text: 'Created By', dataIndex: 'createdBy'}
+                    ],
+                    features: [
+                        {
+                            ftype: 'rowbody',
+                            getAdditionalData: function (data, rowIndex, record) {
+                                var headerCt = this.view.headerCt;
+                                var colspan = headerCt.getColumnCount();
+
+                                return {
+                                    rowBody: Ext.String.format('<div><b>{0}</b></div>', record.get('note')),
+                                    rowBodyCls: this.rowBodyCls,
+                                    rowBodyColspan: colspan
+                                };
+                            }
+                        },
+                        { ftype: 'rowwrap' }
                     ]
                 }
             ]
@@ -45,8 +68,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
         me.callParent(arguments);
     },
 
-    eventTypeRenderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
-        var eventType = record.get('eventType');
-        var note = record.get('note');
+    loadFor: function (serviceProblem) {
+        this.down('grid').getStore().load({params: {serviceProblemId: serviceProblem.get('serviceProblemId')}})
     }
 });

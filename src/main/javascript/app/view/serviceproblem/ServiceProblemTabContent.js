@@ -108,6 +108,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     load: function(serviceProblem) {
         this.down('workItemPanel').loadRecord(serviceProblem.workItem());
         this.down('serviceProblemPanel').loadRecord(serviceProblem);
+        this.down('eventHistoryPanel').loadFor(serviceProblem);
+
     },
 
     switchView: function (button) {

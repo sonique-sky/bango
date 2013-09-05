@@ -1,5 +1,7 @@
 package sonique.bango.domain;
 
+import java.util.List;
+
 public class ServiceProblem {
 
     private Integer serviceProblemId;
@@ -8,14 +10,16 @@ public class ServiceProblem {
     private Queue queue;
     private boolean hasActiveTroubleReport;
     private String directoryNumber;
+    private List<EventHistoryItem> eventHistoryItems;
 
-    public ServiceProblem(Integer serviceProblemId, String status, WorkItem workItem, Queue queue, boolean hasActiveTroubleReport, String directoryNumber) {
+    public ServiceProblem(Integer serviceProblemId, String status, WorkItem workItem, Queue queue, boolean hasActiveTroubleReport, String directoryNumber, List<EventHistoryItem> eventHistoryItems) {
         this.serviceProblemId = serviceProblemId;
         this.status = status;
         this.workItem = workItem;
         this.queue = queue;
         this.hasActiveTroubleReport = hasActiveTroubleReport;
         this.directoryNumber = directoryNumber;
+        this.eventHistoryItems = eventHistoryItems;
     }
 
     public Integer serviceProblemId() {
@@ -48,5 +52,9 @@ public class ServiceProblem {
 
     public String directoryNumber() {
         return directoryNumber;
+    }
+
+    public List<EventHistoryItem> eventHistoryItems() {
+        return eventHistoryItems;
     }
 }

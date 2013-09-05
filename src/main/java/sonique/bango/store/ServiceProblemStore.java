@@ -1,11 +1,13 @@
 package sonique.bango.store;
 
 import com.google.common.base.Predicate;
+import sonique.bango.domain.EventHistoryItem;
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.ServiceProblem;
 import sonique.bango.domain.WorkItem;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import static com.google.common.collect.Collections2.filter;
@@ -26,7 +28,7 @@ public class ServiceProblemStore {
             int queueId = (index / SP_PER_Q) + 1;
             boolean hasActiveTroubleReport = index % 2 == 0;
             directoryNumber = index % 2 == 0 ? directoryNumber : ++directoryNumber;
-            serviceProblems.add(new ServiceProblem(index, "Open", new WorkItem(index + SP_PER_Q, "Unassigned"), queueStore.queueById(queueId), hasActiveTroubleReport, directoryNumber.toString()));
+            serviceProblems.add(new ServiceProblem(index, "Open", new WorkItem(index + SP_PER_Q, "Unassigned"), queueStore.queueById(queueId), hasActiveTroubleReport, directoryNumber.toString(), historyItems(index)));
         }
     }
 
@@ -67,6 +69,23 @@ public class ServiceProblemStore {
                 return serviceProblem.directoryNumber().equals(directoryNumber);
             }
         });
+    }
+
+    private List<EventHistoryItem> historyItems(int index) {
+        List<EventHistoryItem> historyItems = newArrayList();
+        Date today = new Date();
+        for(int i=1; i<11; i++) {
+            historyItems.add(new EventHistoryItem(uniqueString("EventType", index, i), uniqueString("Note", index, i), uniqueDate(today, i), uniqueString("By", index, i)));
+        }
+        return historyItems;
+    }
+
+    private Date uniqueDate(Date today, int index) {
+        return new Date(today.getTime() - index * 24 * 60 * 60 * 1000);
+    }
+
+    private String uniqueString(String prefix, int index1, int index2) {
+        return String.format("%s-%d-%d", prefix, index1, index2);
     }
 
     private Collection<ServiceProblem> collectServiceProblems(final Collection<Integer> serviceProblemIds) {

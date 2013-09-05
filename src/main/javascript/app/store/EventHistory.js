@@ -1,11 +1,11 @@
 Ext.define('Spm.store.EventHistory', {
     extend: 'Ext.data.Store',
     alias: 'store.eventHistory',
-    model: 'Spm.model.EventHistory',
+    model: 'Spm.model.EventHistoryItem',
     filterOnLoad: false,
 
     requires: [
-        'Spm.model.EventHistory'
+        'Spm.model.EventHistoryItem'
     ],
 
     proxy: {
