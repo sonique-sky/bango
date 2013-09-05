@@ -74,7 +74,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.view.application.HeaderView": [],
   "Ext.ux.GMapPanel": [],
   "Spm.controller.action.BaseAction": [],
-  "Spm.view.queue.QueueTabToolbar": [],
+  "Spm.view.queue.ActionToolbar": [],
   "Spm.view.component.ActionButton": [],
   "Spm.view.serviceproblem.EventHistoryPanel": [],
   "Ext.ux.GroupTabPanel": [],
@@ -256,7 +256,7 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.gmappanel"
   ],
   "Spm.controller.action.BaseAction": [],
-  "Spm.view.queue.QueueTabToolbar": [
+  "Spm.view.queue.ActionToolbar": [
     "widget.queueTabToolbar"
   ],
   "Spm.view.component.ActionButton": [

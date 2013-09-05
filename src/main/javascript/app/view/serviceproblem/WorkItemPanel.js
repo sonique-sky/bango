@@ -8,6 +8,9 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
     },
     title: 'Work Item',
     frame: true,
+    fieldDefaults: {
+        disabled: true
+    },
 
     initComponent: function() {
         var me = this;

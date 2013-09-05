@@ -54,6 +54,6 @@ Ext.define('Spm.view.queue.BulkTransferDialog', {
     },
 
     getItemsOfInterestArray: function () {
-        return ['bulkTransfer', this.parentQueueTab, this.down('dataview').getSelectionModel().getSelection()[0]];
+        return ['bulk-transfer', this.parentQueueTab, this.down('dataview').getSelectionModel().getSelection()[0]];
     }
 });

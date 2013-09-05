@@ -8,6 +8,7 @@ Ext.define('Spm.view.component.ActionButton', {
 
     initComponent: function() {
         Ext.applyIf(this, {
+            itemId : this.actionName,
             iconCls: 'icon-' + this.actionName,
             handler: this.scope.startAction
         });
