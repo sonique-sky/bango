@@ -51,6 +51,6 @@ public class QueueApiServlet extends PretentiousServlet {
             return writeJson(serviceProblemStore.serviceProblemsForQueueId(parseInt(request.getParameter("originalQueueId"))));
         }
 
-        throw new RuntimeException("Unknown Api!");
+        throw new GTFOException(404, "Unknown Api!");
     }
 }

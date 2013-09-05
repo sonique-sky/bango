@@ -19,7 +19,6 @@ public class Bango {
         AgentStore agentStore = new AgentStore(queueStore);
         ServiceProblemStore serviceProblemStore = new ServiceProblemStore(queueStore);
 
-
         new Bango(queueStore, agentStore, serviceProblemStore).start();
     }
 
