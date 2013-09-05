@@ -6,6 +6,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
         'Spm.store.EventHistory'
     ],
 
+    layout: 'fit',
     title: 'Event History',
     config: {
         idSuffix: undefined
@@ -33,12 +34,13 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
             items: [
                 {
                     xtype: 'grid',
-//                    disableSelection: true,
-//                    viewConfig: {
-//                        stripeRows: true,
-//                        enableTextSelection: true,
-//                        trackOver: false
-//                    },
+                    overflowY: 'auto',
+                    disableSelection: true,
+                    viewConfig: {
+                        stripeRows: true,
+                        enableTextSelection: true,
+                        trackOver: false
+                    },
                     store: Ext.create('Spm.store.EventHistory'),
                     columns: [
                         {text: 'Event Type', dataIndex: 'eventType', flex: 1},
