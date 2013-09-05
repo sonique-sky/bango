@@ -35,6 +35,7 @@ public class Bango {
         servletWrapper.add(new QueueApiServlet(objectMapper, serviceProblemStore, queueStore));
         servletWrapper.add(new SearchApiServlet(objectMapper, serviceProblemStore));
         servletWrapper.add(new SecurityServlet(objectMapper, agentStore));
+        servletWrapper.add(new ServiceProblemApiServlet(objectMapper, serviceProblemStore));
 
         server.setHandler(servletWrapper.asHandler());
     }

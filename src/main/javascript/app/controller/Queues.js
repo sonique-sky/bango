@@ -8,7 +8,8 @@ Ext.define('Spm.controller.Queues', {
 
     requires: [
         'Spm.controller.action.queue.BulkClearAction',
-        'Spm.controller.action.queue.BulkTransferAction'
+        'Spm.controller.action.queue.BulkTransferAction',
+        'Spm.proxy.ServiceProblemProxy'
     ],
 
     views: [
@@ -31,6 +32,7 @@ Ext.define('Spm.controller.Queues', {
         this.registerAction(Ext.create('Spm.controller.action.queue.BulkClearAction'));
         this.registerAction(Ext.create('Spm.controller.action.queue.BulkTransferAction'));
 
+        this.proxy = Spm.proxy.ServiceProblemProxy.serviceProblemLookupProxy();
         this.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
 
         this.callParent([config]);
@@ -65,7 +67,16 @@ Ext.define('Spm.controller.Queues', {
     },
 
     onServiceProblemClicked: function (serviceProblem) {
-        this.fireEvent('displayServiceProblem', serviceProblem);
+        var operation = Ext.create('Ext.data.Operation', {
+            action: 'read',
+            params: {serviceProblemId: serviceProblem.get('serviceProblemId')}
+        });
+
+        this.proxy.read(operation, function (operation) {
+            if (operation.wasSuccessful()) {
+                this.fireEvent('displayServiceProblem', operation.getRecords()[0]);
+            }
+        }, this);
     },
 
     selectedServiceProblemIds: function (queueTabContent) {

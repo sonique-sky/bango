@@ -5,7 +5,7 @@ Ext.define('Spm.view.navigation.MyQueuesPanel', {
     cls: 'my-queues-panel',
     iconCls: 'icon-queue',
     title: 'My Queues',
-    maxHeight: 500,
+    maxHeight: 300,
     overflowY: 'auto',
 
     initComponent: function () {

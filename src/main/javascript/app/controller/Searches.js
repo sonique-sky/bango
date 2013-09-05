@@ -2,6 +2,9 @@ Ext.define('Spm.controller.Searches', {
     extend: 'Ext.app.Controller',
     alias: 'controller.searches',
 
+    requires: [
+        'Spm.proxy.ServiceProblemProxy'
+    ],
     views: [
         'search.SearchResultTabContent'
     ],
@@ -16,12 +19,7 @@ Ext.define('Spm.controller.Searches', {
     constructor: function (config) {
         this.activeSearchResultTabs = Ext.create('Ext.util.MixedCollection');
 
-        this.proxy = Ext.create('proxy.ajax', {
-            url: 'api/search/simple',
-            model: 'Spm.model.ServiceProblem',
-            reader: 'json'
-        });
-
+        this.proxy = Spm.proxy.ServiceProblemProxy.serviceProblemSearchProxy();
 
         this.callParent([config]);
     },

@@ -2,6 +2,10 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.eventHistoryPanel',
 
+    requires:[
+        'Spm.store.EventHistory'
+    ],
+
     title: 'Event History',
     config: {
         idSuffix: undefined
@@ -28,11 +32,21 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
             ],
             items: [
                 {
-                    xtype: 'panel'
+                    xtype: 'grid',
+                    columns: [
+                        {text: 'Event Type', renderer: this.eventTypeRenderer},
+                        {text: 'Created Date', dataIndex: 'createdDate'},
+                        {text: 'Created By', dataIndex: 'createdBy'}
+                    ]
                 }
             ]
         });
 
         me.callParent(arguments);
+    },
+
+    eventTypeRenderer: function (value, metaData, record, rowIndex, colIndex, store, view) {
+        var eventType = record.get('eventType');
+        var note = record.get('note');
     }
 });
