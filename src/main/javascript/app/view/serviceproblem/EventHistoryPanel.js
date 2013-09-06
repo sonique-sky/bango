@@ -9,10 +9,16 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
 
     layout: 'fit',
     title: 'Event History',
+    flex: 1,
     ui: 'custom-tool',
+
+    store: undefined,
 
     initComponent: function () {
         var me = this;
+
+        this.store = Ext.create('Spm.store.EventHistory');
+
         Ext.applyIf(me, {
             tools: [
                 {
@@ -29,7 +35,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                         enableTextSelection: true,
                         trackOver: false
                     },
-                    store: Ext.create('Spm.store.EventHistory'),
+                    store: this.store,
                     columns: [
                         {text: 'Event Type', dataIndex: 'eventType', flex: 1, resizable: false},
                         {text: 'Created Date', dataIndex: 'createdDate', renderer: Ext.util.Format.dateRenderer('d/m/Y H:i'), resizable: false, align: 'center', width: 140},
@@ -58,7 +64,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
         me.callParent(arguments);
     },
 
-    loadFor: function (serviceProblem) {
-        this.down('grid').getStore().load({params: {serviceProblemId: serviceProblem.get('serviceProblemId')}})
+    bindTo: function (serviceProblem) {
+        this.store.load({params: {serviceProblemId: serviceProblem.serviceProblemId()}})
     }
 });

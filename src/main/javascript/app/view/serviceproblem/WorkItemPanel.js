@@ -98,6 +98,9 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
         });
 
         me.callParent(arguments);
-    }
+    },
 
+    bindTo: function(serviceProblem) {
+        this.loadRecord(serviceProblem.workItem());
+    }
 });

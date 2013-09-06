@@ -10,7 +10,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     ],
 
     config: {
-        serviceProblemId: undefined
+        serviceProblem: undefined
     },
 
     border: 0,
@@ -18,12 +18,22 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     closable: true,
     iconCls: 'icon-sp-unassigned',
 
+    workItemPanel: undefined,
+    serviceProblemPanel: undefined,
+    eventHistoryPanel: undefined,
+
     initComponent: function () {
         var me = this;
 
+        var serviceProblemId = me.serviceProblem.serviceProblemId();
+
+        this.workItemPanel = Ext.widget('workItemPanel');
+        this.serviceProblemPanel = Ext.widget('serviceProblemPanel');
+        this.eventHistoryPanel = Ext.widget('eventHistoryPanel', {actionContext: me});
+
         Ext.applyIf(this, {
-            title: 'Service Problem [' + me.serviceProblemId + ']',
-            id: 'service-problem-tab-' + me.serviceProblemId,
+            title: 'Service Problem [' + serviceProblemId + ']',
+            id: 'service-problem-tab-' + serviceProblemId,
             layout: 'card',
             dockedItems: [
                 {
@@ -76,17 +86,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                     layout: { type: 'vbox', align: 'stretch'},
                     itemId: 'serviceProblemPanel',
                     items: [
-                        {
-                            xtype: 'workItemPanel'
-                        },
-                        {
-                            xtype: 'serviceProblemPanel'
-                        },
-                        {
-                            xtype: 'eventHistoryPanel',
-                            actionContext: me,
-                            flex: 1
-                        }
+                        this.workItemPanel,
+                        this.serviceProblemPanel,
+                        this.eventHistoryPanel
                     ]
                 },
                 {
@@ -105,12 +107,12 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
         this.callParent(arguments);
     },
 
-    load: function(serviceProblem) {
-        this.down('workItemPanel').loadRecord(serviceProblem.workItem());
-        this.down('serviceProblemPanel').loadRecord(serviceProblem);
+    load: function (serviceProblem) {
+        this.serviceProblem = serviceProblem;
 
-        this.down('eventHistoryPanel').loadFor(serviceProblem);
-
+        this.workItemPanel.bindTo(serviceProblem);
+        this.serviceProblemPanel.bindTo(serviceProblem);
+        this.eventHistoryPanel.bindTo(serviceProblem);
     },
 
     switchView: function (button) {

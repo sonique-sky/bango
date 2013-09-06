@@ -12,7 +12,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
         disabled: true
     },
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {
@@ -139,6 +139,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
         });
 
         me.callParent(arguments);
-    }
+    },
 
+    bindTo: function (serviceProblem) {
+        this.loadRecord(serviceProblem);
+    }
 });

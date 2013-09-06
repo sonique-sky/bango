@@ -55,7 +55,7 @@ Ext.define('Spm.controller.ServiceProblems', {
         var serviceProblemId = serviceProblem.serviceProblemId();
         var serviceProblemTab = this.activeServiceProblemTabs.getByKey(serviceProblemId);
         if (!serviceProblemTab) {
-            serviceProblemTab = this.createServiceProblemTabFor(serviceProblemId);
+            serviceProblemTab = this.createServiceProblemTabFor(serviceProblem);
             this.activeServiceProblemTabs.add(serviceProblemId, serviceProblemTab);
             tabPanel.add(serviceProblemTab);
         }
@@ -64,8 +64,8 @@ Ext.define('Spm.controller.ServiceProblems', {
         tabPanel.setActiveTab(serviceProblemTab);
     },
 
-    createServiceProblemTabFor: function (serviceProblemId) {
-        return Ext.widget('serviceProblemTabContent', {serviceProblemId: serviceProblemId});
+    createServiceProblemTabFor: function (serviceProblem) {
+        return Ext.widget('serviceProblemTabContent', {serviceProblem: serviceProblem});
     },
 
     onServiceProblemTabDestroyed: function (serviceProblemTab) {
