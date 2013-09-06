@@ -98,14 +98,6 @@ Ext.define('Spm.controller.Queues', {
         }
     },
 
-    onStartAction: function (actionName) {
-        this.registeredActionWithName(actionName).applyStartStep(arguments);
-    },
-
-    onFinishAction: function (actionName) {
-        this.registeredActionWithName(actionName).applyFinishStep(arguments);
-    },
-
     onQueueTabDestroyed: function (queueTab) {
         this.activeQueueTabs.removeAtKey(queueTab.getQueue().queueId());
     },
