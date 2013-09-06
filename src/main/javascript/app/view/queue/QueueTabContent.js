@@ -37,8 +37,7 @@ Ext.define('Spm.view.queue.QueueTabContent', {
                     items: [
                         {
                             xtype: 'queueTabToolbar',
-                            idSuffix: this.queue.queueId(),
-                            parentContainer: this
+                            actionContext: this
                         },
                         {
                             xtype: 'pagingtoolbar',

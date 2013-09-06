@@ -9,9 +9,6 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
 
     layout: 'fit',
     title: 'Event History',
-    config: {
-        idSuffix: undefined
-    },
     ui: 'custom-tool',
 
     initComponent: function () {
@@ -19,7 +16,8 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
         Ext.applyIf(me, {
             tools: [
                 {
-                    xtype: 'eventHistoryActionToolbar'
+                    xtype: 'eventHistoryActionToolbar',
+                    actionContext: me.actionContext
                 }
             ],
             items: [

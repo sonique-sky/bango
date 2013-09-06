@@ -42,6 +42,9 @@ Ext.define('Spm.controller.ServiceProblems', {
                 },
                 'eventHistoryActionToolbar' : {
                     startAction: this.onStartAction
+                },
+                'addNoteDialog': {
+                    accepted: this.onFinishAction
                 }
             }
         });

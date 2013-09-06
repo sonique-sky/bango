@@ -8,11 +8,10 @@ Ext.define('Spm.view.component.ActionToolbar', {
     ],
 
     config: {
-        idSuffix: undefined,
-        parentContainer: undefined
+        actionContext: undefined
     },
 
     startAction: function(actionButton) {
-        this.fireEvent('startAction', actionButton.getActionName(), this.parentContainer);
+        this.fireEvent('startAction', actionButton.getActionName(), this.actionContext);
     }
 });

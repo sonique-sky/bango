@@ -61,8 +61,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                             ]},
                         {
                             xtype: 'serviceProblemTabToolbar',
-                            idSuffix: me.serviceProblemId,
-                            parentContainer: me
+                            actionContext: me
                         },
                         {
                             xtype: 'toolbar',
@@ -85,6 +84,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                         },
                         {
                             xtype: 'eventHistoryPanel',
+                            actionContext: me,
                             flex: 1
                         }
                     ]
@@ -108,6 +108,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     load: function(serviceProblem) {
         this.down('workItemPanel').loadRecord(serviceProblem.workItem());
         this.down('serviceProblemPanel').loadRecord(serviceProblem);
+
         this.down('eventHistoryPanel').loadFor(serviceProblem);
 
     },
