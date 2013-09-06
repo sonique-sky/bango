@@ -66,9 +66,14 @@ Ext.define('Spm.view.component.StandardDialog', {
     },
 
     onAccept: function() {
+        // get the required information from the dialog
         var eventArguments = this.collectFn();
+        // push the event type into the first element of the array
         eventArguments.unshift('accepted');
 
+        // fire event using reflection
+        // this causes the 'fireEvent' function to be called but each element of the array 'eventArguments' is
+        // passed as a parameter (rather than a single array parameter)
         this.fireEvent.apply(this, eventArguments);
         this.close();
     },

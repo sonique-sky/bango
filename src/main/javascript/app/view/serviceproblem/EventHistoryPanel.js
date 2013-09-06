@@ -66,5 +66,9 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
 
     bindTo: function (serviceProblem) {
         this.store.load({params: {serviceProblemId: serviceProblem.serviceProblemId()}})
+    },
+
+    loadWith: function(rawData) {
+        this.store.loadRawData(rawData);
     }
 });

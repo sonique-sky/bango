@@ -16,11 +16,20 @@ Ext.define('Spm.controller.action.serviceproblem.AddNoteAction', {
         })]);
     },
 
-    startAction: function(serviceProblemTab) {
-        Ext.create('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {parentServiceProblemTab: serviceProblemTab}).show();
+    startAction: function (serviceProblemTab) {
+        Ext.create('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {actionContext: serviceProblemTab}).show();
     },
 
     finishAction: function (serviceProblemTab, noteText) {
         console.log(arguments);
+        Ext.Ajax.request(
+                {
+                    url: 'api/serviceproblem/add-note',
+                    params: {serviceProblemId: serviceProblemTab.getServiceProblem().serviceProblemId(), noteText: noteText},
+                    success: function (response) {
+                        serviceProblemTab.eventHistoryPanel.loadWith(response);
+                    }
+                }
+        );
     }
 });

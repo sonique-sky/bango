@@ -2,13 +2,13 @@ Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {
     extend: 'Spm.view.component.StandardDialog',
     alias: 'widget.addNoteDialog',
 
-    height: 250,
-    width: 450,
+    height: 350,
+    width: 600,
 //    iconCls: 'icon-bulk-transfer',
     title: 'Add Note',
 
     config: {
-        parentServiceProblemTab: undefined
+        actionContext: undefined
     },
 
     initComponent: function () {
@@ -19,6 +19,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {
             acceptButtonText: 'Add Note',
 //            acceptButtonDefaultDisabled: true,
             content: {
+                xtype: 'textareafield',
+                name: 'note'
             }
         });
 
@@ -26,6 +28,6 @@ Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {
     },
 
     getNoteToAdd: function () {
-        return [Spm.action.AddNoteAction.ACTION_NAME, this.parentServiceProblemTab, 'Foo'];
+        return [Spm.action.AddNoteAction.ACTION_NAME, this.actionContext, this.down('textareafield').getValue()];
     }
 });
