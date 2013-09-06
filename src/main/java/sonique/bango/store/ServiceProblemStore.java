@@ -75,7 +75,7 @@ public class ServiceProblemStore {
         List<EventHistoryItem> historyItems = newArrayList();
         Date today = new Date();
         for(int i=1; i<11; i++) {
-            historyItems.add(new EventHistoryItem(uniqueString("EventType", index, i), uniqueString("Note", index, i), uniqueDate(today, i), uniqueString("By", index, i)));
+            historyItems.add(new EventHistoryItem(uniqueString("EventType", index, i), uniqueString("Notes Notes Notes Notes Notes Notes", index, i), uniqueDate(today, i), uniqueString("By", index, i)));
         }
         return historyItems;
     }

@@ -42,9 +42,9 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                     },
                     store: Ext.create('Spm.store.EventHistory'),
                     columns: [
-                        {text: 'Event Type', dataIndex: 'eventType', flex: 1},
-                        {text: 'Created Date', dataIndex: 'createdDate'},
-                        {text: 'Created By', dataIndex: 'createdBy'}
+                        {text: 'Event Type', dataIndex: 'eventType', flex: 1, resizable: false},
+                        {text: 'Created Date', dataIndex: 'createdDate', renderer: Ext.util.Format.dateRenderer('d/m/Y H:i'), resizable: false, align: 'center', width: 140},
+                        {text: 'Created By', dataIndex: 'createdBy', resizable: false, align: 'center', width: 130}
                     ],
                     features: [
                         {

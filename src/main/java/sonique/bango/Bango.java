@@ -7,6 +7,8 @@ import sonique.bango.store.AgentStore;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
 
+import java.text.SimpleDateFormat;
+
 import static org.codehaus.jackson.annotate.JsonAutoDetect.Visibility.ANY;
 import static org.codehaus.jackson.annotate.JsonMethod.FIELD;
 
@@ -25,6 +27,7 @@ public class Bango {
     private Bango(QueueStore queueStore, AgentStore agentStore, ServiceProblemStore serviceProblemStore) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(FIELD, ANY);
+        objectMapper.setDateFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm"));
 
         server = new Server(8080);
 
