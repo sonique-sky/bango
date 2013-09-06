@@ -8,7 +8,7 @@ Ext.define('Spm.view.queue.BulkClearDialog', {
     title: 'Bulk Clear',
 
     config: {
-        parentQueueTab: undefined
+        actionContext: undefined
     },
 
     initComponent: function () {
@@ -39,6 +39,6 @@ Ext.define('Spm.view.queue.BulkClearDialog', {
     },
 
     getItemsOfInterestArray: function() {
-        return ['bulk-clear', this.parentQueueTab];
+        return ['bulk-clear', this.actionContext];
     }
 });

@@ -20,7 +20,7 @@ Ext.define('Spm.controller.action.serviceproblem.AddNoteAction', {
         Ext.create('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {parentServiceProblemTab: serviceProblemTab}).show();
     },
 
-    finishAction: function (serviceProblemTab) {
+    finishAction: function (serviceProblemTab, noteText) {
         console.log(arguments);
     }
 });

@@ -27,7 +27,7 @@ Ext.define('Spm.controller.action.queue.BulkTransferAction', {
                 }
         );
 
-        Ext.create('Spm.view.queue.BulkTransferDialog', {parentQueueTab: queueTab}).show();
+        Ext.create('Spm.view.queue.BulkTransferDialog', {actionContext: queueTab}).show();
     },
 
     finishAction: function (queueTab, destinationQueue) {
