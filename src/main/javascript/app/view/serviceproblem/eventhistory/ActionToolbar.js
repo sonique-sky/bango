@@ -13,7 +13,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.ActionToolbar', {
             defaults: {padding: '1 5 1 5'},
             items: [
                 {xtype: 'actionButton', actionName: 'filter-event-notes', scope: me, tooltip: 'Show notes only'},
-                {xtype: 'actionButton', actionName: 'add-note', scope: me, tooltip: 'Add a note to this service problem'},
+                {xtype: 'actionButton', actionName: Spm.action.AddNoteAction.ACTION_NAME, scope: me, tooltip: 'Add a note to this service problem'},
                 {xtype: 'actionButton', actionName: 'refresh-events', scope: me, tooltip: 'Refresh history'},
                 {xtype: 'actionButton', actionName: 'filter-events', scope: me, tooltip: 'Filter history by type'}
             ]

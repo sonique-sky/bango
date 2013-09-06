@@ -2,6 +2,10 @@ Ext.define('Spm.controller.ServiceProblems', {
     extend: 'Ext.app.Controller',
     alias: 'controller.serviceProblems',
 
+    mixins: {
+        hasRegisteredActions: 'Spm.controller.mixins.HasRegisteredActions'
+    },
+
     views: [
         'serviceproblem.ServiceProblemTabContent'
     ],
@@ -14,6 +18,9 @@ Ext.define('Spm.controller.ServiceProblems', {
     ],
 
     constructor: function (config) {
+        this.mixins.hasRegisteredActions.constructor.call(this, config);
+        this.registerAction(Ext.create('Spm.controller.action.serviceproblem.AddNoteAction'));
+
         this.activeServiceProblemTabs = Ext.create('Ext.util.MixedCollection');
 
         this.callParent([config]);
@@ -32,6 +39,9 @@ Ext.define('Spm.controller.ServiceProblems', {
             component: {
                 'serviceProblemTabContent': {
                     destroy: this.onServiceProblemTabDestroyed
+                },
+                'eventHistoryActionToolbar' : {
+                    startAction: this.onStartAction
                 }
             }
         });
