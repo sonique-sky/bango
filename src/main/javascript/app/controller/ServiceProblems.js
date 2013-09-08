@@ -1,6 +1,7 @@
 Ext.define('Spm.controller.ServiceProblems', {
     extend: 'Ext.app.Controller',
     alias: 'controller.serviceProblems',
+    requires:['Spm.controller.action.serviceproblem.AddNoteAction'],
 
     mixins: {
         hasRegisteredActions: 'Spm.controller.mixins.HasRegisteredActions'
