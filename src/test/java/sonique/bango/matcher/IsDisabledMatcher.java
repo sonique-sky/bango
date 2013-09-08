@@ -6,7 +6,17 @@ import sonique.bango.driver.component.SupermanButton;
 public class IsDisabledMatcher extends AsynchronousMatcher<SupermanButton> {
 
     public static IsDisabledMatcher isDisabled() {
-        return new IsDisabledMatcher();
+        return new IsDisabledMatcher(true);
+    }
+
+    public static IsDisabledMatcher isNotDisabled() {
+        return new IsDisabledMatcher(false);
+    }
+
+    private final boolean expected;
+
+    public IsDisabledMatcher(boolean expected) {
+        this.expected = expected;
     }
 
     @Override
@@ -14,7 +24,7 @@ public class IsDisabledMatcher extends AsynchronousMatcher<SupermanButton> {
         return new Predicate<SupermanButton>() {
             @Override
             public boolean apply(SupermanButton input) {
-                return input.isDisabled();
+                return expected == input.isDisabled();
             }
         };
     }

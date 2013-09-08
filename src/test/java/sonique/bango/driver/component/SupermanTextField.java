@@ -23,11 +23,6 @@ public class SupermanTextField implements SupermanField {
     }
 
     @Override
-    public boolean isDisabled() {
-        return false;
-    }
-
-    @Override
     public void clear() {
         inputElement.sendKeys("");
     }

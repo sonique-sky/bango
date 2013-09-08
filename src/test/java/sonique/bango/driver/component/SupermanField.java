@@ -4,5 +4,4 @@ public interface SupermanField {
     void clear();
     void enter(String value);
     String value();
-    boolean isDisabled();
 }

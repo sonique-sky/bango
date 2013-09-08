@@ -8,8 +8,8 @@ import sonique.bango.driver.component.SupermanApp;
 
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static sonique.bango.matcher.IsDisabledMatcher.isDisabled;
+import static sonique.bango.matcher.IsDisabledMatcher.isNotDisabled;
 
 public class LoginWindowTest {
 
@@ -30,14 +30,14 @@ public class LoginWindowTest {
     public void loginButtonIsDisabledWhenNoFieldsPopulated() throws Exception {
         loginWindow.username().clear();
         loginWindow.password().clear();
-        assertTrue(loginWindow.loginButton().isDisabled());
+        assertThat(loginWindow.loginButton(), isDisabled());
     }
 
     @Test
     public void loginButtonIsDisabledWhenOnlyUsernameFieldIsPopulated() throws Exception {
         loginWindow.username().enter("a.a");
         loginWindow.password().clear();
-        assertTrue(loginWindow.loginButton().isDisabled());
+        assertThat(loginWindow.loginButton(), isDisabled());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class LoginWindowTest {
         loginWindow.username().enter("a.a");
         loginWindow.password().enter("asds");
 
-        assertThat(loginWindow.loginButton(), isDisabled());
+        assertThat(loginWindow.loginButton(), isNotDisabled());
     }
 
     @Test
@@ -57,5 +57,6 @@ public class LoginWindowTest {
 
         assertThat(loginWindow.username().value(), isEmptyString());
         assertThat(loginWindow.password().value(), isEmptyString());
+        assertThat(loginWindow.loginButton(), isDisabled());
     }
 }
