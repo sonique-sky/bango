@@ -6,6 +6,8 @@ import static com.sun.xml.internal.ws.util.StringUtils.capitalize;
 
 public class Agent {
     private static final String AVAILABLE = "Available";
+    private static final String UNAVAILABLE = "Unavailable";
+    private static final String OFFLINE = "Offline";
 
     private String code;
     private AgentDetails details;
@@ -13,7 +15,7 @@ public class Agent {
     private Integer activeCount;
     private Integer heldCount;
 
-    private String availability = AVAILABLE;
+    private String availability = OFFLINE;
 
     public Agent(String code, List<Queue> queues) {
         this.code = code;
@@ -36,8 +38,16 @@ public class Agent {
 
     public void toggleAvailability() {
         if(AVAILABLE.equals(availability)) {
-            availability = "Unavailable";
+            availability = UNAVAILABLE;
         }
         else availability = AVAILABLE;
+    }
+
+    public void login() {
+        availability = UNAVAILABLE;
+    }
+
+    public void logout() {
+        availability = OFFLINE;
     }
 }

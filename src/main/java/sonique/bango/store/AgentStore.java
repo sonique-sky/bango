@@ -22,10 +22,14 @@ public class AgentStore {
     }
 
     public void login(String sessionId, String agentCode) {
-        sessionIdToAgentMap.put(sessionId, agentCodeToAgentMap.get(agentCode));
+        Agent agent = agentCodeToAgentMap.get(agentCode);
+        agent.login();
+
+        sessionIdToAgentMap.put(sessionId, agent);
     }
 
     public void logout(String sessionId) {
+        sessionIdToAgentMap.get(sessionId).logout();
         sessionIdToAgentMap.remove(sessionId);
     }
 
