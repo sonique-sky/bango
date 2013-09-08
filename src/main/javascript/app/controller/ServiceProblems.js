@@ -70,7 +70,7 @@ Ext.define('Spm.controller.ServiceProblems', {
     },
 
     onServiceProblemTabDestroyed: function (serviceProblemTab) {
-        this.activeServiceProblemTabs.removeAtKey(serviceProblemTab.getServiceProblemId());
+        this.activeServiceProblemTabs.removeAtKey(serviceProblemTab.getServiceProblem().serviceProblemId());
     }
 
 });
