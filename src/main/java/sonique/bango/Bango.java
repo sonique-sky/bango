@@ -18,10 +18,7 @@ public class Bango {
     private final Server server;
 
     public static void main(String[] args) throws Exception {
-        Bango bango = new BangoBuilder()
-                .withQueues(30)
-                .withServiceProblemsPerQueue(10)
-                .build();
+        Bango bango = new BangoBuilder().build();
 
         bango.start();
     }

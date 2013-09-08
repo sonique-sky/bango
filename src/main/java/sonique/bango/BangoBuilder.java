@@ -40,6 +40,7 @@ public class BangoBuilder {
 
 
         Integer directoryNumber = 111;
+
         List<ServiceProblem> serviceProblems = newArrayList();
         for (int index = 0; index < numberOfQueues * serviceProblemsPerQueue; index++) {
             int queueId = (index / serviceProblemsPerQueue) + 1;
@@ -52,7 +53,8 @@ public class BangoBuilder {
                             queueStore.queueById(queueId),
                             index % 2 == 0,
                             directoryNumber.toString(),
-                            historyItems(index))
+                            historyItems(index)
+                    )
             );
         }
 
