@@ -1,6 +1,6 @@
-package sonique.bango.driver.component;
+package sonique.bango.driver;
 
-import sonique.bango.driver.SupermanWebDriver;
+import sonique.bango.driver.panel.LoginWindow;
 
 public class SupermanApp {
     private final SupermanWebDriver driver;

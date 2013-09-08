@@ -3,8 +3,8 @@ package sonique.bango;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import sonique.bango.driver.component.LoginWindow;
-import sonique.bango.driver.component.SupermanApp;
+import sonique.bango.driver.panel.LoginWindow;
+import sonique.bango.driver.SupermanApp;
 
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertThat;
@@ -49,7 +49,7 @@ public class LoginWindowTest {
     }
 
     @Test
-    public void resetButtonEmptiesTheFields() throws Exception {
+    public void resetButtonEmptiesTheFieldsAndDisablesTheLoginButton() throws Exception {
         loginWindow.username().enter("a.a");
         loginWindow.password().enter("dsfsdfs");
 
