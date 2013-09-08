@@ -1,25 +1,17 @@
 package sonique.bango;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import sonique.bango.driver.panel.LoginWindow;
-import sonique.bango.driver.SupermanApp;
 
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertThat;
 import static sonique.bango.matcher.IsDisabledMatcher.isDisabled;
 import static sonique.bango.matcher.IsDisabledMatcher.isNotDisabled;
 
-public class LoginWindowTest {
+public class LoginWindowTest extends BaseBangoTest {
 
-    private static SupermanApp supermanApp;
     private LoginWindow loginWindow;
-
-    @BeforeClass
-    public static void createSupermanApp() throws Exception {
-        supermanApp = new SupermanApp();
-    }
 
     @Before
     public void setUp() throws Exception {

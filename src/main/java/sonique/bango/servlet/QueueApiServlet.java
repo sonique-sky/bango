@@ -34,7 +34,7 @@ public class QueueApiServlet extends PretentiousServlet {
                     return parseInt(input);
                 }
             });
-            serviceProblemStore.bulkTransfer(parseInt(request.getParameter("destinationQueueId")), serviceProblemIds);
+            serviceProblemStore.bulkTransfer(serviceProblemIds, queueStore.queueById(parseInt(request.getParameter("destinationQueueId"))));
 
             return writeJson(serviceProblemStore.serviceProblemsForQueueId(parseInt(request.getParameter("originalQueueId"))));
         } else if (pathInfo.equals("/bulk-clear")) {

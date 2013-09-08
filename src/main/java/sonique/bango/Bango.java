@@ -9,6 +9,7 @@ import sonique.bango.store.ServiceProblemStore;
 
 import java.text.SimpleDateFormat;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.codehaus.jackson.annotate.JsonAutoDetect.Visibility.ANY;
 import static org.codehaus.jackson.annotate.JsonMethod.FIELD;
 
@@ -17,14 +18,16 @@ public class Bango {
     private final Server server;
 
     public static void main(String[] args) throws Exception {
-        final QueueStore queueStore = new QueueStore(30);
-        AgentStore agentStore = new AgentStore(queueStore);
-        ServiceProblemStore serviceProblemStore = new ServiceProblemStore(queueStore);
+        Bango bango = new BangoBuilder()
+                .withQueues(30)
+                .withServiceProblemsPerQueue(10)
+                .build();
 
-        new Bango(queueStore, agentStore, serviceProblemStore).start();
+        bango.start();
     }
 
-    private Bango(QueueStore queueStore, AgentStore agentStore, ServiceProblemStore serviceProblemStore) {
+
+    public Bango(QueueStore queueStore, AgentStore agentStore, ServiceProblemStore serviceProblemStore) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(FIELD, ANY);
         objectMapper.setDateFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm"));

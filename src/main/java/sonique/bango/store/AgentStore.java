@@ -1,38 +1,17 @@
 package sonique.bango.store;
 
-import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import sonique.bango.domain.Agent;
 import sonique.bango.servlet.GTFOException;
 
-import java.util.List;
 import java.util.Map;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
-import static com.google.common.collect.Maps.uniqueIndex;
 
 public class AgentStore {
 
-    private final List<Agent> agents;
-
-    private final Map<String, Agent> agentCodeToAgentMap;
-
+    private final Map<String, Agent> agentCodeToAgentMap = newHashMap();
     private final Map<String, Agent> sessionIdToAgentMap = newHashMap();
-
-    public AgentStore(QueueStore queueStore) {
-        agents = newArrayList(
-                new Agent("A.A", queueStore.allQueues()),
-                new Agent("B.B", queueStore.allQueues()),
-                new Agent("C.C", queueStore.allQueues())
-        );
-
-        agentCodeToAgentMap = uniqueIndex(agents, new Function<Agent, String>() {
-               public String apply(Agent agent) {
-                   return agent.agentCode();
-               }
-           });
-    }
 
     public Agent agentFor(String sessionId) {
         Agent agent = Functions.forMap(sessionIdToAgentMap, null).apply(sessionId);
@@ -48,5 +27,9 @@ public class AgentStore {
 
     public void logout(String sessionId) {
         sessionIdToAgentMap.remove(sessionId);
+    }
+
+    public void registerAgent(Agent agent) {
+        agentCodeToAgentMap.put(agent.agentCode(), agent);
     }
 }
