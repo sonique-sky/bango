@@ -9,7 +9,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -17,8 +17,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/sass/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/ext/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/Spm" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/javascript/build" />

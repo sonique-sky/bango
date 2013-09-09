@@ -27,6 +27,9 @@
         <module name="bango" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bango" target="1.6" />
+    </bytecodeTargetLevel>
   </component>
 </project>
 
