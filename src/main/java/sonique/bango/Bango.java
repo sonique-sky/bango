@@ -32,7 +32,7 @@ public class Bango {
         server = new Server(8080);
 
         BangoServletWrapper servletWrapper = new BangoServletWrapper("/superman");
-        servletWrapper.staticResources("src/main/javascript/");
+        servletWrapper.staticResources("target/superman/");
 
         servletWrapper.add(new AgentApiServlet(objectMapper, agentStore));
         servletWrapper.add(new QueueApiServlet(objectMapper, serviceProblemStore, queueStore));
