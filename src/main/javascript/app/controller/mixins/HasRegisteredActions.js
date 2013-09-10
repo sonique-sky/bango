@@ -9,6 +9,7 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
     },
 
     onStartAction: function (actionName) {
+        console.log(actionName);
         this.registeredActionWithName(actionName).applyStartStep(arguments);
     },
 

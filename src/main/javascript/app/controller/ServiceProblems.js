@@ -21,6 +21,8 @@ Ext.define('Spm.controller.ServiceProblems', {
     constructor: function (config) {
         this.mixins.hasRegisteredActions.constructor.call(this, config);
         this.registerAction(Ext.create('Spm.controller.action.serviceproblem.AddNoteAction'));
+        this.registerAction(Ext.create('Spm.controller.action.serviceproblem.RefreshAction'));
+        this.registerAction(Ext.create('Spm.controller.action.serviceproblem.RefreshEventHistoryAction'));
 
         this.activeServiceProblemTabs = Ext.create('Ext.util.MixedCollection');
 
@@ -40,6 +42,9 @@ Ext.define('Spm.controller.ServiceProblems', {
             component: {
                 'serviceProblemTabContent': {
                     destroy: this.onServiceProblemTabDestroyed
+                },
+                'serviceProblemTabToolbar': {
+                    startAction: this.onStartAction
                 },
                 'eventHistoryActionToolbar' : {
                     startAction: this.onStartAction
