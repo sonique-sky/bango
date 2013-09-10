@@ -1,0 +1,148 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Jetty" type="JettyConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="Jetty">
+    <option name="OPEN_IN_BROWSER" value="false" />
+    <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+    <deployment>
+      <artifact name="superman">
+        <settings DEPLOYMENT_METHOD="contexts" />
+      </artifact>
+    </deployment>
+    <server-settings>
+      <data>
+        <option name="configFiles">
+          <list>
+            <JettyConfigFile>
+              <option name="active" value="true" />
+              <option name="path" value="etc/jetty-jmx.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-ajp.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-annotations.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-bio-ssl.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-bio.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-contexts.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-debug.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-deploy.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-fileserver.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-ipaccess.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-logging.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-monitor.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-overlay.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-plus.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-policy.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-proxy.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-requestlog.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-rewrite.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-spdy-proxy.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-spdy.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-ssl.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-stats.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-testrealm.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-webapps.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty-xinetd.xml" />
+            </JettyConfigFile>
+            <JettyConfigFile>
+              <option name="path" value="etc/jetty.xml" />
+            </JettyConfigFile>
+          </list>
+        </option>
+        <option name="jndiPort" value="10991" />
+      </data>
+    </server-settings>
+    <predefined_log_file id="Jetty" enabled="true" />
+    <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+    <RunnerSettings RunnerId="Debug">
+      <option name="DEBUG_PORT" value="" />
+      <option name="TRANSPORT" value="0" />
+      <option name="LOCAL" value="true" />
+    </RunnerSettings>
+    <RunnerSettings RunnerId="JProfiler">
+      <option name="JVM" value="/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home" />
+      <option name="WINDOW" value="false" />
+      <option name="JVMPI" value="false" />
+      <option name="INTERPRETED" value="false" />
+    </RunnerSettings>
+    <RunnerSettings RunnerId="Run" />
+    <ConfigurationWrapper VM_VAR="" RunnerId="Debug">
+      <option name="USE_ENV_VARIABLES" value="true" />
+      <STARTUP>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value="" />
+      </STARTUP>
+      <SHUTDOWN>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value="" />
+      </SHUTDOWN>
+    </ConfigurationWrapper>
+    <ConfigurationWrapper VM_VAR="" RunnerId="Run">
+      <option name="USE_ENV_VARIABLES" value="true" />
+      <STARTUP>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value="" />
+      </STARTUP>
+      <SHUTDOWN>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value="" />
+      </SHUTDOWN>
+    </ConfigurationWrapper>
+    <method>
+      <option name="BuildArtifacts" enabled="true">
+        <artifact name="superman" />
+      </option>
+    </method>
+  </configuration>
+</component>
