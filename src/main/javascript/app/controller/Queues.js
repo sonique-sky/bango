@@ -3,13 +3,13 @@ Ext.define('Spm.controller.Queues', {
     alias: 'controller.queues',
 
     mixins: {
-        hasRegisteredActions: 'Spm.controller.mixins.HasRegisteredActions'
+        hasRegisteredActions: 'Spm.controller.mixins.HasRegisteredActions',
+        serviceProblemClickHandler: 'Spm.controller.mixins.ServiceProblemClickHandler'
     },
 
     requires: [
         'Spm.controller.action.queue.BulkClearAction',
-        'Spm.controller.action.queue.BulkTransferAction',
-        'Spm.proxy.ServiceProblemProxy'
+        'Spm.controller.action.queue.BulkTransferAction'
     ],
 
     views: [
@@ -29,10 +29,11 @@ Ext.define('Spm.controller.Queues', {
 
     constructor: function (config) {
         this.mixins.hasRegisteredActions.constructor.call(this, config);
+        this.mixins.serviceProblemClickHandler.constructor.call(this, config);
+
         this.registerAction(Ext.create('Spm.controller.action.queue.BulkClearAction'));
         this.registerAction(Ext.create('Spm.controller.action.queue.BulkTransferAction'));
 
-        this.proxy = Spm.proxy.ServiceProblemProxy.serviceProblemLookupProxy();
         this.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
 
         this.callParent([config]);
@@ -64,19 +65,6 @@ Ext.define('Spm.controller.Queues', {
                 }
             }
         });
-    },
-
-    onServiceProblemClicked: function (serviceProblem) {
-        var operation = Ext.create('Ext.data.Operation', {
-            action: 'read',
-            params: {serviceProblemId: serviceProblem.get('serviceProblemId')}
-        });
-
-        this.proxy.read(operation, function (operation) {
-            if (operation.wasSuccessful()) {
-                this.fireEvent('displayServiceProblem', operation.getRecords()[0]);
-            }
-        }, this);
     },
 
     selectedServiceProblemIds: function (queueTabContent) {

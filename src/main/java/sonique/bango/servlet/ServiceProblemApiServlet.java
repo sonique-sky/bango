@@ -1,8 +1,8 @@
 package sonique.bango.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
-import org.codehaus.jackson.map.ObjectMapper;
 import sonique.bango.domain.EventHistoryItem;
 import sonique.bango.domain.ServiceProblem;
 import sonique.bango.store.ServiceProblemStore;

@@ -6,7 +6,9 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.springframework.web.servlet.DispatcherServlet;
 
+import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,14 @@ public class BangoServletWrapper {
 
     public void add(PretentiousServlet servlet) {
         contextHandler.addServlet(new ServletHolder(servlet), servlet.contextPath());
+    }
+
+    public void add(DispatcherServlet servlet, String contextPath) {
+        contextHandler.addServlet(new ServletHolder(servlet), contextPath);
+    }
+
+    public ServletContext servletContext() {
+        return contextHandler.getServletContext();
     }
 
     public void staticResources(String resourceBase) {

@@ -4,10 +4,10 @@ Ext.define('Spm.store.ServiceProblems', {
 
     statics: {
         queueServiceProblemStore: function() {
-            return Ext.create('Spm.store.ServiceProblems', {proxyUrl: 'api/queue/list'});
+            return Ext.create('Spm.store.ServiceProblems', {proxy: Spm.proxy.ServiceProblemProxy.queueServiceProblemProxy()});
         },
-        searchServiceProblemStore: function() {
-            return Ext.create('Spm.store.ServiceProblems', {proxyUrl: 'api/search/simple'});
+        serviceProblemSearchStore: function() {
+            return Ext.create('Spm.store.ServiceProblems', {proxy: Spm.proxy.ServiceProblemProxy.serviceProblemSearchProxy()});
         }
     },
 
@@ -23,13 +23,6 @@ Ext.define('Spm.store.ServiceProblems', {
             filterOnLoad: false,
             model: 'Spm.model.ServiceProblem',
             sortOnLoad: false,
-            proxy: {
-                type: 'ajax',
-                url: cfg.proxyUrl,
-                reader: {
-                    type: 'json'
-                }
-            }
         }, cfg)]);
     }
 });

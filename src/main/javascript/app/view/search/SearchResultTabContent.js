@@ -16,7 +16,7 @@ Ext.define('Spm.view.search.SearchResultTabContent', {
     iconCls: 'icon-search',
 
     initComponent: function () {
-        this.store = Spm.store.ServiceProblems.searchServiceProblemStore();
+        this.store = Spm.store.ServiceProblems.serviceProblemSearchStore();
 
         Ext.applyIf(this, {
             title: 'Search Results',
