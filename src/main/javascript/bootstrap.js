@@ -29,6 +29,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.model.WorkItem": [],
   "Spm.view.component.StandardDialog": [],
   "Ext.ux.PreviewPlugin": [],
+  "Spm.model.EventHistoryItem": [],
+  "Spm.view.queue.ActionToolbar": [],
   "Spm.view.serviceproblem.WorkItemPanel": [],
   "Ext.ux.ajax.SimXhr": [],
   "Spm.view.queue.BulkClearDialog": [],
@@ -48,6 +50,10 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.controller.Errors": [],
   "Ext.ux.TabScrollerMenu": [],
   "Ext.ux.IFrame": [],
+  "Spm.store.EventHistory": [],
+  "Spm.controller.action.serviceproblem.AddNoteAction": [
+    "Spm.action.AddNoteAction"
+  ],
   "Spm.view.search.SearchResultTabContent": [],
   "Ext.ux.form.SearchField": [],
   "Ext.ux.dd.CellFieldDropZone": [],
@@ -74,7 +80,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.view.application.HeaderView": [],
   "Ext.ux.GMapPanel": [],
   "Spm.controller.action.BaseAction": [],
-  "Spm.view.queue.ActionToolbar": [],
   "Spm.view.component.ActionButton": [],
   "Spm.view.serviceproblem.EventHistoryPanel": [],
   "Ext.ux.GroupTabPanel": [],
@@ -83,6 +88,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.grid.filter.StringFilter": [],
   "Spm.view.navigation.AgentStatusPanel": [],
   "Ext.ux.statusbar.ValidationStatus": [],
+  "Spm.view.serviceproblem.eventhistory.ActionToolbar": [],
   "Ext.ux.layout.Center": [],
   "Spm.view.component.ActionToolbar": [],
   "Spm.view.application.LoginWindow": [],
@@ -115,7 +121,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.view.navigation.NavigationPanel": [],
   "Ext.ux.Spotlight": [],
   "Ext.ux.grid.FiltersFeature": [],
-  "Spm.controller.MyStatus": []
+  "Spm.proxy.ServiceProblemProxy": [],
+  "Spm.controller.MyStatus": [],
+  "Spm.view.serviceproblem.eventhistory.AddNoteDialog": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.grid.TransformGrid": [],
@@ -154,6 +162,12 @@ Ext.ClassManager.addNameAliasMappings({
   "Spm.view.component.StandardDialog": [],
   "Ext.ux.PreviewPlugin": [
     "plugin.preview"
+  ],
+  "Spm.model.EventHistoryItem": [
+    "model.eventHistoryItem"
+  ],
+  "Spm.view.queue.ActionToolbar": [
+    "widget.queueTabToolbar"
   ],
   "Spm.view.serviceproblem.WorkItemPanel": [
     "widget.workItemPanel"
@@ -198,6 +212,10 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.IFrame": [
     "widget.uxiframe"
   ],
+  "Spm.store.EventHistory": [
+    "store.eventHistory"
+  ],
+  "Spm.controller.action.serviceproblem.AddNoteAction": [],
   "Spm.view.search.SearchResultTabContent": [
     "widget.searchResultTabContent"
   ],
@@ -256,9 +274,6 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.gmappanel"
   ],
   "Spm.controller.action.BaseAction": [],
-  "Spm.view.queue.ActionToolbar": [
-    "widget.queueTabToolbar"
-  ],
   "Spm.view.component.ActionButton": [
     "widget.actionButton"
   ],
@@ -277,10 +292,15 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.agentStatusPanel"
   ],
   "Ext.ux.statusbar.ValidationStatus": [],
+  "Spm.view.serviceproblem.eventhistory.ActionToolbar": [
+    "widget.eventHistoryActionToolbar"
+  ],
   "Ext.ux.layout.Center": [
     "layout.ux.center"
   ],
-  "Spm.view.component.ActionToolbar": [],
+  "Spm.view.component.ActionToolbar": [
+    "widget.actionToolbar"
+  ],
   "Spm.view.application.LoginWindow": [
     "widget.loginWindow"
   ],
@@ -336,7 +356,11 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.grid.FiltersFeature": [
     "feature.filters"
   ],
+  "Spm.proxy.ServiceProblemProxy": [],
   "Spm.controller.MyStatus": [
     "controller.myStatus"
+  ],
+  "Spm.view.serviceproblem.eventhistory.AddNoteDialog": [
+    "widget.addNoteDialog"
   ]
 });

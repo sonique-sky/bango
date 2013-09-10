@@ -1,6 +1,6 @@
 package sonique.bango.servlet;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import sonique.bango.store.AgentStore;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,17 +1,14 @@
 package sonique.bango;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.jetty.server.Server;
-import sonique.bango.servlet.*;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
+import sonique.bango.config.AgentApiConfig;
+import sonique.bango.config.BangoApplicationContext;
+import sonique.bango.servlet.BangoServletWrapper;
 import sonique.bango.store.AgentStore;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
-
-import java.text.SimpleDateFormat;
-
-import static com.google.common.collect.Lists.newArrayList;
-import static org.codehaus.jackson.annotate.JsonAutoDetect.Visibility.ANY;
-import static org.codehaus.jackson.annotate.JsonMethod.FIELD;
 
 public class Bango {
 
@@ -25,22 +22,36 @@ public class Bango {
 
 
     public Bango(QueueStore queueStore, AgentStore agentStore, ServiceProblemStore serviceProblemStore) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setVisibility(FIELD, ANY);
-        objectMapper.setDateFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm"));
 
         server = new Server(8080);
 
         BangoServletWrapper servletWrapper = new BangoServletWrapper("/superman");
         servletWrapper.staticResources("target/superman/");
 
-        servletWrapper.add(new AgentApiServlet(objectMapper, agentStore));
-        servletWrapper.add(new QueueApiServlet(objectMapper, serviceProblemStore, queueStore));
-        servletWrapper.add(new SearchApiServlet(objectMapper, serviceProblemStore));
-        servletWrapper.add(new SecurityServlet(objectMapper, agentStore));
-        servletWrapper.add(new ServiceProblemApiServlet(objectMapper, serviceProblemStore));
+        AnnotationConfigWebApplicationContext parentWebApplicationContext = new AnnotationConfigWebApplicationContext();
+        parentWebApplicationContext.register(BangoApplicationContext.class);
+        parentWebApplicationContext.setServletContext(servletWrapper.servletContext());
+        parentWebApplicationContext.refresh();
+
+        createApiServlet(servletWrapper, AgentApiConfig.class, "/api/agent/*", parentWebApplicationContext);
+
+
+//        servletWrapper.add(new AgentApiServlet(objectMapper, agentStore));
+//        servletWrapper.add(new QueueApiServlet(objectMapper, serviceProblemStore, queueStore));
+//        servletWrapper.add(new SearchApiServlet(objectMapper, serviceProblemStore));
+//        servletWrapper.add(new SecurityServlet(objectMapper, agentStore));
+//        servletWrapper.add(new ServiceProblemApiServlet(objectMapper, serviceProblemStore));
 
         server.setHandler(servletWrapper.asHandler());
+    }
+
+    private void createApiServlet(BangoServletWrapper servletWrapper, Class<?> configClass, String contextPath, AnnotationConfigWebApplicationContext parentWebApplicationContext) {
+        AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
+        webApplicationContext.register(configClass);
+        webApplicationContext.setServletContext(servletWrapper.servletContext());
+        webApplicationContext.setParent(parentWebApplicationContext);
+        webApplicationContext.refresh();
+        servletWrapper.add(new DispatcherServlet(webApplicationContext), contextPath);
     }
 
     public void start() throws Exception {

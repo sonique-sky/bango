@@ -1,8 +1,8 @@
 package sonique.bango.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
-import org.codehaus.jackson.map.ObjectMapper;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
 
