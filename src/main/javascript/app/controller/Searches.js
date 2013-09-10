@@ -8,6 +8,9 @@ Ext.define('Spm.controller.Searches', {
     views: [
         'search.SearchResultTabContent'
     ],
+    mixins: {
+        serviceProblemClickHandler: 'Spm.controller.mixins.ServiceProblemClickHandler'
+    },
 
     refs: [
         {
@@ -18,8 +21,9 @@ Ext.define('Spm.controller.Searches', {
 
     constructor: function (config) {
         this.activeSearchResultTabs = Ext.create('Ext.util.MixedCollection');
+        this.mixins.serviceProblemClickHandler.constructor.call(this, config);
 
-        this.proxy = Spm.proxy.ServiceProblemProxy.serviceProblemSearchProxy();
+        this.searchProxy = Spm.proxy.ServiceProblemProxy.serviceProblemSearchProxy();
 
         this.callParent([config]);
     },
@@ -48,7 +52,7 @@ Ext.define('Spm.controller.Searches', {
             params: searchCriteria
         });
 
-        this.proxy.read(operation, this.onSearchFinished, this);
+        this.searchProxy.read(operation, this.onSearchFinished, this);
     },
 
     onSearchStarted: function (searchCriteria) {
@@ -90,10 +94,6 @@ Ext.define('Spm.controller.Searches', {
                 tabPanel.setActiveTab(searchResultTab);
             }
         }
-    },
-
-    onServiceProblemClicked: function (serviceProblem) {
-        this.fireEvent('displayServiceProblem', serviceProblem);
     },
 
     createSearchResultTabFor: function (searchCriteria) {
