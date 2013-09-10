@@ -45,7 +45,11 @@ Ext.define('Spm.view.navigation.SearchPanel', {
                     margin: 3,
                     width: '100%',
                     defaults: {
-                        width: '100%'
+                        width: '100%',
+                        listeners: {
+                            specialkey: me.onSpecialKey,
+                            scope: me
+                        }
                     },
                     items: [
                         {
@@ -66,10 +70,16 @@ Ext.define('Spm.view.navigation.SearchPanel', {
         me.callParent(arguments);
     },
 
-    onSearch: function() {
+    onSearch: function () {
         var radioGroup = this.down('radiogroup');
         var textField = this.down('textfield');
 
         this.fireEvent('searchStarted', Ext.apply(radioGroup.getValue(), {searchParameter: textField.getValue()}));
+    },
+
+    onSpecialKey: function (field, e) {
+        if (e.getKey() === e.ENTER) {
+            this.onSearch();
+        }
     }
 });
