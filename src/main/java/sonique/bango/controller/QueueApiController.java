@@ -10,6 +10,7 @@ import sonique.bango.domain.ServiceProblem;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
 
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -21,6 +22,12 @@ public class QueueApiController {
     public QueueApiController(QueueStore queueStore, ServiceProblemStore serviceProblemStore) {
         this.queueStore = queueStore;
         this.serviceProblemStore = serviceProblemStore;
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<Queue> queue() {
+        return queueStore.allQueues();
     }
 
     @RequestMapping(value = "/{queueId}", method = RequestMethod.GET)
