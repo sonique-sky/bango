@@ -50,4 +50,5 @@ public class Agent {
     public void logout() {
         availability = OFFLINE;
     }
+
 }

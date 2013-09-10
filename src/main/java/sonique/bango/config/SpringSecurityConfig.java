@@ -1,6 +1,5 @@
 package sonique.bango.config;
 
-import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -16,12 +15,7 @@ import org.springframework.security.authentication.dao.ReflectionSaltSource;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.session.SessionRegistryImpl;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -41,7 +35,10 @@ import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.security.web.util.AntPathRequestMatcher;
 import org.springframework.security.web.util.RequestMatcher;
 import sonique.bango.filter.SpmSecurityExceptionFilter;
+import sonique.bango.store.AgentStore;
+import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,11 +48,16 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
 
 @Configuration
 public class SpringSecurityConfig {
+
+    @Resource
+    private AgentStore agentStore;
+
+    @Resource
+    private SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider;
 
     // Don't change this bean name - or Spring will chastise you...
     @Bean
@@ -82,7 +84,7 @@ public class SpringSecurityConfig {
         DefaultFilterInvocationSecurityMetadataSource ms = new DefaultFilterInvocationSecurityMetadataSource(urlPatternToRoleMap);
 
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setUserDetailsService(springSecurityAuthorisedActorProvider);
         authenticationProvider.setPasswordEncoder(new Md5PasswordEncoder());
         authenticationProvider.setSaltSource(createSaltSource());
         authenticationProvider.setHideUserNotFoundExceptions(true);
@@ -121,14 +123,6 @@ public class SpringSecurityConfig {
         );
 
         return new FilterChainProxy(securityFilterChains);
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        List<GrantedAuthorityImpl> grantedAuthorities = newArrayList(new GrantedAuthorityImpl("ROLE_USER"));
-        List<UserDetails> userDetails = Lists.<UserDetails>newArrayList(new User("A.A", "74e7d1735adb9c455ea02683382148b6", grantedAuthorities));
-
-        return new InMemoryUserDetailsManager(userDetails);
     }
 
     private ReflectionSaltSource createSaltSource() {

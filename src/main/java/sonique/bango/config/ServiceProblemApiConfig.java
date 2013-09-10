@@ -7,21 +7,23 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import sonique.bango.controller.AgentApiController;
-import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
+import sonique.bango.controller.SearchApiController;
+import sonique.bango.controller.ServiceProblemApiController;
+import sonique.bango.store.ServiceProblemStore;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Configuration
 @EnableWebMvc
-public class AgentApiConfig extends WebMvcConfigurerAdapter {
+public class ServiceProblemApiConfig extends WebMvcConfigurerAdapter {
 
     @Resource
     private ObjectMapper objectMapper;
 
+
     @Resource
-    private SpringSecurityAuthorisedActorProvider authorisedActorProvider;
+    private ServiceProblemStore serviceProblemStore;
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -31,7 +33,7 @@ public class AgentApiConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public AgentApiController agentApiController() {
-        return new AgentApiController(authorisedActorProvider);
+    public ServiceProblemApiController searchApiController() {
+        return new ServiceProblemApiController(serviceProblemStore);
     }
 }
