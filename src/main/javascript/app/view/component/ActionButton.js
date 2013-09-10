@@ -13,6 +13,10 @@ Ext.define('Spm.view.component.ActionButton', {
             handler: this.scope.startAction
         });
 
+        Ext.apply(this, {
+            focusCls: 'emptyClass'
+        });
+
         this.callParent(arguments);
     }
 });
