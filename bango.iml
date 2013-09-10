@@ -17,8 +17,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/sass/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/javascript/ext/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/Spm" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/javascript/build" />
