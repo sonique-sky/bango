@@ -74,12 +74,37 @@ Ext.define('Spm.view.navigation.SearchPanel', {
         var radioGroup = this.down('radiogroup');
         var textField = this.down('textfield');
 
-        this.fireEvent('searchStarted', Ext.apply(radioGroup.getValue(), {searchParameter: textField.getValue()}));
+        if (this.validate(textField)) {
+            this.fireEvent('searchStarted', Ext.apply(radioGroup.getValue(), {searchParameter: textField.getValue()}));
+        }
     },
 
     onSpecialKey: function (field, e) {
         if (e.getKey() === e.ENTER) {
             this.onSearch();
         }
+    },
+
+    validate: function(textfield){
+        if(this.isEmpty(textfield)){
+            Ext.Msg.show({
+                title: 'Search error',
+                msg: 'Please enter a value',
+                buttons: Ext.Msg.OK,
+                icon: Ext.Msg.INFO,
+                fn: function(){
+                    textfield.focus();
+                }
+            });
+            return false;
+        }
+        return true;
+    },
+
+    isEmpty: function(textfield) {
+        if(textfield.getValue() == '') {
+            return true;
+        }
+        return false;
     }
 });
