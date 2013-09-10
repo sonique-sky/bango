@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import sonique.bango.domain.Agent;
-import sonique.bango.servlet.GTFOException;
 import sonique.bango.store.AgentStore;
 
 import java.util.Collection;
@@ -23,10 +22,10 @@ public class SpringSecurityAuthorisedActorProvider implements UserDetailsService
     }
 
     public Agent getLoggedInAgent() {
-        return authorisedActor();
+        return authenticatedAgent();
     }
 
-    public Agent authorisedActor() {
+    public Agent authenticatedAgent() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof AuthenticatedUser) {
             AuthenticatedUser authenticatedUser = (AuthenticatedUser) authentication.getPrincipal();
@@ -34,7 +33,7 @@ public class SpringSecurityAuthorisedActorProvider implements UserDetailsService
             return agentStore.agentFor(authenticatedUser.getUsername());
         }
 
-        throw new GTFOException(401, "authorised actor not found");
+        throw new RuntimeException("authorised agent not found");
     }
 
     @Override

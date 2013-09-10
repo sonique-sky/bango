@@ -19,6 +19,6 @@ public class AgentApiController {
     @RequestMapping(method = {RequestMethod.GET}, value = "/authenticatedAgent")
     @ResponseBody
     public Agent authenticatedAgent() {
-        return authorisedActorProvider.authorisedActor();
+        return authorisedActorProvider.authenticatedAgent();
     }
 }
