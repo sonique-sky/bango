@@ -21,11 +21,10 @@ Ext.define('Spm.controller.action.serviceproblem.AddNoteAction', {
     },
 
     finishAction: function (serviceProblemTab, noteText) {
-        console.log(arguments);
         Ext.Ajax.request(
                 {
-                    url: 'api/serviceproblem/add-note',
-                    params: {serviceProblemId: serviceProblemTab.getServiceProblem().serviceProblemId(), noteText: noteText},
+                    url: Ext.String.format('api/serviceProblem/{0}/eventHistory', serviceProblemTab.getServiceProblem().serviceProblemId()),
+                    jsonData: {noteText: noteText},
                     success: function (response) {
                         serviceProblemTab.eventHistoryPanel.loadWith(response);
                     }
