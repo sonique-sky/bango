@@ -14,6 +14,5 @@ Ext.define('Spm.proxy.ServiceProblemProxy', {
         queueServiceProblemProxy: function() {
             return Ext.create('Spm.proxy.ServiceProblemProxy', {buildUrl: function(request) {return Ext.String.format('api/queue/{0}/serviceProblems', request.params.queueId)}})
         }
-
     }
 });

@@ -1,10 +1,12 @@
 package sonique.bango.controller;
 
+import com.google.common.collect.Iterables;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sonique.bango.domain.EventHistoryItem;
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.ServiceProblem;
 import sonique.bango.store.QueueStore;
@@ -25,7 +27,13 @@ public class ServiceProblemApiController {
 
     @RequestMapping(value = "/{serviceProblemId}", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<ServiceProblem> queue(@PathVariable int serviceProblemId) {
+    public Collection<ServiceProblem> serviceProblem(@PathVariable int serviceProblemId) {
         return serviceProblemStore.serviceProblemById(serviceProblemId);
+    }
+
+    @RequestMapping(value = "/{serviceProblemId}/eventHistory", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<EventHistoryItem> eventHistory(@PathVariable int serviceProblemId) {
+        return Iterables.getFirst(serviceProblem(serviceProblemId), null).eventHistoryItems();
     }
 }
