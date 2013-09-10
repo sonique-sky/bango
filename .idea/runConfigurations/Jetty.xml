@@ -108,6 +108,11 @@
       <option name="JVMPI" value="false" />
       <option name="INTERPRETED" value="false" />
     </RunnerSettings>
+    <RunnerSettings RunnerId="JRebel Debug">
+      <option name="DEBUG_PORT" value="" />
+      <option name="TRANSPORT" value="0" />
+      <option name="LOCAL" value="true" />
+    </RunnerSettings>
     <RunnerSettings RunnerId="Run" />
     <ConfigurationWrapper VM_VAR="" RunnerId="Debug">
       <option name="USE_ENV_VARIABLES" value="true" />

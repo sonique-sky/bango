@@ -10,8 +10,8 @@ Ext.define('Spm.store.EventHistory', {
 
     proxy: {
         type: 'ajax',
-        buildUrl: function(request) {
-            return Ext.String.format('api/serviceProblem/{0}/eventHistory', request.params.serviceProblemId);
+        buildUrl: function (request) {
+            return Spm.util.UrlWithParams.format('api/serviceProblem/{0}/eventHistory', request.params, ['serviceProblemId']);
         },
         reader: {
             type: 'json'
