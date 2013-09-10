@@ -5,7 +5,7 @@ Ext.define('Spm.controller.action.queue.BaseBulkAction', {
         Ext.Ajax.request(
                 {
                     url: 'api/queue/' + operation,
-                    params: params,
+                    jsonData: params,
                     success: function (response) {
                         queueTab.loadWith(response);
                     }
