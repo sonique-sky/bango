@@ -12,6 +12,9 @@ Ext.define('Spm.view.navigation.SearchPanel', {
         var me = this;
 
         Ext.applyIf(me, {
+            listeners: {
+                validitychange: me.onValidityChange
+            },
             items: [
                 {
                     xtype: 'radiogroup',
@@ -45,36 +48,40 @@ Ext.define('Spm.view.navigation.SearchPanel', {
                     margin: 3,
                     width: '100%',
                     defaults: {
-                        width: '100%',
-                        listeners: {
-                            specialkey: me.onSpecialKey,
-                            scope: me
-                        }
+                        width: '100%'
                     },
                     items: [
                         {
-                            xtype: 'textfield'
+                            xtype: 'textfield',
+                            allowBlank: false,
+                            listeners: {
+                                specialkey: me.onSpecialKey,
+                                scope: me
+                            }
                         },
                         {
                             xtype: 'button',
                             text: 'Search',
+                            disabled: true,
                             handler: me.onSearch,
                             scope: me
                         }
                     ]
                 }
-
-
             ]});
 
         me.callParent(arguments);
+    },
+
+    onValidityChange: function(form, valid) {
+        this.down('button').setDisabled(!valid);
     },
 
     onSearch: function () {
         var radioGroup = this.down('radiogroup');
         var textField = this.down('textfield');
 
-        if (this.validate(textField)) {
+        if (this.isValid()) {
             this.fireEvent('searchStarted', Ext.apply(radioGroup.getValue(), {searchParameter: textField.getValue()}));
         }
     },
@@ -83,28 +90,5 @@ Ext.define('Spm.view.navigation.SearchPanel', {
         if (e.getKey() === e.ENTER) {
             this.onSearch();
         }
-    },
-
-    validate: function(textfield){
-        if(this.isEmpty(textfield)){
-            Ext.Msg.show({
-                title: 'Search error',
-                msg: 'Please enter a value',
-                buttons: Ext.Msg.OK,
-                icon: Ext.Msg.INFO,
-                fn: function(){
-                    textfield.focus();
-                }
-            });
-            return false;
-        }
-        return true;
-    },
-
-    isEmpty: function(textfield) {
-        if(textfield.getValue() == '') {
-            return true;
-        }
-        return false;
     }
 });
