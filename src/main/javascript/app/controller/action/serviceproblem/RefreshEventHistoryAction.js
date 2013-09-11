@@ -3,7 +3,7 @@ Ext.define('Spm.controller.action.serviceproblem.RefreshEventHistoryAction', {
     alternateClassName: 'Spm.action.RefreshEventHistoryAction',
 
     statics: {
-        ACTION_NAME: 'refresh-events'
+        ACTION_NAME: 'refresh-event-history'
     },
 
     constructor: function () {
@@ -13,8 +13,7 @@ Ext.define('Spm.controller.action.serviceproblem.RefreshEventHistoryAction', {
     },
 
     startAction: function (serviceProblemTab) {
-        serviceProblemTab.eventHistoryPanel.store.reload();
+        serviceProblemTab.eventHistoryPanel.reload();
     }
-
 });
 
