@@ -19,6 +19,8 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     closable: true,
     iconCls: 'icon-queue',
 
+    actionContext: true,
+
     initComponent: function () {
         this.store = Spm.store.ServiceProblems.queueServiceProblemStore();
         this.store.addManagedListener(this.store, 'refresh', this.onStoreRefreshed, this);
@@ -36,8 +38,7 @@ Ext.define('Spm.view.queue.QueueTabContent', {
                     },
                     items: [
                         {
-                            xtype: 'queueTabToolbar',
-                            actionContext: this
+                            xtype: 'queueTabToolbar'
                         },
                         {
                             xtype: 'pagingtoolbar',

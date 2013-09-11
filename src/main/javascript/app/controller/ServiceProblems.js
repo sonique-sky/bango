@@ -45,12 +45,7 @@ Ext.define('Spm.controller.ServiceProblems', {
 
             component: {
                 'serviceProblemTabContent': {
-                    destroy: this.onServiceProblemTabDestroyed
-                },
-                'serviceProblemTabToolbar': {
-                    startAction: this.onStartAction
-                },
-                'eventHistoryActionToolbar': {
+                    destroy: this.onServiceProblemTabDestroyed,
                     startAction: this.onStartAction
                 },
                 'addNoteDialog': {

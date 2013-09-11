@@ -22,8 +22,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
         Ext.applyIf(me, {
             tools: [
                 {
-                    xtype: 'eventHistoryActionToolbar',
-                    actionContext: me.actionContext
+                    xtype: 'eventHistoryActionToolbar'
                 }
             ],
             items: [

@@ -49,13 +49,11 @@ Ext.define('Spm.controller.Queues', {
                 }
             },
             component: {
-                'queueTabToolbar': {
-                    startAction: this.onStartAction
-                },
                 '#tab-panel': {
                     tabchange: this.onTabChange
                 },
                 'queueTabContent': {
+                    startAction: this.onStartAction,
                     destroy: this.onQueueTabDestroyed,
                     serviceProblemClicked: this.onServiceProblemClicked
                 },
