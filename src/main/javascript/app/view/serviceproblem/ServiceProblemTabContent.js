@@ -53,6 +53,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                                     defaults: {
                                         xtype: 'button',
                                         toggleGroup: 'panelToggle',
+                                        allowDepress: false,
                                         handler: me.switchView,
                                         scope: me
                                     },
@@ -118,5 +119,4 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     switchView: function (button) {
         this.getLayout().setActiveItem(button.itemId + 'Panel');
     }
-})
-;
+});
