@@ -1,5 +1,5 @@
 Ext.define('Spm.view.queue.BulkTransferDialog', {
-    extend: 'Spm.view.component.StandardDialog',
+    extend: 'Spm.view.component.ActionDialog',
     alias: 'widget.bulkTransferDialog',
 
     height: 250,
@@ -7,15 +7,10 @@ Ext.define('Spm.view.queue.BulkTransferDialog', {
     iconCls: 'icon-bulk-transfer',
     title: 'Bulk Transfer',
 
-    config: {
-        actionContext: undefined
-    },
-
     initComponent: function () {
         var me = this;
 
         Ext.apply(me, {
-            collectFn: this.getItemsOfInterestArray,
             acceptButtonText: 'Transfer',
             acceptButtonDefaultDisabled: true,
             content: {
@@ -53,7 +48,7 @@ Ext.define('Spm.view.queue.BulkTransferDialog', {
         this.setAcceptButtonDisabled(false);
     },
 
-    getItemsOfInterestArray: function () {
-        return ['bulk-transfer', this.actionContext, this.down('dataview').getSelectionModel().getSelection()[0]];
+    doCollect: function () {
+        return [this.down('dataview').getSelectionModel().getSelection()[0]];
     }
 });

@@ -1,7 +1,12 @@
 Ext.define('Spm.controller.ServiceProblems', {
     extend: 'Ext.app.Controller',
     alias: 'controller.serviceProblems',
-    requires: ['Spm.controller.action.serviceproblem.AddNoteAction'],
+    requires: [
+        'Spm.controller.action.serviceproblem.AddNoteAction',
+        'Spm.controller.action.serviceproblem.RefreshAction',
+        'Spm.controller.action.serviceproblem.RefreshEventHistoryAction',
+        'Spm.controller.action.serviceproblem.PullServiceProblemAction'
+    ],
 
     mixins: {
         hasRegisteredActions: 'Spm.controller.mixins.HasRegisteredActions'
@@ -21,9 +26,10 @@ Ext.define('Spm.controller.ServiceProblems', {
     constructor: function (config) {
         this.mixins.hasRegisteredActions.constructor.call(this, {
             registeredActions: [
-                'Spm.controller.action.serviceproblem.AddNoteAction',
-                'Spm.controller.action.serviceproblem.RefreshAction',
-                'Spm.controller.action.serviceproblem.RefreshEventHistoryAction'
+                'Spm.action.AddNoteAction',
+                'Spm.action.RefreshAction',
+                'Spm.action.RefreshEventHistoryAction',
+                'Spm.action.PullServiceProblemAction'
             ]
         });
 
@@ -46,10 +52,8 @@ Ext.define('Spm.controller.ServiceProblems', {
             component: {
                 'serviceProblemTabContent': {
                     destroy: this.onServiceProblemTabDestroyed,
-                    startAction: this.onStartAction
-                },
-                'addNoteDialog': {
-                    accepted: this.onFinishAction
+                    startAction: this.onStartAction,
+                    finishAction: this.onFinishAction
                 }
             }
         });

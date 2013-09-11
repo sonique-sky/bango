@@ -13,7 +13,7 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
                     },
                     items: [
                         {xtype: 'actionButton', actionName: Spm.action.RefreshAction.ACTION_NAME, tooltip: 'Refresh'},
-                        {xtype: 'actionButton', actionName: 'pull', tooltip: 'Pull this item'},
+                        {xtype: 'actionButton', actionName: Spm.action.PullServiceProblemAction.ACTION_NAME, tooltip: 'Pull this item'},
                         {xtype: 'actionButton', actionName: 'hold', tooltip: 'Hold this work item'},
                         {xtype: 'actionButton', actionName: 'reassign', tooltip: 'Reassign service problem to another agent'},
                         {xtype: 'actionButton', actionName: 'transfer', tooltip: 'Transfer to another queue'},

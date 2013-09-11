@@ -54,14 +54,9 @@ Ext.define('Spm.controller.Queues', {
                 },
                 'queueTabContent': {
                     startAction: this.onStartAction,
+                    finishAction: this.onFinishAction,
                     destroy: this.onQueueTabDestroyed,
                     serviceProblemClicked: this.onServiceProblemClicked
-                },
-                'bulkTransferDialog': {
-                    accepted: this.onFinishAction
-                },
-                'bulkClearDialog': {
-                    accepted: this.onFinishAction
                 }
             }
         });

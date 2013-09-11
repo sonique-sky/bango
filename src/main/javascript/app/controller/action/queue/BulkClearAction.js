@@ -15,7 +15,7 @@ Ext.define('Spm.controller.action.queue.BulkClearAction', {
         var selectedServiceProblems = queueTab.selectedServiceProblems();
         var hasActiveTroubleReports = this.hasActiveTroubleReports(selectedServiceProblems);
 
-        Ext.create('Spm.view.queue.BulkClearDialog', {actionContext: queueTab, hasActiveTroubleReports: hasActiveTroubleReports}).show();
+        Ext.create('Spm.view.queue.BulkClearDialog', {actionName: this.name, actionContext: queueTab, hasActiveTroubleReports: hasActiveTroubleReports}).show();
     },
 
     finishAction: function (queueTab) {

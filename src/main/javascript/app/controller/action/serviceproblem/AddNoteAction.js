@@ -12,12 +12,12 @@ Ext.define('Spm.controller.action.serviceproblem.AddNoteAction', {
 
     constructor: function () {
         this.callParent([Ext.apply({}, {
-            name: Spm.controller.action.serviceproblem.AddNoteAction.ACTION_NAME
+            name: Spm.action.AddNoteAction.ACTION_NAME
         })]);
     },
 
     startAction: function (serviceProblemTab) {
-        Ext.create('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {actionContext: serviceProblemTab}).show();
+        Ext.create('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {actionName: this.name, actionContext: serviceProblemTab}).show();
     },
 
     finishAction: function (serviceProblemTab, noteText) {

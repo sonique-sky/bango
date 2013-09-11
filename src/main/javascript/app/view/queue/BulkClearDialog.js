@@ -1,5 +1,5 @@
 Ext.define('Spm.view.queue.BulkClearDialog', {
-    extend: 'Spm.view.component.StandardDialog',
+    extend: 'Spm.view.component.ActionDialog',
     alias: 'widget.bulkClearDialog',
 
     width: 350,
@@ -7,17 +7,12 @@ Ext.define('Spm.view.queue.BulkClearDialog', {
     iconCls: 'icon-bulk-clear',
     title: 'Bulk Clear',
 
-    config: {
-        actionContext: undefined
-    },
-
     initComponent: function () {
         var me = this;
 
         var message = this.messageFor(me.hasActiveTroubleReports);
 
         Ext.apply(me, {
-            collectFn: this.getItemsOfInterestArray,
             acceptButtonText: 'Continue',
             content: {
                 xtype: 'label',
@@ -36,9 +31,5 @@ Ext.define('Spm.view.queue.BulkClearDialog', {
         }
 
         return 'Are you sure you wish to clear these Service Problems?';
-    },
-
-    getItemsOfInterestArray: function() {
-        return ['bulk-clear', this.actionContext];
     }
 });

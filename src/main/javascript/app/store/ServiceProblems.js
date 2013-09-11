@@ -22,7 +22,7 @@ Ext.define('Spm.store.ServiceProblems', {
             autoLoad: false,
             filterOnLoad: false,
             model: 'Spm.model.ServiceProblem',
-            sortOnLoad: false,
+            sortOnLoad: false
         }, cfg)]);
     }
 });
