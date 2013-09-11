@@ -1,7 +1,12 @@
 Ext.define('Spm.controller.mixins.HasRegisteredActions', {
 
-    constructor: function () {
+    constructor: function (cfg) {
+        var me = this;
         this.registeredActions = Ext.create('Ext.util.MixedCollection');
+
+        Ext.Array.forEach(cfg.registeredActions, function (actionName) {
+            me.registerAction(Ext.create(actionName))
+        })
     },
 
     registerAction: function (action) {
@@ -9,7 +14,6 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
     },
 
     onStartAction: function (actionName) {
-        console.log(actionName);
         this.registeredActionWithName(actionName).applyStartStep(arguments);
     },
 

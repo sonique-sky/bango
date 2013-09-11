@@ -28,11 +28,13 @@ Ext.define('Spm.controller.Queues', {
     ],
 
     constructor: function (config) {
-        this.mixins.hasRegisteredActions.constructor.call(this, config);
+        this.mixins.hasRegisteredActions.constructor.call(this, {
+            registeredActions: [
+                'Spm.controller.action.queue.BulkClearAction',
+                'Spm.controller.action.queue.BulkTransferAction'
+            ]
+        });
         this.mixins.serviceProblemClickHandler.constructor.call(this, config);
-
-        this.registerAction(Ext.create('Spm.controller.action.queue.BulkClearAction'));
-        this.registerAction(Ext.create('Spm.controller.action.queue.BulkTransferAction'));
 
         this.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
 

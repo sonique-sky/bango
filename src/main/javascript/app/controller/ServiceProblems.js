@@ -1,7 +1,7 @@
 Ext.define('Spm.controller.ServiceProblems', {
     extend: 'Ext.app.Controller',
     alias: 'controller.serviceProblems',
-    requires:['Spm.controller.action.serviceproblem.AddNoteAction'],
+    requires: ['Spm.controller.action.serviceproblem.AddNoteAction'],
 
     mixins: {
         hasRegisteredActions: 'Spm.controller.mixins.HasRegisteredActions'
@@ -19,10 +19,13 @@ Ext.define('Spm.controller.ServiceProblems', {
     ],
 
     constructor: function (config) {
-        this.mixins.hasRegisteredActions.constructor.call(this, config);
-        this.registerAction(Ext.create('Spm.controller.action.serviceproblem.AddNoteAction'));
-        this.registerAction(Ext.create('Spm.controller.action.serviceproblem.RefreshAction'));
-        this.registerAction(Ext.create('Spm.controller.action.serviceproblem.RefreshEventHistoryAction'));
+        this.mixins.hasRegisteredActions.constructor.call(this, {
+            registeredActions: [
+                'Spm.controller.action.serviceproblem.AddNoteAction',
+                'Spm.controller.action.serviceproblem.RefreshAction',
+                'Spm.controller.action.serviceproblem.RefreshEventHistoryAction'
+            ]
+        });
 
         this.activeServiceProblemTabs = Ext.create('Ext.util.MixedCollection');
 
@@ -39,6 +42,7 @@ Ext.define('Spm.controller.ServiceProblems', {
                     displayServiceProblem: this.displayServiceProblem
                 }
             },
+
             component: {
                 'serviceProblemTabContent': {
                     destroy: this.onServiceProblemTabDestroyed
@@ -46,7 +50,7 @@ Ext.define('Spm.controller.ServiceProblems', {
                 'serviceProblemTabToolbar': {
                     startAction: this.onStartAction
                 },
-                'eventHistoryActionToolbar' : {
+                'eventHistoryActionToolbar': {
                     startAction: this.onStartAction
                 },
                 'addNoteDialog': {
