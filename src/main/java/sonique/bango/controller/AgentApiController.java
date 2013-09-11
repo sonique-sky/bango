@@ -21,4 +21,13 @@ public class AgentApiController {
     public Agent authenticatedAgent() {
         return authorisedActorProvider.authenticatedAgent();
     }
+
+    @RequestMapping(method = {RequestMethod.POST}, value = "/toggleAvailability")
+    @ResponseBody
+    public Agent toggleAvailability() {
+        Agent agent = this.authenticatedAgent();
+        agent.toggleAvailability();
+
+        return agent;
+    }
 }

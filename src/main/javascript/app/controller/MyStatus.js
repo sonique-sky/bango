@@ -25,6 +25,7 @@ Ext.define('Spm.controller.MyStatus', {
         var me = this;
 
         Ext.Ajax.request({
+            method: 'POST',
             url: 'api/agent/toggleAvailability',
             success: function (response) {
                 me.getAuthenticatedAgentStore().loadRawData(response);

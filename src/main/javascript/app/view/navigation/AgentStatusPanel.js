@@ -42,7 +42,7 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
                     store: 'AuthenticatedAgent',
                     listeners: {
                         refresh: {
-                            fn: me.renderToggleButton,
+                            fn: me.renderAvailabilityButton,
                             scope: me
                         }
                     }
@@ -53,7 +53,7 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
         me.callParent(arguments);
     },
 
-    renderToggleButton: function (dataview) {
+    renderAvailabilityButton: function (dataview) {
         if (!dataview.getStore().isLoading()) {
             Ext.destroy(this.toggleButton);
             this.toggleButton = Ext.create('Ext.button.Button', {
