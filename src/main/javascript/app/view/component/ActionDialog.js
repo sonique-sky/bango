@@ -16,15 +16,20 @@ Ext.define('Spm.view.component.ActionDialog', {
         me.callParent(arguments);
     },
 
-    doCollect: function() {
+    doCollect: function () {
         return [];
     },
 
-    collect: function() {
-        return Ext.Array.merge([this.actionName, this.actionContext], this.doCollect())
+    collect: function () {
+        var collected = this.doCollect();
+        if (collected instanceof Array) {
+            return Ext.Array.merge([this.actionName, this.actionContext], collected);
+        }
+
+        throw new Error('function [doCollect] must return an array!');
     },
 
-    onAccept: function() {
+    onAccept: function () {
         // get the required information from the dialog
         var eventArguments = this.collectFn();
         // push the event type into the first element of the array
