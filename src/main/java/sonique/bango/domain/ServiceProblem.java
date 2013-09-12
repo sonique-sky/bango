@@ -57,4 +57,8 @@ public class ServiceProblem {
     public List<EventHistoryItem> eventHistoryItems() {
         return eventHistoryItems;
     }
+
+    public void assignTo(Agent agent) {
+        workItem.assignTo(agent);
+    }
 }

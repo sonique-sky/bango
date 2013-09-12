@@ -74,7 +74,8 @@ Ext.define('Spm.view.queue.QueueTabContent', {
                         },
                         {text: 'Work Item',
                             columns: [
-                                {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: Spm.view.renderer.NestedPropertyRenderer.renderer}
+                                {text: 'Work Item Status', dataIndex: 'workItem.status', renderer: Spm.view.renderer.NestedPropertyRenderer.renderer},
+                                {text: 'Agent', dataIndex: 'workItem.agentDisplayName', renderer: Spm.view.renderer.NestedPropertyRenderer.renderer}
                             ]
                         }
                     ]

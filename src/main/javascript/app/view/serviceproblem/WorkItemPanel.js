@@ -59,6 +59,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                 },
                                 {
                                     xtype: 'textfield',
+                                    name: 'agentDisplayName',
                                     fieldLabel: 'Assigned Agent'
                                 }
                             ]

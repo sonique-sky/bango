@@ -9,5 +9,9 @@ Ext.define('Spm.model.WorkItem', {
         {
             name: 'status'
         }
+    ],
+
+    hasOne: [
+        'agent', {model: 'Spm.model.Agent', name: 'agent', associationKey: 'agent', getterName: 'agent'}
     ]
 });

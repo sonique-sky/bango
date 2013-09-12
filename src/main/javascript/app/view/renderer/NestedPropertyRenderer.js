@@ -5,8 +5,13 @@ Ext.define('Spm.view.renderer.NestedPropertyRenderer', {
                 var properties = dataIndex.split('.');
                 var value = associatedData;
 
-                Ext.Array.forEach(properties, function (property) {
+                Ext.Array.each(properties, function (property) {
                     value = value[property]
+
+                    // Stop the iteration if value is null
+                    if(!value) {
+                        return false;
+                    }
                 });
 
                 return value;

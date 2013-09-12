@@ -59,7 +59,6 @@ public class BangoApplicationContext {
 
     @Bean
     public ServiceProblemStore serviceProblemStore() {
-
         Integer directoryNumber = 111;
         List<ServiceProblem> serviceProblems = newArrayList();
         for (int index = 0; index < numberOfQueues * serviceProblemsPerQueue; index++) {

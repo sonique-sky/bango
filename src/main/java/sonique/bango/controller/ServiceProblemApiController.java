@@ -7,18 +7,23 @@ import org.springframework.web.bind.annotation.*;
 import sonique.bango.domain.EventHistoryItem;
 import sonique.bango.domain.ServiceProblem;
 import sonique.bango.store.ServiceProblemStore;
+import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
 import java.util.*;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static sonique.bango.controller.ServiceProblemApiController.EventHistoryByDate.byDate;
 
 @Controller
 public class ServiceProblemApiController {
 
     private final ServiceProblemStore serviceProblemStore;
+    private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
 
-    public ServiceProblemApiController(ServiceProblemStore serviceProblemStore) {
+
+    public ServiceProblemApiController(ServiceProblemStore serviceProblemStore, SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
         this.serviceProblemStore = serviceProblemStore;
+        this.authorisedActorProvider = authorisedActorProvider;
     }
 
     @RequestMapping(value = "/{serviceProblemId}", method = RequestMethod.GET)
@@ -42,6 +47,14 @@ public class ServiceProblemApiController {
         historyItems.add(new EventHistoryItem("Note", payloadMap.get("noteText"), new Date(), "Me"));
 
         return Ordering.from(byDate()).sortedCopy(historyItems);
+    }
+
+    @RequestMapping(value = "/{serviceProblemId}/pull", method = RequestMethod.POST)
+    @ResponseBody
+    public Collection<ServiceProblem> pull(@PathVariable int serviceProblemId) {
+        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
+        serviceProblem.assignTo(authorisedActorProvider.authenticatedAgent());
+        return newArrayList(serviceProblem);
     }
 
     private ServiceProblem serviceProblemWithId(int serviceProblemId) {
