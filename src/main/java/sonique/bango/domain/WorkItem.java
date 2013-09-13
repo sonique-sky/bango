@@ -12,6 +12,7 @@ public class WorkItem {
 
     public void assignTo(Agent agent) {
         this.agent = agent;
+        this.agent.agentState().incrementActiveCount();
         this.status = "Assigned";
     }
 }

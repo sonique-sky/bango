@@ -7,7 +7,8 @@ Ext.define('Spm.controller.MyStatus', {
     ],
     stores: [
         'AuthenticatedAgent',
-        'AgentQueues'
+        'AgentQueues',
+        'AgentState'
     ],
     views: [
         'navigation.AgentStatusPanel'
@@ -21,6 +22,28 @@ Ext.define('Spm.controller.MyStatus', {
         }
     ],
 
+    init: function () {
+        this.listen({
+            component: {
+                'button#toggle-button': {
+                    click: this.onToggleAvailability
+                }
+            },
+            controller: {
+                '#ServiceProblems': {
+                    'serviceProblemPulled': this.refreshAgentState
+                },
+                '#Security': {
+                    'authenticated': this.refreshAgentState
+                }
+            }
+        });
+    },
+
+    refreshAgentState: function () {
+        this.getAgentStateStore().load();
+    },
+
     onToggleAvailability: function () {
         var me = this;
 
@@ -28,17 +51,7 @@ Ext.define('Spm.controller.MyStatus', {
             method: 'POST',
             url: 'api/agent/toggleAvailability',
             success: function (response) {
-                me.getAuthenticatedAgentStore().loadRawData(response);
-            }
-        });
-    },
-
-    init: function (application) {
-        this.listen({
-            component: {
-                'button#toggle-button': {
-                    click: this.onToggleAvailability
-                }
+                me.getAgentStateStore().loadRawData(response);
             }
         });
     }

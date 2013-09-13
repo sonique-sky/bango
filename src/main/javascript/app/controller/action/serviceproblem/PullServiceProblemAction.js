@@ -10,6 +10,13 @@ Ext.define('Spm.controller.action.serviceproblem.PullServiceProblemAction', {
         this.callParent([Ext.apply({}, {
             name: Spm.action.PullServiceProblemAction.ACTION_NAME
         })]);
+
+        this.proxy = Ext.create('Spm.proxy.ServiceProblemProxy', {
+               buildUrl: function (request) {
+                   return Spm.util.UrlWithParams.format('api/serviceProblem/{0}/pull', request.params, ['serviceProblemId'])
+               }
+           }
+       );
     },
 
     startAction: function (serviceProblemTab) {
@@ -29,21 +36,15 @@ Ext.define('Spm.controller.action.serviceproblem.PullServiceProblemAction', {
     },
 
     finishAction: function (serviceProblemTab) {
-         var proxy = Ext.create('Spm.proxy.ServiceProblemProxy', {
-                buildUrl: function (request) {
-                    return Spm.util.UrlWithParams.format('api/serviceProblem/{0}/pull', request.params, ['serviceProblemId'])
-                }
-            }
-        );
-
         var operation = Ext.create('Ext.data.Operation', {
             action: 'update',
             params: {serviceProblemId: serviceProblemTab.getServiceProblem().serviceProblemId()}
         });
 
-        proxy.read(operation, function (operation) {
+        this.proxy.update(operation, function (operation) {
             if (operation.wasSuccessful()) {
                 serviceProblemTab.load(operation.getRecords()[0]);
+                serviceProblemTab.fireEvent('serviceProblemPulled');
             }
         }, this);
     }

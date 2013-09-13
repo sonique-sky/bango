@@ -53,7 +53,8 @@ Ext.define('Spm.controller.ServiceProblems', {
                 'serviceProblemTabContent': {
                     destroy: this.onServiceProblemTabDestroyed,
                     startAction: this.onStartAction,
-                    finishAction: this.onFinishAction
+                    finishAction: this.onFinishAction,
+                    serviceProblemPulled: this.onServiceProblemPulled
                 }
             }
         });
@@ -79,6 +80,9 @@ Ext.define('Spm.controller.ServiceProblems', {
 
     onServiceProblemTabDestroyed: function (serviceProblemTab) {
         this.activeServiceProblemTabs.removeAtKey(serviceProblemTab.getServiceProblem().serviceProblemId());
-    }
+    },
 
+    onServiceProblemPulled: function() {
+        this.fireEvent('serviceProblemPulled');
+    }
 });

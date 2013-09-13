@@ -28,12 +28,6 @@ Ext.define('Spm.model.Agent', {
                 return rec.get('firstName') + ' ' + rec.get('lastName');
             },
             name: 'displayName'
-        },
-        {
-            convert: function (v, rec) {
-                return rec.get('availability') == 'Available';
-            },
-            name: 'isAvailable'
         }
     ]
 });

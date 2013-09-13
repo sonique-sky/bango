@@ -54,6 +54,7 @@ public class ServiceProblemApiController {
     public Collection<ServiceProblem> pull(@PathVariable int serviceProblemId) {
         ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
         serviceProblem.assignTo(authorisedActorProvider.authenticatedAgent());
+
         return newArrayList(serviceProblem);
     }
 

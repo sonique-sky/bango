@@ -39,7 +39,7 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
                                 }
                             }
                     ),
-                    store: 'AuthenticatedAgent',
+                    store: 'AgentState',
                     listeners: {
                         refresh: {
                             fn: me.renderAvailabilityButton,

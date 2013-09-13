@@ -83,5 +83,9 @@ public class SpringSecurityAuthorisedActorProvider implements UserDetailsService
         public boolean isEnabled() {
             return true;
         }
+
+        public Agent agent() {
+            return agent;
+        }
     }
 }

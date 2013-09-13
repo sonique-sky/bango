@@ -35,6 +35,8 @@ import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.security.web.util.AntPathRequestMatcher;
 import org.springframework.security.web.util.RequestMatcher;
 import sonique.bango.filter.SpmSecurityExceptionFilter;
+import sonique.bango.filter.SpmSessionControlFilter;
+import sonique.bango.filter.SpmSessionRegistry;
 import sonique.bango.store.AgentStore;
 import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
@@ -94,15 +96,14 @@ public class SpringSecurityConfig {
         filterSecurityInterceptor.setAccessDecisionManager(accessDecisionManager);
         filterSecurityInterceptor.setSecurityMetadataSource(ms);
 
-        SessionRegistryImpl sessionRegistry = new SessionRegistryImpl();
+        SpmSessionRegistry sessionRegistry = new SpmSessionRegistry();
         ConcurrentSessionControlStrategy sessionControlStrategy = new ConcurrentSessionControlStrategy(sessionRegistry);
         sessionControlStrategy.setAlwaysCreateSession(true);
-
 
         SecurityFilterChain secureChain = new DefaultSecurityFilterChain(
                 new AntPathRequestMatcher("/**"),
                 new SecurityContextPersistenceFilter(httpSessionSecurityContextRepository),
-//                new SpmSessionControlFilter(sessionRegistry, securityContextLogoutHandler),
+                new SpmSessionControlFilter(sessionRegistry, securityContextLogoutHandler),
                 logoutFilter(securityContextLogoutHandler),
                 usernamePasswordAuthenticationFilter(providerManager, sessionControlStrategy),
                 new SecurityContextHolderAwareRequestFilter(),

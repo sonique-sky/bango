@@ -40,6 +40,7 @@ Ext.define('Spm.controller.Security', {
             this.getAuthenticatedAgentStore().load();
         }
         this.getAppContainer().setVisible(true);
+        this.fireEvent('authenticated');
     },
 
     onAuthenticationRequired: function () {
