@@ -13,18 +13,13 @@ Ext.define('Spm.controller.action.serviceproblem.RefreshAction', {
     },
 
     startAction: function (serviceProblemTab) {
-        var proxy = Spm.proxy.ServiceProblemProxy.serviceProblemLookupProxy();
-        var operation = Ext.create('Ext.data.Operation', {
-            action: 'read',
-            params: {serviceProblemId: serviceProblemTab.getServiceProblem().serviceProblemId()}
-        });
+        var operation = Spm.proxy.ApiOperation.serviceProblemLookupOperation({serviceProblemId: serviceProblemTab.getServiceProblem().serviceProblemId()});
 
-        proxy.read(operation, function (operation) {
+        Spm.proxy.ApiProxy.read(operation, function (operation) {
             if (operation.wasSuccessful()) {
                serviceProblemTab.load( operation.getRecords()[0]);
             }
         }, this);
     }
-
 });
 

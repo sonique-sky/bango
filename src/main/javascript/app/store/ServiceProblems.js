@@ -4,10 +4,10 @@ Ext.define('Spm.store.ServiceProblems', {
 
     statics: {
         queueServiceProblemStore: function() {
-            return Ext.create('Spm.store.ServiceProblems', {proxy: Spm.proxy.ServiceProblemProxy.queueServiceProblemProxy()});
+            return Ext.create('Spm.store.ServiceProblems', {proxy: Spm.proxy.ApiProxy});
         },
         serviceProblemSearchStore: function() {
-            return Ext.create('Spm.store.ServiceProblems', {proxy: Spm.proxy.ServiceProblemProxy.serviceProblemSearchProxy()});
+            return Ext.create('Spm.store.ServiceProblems', {proxy: Spm.proxy.ApiProxy});
         }
     },
 

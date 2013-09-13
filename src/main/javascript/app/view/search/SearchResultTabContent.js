@@ -65,6 +65,7 @@ Ext.define('Spm.view.search.SearchResultTabContent', {
     },
 
     reloadAndMakeActive: function() {
+        debugger;
         this.up('tabpanel').setActiveTab(this);
 
         this.store.load({params: this.getSearchCriteria()});

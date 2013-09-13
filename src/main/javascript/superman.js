@@ -1,6 +1,7 @@
 //@require @packageOverrides
 Ext.Loader.setConfig({
-    enabled: true
+    enabled: true,
+    disableCaching: true
 });
 
 Ext.require('Spm.view.application.SpmViewport');

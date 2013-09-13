@@ -3,7 +3,8 @@ Ext.define('Spm.controller.Searches', {
     alias: 'controller.searches',
 
     requires: [
-        'Spm.proxy.ServiceProblemProxy'
+        'Spm.proxy.ApiProxy',
+        'Spm.proxy.ApiOperation'
     ],
     views: [
         'search.SearchResultTabContent'
@@ -22,8 +23,6 @@ Ext.define('Spm.controller.Searches', {
     constructor: function (config) {
         this.activeSearchResultTabs = Ext.create('Ext.util.MixedCollection');
         this.mixins.serviceProblemClickHandler.constructor.call(this, config);
-
-        this.searchProxy = Spm.proxy.ServiceProblemProxy.serviceProblemSearchProxy();
 
         this.callParent([config]);
     },
@@ -47,12 +46,9 @@ Ext.define('Spm.controller.Searches', {
     },
 
     doSearch: function (searchCriteria) {
-        var operation = Ext.create('Ext.data.Operation', {
-            action: 'read',
-            params: searchCriteria
-        });
+        var operation = Spm.proxy.ApiOperation.searchOperation(searchCriteria);
 
-        this.searchProxy.read(operation, this.onSearchFinished, this);
+        Spm.proxy.ApiProxy.read(operation, this.onSearchFinished, this);
     },
 
     onSearchStarted: function (searchCriteria) {

@@ -1,20 +1,14 @@
 Ext.define('Spm.controller.mixins.ServiceProblemClickHandler', {
 
     requires: [
-        'Spm.proxy.ServiceProblemProxy'
+        'Spm.proxy.ApiProxy',
+        'Spm.proxy.ApiOperation'
     ],
 
-    constructor: function () {
-        this.proxy = Spm.proxy.ServiceProblemProxy.serviceProblemLookupProxy();
-    },
-
     onServiceProblemClicked: function (serviceProblem) {
-        var operation = Ext.create('Ext.data.Operation', {
-            action: 'read',
-            params: {serviceProblemId: serviceProblem.get('serviceProblemId')}
-        });
+        var operation = Spm.proxy.ApiOperation.serviceProblemLookupOperation({serviceProblemId: serviceProblem.serviceProblemId()});
 
-        this.proxy.read(operation, function (operation) {
+        Spm.proxy.ApiProxy.proxy.read(operation, function (operation) {
             if (operation.wasSuccessful()) {
                 this.fireEvent('displayServiceProblem', operation.getRecords()[0]);
             }
