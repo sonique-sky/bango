@@ -52,17 +52,21 @@ Ext.define('Spm.controller.Searches', {
     },
 
     onSearchStarted: function (searchCriteria) {
-        debugger;
         if (this.isUniqueSearch(searchCriteria)) {
             this.doSearch(searchCriteria);
         } else {
-            var searchResultTab = this.activeSearchResultTabs.getByKey(searchCriteria);
+            var searchResultTab = this.activeSearchResultTabs.getByKey(this.searchCriteriaKey(searchCriteria));
             if (searchResultTab) {
                 searchResultTab.reloadAndMakeActive();
             } else {
                 this.doSearch(searchCriteria);
             }
         }
+    },
+
+    // Need this because MixedCollection doesn't seem to work with Objects as keys...
+    searchCriteriaKey: function(searchCriteria) {
+        return Ext.String.format('{0}:{1}', searchCriteria.searchType, searchCriteria.searchParameter);
     },
 
     onSearchFinished: function (operation) {
@@ -83,7 +87,7 @@ Ext.define('Spm.controller.Searches', {
                 var searchResultTab = this.activeSearchResultTabs.getByKey(searchCriteria);
                 if (!searchResultTab) {
                     searchResultTab = this.createSearchResultTabFor(searchCriteria);
-                    this.activeSearchResultTabs.add(searchCriteria, searchResultTab);
+                    this.activeSearchResultTabs.add(this.searchCriteriaKey(searchCriteria), searchResultTab);
                     tabPanel.add(searchResultTab);
                     searchResultTab.loadWith(records);
                 }
