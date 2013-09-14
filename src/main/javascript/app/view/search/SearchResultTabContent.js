@@ -17,7 +17,6 @@ Ext.define('Spm.view.search.SearchResultTabContent', {
 
     initComponent: function () {
         this.store = Spm.store.ServiceProblems.serviceProblemSearchStore();
-
         Ext.applyIf(this, {
             title: 'Search Results',
             id: 'search-result-tab',
@@ -60,14 +59,15 @@ Ext.define('Spm.view.search.SearchResultTabContent', {
         this.fireEvent("serviceProblemClicked", record);
     },
 
-    loadWith: function(serviceProblems) {
+    loadWith: function (serviceProblems) {
         this.store.loadRecords(serviceProblems);
     },
 
-    reloadAndMakeActive: function() {
-        debugger;
+    reloadAndMakeActive: function () {
         this.up('tabpanel').setActiveTab(this);
 
-        this.store.load({params: this.getSearchCriteria()});
+        var searchCriteria = Ext.apply({}, this.searchCriteria);
+
+        this.store.load({params: searchCriteria});
     }
 });

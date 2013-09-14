@@ -17,6 +17,9 @@ Ext.application({
         'ServiceProblems',
         'Searches'
     ],
+    requires: [
+            'Spm.overrides.AbstractStore'
+    ],
     launch: function () {
         Ext.create('Spm.view.application.SpmViewport');
     }

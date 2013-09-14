@@ -22,7 +22,7 @@ Ext.define('Spm.view.component.ActionDialog', {
 
     collect: function () {
         var collected = this.doCollect();
-        if (collected instanceof Array) {
+        if (Ext.isArray(collected)) {
             return Ext.Array.merge([this.actionName, this.actionContext], collected);
         }
 

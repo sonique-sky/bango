@@ -23,7 +23,8 @@ Ext.define('Spm.model.ServiceProblem', {
     ],
 
     hasOne: [
-        'workItem', {model: 'Spm.model.WorkItem', name: 'workItem', associationKey: 'workItem', getterName: 'workItem'}
+        'workItem', {model: 'Spm.model.WorkItem', name: 'workItem', associationKey: 'workItem', getterName: 'workItem'},
+        'queue', {model: 'Spm.model.Queue', name: 'queue', associationKey: 'queue', getterName: 'queue'}
     ],
 
     serviceProblemId: function() {

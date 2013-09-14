@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
-    extend: 'Ext.form.Panel',
+    extend: 'Spm.view.component.AssociationCapableForm',
     alias: 'widget.serviceProblemPanel',
 
     layout: {
@@ -41,6 +41,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                                 },
                                 {
                                     xtype: 'textfield',
+                                    name: 'workItem.agent.displayName',
                                     fieldLabel: 'Service Id'
                                 },
                                 {
@@ -115,7 +116,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                     items: [
                         {
                             xtype: 'textfield',
-                            fieldLabel: 'Queue'
+                            fieldLabel: 'Queue',
+                            name: 'queue.name'
                         },
                         {
                             xtype: 'textfield',

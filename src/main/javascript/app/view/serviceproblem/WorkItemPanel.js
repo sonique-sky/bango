@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
-    extend: 'Ext.form.Panel',
+    extend: 'Spm.view.component.AssociationCapableForm',
     alias: 'widget.workItemPanel',
 
     layout: {
@@ -59,7 +59,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                 },
                                 {
                                     xtype: 'textfield',
-                                    name: 'agentDisplayName',
+                                    name: 'agent.displayName',
                                     fieldLabel: 'Assigned Agent'
                                 }
                             ]

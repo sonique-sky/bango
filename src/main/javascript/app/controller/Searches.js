@@ -3,7 +3,7 @@ Ext.define('Spm.controller.Searches', {
     alias: 'controller.searches',
 
     requires: [
-        'Spm.proxy.ApiProxy',
+        'Spm.proxy.ServiceProblemApiProxy',
         'Spm.proxy.ApiOperation'
     ],
     views: [
@@ -46,12 +46,13 @@ Ext.define('Spm.controller.Searches', {
     },
 
     doSearch: function (searchCriteria) {
-        var operation = Spm.proxy.ApiOperation.searchOperation(searchCriteria);
+        var operation = Spm.proxy.ApiOperation.search({params: searchCriteria});
 
-        Spm.proxy.ApiProxy.read(operation, this.onSearchFinished, this);
+        Spm.proxy.ServiceProblemApiProxy.read(operation, this.onSearchFinished, this);
     },
 
     onSearchStarted: function (searchCriteria) {
+        debugger;
         if (this.isUniqueSearch(searchCriteria)) {
             this.doSearch(searchCriteria);
         } else {

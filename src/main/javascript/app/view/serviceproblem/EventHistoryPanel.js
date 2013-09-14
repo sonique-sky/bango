@@ -17,7 +17,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
     initComponent: function () {
         var me = this;
 
-        this.store = Ext.create('Spm.store.EventHistory');
+        this.store = Spm.store.EventHistory.eventHistoryStore();
 
         Ext.applyIf(me, {
             tools: [

@@ -29,9 +29,9 @@ Ext.define('Spm.controller.action.serviceproblem.PullServiceProblemAction', {
     },
 
     finishAction: function (serviceProblemTab) {
-        var operation = Spm.proxy.ApiOperation.pullServiceProblem({serviceProblemId: serviceProblemTab.getServiceProblem().serviceProblemId()})
+        var operation = Spm.proxy.ApiOperation.serviceProblemPull({params: {serviceProblemId: serviceProblemTab.getServiceProblem().serviceProblemId()}})
 
-        Spm.proxy.ApiProxy.update(operation, function (operation) {
+        Spm.proxy.ServiceProblemApiProxy.update(operation, function (operation) {
             if (operation.wasSuccessful()) {
                 serviceProblemTab.load(operation.getRecords()[0]);
                 serviceProblemTab.fireEvent('serviceProblemPulled');

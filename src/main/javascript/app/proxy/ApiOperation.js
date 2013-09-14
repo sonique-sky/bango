@@ -2,42 +2,40 @@ Ext.define('Spm.proxy.ApiOperation', {
     extend: 'Ext.data.Operation',
 
     statics: {
-        searchOperation: function (params) {
-            return Ext.create('Spm.proxy.ApiOperation', {
-                        action: 'read',
-                        params: params,
-                        urlPattern: 'api/search/{0}/{1}',
-                        parameterNames: ['searchType', 'searchParameter']
-                    }
-            );
+        search: function (options) {
+            return Ext.create('Spm.proxy.ApiOperation', Ext.applyIf({
+                action: 'read',
+                urlPattern: 'api/search/{0}/{1}',
+                parameterNames: ['searchType', 'searchParameter']
+            }, options));
         },
-        serviceProblemLookupOperation: function (params) {
-            return Ext.create('Spm.proxy.ApiOperation', {
-                        action: 'read',
-                        params: params,
-                        urlPattern: 'api/serviceProblem/{0}',
-                        parameterNames: ['serviceProblemId']
-                    }
-            );
+        serviceProblem: function (options) {
+            return Ext.create('Spm.proxy.ApiOperation', Ext.applyIf({
+                action: 'read',
+                urlPattern: 'api/serviceProblem/{0}',
+                parameterNames: ['serviceProblemId']
+            }, options));
         },
-        queueServiceProblemOperation: function (params) {
-            return Ext.create('Spm.proxy.ApiOperation', {
-                        action: 'read',
-                        params: params,
-                        urlPattern: 'api/queue/{0}/serviceProblems',
-                        parameterNames: ['queueId']
-                    }
-            );
+        queueServiceProblems: function (options) {
+            return Ext.create('Spm.proxy.ApiOperation', Ext.applyIf({
+                action: 'read',
+                urlPattern: 'api/queue/{0}/serviceProblems',
+                parameterNames: ['queueId']
+            }, options));
         },
-        pullServiceProblem: function(params) {
-            return Ext.create('Spm.proxy.ApiOperation', {
-                        action: 'update',
-                        params: params,
-                        urlPattern: 'api/serviceProblem/{0}/pull',
-                        parameterNames: ['serviceProblemId']
-                    }
-            );
+        serviceProblemPull: function (options) {
+            return Ext.create('Spm.proxy.ApiOperation', Ext.applyIf({
+                action: 'update',
+                urlPattern: 'api/serviceProblem/{0}/pull',
+                parameterNames: ['serviceProblemId']
+            }, options));
+        },
+        serviceProblemEventHistory: function(options) {
+            return Ext.create('Spm.proxy.ApiOperation', Ext.applyIf({
+                action: 'read',
+                urlPattern: 'api/serviceProblem/{0}/eventHistory',
+                parameterNames: ['serviceProblemId']
+            }, options));
         }
-
     }
 });
