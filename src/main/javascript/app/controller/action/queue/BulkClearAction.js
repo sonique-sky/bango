@@ -15,13 +15,13 @@ Ext.define('Spm.controller.action.queue.BulkClearAction', {
         var selectedServiceProblems = queueTab.selectedServiceProblems();
         var hasActiveTroubleReports = this.hasActiveTroubleReports(selectedServiceProblems);
 
-        Ext.create('Spm.view.queue.BulkClearDialog', {actionName: this.name, actionContext: queueTab, hasActiveTroubleReports: hasActiveTroubleReports}).show();
+        Ext.create(Spm.view.queue.BulkClearDialog, {actionName: this.name, actionContext: queueTab, hasActiveTroubleReports: hasActiveTroubleReports}).show();
     },
 
     finishAction: function (queueTab) {
         var serviceProblemIds = this.selectedServiceProblemIds(queueTab);
 
-        this.performBulkOperation('bulk-clear', {
+        this.performBulkOperation('bulkClear', {
             'originalQueueId': queueTab.getQueue().queueId(),
             'serviceProblemIds': serviceProblemIds
         }, queueTab);

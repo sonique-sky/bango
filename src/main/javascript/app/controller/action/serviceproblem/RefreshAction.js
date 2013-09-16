@@ -17,7 +17,7 @@ Ext.define('Spm.controller.action.serviceproblem.RefreshAction', {
 
         Spm.proxy.ServiceProblemApiProxy.read(operation, function (operation) {
             if (operation.wasSuccessful()) {
-               serviceProblemTab.load( operation.getRecords()[0]);
+                serviceProblemTab.load(operation.getRecords()[0]);
             }
         }, this);
     }

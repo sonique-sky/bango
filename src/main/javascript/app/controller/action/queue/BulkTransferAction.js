@@ -14,26 +14,24 @@ Ext.define('Spm.controller.action.queue.BulkTransferAction', {
     startAction: function (queueTab) {
         var queueId = queueTab.getQueue().queueId();
         var store = Ext.data.StoreManager.lookup('AllQueues');
-        store.load(
-                {
-                    callback: function (records, operation, success) {
-                        if (success) {
-                            store.clearFilter();
-                            store.filter([
-                                {property: 'id', operator: '!=', value: queueId}
-                            ]);
-                        }
-                    }
+        store.load({
+            callback: function (records, operation, success) {
+                if (success) {
+                    store.clearFilter();
+                    store.filter([
+                        {property: 'id', operator: '!=', value: queueId}
+                    ]);
                 }
-        );
+            }
+        });
 
-        Ext.create('Spm.view.queue.BulkTransferDialog', {actionName: this.name, actionContext: queueTab}).show();
+        Ext.create(Spm.view.queue.BulkTransferDialog, {actionName: this.name, actionContext: queueTab}).show();
     },
 
     finishAction: function (queueTab, destinationQueue) {
         var serviceProblemIds = this.selectedServiceProblemIds(queueTab);
 
-        this.performBulkOperation('bulk-transfer', {
+        this.performBulkOperation('bulkTransfer', {
             'originalQueueId': queueTab.getQueue().queueId(),
             'destinationQueueId': destinationQueue.queueId(),
             'serviceProblemIds': serviceProblemIds

@@ -40,14 +40,14 @@ public class QueueApiController {
         return serviceProblemStore.serviceProblemsForQueueId(queueId);
     }
 
-    @RequestMapping(value = "/bulk-transfer", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/bulkTransfer", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public Collection<ServiceProblem> bulkTransfer(@RequestBody BulkTransferRequest request) {
         serviceProblemStore.bulkTransfer(request.serviceProblemIds(), queueStore.queueById(request.destinationQueueId()));
         return serviceProblemStore.serviceProblemsForQueueId(request.originalQueueId());
     }
 
-    @RequestMapping(value = "/bulk-clear", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/bulkClear", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public Collection<ServiceProblem> bulkClear(@RequestBody BulkClearRequest request) {
         serviceProblemStore.bulkClear(request.serviceProblemIds());
