@@ -36,6 +36,13 @@ Ext.define('Spm.proxy.ApiOperation', {
                 urlPattern: 'api/serviceProblem/{0}/eventHistory',
                 parameterNames: ['serviceProblemId']
             }, options));
+        },
+        eventHistoryAddNote: function(options) {
+            return Ext.create('Spm.proxy.ApiOperation', Ext.applyIf({
+                action: 'update',
+                urlPattern: 'api/serviceProblem/{0}/eventHistory',
+                parameterNames: ['serviceProblemId']
+            }, options));
         }
     }
 });

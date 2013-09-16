@@ -44,7 +44,7 @@ public class ServiceProblemApiController {
     public Collection<EventHistoryItem> addEventHistory(@PathVariable int serviceProblemId, @RequestBody Map<String, String> payloadMap) {
         ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
         List<EventHistoryItem> historyItems = serviceProblem.eventHistoryItems();
-        historyItems.add(new EventHistoryItem("Note", payloadMap.get("noteText"), new Date(), "Me"));
+        historyItems.add(new EventHistoryItem("Note", payloadMap.get("note"), new Date(), "Me"));
 
         return Ordering.from(byDate()).sortedCopy(historyItems);
     }

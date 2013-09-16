@@ -21,14 +21,13 @@ Ext.define('Spm.controller.action.serviceproblem.AddNoteAction', {
     },
 
     finishAction: function (serviceProblemTab, noteText) {
-        Ext.Ajax.request(
-                {
-                    url: Ext.String.format('api/serviceProblem/{0}/eventHistory', serviceProblemTab.getServiceProblem().serviceProblemId()),
-                    jsonData: {noteText: noteText},
-                    success: function (response) {
-                        serviceProblemTab.eventHistoryPanel.loadWith(response);
-                    }
-                }
-        );
+        var eventHistoryItem = Ext.create('Spm.model.EventHistoryItem', {note: noteText});
+        var operation = Spm.proxy.ApiOperation.eventHistoryAddNote({records: [eventHistoryItem], params: {serviceProblemId: serviceProblemTab.getServiceProblem().serviceProblemId()}})
+
+        Spm.proxy.EventHistoryApiProxy.update(operation, function (operation) {
+            if (operation.wasSuccessful()) {
+                serviceProblemTab.eventHistoryPanel.loadWith(operation.getResultSet().records);
+            }
+        }, this);
     }
 });

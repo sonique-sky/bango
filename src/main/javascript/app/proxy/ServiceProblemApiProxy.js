@@ -14,7 +14,7 @@ Ext.define('Spm.proxy.ServiceProblemApiProxy', {
 //        debugger;
         var operation = request.operation;
         var params = request.params;
-//        delete request.params;  // Stop params from being appended to url
+        delete request.params;  // Stop params from being appended to url
 
         var urlPattern = operation.urlPattern;
         var parameterNames = operation.parameterNames;
