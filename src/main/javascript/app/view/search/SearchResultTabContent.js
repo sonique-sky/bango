@@ -17,6 +17,8 @@ Ext.define('Spm.view.search.SearchResultTabContent', {
 
     initComponent: function () {
         this.store = Spm.store.ServiceProblems.serviceProblemSearchStore();
+        this.store.addManagedListener(this.store, 'beforeLoad', this.onBeforeLoad, this);
+
         Ext.applyIf(this, {
             title: 'Search Results',
             id: 'search-result-tab',
@@ -53,6 +55,10 @@ Ext.define('Spm.view.search.SearchResultTabContent', {
         });
 
         this.callParent(arguments);
+    },
+
+    onBeforeLoad: function(store, operation) {
+        Ext.apply(operation, {params: this.searchCriteria});
     },
 
     onCellClicked: function (view, td, cellIndex, record) {

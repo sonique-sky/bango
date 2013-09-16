@@ -89,6 +89,7 @@ Ext.define('Spm.controller.ServiceProblems', {
     },
 
     onServiceProblemPulled: function (serviceProblemTab) {
+        this.getPullAction().setDisabled();
         serviceProblemTab.down('#' + Spm.action.HoldWorkItemAction.ACTION_NAME).setDisabled(false);
         this.fireEvent('serviceProblemPulled');
     },

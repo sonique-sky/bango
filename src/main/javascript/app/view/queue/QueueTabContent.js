@@ -24,6 +24,7 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     initComponent: function () {
         this.store = Spm.store.ServiceProblems.queueServiceProblemStore();
         this.store.addManagedListener(this.store, 'refresh', this.onStoreRefreshed, this);
+        this.store.addManagedListener(this.store, 'beforeLoad', this.onBeforeLoad, this);
 
         Ext.applyIf(this, {
             title: this.queue.queueName(),
@@ -84,6 +85,10 @@ Ext.define('Spm.view.queue.QueueTabContent', {
         });
 
         this.callParent(arguments);
+    },
+
+    onBeforeLoad: function(store, operation) {
+        Ext.apply(operation, {params: {queueId: this.queue.queueId()}});
     },
 
     load: function () {
