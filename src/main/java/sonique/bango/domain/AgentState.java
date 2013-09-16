@@ -28,4 +28,16 @@ public class AgentState {
     public void incrementActiveCount() {
         activeCount++;
     }
+
+    public void decrementActiveCount() {
+        activeCount--;
+    }
+
+    public void incrementHeldCount() {
+        heldCount++;
+    }
+
+    public void decrementHeldCount() {
+        heldCount--;
+    }
 }

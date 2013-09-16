@@ -37,6 +37,20 @@ Ext.define('Spm.proxy.ApiOperation', {
                 parameterNames: ['serviceProblemId']
             }, options));
         },
+        workItemHold: function (options) {
+            return Ext.create(Spm.proxy.ApiOperation, Ext.applyIf({
+                action: 'update',
+                urlPattern: 'api/serviceProblem/{0}/hold',
+                parameterNames: ['serviceProblemId']
+            }, options));
+        },
+        workItemUnhold: function (options) {
+            return Ext.create(Spm.proxy.ApiOperation, Ext.applyIf({
+                action: 'update',
+                urlPattern: 'api/serviceProblem/{0}/unhold',
+                parameterNames: ['serviceProblemId']
+            }, options));
+        },
         eventHistoryAddNote: function(options) {
             return Ext.create(Spm.proxy.ApiOperation, Ext.applyIf({
                 action: 'update',

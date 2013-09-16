@@ -14,7 +14,8 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
                     items: [
                         {xtype: 'actionButton', actionName: Spm.action.RefreshAction.ACTION_NAME, tooltip: 'Refresh'},
                         {xtype: 'actionButton', actionName: Spm.action.PullServiceProblemAction.ACTION_NAME, tooltip: 'Pull this item'},
-                        {xtype: 'actionButton', actionName: 'hold', tooltip: 'Hold this work item'},
+                        {xtype: 'actionButton', actionName: Spm.action.HoldWorkItemAction.ACTION_NAME, tooltip: 'Hold this work item', disabled: true},
+                        {xtype: 'actionButton', actionName: Spm.action.UnholdWorkItemAction.ACTION_NAME, tooltip: 'Unhold this work item', hidden: true, autoRender: true},
                         {xtype: 'actionButton', actionName: 'reassign', tooltip: 'Reassign service problem to another agent'},
                         {xtype: 'actionButton', actionName: 'transfer', tooltip: 'Transfer to another queue'},
                         {xtype: 'actionButton', actionName: 'clear', tooltip: 'Clear this service problem'},
@@ -41,5 +42,15 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
         });
 
         this.callParent(arguments);
+    },
+
+    showHold: function () {
+        this.down('#' + Spm.action.HoldWorkItemAction.ACTION_NAME).setVisible(true);
+        this.down('#' + Spm.action.UnholdWorkItemAction.ACTION_NAME).setVisible(false);
+    },
+
+    showUnhold: function () {
+        this.down('#' + Spm.action.HoldWorkItemAction.ACTION_NAME).setVisible(false);
+        this.down('#' + Spm.action.UnholdWorkItemAction.ACTION_NAME).setVisible(true);
     }
 });

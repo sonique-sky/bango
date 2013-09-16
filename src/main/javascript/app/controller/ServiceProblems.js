@@ -5,7 +5,9 @@ Ext.define('Spm.controller.ServiceProblems', {
         'Spm.controller.action.serviceproblem.AddNoteAction',
         'Spm.controller.action.serviceproblem.RefreshAction',
         'Spm.controller.action.serviceproblem.RefreshEventHistoryAction',
-        'Spm.controller.action.serviceproblem.PullServiceProblemAction'
+        'Spm.controller.action.serviceproblem.PullServiceProblemAction',
+        'Spm.controller.action.serviceproblem.HoldWorkItemAction',
+        'Spm.controller.action.serviceproblem.UnholdWorkItemAction'
     ],
 
     mixins: {
@@ -29,7 +31,9 @@ Ext.define('Spm.controller.ServiceProblems', {
                 'Spm.action.AddNoteAction',
                 'Spm.action.RefreshAction',
                 'Spm.action.RefreshEventHistoryAction',
-                'Spm.action.PullServiceProblemAction'
+                'Spm.action.PullServiceProblemAction',
+                'Spm.action.HoldWorkItemAction',
+                'Spm.action.UnholdWorkItemAction'
             ]
         });
 
@@ -54,7 +58,9 @@ Ext.define('Spm.controller.ServiceProblems', {
                     destroy: this.onServiceProblemTabDestroyed,
                     startAction: this.onStartAction,
                     finishAction: this.onFinishAction,
-                    serviceProblemPulled: this.onServiceProblemPulled
+                    serviceProblemPulled: this.onServiceProblemPulled,
+                    workItemHeld: this.onWorkItemHeld,
+                    workItemUnheld: this.onWorkItemUnheld
                 }
             }
         });
@@ -82,7 +88,18 @@ Ext.define('Spm.controller.ServiceProblems', {
         this.activeServiceProblemTabs.removeAtKey(serviceProblemTab.getServiceProblem().serviceProblemId());
     },
 
-    onServiceProblemPulled: function() {
+    onServiceProblemPulled: function (serviceProblemTab) {
+        serviceProblemTab.down('#' + Spm.action.HoldWorkItemAction.ACTION_NAME).setDisabled(false);
         this.fireEvent('serviceProblemPulled');
+    },
+
+    onWorkItemHeld: function (serviceProblemTab) {
+        serviceProblemTab.actionToolbar().showUnhold();
+        this.fireEvent('workItemHeld');
+    },
+
+    onWorkItemUnheld: function (serviceProblemTab) {
+        serviceProblemTab.actionToolbar().showHold();
+        this.fireEvent('workItemUnheld');
     }
 });

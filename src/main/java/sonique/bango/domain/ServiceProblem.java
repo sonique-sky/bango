@@ -61,4 +61,12 @@ public class ServiceProblem {
     public void assignTo(Agent agent) {
         workItem.assignTo(agent);
     }
+
+    public void holdActiveWorkItem() {
+        workItem.hold();
+    }
+
+    public void unholdActiveWorkItem() {
+        workItem.unhold();
+    }
 }

@@ -20,7 +20,6 @@ public class ServiceProblemApiController {
     private final ServiceProblemStore serviceProblemStore;
     private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
 
-
     public ServiceProblemApiController(ServiceProblemStore serviceProblemStore, SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
         this.serviceProblemStore = serviceProblemStore;
         this.authorisedActorProvider = authorisedActorProvider;
@@ -58,6 +57,24 @@ public class ServiceProblemApiController {
         return newArrayList(serviceProblem);
     }
 
+    @RequestMapping(value = "/{serviceProblemId}/hold", method = RequestMethod.POST)
+    @ResponseBody
+    public Collection<ServiceProblem> hold(@PathVariable int serviceProblemId) {
+        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
+        serviceProblem.holdActiveWorkItem();
+
+        return newArrayList(serviceProblem);
+    }
+
+    @RequestMapping(value = "/{serviceProblemId}/unhold", method = RequestMethod.POST)
+    @ResponseBody
+    public Collection<ServiceProblem> unhold(@PathVariable int serviceProblemId) {
+        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
+        serviceProblem.unholdActiveWorkItem();
+
+        return newArrayList(serviceProblem);
+    }
+
     private ServiceProblem serviceProblemWithId(int serviceProblemId) {
         return Iterables.getFirst(serviceProblemStore.serviceProblemById(serviceProblemId), null);
     }
@@ -70,6 +87,5 @@ public class ServiceProblemApiController {
         public int compare(EventHistoryItem o, EventHistoryItem o2) {
             return o2.createdDate().compareTo(o.createdDate());
         }
-
     }
 }

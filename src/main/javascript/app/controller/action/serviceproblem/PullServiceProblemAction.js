@@ -34,7 +34,7 @@ Ext.define('Spm.controller.action.serviceproblem.PullServiceProblemAction', {
         Spm.proxy.ServiceProblemApiProxy.update(operation, function (operation) {
             if (operation.wasSuccessful()) {
                 serviceProblemTab.load(operation.getRecords()[0]);
-                serviceProblemTab.fireEvent('serviceProblemPulled');
+                serviceProblemTab.fireEvent('serviceProblemPulled', serviceProblemTab);
             }
         }, this);
     }

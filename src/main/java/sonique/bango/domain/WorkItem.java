@@ -15,4 +15,18 @@ public class WorkItem {
         this.agent.agentState().incrementActiveCount();
         this.status = "Assigned";
     }
+
+    public void hold() {
+        AgentState agentState = this.agent.agentState();
+        agentState.decrementActiveCount();
+        agentState.incrementHeldCount();
+        this.status = "Held";
+    }
+
+    public void unhold() {
+        AgentState agentState = this.agent.agentState();
+        agentState.decrementHeldCount();
+        agentState.incrementActiveCount();
+        this.status = "Assigned";
+    }
 }

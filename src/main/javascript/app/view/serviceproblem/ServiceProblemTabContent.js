@@ -119,5 +119,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
 
     switchView: function (button) {
         this.getLayout().setActiveItem(button.itemId + 'Panel');
+    },
+
+    actionToolbar: function () {
+        return this.down('serviceProblemTabToolbar');
     }
 });
