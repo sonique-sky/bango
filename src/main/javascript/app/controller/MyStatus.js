@@ -2,6 +2,10 @@ Ext.define('Spm.controller.MyStatus', {
     extend: 'Ext.app.Controller',
     alias: 'controller.myStatus',
 
+    requires: [
+        'Spm.proxy.AgentStateApiProxy'
+    ],
+
     models: [
         'Agent'
     ],
@@ -47,12 +51,12 @@ Ext.define('Spm.controller.MyStatus', {
     onToggleAvailability: function () {
         var me = this;
 
-        Ext.Ajax.request({
-            method: 'POST',
-            url: 'api/agent/toggleAvailability',
-            success: function (response) {
-                me.getAgentStateStore().loadRawData(response);
+        var operation = Spm.proxy.ApiOperation.agentToggleAvailability();
+
+        Spm.proxy.AgentStateApiProxy.update(operation, function (operation) {
+            if (operation.wasSuccessful()) {
+                me.getAgentStateStore().loadRecords(operation.getResultSet().records);
             }
-        });
+        }, this);
     }
 });

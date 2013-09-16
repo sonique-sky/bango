@@ -10,10 +10,11 @@ public class AgentState {
     private Integer heldCount = 0;
 
     public void toggleAvailability() {
-        if(AVAILABLE.equals(availability)) {
+        if (AVAILABLE.equals(availability)) {
             availability = UNAVAILABLE;
+        } else {
+            availability = AVAILABLE;
         }
-        else availability = AVAILABLE;
     }
 
     public void login() {

@@ -43,6 +43,15 @@ Ext.define('Spm.proxy.ApiOperation', {
                 urlPattern: 'api/serviceProblem/{0}/eventHistory',
                 parameterNames: ['serviceProblemId']
             }, options));
+        },
+        agentToggleAvailability: function(options) {
+            return Ext.create('Spm.proxy.ApiOperation', Ext.applyIf({
+                action: 'update',
+                urlPattern: 'api/agent/toggleAvailability'
+            }, options));
         }
-    }
+    },
+
+    parameterNames: []
+
 });
