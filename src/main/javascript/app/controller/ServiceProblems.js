@@ -19,10 +19,7 @@ Ext.define('Spm.controller.ServiceProblems', {
     ],
 
     refs: [
-        {
-            ref: 'tabPanel',
-            selector: '#tab-panel'
-        }
+        { ref: 'tabPanel', selector: '#tab-panel' }
     ],
 
     constructor: function (config) {

@@ -15,10 +15,7 @@ Ext.define('Spm.controller.Queues', {
     ],
 
     refs: [
-        {
-            ref: 'tabPanel',
-            selector: '#tab-panel'
-        }
+        { ref: 'tabPanel', selector: '#tab-panel' }
     ],
 
     stores: [
@@ -27,7 +24,6 @@ Ext.define('Spm.controller.Queues', {
     ],
 
     constructor: function (config) {
-
         this.mixins.serviceProblemClickHandler.constructor.call(this, config);
 
         this.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
@@ -54,17 +50,6 @@ Ext.define('Spm.controller.Queues', {
                 }
             }
         });
-    },
-
-    selectedServiceProblemIds: function (queueTabContent) {
-        var selectedServiceProblems = queueTabContent.selectedServiceProblems();
-        var serviceProblemIds = [];
-
-        Ext.Array.forEach(selectedServiceProblems, function (item) {
-            serviceProblemIds.push(item.get('serviceProblemId'));
-        });
-
-        return serviceProblemIds;
     },
 
     onTabChange: function (tabPanel, selectedPanel) {
