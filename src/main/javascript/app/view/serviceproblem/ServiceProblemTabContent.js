@@ -31,7 +31,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
 
         this.workItemPanel = Ext.widget('workItemPanel');
         this.serviceProblemPanel = Ext.widget('serviceProblemPanel');
-        this.eventHistoryPanel = Ext.widget('eventHistoryPanel');
+        this.eventHistoryPanel = Ext.widget('eventHistoryPanel', {hasRegisteredActions: me.hasRegisteredActions});
 
         Ext.applyIf(this, {
             title: 'Service Problem [' + serviceProblemId + ']',
@@ -73,7 +73,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                                 }
                             ]},
                         {
-                            xtype: 'serviceProblemTabToolbar'
+                            xtype: 'serviceProblemTabToolbar',
+                            hasRegisteredActions: me.hasRegisteredActions
                         },
                         {
                             xtype: 'toolbar',
@@ -119,9 +120,5 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
 
     switchView: function (button) {
         this.getLayout().setActiveItem(button.itemId + 'Panel');
-    },
-
-    actionToolbar: function () {
-        return this.down('serviceProblemTabToolbar');
     }
 });

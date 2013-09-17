@@ -12,7 +12,7 @@ Ext.define('Spm.view.component.AssociationCapableForm', {
     loadAssociatedData: function (record, parentAssociationName) {
         var me = this;
 
-        debugger;
+        //debugger;
         Ext.Array.forEach(record.associations.items, function (association) {
             var associationGetter = association.getterName;
             var associationRecord = record[associationGetter]();

@@ -4,7 +4,6 @@ Ext.define('Spm.view.queue.QueueTabContent', {
 
     requires: [
         'Spm.view.renderer.NestedPropertyRenderer',
-        'Spm.view.queue.ActionToolbar',
         'Spm.store.ServiceProblems',
         'Ext.grid.Panel',
         'Ext.toolbar.Spacer'
@@ -39,7 +38,8 @@ Ext.define('Spm.view.queue.QueueTabContent', {
                     },
                     items: [
                         {
-                            xtype: 'queueTabToolbar'
+                            xtype: 'queueTabToolbar',
+                            hasRegisteredActions: this.hasRegisteredActions
                         },
                         {
                             xtype: 'pagingtoolbar',
@@ -114,8 +114,8 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     },
 
     setBulkButtonsDisabled: function (disabled) {
-        this.down('#bulk-transfer').setDisabled(disabled);
-        this.down('#bulk-clear').setDisabled(disabled);
+        this.hasRegisteredActions.registeredActionWithName('bulk-transfer').setDisabled(disabled);
+        this.hasRegisteredActions.registeredActionWithName('bulk-clear').setDisabled(disabled);
     },
 
     onRowDeselected: function () {

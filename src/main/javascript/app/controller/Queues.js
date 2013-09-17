@@ -9,7 +9,9 @@ Ext.define('Spm.controller.Queues', {
 
     requires: [
         'Spm.controller.action.queue.BulkClearAction',
-        'Spm.controller.action.queue.BulkTransferAction'
+        'Spm.controller.action.queue.BulkTransferAction',
+        'Spm.view.queue.ActionToolbar',
+        'Ext.toolbar.Paging'
     ],
 
     views: [
@@ -53,7 +55,6 @@ Ext.define('Spm.controller.Queues', {
                     tabchange: this.onTabChange
                 },
                 'queueTabContent': {
-                    startAction: this.onStartAction,
                     finishAction: this.onFinishAction,
                     destroy: this.onQueueTabDestroyed,
                     serviceProblemClicked: this.onServiceProblemClicked
@@ -99,7 +100,7 @@ Ext.define('Spm.controller.Queues', {
     },
 
     createQueueTabFor: function (queue) {
-        return Ext.widget('queueTabContent', {queue: queue});
+        return Ext.widget('queueTabContent', {hasRegisteredActions: this, queue: queue});
     },
 
     isAQueueTab: function (tab) {

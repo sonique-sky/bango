@@ -7,7 +7,10 @@ Ext.define('Spm.controller.action.queue.BulkClearAction', {
 
     constructor: function () {
         this.callParent([Ext.apply({}, {
-            name: 'bulk-clear'
+            name: 'bulk-clear',
+            text: 'Clear',
+            iconCls: 'icon-bulk-clear',
+            itemId: 'bulk-clear'
         })]);
     },
 

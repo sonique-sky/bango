@@ -8,7 +8,9 @@ Ext.define('Spm.controller.action.serviceproblem.PullServiceProblemAction', {
 
     constructor: function () {
         this.callParent([Ext.apply({}, {
-            name: Spm.action.PullServiceProblemAction.ACTION_NAME
+            name: Spm.action.PullServiceProblemAction.ACTION_NAME,
+            tooltip: 'Pull this item',
+            iconCls: 'icon-pull'
         })]);
     },
 

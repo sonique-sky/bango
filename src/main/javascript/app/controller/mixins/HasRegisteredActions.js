@@ -13,10 +13,6 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
         this.registeredActions.add(action.getName(), action);
     },
 
-    onStartAction: function (actionName) {
-        this.registeredActionWithName(actionName).applyStartStep(arguments);
-    },
-
     onFinishAction: function (actionName) {
         this.registeredActionWithName(actionName).applyFinishStep(arguments);
     },

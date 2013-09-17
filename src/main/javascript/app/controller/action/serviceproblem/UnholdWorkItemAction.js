@@ -8,7 +8,11 @@ Ext.define('Spm.controller.action.serviceproblem.UnholdWorkItemAction', {
 
     constructor: function () {
         this.callParent([Ext.apply({}, {
-            name: Spm.action.UnholdWorkItemAction.ACTION_NAME
+            name: Spm.action.UnholdWorkItemAction.ACTION_NAME,
+            tooltip: 'Unhold this work item',
+            iconCls: 'icon-unhold',
+            hidden: true,
+            autoRender: true
         })]);
     },
 

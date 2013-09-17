@@ -8,7 +8,10 @@ Ext.define('Spm.controller.action.serviceproblem.HoldWorkItemAction', {
 
     constructor: function () {
         this.callParent([Ext.apply({}, {
-            name: Spm.action.HoldWorkItemAction.ACTION_NAME
+            name: Spm.action.HoldWorkItemAction.ACTION_NAME,
+            tooltip: 'Hold this work item',
+            iconCls: 'icon-hold',
+            disabled: true
         })]);
     },
 

@@ -59,7 +59,6 @@ Ext.define('Spm.controller.ServiceProblems', {
             component: {
                 'serviceProblemTabContent': {
                     destroy: this.onServiceProblemTabDestroyed,
-                    startAction: this.onStartAction,
                     finishAction: this.onFinishAction,
                     serviceProblemPulled: this.onServiceProblemPulled,
                     workItemHeld: this.onWorkItemHeld,
@@ -84,26 +83,29 @@ Ext.define('Spm.controller.ServiceProblems', {
     },
 
     createServiceProblemTabFor: function (serviceProblem) {
-        return Ext.widget('serviceProblemTabContent', {serviceProblem: serviceProblem});
+        return Ext.widget('serviceProblemTabContent', {hasRegisteredActions: this, serviceProblem: serviceProblem});
     },
 
     onServiceProblemTabDestroyed: function (serviceProblemTab) {
         this.activeServiceProblemTabs.removeAtKey(serviceProblemTab.getServiceProblem().serviceProblemId());
     },
 
-    onServiceProblemPulled: function (serviceProblemTab) {
-//        this.getPullAction().setDisabled();
-        serviceProblemTab.down('#' + Spm.action.HoldWorkItemAction.ACTION_NAME).setDisabled(false);
+    onServiceProblemPulled: function () {
+        this.registeredActionWithName('pull').setDisabled(true);
+        this.registeredActionWithName('hold').setDisabled(false)
+
         this.fireEvent('serviceProblemPulled');
     },
 
-    onWorkItemHeld: function (serviceProblemTab) {
-        serviceProblemTab.actionToolbar().showUnhold();
+    onWorkItemHeld: function () {
+        this.registeredActionWithName('hold').setHidden(true)
+        this.registeredActionWithName('unhold').setHidden(false)
         this.fireEvent('workItemHeld');
     },
 
-    onWorkItemUnheld: function (serviceProblemTab) {
-        serviceProblemTab.actionToolbar().showHold();
+    onWorkItemUnheld: function () {
+        this.registeredActionWithName('unhold').setHidden(true)
+        this.registeredActionWithName('hold').setHidden(false)
         this.fireEvent('workItemUnheld');
     }
 });
