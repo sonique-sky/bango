@@ -15,6 +15,14 @@ Ext.define('Spm.model.WorkItem', {
         return 'Held' == this.get('status');
     },
 
+    isAssigned: function() {
+        return 'Unassigned' != this.get('status');
+    },
+
+    isPullable: function() {
+        return 'Unassigned' == this.get('status');
+    },
+
     hasOne: [
         'agent', {model: 'Spm.model.Agent', name: 'agent', associationKey: 'agent', getterName: 'agent'}
     ]

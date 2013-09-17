@@ -17,5 +17,11 @@ Ext.define('Spm.controller.mixins.RegisteredActions', {
 
     actionNamed: function(actionName) {
         return this.actionNameToActionMap.getByKey(actionName);
+    },
+
+    updateState: function(actionContext, authenticatedAgent) {
+        this.actionNameToActionMap.each(function(action) {
+            action.updateState(actionContext, authenticatedAgent);
+        });
     }
 });

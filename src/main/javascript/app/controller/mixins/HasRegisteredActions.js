@@ -28,5 +28,11 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
         var action = this.findAction(key, actionName);
 
         action.applyFinishStep(arguments);
+    },
+
+    updateActionState: function (actionContext, authenticatedAgent) {
+        var registeredActions = this.registeredActionsFor(actionContext.actionKey());
+
+        registeredActions.updateState(actionContext, authenticatedAgent);
     }
 });

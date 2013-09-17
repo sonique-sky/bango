@@ -39,5 +39,11 @@ Ext.define('Spm.controller.action.serviceproblem.PullServiceProblemAction', {
                 serviceProblemTab.fireEvent('serviceProblemPulled', serviceProblemTab);
             }
         }, this);
+    },
+
+    updateState: function(serviceProblemTab) {
+        var workItem = serviceProblemTab.getServiceProblem().workItem();
+
+        this.setDisabled(!workItem.isPullable())
     }
 });

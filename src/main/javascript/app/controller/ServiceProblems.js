@@ -18,7 +18,7 @@ Ext.define('Spm.controller.ServiceProblems', {
     ],
 
     stores: [
-        'Spm.store.AuthenticatedAgent'
+        'AuthenticatedAgent'
     ],
 
     refs: [
@@ -31,7 +31,7 @@ Ext.define('Spm.controller.ServiceProblems', {
     constructor: function (config) {
         this.activeServiceProblemTabs = Ext.create('Ext.util.MixedCollection');
 
-        this.callParent([config]);
+        this.callParent(arguments);
     },
 
     init: function () {
@@ -75,11 +75,6 @@ Ext.define('Spm.controller.ServiceProblems', {
         tabPanel.setActiveTab(serviceProblemTab);
     },
 
-    updateActionState: function (actionContext, authenticatedAgent) {
-        var actions = this.registeredActionsFor(actionContext.actionKey());
-
-    },
-
     createServiceProblemTabFor: function (serviceProblem) {
         var actionNameToActionMap = this.registerActionsFor(serviceProblem.serviceProblemId(), [
             'Spm.action.AddNoteAction',
@@ -99,23 +94,19 @@ Ext.define('Spm.controller.ServiceProblems', {
     },
 
     onServiceProblemPulled: function (serviceProblemTab) {
-        var key = serviceProblemTab.getServiceProblem().serviceProblemId();
-        this.findAction(key, 'pull').setDisabled(true);
-        this.findAction(key, 'hold-release').setDisabled(false);
+        this.updateActionState(serviceProblemTab, this.getAuthenticatedAgentStore().authenticatedAgent());
 
         this.fireEvent('serviceProblemPulled');
     },
 
     onWorkItemHeld: function (serviceProblemTab) {
-        var key = serviceProblemTab.getServiceProblem().serviceProblemId();
-        this.findAction(key, 'hold-release').held();
+        this.updateActionState(serviceProblemTab, this.getAuthenticatedAgentStore().authenticatedAgent());
 
         this.fireEvent('workItemHeld');
     },
 
     onWorkItemReleased: function (serviceProblemTab) {
-        var key = serviceProblemTab.getServiceProblem().serviceProblemId();
-        this.findAction(key, 'hold-release').released();
+        this.updateActionState(serviceProblemTab, this.getAuthenticatedAgentStore().authenticatedAgent());
 
         this.fireEvent('workItemReleased');
     }

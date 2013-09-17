@@ -7,6 +7,7 @@ Ext.define('Spm.controller.action.BaseAction', {
 
     startAction: Ext.emptyFn,
     finishAction: Ext.emptyFn,
+    updateState: Ext.emptyFn,
 
     constructor: function (config) {
         Ext.apply(config, {
