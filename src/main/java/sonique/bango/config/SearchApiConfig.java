@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import sonique.bango.controller.SearchApiController;
 import sonique.bango.store.ServiceProblemStore;
+import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,6 +25,9 @@ public class SearchApiConfig extends WebMvcConfigurerAdapter {
     @Resource
     private ServiceProblemStore serviceProblemStore;
 
+    @Resource
+    private SpringSecurityAuthorisedActorProvider authorisedActorProvider;
+
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
@@ -33,6 +37,6 @@ public class SearchApiConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public SearchApiController searchApiController() {
-        return new SearchApiController(serviceProblemStore);
+        return new SearchApiController(serviceProblemStore, authorisedActorProvider);
     }
 }

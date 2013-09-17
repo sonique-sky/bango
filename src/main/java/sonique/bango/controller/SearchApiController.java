@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sonique.bango.domain.Agent;
 import sonique.bango.domain.ServiceProblem;
 import sonique.bango.store.ServiceProblemStore;
+import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,9 +19,11 @@ import static com.google.common.collect.Lists.newArrayList;
 public class SearchApiController {
 
     private final ServiceProblemStore serviceProblemStore;
+    private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
 
-    public SearchApiController(ServiceProblemStore serviceProblemStore) {
+    public SearchApiController(ServiceProblemStore serviceProblemStore, SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
         this.serviceProblemStore = serviceProblemStore;
+        this.authorisedActorProvider = authorisedActorProvider;
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/serviceProblemId/{serviceProblemId}")
@@ -45,6 +48,12 @@ public class SearchApiController {
     @ResponseBody
     public List<ServiceProblem> serviceProblemsByMspId(@PathVariable String mspId) {
         return newArrayList();
+    }
+
+    @RequestMapping(method = {RequestMethod.GET}, value = "/myItems")
+    @ResponseBody
+    public Collection<ServiceProblem> serviceProblemsForAuthenticatedAgent() {
+        return serviceProblemStore.serviceProblemsForAgent(authorisedActorProvider.getLoggedInAgent());
     }
 
 }

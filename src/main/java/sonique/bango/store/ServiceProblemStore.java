@@ -1,6 +1,7 @@
 package sonique.bango.store;
 
 import com.google.common.base.Predicate;
+import sonique.bango.domain.Agent;
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.ServiceProblem;
 
@@ -60,6 +61,15 @@ public class ServiceProblemStore {
         return filter(serviceProblems, new Predicate<ServiceProblem>() {
             public boolean apply(ServiceProblem serviceProblem) {
                 return serviceProblemIds.contains(serviceProblem.serviceProblemId());
+            }
+        });
+    }
+
+    public Collection<ServiceProblem> serviceProblemsForAgent(final Agent agent) {
+        return filter(serviceProblems, new Predicate<ServiceProblem>() {
+            @Override
+            public boolean apply(ServiceProblem serviceProblem) {
+                return serviceProblem.isAssignedTo(agent);
             }
         });
     }

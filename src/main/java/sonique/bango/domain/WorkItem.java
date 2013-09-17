@@ -29,4 +29,8 @@ public class WorkItem {
         agentState.incrementActiveCount();
         this.status = "Assigned";
     }
+
+    public boolean isAssignedTo(Agent agent) {
+        return this.agent != null && this.agent.equals(agent);
+    }
 }

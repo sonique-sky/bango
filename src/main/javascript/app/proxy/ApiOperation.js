@@ -9,6 +9,12 @@ Ext.define('Spm.proxy.ApiOperation', {
                 parameterNames: ['searchType', 'searchParameter']
             }, options));
         },
+        myItems: function (options) {
+            return Ext.create(Spm.proxy.ApiOperation, Ext.applyIf({
+                action: 'read',
+                urlPattern: 'api/search/myItems'
+            }, options));
+        },
         serviceProblem: function (options) {
             return Ext.create(Spm.proxy.ApiOperation, Ext.applyIf({
                 action: 'read',
@@ -30,7 +36,7 @@ Ext.define('Spm.proxy.ApiOperation', {
                 parameterNames: ['serviceProblemId']
             }, options));
         },
-        serviceProblemEventHistory: function(options) {
+        serviceProblemEventHistory: function (options) {
             return Ext.create(Spm.proxy.ApiOperation, Ext.applyIf({
                 action: 'read',
                 urlPattern: 'api/serviceProblem/{0}/eventHistory',
@@ -51,14 +57,14 @@ Ext.define('Spm.proxy.ApiOperation', {
                 parameterNames: ['serviceProblemId']
             }, options));
         },
-        eventHistoryAddNote: function(options) {
+        eventHistoryAddNote: function (options) {
             return Ext.create(Spm.proxy.ApiOperation, Ext.applyIf({
                 action: 'update',
                 urlPattern: 'api/serviceProblem/{0}/eventHistory',
                 parameterNames: ['serviceProblemId']
             }, options));
         },
-        agentToggleAvailability: function(options) {
+        agentToggleAvailability: function (options) {
             return Ext.create(Spm.proxy.ApiOperation, Ext.applyIf({
                 action: 'update',
                 urlPattern: 'api/agent/toggleAvailability'

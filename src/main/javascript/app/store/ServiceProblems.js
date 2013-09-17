@@ -8,6 +8,9 @@ Ext.define('Spm.store.ServiceProblems', {
         },
         serviceProblemSearchStore: function() {
             return Ext.create('Spm.store.ServiceProblems', {operationFactory: Spm.proxy.ApiOperation.search, proxy: Spm.proxy.ServiceProblemApiProxy});
+        },
+        myItemsServiceProblemStore: function() {
+            return Ext.create('Spm.store.ServiceProblems', {operationFactory: Spm.proxy.ApiOperation.myItems, proxy: Spm.proxy.ServiceProblemApiProxy});
         }
     },
 

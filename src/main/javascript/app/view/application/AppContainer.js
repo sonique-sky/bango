@@ -6,7 +6,8 @@ Ext.define('Spm.view.application.AppContainer', {
         'Ext.tab.Panel',
         'Ext.layout.container.Border',
         'Spm.view.navigation.NavigationPanel',
-        'Spm.view.application.HeaderView'
+        'Spm.view.application.HeaderView',
+        'Spm.view.application.MyItemsTabContent'
     ],
 
     hidden: true,
@@ -26,8 +27,7 @@ Ext.define('Spm.view.application.AppContainer', {
                     region: 'center',
                     id: 'tab-panel',
                     items: [ {
-                        xtype: 'panel',
-                        title: 'My Items'
+                        xtype: 'myItemsTabContent'
                     }
                     ]
                 },

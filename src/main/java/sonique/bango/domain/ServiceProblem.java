@@ -69,4 +69,8 @@ public class ServiceProblem {
     public void unholdActiveWorkItem() {
         workItem.unhold();
     }
+
+    public boolean isAssignedTo(Agent agent) {
+        return workItem != null && workItem.isAssignedTo(agent);
+    }
 }

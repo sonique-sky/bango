@@ -50,6 +50,9 @@ Ext.define('Spm.controller.ServiceProblems', {
                 },
                 '#Searches': {
                     displayServiceProblem: this.displayServiceProblem
+                },
+                '#MyItems': {
+                    displayServiceProblem: this.displayServiceProblem
                 }
             },
 
@@ -89,7 +92,7 @@ Ext.define('Spm.controller.ServiceProblems', {
     },
 
     onServiceProblemPulled: function (serviceProblemTab) {
-        this.getPullAction().setDisabled();
+//        this.getPullAction().setDisabled();
         serviceProblemTab.down('#' + Spm.action.HoldWorkItemAction.ACTION_NAME).setDisabled(false);
         this.fireEvent('serviceProblemPulled');
     },

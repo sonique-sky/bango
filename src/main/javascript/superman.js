@@ -15,7 +15,9 @@ Ext.application({
         'Security',
         'Queues',
         'ServiceProblems',
-        'Searches'
+        'Searches',
+        'MyItems'
+
     ],
     requires: [
             'Spm.overrides.AbstractStore'
