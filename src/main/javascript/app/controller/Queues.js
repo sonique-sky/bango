@@ -10,8 +10,7 @@ Ext.define('Spm.controller.Queues', {
     requires: [
         'Spm.controller.action.queue.BulkClearAction',
         'Spm.controller.action.queue.BulkTransferAction',
-        'Spm.view.queue.ActionToolbar',
-        'Ext.toolbar.Paging'
+        'Spm.view.queue.ActionToolbar'
     ],
 
     views: [

@@ -2,6 +2,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
     extend: 'Spm.view.component.AssociationCapableForm',
     alias: 'widget.serviceProblemPanel',
 
+    requires: [
+        'Ext.layout.container.Form',
+        'Ext.form.Label'
+    ],
     layout: {
         align: 'stretch',
         type: 'vbox'

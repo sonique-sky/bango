@@ -6,7 +6,8 @@ Ext.define('Spm.view.queue.QueueTabContent', {
         'Spm.view.renderer.NestedPropertyRenderer',
         'Spm.store.ServiceProblems',
         'Ext.grid.Panel',
-        'Ext.toolbar.Spacer'
+        'Ext.toolbar.Spacer',
+        'Ext.toolbar.Paging'
     ],
 
     config: {
@@ -87,7 +88,7 @@ Ext.define('Spm.view.queue.QueueTabContent', {
         this.callParent(arguments);
     },
 
-    onBeforeLoad: function(store, operation) {
+    onBeforeLoad: function (store, operation) {
         Ext.apply(operation, {params: {queueId: this.queue.queueId()}});
     },
 

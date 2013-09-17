@@ -6,7 +6,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
         'Spm.view.serviceproblem.ActionToolbar',
         'Spm.view.serviceproblem.WorkItemPanel',
         'Spm.view.serviceproblem.ServiceProblemPanel',
-        'Spm.view.serviceproblem.EventHistoryPanel'
+        'Spm.view.serviceproblem.EventHistoryPanel',
+        'Ext.container.ButtonGroup'
     ],
 
     config: {
