@@ -12,8 +12,7 @@ Ext.define('Spm.controller.action.BaseAction', {
         Ext.apply(config, {
             handler: this.handleAction,
             scope: this,
-            focusCls: 'emptyClass',
-            padding: '2, 8, 2, 8'
+            focusCls: 'emptyClass'
         });
         this.initConfig(config);
         this.callParent(arguments)

@@ -1,6 +1,7 @@
 Ext.define('Spm.view.serviceproblem.ActionToolbar', {
     extend: 'Ext.toolbar.Toolbar',
     alias: 'widget.serviceProblemTabToolbar',
+    cls: 'action-toolbar',
 
     initComponent: function () {
         Ext.applyIf(this, {
@@ -8,9 +9,6 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
                 {
                     xtype: 'buttongroup',
                     title: 'Service Problem',
-                    defaults: {
-                        padding: '2, 8, 2, 8'
-                    },
                     items: [
                         this.registeredActions.getByKey('refresh'),
                         this.registeredActions.getByKey('pull'),
@@ -27,9 +25,6 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
                 {
                     xtype: 'buttongroup',
                     title: 'Trouble Report',
-                    defaults: {
-                        padding: '2, 8, 2, 8'
-                    },
                     items: [
                         {xtype: 'button', iconCls: 'icon-create-trouble-report', tooltip: 'Create Trouble Report'},
                         {xtype: 'button', iconCls: 'icon-amend-trouble-report', tooltip: 'Amend Trouble Report'},

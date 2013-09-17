@@ -1,6 +1,7 @@
 Ext.define('Spm.view.serviceproblem.eventhistory.ActionToolbar', {
     extend: 'Ext.toolbar.Toolbar',
     alias: 'widget.eventHistoryActionToolbar',
+    cls: 'event-history-action-toolbar',
 
     ui: 'custom-tool',
 
