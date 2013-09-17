@@ -22,7 +22,8 @@ Ext.define('Spm.controller.Queues', {
     ],
 
     stores: [
-        'AllQueues'
+        'AllQueues',
+        'AuthenticatedAgent'
     ],
 
     constructor: function (config) {
@@ -31,7 +32,7 @@ Ext.define('Spm.controller.Queues', {
 
         this.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
 
-        this.callParent([config]);
+        this.callParent(arguments);
     },
 
     init: function () {
@@ -48,7 +49,8 @@ Ext.define('Spm.controller.Queues', {
                 'queueTabContent': {
                     finishAction: this.onFinishAction,
                     destroy: this.onQueueTabDestroyed,
-                    serviceProblemClicked: this.onServiceProblemClicked
+                    serviceProblemClicked: this.onServiceProblemClicked,
+                    gridSelectionChanged: this.updateActionStates
                 }
             }
         });
@@ -87,6 +89,7 @@ Ext.define('Spm.controller.Queues', {
             tabPanel.add(queueTab);
         }
 
+        this.updateActionStates(queueTab);
         tabPanel.setActiveTab(queueTab);
     },
 
@@ -101,5 +104,9 @@ Ext.define('Spm.controller.Queues', {
 
     isAQueueTab: function (tab) {
         return tab.isXType('queueTabContent');
+    },
+
+    updateActionStates: function (queueTab) {
+        this.updateActionState(queueTab, this.getAuthenticatedAgentStore().authenticatedAgent());
     }
 });

@@ -22,5 +22,9 @@ Ext.define('Spm.controller.action.queue.BaseBulkAction', {
         });
 
         return serviceProblemIds;
+    },
+
+    updateState: function(queueTab, authenticatedAgent) {
+        this.setDisabled(!queueTab.selectedServiceProblems().length);
     }
 });

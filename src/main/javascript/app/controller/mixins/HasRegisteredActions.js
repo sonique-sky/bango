@@ -1,5 +1,5 @@
 Ext.define('Spm.controller.mixins.HasRegisteredActions', {
-
+    requires: ['Spm.controller.mixins.RegisteredActions'],
     keyToRegisteredActionsMap: Ext.create('Ext.util.MixedCollection'),
 
     registerActionsFor: function(key, actionClassNames) {

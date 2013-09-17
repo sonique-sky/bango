@@ -20,13 +20,12 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     iconCls: 'icon-queue',
 
     actionContext: true,
-    actionKey: function() {
+    actionKey: function () {
         return this.queue.queueId();
     },
 
     initComponent: function () {
         this.store = Spm.store.ServiceProblems.queueServiceProblemStore();
-        this.store.addManagedListener(this.store, 'refresh', this.onStoreRefreshed, this);
         this.store.addManagedListener(this.store, 'beforeLoad', this.onBeforeLoad, this);
 
         Ext.applyIf(this, {
@@ -66,9 +65,8 @@ Ext.define('Spm.view.queue.QueueTabContent', {
                     },
                     border: 0,
                     listeners: {
-                        select: {fn: this.onRowSelected, scope: this},
-                        deselect: {fn: this.onRowDeselected, scope: this},
-                        cellclick: {fn: this.onCellClicked, scope: this}
+                        cellclick: {fn: this.onCellClicked, scope: this},
+                        selectionchange: {fn: this.onSelectionChanged, scope: this}
                     },
                     columns: [
                         {text: 'Service Problem',
@@ -109,23 +107,8 @@ Ext.define('Spm.view.queue.QueueTabContent', {
         }
     },
 
-    onRowSelected: function () {
-        this.setBulkButtonsDisabled(false);
-    },
-
-    onStoreRefreshed: function () {
-        this.setBulkButtonsDisabled(true);
-    },
-
-    setBulkButtonsDisabled: function (disabled) {
-        this.registeredActions.actionNamed('bulk-transfer').setDisabled(disabled);
-        this.registeredActions.actionNamed('bulk-clear').setDisabled(disabled);
-    },
-
-    onRowDeselected: function () {
-        if (!this.selectedServiceProblems().length) {
-            this.setBulkButtonsDisabled(true);
-        }
+    onSelectionChanged: function () {
+        this.fireEvent('gridSelectionChanged', this)
     },
 
     selectedServiceProblems: function () {

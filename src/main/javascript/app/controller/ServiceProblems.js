@@ -6,7 +6,8 @@ Ext.define('Spm.controller.ServiceProblems', {
         'Spm.controller.action.serviceproblem.RefreshAction',
         'Spm.controller.action.serviceproblem.RefreshEventHistoryAction',
         'Spm.controller.action.serviceproblem.PullServiceProblemAction',
-        'Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction'
+        'Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction',
+        'Spm.view.serviceproblem.ServiceProblemTabContent'
     ],
 
     mixins: [
@@ -67,7 +68,7 @@ Ext.define('Spm.controller.ServiceProblems', {
         }
 
         serviceProblemTab.load(serviceProblem);
-        this.updateActionState(serviceProblemTab, this.getAuthenticatedAgentStore().authenticatedAgent());
+        this.updateActionStates(serviceProblemTab);
         tabPanel.setActiveTab(serviceProblemTab);
     },
 
@@ -90,20 +91,21 @@ Ext.define('Spm.controller.ServiceProblems', {
     },
 
     onServiceProblemPulled: function (serviceProblemTab) {
-        this.updateActionState(serviceProblemTab, this.getAuthenticatedAgentStore().authenticatedAgent());
-
+        this.updateActionStates(serviceProblemTab);
         this.fireEvent('serviceProblemPulled');
     },
 
     onWorkItemHeld: function (serviceProblemTab) {
-        this.updateActionState(serviceProblemTab, this.getAuthenticatedAgentStore().authenticatedAgent());
-
+        this.updateActionStates(serviceProblemTab);
         this.fireEvent('workItemHeld');
     },
 
     onWorkItemReleased: function (serviceProblemTab) {
-        this.updateActionState(serviceProblemTab, this.getAuthenticatedAgentStore().authenticatedAgent());
-
+        this.updateActionStates(serviceProblemTab);
         this.fireEvent('workItemReleased');
+    },
+
+    updateActionStates: function(serviceProblemTab) {
+        this.updateActionState(serviceProblemTab, this.getAuthenticatedAgentStore().authenticatedAgent());
     }
 });
