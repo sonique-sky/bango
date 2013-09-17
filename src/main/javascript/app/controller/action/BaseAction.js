@@ -30,5 +30,9 @@ Ext.define('Spm.controller.action.BaseAction', {
 
     applyFinishStep: function (stepArguments) {
         this.finishAction.apply(this, Array.prototype.slice.call(stepArguments, 1))
+    },
+
+    setTooltip: function (tooltip) {
+        this.each(function (item) { item.setTooltip(tooltip); }, this);
     }
 });

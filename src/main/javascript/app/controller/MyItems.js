@@ -29,11 +29,12 @@ Ext.define('Spm.controller.MyItems', {
         this.listen({
             controller: {
                 '#ServiceProblems': {
-                    'serviceProblemPulled': this.displayMyItems,
+                    'serviceProblemPulled': this.reloadMyItems,
+                    'workItemReleased' : this.reloadMyItems,
                     'workItemHeld': this.onWorkItemHeld
                 },
                 '#Security': {
-                    'authenticated': this.displayMyItems
+                    'authenticated': this.reloadMyItems
                 }
             },
             component: {
@@ -44,12 +45,12 @@ Ext.define('Spm.controller.MyItems', {
         });
     },
 
-    displayMyItems: function () {
+    reloadMyItems: function () {
         this.getMyItemsTabContent().loadMyItems();
     },
 
     onWorkItemHeld: function () {
+        this.reloadMyItems();
         this.getTabPanel().setActiveTab(this.getMyItemsTabContent());
     }
-
 });

@@ -36,16 +36,18 @@ Ext.define('Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction', 
     updateState: function (serviceProblemTab, authenticatedAgent) {
         var workItem = serviceProblemTab.getServiceProblem().workItem();
 
-        if (workItem.isAssigned() && workItem.agent().get('code') == authenticatedAgent.get('code')) {
-            this.setDisabled(false);
-            if (workItem.isHeld()) {
-                this.setIconCls('icon-unhold');
-            } else {
-                this.setIconCls('icon-hold');
-            }
+        if (workItem.isHeld()) {
+            this.setIconCls('icon-release');
+            this.setTooltip('Release this Service Problem');
         } else {
             this.setIconCls('icon-hold');
-            this.setDisabled(true);
+            this.setTooltip('Hold this Service Problem');
+        }
+
+        if (workItem.isAssignedTo(authenticatedAgent)) {
+            this.enable();
+        } else {
+            this.disable();
         }
     }
 });
