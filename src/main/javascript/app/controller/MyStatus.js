@@ -14,9 +14,6 @@ Ext.define('Spm.controller.MyStatus', {
         'AgentQueues',
         'AgentState'
     ],
-    views: [
-        'navigation.AgentStatusPanel'
-    ],
 
     refs: [
         {

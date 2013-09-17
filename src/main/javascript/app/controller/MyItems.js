@@ -7,9 +7,6 @@ Ext.define('Spm.controller.MyItems', {
     mixins: {
         serviceProblemClickHandler: 'Spm.controller.mixins.ServiceProblemClickHandler'
     },
-    views: [
-        'application.MyItemsTabContent'
-    ],
     refs: [
         {
             ref: 'tabPanel',
