@@ -13,10 +13,6 @@ Ext.define('Spm.controller.ServiceProblems', {
         'Spm.controller.mixins.HasRegisteredActions'
     ],
 
-    views: [
-        'serviceproblem.ServiceProblemTabContent'
-    ],
-
     stores: [
         'AuthenticatedAgent'
     ],

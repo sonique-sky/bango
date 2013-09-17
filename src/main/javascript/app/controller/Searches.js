@@ -6,9 +6,6 @@ Ext.define('Spm.controller.Searches', {
         'Spm.proxy.ServiceProblemApiProxy',
         'Spm.proxy.ApiOperation'
     ],
-    views: [
-        'search.SearchResultTabContent'
-    ],
     mixins: {
         serviceProblemClickHandler: 'Spm.controller.mixins.ServiceProblemClickHandler'
     },

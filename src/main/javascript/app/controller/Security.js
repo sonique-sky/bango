@@ -11,10 +11,6 @@ Ext.define('Spm.controller.Security', {
     stores: [
         'AuthenticatedAgent'
     ],
-    views: [
-        'application.SpmViewport',
-        'application.HeaderView'
-    ],
 
     refs: [
         {
