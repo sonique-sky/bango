@@ -1,23 +1,33 @@
 Ext.define('Spm.controller.mixins.HasRegisteredActions', {
 
-    constructor: function (cfg) {
-        var me = this;
-        this.registeredActions = Ext.create('Ext.util.MixedCollection');
+    keyToRegisteredActionsMap: Ext.create('Ext.util.MixedCollection'),
 
-        Ext.Array.forEach(cfg.registeredActions, function (actionName) {
-            me.registerAction(Ext.create(actionName))
-        })
+    registerActionsFor: function(key, actionClassNames) {
+        var actionNameToActionMap = Ext.create('Ext.util.MixedCollection');
+
+        Ext.Array.forEach(actionClassNames, function (actionClassName) {
+            var action = Ext.create(actionClassName);
+            actionNameToActionMap.add(action.getName(), action);
+        });
+
+        this.keyToRegisteredActionsMap.add(key, actionNameToActionMap);
+
+        return actionNameToActionMap
     },
 
-    registerAction: function (action) {
-        this.registeredActions.add(action.getName(), action);
+
+    deregisterActionsFor: function(key) {
+         this.keyToRegisteredActionsMap.removeAtKey(key);
     },
 
-    onFinishAction: function (actionName) {
-        this.registeredActionWithName(actionName).applyFinishStep(arguments);
+    findAction: function (key, actionName) {
+        return this.keyToRegisteredActionsMap.getByKey(key).getByKey(actionName);
     },
 
-    registeredActionWithName: function (actionName) {
-        return this.registeredActions.getByKey(actionName);
+    onFinishAction: function (actionName, actionContext) {
+        var key = actionContext.actionKey();
+        var action = this.findAction(key, actionName);
+
+        action.applyFinishStep(arguments);
     }
 });

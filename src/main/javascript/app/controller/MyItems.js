@@ -21,6 +21,7 @@ Ext.define('Spm.controller.MyItems', {
             xtype: 'myItemsTabContent'
         }
     ],
+
     constructor: function (config) {
         this.mixins.serviceProblemClickHandler.constructor.call(this, config);
 

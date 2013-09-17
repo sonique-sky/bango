@@ -20,6 +20,9 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     iconCls: 'icon-queue',
 
     actionContext: true,
+    actionKey: function() {
+        return this.queue.queueId();
+    },
 
     initComponent: function () {
         this.store = Spm.store.ServiceProblems.queueServiceProblemStore();
@@ -40,7 +43,7 @@ Ext.define('Spm.view.queue.QueueTabContent', {
                     items: [
                         {
                             xtype: 'queueTabToolbar',
-                            hasRegisteredActions: this.hasRegisteredActions
+                            registeredActions: this.registeredActions
                         },
                         {
                             xtype: 'pagingtoolbar',
@@ -102,7 +105,7 @@ Ext.define('Spm.view.queue.QueueTabContent', {
 
     onCellClicked: function (view, td, cellIndex, record) {
         if (cellIndex > 0) {
-            this.fireEvent("serviceProblemClicked", record);
+            this.fireEvent('serviceProblemClicked', record);
         }
     },
 
@@ -115,8 +118,8 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     },
 
     setBulkButtonsDisabled: function (disabled) {
-        this.hasRegisteredActions.registeredActionWithName('bulk-transfer').setDisabled(disabled);
-        this.hasRegisteredActions.registeredActionWithName('bulk-clear').setDisabled(disabled);
+        this.registeredActions.getByKey('bulk-transfer').setDisabled(disabled);
+        this.registeredActions.getByKey('bulk-clear').setDisabled(disabled);
     },
 
     onRowDeselected: function () {

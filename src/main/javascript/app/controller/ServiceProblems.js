@@ -6,13 +6,12 @@ Ext.define('Spm.controller.ServiceProblems', {
         'Spm.controller.action.serviceproblem.RefreshAction',
         'Spm.controller.action.serviceproblem.RefreshEventHistoryAction',
         'Spm.controller.action.serviceproblem.PullServiceProblemAction',
-        'Spm.controller.action.serviceproblem.HoldWorkItemAction',
-        'Spm.controller.action.serviceproblem.UnholdWorkItemAction'
+        'Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction'
     ],
 
-    mixins: {
-        hasRegisteredActions: 'Spm.controller.mixins.HasRegisteredActions'
-    },
+    mixins: [
+        'Spm.controller.mixins.HasRegisteredActions'
+    ],
 
     views: [
         'serviceproblem.ServiceProblemTabContent'
@@ -26,17 +25,6 @@ Ext.define('Spm.controller.ServiceProblems', {
     ],
 
     constructor: function (config) {
-        this.mixins.hasRegisteredActions.constructor.call(this, {
-            registeredActions: [
-                'Spm.action.AddNoteAction',
-                'Spm.action.RefreshAction',
-                'Spm.action.RefreshEventHistoryAction',
-                'Spm.action.PullServiceProblemAction',
-                'Spm.action.HoldWorkItemAction',
-                'Spm.action.UnholdWorkItemAction'
-            ]
-        });
-
         this.activeServiceProblemTabs = Ext.create('Ext.util.MixedCollection');
 
         this.callParent([config]);
@@ -62,7 +50,7 @@ Ext.define('Spm.controller.ServiceProblems', {
                     finishAction: this.onFinishAction,
                     serviceProblemPulled: this.onServiceProblemPulled,
                     workItemHeld: this.onWorkItemHeld,
-                    workItemUnheld: this.onWorkItemUnheld
+                    workItemReleased: this.onWorkItemReleased
                 }
             }
         });
@@ -83,29 +71,41 @@ Ext.define('Spm.controller.ServiceProblems', {
     },
 
     createServiceProblemTabFor: function (serviceProblem) {
-        return Ext.widget('serviceProblemTabContent', {hasRegisteredActions: this, serviceProblem: serviceProblem});
+        var actionNameToActionMap = this.registerActionsFor(serviceProblem.serviceProblemId(), [
+            'Spm.action.AddNoteAction',
+            'Spm.action.RefreshAction',
+            'Spm.action.RefreshEventHistoryAction',
+            'Spm.action.PullServiceProblemAction',
+            'Spm.action.HoldAndReleaseWorkItemAction'
+        ]);
+
+        return Ext.widget('serviceProblemTabContent', {registeredActions: actionNameToActionMap, serviceProblem: serviceProblem});
     },
 
     onServiceProblemTabDestroyed: function (serviceProblemTab) {
-        this.activeServiceProblemTabs.removeAtKey(serviceProblemTab.getServiceProblem().serviceProblemId());
+        var serviceProblemId = serviceProblemTab.getServiceProblem().serviceProblemId();
+        this.activeServiceProblemTabs.removeAtKey(serviceProblemId);
+        this.deregisterActionsFor(serviceProblemId);
     },
 
-    onServiceProblemPulled: function () {
-        this.registeredActionWithName('pull').setDisabled(true);
-        this.registeredActionWithName('hold').setDisabled(false)
+    onServiceProblemPulled: function (serviceProblemTab) {
+        var key = serviceProblemTab.getServiceProblem().serviceProblemId();
+        this.findAction(key, 'pull').setDisabled(true);
+        this.findAction(key, 'hold-release').setDisabled(false);
 
         this.fireEvent('serviceProblemPulled');
     },
 
-    onWorkItemHeld: function () {
-        this.registeredActionWithName('hold').setHidden(true)
-        this.registeredActionWithName('unhold').setHidden(false)
+    onWorkItemHeld: function (serviceProblemTab) {
+        var key = serviceProblemTab.getServiceProblem().serviceProblemId();
+        this.findAction(key, 'hold-release').held();
         this.fireEvent('workItemHeld');
     },
 
-    onWorkItemUnheld: function () {
-        this.registeredActionWithName('unhold').setHidden(true)
-        this.registeredActionWithName('hold').setHidden(false)
-        this.fireEvent('workItemUnheld');
+    onWorkItemReleased: function (serviceProblemTab) {
+        var key = serviceProblemTab.getServiceProblem().serviceProblemId();
+        this.findAction(key, 'hold-release').released();
+
+        this.fireEvent('workItemReleased');
     }
 });

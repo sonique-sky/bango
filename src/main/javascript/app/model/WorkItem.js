@@ -11,6 +11,10 @@ Ext.define('Spm.model.WorkItem', {
         }
     ],
 
+    isHeld: function() {
+        return 'Held' == this.get('status');
+    },
+
     hasOne: [
         'agent', {model: 'Spm.model.Agent', name: 'agent', associationKey: 'agent', getterName: 'agent'}
     ]

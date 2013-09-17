@@ -25,7 +25,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
             tools: [
                 {
                     xtype: 'eventHistoryActionToolbar',
-                    hasRegisteredActions : me.hasRegisteredActions
+                    registeredActions : me.registeredActions
                 }
             ],
             items: [

@@ -24,6 +24,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     eventHistoryPanel: undefined,
 
     actionContext: true,
+    actionKey: function() {
+        return this.serviceProblem.serviceProblemId();
+    },
 
     initComponent: function () {
         var me = this;
@@ -32,7 +35,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
 
         this.workItemPanel = Ext.widget('workItemPanel');
         this.serviceProblemPanel = Ext.widget('serviceProblemPanel');
-        this.eventHistoryPanel = Ext.widget('eventHistoryPanel', {hasRegisteredActions: me.hasRegisteredActions});
+        this.eventHistoryPanel = Ext.widget('eventHistoryPanel', {registeredActions: me.registeredActions});
 
         Ext.applyIf(this, {
             title: 'Service Problem [' + serviceProblemId + ']',
@@ -75,7 +78,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                             ]},
                         {
                             xtype: 'serviceProblemTabToolbar',
-                            hasRegisteredActions: me.hasRegisteredActions
+                            registeredActions: me.registeredActions
                         },
                         {
                             xtype: 'toolbar',

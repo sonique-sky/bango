@@ -12,10 +12,9 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
                         padding: '2, 8, 2, 8'
                     },
                     items: [
-                        this.hasRegisteredActions.registeredActionWithName('refresh'),
-                        this.hasRegisteredActions.registeredActionWithName('pull'),
-                        this.hasRegisteredActions.registeredActionWithName('hold'),
-                        this.hasRegisteredActions.registeredActionWithName('unhold'),
+                        this.registeredActions.getByKey('refresh'),
+                        this.registeredActions.getByKey('pull'),
+                        this.registeredActions.getByKey('hold-release'),
                         {xtype: 'button', iconCls: 'icon-reassign', tooltip: 'Reassign service problem to another agent'},
                         {xtype: 'button', iconCls: 'icon-transfer', tooltip: 'Transfer to another queue'},
                         {xtype: 'button', iconCls: 'icon-clear', tooltip: 'Clear this service problem'},

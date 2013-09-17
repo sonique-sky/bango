@@ -29,12 +29,7 @@ Ext.define('Spm.controller.Queues', {
     ],
 
     constructor: function (config) {
-        this.mixins.hasRegisteredActions.constructor.call(this, {
-            registeredActions: [
-                'Spm.controller.action.queue.BulkClearAction',
-                'Spm.controller.action.queue.BulkTransferAction'
-            ]
-        });
+
         this.mixins.serviceProblemClickHandler.constructor.call(this, config);
 
         this.activeQueueTabs = Ext.create('Ext.util.MixedCollection');
@@ -99,7 +94,12 @@ Ext.define('Spm.controller.Queues', {
     },
 
     createQueueTabFor: function (queue) {
-        return Ext.widget('queueTabContent', {hasRegisteredActions: this, queue: queue});
+        var actionNameToActionMap = this.registerActionsFor(queue.queueId(), [
+            'Spm.controller.action.queue.BulkClearAction',
+            'Spm.controller.action.queue.BulkTransferAction'
+        ]);
+
+        return Ext.widget('queueTabContent', {registeredActions: actionNameToActionMap, queue: queue});
     },
 
     isAQueueTab: function (tab) {

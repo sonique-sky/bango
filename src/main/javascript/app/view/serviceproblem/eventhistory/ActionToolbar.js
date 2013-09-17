@@ -11,8 +11,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.ActionToolbar', {
             defaults: {padding: '1 5 1 5'},
             items: [
                 {xtype: 'button', iconCls: 'icon-filter-event-notes', tooltip: 'Show notes only'},
-                this.hasRegisteredActions.registeredActionWithName('add-note'),
-                this.hasRegisteredActions.registeredActionWithName('refresh-events'),
+                this.registeredActions.getByKey('add-note'),
+                this.registeredActions.getByKey('refresh-events'),
                 {xtype: 'button', iconCls: 'icon-filter-events', tooltip: 'Filter history by type'}
             ]
         });
