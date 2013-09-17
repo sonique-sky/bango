@@ -1,6 +1,10 @@
 package sonique.bango.config;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -10,6 +14,7 @@ import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
 import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +42,13 @@ public class BangoApplicationContext {
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(FIELD, ANY);
+        objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
+            @Override
+            public void serialize(Object value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
+                jgen.writeStartObject();
+                jgen.writeEndObject();
+            }
+        });
         objectMapper.setDateFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm"));
 
         return objectMapper;

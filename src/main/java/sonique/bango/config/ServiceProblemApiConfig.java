@@ -16,23 +16,13 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
-public class ServiceProblemApiConfig extends WebMvcConfigurerAdapter {
-
-    @Resource
-    private ObjectMapper objectMapper;
+public class ServiceProblemApiConfig extends ApiConfig {
 
     @Resource
     private SpringSecurityAuthorisedActorProvider authorisedActorProvider;
 
     @Resource
     private ServiceProblemStore serviceProblemStore;
-
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setObjectMapper(objectMapper);
-        converters.add(converter);
-    }
 
     @Bean
     public ServiceProblemApiController searchApiController() {
