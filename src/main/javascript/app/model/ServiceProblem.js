@@ -30,5 +30,4 @@ Ext.define('Spm.model.ServiceProblem', {
     serviceProblemId: function() {
         return this.get('serviceProblemId');
     }
-
 });

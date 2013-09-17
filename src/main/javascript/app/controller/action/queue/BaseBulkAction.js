@@ -1,30 +1,28 @@
 Ext.define('Spm.controller.action.queue.BaseBulkAction', {
     extend: 'Spm.controller.action.BaseAction',
 
-    performBulkOperation: function (operation, params, queueTab) {
+    performBulkOperation: function (actionUrl, params, queueTab) {
         Ext.Ajax.request(
-                {
-                    url: 'api/queue/' + operation,
-                    jsonData: params,
-                    success: function (response) {
-                        queueTab.loadWith(response);
-                    }
+            {
+                url: 'api/queue/' + actionUrl,
+                jsonData: params,
+                success: function (response) {
+                    queueTab.loadWith(response);
                 }
+            }
         );
     },
 
     selectedServiceProblemIds: function (queueTab) {
-        var selectedServiceProblems = queueTab.selectedServiceProblems();
-        var serviceProblemIds = [];
-
-        Ext.Array.forEach(selectedServiceProblems, function (item) {
-            serviceProblemIds.push(item.get('serviceProblemId'));
-        });
-
-        return serviceProblemIds;
+        return Ext.Array.map(
+            queueTab.selectedServiceProblems(),
+            function (serviceProblem) {
+                return serviceProblem.serviceProblemId();
+            }
+        );
     },
 
-    updateState: function(queueTab, authenticatedAgent) {
+    updateState: function (queueTab, authenticatedAgent) {
         this.setDisabled(!queueTab.selectedServiceProblems().length);
     }
 });
