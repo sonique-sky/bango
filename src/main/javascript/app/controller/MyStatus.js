@@ -37,7 +37,7 @@ Ext.define('Spm.controller.MyStatus', {
                 '#ServiceProblems': {
                     'serviceProblemPulled': this.refreshAgentState,
                     'workItemHeld': this.refreshAgentState,
-                    'workItemUnheld': this.refreshAgentState
+                    'workItemReleased': this.refreshAgentState
                 },
                 '#Security': {
                     'authenticated': this.refreshAgentState

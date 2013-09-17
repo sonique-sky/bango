@@ -62,8 +62,6 @@ Ext.define('Spm.view.application.MyItemsTabContent', {
     },
 
     onCellClicked: function (view, td, cellIndex, record) {
-        if (cellIndex > 0) {
-            this.fireEvent("serviceProblemClicked", record);
-        }
+        this.fireEvent("serviceProblemClicked", record);
     }
 });
