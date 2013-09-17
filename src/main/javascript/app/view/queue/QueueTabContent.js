@@ -118,8 +118,8 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     },
 
     setBulkButtonsDisabled: function (disabled) {
-        this.registeredActions.getByKey('bulk-transfer').setDisabled(disabled);
-        this.registeredActions.getByKey('bulk-clear').setDisabled(disabled);
+        this.registeredActions.actionNamed('bulk-transfer').setDisabled(disabled);
+        this.registeredActions.actionNamed('bulk-clear').setDisabled(disabled);
     },
 
     onRowDeselected: function () {

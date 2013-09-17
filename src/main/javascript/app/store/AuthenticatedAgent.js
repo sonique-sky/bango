@@ -1,4 +1,4 @@
- Ext.define('Spm.store.AuthenticatedAgent', {
+Ext.define('Spm.store.AuthenticatedAgent', {
     extend: 'Ext.data.Store',
     alias: 'store.authenticatedAgent',
 
@@ -34,6 +34,10 @@
         var queueStore = Ext.data.StoreManager.lookup('AgentQueues');
 
         queueStore.loadRawData(store.proxy.reader.jsonData);
+    },
+
+    authenticatedAgent: function () {
+        return this.first();
     }
 
 });

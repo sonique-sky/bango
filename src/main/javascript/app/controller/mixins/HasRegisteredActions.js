@@ -3,16 +3,11 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
     keyToRegisteredActionsMap: Ext.create('Ext.util.MixedCollection'),
 
     registerActionsFor: function(key, actionClassNames) {
-        var actionNameToActionMap = Ext.create('Ext.util.MixedCollection');
+        var registeredActions =  Ext.create('Spm.controller.mixins.RegisteredActions', actionClassNames)
 
-        Ext.Array.forEach(actionClassNames, function (actionClassName) {
-            var action = Ext.create(actionClassName);
-            actionNameToActionMap.add(action.getName(), action);
-        });
+        this.keyToRegisteredActionsMap.add(key, registeredActions);
 
-        this.keyToRegisteredActionsMap.add(key, actionNameToActionMap);
-
-        return actionNameToActionMap
+        return registeredActions
     },
 
 
@@ -20,8 +15,12 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
          this.keyToRegisteredActionsMap.removeAtKey(key);
     },
 
+    registeredActionsFor: function (key) {
+        return this.keyToRegisteredActionsMap.getByKey(key);
+    },
+
     findAction: function (key, actionName) {
-        return this.keyToRegisteredActionsMap.getByKey(key).getByKey(actionName);
+        return this.registeredActionsFor(key).actionNamed(actionName);
     },
 
     onFinishAction: function (actionName, actionContext) {

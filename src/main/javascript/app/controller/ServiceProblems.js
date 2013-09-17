@@ -17,6 +17,10 @@ Ext.define('Spm.controller.ServiceProblems', {
         'serviceproblem.ServiceProblemTabContent'
     ],
 
+    stores: [
+        'Spm.store.AuthenticatedAgent'
+    ],
+
     refs: [
         {
             ref: 'tabPanel',
@@ -67,7 +71,13 @@ Ext.define('Spm.controller.ServiceProblems', {
         }
 
         serviceProblemTab.load(serviceProblem);
+        this.updateActionState(serviceProblemTab, this.getAuthenticatedAgentStore().authenticatedAgent());
         tabPanel.setActiveTab(serviceProblemTab);
+    },
+
+    updateActionState: function (actionContext, authenticatedAgent) {
+        var actions = this.registeredActionsFor(actionContext.actionKey());
+
     },
 
     createServiceProblemTabFor: function (serviceProblem) {
@@ -99,6 +109,7 @@ Ext.define('Spm.controller.ServiceProblems', {
     onWorkItemHeld: function (serviceProblemTab) {
         var key = serviceProblemTab.getServiceProblem().serviceProblemId();
         this.findAction(key, 'hold-release').held();
+
         this.fireEvent('workItemHeld');
     },
 
