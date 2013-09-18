@@ -15,10 +15,12 @@ public class Agent {
     private AgentDetails details;
     private AgentState agentState;
     private List<Queue> queues;
+    private Role role;
 
-    public Agent(String code, List<Queue> queues) {
+    public Agent(String code, List<Queue> queues, Role role) {
         this.code = code;
         this.queues = queues;
+        this.role = role;
         this.agentState = new AgentState();
 
         String[] split = code.toLowerCase().split("\\.");
