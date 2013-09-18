@@ -16,12 +16,13 @@ Ext.application({
         'Queues',
         'ServiceProblems',
         'Searches',
-        'MyItems'
-
+        'MyItems',
+        'QueueDashboard'
     ],
     requires: [
             'Spm.overrides.AbstractStore'
     ],
+
     launch: function () {
         Ext.create('Spm.view.application.SpmViewport');
     }

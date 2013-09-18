@@ -3,13 +3,12 @@ package sonique.bango.domain;
 import java.util.Set;
 
 import static java.util.EnumSet.of;
-import static sonique.bango.domain.Privilege.HasAssignedQueues;
-import static sonique.bango.domain.Privilege.PullServiceProblem;
+import static sonique.bango.domain.Privilege.*;
 
 public enum Role {
     ROLE_USER("Team Member", of(HasAssignedQueues, PullServiceProblem)),
     ROLE_TEAM_LEAD("Team Leader", of(PullServiceProblem)),
-    ROLE_QUEUE_CONTROLLER("Queue Controller", of(PullServiceProblem)),
+    ROLE_QUEUE_CONTROLLER("Queue Controller", of(PullServiceProblem, ViewQueueDashboard)),
     ROLE_MSP_ADMINISTRATOR("Msp Administrator", of(PullServiceProblem));
 
     private final String displayName;

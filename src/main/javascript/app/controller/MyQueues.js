@@ -3,18 +3,12 @@ Ext.define('Spm.controller.MyQueues', {
     alias: 'controller.myQueues',
 
     stores: [
-         'AgentQueues'
+        'AgentQueues'
     ],
 
     refs: [
-        {
-            ref: 'queuesView',
-            selector: '#my-queues-view'
-        },
-        {
-            ref: 'myQueuesPanel',
-            selector: 'myQueuesPanel'
-        }
+        { ref: 'queuesView', selector: '#my-queues-view' },
+        { ref: 'myQueuesPanel', selector: 'myQueuesPanel' }
     ],
 
     init: function () {
@@ -23,7 +17,7 @@ Ext.define('Spm.controller.MyQueues', {
                 '#Security': {
                     authenticated: this.onAuthenticated
                 },
-                '#Queues' : {
+                '#Queues': {
                     queueTabSelected: this.onQueueTabSelected,
                     queueTabDeselected: this.onQueueTabDeselected
                 }
@@ -36,7 +30,7 @@ Ext.define('Spm.controller.MyQueues', {
         });
     },
 
-    onAuthenticated: function(authenticatedAgent) {
+    onAuthenticated: function (authenticatedAgent) {
         this.getMyQueuesPanel().setVisible(authenticatedAgent.hasPrivilege('HasAssignedQueues'));
     },
 
@@ -44,13 +38,13 @@ Ext.define('Spm.controller.MyQueues', {
         this.fireEvent('queueSelected', record);
     },
 
-    onQueueTabSelected: function(queueTabContent) {
+    onQueueTabSelected: function (queueTabContent) {
         var queueIndex = this.getAgentQueuesStore().indexOf(queueTabContent.getQueue());
 
         this.getQueuesView().getSelectionModel().select(queueIndex, false, true);
     },
 
-    onQueueTabDeselected: function() {
+    onQueueTabDeselected: function () {
         this.getQueuesView().getSelectionModel().deselectAll(true);
     }
 });
