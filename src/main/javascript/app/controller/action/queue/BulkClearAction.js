@@ -6,12 +6,11 @@ Ext.define('Spm.controller.action.queue.BulkClearAction', {
     ],
 
     constructor: function () {
-        this.callParent([Ext.apply({}, {
+        this.callParent([{
             name: 'bulk-clear',
             text: 'Clear',
-            iconCls: 'icon-bulk-clear',
-            itemId: 'bulk-clear'
-        })]);
+            iconCls: 'icon-bulk-clear'
+        }]);
     },
 
     startAction: function(queueTab) {

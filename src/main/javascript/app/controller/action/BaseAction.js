@@ -10,13 +10,14 @@ Ext.define('Spm.controller.action.BaseAction', {
     updateState: Ext.emptyFn,
 
     constructor: function (config) {
+        config = config || {};
         Ext.apply(config, {
             handler: this.handleAction,
             scope: this,
             focusCls: 'emptyClass'
         });
         this.initConfig(config);
-        this.callParent(arguments)
+        this.callParent([config]);
     },
 
     handleAction: function (component) {

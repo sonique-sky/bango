@@ -11,11 +11,11 @@ Ext.define('Spm.controller.action.serviceproblem.AddNoteAction', {
     ],
 
     constructor: function () {
-        this.callParent([Ext.apply({}, {
+        this.callParent([{
             name: Spm.action.AddNoteAction.ACTION_NAME,
             tooltip: 'Add a note to this service problem',
             iconCls: 'icon-add-note'
-        })]);
+        }]);
     },
 
     startAction: function (serviceProblemTab) {

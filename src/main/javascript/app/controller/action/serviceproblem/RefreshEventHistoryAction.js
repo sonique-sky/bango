@@ -7,11 +7,11 @@ Ext.define('Spm.controller.action.serviceproblem.RefreshEventHistoryAction', {
     },
 
     constructor: function () {
-        this.callParent([Ext.apply({}, {
+        this.callParent([{
             name: Spm.action.RefreshEventHistoryAction.ACTION_NAME,
             tooltip: 'Refresh history',
             iconCls: 'icon-refresh-events'
-        })]);
+        }]);
     },
 
     startAction: function (serviceProblemTab) {
