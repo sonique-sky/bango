@@ -43,7 +43,9 @@ Ext.define('Spm.controller.action.serviceproblem.PullServiceProblemAction', {
 
     updateState: function(serviceProblemTab) {
         var workItem = serviceProblemTab.getServiceProblem().workItem();
+        var store = Ext.data.StoreManager.lookup('AuthenticatedAgent');
 
-        this.setDisabled(!workItem.isPullable())
+        var hasPrivilege = store.authenticatedAgent().hasPrivilege('PullServiceProblem');
+        this.setDisabled(!hasPrivilege || !workItem.isPullable())
     }
 });

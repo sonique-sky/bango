@@ -28,6 +28,14 @@ Ext.define('Spm.model.Agent', {
                 return rec.get('firstName') + ' ' + rec.get('lastName');
             },
             name: 'displayName'
+        },
+        {
+            mapping: 'role.privileges',
+            name: 'privileges'
         }
-    ]
+    ],
+
+    hasPrivilege: function(privilege) {
+        return Ext.Array.contains(this.get('privileges'), privilege);
+    }
 });

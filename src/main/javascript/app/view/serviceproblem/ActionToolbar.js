@@ -10,9 +10,9 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
                     xtype: 'buttongroup',
                     title: 'Service Problem',
                     items: [
-                        this.registeredActions.actionNamed('refresh'),
-                        this.registeredActions.actionNamed('pull'),
-                        this.registeredActions.actionNamed('hold-release'),
+                        this.registeredActions.actionNamed(Spm.action.RefreshAction.ACTION_NAME),
+                        this.registeredActions.actionNamed(Spm.action.PullServiceProblemAction.ACTION_NAME),
+                        this.registeredActions.actionNamed(Spm.action.HoldAndReleaseWorkItemAction.ACTION_NAME),
                         {xtype: 'button', iconCls: 'icon-reassign', tooltip: 'Reassign service problem to another agent'},
                         {xtype: 'button', iconCls: 'icon-transfer', tooltip: 'Transfer to another queue'},
                         {xtype: 'button', iconCls: 'icon-clear', tooltip: 'Clear this service problem'},
