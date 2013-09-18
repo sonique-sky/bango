@@ -6,13 +6,12 @@ Ext.define('Spm.controller.action.serviceproblem.RefreshAction', {
         ACTION_NAME: 'refresh'
     },
 
-    constructor: function (config) {
-        config = config || {};
-        this.callParent([Ext.apply(config, {
+    constructor: function () {
+        this.callParent([{
             name: Spm.action.RefreshAction.ACTION_NAME,
             tooltip: 'Refresh',
             iconCls: 'icon-refresh'
-        })]);
+        }]);
     },
 
     startAction: function (serviceProblemTab) {

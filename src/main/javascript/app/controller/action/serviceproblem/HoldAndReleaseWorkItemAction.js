@@ -7,9 +7,9 @@ Ext.define('Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction', 
     },
 
     constructor: function () {
-        this.callParent([Ext.apply({}, {
+        this.callParent([{
             name: Spm.action.HoldAndReleaseWorkItemAction.ACTION_NAME
-        })]);
+        }]);
     },
 
     startAction: function (serviceProblemTab) {

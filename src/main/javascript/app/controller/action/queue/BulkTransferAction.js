@@ -6,12 +6,11 @@ Ext.define('Spm.controller.action.queue.BulkTransferAction', {
     ],
 
     constructor: function () {
-        this.callParent([Ext.apply({}, {
+        this.callParent([{
             name: 'bulk-transfer',
             text: 'Transfer',
-            iconCls: 'icon-bulk-transfer',
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        itemId: 'bulk-transfer'
-        })]);
+            iconCls: 'icon-bulk-transfer'
+        }]);
     },
 
     startAction: function (queueTab) {
