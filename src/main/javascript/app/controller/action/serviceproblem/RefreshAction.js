@@ -25,4 +25,3 @@ Ext.define('Spm.controller.action.serviceproblem.RefreshAction', {
         }, this);
     }
 });
-

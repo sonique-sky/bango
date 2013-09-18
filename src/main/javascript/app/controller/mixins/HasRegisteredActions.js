@@ -10,7 +10,6 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
         return registeredActions
     },
 
-
     deregisterActionsFor: function(key) {
          this.keyToRegisteredActionsMap.removeAtKey(key);
     },
@@ -19,13 +18,9 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
         return this.keyToRegisteredActionsMap.getByKey(key);
     },
 
-    findAction: function (key, actionName) {
-        return this.registeredActionsFor(key).actionNamed(actionName);
-    },
-
     onFinishAction: function (actionName, actionContext) {
         var key = actionContext.actionKey();
-        var action = this.findAction(key, actionName);
+        var action = this.registeredActionsFor(key).actionNamed(actionName);
 
         action.applyFinishStep(arguments);
     },
