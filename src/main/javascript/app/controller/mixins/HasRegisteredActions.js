@@ -30,9 +30,10 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
         action.applyFinishStep(arguments);
     },
 
-    updateActionState: function (actionContext, authenticatedAgent) {
+    updateActionStates: function (actionContext) {
+        var store = Ext.data.StoreManager.lookup('AuthenticatedAgent');
         var registeredActions = this.registeredActionsFor(actionContext.actionKey());
 
-        registeredActions.updateState(actionContext, authenticatedAgent);
+        registeredActions.updateState(actionContext, store.authenticatedAgent());
     }
 });

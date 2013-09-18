@@ -14,10 +14,6 @@ Ext.define('Spm.controller.ServiceProblems', {
         'Spm.controller.mixins.HasRegisteredActions'
     ],
 
-    stores: [
-        'AuthenticatedAgent'
-    ],
-
     refs: [
         { ref: 'tabPanel', selector: '#tab-panel' }
     ],
@@ -100,9 +96,5 @@ Ext.define('Spm.controller.ServiceProblems', {
     onWorkItemReleased: function (serviceProblemTab) {
         this.updateActionStates(serviceProblemTab);
         this.fireEvent('workItemReleased');
-    },
-
-    updateActionStates: function(serviceProblemTab) {
-        this.updateActionState(serviceProblemTab, this.getAuthenticatedAgentStore().authenticatedAgent());
     }
 });

@@ -19,8 +19,7 @@ Ext.define('Spm.controller.Queues', {
     ],
 
     stores: [
-        'AllQueues',
-        'AuthenticatedAgent'
+        'AllQueues'
     ],
 
     constructor: function (config) {
@@ -89,9 +88,5 @@ Ext.define('Spm.controller.Queues', {
 
     isAQueueTab: function (tab) {
         return tab.isXType('queueTabContent');
-    },
-
-    updateActionStates: function (queueTab) {
-        this.updateActionState(queueTab, this.getAuthenticatedAgentStore().authenticatedAgent());
     }
 });
