@@ -10,12 +10,19 @@ Ext.define('Spm.controller.MyQueues', {
         {
             ref: 'queuesView',
             selector: '#my-queues-view'
+        },
+        {
+            ref: 'myQueuesPanel',
+            selector: 'myQueuesPanel'
         }
     ],
 
     init: function () {
         this.listen({
             controller: {
+                '#Security': {
+                    authenticated: this.onAuthenticated
+                },
                 '#Queues' : {
                     queueTabSelected: this.onQueueTabSelected,
                     queueTabDeselected: this.onQueueTabDeselected
@@ -27,6 +34,10 @@ Ext.define('Spm.controller.MyQueues', {
                 }
             }
         });
+    },
+
+    onAuthenticated: function(authenticatedAgent) {
+        this.getMyQueuesPanel().setVisible(authenticatedAgent.hasPrivilege('HasAssignedQueues'));
     },
 
     onQueueSelect: function (dataviewmodel, record) {

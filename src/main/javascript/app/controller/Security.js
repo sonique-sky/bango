@@ -21,22 +21,23 @@ Ext.define('Spm.controller.Security', {
     ],
 
     onPerformAuthentication: function (credentials) {
-        var me = this;
         Ext.Ajax.request({
             url: 'j_spring_security_check',
             params: credentials,
             success: function () {
-                me.onAuthenticated(false);
-            }
+                this.onAuthenticated(false);
+            },
+            scope: this
         });
     },
 
     onAuthenticated: function (alreadyAuthenticated) {
         if (!alreadyAuthenticated) {
-            this.getAuthenticatedAgentStore().load();
+            this.getAuthenticatedAgentStore().load({
+                callback: this.authenticatedAgentCallback,
+                scope: this
+            });
         }
-        this.getAppContainer().setVisible(true);
-        this.fireEvent('authenticated');
     },
 
     onAuthenticationRequired: function () {
@@ -44,25 +45,28 @@ Ext.define('Spm.controller.Security', {
         Ext.create('Spm.view.application.LoginWindow').show();
     },
 
+    authenticatedAgentCallback: function (records, operation, success) {
+        if (success) {
+            this.fireEvent('authenticated', records[0]);
+            this.getAppContainer().setVisible(true);
+        }
+    },
+
     startAuthentication: function () {
-        var me = this;
         this.getAuthenticatedAgentStore().load(
                 {
-                    callback: function (records, operation, success) {
-                        if (success) {
-                            me.onAuthenticated(true);
-                        }
-                    }
+                    callback: this.authenticatedAgentCallback,
+                    scope: this
                 });
     },
 
     onLogout: function () {
-        var me = this;
         Ext.Ajax.request({
             url: 'j_spring_security_logout',
             success: function () {
-                me.onAuthenticationRequired();
-            }
+                this.onAuthenticationRequired();
+            },
+            scope: this
         });
     },
 
