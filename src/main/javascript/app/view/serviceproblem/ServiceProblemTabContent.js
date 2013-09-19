@@ -3,12 +3,21 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     alias: 'widget.serviceProblemTabContent',
 
     requires: [
+        'Spm.controller.action.serviceproblem.AddNoteAction',
+        'Spm.controller.action.serviceproblem.RefreshAction',
+        'Spm.controller.action.serviceproblem.RefreshEventHistoryAction',
+        'Spm.controller.action.serviceproblem.PullServiceProblemAction',
+        'Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction',
         'Spm.view.serviceproblem.ActionToolbar',
         'Spm.view.serviceproblem.WorkItemPanel',
         'Spm.view.serviceproblem.ServiceProblemPanel',
         'Spm.view.serviceproblem.EventHistoryPanel',
         'Ext.container.ButtonGroup'
     ],
+
+    mixins: {
+        isActionContext: 'Spm.controller.mixins.IsActionContext'
+    },
 
     config: {
         serviceProblem: undefined
@@ -23,19 +32,28 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     serviceProblemPanel: undefined,
     eventHistoryPanel: undefined,
 
-    actionContext: true,
-    actionKey: function() {
-        return this.serviceProblem.serviceProblemId();
+    constructor: function() {
+        this.mixins.isActionContext.constructor.call(this);
+
+        this.callParent(arguments);
     },
 
     initComponent: function () {
         var me = this;
 
+        var registeredActions = me.actionContextManager.registerActionsFor(this, [
+            'Spm.action.AddNoteAction',
+            'Spm.action.RefreshAction',
+            'Spm.action.RefreshEventHistoryAction',
+            'Spm.action.PullServiceProblemAction',
+            'Spm.action.HoldAndReleaseWorkItemAction'
+        ]);
+
         var serviceProblemId = me.serviceProblem.serviceProblemId();
 
         this.workItemPanel = Ext.widget('workItemPanel');
         this.serviceProblemPanel = Ext.widget('serviceProblemPanel');
-        this.eventHistoryPanel = Ext.widget('eventHistoryPanel', {registeredActions: me.registeredActions});
+        this.eventHistoryPanel = Ext.widget('eventHistoryPanel', {registeredActions: registeredActions});
 
         Ext.applyIf(this, {
             title: 'Service Problem [' + serviceProblemId + ']',
@@ -78,7 +96,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                             ]},
                         {
                             xtype: 'serviceProblemTabToolbar',
-                            registeredActions: me.registeredActions
+                            registeredActions: registeredActions
                         },
                         {
                             xtype: 'toolbar',

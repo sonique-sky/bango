@@ -3,13 +3,11 @@ Ext.define('Spm.controller.Queues', {
     alias: 'controller.queues',
 
     mixins: {
-        hasRegisteredActions: 'Spm.controller.mixins.HasRegisteredActions',
+        actionContextManager: 'Spm.controller.mixins.ActionContextManager',
         serviceProblemClickHandler: 'Spm.controller.mixins.ServiceProblemClickHandler'
     },
 
     requires: [
-        'Spm.controller.action.queue.BulkClearAction',
-        'Spm.controller.action.queue.BulkTransferAction',
         'Spm.view.queue.ActionToolbar',
         'Spm.view.queue.QueueTabContent'
     ],
@@ -61,6 +59,7 @@ Ext.define('Spm.controller.Queues', {
 
     onQueueTabDestroyed: function (queueTab) {
         this.activeQueueTabs.removeAtKey(queueTab.getQueue().queueId());
+        this.deregisterActionsFor(queueTab);
     },
 
     onQueueSelected: function (queue) {
@@ -78,12 +77,7 @@ Ext.define('Spm.controller.Queues', {
     },
 
     createQueueTabFor: function (queue) {
-        var actionNameToActionMap = this.registerActionsFor(queue.queueId(), [
-            'Spm.controller.action.queue.BulkClearAction',
-            'Spm.controller.action.queue.BulkTransferAction'
-        ]);
-
-        return Ext.widget('queueTabContent', {registeredActions: actionNameToActionMap, queue: queue});
+        return Ext.widget('queueTabContent', {actionContextManager: this, queue: queue});
     },
 
     isAQueueTab: function (tab) {

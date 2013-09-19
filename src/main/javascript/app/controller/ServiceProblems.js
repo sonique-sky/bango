@@ -2,16 +2,11 @@ Ext.define('Spm.controller.ServiceProblems', {
     extend: 'Ext.app.Controller',
     alias: 'controller.serviceProblems',
     requires: [
-        'Spm.controller.action.serviceproblem.AddNoteAction',
-        'Spm.controller.action.serviceproblem.RefreshAction',
-        'Spm.controller.action.serviceproblem.RefreshEventHistoryAction',
-        'Spm.controller.action.serviceproblem.PullServiceProblemAction',
-        'Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction',
         'Spm.view.serviceproblem.ServiceProblemTabContent'
     ],
 
     mixins: [
-        'Spm.controller.mixins.HasRegisteredActions'
+        'Spm.controller.mixins.ActionContextManager'
     ],
 
     refs: [
@@ -66,21 +61,12 @@ Ext.define('Spm.controller.ServiceProblems', {
     },
 
     createServiceProblemTabFor: function (serviceProblem) {
-        var actionNameToActionMap = this.registerActionsFor(serviceProblem.serviceProblemId(), [
-            'Spm.action.AddNoteAction',
-            'Spm.action.RefreshAction',
-            'Spm.action.RefreshEventHistoryAction',
-            'Spm.action.PullServiceProblemAction',
-            'Spm.action.HoldAndReleaseWorkItemAction'
-        ]);
-
-        return Ext.widget('serviceProblemTabContent', {registeredActions: actionNameToActionMap, serviceProblem: serviceProblem});
+        return Ext.widget('serviceProblemTabContent', {actionContextManager: this, serviceProblem: serviceProblem});
     },
 
     onServiceProblemTabDestroyed: function (serviceProblemTab) {
-        var serviceProblemId = serviceProblemTab.getServiceProblem().serviceProblemId();
-        this.activeServiceProblemTabs.removeAtKey(serviceProblemId);
-        this.deregisterActionsFor(serviceProblemId);
+        this.activeServiceProblemTabs.removeAtKey(serviceProblemTab.getServiceProblem().serviceProblemId());
+        this.deregisterActionsFor(serviceProblemTab);
     },
 
     onServiceProblemPulled: function (serviceProblemTab) {

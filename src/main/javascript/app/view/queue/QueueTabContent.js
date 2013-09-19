@@ -3,12 +3,18 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     alias: 'widget.queueTabContent',
 
     requires: [
+        'Spm.controller.action.queue.BulkClearAction',
+        'Spm.controller.action.queue.BulkTransferAction',
         'Spm.view.renderer.NestedPropertyRenderer',
         'Spm.store.ServiceProblems',
         'Ext.grid.Panel',
         'Ext.toolbar.Spacer',
         'Ext.toolbar.Paging'
     ],
+
+    mixins: {
+        isActionContext: 'Spm.controller.mixins.IsActionContext'
+    },
 
     config: {
         queue: undefined
@@ -19,12 +25,18 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     closable: true,
     iconCls: 'icon-queue',
 
-    actionContext: true,
-    actionKey: function () {
-        return this.queue.queueId();
+    constructor: function() {
+        this.mixins.isActionContext.constructor.call(this);
+
+        this.callParent(arguments);
     },
 
     initComponent: function () {
+        var registeredActions = this.actionContextManager.registerActionsFor(this, [
+            'Spm.controller.action.queue.BulkClearAction',
+            'Spm.controller.action.queue.BulkTransferAction'
+        ]);
+
         this.store = Spm.store.ServiceProblems.queueServiceProblemStore();
         this.store.addManagedListener(this.store, 'beforeLoad', this.onBeforeLoad, this);
 
@@ -42,7 +54,7 @@ Ext.define('Spm.view.queue.QueueTabContent', {
                     items: [
                         {
                             xtype: 'queueTabToolbar',
-                            registeredActions: this.registeredActions
+                            registeredActions: registeredActions
                         },
                         {
                             xtype: 'pagingtoolbar',

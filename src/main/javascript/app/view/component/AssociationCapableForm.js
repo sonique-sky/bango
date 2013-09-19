@@ -25,8 +25,6 @@ Ext.define('Spm.view.component.AssociationCapableForm', {
                 if (me.trackResetOnLoad) {
                     field.resetOriginalValue();
                 }
-
-                console.log(field.name+' '+nameToken + ' ' +val);
             });
         })
     }

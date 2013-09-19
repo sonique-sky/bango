@@ -1,17 +1,17 @@
-Ext.define('Spm.controller.mixins.HasRegisteredActions', {
+Ext.define('Spm.controller.mixins.ActionContextManager', {
     requires: ['Spm.controller.mixins.RegisteredActions'],
     keyToRegisteredActionsMap: Ext.create('Ext.util.MixedCollection'),
 
-    registerActionsFor: function(key, actionClassNames) {
+    registerActionsFor: function(actionContext, actionClassNames) {
         var registeredActions =  Ext.create('Spm.controller.mixins.RegisteredActions', actionClassNames)
 
-        this.keyToRegisteredActionsMap.add(key, registeredActions);
+        this.keyToRegisteredActionsMap.add(actionContext.actionContextKey(), registeredActions);
 
         return registeredActions
     },
 
-    deregisterActionsFor: function(key) {
-         this.keyToRegisteredActionsMap.removeAtKey(key);
+    deregisterActionsFor: function(actionContext) {
+         this.keyToRegisteredActionsMap.removeAtKey(actionContext.actionContextKey());
     },
 
     registeredActionsFor: function (key) {
@@ -19,7 +19,7 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
     },
 
     onFinishAction: function (actionName, actionContext) {
-        var key = actionContext.actionKey();
+        var key = actionContext.actionContextKey();
         var action = this.registeredActionsFor(key).actionNamed(actionName);
 
         action.applyFinishStep(arguments);
@@ -27,7 +27,7 @@ Ext.define('Spm.controller.mixins.HasRegisteredActions', {
 
     updateActionStates: function (actionContext) {
         var store = Ext.data.StoreManager.lookup('AuthenticatedAgent');
-        var registeredActions = this.registeredActionsFor(actionContext.actionKey());
+        var registeredActions = this.registeredActionsFor(actionContext.actionContextKey());
 
         registeredActions.updateState(actionContext, store.authenticatedAgent());
     }
