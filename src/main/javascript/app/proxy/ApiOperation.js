@@ -69,6 +69,12 @@ Ext.define('Spm.proxy.ApiOperation', {
                 action: 'update',
                 urlPattern: 'api/agent/toggleAvailability'
             }, options));
+        },
+        queueDashboardEntries: function (options) {
+            return Ext.create(Spm.proxy.ApiOperation, Ext.applyIf({
+                action: 'read',
+                urlPattern: 'api/queueDashboard'
+            }, options));
         }
     },
 
