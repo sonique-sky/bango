@@ -3,5 +3,5 @@ Ext.define('Spm.view.queue.QueueDashboardTabContent', {
     alias: 'widget.queueDashboard',
 
     title: 'Queue Dashboard',
-    iconCls: 'queue-dashboard'
+    iconCls: 'icon-queue-dashboard'
 });
