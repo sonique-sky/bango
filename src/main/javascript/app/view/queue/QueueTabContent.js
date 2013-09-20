@@ -3,6 +3,7 @@ Ext.define('Spm.view.queue.QueueTabContent', {
     alias: 'widget.queueTabContent',
 
     requires: [
+        'Spm.view.queue.ActionToolbar',
         'Spm.controller.action.queue.BulkClearAction',
         'Spm.controller.action.queue.BulkTransferAction',
         'Spm.view.renderer.NestedPropertyRenderer',

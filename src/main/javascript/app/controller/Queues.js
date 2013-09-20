@@ -8,7 +8,6 @@ Ext.define('Spm.controller.Queues', {
     },
 
     requires: [
-        'Spm.view.queue.ActionToolbar',
         'Spm.view.queue.QueueTabContent'
     ],
 
