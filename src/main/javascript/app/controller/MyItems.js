@@ -14,6 +14,7 @@ Ext.define('Spm.controller.MyItems', {
             selector: '#tab-panel'
         }
     ],
+    myItemsTab: undefined,
 
     constructor: function (config) {
         this.mixins.serviceProblemClickHandler.constructor.call(this, config);
@@ -49,13 +50,14 @@ Ext.define('Spm.controller.MyItems', {
     onAuthenticated: function () {
         this.myItemsTab = Ext.widget('myItemsTabContent', {store: this.myItemsStore});
         var tabPanel = this.getTabPanel();
-        tabPanel.add(this.myItemsTab);
+        tabPanel.insert(0, this.myItemsTab);
         this.reloadMyItems();
     },
 
     onLoggedOut: function () {
         var tabPanel = this.getTabPanel();
         tabPanel.remove(this.myItemsTab);
+        this.myItemsTab = undefined;
     },
 
     onWorkItemHeld: function () {

@@ -24,8 +24,6 @@ Ext.define('Spm.view.queuedashboard.QueueDashboardTabContent', {
 
     border: 0,
 
-    closable: true,
-
     constructor: function () {
         this.mixins.isActionContext.constructor.call(this);
 

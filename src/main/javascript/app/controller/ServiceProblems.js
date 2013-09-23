@@ -30,6 +30,9 @@ Ext.define('Spm.controller.ServiceProblems', {
                 },
                 '#MyItems': {
                     displayServiceProblem: this.displayServiceProblem
+                },
+                '#Security': {
+                    loggedOut: this.onLoggedOut
                 }
             },
 
@@ -82,5 +85,12 @@ Ext.define('Spm.controller.ServiceProblems', {
     onWorkItemReleased: function (serviceProblemTab) {
         this.updateActionStates(serviceProblemTab);
         this.fireEvent('workItemReleased');
+    },
+
+    onLoggedOut: function() {
+        var tabPanel = this.getTabPanel();
+        this.activeServiceProblemTabs.each(function(item) {
+            tabPanel.remove(item);
+        });
     }
 });

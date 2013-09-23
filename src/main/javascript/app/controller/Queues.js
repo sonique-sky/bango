@@ -32,6 +32,9 @@ Ext.define('Spm.controller.Queues', {
             controller: {
                 '#MyQueues': {
                     queueSelected: this.onQueueSelected
+                },
+                '#Security': {
+                    loggedOut: this.onLoggedOut
                 }
             },
             component: {
@@ -81,5 +84,12 @@ Ext.define('Spm.controller.Queues', {
 
     isAQueueTab: function (tab) {
         return tab.isXType('queueTabContent');
+    },
+
+    onLoggedOut: function() {
+        var tabPanel = this.getTabPanel();
+        this.activeQueueTabs.each(function(item) {
+           tabPanel.remove(item);
+        });
     }
 });

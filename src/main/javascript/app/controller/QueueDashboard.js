@@ -11,6 +11,8 @@ Ext.define('Spm.controller.QueueDashboard', {
         'Spm.controller.mixins.ActionContextManager'
     ],
 
+    queueDashboard: undefined,
+
     init: function () {
         this.listen({
             controller: {
@@ -26,7 +28,7 @@ Ext.define('Spm.controller.QueueDashboard', {
         if (authenticatedAgent.hasPrivilege('ViewQueueDashboard')) {
             this.queueDashboard = Ext.widget('queueDashboard', {actionContextManager: this});
             var tabPanel = this.getTabPanel();
-            tabPanel.add(this.queueDashboard);
+            tabPanel.insert(1, this.queueDashboard);
         }
     },
 
@@ -34,6 +36,7 @@ Ext.define('Spm.controller.QueueDashboard', {
         if (this.queueDashboard) {
             var tabPanel = this.getTabPanel();
             tabPanel.remove(this.queueDashboard);
+            this.queueDashboard = undefined;
         }
     }
 });
