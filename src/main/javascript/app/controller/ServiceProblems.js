@@ -2,7 +2,8 @@ Ext.define('Spm.controller.ServiceProblems', {
     extend: 'Ext.app.Controller',
     alias: 'controller.serviceProblems',
     requires: [
-        'Spm.view.serviceproblem.ServiceProblemTabContent'
+        'Spm.view.serviceproblem.ServiceProblemTabContent',
+        'Spm.view.component.InfoMessage'
     ],
 
     mixins: [
@@ -73,7 +74,12 @@ Ext.define('Spm.controller.ServiceProblems', {
     },
 
     onServiceProblemPulled: function (serviceProblemTab) {
+        var serviceProblemId = serviceProblemTab.getServiceProblem().serviceProblemId();
+
         this.updateActionStates(serviceProblemTab);
+
+        Spm.view.component.InfoMessage.display('Service Problem Assigned', 'Service Problem [{0}] has been assigned to you.', serviceProblemId);
+
         this.fireEvent('serviceProblemPulled');
     },
 
@@ -87,9 +93,9 @@ Ext.define('Spm.controller.ServiceProblems', {
         this.fireEvent('workItemReleased');
     },
 
-    onLoggedOut: function() {
+    onLoggedOut: function () {
         var tabPanel = this.getTabPanel();
-        this.activeServiceProblemTabs.each(function(item) {
+        this.activeServiceProblemTabs.each(function (item) {
             tabPanel.remove(item);
         });
     }
