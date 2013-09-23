@@ -18,7 +18,8 @@ Ext.define('Spm.view.application.SpmViewport', {
 
             items: [
                 {
-                    xtype: 'appContainer'
+                    xtype: 'appContainer',
+                    agentStatusActionContextManager: me.agentStatusActionContextManager
                 }
             ]
         });

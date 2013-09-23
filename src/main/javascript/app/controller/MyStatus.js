@@ -9,6 +9,11 @@ Ext.define('Spm.controller.MyStatus', {
     models: [
         'Agent'
     ],
+
+    mixins: [
+        'Spm.controller.mixins.ActionContextManager'
+    ],
+
     stores: [
         'AuthenticatedAgent',
         'AgentQueues',
@@ -25,11 +30,6 @@ Ext.define('Spm.controller.MyStatus', {
 
     init: function () {
         this.listen({
-            component: {
-                'button#toggle-button': {
-                    click: this.onToggleAvailability
-                }
-            },
             controller: {
                 '#ServiceProblems': {
                     'serviceProblemPulled': this.refreshAgentState,
@@ -37,25 +37,27 @@ Ext.define('Spm.controller.MyStatus', {
                     'workItemReleased': this.refreshAgentState
                 },
                 '#Security': {
-                    'authenticated': this.refreshAgentState
+                    'authenticated': this.onAuthenticated
+                }
+            },
+            store: {
+                '#AgentState': {
+                    'refresh': this.onAgentStateLoaded
                 }
             }
         });
+    },
+
+    onAuthenticated: function () {
+        this.refreshAgentState();
+        this.updateActionStates(this.getAgentStatusPanel());
     },
 
     refreshAgentState: function () {
         this.getAgentStateStore().load();
     },
 
-    onToggleAvailability: function () {
-        var me = this;
-
-        var operation = Spm.proxy.ApiOperation.agentToggleAvailability();
-
-        Spm.proxy.AgentStateApiProxy.update(operation, function (operation) {
-            if (operation.wasSuccessful()) {
-                me.getAgentStateStore().loadRecords(operation.getResultSet().records);
-            }
-        }, this);
+    onAgentStateLoaded: function (agentStateStore) {
+        this.getAgentStatusPanel().updateState(agentStateStore.first().get('isAvailable'));
     }
 });

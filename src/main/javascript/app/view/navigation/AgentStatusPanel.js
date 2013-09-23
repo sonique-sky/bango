@@ -12,40 +12,45 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
     iconCls: 'icon-status',
     title: 'My Status',
 
+    registeredActions: undefined,
+
+    requires: [
+        'Spm.controller.action.ToggleAvailabilityAction'
+    ],
+
+    mixins: {
+        isActionContext: 'Spm.controller.mixins.IsActionContext'
+    },
+
+    constructor: function () {
+        this.mixins.isActionContext.constructor.call(this);
+
+        this.callParent(arguments);
+    },
+
     initComponent: function () {
         var me = this;
 
+        this.registeredActions = this.actionContextManager.registerActionsFor(this, [
+            'Spm.action.ToggleAvailabilityAction'
+        ]);
+
+        this.statusLabel = Ext.widget('label', {margin: '0 0 2 0'});
         Ext.applyIf(me, {
             items: [
+                this.statusLabel,
+                Ext.widget('button', this.registeredActions.actionNamed('toggle-availability')),
                 {
                     xtype: 'dataview',
                     flex: 1,
                     id: 'inbox-stats-view',
                     itemTpl: Ext.create('Ext.XTemplate',
-                            '<div>',
-                            '    <div class="{[this.labelClass(values.isAvailable)]}">{[this.labelText(values.isAvailable)]}</div>',
-                            '    <div id="toggle-button-wrapper"></div>',
-                            '	 <div id="inbox-stats">',
-                            '		<div id="inbox-active-value">{activeCount}</div><div id="inbox-active-label">Active Items:</div>',
-                            '		<div id="inbox-hold-value">{heldCount}</div><div id="inbox-hold-label">Held Items:</div>',
-                            '	</div>',
-                            '</div>',
-                            {
-                                labelClass: function (isAvailable) {
-                                    return isAvailable ? "availability-indicator-on" : "availability-indicator-off";
-                                },
-                                labelText: function (isAvailable) {
-                                    return isAvailable ? "Available" : "Unavailable";
-                                }
-                            }
+                            '<div id="inbox-stats">',
+                            '	<div id="inbox-active-value">{activeCount}</div><div id="inbox-active-label">Active Items:</div>',
+                            '	<div id="inbox-hold-value">{heldCount}</div><div id="inbox-hold-label">Held Items:</div>',
+                            '</div>'
                     ),
-                    store: 'AgentState',
-                    listeners: {
-                        refresh: {
-                            fn: me.renderAvailabilityButton,
-                            scope: me
-                        }
-                    }
+                    store: 'AgentState'
                 }
             ]
         });
@@ -53,15 +58,15 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
         me.callParent(arguments);
     },
 
-    renderAvailabilityButton: function (dataview) {
-        if (!dataview.getStore().isLoading()) {
-            Ext.destroy(this.toggleButton);
-            this.toggleButton = Ext.create('Ext.button.Button', {
-                renderTo: 'toggle-button-wrapper',
-                text: 'Toggle Availability',
-                width: '100%',
-                id: 'toggle-button'
-            });
+    updateState: function (isAvailable) {
+        if (isAvailable) {
+            this.statusLabel.removeCls('availability-indicator-off');
+            this.statusLabel.addCls('availability-indicator-on');
+            this.statusLabel.setText('Available');
+        } else {
+            this.statusLabel.removeCls('availability-indicator-on');
+            this.statusLabel.addCls('availability-indicator-off');
+            this.statusLabel.setText('Unavailable');
         }
     }
 

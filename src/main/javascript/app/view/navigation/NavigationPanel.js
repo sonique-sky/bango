@@ -24,7 +24,8 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
             },
             items: [
                 {
-                    xtype: 'agentStatusPanel'
+                    xtype: 'agentStatusPanel',
+                    actionContextManager: me.agentStatusActionContextManager
                 },
                 {
                     xtype: 'myQueuesPanel',

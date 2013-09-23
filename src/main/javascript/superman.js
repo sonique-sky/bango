@@ -24,6 +24,6 @@ Ext.application({
     ],
 
     launch: function () {
-        Ext.create('Spm.view.application.SpmViewport');
+        Ext.create('Spm.view.application.SpmViewport', {agentStatusActionContextManager: this.getMyStatusController()});
     }
 });
