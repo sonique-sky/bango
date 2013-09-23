@@ -64,6 +64,7 @@ Ext.define('Spm.controller.Security', {
         Ext.Ajax.request({
             url: 'j_spring_security_logout',
             success: function () {
+                this.fireEvent('loggedOut');
                 this.onAuthenticationRequired();
             },
             scope: this

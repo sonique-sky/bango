@@ -4,8 +4,6 @@ Ext.define('Spm.view.application.MyItemsTabContent', {
     title: 'My Items',
     iconCls: 'icon-my-items',
     initComponent: function () {
-        this.store = Spm.store.ServiceProblems.myItemsServiceProblemStore();
-
         Ext.apply(this, {
                     dockedItems: [
                         {
@@ -55,10 +53,6 @@ Ext.define('Spm.view.application.MyItemsTabContent', {
         );
 
         this.callParent(arguments);
-    },
-
-    loadMyItems: function () {
-        this.store.load();
     },
 
     onCellClicked: function (view, td, cellIndex, record) {

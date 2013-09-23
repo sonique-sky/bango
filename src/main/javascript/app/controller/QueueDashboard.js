@@ -15,7 +15,8 @@ Ext.define('Spm.controller.QueueDashboard', {
         this.listen({
             controller: {
                 '#Security': {
-                    authenticated: this.onAuthenticated
+                    authenticated: this.onAuthenticated,
+                    loggedOut: this.onLoggedOut
                 }
             }
         });
@@ -23,8 +24,16 @@ Ext.define('Spm.controller.QueueDashboard', {
 
     onAuthenticated: function (authenticatedAgent) {
         if (authenticatedAgent.hasPrivilege('ViewQueueDashboard')) {
+            this.queueDashboard = Ext.widget('queueDashboard', {actionContextManager: this});
             var tabPanel = this.getTabPanel();
-            tabPanel.add(Ext.widget('queueDashboard', {actionContextManager: this}));
+            tabPanel.add(this.queueDashboard);
+        }
+    },
+
+    onLoggedOut: function () {
+        if (this.queueDashboard) {
+            var tabPanel = this.getTabPanel();
+            tabPanel.remove(this.queueDashboard);
         }
     }
 });
