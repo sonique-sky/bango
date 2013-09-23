@@ -13,8 +13,6 @@ Ext.define('Spm.controller.action.ToggleAvailabilityAction', {
         this.callParent([
             {
                 name: Spm.action.ToggleAvailabilityAction.ACTION_NAME,
-                tooltip: 'Toggle Availability',
-                text: 'Toggle Availability'
             }
         ]);
     },

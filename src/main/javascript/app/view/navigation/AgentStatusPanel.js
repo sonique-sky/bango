@@ -36,10 +36,11 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
         ]);
 
         this.statusLabel = Ext.widget('label', {margin: '0 0 2 0'});
+        this.availabilityButton = Ext.widget('button', this.registeredActions.actionNamed('toggle-availability'));
         Ext.applyIf(me, {
             items: [
                 this.statusLabel,
-                Ext.widget('button', this.registeredActions.actionNamed('toggle-availability')),
+                this.availabilityButton,
                 {
                     xtype: 'dataview',
                     flex: 1,
@@ -63,10 +64,14 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
             this.statusLabel.removeCls('availability-indicator-off');
             this.statusLabel.addCls('availability-indicator-on');
             this.statusLabel.setText('Available');
+            this.availabilityButton.setText('Make Me Unavailable');
+            this.availabilityButton.setTooltip('Make Me Unavailable');
         } else {
             this.statusLabel.removeCls('availability-indicator-on');
             this.statusLabel.addCls('availability-indicator-off');
             this.statusLabel.setText('Unavailable');
+            this.availabilityButton.setText('Make Me Available');
+            this.availabilityButton.setTooltip('Make Me Available');
         }
     }
 
