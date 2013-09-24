@@ -43,6 +43,7 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
                 this.availabilityButton,
                 {
                     xtype: 'dataview',
+                    loadMask: false,
                     flex: 1,
                     id: 'inbox-stats-view',
                     itemTpl: Ext.create('Ext.XTemplate',
