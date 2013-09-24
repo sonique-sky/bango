@@ -28,6 +28,11 @@ Ext.define('Spm.controller.Searches', {
 
     init: function () {
         this.listen({
+            controller: {
+                '#Security': {
+                    loggedOut: this.onLoggedOut
+                }
+            },
             component: {
                 'searchResultTabContent': {
                     destroy: this.onSearchResultTabDestroyed,
@@ -75,5 +80,12 @@ Ext.define('Spm.controller.Searches', {
 
     createSearchResultTabFor: function (searchCriteria) {
         return Ext.widget('searchResultTabContent', {searchCriteria: searchCriteria});
+    },
+
+    onLoggedOut: function () {
+        var tabPanel = this.getTabPanel();
+        this.activeSearchResultTabs.each(function (item) {
+            tabPanel.remove(item);
+        });
     }
 });
