@@ -1,15 +1,33 @@
 Ext.define('Spm.view.navigation.SearchPanel', {
     extend: 'Ext.form.Panel',
     alias: 'widget.searchPanel',
-    requires: ['Ext.form.RadioGroup'],
+    requires: [
+        'Ext.form.RadioGroup',
+        'Spm.controller.action.SearchAction'
+    ],
 
     cls: 'search-panel',
     iconCls: 'icon-search',
     title: 'Search',
     layout: 'vbox',
 
+    mixins: {
+        isActionContext: 'Spm.controller.mixins.IsActionContext'
+    },
+
+    constructor: function () {
+        this.mixins.isActionContext.constructor.call(this);
+
+        this.callParent(arguments);
+    },
+
     initComponent: function () {
         var me = this;
+
+        this.registeredActions = this.actionContextManager.registerActionsFor(this, [
+            'Spm.action.SearchAction'
+        ]);
+        var searchButton = Ext.widget('button', this.registeredActions.actionNamed('search'));
 
         Ext.applyIf(me, {
             listeners: {
@@ -59,13 +77,7 @@ Ext.define('Spm.view.navigation.SearchPanel', {
                                 scope: me
                             }
                         },
-                        {
-                            xtype: 'button',
-                            text: 'Search',
-                            disabled: true,
-                            handler: me.onSearch,
-                            scope: me
-                        }
+                        searchButton
                     ]
                 }
             ]});
@@ -73,22 +85,13 @@ Ext.define('Spm.view.navigation.SearchPanel', {
         me.callParent(arguments);
     },
 
-    onValidityChange: function(form, valid) {
-        this.down('button').setDisabled(!valid);
-    },
-
-    onSearch: function () {
-        var radioGroup = this.down('radiogroup');
-        var textField = this.down('textfield');
-
-        if (this.isValid()) {
-            this.fireEvent('searchStarted', Ext.apply(radioGroup.getValue(), {searchParameter: textField.getValue()}));
-        }
+    onValidityChange: function () {
+        this.actionContextManager.updateActionStates(this)
     },
 
     onSpecialKey: function (field, e) {
         if (e.getKey() === e.ENTER) {
-            this.onSearch();
+            this.registeredActions.actionNamed('search').handleAction(field);
         }
     }
 });

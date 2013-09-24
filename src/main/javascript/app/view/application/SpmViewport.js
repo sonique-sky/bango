@@ -15,11 +15,11 @@ Ext.define('Spm.view.application.SpmViewport', {
         var me = this;
 
         Ext.applyIf(me, {
-
             items: [
                 {
                     xtype: 'appContainer',
-                    agentStatusActionContextManager: me.agentStatusActionContextManager
+                    agentStatusActionContextManager: me.agentStatusActionContextManager,
+                    searchesActionContextManager: me.searchesActionContextManager
                 }
             ]
         });

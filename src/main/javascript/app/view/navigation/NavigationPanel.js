@@ -33,6 +33,7 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
                 },
                 {
                     xtype: 'searchPanel',
+                    actionContextManager: me.searchesActionContextManager,
                     collapsible:true
                 }
             ]

@@ -27,6 +27,9 @@ Ext.application({
     ],
 
     launch: function () {
-        Ext.create('Spm.view.application.SpmViewport', {agentStatusActionContextManager: this.getAgentStatusController()});
+        Ext.create('Spm.view.application.SpmViewport', {
+            agentStatusActionContextManager: this.getAgentStatusController(),
+            searchesActionContextManager: this.getSearchesController()
+        });
     }
 });
