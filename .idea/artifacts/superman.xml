@@ -2,10 +2,10 @@
   <artifact type="exploded-war" name="superman">
     <output-path>$PROJECT_DIR$/target/exploded/superman</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="bango/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="bango" />
+          <element id="module-output" name="bango-web" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
@@ -33,6 +33,7 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.2.3" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="bango-web/web/Web" />
     </root>
   </artifact>
 </component>
