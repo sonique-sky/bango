@@ -22,7 +22,6 @@
         <ext.cmd.version>3.1.2.342</ext.cmd.version>
     </properties>
 
-
     <dependencyManagement>
         <dependencies>
             <dependency>
