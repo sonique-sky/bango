@@ -8,6 +8,12 @@ Ext.require('Spm.view.application.SpmViewport');
 
 Ext.application({
     name: 'Spm',
+    paths: {
+        'Ext.ux.window': 'app/thirdparty'
+    },
+    requires: [
+        'Spm.overrides.AbstractStore'
+    ],
     controllers: [
         'Errors',
         'MyQueues',
@@ -18,9 +24,6 @@ Ext.application({
         'Searches',
         'MyItems',
         'QueueDashboard'
-    ],
-    requires: [
-            'Spm.overrides.AbstractStore'
     ],
 
     launch: function () {

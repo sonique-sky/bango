@@ -5,3 +5,23 @@ body {
 .superman-app-container {
   background: transparent;
 }
+
+.ux-notification-light .x-window-header {
+	background-color: transparent;
+}
+
+body .ux-notification-light {
+	background-image: url('images/fader.png');
+}
+
+.icon-info-notification {
+    background-image: url('images/information.png');
+}
+
+.ux-notification-light .x-window-body {
+	text-align: center;
+	padding: 15px 5px 18px 5px;
+	width: 200px;
+	background-color: transparent;
+	border: 0px solid white;
+}

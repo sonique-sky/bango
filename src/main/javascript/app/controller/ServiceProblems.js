@@ -3,7 +3,7 @@ Ext.define('Spm.controller.ServiceProblems', {
     alias: 'controller.serviceProblems',
     requires: [
         'Spm.view.serviceproblem.ServiceProblemTabContent',
-        'Spm.view.component.InfoMessage'
+        'Spm.view.component.Notification'
     ],
 
     mixins: [
@@ -78,7 +78,7 @@ Ext.define('Spm.controller.ServiceProblems', {
 
         this.updateActionStates(serviceProblemTab);
 
-        Spm.view.component.InfoMessage.display('Service Problem Assigned', 'Service Problem [{0}] has been assigned to you.', serviceProblemId);
+        Spm.component.Notification.info('Service Problem Assigned', 'Service Problem [{0}] has been assigned to you.', serviceProblemId);
 
         this.fireEvent('serviceProblemPulled');
     },
