@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/bango.iml" filepath="$PROJECT_DIR$/bango.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bango-js/bango-js.iml" filepath="$PROJECT_DIR$/bango-js/bango-js.iml" />
     </modules>
   </component>
 </project>

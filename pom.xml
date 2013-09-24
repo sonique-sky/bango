@@ -6,7 +6,11 @@
 
     <groupId>bango</groupId>
     <artifactId>bango</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>bango-js</module>
+    </modules>
 
     <properties>
         <jetty.version>8.1.8.v20121106</jetty.version>
