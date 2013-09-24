@@ -1,13 +1,21 @@
 package sonique.bango;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import sonique.bango.driver.SupermanApp;
 
 public class BaseBangoTest {
-    protected static SupermanApp supermanApp;
+
+    private static BangoTestRunner bangoTestRunner;
 
     @BeforeClass
-    public static void createSupermanApp() throws Exception {
-        supermanApp = new SupermanApp();
+    public static void startBango() throws Exception {
+        bangoTestRunner = new BangoTestRunner();
+
+        bangoTestRunner.start();
+    }
+
+    @AfterClass
+    public static void stopBango() throws Exception {
+        bangoTestRunner.stop();
     }
 }

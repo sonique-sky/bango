@@ -3,6 +3,9 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <type id="JRUBY" />
+  </component>
   <component name="IdProvider" IDEtalkID="97A37B6C9CA838B0D3BBEFB0CAB7BEAA" />
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
