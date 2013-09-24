@@ -11,5 +11,66 @@
 
     <artifactId>bango-js</artifactId>
 
+    <build>
+        <finalName>superman-client</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>bango-assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+
+                <executions>
+                    <execution>
+                        <id>compile-extjs</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <property name="cmd.dir" value="${java.io.tmpdir}/ext-cmd/${ext.cmd.version}"/>
+                                <property name="build.dir" value="${basedir}/target/superman"/>
+
+                                <delete dir="${java.io.tmpdir}/ext-cmd"/>
+                                <get src="http://repo.sns.sky.com:8081/artifactory/ext-releases-local/com/sencha/ext-cmd/${ext.cmd.version}/ext-cmd-${ext.cmd.version}.zip"
+                                     dest="${java.io.tmpdir}/ext-cmd.zip"/>
+                                <unzip src="${java.io.tmpdir}/ext-cmd.zip" dest="${java.io.tmpdir}/ext-cmd"/>
+
+                                <ant antfile="src/main/javascript/build.xml" target="build" useNativeBasedir="true"/>
+
+                                <delete dir="${java.io.tmpdir}/ext-cmd"/>
+                                <delete file="${java.io.tmpdir}/ext-cmd.zip"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
