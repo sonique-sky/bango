@@ -6,6 +6,7 @@ Ext.define('Spm.controller.Searches', {
         'Spm.proxy.ServiceProblemApiProxy',
         'Spm.proxy.ApiOperation'
     ],
+
     mixins: {
         serviceProblemClickHandler: 'Spm.controller.mixins.ServiceProblemClickHandler',
         actionContextManager: 'Spm.controller.mixins.ActionContextManager'
