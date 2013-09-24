@@ -24,11 +24,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="bango" />
+        <module name="bango-js" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="bango" target="1.6" />
+      <module name="bango-js" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

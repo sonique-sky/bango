@@ -2,5 +2,5 @@
 .idea/libraries
 target/
 !src/main/javascript/ext/src/fx/target/
-build/
+bango-js/src/main/javascript/build/
 .DS_Store
