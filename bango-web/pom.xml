@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>bango-web</artifactId>
+    <name>Bango Web</name>
 
 
 </project>

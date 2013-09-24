@@ -5,26 +5,64 @@
  * metadata-driven class system features 
  */
 Ext.Loader.addClassPathMappings({
-  " Ext.Msg": "../../ext/src/window/MessageBox.js",
+  "Ext.ux.BoxReorderer": "../../ext/src/ux/BoxReorderer.js",
+  "Ext.ux.CellDragDrop": "../../ext/src/ux/CellDragDrop.js",
+  "Ext.ux.SlidingPager": "../../ext/src/ux/SlidingPager.js",
+  "Ext.ux.GroupTabRenderer": "../../ext/src/ux/GroupTabRenderer.js",
+  "Ext.ux.TabReorderer": "../../ext/src/ux/TabReorderer.js",
+  "Ext.rtl.EventObjectImpl": "../../ext/src/rtl/EventObject.js",
+  "Ext.ux.layout": "../../ext/src/ux/layout",
+  "Ext.ux.FieldReplicator": "../../ext/src/ux/FieldReplicator.js",
+  "Ext.ux.RowExpander": "../../ext/src/ux/RowExpander.js",
+  "Ext.ux.data": "../../ext/src/ux/data",
+  "Ext.ux.form": "../../ext/src/ux/form",
   "Ext": "../../ext/src",
   "Spm": "../../app",
-  "Ext.rtl.EventObjectImpl": "../../ext/src/rtl/EventObject.js"
+  "Ext.ux": "../../app",
+  "Ext.ux.ajax": "../../ext/src/ux/ajax",
+  "Ext.ux.ToolbarDroppable": "../../ext/src/ux/ToolbarDroppable.js",
+  "Ext.ux.event": "../../ext/src/ux/event",
+  "Ext.ux.GMapPanel": "../../ext/src/ux/GMapPanel.js",
+  "Ext.ux.TabScrollerMenu": "../../ext/src/ux/TabScrollerMenu.js",
+  "Ext.ux.IFrame": "../../ext/src/ux/IFrame.js",
+  "Ext.ux.TabCloseMenu": "../../ext/src/ux/TabCloseMenu.js",
+  "Ext.ux.GroupTabPanel": "../../ext/src/ux/GroupTabPanel.js",
+  "Ext.ux.LiveSearchGridPanel": "../../ext/src/ux/LiveSearchGridPanel.js",
+  "Ext.ux.DataTip": "../../ext/src/ux/DataTip.js",
+  "Ext.ux.dd": "../../ext/src/ux/dd",
+  " Ext.Msg": "../../ext/src/window/MessageBox.js",
+  "Ext.ux.TreePicker": "../../ext/src/ux/TreePicker.js",
+  "Ext.ux.statusbar": "../../ext/src/ux/statusbar",
+  "Ext.ux.PreviewPlugin": "../../ext/src/ux/PreviewPlugin.js",
+  "Ext.ux.grid": "../../ext/src/ux/grid",
+  "Ext.ux.Spotlight": "../../ext/src/ux/Spotlight.js",
+  "Ext.ux.DataView": "../../ext/src/ux/DataView",
+  "Ext.ux.ProgressBarPager": "../../ext/src/ux/ProgressBarPager.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.grid.TransformGrid": [],
   "Ext.ux.ajax.DataSimlet": [],
   "Spm.store.AllQueues": [],
+  "Spm.controller.action.queuedashboard.RefreshDashboardAction": [
+    "Spm.action.RefreshDashboardAction"
+  ],
   "Spm.model.Agent": [],
+  "Spm.model.QueueDashboardEntry": [],
+  "Spm.view.application.MyItemsTabContent": [],
+  "Spm.view.queue.BulkTransferDialog": [],
   "Ext.ux.event.Driver": [],
   "Ext.ux.ajax.XmlSimlet": [],
-  "Spm.view.queue.BulkTransferDialog": [],
   "Ext.ux.DataView.DragSelector": [],
   "Spm.view.navigation.MyQueuesPanel": [],
   "Spm.controller.Searches": [],
+  "Spm.view.queuedashboard.QueueDashboardTabContent": [],
   "Ext.ux.grid.menu.ListMenu": [],
   "Spm.view.application.SpmViewport": [],
   "Ext.ux.form.MultiSelect": [
     "Ext.ux.Multiselect"
+  ],
+  "Spm.controller.action.ToggleAvailabilityAction": [
+    "Spm.action.ToggleAvailabilityAction"
   ],
   "Spm.model.WorkItem": [],
   "Spm.view.component.StandardDialog": [],
@@ -33,29 +71,28 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.model.EventHistoryItem": [],
   "Spm.view.queue.ActionToolbar": [],
   "Spm.view.serviceproblem.WorkItemPanel": [],
-  "Ext.ux.ajax.SimXhr": [],
   "Spm.view.queue.BulkClearDialog": [],
+  "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [],
-  "Ext.ux.ProgressBarPager": [],
   "Spm.controller.action.queue.BulkTransferAction": [],
+  "Ext.ux.ProgressBarPager": [],
   "Ext.ux.CellDragDrop": [],
   "Ext.ux.ajax.Simlet": [],
   "Ext.ux.SlidingPager": [],
   "Ext.ux.TabReorderer": [],
-  "Ext.ux.grid.filter.NumericFilter": [],
   "Spm.view.queue.QueueTabContent": [],
+  "Ext.ux.grid.filter.NumericFilter": [],
   "Ext.ux.event.Recorder": [],
+  "Spm.controller.mixins.ActionContextManager": [],
   "Spm.controller.action.serviceproblem.PullServiceProblemAction": [
     "Spm.action.PullServiceProblemAction"
   ],
   "Ext.ux.ajax.SimManager": [],
+  "Spm.controller.mixins.RegisteredActions": [],
   "Spm.model.Queue": [],
   "Ext.ux.grid.filter.BooleanFilter": [],
   "Spm.controller.Errors": [],
   "Ext.ux.TabScrollerMenu": [],
-  "Spm.controller.action.serviceproblem.HoldWorkItemAction": [
-    "Spm.action.HoldWorkItemAction"
-  ],
   "Ext.ux.IFrame": [],
   "Spm.store.EventHistory": [],
   "Spm.controller.action.serviceproblem.RefreshAction": [
@@ -71,21 +108,27 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.LiveSearchGridPanel": [],
   "Ext.ux.grid.filter.DateFilter": [],
   "Ext.ux.TreePicker": [],
+  "Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction": [
+    "Spm.action.HoldAndReleaseWorkItemAction"
+  ],
   "Spm.store.AuthenticatedAgent": [],
   "Spm.view.serviceproblem.ServiceProblemTabContent": [],
   "Ext.ux.data.PagingMemoryProxy": [
     "Ext.data.PagingMemoryProxy"
   ],
   "Ext.ux.BoxReorderer": [],
-  "Ext.ux.grid.filter.Filter": [],
   "Spm.store.ServiceProblems": [],
+  "Ext.ux.grid.filter.Filter": [],
   "Ext.ux.GroupTabRenderer": [],
   "Spm.proxy.AgentStateApiProxy": [],
   "Spm.view.application.AppContainer": [],
   "Spm.controller.Security": [],
+  "Spm.view.component.Notification": [
+    "Spm.component.Notification"
+  ],
   "Spm.view.serviceproblem.ActionToolbar": [],
-  "Spm.proxy.ServiceProblemApiProxy": [],
   "Spm.controller.Queues": [],
+  "Spm.proxy.ServiceProblemApiProxy": [],
   "Ext.ux.FieldReplicator": [],
   "Spm.controller.action.serviceproblem.RefreshEventHistoryAction": [
     "Spm.action.RefreshEventHistoryAction"
@@ -93,9 +136,12 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.grid.filter.ListFilter": [],
   "Spm.view.component.AssociationCapableForm": [],
   "Ext.ux.dd.PanelFieldDragZone": [],
+  "Spm.controller.MyItems": [],
   "Spm.proxy.ApiProxy": [],
-  "Spm.model.ServiceProblem": [],
   "Spm.view.application.HeaderView": [],
+  "Spm.model.ServiceProblem": [],
+  "Spm.view.queuedashboard.ActionToolbar": [],
+  "Spm.store.QueueDashboardEntries": [],
   "Ext.ux.GMapPanel": [],
   "Spm.controller.action.BaseAction": [],
   "Spm.controller.mixins.ServiceProblemClickHandler": [],
@@ -103,8 +149,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.view.serviceproblem.EventHistoryPanel": [],
   "Ext.ux.GroupTabPanel": [],
   "Ext.ux.DataView.LabelEditor": [],
-  "Spm.overrides.AbstractStore": [],
   "Spm.controller.action.queue.BulkClearAction": [],
+  "Spm.overrides.AbstractStore": [],
   "Ext.ux.grid.filter.StringFilter": [],
   "Spm.view.navigation.AgentStatusPanel": [],
   "Ext.ux.statusbar.ValidationStatus": [],
@@ -117,36 +163,39 @@ Ext.ClassManager.addNameAlternateMappings({
     "Ext.ux.StatusBar"
   ],
   "Spm.view.renderer.NestedPropertyRenderer": [],
-  "Spm.controller.action.serviceproblem.UnholdWorkItemAction": [
-    "Spm.action.UnholdWorkItemAction"
-  ],
   "Ext.ux.grid.menu.RangeMenu": [],
   "Spm.store.AgentQueues": [],
   "Spm.controller.action.queue.BaseBulkAction": [],
   "Ext.ux.RowExpander": [],
   "Spm.domain.ProxyEventDomain": [],
   "Ext.ux.event.Player": [],
+  "Spm.controller.action.SearchAction": [
+    "Spm.action.SearchAction"
+  ],
   "Spm.view.navigation.SearchPanel": [],
-  "Spm.controller.mixins.HasRegisteredActions": [],
   "Ext.ux.ToolbarDroppable": [],
   "Ext.ux.event.Maker": [],
+  "Ext.ux.window.Notification": [],
   "Spm.store.AgentState": [],
   "Ext.ux.DataView.Draggable": [],
   "Spm.controller.MyQueues": [],
+  "Spm.proxy.QueueDashboardEntryApiProxy": [],
   "Ext.ux.TabCloseMenu": [],
   "Spm.controller.ServiceProblems": [],
   "Spm.proxy.ApiOperation": [],
+  "Spm.controller.AgentStatus": [],
   "Ext.ux.DataTip": [],
   "Ext.ux.grid.filter.DateTimeFilter": [],
   "Ext.ux.form.ItemSelector": [
     "Ext.ux.ItemSelector"
   ],
   "Ext.ux.ajax.JsonSimlet": [],
+  "Spm.controller.mixins.IsActionContext": [],
   "Spm.view.navigation.NavigationPanel": [],
   "Ext.ux.Spotlight": [],
   "Ext.ux.grid.FiltersFeature": [],
-  "Spm.view.serviceproblem.eventhistory.AddNoteDialog": [],
-  "Spm.controller.MyStatus": []
+  "Spm.controller.QueueDashboard": [],
+  "Spm.view.serviceproblem.eventhistory.AddNoteDialog": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.grid.TransformGrid": [],
@@ -154,15 +203,22 @@ Ext.ClassManager.addNameAliasMappings({
   "Spm.store.AllQueues": [
     "store.allQueues"
   ],
+  "Spm.controller.action.queuedashboard.RefreshDashboardAction": [],
   "Spm.model.Agent": [
     "model.agent"
+  ],
+  "Spm.model.QueueDashboardEntry": [
+    "model.queueDashboardEntry"
+  ],
+  "Spm.view.application.MyItemsTabContent": [
+    "widget.myItemsTabContent"
+  ],
+  "Spm.view.queue.BulkTransferDialog": [
+    "widget.bulkTransferDialog"
   ],
   "Ext.ux.event.Driver": [],
   "Ext.ux.ajax.XmlSimlet": [
     "simlet.xml"
-  ],
-  "Spm.view.queue.BulkTransferDialog": [
-    "widget.bulkTransferDialog"
   ],
   "Ext.ux.DataView.DragSelector": [],
   "Spm.view.navigation.MyQueuesPanel": [
@@ -170,6 +226,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Spm.controller.Searches": [
     "controller.searches"
+  ],
+  "Spm.view.queuedashboard.QueueDashboardTabContent": [
+    "widget.queueDashboard"
   ],
   "Ext.ux.grid.menu.ListMenu": [],
   "Spm.view.application.SpmViewport": [
@@ -179,6 +238,7 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.multiselect",
     "widget.multiselectfield"
   ],
+  "Spm.controller.action.ToggleAvailabilityAction": [],
   "Spm.model.WorkItem": [
     "model.workItem"
   ],
@@ -196,15 +256,15 @@ Ext.ClassManager.addNameAliasMappings({
   "Spm.view.serviceproblem.WorkItemPanel": [
     "widget.workItemPanel"
   ],
-  "Ext.ux.ajax.SimXhr": [],
   "Spm.view.queue.BulkClearDialog": [
     "widget.bulkClearDialog"
   ],
+  "Ext.ux.ajax.SimXhr": [],
   "Ext.ux.event.RecorderManager": [
     "widget.eventrecordermanager"
   ],
-  "Ext.ux.ProgressBarPager": [],
   "Spm.controller.action.queue.BulkTransferAction": [],
+  "Ext.ux.ProgressBarPager": [],
   "Ext.ux.CellDragDrop": [
     "plugin.celldragdrop"
   ],
@@ -213,15 +273,17 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Ext.ux.SlidingPager": [],
   "Ext.ux.TabReorderer": [],
-  "Ext.ux.grid.filter.NumericFilter": [
-    "gridfilter.numeric"
-  ],
   "Spm.view.queue.QueueTabContent": [
     "widget.queueTabContent"
   ],
+  "Ext.ux.grid.filter.NumericFilter": [
+    "gridfilter.numeric"
+  ],
   "Ext.ux.event.Recorder": [],
+  "Spm.controller.mixins.ActionContextManager": [],
   "Spm.controller.action.serviceproblem.PullServiceProblemAction": [],
   "Ext.ux.ajax.SimManager": [],
+  "Spm.controller.mixins.RegisteredActions": [],
   "Spm.model.Queue": [
     "model.queue"
   ],
@@ -234,7 +296,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.TabScrollerMenu": [
     "plugin.tabscrollermenu"
   ],
-  "Spm.controller.action.serviceproblem.HoldWorkItemAction": [],
   "Ext.ux.IFrame": [
     "widget.uxiframe"
   ],
@@ -258,6 +319,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.TreePicker": [
     "widget.treepicker"
   ],
+  "Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction": [],
   "Spm.store.AuthenticatedAgent": [
     "store.authenticatedAgent"
   ],
@@ -268,10 +330,10 @@ Ext.ClassManager.addNameAliasMappings({
     "proxy.pagingmemory"
   ],
   "Ext.ux.BoxReorderer": [],
-  "Ext.ux.grid.filter.Filter": [],
   "Spm.store.ServiceProblems": [
     "store.serviceProblems"
   ],
+  "Ext.ux.grid.filter.Filter": [],
   "Ext.ux.GroupTabRenderer": [
     "plugin.grouptabrenderer"
   ],
@@ -282,13 +344,14 @@ Ext.ClassManager.addNameAliasMappings({
   "Spm.controller.Security": [
     "controller.security"
   ],
+  "Spm.view.component.Notification": [],
   "Spm.view.serviceproblem.ActionToolbar": [
     "widget.serviceProblemTabToolbar"
   ],
-  "Spm.proxy.ServiceProblemApiProxy": [],
   "Spm.controller.Queues": [
     "controller.queues"
   ],
+  "Spm.proxy.ServiceProblemApiProxy": [],
   "Ext.ux.FieldReplicator": [],
   "Spm.controller.action.serviceproblem.RefreshEventHistoryAction": [],
   "Ext.ux.grid.filter.ListFilter": [
@@ -298,12 +361,21 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.associationCapableForm"
   ],
   "Ext.ux.dd.PanelFieldDragZone": [],
+  "Spm.controller.MyItems": [
+    "controller.myItems"
+  ],
   "Spm.proxy.ApiProxy": [],
+  "Spm.view.application.HeaderView": [
+    "widget.headerView"
+  ],
   "Spm.model.ServiceProblem": [
     "model.serviceProblem"
   ],
-  "Spm.view.application.HeaderView": [
-    "widget.headerView"
+  "Spm.view.queuedashboard.ActionToolbar": [
+    "widget.queueDashboardToolbar"
+  ],
+  "Spm.store.QueueDashboardEntries": [
+    "store.queueDashboardEntries"
   ],
   "Ext.ux.GMapPanel": [
     "widget.gmappanel"
@@ -320,8 +392,8 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.grouptabpanel"
   ],
   "Ext.ux.DataView.LabelEditor": [],
-  "Spm.overrides.AbstractStore": [],
   "Spm.controller.action.queue.BulkClearAction": [],
+  "Spm.overrides.AbstractStore": [],
   "Ext.ux.grid.filter.StringFilter": [
     "gridfilter.string"
   ],
@@ -346,7 +418,6 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.statusbar"
   ],
   "Spm.view.renderer.NestedPropertyRenderer": [],
-  "Spm.controller.action.serviceproblem.UnholdWorkItemAction": [],
   "Ext.ux.grid.menu.RangeMenu": [],
   "Spm.store.AgentQueues": [
     "store.agentQueues"
@@ -355,12 +426,15 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.RowExpander": [],
   "Spm.domain.ProxyEventDomain": [],
   "Ext.ux.event.Player": [],
+  "Spm.controller.action.SearchAction": [],
   "Spm.view.navigation.SearchPanel": [
     "widget.searchPanel"
   ],
-  "Spm.controller.mixins.HasRegisteredActions": [],
   "Ext.ux.ToolbarDroppable": [],
   "Ext.ux.event.Maker": [],
+  "Ext.ux.window.Notification": [
+    "widget.uxNotification"
+  ],
   "Spm.store.AgentState": [
     "store.agentState"
   ],
@@ -368,6 +442,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Spm.controller.MyQueues": [
     "controller.myQueues"
   ],
+  "Spm.proxy.QueueDashboardEntryApiProxy": [],
   "Ext.ux.TabCloseMenu": [
     "plugin.tabclosemenu"
   ],
@@ -375,6 +450,9 @@ Ext.ClassManager.addNameAliasMappings({
     "controller.serviceProblems"
   ],
   "Spm.proxy.ApiOperation": [],
+  "Spm.controller.AgentStatus": [
+    "controller.agentStatus"
+  ],
   "Ext.ux.DataTip": [
     "plugin.datatip"
   ],
@@ -388,6 +466,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.ajax.JsonSimlet": [
     "simlet.json"
   ],
+  "Spm.controller.mixins.IsActionContext": [],
   "Spm.view.navigation.NavigationPanel": [
     "widget.navigationPanel"
   ],
@@ -395,10 +474,10 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.grid.FiltersFeature": [
     "feature.filters"
   ],
+  "Spm.controller.QueueDashboard": [
+    "controller.queueDashboard"
+  ],
   "Spm.view.serviceproblem.eventhistory.AddNoteDialog": [
     "widget.addNoteDialog"
-  ],
-  "Spm.controller.MyStatus": [
-    "controller.myStatus"
   ]
 });
