@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>bango-js</module>
+        <module>bango-web</module>
     </modules>
 
     <properties>

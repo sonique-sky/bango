@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/bango.iml" filepath="$PROJECT_DIR$/bango.iml" />
       <module fileurl="file://$PROJECT_DIR$/bango-js/bango-js.iml" filepath="$PROJECT_DIR$/bango-js/bango-js.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bango-web/bango-web.iml" filepath="$PROJECT_DIR$/bango-web/bango-web.iml" />
     </modules>
   </component>
 </project>
