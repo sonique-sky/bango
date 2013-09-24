@@ -65,13 +65,11 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
             this.statusLabel.addCls('availability-indicator-on');
             this.statusLabel.setText('Available');
             this.availabilityButton.setText('Make Me Unavailable');
-            this.availabilityButton.setTooltip('Make Me Unavailable');
         } else {
             this.statusLabel.removeCls('availability-indicator-on');
             this.statusLabel.addCls('availability-indicator-off');
             this.statusLabel.setText('Unavailable');
             this.availabilityButton.setText('Make Me Available');
-            this.availabilityButton.setTooltip('Make Me Available');
         }
     }
 

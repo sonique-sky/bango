@@ -1,6 +1,6 @@
-Ext.define('Spm.controller.MyStatus', {
+Ext.define('Spm.controller.AgentStatus', {
     extend: 'Ext.app.Controller',
-    alias: 'controller.myStatus',
+    alias: 'controller.agentStatus',
 
     requires: [
         'Spm.proxy.AgentStateApiProxy'

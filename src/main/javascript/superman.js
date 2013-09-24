@@ -17,7 +17,7 @@ Ext.application({
     controllers: [
         'Errors',
         'MyQueues',
-        'MyStatus',
+        'AgentStatus',
         'Security',
         'Queues',
         'ServiceProblems',
@@ -27,6 +27,6 @@ Ext.application({
     ],
 
     launch: function () {
-        Ext.create('Spm.view.application.SpmViewport', {agentStatusActionContextManager: this.getMyStatusController()});
+        Ext.create('Spm.view.application.SpmViewport', {agentStatusActionContextManager: this.getAgentStatusController()});
     }
 });
