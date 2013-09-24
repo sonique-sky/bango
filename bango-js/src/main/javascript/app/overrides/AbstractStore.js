@@ -37,4 +37,4 @@ Ext.define('Spm.overrides.AbstractStore', {
 
         return me;
     }
-})
+});

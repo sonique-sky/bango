@@ -39,5 +39,4 @@ Ext.define('Spm.store.AuthenticatedAgent', {
     authenticatedAgent: function () {
         return this.first();
     }
-
 });

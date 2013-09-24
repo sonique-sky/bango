@@ -81,7 +81,8 @@ Ext.define('Spm.view.navigation.SearchPanel', {
                         searchButton
                     ]
                 }
-            ]});
+            ]
+        });
 
         me.callParent(arguments);
     },

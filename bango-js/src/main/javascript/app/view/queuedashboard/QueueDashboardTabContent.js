@@ -79,5 +79,4 @@ Ext.define('Spm.view.queuedashboard.QueueDashboardTabContent', {
     selectedServiceProblems: function () {
         return this.down('gridpanel').getSelectionModel().getSelection();
     }
-})
-;
+});

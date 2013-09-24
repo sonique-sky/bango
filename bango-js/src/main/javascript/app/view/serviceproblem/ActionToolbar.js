@@ -37,5 +37,4 @@ Ext.define('Spm.view.serviceproblem.ActionToolbar', {
 
         this.callParent(arguments);
     }
-
 });

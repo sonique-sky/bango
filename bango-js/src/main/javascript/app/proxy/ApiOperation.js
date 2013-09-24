@@ -79,5 +79,4 @@ Ext.define('Spm.proxy.ApiOperation', {
     },
 
     parameterNames: []
-
 });

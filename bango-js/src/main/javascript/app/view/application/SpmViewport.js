@@ -26,5 +26,4 @@ Ext.define('Spm.view.application.SpmViewport', {
 
         me.callParent(arguments);
     }
-
 });

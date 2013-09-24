@@ -42,5 +42,4 @@ Ext.define('Spm.view.application.AppContainer', {
 
         me.callParent(arguments);
     }
-
 });
