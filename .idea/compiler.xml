@@ -25,6 +25,8 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="bango-js" />
+        <module name="bango-test" />
+        <module name="bango-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -11,6 +11,7 @@
     <modules>
         <module>bango-js</module>
         <module>bango-web</module>
+        <module>bango-test</module>
     </modules>
 
     <properties>
