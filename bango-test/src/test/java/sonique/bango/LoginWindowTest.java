@@ -2,20 +2,19 @@ package sonique.bango;
 
 import com.google.common.collect.Lists;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import sonique.bango.domain.Agent;
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.Role;
 import sonique.bango.driver.panel.LoginWindow;
-import sun.management.resources.agent;
+import sonique.bango.driver.panel.MessageBox;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.isEmptyString;
 import static sonique.bango.matcher.IsDisabledMatcher.isDisabled;
 import static sonique.bango.matcher.IsDisabledMatcher.isNotDisabled;
-import static sonique.bango.matcher.IsDisplayedMatcher.isNotDisplayed;
 import static sonique.bango.matcher.IsDisplayedMatcher.isDisplayed;
+import static sonique.bango.matcher.IsDisplayedMatcher.isNotDisplayed;
 
 public class LoginWindowTest extends BaseBangoTest {
 
@@ -24,12 +23,12 @@ public class LoginWindowTest extends BaseBangoTest {
     @Before
     public void setUp() throws Exception {
         loginWindow = supermanApp.loginWindow();
+        loginWindow.username().clear();
+        loginWindow.password().clear();
     }
 
     @Test
     public void loginButtonIsDisabledWhenNoFieldsPopulated() throws Exception {
-        loginWindow.username().clear();
-        loginWindow.password().clear();
         assertThat(loginWindow.loginButton(), isDisabled());
     }
 
@@ -60,7 +59,6 @@ public class LoginWindowTest extends BaseBangoTest {
         assertThat(loginWindow.loginButton(), isDisabled());
     }
 
-    @Ignore
     @Test
     public void showsErrorWhenIncorrectDetailsAreEntered() throws Exception {
         loginWindow.username().enter("wilbur");
@@ -68,7 +66,9 @@ public class LoginWindowTest extends BaseBangoTest {
 
         loginWindow.loginButton().click();
 
-        assertThat(supermanApp.notificationWindow(), isDisplayed());
+        MessageBox notificationWindow = supermanApp.messageBox();
+        assertThat(notificationWindow, isDisplayed());
+        notificationWindow.clickOk();
     }
 
     @Test

@@ -24,6 +24,6 @@ public class SupermanTextField implements SupermanField {
 
     @Override
     public void clear() {
-        inputElement.sendKeys("");
+        inputElement.clear();
     }
 }

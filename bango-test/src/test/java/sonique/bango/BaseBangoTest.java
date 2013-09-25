@@ -7,16 +7,17 @@ import sonique.bango.driver.SupermanApp;
 
 public class BaseBangoTest {
 
+    private static final int PORT = 8081;
     private static BangoTestRunner bangoTestRunner;
     protected static SupermanApp supermanApp;
 
     @BeforeClass
     public static void startBango() throws Exception {
-        bangoTestRunner = new BangoTestRunner();
+        bangoTestRunner = new BangoTestRunner(PORT);
 
         bangoTestRunner.start();
 
-        supermanApp = new SupermanApp();
+        supermanApp = new SupermanApp(PORT);
     }
 
     @AfterClass

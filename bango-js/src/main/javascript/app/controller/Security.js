@@ -21,11 +21,22 @@ Ext.define('Spm.controller.Security', {
     ],
 
     onPerformAuthentication: function (credentials) {
+        var me = this;
         Ext.Ajax.request({
             url: 'j_spring_security_check',
             params: credentials,
             success: function () {
-                this.onAuthenticated(false);
+                me.onAuthenticated(false);
+            },
+            failure: function (response) {
+                Ext.Msg.show({
+                    title: 'Error',
+                    msg: response.statusText,
+                    buttons: Ext.Msg.OK,
+                    icon: Ext.Msg.WARNING,
+                    closable:false,
+                    callback: me.onAuthenticationRequired, scope: me
+                });
             },
             scope: this
         });

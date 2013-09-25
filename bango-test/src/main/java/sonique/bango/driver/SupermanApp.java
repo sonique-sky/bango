@@ -2,13 +2,13 @@ package sonique.bango.driver;
 
 import sonique.bango.driver.panel.HeaderPanel;
 import sonique.bango.driver.panel.LoginWindow;
-import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.panel.MessageBox;
 
 public class SupermanApp {
     private final SupermanWebDriver driver;
 
-    public SupermanApp() {
-        driver = new SupermanWebDriver("http://localhost:8080/superman");
+    public SupermanApp(int port) {
+        driver = new SupermanWebDriver(String.format("http://localhost:%d/superman", port));
     }
 
     public LoginWindow loginWindow() {
@@ -19,7 +19,7 @@ public class SupermanApp {
         return new HeaderPanel(driver);
     }
 
-    public SupermanElement notificationWindow() {
-        return null;
+    public MessageBox messageBox() {
+        return new MessageBox(driver);
     }
 }

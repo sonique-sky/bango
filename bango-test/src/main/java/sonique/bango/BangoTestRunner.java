@@ -13,14 +13,8 @@ public class BangoTestRunner {
     private final Server server;
     private final WebAppContext context;
 
-    public static void main(String[] args) throws InterruptedException {
-        new BangoTestRunner().start();
-
-        Thread.sleep(10000);
-    }
-
-    public BangoTestRunner() {
-        server = new Server(8080);
+    public BangoTestRunner(int port) {
+        server = new Server(port);
         context = new WebAppContext();
 
         context.setDescriptor("bango-web/src/main/webapp/WEB-INF/web.xml");

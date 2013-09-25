@@ -1,5 +1,6 @@
 package sonique.bango.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -58,6 +59,9 @@ public class SpringSecurityConfig {
     @Resource
     private SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider;
 
+    @Resource
+    private ObjectMapper objectMapper;
+
     // Don't change this bean name - or Spring will chastise you...
     @Bean
     public FilterChainProxy springSecurityFilterChain() throws Exception {
@@ -105,7 +109,7 @@ public class SpringSecurityConfig {
                 usernamePasswordAuthenticationFilter(providerManager, sessionControlStrategy),
                 new SecurityContextHolderAwareRequestFilter(),
                 new SessionManagementFilter(httpSessionSecurityContextRepository, sessionControlStrategy),
-                new SpmSecurityExceptionFilter(),
+                new SpmSecurityExceptionFilter(objectMapper),
                 filterSecurityInterceptor
         );
 
@@ -138,7 +142,7 @@ public class SpringSecurityConfig {
         filter.setAuthenticationFailureHandler(new AuthenticationFailureHandler() {
             @Override
             public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Bad Credentials");
             }
         });
         filter.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {

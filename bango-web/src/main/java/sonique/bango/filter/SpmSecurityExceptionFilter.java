@@ -1,5 +1,6 @@
 package sonique.bango.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.util.ThrowableAnalyzer;
@@ -14,7 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SpmSecurityExceptionFilter extends GenericFilterBean {
-    private ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
+    private final ObjectMapper objectMapper;
+    private final ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
+
+    public SpmSecurityExceptionFilter(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     @Override

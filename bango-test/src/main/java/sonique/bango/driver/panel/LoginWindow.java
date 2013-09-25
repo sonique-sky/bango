@@ -8,7 +8,7 @@ import sonique.bango.driver.component.SupermanTextField;
 public class LoginWindow extends SupermanPanel {
 
     public LoginWindow(SupermanWebDriver driver) {
-        super(driver.waitFor(By.cssSelector("div.x-window")));
+        super(driver.waitFor(By.cssSelector("div.simon-is-here")));
     }
 
     public SupermanTextField username() {
