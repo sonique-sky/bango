@@ -111,7 +111,7 @@ public class BangoApplicationContext {
 
     @Bean
     public AgentApiService agentApiService() {
-        return new MyAgentApiService(springSecurityAuthorisedActorProvider());
+        return new MyAgentApiService(springSecurityAuthorisedActorProvider(), serviceProblemStore());
     }
 
     @Bean

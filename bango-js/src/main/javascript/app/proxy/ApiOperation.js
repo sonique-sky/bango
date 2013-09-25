@@ -12,7 +12,7 @@ Ext.define('Spm.proxy.ApiOperation', {
         myItems: function (options) {
             return Ext.create(Spm.proxy.ApiOperation, Ext.applyIf({
                 action: 'read',
-                urlPattern: 'api/search/myItems'
+                urlPattern: 'api/agent/myItems'
             }, options));
         },
         serviceProblem: function (options) {
