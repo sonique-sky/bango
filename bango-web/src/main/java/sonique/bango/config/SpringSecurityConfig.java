@@ -1,6 +1,5 @@
 package sonique.bango.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -16,7 +15,6 @@ import org.springframework.security.authentication.dao.ReflectionSaltSource;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -38,7 +36,6 @@ import org.springframework.security.web.util.RequestMatcher;
 import sonique.bango.filter.SpmSecurityExceptionFilter;
 import sonique.bango.filter.SpmSessionControlFilter;
 import sonique.bango.filter.SpmSessionRegistry;
-import sonique.bango.store.AgentStore;
 import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
 import javax.annotation.Resource;
@@ -58,9 +55,6 @@ public class SpringSecurityConfig {
 
     @Resource
     private SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider;
-
-    @Resource
-    private ObjectMapper objectMapper;
 
     // Don't change this bean name - or Spring will chastise you...
     @Bean
@@ -109,7 +103,7 @@ public class SpringSecurityConfig {
                 usernamePasswordAuthenticationFilter(providerManager, sessionControlStrategy),
                 new SecurityContextHolderAwareRequestFilter(),
                 new SessionManagementFilter(httpSessionSecurityContextRepository, sessionControlStrategy),
-                new SpmSecurityExceptionFilter(objectMapper),
+                new SpmSecurityExceptionFilter(),
                 filterSecurityInterceptor
         );
 

@@ -9,13 +9,16 @@ import org.openqa.selenium.internal.seleniumemulation.JavascriptLibrary;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class SupermanWebDriver {
     private final WebDriverWait wait;
 
     public SupermanWebDriver(String url) {
-//        HtmlUnitDriver webDriver = new HtmlUnitDriver();
-        FirefoxDriver webDriver = new FirefoxDriver();
-//        webDriver.setJavascriptEnabled(true);
+        HtmlUnitDriver webDriver = new HtmlUnitDriver();
+//        FirefoxDriver webDriver = new FirefoxDriver();
+        webDriver.setJavascriptEnabled(true);
         wait = new WebDriverWait(webDriver, 5);
         webDriver.get(url);
     }

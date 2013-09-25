@@ -163,9 +163,9 @@ Ext.ClassManager.addNameAlternateMappings({
     "Ext.ux.StatusBar"
   ],
   "Spm.view.renderer.NestedPropertyRenderer": [],
+  "Spm.controller.action.queue.BaseBulkAction": [],
   "Ext.ux.grid.menu.RangeMenu": [],
   "Spm.store.AgentQueues": [],
-  "Spm.controller.action.queue.BaseBulkAction": [],
   "Ext.ux.RowExpander": [],
   "Spm.domain.ProxyEventDomain": [],
   "Ext.ux.event.Player": [],
@@ -418,11 +418,11 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.statusbar"
   ],
   "Spm.view.renderer.NestedPropertyRenderer": [],
+  "Spm.controller.action.queue.BaseBulkAction": [],
   "Ext.ux.grid.menu.RangeMenu": [],
   "Spm.store.AgentQueues": [
     "store.agentQueues"
   ],
-  "Spm.controller.action.queue.BaseBulkAction": [],
   "Ext.ux.RowExpander": [],
   "Spm.domain.ProxyEventDomain": [],
   "Ext.ux.event.Player": [],

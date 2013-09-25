@@ -15,10 +15,11 @@ public class BangoTestRunner {
 
     public BangoTestRunner(int port) {
         server = new Server(port);
+
         context = new WebAppContext();
 
         context.setDescriptor("bango-web/src/main/webapp/WEB-INF/web.xml");
-        context.setResourceBase("bango-js/src/main/javascript");
+        context.setResourceBase("bango-js/target/superman");
         context.setContextPath("/superman");
         context.setParentLoaderPriority(true);
         context.setOverrideDescriptors(newArrayList("bango-test/src/main/webapp/WEB-INF/web.xml"));
