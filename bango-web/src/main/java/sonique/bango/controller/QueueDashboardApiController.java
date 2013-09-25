@@ -16,6 +16,4 @@ public class QueueDashboardApiController {
 
     public QueueDashboardApiController() {
     }
-
-
 }

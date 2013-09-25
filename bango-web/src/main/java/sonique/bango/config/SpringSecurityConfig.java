@@ -56,9 +56,6 @@ import static java.util.Arrays.asList;
 public class SpringSecurityConfig {
 
     @Resource
-    private AgentStore agentStore;
-
-    @Resource
     private SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider;
 
     // Don't change this bean name - or Spring will chastise you...

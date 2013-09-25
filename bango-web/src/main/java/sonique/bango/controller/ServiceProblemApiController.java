@@ -1,91 +1,59 @@
 package sonique.bango.controller;
 
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Ordering;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sonique.bango.domain.EventHistoryItem;
 import sonique.bango.domain.ServiceProblem;
-import sonique.bango.store.ServiceProblemStore;
-import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
+import sonique.bango.service.MyServiceProblemApiService;
+import sonique.bango.service.ServiceProblemApiService;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static sonique.bango.controller.ServiceProblemApiController.EventHistoryByDate.byDate;
 
 @Controller
 public class ServiceProblemApiController {
 
-    private final ServiceProblemStore serviceProblemStore;
-    private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
+    private final ServiceProblemApiService serviceProblemApiService;
 
-    public ServiceProblemApiController(ServiceProblemStore serviceProblemStore, SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
-        this.serviceProblemStore = serviceProblemStore;
-        this.authorisedActorProvider = authorisedActorProvider;
+    public ServiceProblemApiController(ServiceProblemApiService serviceProblemApiService) {
+        this.serviceProblemApiService = serviceProblemApiService;
     }
 
     @RequestMapping(value = "/{serviceProblemId}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<ServiceProblem> serviceProblem(@PathVariable int serviceProblemId) {
-        return serviceProblemStore.serviceProblemById(serviceProblemId);
+        return serviceProblemApiService.serviceProblemsById(serviceProblemId);
     }
 
     @RequestMapping(value = "/{serviceProblemId}/eventHistory", method = RequestMethod.GET)
     @ResponseBody
     public Collection<EventHistoryItem> eventHistory(@PathVariable int serviceProblemId) {
-        List<EventHistoryItem> historyItems = serviceProblemWithId(serviceProblemId).eventHistoryItems();
-        return Ordering.from(byDate()).sortedCopy(historyItems);
+        return serviceProblemApiService.serviceProblemWithId(serviceProblemId).eventHistoryItems();
     }
 
     @RequestMapping(consumes = "application/json", value = "/{serviceProblemId}/eventHistory", method = RequestMethod.POST)
     @ResponseBody
     public Collection<EventHistoryItem> addEventHistory(@PathVariable int serviceProblemId, @RequestBody Map<String, String> payloadMap) {
-        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
-        List<EventHistoryItem> historyItems = serviceProblem.eventHistoryItems();
-        historyItems.add(new EventHistoryItem("Note", payloadMap.get("note"), new Date(), "Me"));
-
-        return Ordering.from(byDate()).sortedCopy(historyItems);
+        return serviceProblemApiService.addNote(serviceProblemId, payloadMap.get("note"));
     }
 
     @RequestMapping(value = "/{serviceProblemId}/pull", method = RequestMethod.POST)
     @ResponseBody
     public Collection<ServiceProblem> pull(@PathVariable int serviceProblemId) {
-        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
-        serviceProblem.assignTo(authorisedActorProvider.authenticatedAgent());
-
-        return newArrayList(serviceProblem);
+        return serviceProblemApiService.pull(serviceProblemId);
     }
 
     @RequestMapping(value = "/{serviceProblemId}/hold", method = RequestMethod.POST)
     @ResponseBody
     public Collection<ServiceProblem> hold(@PathVariable int serviceProblemId) {
-        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
-        serviceProblem.holdActiveWorkItem();
-
-        return newArrayList(serviceProblem);
+        return serviceProblemApiService.hold(serviceProblemId);
     }
 
     @RequestMapping(value = "/{serviceProblemId}/unhold", method = RequestMethod.POST)
     @ResponseBody
-    public Collection<ServiceProblem> unhold(@PathVariable int serviceProblemId) {
-        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
-        serviceProblem.unholdActiveWorkItem();
-
-        return newArrayList(serviceProblem);
-    }
-
-    private ServiceProblem serviceProblemWithId(int serviceProblemId) {
-        return Iterables.getFirst(serviceProblemStore.serviceProblemById(serviceProblemId), null);
-    }
-
-    public static class EventHistoryByDate implements Comparator<EventHistoryItem> {
-        public static EventHistoryByDate byDate() {
-            return new EventHistoryByDate();
-        }
-
-        public int compare(EventHistoryItem o, EventHistoryItem o2) {
-            return o2.createdDate().compareTo(o.createdDate());
-        }
+    public Collection<ServiceProblem> release(@PathVariable int serviceProblemId) {
+        return serviceProblemApiService.release(serviceProblemId);
     }
 }

@@ -1,5 +1,8 @@
 package sonique.bango.domain;
 
+import com.google.common.collect.Ordering;
+
+import java.util.Comparator;
 import java.util.List;
 
 public class ServiceProblem {
@@ -55,7 +58,7 @@ public class ServiceProblem {
     }
 
     public List<EventHistoryItem> eventHistoryItems() {
-        return eventHistoryItems;
+        return Ordering.from(EventHistoryByDate.byDate()).sortedCopy(eventHistoryItems);
     }
 
     public void assignTo(Agent agent) {
@@ -72,5 +75,19 @@ public class ServiceProblem {
 
     public boolean isAssignedTo(Agent agent) {
         return workItem != null && workItem.isAssignedTo(agent);
+    }
+
+    public void addNote(EventHistoryItem eventHistoryItem) {
+        this.eventHistoryItems.add(eventHistoryItem);
+    }
+
+    private static class EventHistoryByDate implements Comparator<EventHistoryItem> {
+        public static EventHistoryByDate byDate() {
+            return new EventHistoryByDate();
+        }
+
+        public int compare(EventHistoryItem o, EventHistoryItem o2) {
+            return o2.createdDate().compareTo(o.createdDate());
+        }
     }
 }

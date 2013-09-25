@@ -1,6 +1,8 @@
 package sonique.bango.store;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import sonique.bango.domain.Agent;
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.ServiceProblem;
@@ -41,7 +43,7 @@ public class ServiceProblemStore {
         }
     }
 
-    public Collection<ServiceProblem> serviceProblemById(final Integer serviceProblemId) {
+    public Collection<ServiceProblem> serviceProblemsById(final Integer serviceProblemId) {
         return filter(serviceProblems, new Predicate<ServiceProblem>() {
             public boolean apply(ServiceProblem serviceProblem) {
                 return serviceProblem.serviceProblemId().equals(serviceProblemId);
@@ -72,5 +74,9 @@ public class ServiceProblemStore {
                 return serviceProblem.isAssignedTo(agent);
             }
         });
+    }
+
+    public ServiceProblem serviceProblemWithId(int serviceProblemId) {
+        return Iterables.getFirst(serviceProblemsById(serviceProblemId), null);
     }
 }

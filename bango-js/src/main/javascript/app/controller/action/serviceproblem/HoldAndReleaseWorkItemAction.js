@@ -25,7 +25,7 @@ Ext.define('Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction', 
             eventName = 'workItemHeld';
         }
 
-        Spm.proxy.ServiceProblemApiProxy.read(operation, function (operation) {
+        Spm.proxy.ServiceProblemApiProxy.update(operation, function (operation) {
             if (operation.wasSuccessful()) {
                 serviceProblemTab.load(operation.getRecords()[0]);
                 serviceProblemTab.fireEvent(eventName, serviceProblemTab);
