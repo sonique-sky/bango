@@ -31,6 +31,10 @@ public class Agent {
         return code;
     }
 
+    public String password() {
+        return "a";
+    }
+
     public List<Queue> queues() {
         return queues;
     }

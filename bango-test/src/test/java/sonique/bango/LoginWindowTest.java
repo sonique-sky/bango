@@ -1,13 +1,20 @@
 package sonique.bango;
 
+import com.google.common.collect.Lists;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import sonique.bango.domain.Agent;
+import sonique.bango.domain.Queue;
+import sonique.bango.domain.Role;
 import sonique.bango.driver.panel.LoginWindow;
 
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertThat;
 import static sonique.bango.matcher.IsDisabledMatcher.isDisabled;
 import static sonique.bango.matcher.IsDisabledMatcher.isNotDisabled;
+import static sonique.bango.matcher.IsDisplayedMatcher.isNotDisplayed;
+import static sonique.bango.matcher.IsDisplayedMatcher.isDisplayed;
 
 public class LoginWindowTest extends BaseBangoTest {
 
@@ -50,5 +57,26 @@ public class LoginWindowTest extends BaseBangoTest {
         assertThat(loginWindow.username().value(), isEmptyString());
         assertThat(loginWindow.password().value(), isEmptyString());
         assertThat(loginWindow.loginButton(), isDisabled());
+    }
+
+    @Ignore
+    @Test
+    public void logsInWhenCorrectDetailsAreEntered() throws Exception {
+        Agent agent = new Agent("k.k", Lists.<Queue>newArrayList(), Role.ROLE_USER);
+
+        register(agent);
+
+        loginWindow.username().enter(agent.agentCode());
+        loginWindow.password().enter(agent.password());
+
+        loginWindow.loginButton().click();
+
+        assertThat(loginWindow, isNotDisplayed());
+        assertThat(supermanApp.headerPanel(), isDisplayed());
+    }
+
+    private void register(Agent agent) {
+
+
     }
 }

@@ -56,7 +56,7 @@ public class SpringSecurityAuthorisedActorProvider implements UserDetailsService
 
         @Override
         public String getPassword() {
-            return EncodePassword.encodePassword(agent.agentCode().toLowerCase(), "a");
+            return EncodePassword.encodePassword(agent.agentCode().toLowerCase(), agent.password());
         }
 
         @Override
