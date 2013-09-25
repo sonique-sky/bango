@@ -25,11 +25,6 @@ public class MyQueueApiService implements QueueApiService {
     }
 
     @Override
-    public Queue queue(int queueId) {
-        return queueStore.queueById(queueId);
-    }
-
-    @Override
     public Collection<ServiceProblem> serviceProblemsFor(int queueId) {
         return serviceProblemStore.serviceProblemsForQueueId(queueId);
     }

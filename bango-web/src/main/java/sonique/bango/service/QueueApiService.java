@@ -9,7 +9,6 @@ import java.util.Collection;
 
 public interface QueueApiService {
     Collection<Queue> allQueues();
-    Queue queue(int queueId);
     Collection<ServiceProblem> serviceProblemsFor(int queueId);
     Collection<ServiceProblem> bulkTransfer(BulkTransferRequest request);
     Collection<ServiceProblem> bulkClear(BulkClearRequest request);

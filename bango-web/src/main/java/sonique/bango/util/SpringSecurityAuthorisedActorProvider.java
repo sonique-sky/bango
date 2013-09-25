@@ -15,7 +15,7 @@ import java.util.Collection;
 import static com.google.common.collect.Lists.newArrayList;
 
 public class SpringSecurityAuthorisedActorProvider implements UserDetailsService {
-    private AgentStore agentStore;
+    private final AgentStore agentStore;
 
     public SpringSecurityAuthorisedActorProvider(AgentStore agentStore) {
         this.agentStore = agentStore;

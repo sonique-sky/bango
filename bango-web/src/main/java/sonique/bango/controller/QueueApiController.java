@@ -25,12 +25,6 @@ public class QueueApiController {
         return queueApiService.allQueues();
     }
 
-    @RequestMapping(value = "/{queueId}", method = RequestMethod.GET)
-    @ResponseBody
-    public Queue queue(@PathVariable int queueId) {
-        return queueApiService.queue(queueId);
-    }
-
     @RequestMapping(value = "/{queueId}/serviceProblems", method = RequestMethod.GET)
     @ResponseBody
     public Collection<ServiceProblem> serviceProblems(@PathVariable int queueId) {
