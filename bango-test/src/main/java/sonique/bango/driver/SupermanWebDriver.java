@@ -14,16 +14,21 @@ import java.util.logging.Logger;
 
 public class SupermanWebDriver {
     private final WebDriverWait wait;
+    private final WebDriver webDriver;
 
     public SupermanWebDriver(String url) {
-        HtmlUnitDriver webDriver = new HtmlUnitDriver();
-//        FirefoxDriver webDriver = new FirefoxDriver();
-        webDriver.setJavascriptEnabled(true);
+//        HtmlUnitDriver webDriver = new HtmlUnitDriver();
+        webDriver = new FirefoxDriver();
+//        webDriver.setJavascriptEnabled(true);
         wait = new WebDriverWait(webDriver, 5);
         webDriver.get(url);
     }
 
     public WebElement waitFor(By locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    public void quit() {
+        webDriver.quit();
     }
 }

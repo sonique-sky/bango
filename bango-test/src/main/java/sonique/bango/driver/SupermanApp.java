@@ -22,4 +22,8 @@ public class SupermanApp {
     public MessageBox messageBox() {
         return new MessageBox(driver);
     }
+
+    public void quit() {
+        driver.quit();
+    }
 }
