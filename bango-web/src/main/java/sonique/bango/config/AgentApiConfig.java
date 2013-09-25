@@ -4,7 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import sonique.bango.controller.AgentApiController;
-import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
+import sonique.bango.service.AgentApiService;
+import sonique.bango.service.MyAgentApiService;
 
 import javax.annotation.Resource;
 
@@ -13,10 +14,10 @@ import javax.annotation.Resource;
 public class AgentApiConfig extends ApiConfig {
 
     @Resource
-    private SpringSecurityAuthorisedActorProvider authorisedActorProvider;
+    private AgentApiService agentApiService;
 
     @Bean
     public AgentApiController agentApiController() {
-        return new AgentApiController(authorisedActorProvider);
+        return new AgentApiController(agentApiService);
     }
 }

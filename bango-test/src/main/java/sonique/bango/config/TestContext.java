@@ -13,7 +13,6 @@ import static sonique.bango.domain.Role.ROLE_USER;
 @Configuration
 public class TestContext extends BangoApplicationContext {
 
-
     @Bean
     public AgentStore agentStore() {
         AgentStore agentStore = new AgentStore();

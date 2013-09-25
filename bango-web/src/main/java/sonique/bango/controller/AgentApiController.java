@@ -6,30 +6,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sonique.bango.domain.Agent;
 import sonique.bango.domain.AgentState;
-import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
+import sonique.bango.service.AgentApiService;
+import sonique.bango.service.MyAgentApiService;
 
 @Controller
 public class AgentApiController {
 
-    private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
+    private final AgentApiService agentApiService;
 
-    public AgentApiController(SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
-        this.authorisedActorProvider = authorisedActorProvider;
+    public AgentApiController(AgentApiService agentApiService) {
+        this.agentApiService = agentApiService;
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/authenticatedAgent")
     @ResponseBody
     public Agent authenticatedAgent() {
-        return authorisedActorProvider.authenticatedAgent();
+        return agentApiService.authenticatedAgent();
     }
 
     @RequestMapping(method = {RequestMethod.POST}, value = "/toggleAvailability")
     @ResponseBody
     public AgentState toggleAvailability() {
-        AgentState agentState = this.authenticatedAgent().agentState();
-        agentState.toggleAvailability();
-
-        return agentState;
+        return agentApiService.toggleAvailability();
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/agentState")

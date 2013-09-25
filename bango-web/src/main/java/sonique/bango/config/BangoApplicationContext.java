@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import sonique.bango.domain.*;
 import sonique.bango.json.RoleSerializer;
+import sonique.bango.service.AgentApiService;
+import sonique.bango.service.MyAgentApiService;
 import sonique.bango.store.AgentStore;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
@@ -23,7 +25,8 @@ import java.util.List;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 import static com.google.common.collect.Lists.newArrayList;
-import static sonique.bango.domain.Role.*;
+import static sonique.bango.domain.Role.ROLE_QUEUE_CONTROLLER;
+import static sonique.bango.domain.Role.ROLE_USER;
 
 @Configuration
 @Import({SpringSecurityConfig.class})
@@ -102,6 +105,11 @@ public class BangoApplicationContext {
     @Bean
     public SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider() {
         return new SpringSecurityAuthorisedActorProvider(agentStore());
+    }
+
+    @Bean
+    public AgentApiService agentApiService() {
+        return new MyAgentApiService(springSecurityAuthorisedActorProvider());
     }
 
     private List<EventHistoryItem> historyItems(int index) {
