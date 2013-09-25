@@ -12,6 +12,8 @@ import sonique.bango.domain.*;
 import sonique.bango.json.RoleSerializer;
 import sonique.bango.service.AgentApiService;
 import sonique.bango.service.MyAgentApiService;
+import sonique.bango.service.MyQueueApiService;
+import sonique.bango.service.QueueApiService;
 import sonique.bango.store.AgentStore;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
@@ -110,6 +112,11 @@ public class BangoApplicationContext {
     @Bean
     public AgentApiService agentApiService() {
         return new MyAgentApiService(springSecurityAuthorisedActorProvider());
+    }
+
+    @Bean
+    public QueueApiService queueApiService() {
+        return new MyQueueApiService(queueStore(), serviceProblemStore());
     }
 
     private List<EventHistoryItem> historyItems(int index) {

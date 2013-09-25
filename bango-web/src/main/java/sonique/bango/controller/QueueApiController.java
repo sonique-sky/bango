@@ -6,51 +6,46 @@ import sonique.bango.domain.Queue;
 import sonique.bango.domain.ServiceProblem;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
-import sonique.bango.store.QueueStore;
-import sonique.bango.store.ServiceProblemStore;
+import sonique.bango.service.QueueApiService;
 
 import java.util.Collection;
 
 @Controller
 public class QueueApiController {
 
-    private final QueueStore queueStore;
-    private final ServiceProblemStore serviceProblemStore;
+    private final QueueApiService queueApiService;
 
-    public QueueApiController(QueueStore queueStore, ServiceProblemStore serviceProblemStore) {
-        this.queueStore = queueStore;
-        this.serviceProblemStore = serviceProblemStore;
+    public QueueApiController(QueueApiService queueApiService) {
+        this.queueApiService = queueApiService;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
     public Collection<Queue> queue() {
-        return queueStore.allQueues();
+        return queueApiService.allQueues();
     }
 
     @RequestMapping(value = "/{queueId}", method = RequestMethod.GET)
     @ResponseBody
     public Queue queue(@PathVariable int queueId) {
-        return queueStore.queueById(queueId);
+        return queueApiService.queue(queueId);
     }
 
     @RequestMapping(value = "/{queueId}/serviceProblems", method = RequestMethod.GET)
     @ResponseBody
     public Collection<ServiceProblem> serviceProblems(@PathVariable int queueId) {
-        return serviceProblemStore.serviceProblemsForQueueId(queueId);
+        return queueApiService.serviceProblemsFor(queueId);
     }
 
     @RequestMapping(value = "/bulkTransfer", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public Collection<ServiceProblem> bulkTransfer(@RequestBody BulkTransferRequest request) {
-        serviceProblemStore.bulkTransfer(request.serviceProblemIds(), queueStore.queueById(request.destinationQueueId()));
-        return serviceProblemStore.serviceProblemsForQueueId(request.originalQueueId());
+        return queueApiService.bulkTransfer(request);
     }
 
     @RequestMapping(value = "/bulkClear", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public Collection<ServiceProblem> bulkClear(@RequestBody BulkClearRequest request) {
-        serviceProblemStore.bulkClear(request.serviceProblemIds());
-        return serviceProblemStore.serviceProblemsForQueueId(request.originalQueueId());
+        return queueApiService.bulkClear(request);
     }
 }
