@@ -16,9 +16,6 @@ import javax.annotation.Resource;
 public class QueueApiConfig extends ApiConfig {
 
     @Resource
-    private QueueStore queueStore;
-
-    @Resource
     private QueueApiService queueApiService;
 
     @Bean

@@ -31,15 +31,21 @@ import static sonique.bango.domain.Role.ROLE_USER;
 @Import({SpringSecurityConfig.class})
 public class BangoApplicationContext {
 
-    private final int numberOfQueues = 30;
-    private final List<Queue> queues;
-    private final int serviceProblemsPerQueue = 10;
+    private static final int NUMBER_OF_QUEUES = 30;
+    private static final int SERVICE_PROBLEMS_PER_QUEUE = 10;
+
+    private final AgentStore agentStore;
+    private final QueueStore queueStore;
+    private final ServiceProblemStore serviceProblemStore;
 
     public BangoApplicationContext() {
-        queues = newArrayList();
-        for (int i = 1; i <= numberOfQueues; i++) {
+        List<Queue> queues = newArrayList();
+        for (int i = 1; i <= NUMBER_OF_QUEUES; i++) {
             queues.add(new Queue(i, "Queue " + i));
         }
+        this.queueStore = new QueueStore(queues);
+        this.agentStore = agentStore(queues);
+        this.serviceProblemStore =serviceProblemStore(queueStore);
     }
 
     @Bean
@@ -64,7 +70,31 @@ public class BangoApplicationContext {
     }
 
     @Bean
-    public AgentStore agentStore() {
+    public SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider() {
+        return new SpringSecurityAuthorisedActorProvider(agentStore);
+    }
+
+    @Bean
+    public AgentApiService agentApiService() {
+        return new MyAgentApiService(springSecurityAuthorisedActorProvider(), serviceProblemStore);
+    }
+
+    @Bean
+    public QueueApiService queueApiService() {
+        return new MyQueueApiService(queueStore, serviceProblemStore);
+    }
+
+    @Bean
+    public SearchApiService searchApiService() {
+        return new MySearchApiService(serviceProblemStore);
+    }
+
+    @Bean
+    public ServiceProblemApiService serviceProblemApiService() {
+        return new MyServiceProblemApiService(serviceProblemStore, springSecurityAuthorisedActorProvider());
+    }
+
+    private AgentStore agentStore(List<Queue> queues) {
         AgentStore agentStore = new AgentStore();
         agentStore.registerAgent(new Agent("A.A", queues, ROLE_USER));
         agentStore.registerAgent(new Agent("B.B", queues, ROLE_USER));
@@ -74,24 +104,18 @@ public class BangoApplicationContext {
         return agentStore;
     }
 
-    @Bean
-    public QueueStore queueStore() {
-        return new QueueStore(queues);
-    }
-
-    @Bean
-    public ServiceProblemStore serviceProblemStore() {
+    private ServiceProblemStore serviceProblemStore(QueueStore queueStore) {
         Integer directoryNumber = 111;
         List<ServiceProblem> serviceProblems = newArrayList();
-        for (int index = 0; index < numberOfQueues * serviceProblemsPerQueue; index++) {
-            int queueId = (index / serviceProblemsPerQueue) + 1;
+        for (int index = 0; index < NUMBER_OF_QUEUES * SERVICE_PROBLEMS_PER_QUEUE; index++) {
+            int queueId = (index / SERVICE_PROBLEMS_PER_QUEUE) + 1;
             directoryNumber = index % 2 == 0 ? directoryNumber : ++directoryNumber;
             serviceProblems.add(
                     new ServiceProblem(
                             index,
                             "Open",
-                            new WorkItem(index + serviceProblemsPerQueue, "Unassigned"),
-                            queueStore().queueById(queueId),
+                            new WorkItem(index + SERVICE_PROBLEMS_PER_QUEUE, "Unassigned"),
+                            queueStore.queueById(queueId),
                             index % 2 == 0,
                             directoryNumber.toString(),
                             historyItems(index)
@@ -99,31 +123,6 @@ public class BangoApplicationContext {
             );
         }
         return new ServiceProblemStore(serviceProblems);
-    }
-
-    @Bean
-    public SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider() {
-        return new SpringSecurityAuthorisedActorProvider(agentStore());
-    }
-
-    @Bean
-    public AgentApiService agentApiService() {
-        return new MyAgentApiService(springSecurityAuthorisedActorProvider(), serviceProblemStore());
-    }
-
-    @Bean
-    public QueueApiService queueApiService() {
-        return new MyQueueApiService(queueStore(), serviceProblemStore());
-    }
-
-    @Bean
-    public SearchApiService searchApiService() {
-        return new MySearchApiService(serviceProblemStore());
-    }
-
-    @Bean
-    public ServiceProblemApiService serviceProblemApiService() {
-        return new MyServiceProblemApiService(serviceProblemStore(), springSecurityAuthorisedActorProvider());
     }
 
     private List<EventHistoryItem> historyItems(int index) {
