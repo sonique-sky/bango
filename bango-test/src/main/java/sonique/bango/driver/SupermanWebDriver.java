@@ -12,14 +12,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static sonique.bango.driver.SupermanWebDriver.DriverFactory.*;
+
 public class SupermanWebDriver {
     private final WebDriverWait wait;
     private final WebDriver webDriver;
 
     public SupermanWebDriver(String url) {
-//        HtmlUnitDriver webDriver = new HtmlUnitDriver();
-        webDriver = new FirefoxDriver();
-//        webDriver.setJavascriptEnabled(true);
+        webDriver = HTML_UNIT.build();
         wait = new WebDriverWait(webDriver, 5);
         webDriver.get(url);
     }
@@ -30,5 +30,24 @@ public class SupermanWebDriver {
 
     public void quit() {
         webDriver.quit();
+    }
+
+    public enum DriverFactory {
+        HTML_UNIT {
+            @Override
+            public WebDriver build() {
+                HtmlUnitDriver webDriver = new HtmlUnitDriver();
+                webDriver.setJavascriptEnabled(true);
+                return webDriver;
+            }
+        },
+        FIREFOX {
+            @Override
+            public WebDriver build() {
+                return new FirefoxDriver();
+            }
+        };
+
+        public abstract WebDriver build();
     }
 }

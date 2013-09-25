@@ -5,10 +5,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import sonique.bango.domain.Agent;
+import sonique.bango.driver.AppPool;
 import sonique.bango.driver.SupermanApp;
-
-import java.util.Deque;
-import java.util.concurrent.LinkedBlockingDeque;
 
 public class BaseBangoTest {
 
@@ -23,7 +21,7 @@ public class BaseBangoTest {
         bangoTestRunner = new BangoTestRunner(PORT);
 
         bangoTestRunner.start();
-        appPool = new AppPool(PORT, 3);
+        appPool = new AppPool(PORT, 1);
     }
 
     @AfterClass
@@ -45,36 +43,5 @@ public class BaseBangoTest {
 
     protected void register(Agent agent) {
         bangoTestRunner.scenarioDriver().registerAgent(agent);
-    }
-
-    public static class AppPool {
-
-        private final Deque<SupermanApp> appPool = new LinkedBlockingDeque<SupermanApp>();
-
-        public AppPool(int port, int poolSize) {
-            for (int i = 0; i < poolSize; i++) {
-                 appPool.add(new SupermanApp(port));
-            }
-        }
-
-        public SupermanApp borrow() {
-            synchronized (appPool) {
-                return appPool.poll();
-            }
-        }
-
-        public void giveBack(SupermanApp supermanApp) {
-            synchronized (appPool) {
-                appPool.addLast(supermanApp);
-            }
-        }
-
-        public void shutdown() {
-            synchronized (appPool) {
-                for (SupermanApp pooledApp : appPool) {
-                    pooledApp.quit();
-                }
-            }
-        }
     }
 }
