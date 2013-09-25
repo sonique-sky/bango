@@ -1,20 +1,21 @@
-package sonique.bango.service;
+package sonique.bango.service.stub;
 
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.ServiceProblem;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
+import sonique.bango.service.QueueApiService;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
 
 import java.util.Collection;
 
-public class MyQueueApiService implements QueueApiService {
+public class StubQueueApiService implements QueueApiService {
 
     private final QueueStore queueStore;
     private final ServiceProblemStore serviceProblemStore;
 
-    public MyQueueApiService(QueueStore queueStore, ServiceProblemStore serviceProblemStore) {
+    public StubQueueApiService(QueueStore queueStore, ServiceProblemStore serviceProblemStore) {
         this.queueStore = queueStore;
         this.serviceProblemStore = serviceProblemStore;
     }

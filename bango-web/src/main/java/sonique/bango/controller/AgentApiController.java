@@ -8,7 +8,6 @@ import sonique.bango.domain.Agent;
 import sonique.bango.domain.AgentState;
 import sonique.bango.domain.ServiceProblem;
 import sonique.bango.service.AgentApiService;
-import sonique.bango.service.MyAgentApiService;
 
 import java.util.Collection;
 

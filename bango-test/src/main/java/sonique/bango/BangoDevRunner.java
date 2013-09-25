@@ -19,4 +19,15 @@ public class BangoDevRunner {
         server.start();
         server.join();
     }
+
+    private void setup() {
+        ScenarioDriver scenarioDriver = null;
+
+//        scenarioDriver.
+
+
+    }
+
+    private class ScenarioDriver {
+    }
 }

@@ -1,7 +1,8 @@
-package sonique.bango.service;
+package sonique.bango.service.stub;
 
 import sonique.bango.domain.EventHistoryItem;
 import sonique.bango.domain.ServiceProblem;
+import sonique.bango.service.ServiceProblemApiService;
 import sonique.bango.store.ServiceProblemStore;
 import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
@@ -11,11 +12,11 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-public class MyServiceProblemApiService implements ServiceProblemApiService {
+public class StubServiceProblemApiService implements ServiceProblemApiService {
     private final ServiceProblemStore serviceProblemStore;
     private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
 
-    public MyServiceProblemApiService(ServiceProblemStore serviceProblemStore, SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
+    public StubServiceProblemApiService(ServiceProblemStore serviceProblemStore, SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
         this.serviceProblemStore = serviceProblemStore;
         this.authorisedActorProvider = authorisedActorProvider;
     }

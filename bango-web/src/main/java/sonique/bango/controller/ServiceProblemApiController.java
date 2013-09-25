@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sonique.bango.domain.EventHistoryItem;
 import sonique.bango.domain.ServiceProblem;
-import sonique.bango.service.MyServiceProblemApiService;
 import sonique.bango.service.ServiceProblemApiService;
 
 import java.util.Collection;

@@ -1,16 +1,17 @@
-package sonique.bango.service;
+package sonique.bango.service.stub;
 
 import sonique.bango.domain.ServiceProblem;
+import sonique.bango.service.SearchApiService;
 import sonique.bango.store.ServiceProblemStore;
 
 import java.util.Collection;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-public class MySearchApiService implements SearchApiService {
+public class StubSearchApiService implements SearchApiService {
     private final ServiceProblemStore serviceProblemStore;
 
-    public MySearchApiService(ServiceProblemStore serviceProblemStore) {
+    public StubSearchApiService(ServiceProblemStore serviceProblemStore) {
         this.serviceProblemStore = serviceProblemStore;
     }
 

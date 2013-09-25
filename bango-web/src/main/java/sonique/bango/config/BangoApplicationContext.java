@@ -11,6 +11,10 @@ import org.springframework.context.annotation.Import;
 import sonique.bango.domain.*;
 import sonique.bango.json.RoleSerializer;
 import sonique.bango.service.*;
+import sonique.bango.service.stub.StubAgentApiService;
+import sonique.bango.service.stub.StubQueueApiService;
+import sonique.bango.service.stub.StubSearchApiService;
+import sonique.bango.service.stub.StubServiceProblemApiService;
 import sonique.bango.store.AgentStore;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
@@ -76,22 +80,22 @@ public class BangoApplicationContext {
 
     @Bean
     public AgentApiService agentApiService() {
-        return new MyAgentApiService(springSecurityAuthorisedActorProvider(), serviceProblemStore);
+        return new StubAgentApiService(springSecurityAuthorisedActorProvider(), serviceProblemStore);
     }
 
     @Bean
     public QueueApiService queueApiService() {
-        return new MyQueueApiService(queueStore, serviceProblemStore);
+        return new StubQueueApiService(queueStore, serviceProblemStore);
     }
 
     @Bean
     public SearchApiService searchApiService() {
-        return new MySearchApiService(serviceProblemStore);
+        return new StubSearchApiService(serviceProblemStore);
     }
 
     @Bean
     public ServiceProblemApiService serviceProblemApiService() {
-        return new MyServiceProblemApiService(serviceProblemStore, springSecurityAuthorisedActorProvider());
+        return new StubServiceProblemApiService(serviceProblemStore, springSecurityAuthorisedActorProvider());
     }
 
     private AgentStore agentStore(List<Queue> queues) {

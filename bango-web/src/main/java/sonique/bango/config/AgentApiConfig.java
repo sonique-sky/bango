@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import sonique.bango.controller.AgentApiController;
 import sonique.bango.service.AgentApiService;
-import sonique.bango.service.MyAgentApiService;
 
 import javax.annotation.Resource;
 

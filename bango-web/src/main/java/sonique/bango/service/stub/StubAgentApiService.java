@@ -1,19 +1,20 @@
-package sonique.bango.service;
+package sonique.bango.service.stub;
 
 import sonique.bango.domain.Agent;
 import sonique.bango.domain.AgentState;
 import sonique.bango.domain.ServiceProblem;
+import sonique.bango.service.AgentApiService;
 import sonique.bango.store.ServiceProblemStore;
 import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
 import java.util.Collection;
 
-public class MyAgentApiService implements AgentApiService {
+public class StubAgentApiService implements AgentApiService {
 
     private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
     private final ServiceProblemStore serviceProblemStore;
 
-    public MyAgentApiService(SpringSecurityAuthorisedActorProvider authorisedActorProvider, ServiceProblemStore serviceProblemStore) {
+    public StubAgentApiService(SpringSecurityAuthorisedActorProvider authorisedActorProvider, ServiceProblemStore serviceProblemStore) {
         this.authorisedActorProvider = authorisedActorProvider;
         this.serviceProblemStore = serviceProblemStore;
     }
@@ -33,6 +34,6 @@ public class MyAgentApiService implements AgentApiService {
 
     @Override
     public Collection<ServiceProblem> myItems() {
-            return serviceProblemStore.serviceProblemsForAgent(authorisedActorProvider.getLoggedInAgent());
+        return serviceProblemStore.serviceProblemsForAgent(authorisedActorProvider.getLoggedInAgent());
     }
 }
