@@ -4,6 +4,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
+import sonique.bango.driver.ScenarioDriver;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -31,10 +32,6 @@ public class BangoTestRunner {
         server.setHandler(context);
     }
 
-    public <T> T get(Class<T> clazz, String beanName) {
-        return ((ApplicationContext) context.getServletHandler().getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE)).getBean(beanName, clazz);
-    }
-
     public synchronized void start() {
         if (!server.isRunning()) {
             try {
@@ -51,5 +48,13 @@ public class BangoTestRunner {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ScenarioDriver scenarioDriver() {
+        return get(ScenarioDriver.class, "scenarioDriver");
+    }
+
+    private <T> T get(Class<T> clazz, String beanName) {
+        return ((ApplicationContext) context.getServletHandler().getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE)).getBean(beanName, clazz);
     }
 }

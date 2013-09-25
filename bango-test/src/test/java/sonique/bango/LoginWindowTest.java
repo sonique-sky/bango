@@ -8,9 +8,10 @@ import sonique.bango.domain.Agent;
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.Role;
 import sonique.bango.driver.panel.LoginWindow;
+import sun.management.resources.agent;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.isEmptyString;
-import static org.junit.Assert.assertThat;
 import static sonique.bango.matcher.IsDisabledMatcher.isDisabled;
 import static sonique.bango.matcher.IsDisabledMatcher.isNotDisabled;
 import static sonique.bango.matcher.IsDisplayedMatcher.isNotDisplayed;
@@ -61,8 +62,18 @@ public class LoginWindowTest extends BaseBangoTest {
 
     @Ignore
     @Test
+    public void showsErrorWhenIncorrectDetailsAreEntered() throws Exception {
+        loginWindow.username().enter("wilbur");
+        loginWindow.password().enter("junk");
+
+        loginWindow.loginButton().click();
+
+        assertThat(supermanApp.notificationWindow(), isDisplayed());
+    }
+
+    @Test
     public void logsInWhenCorrectDetailsAreEntered() throws Exception {
-        Agent agent = new Agent("k.k", Lists.<Queue>newArrayList(), Role.ROLE_USER);
+        Agent agent = new Agent("K.K", Lists.<Queue>newArrayList(), Role.ROLE_USER);
 
         register(agent);
 
@@ -73,10 +84,5 @@ public class LoginWindowTest extends BaseBangoTest {
 
         assertThat(loginWindow, isNotDisplayed());
         assertThat(supermanApp.headerPanel(), isDisplayed());
-    }
-
-    private void register(Agent agent) {
-
-
     }
 }

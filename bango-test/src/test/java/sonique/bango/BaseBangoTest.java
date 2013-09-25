@@ -2,6 +2,7 @@ package sonique.bango;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import sonique.bango.domain.Agent;
 import sonique.bango.driver.SupermanApp;
 
 public class BaseBangoTest {
@@ -21,5 +22,9 @@ public class BaseBangoTest {
     @AfterClass
     public static void stopBango() throws Exception {
         bangoTestRunner.stop();
+    }
+
+    protected void register(Agent agent) {
+        bangoTestRunner.scenarioDriver().registerAgent(agent);
     }
 }

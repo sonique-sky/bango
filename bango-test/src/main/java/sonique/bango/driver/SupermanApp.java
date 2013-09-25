@@ -1,5 +1,6 @@
 package sonique.bango.driver;
 
+import sonique.bango.driver.panel.HeaderPanel;
 import sonique.bango.driver.panel.LoginWindow;
 import sonique.bango.driver.panel.SupermanElement;
 
@@ -14,7 +15,11 @@ public class SupermanApp {
         return new LoginWindow(driver);
     }
 
-    public SupermanElement headerPanel() {
+    public HeaderPanel headerPanel() {
+        return new HeaderPanel(driver);
+    }
+
+    public SupermanElement notificationWindow() {
         return null;
     }
 }

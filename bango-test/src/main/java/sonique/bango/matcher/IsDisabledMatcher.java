@@ -28,4 +28,15 @@ public class IsDisabledMatcher extends AsynchronousMatcher<SupermanButton> {
             }
         };
     }
+
+    @Override
+    protected String failureDescription() {
+        return String.format(" element %s disabled", expected? "to be": "not to be");
+    }
+
+    @Override
+    protected String expectedDescription() {
+        return String.format(" %s disabled", expected ? "wasn't" : "was");
+    }
+
 }

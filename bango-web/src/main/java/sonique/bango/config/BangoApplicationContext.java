@@ -38,7 +38,7 @@ public class BangoApplicationContext {
     private static final int NUMBER_OF_QUEUES = 30;
     private static final int SERVICE_PROBLEMS_PER_QUEUE = 10;
 
-    private final AgentStore agentStore;
+    protected final AgentStore agentStore;
     private final QueueStore queueStore;
     private final ServiceProblemStore serviceProblemStore;
 
@@ -101,8 +101,6 @@ public class BangoApplicationContext {
     private AgentStore agentStore(List<Queue> queues) {
         AgentStore agentStore = new AgentStore();
         agentStore.registerAgent(new Agent("A.A", queues, ROLE_USER));
-        agentStore.registerAgent(new Agent("B.B", queues, ROLE_USER));
-        agentStore.registerAgent(new Agent("C.C", queues, ROLE_USER));
         agentStore.registerAgent(new Agent("Q.Q", queues, ROLE_QUEUE_CONTROLLER));
 
         return agentStore;
