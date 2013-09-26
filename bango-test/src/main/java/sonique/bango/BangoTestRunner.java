@@ -7,6 +7,7 @@ import org.springframework.web.context.WebApplicationContext;
 import sonique.bango.driver.ScenarioDriver;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.springframework.web.context.WebApplicationContext.*;
 
 public class BangoTestRunner {
 
@@ -51,6 +52,6 @@ public class BangoTestRunner {
     }
 
     private <T> T get(Class<T> clazz, String beanName) {
-        return ((ApplicationContext) context.getServletHandler().getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE)).getBean(beanName, clazz);
+        return ((ApplicationContext) context.getServletHandler().getServletContext().getAttribute(ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE)).getBean(beanName, clazz);
     }
 }

@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import sonique.bango.domain.Agent;
 import sonique.bango.driver.AppPool;
+import sonique.bango.driver.ScenarioDriver;
 import sonique.bango.driver.SupermanApp;
 
 public class BaseBangoTest extends TestState {
@@ -43,6 +44,10 @@ public class BaseBangoTest extends TestState {
     }
 
     protected void register(Agent agent) {
-        bangoTestRunner.scenarioDriver().registerAgent(agent);
+        scenarioDriver().registerAgent(agent);
+    }
+
+    protected ScenarioDriver scenarioDriver() {
+        return bangoTestRunner.scenarioDriver();
     }
 }

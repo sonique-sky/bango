@@ -4,6 +4,8 @@ import com.google.common.base.Predicate;
 import sonique.bango.driver.panel.SupermanElement;
 import sonique.bango.driver.predicate.IsEnabledPredicate;
 
+import static sonique.bango.driver.predicate.IsEnabledPredicate.*;
+
 public class IsEnabled extends AsynchronousMatcher<SupermanElement> {
 
     public static IsEnabled isEnabled() {
