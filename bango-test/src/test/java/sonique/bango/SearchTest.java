@@ -3,6 +3,7 @@ package sonique.bango;
 import com.google.common.collect.Lists;
 import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import sonique.bango.domain.*;
@@ -15,7 +16,7 @@ import sonique.testsupport.matchers.AppendableAllOf;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static sonique.bango.driver.panel.SearchFormPanel.SearchType.ServiceProblemId;
+import static sonique.bango.driver.panel.SearchPanel.SearchType.ServiceProblemId;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class SearchTest extends BaseBangoTest {
@@ -43,7 +44,18 @@ public class SearchTest extends BaseBangoTest {
         given(anAgentHasLoggedIn());
         and(aServiceProblemExists());
 
-        when(theAgentSearchesForTheServiceProblem());
+        when(theAgentSearchesForTheServiceProblemUsingServiceProblemId());
+
+        then(aServiceProblemTab(), isDisplayed());
+    }
+
+    @Test
+    @Ignore
+    public void searchByDirectoryNumber() throws Exception {
+        given(anAgentHasLoggedIn());
+        and(aServiceProblemExists().withADirectoryNumber());
+
+        when(theAgentSearchesForTheServiceProblemUsingDirectoryNumber());
 
         then(aServiceProblemTab(), isDisplayed());
     }
@@ -61,7 +73,7 @@ public class SearchTest extends BaseBangoTest {
         };
     }
 
-    private ActionUnderTest theAgentSearchesForTheServiceProblem() {
+    private ActionUnderTest theAgentSearchesForTheServiceProblemUsingServiceProblemId() {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
@@ -72,17 +84,40 @@ public class SearchTest extends BaseBangoTest {
         };
     }
 
-    private GivensBuilder aServiceProblemExists() {
-        return new GivensBuilder() {
+    private ActionUnderTest theAgentSearchesForTheServiceProblemUsingDirectoryNumber() {
+        return new ActionUnderTest() {
             @Override
-            public InterestingGivens build(InterestingGivens interestingGivens) throws Exception {
-                SearchApiService searchApiService = scenarioDriver().searchApiServiceFor(agent);
+            public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+                supermanApp.searchPanel().searchUsing(ServiceProblemId, serviceProblem.serviceProblemId().toString());
 
-                Mockito.when(searchApiService.serviceProblemById(serviceProblem.serviceProblemId())).thenReturn(newArrayList(serviceProblem));
-
-                return interestingGivens;
+                return capturedInputAndOutputs;
             }
         };
+    }
+
+
+    public ServiceProblemGivensBuilder aServiceProblemExists() {
+        return new ServiceProblemGivensBuilder(serviceProblem);
+    }
+
+    public class ServiceProblemGivensBuilder implements GivensBuilder {
+        private final SearchApiService searchApiService = scenarioDriver().searchApiServiceFor(agent);
+        private final ServiceProblem serviceProblem;
+
+        public ServiceProblemGivensBuilder(ServiceProblem serviceProblem) {
+            this.serviceProblem = serviceProblem;
+            Mockito.when(searchApiService.serviceProblemById(this.serviceProblem.serviceProblemId())).thenReturn(newArrayList(this.serviceProblem));
+        }
+
+        public ServiceProblemGivensBuilder withADirectoryNumber() {
+            Mockito.when(searchApiService.serviceProblemByDirectoryNumber(serviceProblem.directoryNumber())).thenReturn(newArrayList(serviceProblem));
+            return this;
+        }
+
+        @Override
+        public InterestingGivens build(InterestingGivens interestingGivens) throws Exception {
+            return interestingGivens;
+        }
     }
 
     private GivensBuilder anAgentHasLoggedIn() {

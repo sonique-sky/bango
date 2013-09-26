@@ -21,8 +21,8 @@ public class SupermanApp {
         return new MessageBox(driver);
     }
 
-    public SearchFormPanel searchPanel() {
-        return new SearchFormPanel(driver);
+    public SearchPanel searchPanel() {
+        return new SearchPanel(driver);
     }
 
     public ServiceProblemTab serviceProblemTab(Integer serviceProblemId) {

@@ -14,6 +14,15 @@ public class BangoTestRunner {
     private final Server server;
     private final WebAppContext context;
 
+    public static void main(String[] args) {
+        new BangoTestRunner(8081).start();
+
+        try {
+            Thread.sleep(500000000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     public BangoTestRunner(int port) {
         server = new Server(port);
 
