@@ -1,27 +1,29 @@
 package sonique.bango.driver.component;
 
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+import sonique.bango.driver.SupermanWebDriver;
+import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.predicates.IsEnabledPredicate;
 
-import java.util.Arrays;
-import java.util.List;
+public class SupermanButton extends SupermanElement {
 
-public class SupermanButton {
-    private final WebElement localRootElement;
+    public SupermanButton(SupermanWebDriver driver, SupermanElement parentElement, By locator) {
+        super(driver, parentElement, locator);
+    }
 
-    public SupermanButton(WebElement localRootElement) {
-        this.localRootElement = localRootElement;
+    @Override
+    public boolean isEnabled() {
+        return !isDisabled();
     }
 
     public boolean isDisabled() {
         return classes().contains("x-btn-disabled");
     }
 
-    private List<String> classes() {
-        return Arrays.asList(localRootElement.getAttribute("class").split(" "));
-    }
-
     public void click() {
-        localRootElement.click();
+        driver.waitUntil(this, IsEnabledPredicate.isEnabled());
+
+        element.click();
 
     }
 }

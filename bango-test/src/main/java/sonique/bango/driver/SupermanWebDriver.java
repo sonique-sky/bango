@@ -1,18 +1,19 @@
 package sonique.bango.driver;
 
+import com.google.common.base.Predicate;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.internal.seleniumemulation.JavascriptLibrary;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 
-import static sonique.bango.driver.SupermanWebDriver.DriverFactory.*;
+import static java.util.concurrent.TimeUnit.*;
+import static sonique.bango.driver.SupermanWebDriver.DriverFactory.FIREFOX;
 
 public class SupermanWebDriver {
     private final WebDriverWait wait;
@@ -27,6 +28,13 @@ public class SupermanWebDriver {
 
     public WebElement waitFor(By locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    public <T> void waitUntil(T item, Predicate<T> predicate) {
+        new FluentWait<T>(item)
+                .withTimeout(5, SECONDS)
+                .pollingEvery(100, MILLISECONDS)
+                .until(predicate);
     }
 
     public void quit() {
