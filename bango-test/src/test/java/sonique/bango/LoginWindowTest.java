@@ -6,9 +6,11 @@ import org.junit.Test;
 import sonique.bango.domain.Agent;
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.Role;
+import sonique.bango.driver.panel.HeaderPanel;
 import sonique.bango.driver.panel.LoginWindow;
 import sonique.bango.driver.panel.MessageBox;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.isEmptyString;
 import static sonique.bango.matcher.IsDisabledMatcher.isDisabled;
@@ -83,6 +85,9 @@ public class LoginWindowTest extends BaseBangoTest {
         loginWindow.loginButton().click();
 
         assertThat(loginWindow, isNotDisplayed());
-        assertThat(supermanApp.headerPanel(), isDisplayed());
+        HeaderPanel headerPanel = supermanApp.headerPanel();
+
+        assertThat(headerPanel, isDisplayed());
+        assertThat(headerPanel.loginName(), is(agent.displayName()));
     }
 }

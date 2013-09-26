@@ -16,4 +16,8 @@ public class AgentDetails {
     public String lastName() {
         return lastName;
     }
+
+    public String displayName() {
+        return String.format("%s %s", firstName, lastName);
+    }
 }

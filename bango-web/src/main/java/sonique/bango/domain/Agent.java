@@ -57,4 +57,8 @@ public class Agent {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
+
+    public String displayName() {
+        return details.displayName();
+    }
 }
