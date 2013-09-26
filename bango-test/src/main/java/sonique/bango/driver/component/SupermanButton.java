@@ -13,11 +13,7 @@ public class SupermanButton extends SupermanElement {
 
     @Override
     public boolean isEnabled() {
-        return !isDisabled();
-    }
-
-    public boolean isDisabled() {
-        return classes().contains("x-btn-disabled");
+        return !classes().contains("x-btn-disabled");
     }
 
     public void click() {
