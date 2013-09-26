@@ -1,4 +1,4 @@
-package sonique.bango.driver.predicates;
+package sonique.bango.driver.predicate;
 
 import com.google.common.base.Predicate;
 import sonique.bango.driver.panel.SupermanElement;

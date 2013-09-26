@@ -9,7 +9,7 @@ import sonique.bango.domain.Role;
 import sonique.bango.driver.panel.LoginWindow;
 import sonique.bango.driver.panel.ServiceProblemTab;
 import sonique.bango.driver.panel.SupermanElement;
-import sonique.bango.matcher.IsDisplayedMatcher;
+import sonique.bango.matcher.IsDisplayed;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,7 +29,7 @@ public class SearchTest extends BaseBangoTest {
     }
 
     private AppendableAllOf<SupermanElement> isDisplayed() {
-        return thatHas(IsDisplayedMatcher.isDisplayed());
+        return thatHas(IsDisplayed.isDisplayed());
     }
 
     private StateExtractor<ServiceProblemTab> aServiceProblemTab() {

@@ -3,7 +3,7 @@ package sonique.bango.driver.component;
 import org.openqa.selenium.By;
 import sonique.bango.driver.SupermanWebDriver;
 import sonique.bango.driver.panel.SupermanElement;
-import sonique.bango.driver.predicates.IsEnabledPredicate;
+import sonique.bango.driver.predicate.IsEnabledPredicate;
 
 public class SupermanButton extends SupermanElement {
 
@@ -24,6 +24,5 @@ public class SupermanButton extends SupermanElement {
         driver.waitUntil(this, IsEnabledPredicate.isEnabled());
 
         element.click();
-
     }
 }

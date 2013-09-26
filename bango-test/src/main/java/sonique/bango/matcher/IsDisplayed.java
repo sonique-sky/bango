@@ -4,19 +4,19 @@ import com.google.common.base.Predicate;
 import org.openqa.selenium.StaleElementReferenceException;
 import sonique.bango.driver.panel.SupermanElement;
 
-public class IsDisplayedMatcher extends AsynchronousMatcher<SupermanElement> {
+public class IsDisplayed extends AsynchronousMatcher<SupermanElement> {
 
-    public static IsDisplayedMatcher isDisplayed() {
-        return new IsDisplayedMatcher(true);
+    public static IsDisplayed isDisplayed() {
+        return new IsDisplayed(true);
     }
 
-    public static IsDisplayedMatcher isNotDisplayed() {
-        return new IsDisplayedMatcher(false);
+    public static IsDisplayed isNotDisplayed() {
+        return new IsDisplayed(false);
     }
 
     private final boolean expected;
 
-    public IsDisplayedMatcher(boolean expected) {
+    public IsDisplayed(boolean expected) {
         this.expected = expected;
     }
 

@@ -13,10 +13,10 @@ import sonique.bango.driver.panel.MessageBox;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.isEmptyString;
-import static sonique.bango.matcher.IsDisabledMatcher.isDisabled;
-import static sonique.bango.matcher.IsDisabledMatcher.isNotDisabled;
-import static sonique.bango.matcher.IsDisplayedMatcher.isDisplayed;
-import static sonique.bango.matcher.IsDisplayedMatcher.isNotDisplayed;
+import static sonique.bango.matcher.IsDisabled.isDisabled;
+import static sonique.bango.matcher.IsDisplayed.isDisplayed;
+import static sonique.bango.matcher.IsDisplayed.isNotDisplayed;
+import static sonique.bango.matcher.IsEnabled.isEnabled;
 
 public class LoginWindowTest extends BaseBangoTest {
 
@@ -46,7 +46,7 @@ public class LoginWindowTest extends BaseBangoTest {
         loginWindow.username().enter("a.a");
         loginWindow.password().enter("asds");
 
-        assertThat(loginWindow.loginButton(), isNotDisabled());
+        assertThat(loginWindow.loginButton(), isEnabled());
     }
 
     @Test
