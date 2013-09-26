@@ -55,9 +55,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
         this.serviceProblemPanel = Ext.widget('serviceProblemPanel');
         this.eventHistoryPanel = Ext.widget('eventHistoryPanel', {registeredActions: registeredActions});
 
+        this.id =  'service-problem-tab-content-' + serviceProblemId;
+        this.tabConfig = {id: 'service-problem-tab-' + serviceProblemId};
+
         Ext.applyIf(this, {
             title: 'Service Problem [' + serviceProblemId + ']',
-            id: 'service-problem-tab-' + serviceProblemId,
             layout: 'card',
             dockedItems: [
                 {

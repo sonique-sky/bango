@@ -1,8 +1,6 @@
 package sonique.bango.driver;
 
-import sonique.bango.driver.panel.HeaderPanel;
-import sonique.bango.driver.panel.LoginWindow;
-import sonique.bango.driver.panel.MessageBox;
+import sonique.bango.driver.panel.*;
 
 public class SupermanApp {
     private final SupermanWebDriver driver;
@@ -21,6 +19,14 @@ public class SupermanApp {
 
     public MessageBox messageBox() {
         return new MessageBox(driver);
+    }
+
+    public SearchFormPanel searchPanel() {
+        return new SearchFormPanel(driver);
+    }
+
+    public ServiceProblemTab serviceProblemTab(Integer serviceProblemId) {
+        return new ServiceProblemTab(driver, serviceProblemId);
     }
 
     public void quit() {

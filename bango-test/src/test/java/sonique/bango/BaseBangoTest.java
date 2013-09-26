@@ -1,5 +1,6 @@
 package sonique.bango;
 
+import com.googlecode.yatspec.state.givenwhenthen.TestState;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -8,7 +9,7 @@ import sonique.bango.domain.Agent;
 import sonique.bango.driver.AppPool;
 import sonique.bango.driver.SupermanApp;
 
-public class BaseBangoTest {
+public class BaseBangoTest extends TestState {
 
     private static final int PORT = 8081;
     private static BangoTestRunner bangoTestRunner;

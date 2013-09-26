@@ -63,5 +63,9 @@
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
         </dependency>
+        <dependency>
+            <groupId>sonique</groupId>
+            <artifactId>sonique-test-support</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -172,6 +172,12 @@
                 <artifactId>log4j-over-slf4j</artifactId>
                 <version>1.7.2</version>
             </dependency>
+            <dependency>
+                <groupId>sonique</groupId>
+                <artifactId>sonique-test-support</artifactId>
+                <version>825</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

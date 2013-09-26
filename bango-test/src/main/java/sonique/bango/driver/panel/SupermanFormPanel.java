@@ -6,10 +6,10 @@ import sonique.bango.driver.component.SupermanButton;
 import sonique.bango.driver.component.SupermanFields;
 import sonique.bango.driver.component.SupermanTextField;
 
-public abstract class SupermanPanel extends SupermanElement {
+public abstract class SupermanFormPanel extends SupermanElement {
     private final SupermanFields fields;
 
-    public SupermanPanel(WebElement rootElement) {
+    public SupermanFormPanel(WebElement rootElement) {
         super(rootElement);
         fields = new SupermanFields(rootElement);
     }

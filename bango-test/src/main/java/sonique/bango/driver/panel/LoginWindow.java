@@ -5,7 +5,7 @@ import sonique.bango.driver.SupermanWebDriver;
 import sonique.bango.driver.component.SupermanButton;
 import sonique.bango.driver.component.SupermanTextField;
 
-public class LoginWindow extends SupermanPanel {
+public class LoginWindow extends SupermanFormPanel {
 
     public LoginWindow(SupermanWebDriver driver) {
         super(driver.waitFor(By.cssSelector("div.spm-login-dialog")));
