@@ -66,6 +66,7 @@
         <dependency>
             <groupId>sonique</groupId>
             <artifactId>sonique-test-support</artifactId>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
