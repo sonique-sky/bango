@@ -1,24 +1,24 @@
 package sonique.bango.driver.panel;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.SupermanWebDriver;
 import sonique.bango.driver.component.SupermanButton;
-import sonique.bango.driver.component.SupermanFields;
 import sonique.bango.driver.component.SupermanTextField;
 
-public abstract class SupermanFormPanel extends SupermanElement {
-    private final SupermanFields fields;
+public class SupermanFormPanel extends SupermanComponent {
 
-    public SupermanFormPanel(SupermanWebDriver driver, By locator) {
-        super (driver, locator);
-        fields = new SupermanFields(element);
+    public SupermanFormPanel(SupermanContainer supermanContainer, By locator) {
+        super (supermanContainer, locator);
     }
 
     protected SupermanButton button(By by) {
-        return new SupermanButton(driver, this, by);
+        return new SupermanButton(this, by);
     }
 
+    /*
+    //tr[contains(@class, 'x-form-item-input-row') and ./td/label/text() = 'Created Date:']/td/input
+    //label[text() = 'Created Date:']/parent::td/parent::tr/td/input
+     */
     protected SupermanTextField textField(String label) {
-        return fields.textField(label);
+        return new SupermanTextField(this, By.xpath(String.format("//label[text() = '%s:']/parent::td/parent::tr/td/input", label)));
     }
 }

@@ -10,8 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
-
 import static java.util.concurrent.TimeUnit.*;
 import static sonique.bango.driver.SupermanWebDriver.DriverFactory.FIREFOX;
 
@@ -26,8 +24,8 @@ public class SupermanWebDriver {
         webDriver.get(url);
     }
 
-    public WebElement waitFor(By locator) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    public WebElement waitFor(By by) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     public <T> void waitUntil(T item, Predicate<T> predicate) {
@@ -35,6 +33,10 @@ public class SupermanWebDriver {
                 .withTimeout(5, SECONDS)
                 .pollingEvery(100, MILLISECONDS)
                 .until(predicate);
+    }
+
+    public WebElement find(By by) {
+        return webDriver.findElement(by);
     }
 
     public void quit() {

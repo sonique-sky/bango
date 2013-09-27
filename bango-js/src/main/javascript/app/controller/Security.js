@@ -52,14 +52,14 @@ Ext.define('Spm.controller.Security', {
     },
 
     onAuthenticationRequired: function () {
-        this.getAppContainer().setVisible(false);
+        this.getAppContainer().hide();
         Ext.create('Spm.view.application.LoginWindow').show();
     },
 
     authenticatedAgentCallback: function (records, operation, success) {
         if (success) {
             this.fireEvent('authenticated', records[0]);
-            this.getAppContainer().setVisible(true);
+            this.getAppContainer().show();
         }
     },
 

@@ -1,15 +1,22 @@
 package sonique.bango.driver.panel;
 
-import sonique.bango.driver.SupermanWebDriver;
+import org.openqa.selenium.By;
+import sonique.bango.driver.AppContainer;
 
 import static org.openqa.selenium.By.cssSelector;
+import static org.openqa.selenium.By.id;
 
-public class HeaderPanel extends SupermanElement {
-    public HeaderPanel(SupermanWebDriver driver) {
-        super(driver, cssSelector("div.app-header"));
+public class HeaderPanel extends SupermanComponent {
+
+    public HeaderPanel(AppContainer appContainer) {
+        super(appContainer, By.cssSelector("div.app-header"));
     }
 
     public String loginName() {
-        return element.findElement(cssSelector(".login-name")).getText();
+        return element().findElement(cssSelector(".login-name")).getText();
+    }
+
+    public void logout() {
+        element().findElement(id("logout")).click();
     }
 }

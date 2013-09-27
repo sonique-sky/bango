@@ -1,14 +1,13 @@
 package sonique.bango.driver.component;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.SupermanWebDriver;
+import sonique.bango.driver.panel.SupermanComponent;
 import sonique.bango.driver.panel.SupermanElement;
-import sonique.bango.driver.predicate.IsEnabledPredicate;
 
-public class SupermanRadioButton extends SupermanElement {
+public class SupermanRadioButton extends SupermanComponent {
 
-    public SupermanRadioButton(SupermanWebDriver driver, SupermanElement parentElement, By locator) {
-        super(driver, parentElement, locator);
+    protected SupermanRadioButton(SupermanElement element, By by) {
+        super(element, by);
     }
 
     @Override
@@ -17,8 +16,7 @@ public class SupermanRadioButton extends SupermanElement {
     }
 
     public void click() {
-        driver.waitUntil(this, IsEnabledPredicate.isEnabled());
-
-        element.click();
+        waitFor(element());
+        element().click();
     }
 }

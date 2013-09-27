@@ -1,14 +1,13 @@
 package sonique.bango.driver.panel;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.SupermanWebDriver;
 import sonique.bango.driver.component.SupermanButton;
 import sonique.bango.driver.component.SupermanRadioGroup;
 import sonique.bango.driver.component.SupermanTextField;
 
 import static org.openqa.selenium.By.cssSelector;
 
-public class SearchPanel extends SupermanElement {
+public class SearchPanel extends SupermanComponent {
 
     private final SupermanTextField searchField;
     private final SupermanButton searchButton;
@@ -32,12 +31,12 @@ public class SearchPanel extends SupermanElement {
         }
     }
 
-    public SearchPanel(SupermanWebDriver driver) {
-        super(driver, cssSelector("div.search-panel"));
+    public SearchPanel(SupermanContainer container) {
+        super(container, cssSelector("div.search-panel"));
 
-        searchField = new SupermanTextField(element);
-        searchButton = new SupermanButton(driver, this, cssSelector(".x-btn"));
-        radioGroup = new SupermanRadioGroup(driver, this, By.cssSelector(".x-form-radio-group"));
+        searchField = new SupermanTextField(this, By.cssSelector("input.x-form-text"));
+        searchButton = new SupermanButton(this);
+        radioGroup = new SupermanRadioGroup(this);
     }
 
     public void searchUsing(SearchType searchType, String searchTerm) {

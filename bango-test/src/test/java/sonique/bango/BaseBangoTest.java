@@ -9,6 +9,8 @@ import sonique.bango.domain.Agent;
 import sonique.bango.driver.AppPool;
 import sonique.bango.driver.ScenarioDriver;
 import sonique.bango.driver.SupermanApp;
+import sonique.bango.driver.panel.HeaderPanel;
+import sonique.bango.driver.predicate.IsDisplayedPredicate;
 
 public class BaseBangoTest extends TestState {
 
@@ -40,6 +42,10 @@ public class BaseBangoTest extends TestState {
 
     @After
     public void giveBack() throws Exception {
+        HeaderPanel headerPanel = supermanApp.appContainer().headerPanel();
+        if(headerPanel.isDisplayed()) {
+            headerPanel.logout();
+        }
         appPool.giveBack(supermanApp);
     }
 

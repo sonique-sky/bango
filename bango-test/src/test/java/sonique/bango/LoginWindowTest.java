@@ -7,7 +7,7 @@ import sonique.bango.domain.Agent;
 import sonique.bango.domain.Queue;
 import sonique.bango.domain.Role;
 import sonique.bango.driver.panel.HeaderPanel;
-import sonique.bango.driver.panel.LoginWindow;
+import sonique.bango.driver.panel.LoginDialog;
 import sonique.bango.driver.panel.MessageBox;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -15,58 +15,58 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.isEmptyString;
 import static sonique.bango.matcher.IsDisabled.isDisabled;
 import static sonique.bango.matcher.IsDisplayed.isDisplayed;
-import static sonique.bango.matcher.IsDisplayed.isNotDisplayed;
 import static sonique.bango.matcher.IsEnabled.isEnabled;
+import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
 
 public class LoginWindowTest extends BaseBangoTest {
 
-    private LoginWindow loginWindow;
+    private LoginDialog loginDialog;
 
     @Before
     public void setUp() throws Exception {
-        loginWindow = supermanApp.loginWindow();
-        loginWindow.username().clear();
-        loginWindow.password().clear();
+        loginDialog = supermanApp.loginDialog();
+        loginDialog.username().clear();
+        loginDialog.password().clear();
     }
 
     @Test
     public void loginButtonIsDisabledWhenNoFieldsPopulated() throws Exception {
-        assertThat(loginWindow.loginButton(), isDisabled());
+        assertThat(loginDialog.loginButton(), isDisabled());
     }
 
     @Test
     public void loginButtonIsDisabledWhenOnlyUsernameFieldIsPopulated() throws Exception {
-        loginWindow.username().enter("a.a");
-        loginWindow.password().clear();
-        assertThat(loginWindow.loginButton(), isDisabled());
+        loginDialog.username().enter("a.a");
+        loginDialog.password().clear();
+        assertThat(loginDialog.loginButton(), isDisabled());
     }
 
     @Test
     public void loginButtonIsEnabledWhenBothFieldsArePopulated() throws Exception {
-        loginWindow.username().enter("a.a");
-        loginWindow.password().enter("asds");
+        loginDialog.username().enter("a.a");
+        loginDialog.password().enter("asds");
 
-        assertThat(loginWindow.loginButton(), isEnabled());
+        assertThat(loginDialog.loginButton(), isEnabled());
     }
 
     @Test
     public void resetButtonEmptiesTheFieldsAndDisablesTheLoginButton() throws Exception {
-        loginWindow.username().enter("a.a");
-        loginWindow.password().enter("dsfsdfs");
+        loginDialog.username().enter("a.a");
+        loginDialog.password().enter("dsfsdfs");
 
-        loginWindow.resetButton().click();
+        loginDialog.resetButton().click();
 
-        assertThat(loginWindow.username().value(), isEmptyString());
-        assertThat(loginWindow.password().value(), isEmptyString());
-        assertThat(loginWindow.loginButton(), isDisabled());
+        assertThat(loginDialog.username().value(), isEmptyString());
+        assertThat(loginDialog.password().value(), isEmptyString());
+        assertThat(loginDialog.loginButton(), isDisabled());
     }
 
     @Test
     public void showsErrorWhenIncorrectDetailsAreEntered() throws Exception {
-        loginWindow.username().enter("wilbur");
-        loginWindow.password().enter("junk");
+        loginDialog.username().enter("wilbur");
+        loginDialog.password().enter("junk");
 
-        loginWindow.loginButton().click();
+        loginDialog.loginButton().click();
 
         MessageBox notificationWindow = supermanApp.messageBox();
         assertThat(notificationWindow, isDisplayed());
@@ -79,13 +79,13 @@ public class LoginWindowTest extends BaseBangoTest {
 
         register(agent);
 
-        loginWindow.username().enter(agent.agentCode());
-        loginWindow.password().enter(agent.password());
+        loginDialog.username().enter(agent.agentCode());
+        loginDialog.password().enter(agent.password());
 
-        loginWindow.loginButton().click();
+        loginDialog.loginButton().click();
 
-        assertThat(loginWindow, isNotDisplayed());
-        HeaderPanel headerPanel = supermanApp.headerPanel();
+        assertThat(loginDialog, isNotDisplayed());
+        HeaderPanel headerPanel = supermanApp.appContainer().headerPanel();
 
         assertThat(headerPanel, isDisplayed());
         assertThat(headerPanel.loginName(), is(agent.displayName()));

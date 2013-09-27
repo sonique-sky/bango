@@ -16,6 +16,10 @@ Ext.define('Spm.controller.Searches', {
         {
             ref: 'tabPanel',
             selector: '#tab-panel'
+        },
+        {
+            ref: 'searchPanel',
+            selector: '#searchPanel'
         }
     ],
 
@@ -87,5 +91,6 @@ Ext.define('Spm.controller.Searches', {
         this.activeSearchResultTabs.each(function (item) {
             tabPanel.remove(item);
         });
+        this.getSearchPanel().reset();
     }
 });

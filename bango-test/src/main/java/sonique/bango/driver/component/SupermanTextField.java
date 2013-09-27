@@ -2,28 +2,28 @@ package sonique.bango.driver.component;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import sonique.bango.driver.panel.SupermanComponent;
+import sonique.bango.driver.panel.SupermanElement;
 
-public class SupermanTextField implements SupermanField {
-    private final WebElement inputElement;
+public class SupermanTextField extends SupermanComponent implements SupermanField {
 
-    public SupermanTextField(WebElement parent) {
-        this.inputElement = parent.findElement(By.cssSelector("input.x-form-text"));
+    public SupermanTextField(SupermanElement element, By by) {
+        super(element, by);
     }
 
     @Override
     public void enter(String enterValue) {
-        inputElement.sendKeys(enterValue);
-        inputElement.sendKeys(Keys.TAB);
+        element().sendKeys(enterValue);
+        element().sendKeys(Keys.TAB);
     }
 
     @Override
     public String value() {
-        return inputElement.getText();
+        return element().getText();
     }
 
     @Override
     public void clear() {
-        inputElement.clear();
+        element().clear();
     }
 }

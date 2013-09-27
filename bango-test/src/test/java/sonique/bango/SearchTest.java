@@ -3,11 +3,10 @@ package sonique.bango;
 import com.google.common.collect.Lists;
 import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import sonique.bango.domain.*;
-import sonique.bango.driver.panel.LoginWindow;
+import sonique.bango.driver.panel.LoginDialog;
 import sonique.bango.driver.panel.ServiceProblemTab;
 import sonique.bango.driver.panel.SupermanElement;
 import sonique.bango.matcher.IsDisplayed;
@@ -16,6 +15,7 @@ import sonique.testsupport.matchers.AppendableAllOf;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static sonique.bango.driver.panel.SearchPanel.SearchType.DirectoryNumber;
 import static sonique.bango.driver.panel.SearchPanel.SearchType.ServiceProblemId;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
@@ -50,7 +50,6 @@ public class SearchTest extends BaseBangoTest {
     }
 
     @Test
-    @Ignore
     public void searchByDirectoryNumber() throws Exception {
         given(anAgentHasLoggedIn());
         and(aServiceProblemExists().withADirectoryNumber());
@@ -68,7 +67,7 @@ public class SearchTest extends BaseBangoTest {
         return new StateExtractor<ServiceProblemTab>() {
             @Override
             public ServiceProblemTab execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.serviceProblemTab(serviceProblem.serviceProblemId());
+                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId());
             }
         };
     }
@@ -77,7 +76,7 @@ public class SearchTest extends BaseBangoTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.searchPanel().searchUsing(ServiceProblemId, serviceProblem.serviceProblemId().toString());
+                supermanApp.appContainer().searchPanel().searchUsing(ServiceProblemId, serviceProblem.serviceProblemId().toString());
 
                 return capturedInputAndOutputs;
             }
@@ -88,7 +87,7 @@ public class SearchTest extends BaseBangoTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.searchPanel().searchUsing(ServiceProblemId, serviceProblem.serviceProblemId().toString());
+                supermanApp.appContainer().searchPanel().searchUsing(DirectoryNumber, serviceProblem.directoryNumber());
 
                 return capturedInputAndOutputs;
             }
@@ -126,13 +125,13 @@ public class SearchTest extends BaseBangoTest {
             public InterestingGivens build(InterestingGivens interestingGivens) throws Exception {
                 register(agent);
 
-                LoginWindow loginWindow = supermanApp.loginWindow();
-                loginWindow.username().enter(agent.agentCode());
-                loginWindow.password().enter(agent.password());
+                LoginDialog loginDialog = supermanApp.loginDialog();
+                loginDialog.username().enter(agent.agentCode());
+                loginDialog.password().enter(agent.password());
 
-                loginWindow.loginButton().click();
+                loginDialog.loginButton().click();
 
-                assertThat(supermanApp.headerPanel(), isDisplayed());
+                assertThat(supermanApp.appContainer().headerPanel(), isDisplayed());
 
                 return interestingGivens;
             }

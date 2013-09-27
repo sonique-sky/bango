@@ -11,6 +11,7 @@ Ext.define('Spm.view.navigation.SearchPanel', {
     iconCls: 'icon-search',
     title: 'Search',
     layout: 'vbox',
+    itemId: 'searchPanel',
 
     mixins: {
         isActionContext: 'Spm.controller.mixins.IsActionContext'
@@ -73,6 +74,7 @@ Ext.define('Spm.view.navigation.SearchPanel', {
                         {
                             xtype: 'textfield',
                             allowBlank: false,
+                            preventMark: true,
                             listeners: {
                                 specialkey: me.onSpecialKey,
                                 scope: me
@@ -95,5 +97,9 @@ Ext.define('Spm.view.navigation.SearchPanel', {
         if (e.getKey() === e.ENTER) {
             this.registeredActions.actionNamed('search').handleAction(field);
         }
+    },
+
+    reset: function() {
+        this.getForm().reset();
     }
 });

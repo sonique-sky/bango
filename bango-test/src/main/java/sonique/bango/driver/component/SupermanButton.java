@@ -1,14 +1,21 @@
 package sonique.bango.driver.component;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.SupermanWebDriver;
+import sonique.bango.driver.panel.SupermanComponent;
 import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.panel.SupermanFormPanel;
 import sonique.bango.driver.predicate.IsEnabledPredicate;
 
-public class SupermanButton extends SupermanElement {
+import static org.openqa.selenium.By.cssSelector;
 
-    public SupermanButton(SupermanWebDriver driver, SupermanElement parentElement, By locator) {
-        super(driver, parentElement, locator);
+public class SupermanButton extends SupermanComponent {
+
+    public SupermanButton(SupermanElement element) {
+        super(element, cssSelector(".x-btn"));
+    }
+
+    public SupermanButton(SupermanElement supermanElement, By by) {
+        super(supermanElement, by);
     }
 
     @Override
@@ -17,8 +24,7 @@ public class SupermanButton extends SupermanElement {
     }
 
     public void click() {
-        driver.waitUntil(this, IsEnabledPredicate.isEnabled());
-
-        element.click();
+        waitFor(element());
+        element().click();
     }
 }

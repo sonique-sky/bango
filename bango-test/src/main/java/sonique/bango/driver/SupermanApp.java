@@ -9,24 +9,16 @@ public class SupermanApp {
         driver = new SupermanWebDriver(String.format("http://localhost:%d/superman", port));
     }
 
-    public LoginWindow loginWindow() {
-        return new LoginWindow(driver);
-    }
-
-    public HeaderPanel headerPanel() {
-        return new HeaderPanel(driver);
+    public LoginDialog loginDialog() {
+        return new LoginDialog(driver);
     }
 
     public MessageBox messageBox() {
         return new MessageBox(driver);
     }
 
-    public SearchPanel searchPanel() {
-        return new SearchPanel(driver);
-    }
-
-    public ServiceProblemTab serviceProblemTab(Integer serviceProblemId) {
-        return new ServiceProblemTab(driver, serviceProblemId);
+    public AppContainer appContainer() {
+        return new AppContainer(driver);
     }
 
     public void quit() {

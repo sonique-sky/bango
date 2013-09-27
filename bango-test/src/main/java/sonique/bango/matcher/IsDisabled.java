@@ -1,6 +1,7 @@
 package sonique.bango.matcher;
 
 import com.google.common.base.Predicate;
+import sonique.bango.driver.panel.SupermanContainer;
 import sonique.bango.driver.panel.SupermanElement;
 
 import static com.google.common.base.Predicates.not;

@@ -1,6 +1,8 @@
 package sonique.bango.driver.component;
 
-public interface SupermanField {
+import sonique.bango.driver.panel.SupermanElement;
+
+public interface SupermanField extends SupermanElement {
     void clear();
     void enter(String value);
     String value();
