@@ -94,7 +94,6 @@ public class SearchTest extends BaseBangoTest {
         };
     }
 
-
     public ServiceProblemGivensBuilder aServiceProblemExists() {
         return new ServiceProblemGivensBuilder(serviceProblem);
     }

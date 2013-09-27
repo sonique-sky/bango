@@ -1,7 +1,6 @@
 package sonique.bango.driver.panel;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import sonique.bango.driver.SupermanWebDriver;
@@ -17,8 +16,7 @@ public abstract class SupermanContainer implements SupermanElement {
     }
 
     protected WebElement element() {
-        driver.waitFor(by);
-        return driver.find(by);
+        return driver.waitFor(by);
     }
 
     @Override
@@ -29,9 +27,7 @@ public abstract class SupermanContainer implements SupermanElement {
     @Override
     public boolean isDisplayed() {
         try {
-            return element().isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
+            return driver.waitFor(by, 1).isDisplayed();
         } catch (TimeoutException e) {
             return false;
         }
