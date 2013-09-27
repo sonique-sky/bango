@@ -83,6 +83,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.view.queue.QueueTabContent": [],
   "Ext.ux.grid.filter.NumericFilter": [],
   "Ext.ux.event.Recorder": [],
+  "Spm.view.application.LoginDialog": [],
   "Spm.controller.mixins.ActionContextManager": [],
   "Spm.controller.action.serviceproblem.PullServiceProblemAction": [
     "Spm.action.PullServiceProblemAction"
@@ -156,7 +157,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.statusbar.ValidationStatus": [],
   "Spm.view.serviceproblem.eventhistory.ActionToolbar": [],
   "Ext.ux.layout.Center": [],
-  "Spm.view.application.LoginWindow": [],
   "Ext.ux.DataView.Animated": [],
   "Spm.view.serviceproblem.ServiceProblemPanel": [],
   "Ext.ux.statusbar.StatusBar": [
@@ -280,6 +280,9 @@ Ext.ClassManager.addNameAliasMappings({
     "gridfilter.numeric"
   ],
   "Ext.ux.event.Recorder": [],
+  "Spm.view.application.LoginDialog": [
+    "widget.loginDialog"
+  ],
   "Spm.controller.mixins.ActionContextManager": [],
   "Spm.controller.action.serviceproblem.PullServiceProblemAction": [],
   "Ext.ux.ajax.SimManager": [],
@@ -406,9 +409,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Ext.ux.layout.Center": [
     "layout.ux.center"
-  ],
-  "Spm.view.application.LoginWindow": [
-    "widget.loginWindow"
   ],
   "Ext.ux.DataView.Animated": [],
   "Spm.view.serviceproblem.ServiceProblemPanel": [

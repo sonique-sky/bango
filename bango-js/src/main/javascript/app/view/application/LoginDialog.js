@@ -1,6 +1,6 @@
-Ext.define('Spm.view.application.LoginWindow', {
+Ext.define('Spm.view.application.LoginDialog', {
     extend: 'Spm.view.component.StandardDialog',
-    alias: 'widget.loginWindow',
+    alias: 'widget.loginDialog',
 
     height: 135,
     width: 372,
