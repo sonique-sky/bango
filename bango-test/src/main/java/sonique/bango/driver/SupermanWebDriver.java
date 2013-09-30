@@ -13,8 +13,8 @@ public class SupermanWebDriver {
     private final WebDriver webDriver;
 
     public SupermanWebDriver(String url) {
-        webDriver = DriverFactory.HTML_UNIT.build();
-//        webDriver = FIREFOX.build();
+//        webDriver = DriverFactory.HTML_UNIT.build();
+        webDriver = DriverFactory.FIREFOX.build();
         wait = new WebDriverWait(webDriver, 5);
         webDriver.get(url);
     }

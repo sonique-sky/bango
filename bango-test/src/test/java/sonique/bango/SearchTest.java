@@ -69,7 +69,7 @@ public class SearchTest extends BaseBangoTest {
             }
         };
     }
-
+        
     private ActionUnderTest theAgentSearchesForTheServiceProblemUsingServiceProblemId() {
         return new ActionUnderTest() {
             @Override

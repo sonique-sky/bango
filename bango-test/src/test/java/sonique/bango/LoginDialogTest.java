@@ -18,7 +18,7 @@ import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 import static sonique.bango.matcher.IsEnabled.isEnabled;
 import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
 
-public class LoginWindowTest extends BaseBangoTest {
+public class LoginDialogTest extends BaseBangoTest {
 
     private LoginDialog loginDialog;
 

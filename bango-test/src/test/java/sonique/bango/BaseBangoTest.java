@@ -1,10 +1,12 @@
 package sonique.bango;
 
+import com.googlecode.yatspec.junit.SpecRunner;
 import com.googlecode.yatspec.state.givenwhenthen.TestState;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
 import sonique.bango.domain.Agent;
 import sonique.bango.driver.AppPool;
 import sonique.bango.driver.ScenarioDriver;
@@ -12,6 +14,7 @@ import sonique.bango.driver.SupermanApp;
 import sonique.bango.driver.panel.HeaderPanel;
 import sonique.bango.driver.predicate.IsDisplayedPredicate;
 
+@RunWith(SpecRunner.class)
 public class BaseBangoTest extends TestState {
 
     private static final int PORT = 8081;
