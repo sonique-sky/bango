@@ -57,19 +57,43 @@ public class SearchTest extends BaseBangoTest {
         then(aServiceProblemTab(), isDisplayed());
     }
 
-    private AppendableAllOf<SupermanElement> isDisplayed() {
-        return thatHas(IsDisplayed.isDisplayed());
+    @Test
+    public void searchForNonExistentServiceProblem() throws Exception {
+        given(anAgentHasLoggedIn());
+        and(noServiceProblemExists());
+
+        when(theAgentSearchesForTheServiceProblemUsingServiceProblemId());
+
+        then(theNoResultsMessageBox(), isDisplayed());
     }
 
-    private StateExtractor<ServiceProblemTab> aServiceProblemTab() {
-        return new StateExtractor<ServiceProblemTab>() {
+    public ServiceProblemGivensBuilder aServiceProblemExists() {
+        return new ServiceProblemGivensBuilder(scenarioDriver(), serviceProblem, agent);
+    }
+
+    private GivensBuilder noServiceProblemExists() {
+        return new ServiceProblemGivensBuilder(scenarioDriver(), serviceProblem, agent).withNoServiceProblem();
+    }
+
+    private GivensBuilder anAgentHasLoggedIn() {
+        return new GivensBuilder() {
             @Override
-            public ServiceProblemTab execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId());
+            public InterestingGivens build(InterestingGivens interestingGivens) throws Exception {
+                register(agent);
+
+                LoginDialog loginDialog = supermanApp.loginDialog();
+                loginDialog.username().enter(agent.agentCode());
+                loginDialog.password().enter(agent.password());
+
+                loginDialog.loginButton().click();
+
+                assertThat(supermanApp.appContainer().headerPanel(), isDisplayed());
+
+                return interestingGivens;
             }
         };
     }
-        
+
     private ActionUnderTest theAgentSearchesForTheServiceProblemUsingServiceProblemId() {
         return new ActionUnderTest() {
             @Override
@@ -92,26 +116,25 @@ public class SearchTest extends BaseBangoTest {
         };
     }
 
-    public ServiceProblemGivensBuilder aServiceProblemExists() {
-        return new ServiceProblemGivensBuilder(scenarioDriver(), serviceProblem, agent);
-    }
-
-    private GivensBuilder anAgentHasLoggedIn() {
-        return new GivensBuilder() {
+    private StateExtractor<SupermanElement> theNoResultsMessageBox() {
+        return new StateExtractor<SupermanElement>() {
             @Override
-            public InterestingGivens build(InterestingGivens interestingGivens) throws Exception {
-                register(agent);
-
-                LoginDialog loginDialog = supermanApp.loginDialog();
-                loginDialog.username().enter(agent.agentCode());
-                loginDialog.password().enter(agent.password());
-
-                loginDialog.loginButton().click();
-
-                assertThat(supermanApp.appContainer().headerPanel(), isDisplayed());
-
-                return interestingGivens;
+            public SupermanElement execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+                return supermanApp.messageBox();
             }
         };
+    }
+
+    private StateExtractor<ServiceProblemTab> aServiceProblemTab() {
+        return new StateExtractor<ServiceProblemTab>() {
+            @Override
+            public ServiceProblemTab execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId());
+            }
+        };
+    }
+
+    private AppendableAllOf<SupermanElement> isDisplayed() {
+        return thatHas(IsDisplayed.isDisplayed());
     }
 }

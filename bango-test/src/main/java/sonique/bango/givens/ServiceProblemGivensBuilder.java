@@ -1,5 +1,6 @@
 package sonique.bango.givens;
 
+import com.google.common.collect.Lists;
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
 import com.googlecode.yatspec.state.givenwhenthen.InterestingGivens;
 import sonique.bango.domain.Agent;
@@ -22,6 +23,11 @@ public class ServiceProblemGivensBuilder implements GivensBuilder {
 
     public ServiceProblemGivensBuilder withADirectoryNumber() {
         when(searchApiService.serviceProblemByDirectoryNumber(serviceProblem.directoryNumber())).thenReturn(newArrayList(serviceProblem));
+        return this;
+    }
+
+    public ServiceProblemGivensBuilder withNoServiceProblem() {
+        when(searchApiService.serviceProblemById(serviceProblem.serviceProblemId())).thenReturn(Lists.<ServiceProblem>newArrayList());
         return this;
     }
 
