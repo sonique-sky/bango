@@ -1,6 +1,7 @@
 package sonique.bango.domain;
 
 import com.google.common.collect.Ordering;
+import sun.security.jca.ServiceId;
 
 import java.util.Comparator;
 import java.util.List;
@@ -14,8 +15,9 @@ public class ServiceProblem {
     private boolean hasActiveTroubleReport;
     private String directoryNumber;
     private List<EventHistoryItem> eventHistoryItems;
+    private String serviceId;
 
-    public ServiceProblem(Integer serviceProblemId, String status, WorkItem workItem, Queue queue, boolean hasActiveTroubleReport, String directoryNumber, List<EventHistoryItem> eventHistoryItems) {
+    public ServiceProblem(Integer serviceProblemId, String status, WorkItem workItem, Queue queue, boolean hasActiveTroubleReport, String directoryNumber, List<EventHistoryItem> eventHistoryItems, String serviceId) {
         this.serviceProblemId = serviceProblemId;
         this.status = status;
         this.workItem = workItem;
@@ -23,6 +25,7 @@ public class ServiceProblem {
         this.hasActiveTroubleReport = hasActiveTroubleReport;
         this.directoryNumber = directoryNumber;
         this.eventHistoryItems = eventHistoryItems;
+        this.serviceId = serviceId;
     }
 
     public Integer serviceProblemId() {
@@ -79,6 +82,10 @@ public class ServiceProblem {
 
     public void addNote(EventHistoryItem eventHistoryItem) {
         this.eventHistoryItems.add(eventHistoryItem);
+    }
+
+    public String serviceId() {
+        return serviceId;
     }
 
     private static class EventHistoryByDate implements Comparator<EventHistoryItem> {

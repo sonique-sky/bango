@@ -120,8 +120,8 @@ public class BangoApplicationContext {
                             queueStore.queueById(queueId),
                             index % 2 == 0,
                             directoryNumber.toString(),
-                            historyItems(index)
-                    )
+                            historyItems(index),
+                            "1")
             );
         }
         return new ServiceProblemStore(serviceProblems);

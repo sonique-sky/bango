@@ -26,6 +26,11 @@ public class ServiceProblemGivensBuilder implements GivensBuilder {
         return this;
     }
 
+    public ServiceProblemGivensBuilder withAServiceId() {
+        when(searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId())).thenReturn(newArrayList(serviceProblem));
+        return this;
+    }
+
     public ServiceProblemGivensBuilder withNoServiceProblem() {
         when(searchApiService.serviceProblemById(serviceProblem.serviceProblemId())).thenReturn(Lists.<ServiceProblem>newArrayList());
         return this;
