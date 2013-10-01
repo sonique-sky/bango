@@ -16,6 +16,15 @@ public class AgentStore {
 
 
     public void registerAgent(Agent agent) {
-        agentCodeToAgentMap.put(agent.agentCode().toUpperCase(), agent);
+        agentCodeToAgentMap.put(agentCode(agent), agent);
+    }
+
+    public void removeAgent(Agent agent) {
+        agentCodeToAgentMap.remove(agentCode(agent));
+
+    }
+
+    private String agentCode(Agent agent) {
+        return agent.agentCode().toUpperCase();
     }
 }

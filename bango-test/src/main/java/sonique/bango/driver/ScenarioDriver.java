@@ -23,6 +23,11 @@ public class ScenarioDriver {
         searchApiServices.put(agent, mock(SearchApiService.class));
     }
 
+    public void deRegisterAgent(Agent agent) {
+        agentStore.removeAgent(agent);
+        searchApiServices.remove(agent);
+    }
+
     public Map<Agent, SearchApiService> searchApiServices() {
         return searchApiServices;
     }

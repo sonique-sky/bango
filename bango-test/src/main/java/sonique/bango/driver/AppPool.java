@@ -19,7 +19,7 @@ public class AppPool {
         }
     }
 
-    public void giveBack(SupermanApp supermanApp) {
+    public void release(SupermanApp supermanApp) {
         synchronized (appPool) {
             appPool.addLast(supermanApp);
         }

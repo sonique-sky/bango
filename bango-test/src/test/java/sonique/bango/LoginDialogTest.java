@@ -1,32 +1,32 @@
 package sonique.bango;
 
-import com.google.common.collect.Lists;
-import org.junit.Before;
-import org.junit.Test;
-import sonique.bango.domain.Agent;
-import sonique.bango.domain.Queue;
-import sonique.bango.domain.Role;
-import sonique.bango.driver.panel.HeaderPanel;
+import org.junit.*;
+import sonique.bango.driver.SupermanApp;
 import sonique.bango.driver.panel.LoginDialog;
 import sonique.bango.driver.panel.MessageBox;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.isEmptyString;
 import static sonique.bango.matcher.IsDisabled.isDisabled;
 import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 import static sonique.bango.matcher.IsEnabled.isEnabled;
-import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
 
-public class LoginDialogTest extends BaseBangoTest {
+public class LoginDialogTest extends OncePerSuiteBangoTest {
 
     private LoginDialog loginDialog;
+    private SupermanApp supermanApp;
 
     @Before
     public void setUp() throws Exception {
+        supermanApp = bangoTestEnvironment.borrowSupermanApp();
         loginDialog = supermanApp.loginDialog();
         loginDialog.username().clear();
         loginDialog.password().clear();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        bangoTestEnvironment.releaseSupermanApp(supermanApp);
     }
 
     @Test
@@ -38,6 +38,7 @@ public class LoginDialogTest extends BaseBangoTest {
     public void loginButtonIsDisabledWhenOnlyUsernameFieldIsPopulated() throws Exception {
         loginDialog.username().enter("a.a");
         loginDialog.password().clear();
+
         assertThat(loginDialog.loginButton(), isDisabled());
     }
 
@@ -71,23 +72,5 @@ public class LoginDialogTest extends BaseBangoTest {
         MessageBox notificationWindow = supermanApp.messageBox();
         assertThat(notificationWindow, isDisplayed());
         notificationWindow.clickOk();
-    }
-
-    @Test
-    public void logsInWhenCorrectDetailsAreEntered() throws Exception {
-        Agent agent = new Agent("K.K", Lists.<Queue>newArrayList(), Role.ROLE_USER);
-
-        register(agent);
-
-        loginDialog.username().enter(agent.agentCode());
-        loginDialog.password().enter(agent.password());
-
-        loginDialog.loginButton().click();
-
-        assertThat(loginDialog, isNotDisplayed());
-        HeaderPanel headerPanel = supermanApp.appContainer().headerPanel();
-
-        assertThat(headerPanel, isDisplayed());
-        assertThat(headerPanel.loginName(), is(agent.displayName()));
     }
 }
