@@ -29,7 +29,7 @@ public class SupermanWebDriver {
     }
 
     public void quit() {
-        webDriver.quit();
+        webDriver.close();
     }
 
     public enum DriverFactory {
