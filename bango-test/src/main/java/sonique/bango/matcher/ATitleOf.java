@@ -20,19 +20,19 @@ public class ATitleOf extends AsynchronousMatcher<HasTitle> {
     protected Predicate<HasTitle> until() {
         return new Predicate<HasTitle>() {
             @Override
-            public boolean apply(HasTitle messageBox) {
-                return messageBox.title().equals(expectedTitle);
+            public boolean apply(HasTitle element) {
+                return element.title().equals(expectedTitle);
             }
         };
     }
 
     @Override
     protected String expectedDescription() {
-        return String.format(" a message box with title [%s]", expectedTitle);
+        return String.format(" an element with title [%s]", expectedTitle);
     }
 
     @Override
     protected String actualDescription(HasTitle actual) {
-        return String.format(" was a message box with title [%s] ", actual.title());
+        return String.format(" was an element with title [%s] ", actual.title());
     }
 }

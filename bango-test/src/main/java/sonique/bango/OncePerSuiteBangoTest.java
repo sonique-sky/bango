@@ -21,6 +21,6 @@ public class OncePerSuiteBangoTest {
             public void run() {
                 bangoTestEnvironment.stop();
             }
-        }));
+        }, "DIEMUTHAFUCKA!"));
     }
 }

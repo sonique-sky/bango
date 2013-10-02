@@ -28,7 +28,7 @@ public class AppPool {
     public void shutdown() {
         synchronized (appPool) {
             for (SupermanApp pooledApp : appPool) {
-                pooledApp.quit();
+                pooledApp.close();
             }
         }
     }

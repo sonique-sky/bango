@@ -7,13 +7,13 @@ import sonique.bango.BangoYatspecTest;
 import sonique.bango.ServiceProblemScenario;
 import sonique.bango.domain.Agent;
 import sonique.bango.driver.panel.ServiceProblemTab;
-import sonique.bango.driver.panel.SupermanElement;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static sonique.bango.driver.panel.SearchPanel.SearchType.*;
 import static sonique.bango.givens.AgentBuilder.anAgent;
+import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
@@ -34,21 +34,21 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
     }
 
     @Test
-    public void searchByServiceProblemId() throws Exception {
-        given(aServiceProblem());
-
-        when(theAgentSearchesForTheServiceProblemUsingServiceProblemId());
-
-        then(aServiceProblemTab(), isDisplayed());
-    }
-
-    @Test
     public void searchByDirectoryNumber() throws Exception {
         given(aServiceProblem());
 
         when(theAgentSearchesForTheServiceProblemUsingDirectoryNumber());
 
-        then(aServiceProblemTab(), isDisplayed());
+        then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
+    }
+
+    @Test
+    public void searchByServiceProblemId() throws Exception {
+        given(aServiceProblem());
+
+        when(theAgentSearchesForTheServiceProblemUsingServiceProblemId());
+
+        then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
     }
 
     @Test
@@ -57,7 +57,13 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
 
         when(theAgentSearchesForTheServiceProblemUsingAServiceId());
 
-        then(aServiceProblemTab(), isDisplayed());
+        then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
+    }
+
+    private AppendableAllOf<ServiceProblemTab> isDisplayedForTheExpectedServiceProblem() {
+        String expectedTabTitle = String.format("Service Problem [%d]", serviceProblemScenario.serviceProblemId());
+
+        return isDisplayed().with(aTitleOf(expectedTabTitle));
     }
 
     private GivensBuilder aServiceProblem() {
@@ -106,7 +112,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         };
     }
 
-    private AppendableAllOf<SupermanElement> isDisplayed() {
-        return thatHas(IsDisplayed.isDisplayed());
+    private AppendableAllOf<ServiceProblemTab> isDisplayed() {
+        return thatHas(IsDisplayed.<ServiceProblemTab>isDisplayed());
     }
 }

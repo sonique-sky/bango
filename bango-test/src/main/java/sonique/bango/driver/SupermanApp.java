@@ -21,7 +21,7 @@ public class SupermanApp {
         return new AppContainer(driver);
     }
 
-    public void quit() {
-        driver.quit();
+    public void close() {
+        driver.close();
     }
 }

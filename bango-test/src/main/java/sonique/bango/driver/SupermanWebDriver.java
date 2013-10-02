@@ -28,7 +28,7 @@ public class SupermanWebDriver {
                 .until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    public void quit() {
+    public void close() {
         webDriver.close();
     }
 
