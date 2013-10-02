@@ -9,22 +9,27 @@ public class BangoTestEnvironment {
     private static final int PORT = 8081;
 
     private AppPool appPool;
-
     private BangoTestRunner bangoTestRunner;
+    private boolean started;
 
     public BangoTestEnvironment() {
         bangoTestRunner = new BangoTestRunner(PORT);
     }
 
-    public void start() {
-        bangoTestRunner.start();
-        appPool = new AppPool(PORT, 1);
+    public synchronized void start() {
+        if(!started) {
+            started = true;
+            bangoTestRunner.start();
+            appPool = new AppPool(PORT, 1);
+        }
     }
 
-    public void stop() {
-        appPool.shutdown();
-
-        bangoTestRunner.stop();
+    public synchronized void stop() {
+        if(started) {
+            started = false;
+            appPool.shutdown();
+            bangoTestRunner.stop();
+        }
     }
 
     public SupermanApp borrowSupermanApp() {
