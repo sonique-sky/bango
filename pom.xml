@@ -25,6 +25,17 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>sky.sns</groupId>
+                <artifactId>superman-core</artifactId>
+                <version>NETSTREAM-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sky.sns</groupId>
+                <artifactId>superman-core</artifactId>
+                <version>NETSTREAM-SNAPSHOT</version>
+                <type>test-jar</type>
+            </dependency>
+            <dependency>
                 <groupId>bango</groupId>
                 <artifactId>bango-web</artifactId>
                 <version>${project.version}</version>
