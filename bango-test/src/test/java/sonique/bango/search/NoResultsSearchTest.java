@@ -6,13 +6,14 @@ import org.junit.Test;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.NoServiceProblemsScenario;
 import sonique.bango.domain.Agent;
-import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.panel.MessageBox;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static sonique.bango.driver.panel.SearchPanel.SearchType.ServiceProblemId;
 import static sonique.bango.givens.AgentBuilder.anAgent;
+import static sonique.bango.matcher.ATitleOf.*;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class NoResultsSearchTest extends BangoYatspecTest {
@@ -37,7 +38,7 @@ public class NoResultsSearchTest extends BangoYatspecTest {
 
         when(theAgentSearchesForTheServiceProblem());
 
-        then(theNoResultsMessageBox(), isDisplayed());
+        then(aMessageBox(), isDisplayed().with(aTitleOf("No Results")));
     }
 
     private GivensBuilder noServiceProblemsExist() {
@@ -48,22 +49,23 @@ public class NoResultsSearchTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchUsing(ServiceProblemId, "anything");
+                supermanApp.appContainer().searchPanel().searchUsing(ServiceProblemId, "8787");
 
                 return capturedInputAndOutputs;
             }
         };
     }
-    private StateExtractor<SupermanElement> theNoResultsMessageBox() {
-        return new StateExtractor<SupermanElement>() {
+
+    private StateExtractor<MessageBox> aMessageBox() {
+        return new StateExtractor<MessageBox>() {
             @Override
-            public SupermanElement execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+            public MessageBox execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
                 return supermanApp.messageBox();
             }
         };
     }
 
-    private AppendableAllOf<SupermanElement> isDisplayed() {
-        return thatHas(IsDisplayed.isDisplayed());
+    private AppendableAllOf<MessageBox> isDisplayed() {
+        return thatHas(IsDisplayed.<MessageBox>isDisplayed());
     }
 }

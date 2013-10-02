@@ -4,7 +4,7 @@ import com.google.common.base.Predicate;
 import sonique.bango.driver.panel.SupermanElement;
 import sonique.bango.driver.predicate.IsEnabledPredicate;
 
-public class IsEnabled extends AsynchronousMatcher<SupermanElement> {
+public class IsEnabled<T extends SupermanElement> extends AsynchronousMatcher<T> {
 
     public static IsEnabled isEnabled() {
         return new IsEnabled();
@@ -14,17 +14,17 @@ public class IsEnabled extends AsynchronousMatcher<SupermanElement> {
     }
 
     @Override
-    protected Predicate<SupermanElement> until() {
+    protected Predicate<T> until() {
         return IsEnabledPredicate.isEnabled();
     }
 
     @Override
-    protected String failureDescription() {
+    protected String expectedDescription() {
         return " element to be enabled";
     }
 
     @Override
-    protected String expectedDescription() {
+    protected String actualDescription(T actual) {
         return " was disabled";
     }
 }

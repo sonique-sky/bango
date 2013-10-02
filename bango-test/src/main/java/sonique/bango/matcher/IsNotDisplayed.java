@@ -6,24 +6,27 @@ import sonique.bango.driver.predicate.IsDisplayedPredicate;
 
 import static com.google.common.base.Predicates.not;
 
-public class IsNotDisplayed extends AsynchronousMatcher<SupermanElement> {
+public class IsNotDisplayed<T extends SupermanElement> extends AsynchronousMatcher<T> {
 
-    public static IsNotDisplayed isNotDisplayed() {
-         return new IsNotDisplayed();
-     }
+    public static <T extends SupermanElement> IsNotDisplayed<T> isNotDisplayed() {
+        return new IsNotDisplayed<T>();
+    }
 
-     @Override
-     protected Predicate<SupermanElement> until() {
-         return not(IsDisplayedPredicate.isDisplayed());
-     }
+    private IsNotDisplayed() {
+    }
 
-     @Override
-     protected String failureDescription() {
-         return " element not to be displayed";
-     }
+    @Override
+    protected Predicate<T> until() {
+        return not(IsDisplayedPredicate.<T>isDisplayed());
+    }
 
-     @Override
-     protected String expectedDescription() {
-         return " was displayed";
-     }
+    @Override
+    protected String expectedDescription() {
+        return " element not to be displayed";
+    }
+
+    @Override
+    protected String actualDescription(T actual) {
+        return " was displayed";
+    }
 }

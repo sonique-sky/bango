@@ -24,17 +24,17 @@ public abstract class AsynchronousMatcher<T> extends TypeSafeMatcher<T> {
 
     protected abstract Predicate<T> until();
 
-    protected abstract String failureDescription();
-
     protected abstract String expectedDescription();
+
+    protected abstract String actualDescription(T actual);
 
     @Override
     public void describeTo(Description description) {
-        description.appendText(failureDescription());
+        description.appendText(expectedDescription());
     }
 
     @Override
-    public void describeMismatch(Object item, Description description) {
-        description.appendText(expectedDescription());
+    public void describeMismatch(Object actual, Description description) {
+        description.appendText(actualDescription((T) actual));
     }
 }

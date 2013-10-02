@@ -1,14 +1,14 @@
 package sonique.bango;
 
 import com.google.common.collect.Lists;
-import org.mockito.Matchers;
-import sonique.bango.domain.*;
+import sonique.bango.domain.Agent;
+import sonique.bango.domain.ServiceProblem;
 import sonique.bango.driver.ScenarioDriver;
 import sonique.bango.service.SearchApiService;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 public class NoServiceProblemsScenario extends SupermanScenario {
@@ -23,9 +23,6 @@ public class NoServiceProblemsScenario extends SupermanScenario {
 
         SearchApiService searchApiService = scenarioDriver.searchApiServiceFor(agent);
 
-        when(searchApiService.serviceProblemById(Matchers.<Integer>any())).thenReturn(emptyList);
-        when(searchApiService.serviceProblemByDirectoryNumber(Matchers.<String>any())).thenReturn(emptyList);
-        when(searchApiService.serviceProblemsByMspId(Matchers.<String>any())).thenReturn(emptyList);
-        when(searchApiService.serviceProblemsByServiceId(Matchers.<String>any())).thenReturn(emptyList);
+        when(searchApiService.serviceProblemById(any(Integer.class))).thenReturn(emptyList);
     }
 }

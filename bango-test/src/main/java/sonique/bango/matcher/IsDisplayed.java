@@ -4,27 +4,27 @@ import com.google.common.base.Predicate;
 import sonique.bango.driver.panel.SupermanElement;
 import sonique.bango.driver.predicate.IsDisplayedPredicate;
 
-public class IsDisplayed extends AsynchronousMatcher<SupermanElement> {
+public class IsDisplayed<T extends SupermanElement> extends AsynchronousMatcher<T> {
 
-    public static IsDisplayed isDisplayed() {
-        return new IsDisplayed();
+    public static <T extends SupermanElement> IsDisplayed<T> isDisplayed() {
+        return new IsDisplayed<T>();
     }
 
     private IsDisplayed() {
     }
 
     @Override
-    protected Predicate<SupermanElement> until() {
+    protected Predicate<T> until() {
         return IsDisplayedPredicate.isDisplayed();
     }
 
     @Override
-    protected String failureDescription() {
+    protected String expectedDescription() {
         return " element to be displayed";
     }
 
     @Override
-    protected String expectedDescription() {
+    protected String actualDescription(T actual) {
         return " wasn't displayed";
     }
 }

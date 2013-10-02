@@ -13,7 +13,7 @@ public class IsEnabledPredicate<T extends SupermanElement> implements Predicate<
     }
 
     @Override
-    public boolean apply(SupermanElement element) {
+    public boolean apply(T element) {
         return element.isEnabled();
     }
 }
