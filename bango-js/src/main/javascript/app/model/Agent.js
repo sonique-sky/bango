@@ -7,15 +7,6 @@ Ext.define('Spm.model.Agent', {
             name: 'code'
         },
         {
-            name: 'availability'
-        },
-        {
-            name: 'activeCount'
-        },
-        {
-            name: 'heldCount'
-        },
-        {
             mapping: 'details.firstName',
             name: 'firstName'
         },

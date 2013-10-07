@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.Role;
@@ -18,10 +19,7 @@ import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
-import sonique.bango.json.EventHistoryItemSerializer;
-import sonique.bango.json.QueueSerializer;
-import sonique.bango.json.RoleSerializer;
-import sonique.bango.json.ServiceProblemSerializer;
+import sonique.bango.json.*;
 import sonique.bango.service.AgentApiService;
 import sonique.bango.service.QueueApiService;
 import sonique.bango.service.SearchApiService;
@@ -72,6 +70,7 @@ public class BangoApplicationContext {
         module.addSerializer(Role.class, new RoleSerializer());
         module.addSerializer(EventHistoryItem.class, new EventHistoryItemSerializer());
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
+        module.addSerializer(DomainAgent.class, new AgentSerializer());
         module.addSerializer(Queue.class, new QueueSerializer());
 
         objectMapper.registerModule(module);

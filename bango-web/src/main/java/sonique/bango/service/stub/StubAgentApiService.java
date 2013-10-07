@@ -33,7 +33,7 @@ public class StubAgentApiService implements AgentApiService {
         } else if (availability == AgentAvailability.Unavailable) {
             this.authenticatedAgent().makeAvailable(true);
         }
-        
+
         return agentState();
     }
 
@@ -67,6 +67,6 @@ public class StubAgentApiService implements AgentApiService {
                 }
             }
         }
-        return new AgentStateDTO(authenticatedAgent().availability(), "", serviceProblemsForAgent.size(), heldCount, pullCount, pushCount);
+        return new AgentStateDTO(authenticatedAgent().availability(), "", serviceProblemsForAgent.size()-heldCount, heldCount, pullCount, pushCount);
     }
 }
