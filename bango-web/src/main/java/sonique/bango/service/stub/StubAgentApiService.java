@@ -33,8 +33,7 @@ public class StubAgentApiService implements AgentApiService {
         } else if (availability == AgentAvailability.Unavailable) {
             this.authenticatedAgent().makeAvailable(true);
         }
-
-        // Fix me - (needs state)
+        
         return agentState();
     }
 

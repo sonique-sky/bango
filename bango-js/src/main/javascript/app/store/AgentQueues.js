@@ -16,7 +16,7 @@ Ext.define('Spm.store.AgentQueues', {
                 type: 'memory',
                 reader: {
                     type: 'json',
-                    root: 'queues'
+                    root: 'team.assignedQueues'
                 }
             }
         }, cfg)]);

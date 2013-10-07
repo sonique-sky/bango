@@ -85,6 +85,11 @@ public class BangoApplicationContext {
     }
 
     @Bean
+    public QueueRepository queueRepository() {
+        return queueRepository;
+    }
+
+    @Bean
     public SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider() {
         return new SpringSecurityAuthorisedActorProvider(agentRepository);
     }
@@ -96,7 +101,7 @@ public class BangoApplicationContext {
 
     @Bean
     public QueueApiService queueApiService() {
-        return new StubQueueApiService(queueRepository, serviceProblemRepository, springSecurityAuthorisedActorProvider());
+        return new StubQueueApiService(queueRepository(), serviceProblemRepository, springSecurityAuthorisedActorProvider());
     }
 
     @Bean
