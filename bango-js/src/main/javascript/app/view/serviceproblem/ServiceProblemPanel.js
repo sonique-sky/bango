@@ -45,7 +45,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                                 },
                                 {
                                     xtype: 'textfield',
-                                    name: 'workItem.agent.displayName',
+                                    name: 'snsServiceId',
                                     fieldLabel: 'Service Id'
                                 },
                                 {

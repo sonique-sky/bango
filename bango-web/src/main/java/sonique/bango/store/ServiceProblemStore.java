@@ -34,6 +34,8 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
             for (int i = 0; i < 10; i++) {
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
                         .withServiceProblemId(new ServiceProblemId(serviceProblemId++))
+                        .withServiceId(new SnsServiceId(serviceProblemId + 100))
+                        .withDirectoryNumber(new DirectoryNumber("directoryNumber-" + (serviceProblemId % 4)))
                         .withQueue(queue)
                         .withWorkItem(DomainWorkItemBuilder.withAllDefaults().build())
                         .build();
@@ -98,19 +100,50 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
     @Override
     public PagedSearchResults<DomainServiceProblem> searchForServiceProblems(final SearchParametersDTO searchParameters) {
-        String searchProperty = searchParameters.getSearchProperty();
-
-        Collection<DomainServiceProblem> filter = null;
-        if (searchProperty.equals("serviceProblemId")) {
-            filter = filter(serviceProblems, new Predicate<DomainServiceProblem>() {
-                @Override
-                public boolean apply(DomainServiceProblem serviceProblem) {
-                    return serviceProblem.serviceProblemId().asString().equals(searchParameters.getSearchValue());
-                }
-            });
-        }
+        Collection<DomainServiceProblem> filter = filterFor(searchParameters);
 
         return new PagedSearchResults<DomainServiceProblem>(newArrayList(filter), new Long(filter.size()));
+    }
+
+    private Collection<DomainServiceProblem> filterFor(final SearchParametersDTO searchParameters) {
+        SearchProperty searchProperty = SearchProperty.fromString(searchParameters.getSearchProperty());
+        switch (searchProperty) {
+            case serviceProblemId:
+                return filter(serviceProblems, new Predicate<DomainServiceProblem>() {
+                    @Override
+                    public boolean apply(DomainServiceProblem serviceProblem) {
+                        return serviceProblem.serviceProblemId().asString().equals(searchParameters.getSearchValue());
+                    }
+                });
+            case serviceId:
+                return filter(serviceProblems, new Predicate<DomainServiceProblem>() {
+                    @Override
+                    public boolean apply(DomainServiceProblem serviceProblem) {
+                        return serviceProblem.serviceId().asString().equals(searchParameters.getSearchValue());
+                    }
+                });
+            case directoryNumber:
+                return filter(serviceProblems, new Predicate<DomainServiceProblem>() {
+                    @Override
+                    public boolean apply(DomainServiceProblem serviceProblem) {
+                        return serviceProblem.getDirectoryNumber().asString().equals(searchParameters.getSearchValue());
+                    }
+                });
+            case mspId:
+        }
+        return null;
+    }
+
+    private static enum SearchProperty {
+        serviceProblemId, serviceId, directoryNumber, mspId;
+
+        public static SearchProperty fromString(String searchPropertyAsString) {
+            for (SearchProperty searchProperty : values()) {
+                if (searchProperty.name().equals(searchPropertyAsString))
+                    return searchProperty;
+            }
+            throw new IllegalArgumentException(String.format("No SearchProperty for %s", searchPropertyAsString));
+        }
     }
 
     @Override
