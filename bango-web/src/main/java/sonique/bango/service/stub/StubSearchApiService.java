@@ -1,38 +1,38 @@
 package sonique.bango.service.stub;
 
-import sonique.bango.domain.ServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
+import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.SearchApiService;
-import sonique.bango.store.ServiceProblemStore;
-import sun.management.resources.agent;
-
-import java.util.Collection;
-
-import static com.google.common.collect.Lists.newArrayList;
+import spm.domain.DirectoryNumber;
+import spm.domain.ServiceProblemId;
+import spm.domain.SnsServiceId;
 
 public class StubSearchApiService implements SearchApiService {
-    private final ServiceProblemStore serviceProblemStore;
+    private final DomainServiceProblemRepository serviceProblemRepository;
 
-    public StubSearchApiService(ServiceProblemStore serviceProblemStore) {
-        this.serviceProblemStore = serviceProblemStore;
+    public StubSearchApiService(DomainServiceProblemRepository serviceProblemRepository) {
+        this.serviceProblemRepository = serviceProblemRepository;
     }
 
     @Override
-    public Collection<ServiceProblem> serviceProblemById(int serviceProblemId) {
-        return serviceProblemStore.serviceProblemsById(serviceProblemId);
+    public PagedSearchResults<DomainServiceProblem> serviceProblemById(ServiceProblemId serviceProblemId) {
+        return serviceProblemRepository.searchForServiceProblems(SearchParametersDTO.withSearchProperties("serviceProblemId", serviceProblemId, 25, 0));
     }
 
     @Override
-    public Collection<ServiceProblem> serviceProblemByDirectoryNumber(String directoryNumber) {
-        return serviceProblemStore.serviceProblemByDirectoryNumber(directoryNumber);
+    public PagedSearchResults<DomainServiceProblem> serviceProblemByDirectoryNumber(DirectoryNumber directoryNumber) {
+        return serviceProblemRepository.searchForServiceProblems(SearchParametersDTO.withSearchProperties("directoryNumber", directoryNumber, 25, 0));
     }
 
     @Override
-    public Collection<ServiceProblem> serviceProblemsByServiceId(String serviceId) {
-        return newArrayList();
+    public PagedSearchResults<DomainServiceProblem> serviceProblemsByServiceId(SnsServiceId serviceId) {
+        return serviceProblemRepository.searchForServiceProblems(SearchParametersDTO.withSearchProperties("serviceId", serviceId, 25, 0));
     }
 
     @Override
-    public Collection<ServiceProblem> serviceProblemsByMspId(String mspId) {
-        return newArrayList();
+    public PagedSearchResults<DomainServiceProblem> serviceProblemsByMspId(String mspId) {
+        return serviceProblemRepository.searchForServiceProblems(SearchParametersDTO.withSearchProperties("mspId", mspId, 25, 0));
     }
 }

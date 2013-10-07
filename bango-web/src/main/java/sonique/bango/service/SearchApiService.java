@@ -1,12 +1,14 @@
 package sonique.bango.service;
 
-import sonique.bango.domain.ServiceProblem;
-
-import java.util.Collection;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import spm.domain.DirectoryNumber;
+import spm.domain.ServiceProblemId;
+import spm.domain.SnsServiceId;
 
 public interface SearchApiService {
-    Collection<ServiceProblem> serviceProblemById(int serviceProblemId);
-    Collection<ServiceProblem> serviceProblemByDirectoryNumber(String directoryNumber);
-    Collection<ServiceProblem> serviceProblemsByServiceId(String serviceId);
-    Collection<ServiceProblem> serviceProblemsByMspId(String mspId);
+    PagedSearchResults<DomainServiceProblem> serviceProblemById(ServiceProblemId serviceProblemId);
+    PagedSearchResults<DomainServiceProblem> serviceProblemByDirectoryNumber(DirectoryNumber directoryNumber);
+    PagedSearchResults<DomainServiceProblem> serviceProblemsByServiceId(SnsServiceId serviceId);
+    PagedSearchResults<DomainServiceProblem> serviceProblemsByMspId(String mspId);
 }

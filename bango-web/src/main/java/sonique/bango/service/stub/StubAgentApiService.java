@@ -1,39 +1,57 @@
 package sonique.bango.service.stub;
 
-import sonique.bango.domain.Agent;
-import sonique.bango.domain.AgentState;
-import sonique.bango.domain.ServiceProblem;
+import sky.sns.spm.domain.model.AgentAvailability;
+import sky.sns.spm.domain.model.AgentState;
+import sky.sns.spm.domain.model.DomainAgent;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
+import sky.sns.spm.infrastructure.repository.hibernate.HibernateDomainServiceProblemRepository;
+import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sonique.bango.service.AgentApiService;
-import sonique.bango.store.ServiceProblemStore;
-import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
 import java.util.Collection;
+import java.util.List;
 
 public class StubAgentApiService implements AgentApiService {
 
     private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
-    private final ServiceProblemStore serviceProblemStore;
+    private final DomainServiceProblemRepository serviceProblemRepository;
 
-    public StubAgentApiService(SpringSecurityAuthorisedActorProvider authorisedActorProvider, ServiceProblemStore serviceProblemStore) {
+    public StubAgentApiService(SpringSecurityAuthorisedActorProvider authorisedActorProvider, DomainServiceProblemRepository serviceProblemRepository) {
         this.authorisedActorProvider = authorisedActorProvider;
-        this.serviceProblemStore = serviceProblemStore;
+        this.serviceProblemRepository = serviceProblemRepository;
     }
 
     @Override
-    public Agent authenticatedAgent() {
-        return authorisedActorProvider.authenticatedAgent();
+    public DomainAgent authenticatedAgent() {
+        return authorisedActorProvider.getLoggedInAgent();
     }
 
     @Override
     public AgentState toggleAvailability() {
-        AgentState agentState = this.authenticatedAgent().agentState();
-        agentState.toggleAvailability();
+        AgentAvailability availability = authenticatedAgent().availability();
+        if(availability == AgentAvailability.Available) {
+            this.authenticatedAgent().makeAvailable(false);
+        } else if(availability == AgentAvailability.Unavailable) {
+            this.authenticatedAgent().makeAvailable(true);
+        }
 
-        return agentState;
+        // Fix me - (needs state)
+        return new AgentState();
     }
 
     @Override
-    public Collection<ServiceProblem> myItems() {
-        return serviceProblemStore.serviceProblemsForAgent(authorisedActorProvider.getLoggedInAgent());
+    public List<DomainServiceProblem> myItems() {
+        return serviceProblemRepository.getServiceProblemsForAgent(authorisedActorProvider.getLoggedInAgent());
+    }
+
+    @Override
+    public AgentState agentState() {
+        throw new UnsupportedOperationException("Method StubAgentApiService agentState() not yet implemented");
+    }
+
+    @Override
+    public Collection<DomainServiceProblem> agentItems() {
+        throw new UnsupportedOperationException("Method StubAgentApiService agentItems() not yet implemented");
     }
 }

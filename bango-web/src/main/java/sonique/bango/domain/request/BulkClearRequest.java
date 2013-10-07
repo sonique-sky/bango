@@ -1,16 +1,18 @@
 package sonique.bango.domain.request;
 
+import spm.domain.QueueId;
+
 import java.util.Collection;
 
 public class BulkClearRequest {
-    private Integer originalQueueId;
-    private Collection<Integer> serviceProblemIds;
+    private QueueId originalQueueId;
+    private Collection<Long> serviceProblemIds;
 
-    public Collection<Integer> serviceProblemIds() {
+    public Collection<Long> serviceProblemIds() {
         return serviceProblemIds;
     }
 
-    public Integer originalQueueId() {
+    public QueueId originalQueueId() {
         return originalQueueId;
     }
 }

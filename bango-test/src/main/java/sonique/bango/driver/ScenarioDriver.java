@@ -1,6 +1,6 @@
 package sonique.bango.driver;
 
-import sonique.bango.domain.Agent;
+import sky.sns.spm.domain.model.DomainAgent;
 import sonique.bango.service.SearchApiService;
 import sonique.bango.store.AgentStore;
 
@@ -12,27 +12,27 @@ import static org.mockito.Mockito.mock;
 public class ScenarioDriver {
 
     private final AgentStore agentStore;
-    private final Map<Agent,SearchApiService> searchApiServices = newHashMap();
+    private final Map<DomainAgent,SearchApiService> searchApiServices = newHashMap();
 
     public ScenarioDriver(AgentStore agentStore) {
         this.agentStore = agentStore;
     }
 
-    public void registerAgent(Agent agent){
+    public void registerAgent(DomainAgent agent){
         agentStore.registerAgent(agent);
         searchApiServices.put(agent, mock(SearchApiService.class));
     }
 
-    public void deRegisterAgent(Agent agent) {
+    public void deRegisterAgent(DomainAgent agent) {
         agentStore.removeAgent(agent);
         searchApiServices.remove(agent);
     }
 
-    public Map<Agent, SearchApiService> searchApiServices() {
+    public Map<DomainAgent, SearchApiService> searchApiServices() {
         return searchApiServices;
     }
 
-    public SearchApiService searchApiServiceFor(Agent agent) {
+    public SearchApiService searchApiServiceFor(DomainAgent agent) {
         return searchApiServices.get(agent);
     }
 }

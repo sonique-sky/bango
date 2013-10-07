@@ -1,13 +1,16 @@
 package sonique.bango.service;
 
-import sonique.bango.domain.Agent;
-import sonique.bango.domain.AgentState;
-import sonique.bango.domain.ServiceProblem;
+import sky.sns.spm.domain.model.AgentState;
+import sky.sns.spm.domain.model.DomainAgent;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface AgentApiService {
-    Agent authenticatedAgent();
+    DomainAgent authenticatedAgent();
     AgentState toggleAvailability();
-    Collection<ServiceProblem> myItems();
+    List<DomainServiceProblem> myItems();
+    AgentState agentState();
+    Collection<DomainServiceProblem> agentItems();
 }

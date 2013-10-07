@@ -1,34 +1,75 @@
 package sonique.bango.store;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import sonique.bango.domain.Queue;
+import sky.sns.spm.domain.model.QueueDashboardEntry;
+import sky.sns.spm.domain.model.refdata.Queue;
+import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
+import sky.sns.spm.infrastructure.repository.QueueRepository;
+import spm.domain.QueueId;
+import spm.domain.model.refdata.QueueBuilder;
 
+import java.util.Collection;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-public class QueueStore {
+public class QueueStore implements QueueRepository {
 
     private final List<Queue> allQueues;
 
-    public QueueStore(List<Queue> numberOfQueues) {
-        this.allQueues = numberOfQueues;
+    public QueueStore() {
+        allQueues = newArrayList();
+        for(int i =0; i<10; i++) {
+            allQueues.add(new QueueBuilder().build());
+        }
     }
 
-    public List<Queue> allQueues() {
+    @Override
+    public Queue findOpenreachQueueForServiceType(ServiceTypeCode serviceType) {
+        throw new UnsupportedOperationException("Method QueueStore findOpenreachQueueForServiceType() not yet implemented");
+    }
+
+    @Override
+    public Queue findQueueBy(QueueId queueId) {
+        throw new UnsupportedOperationException("Method QueueStore findQueueBy() not yet implemented");
+    }
+
+    @Override
+    public List<Queue> findQueuesThatAllowManualTransfer() {
+        throw new UnsupportedOperationException("Method QueueStore findQueuesThatAllowManualTransfer() not yet implemented");
+    }
+
+    @Override
+    public Collection<QueueDashboardEntry> getQueueDashboardEntries() {
+        throw new UnsupportedOperationException("Method QueueStore getQueueDashboardEntries() not yet implemented");
+    }
+
+    @Override
+    public List<Queue> getAllQueues() {
         return allQueues;
     }
 
-    public Queue queueById(final Integer id) {
-        return Iterables.find(allQueues, new Predicate<Queue>() {
-            public boolean apply(Queue input) {
-                return input.id().equals(id);
-            }
-        });
+    @Override
+    public Queue findQueueForMajorServiceProblem() {
+        throw new UnsupportedOperationException("Method QueueStore findQueueForMajorServiceProblem() not yet implemented");
     }
 
-    public int numberOfQueues() {
-        return allQueues.size();
+    @Override
+    public Queue insert(Queue queue) {
+        throw new UnsupportedOperationException("Method QueueStore insert() not yet implemented");
+    }
+
+    @Override
+    public boolean wouldCauseDuplicateQueueNameOnUpdate(Queue queue) {
+        throw new UnsupportedOperationException("Method QueueStore wouldCauseDuplicateQueueNameOnUpdate() not yet implemented");
+    }
+
+    @Override
+    public boolean wouldCauseDuplicateQueueNameOnInsert(Queue queue) {
+        throw new UnsupportedOperationException("Method QueueStore wouldCauseDuplicateQueueNameOnInsert() not yet implemented");
+    }
+
+    @Override
+    public void update(Queue updatedQueue) {
+        throw new UnsupportedOperationException("Method QueueStore update() not yet implemented");
     }
 }

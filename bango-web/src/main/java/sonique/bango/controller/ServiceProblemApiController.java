@@ -2,14 +2,14 @@ package sonique.bango.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sonique.bango.domain.EventHistoryItem;
-import sonique.bango.domain.ServiceProblem;
+import sky.sns.spm.domain.model.EventHistoryItem;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.service.ServiceProblemApiService;
+import spm.domain.ServiceProblemId;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
-
-import static com.google.common.collect.Lists.newArrayList;
 
 @Controller
 public class ServiceProblemApiController {
@@ -22,37 +22,37 @@ public class ServiceProblemApiController {
 
     @RequestMapping(value = "/{serviceProblemId}", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<ServiceProblem> serviceProblem(@PathVariable int serviceProblemId) {
-        return serviceProblemApiService.serviceProblemsById(serviceProblemId);
+    public Collection<DomainServiceProblem> serviceProblem(@PathVariable Long serviceProblemId) {
+        return serviceProblemApiService.serviceProblemsById(new ServiceProblemId(serviceProblemId));
     }
 
     @RequestMapping(value = "/{serviceProblemId}/eventHistory", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<EventHistoryItem> eventHistory(@PathVariable int serviceProblemId) {
-        return serviceProblemApiService.serviceProblemWithId(serviceProblemId).eventHistoryItems();
+    public List<EventHistoryItem> eventHistory(@PathVariable Long serviceProblemId) {
+        return serviceProblemApiService.serviceProblemWithId(new ServiceProblemId(serviceProblemId)).historyItems();
     }
 
     @RequestMapping(consumes = "application/json", value = "/{serviceProblemId}/eventHistory", method = RequestMethod.POST)
     @ResponseBody
-    public Collection<EventHistoryItem> addEventHistory(@PathVariable int serviceProblemId, @RequestBody Map<String, String> payloadMap) {
-        return serviceProblemApiService.addNote(serviceProblemId, payloadMap.get("note"));
+    public Collection<EventHistoryItem> addEventHistory(@PathVariable Long serviceProblemId, @RequestBody Map<String, String> payloadMap) {
+        return serviceProblemApiService.addNote(new ServiceProblemId(serviceProblemId), payloadMap.get("note"));
     }
 
     @RequestMapping(value = "/{serviceProblemId}/pull", method = RequestMethod.POST)
     @ResponseBody
-    public Collection<ServiceProblem> pull(@PathVariable int serviceProblemId) {
-        return serviceProblemApiService.pull(serviceProblemId);
+    public Collection<DomainServiceProblem> pull(@PathVariable Long serviceProblemId) {
+        return serviceProblemApiService.pull(new ServiceProblemId(serviceProblemId));
     }
 
     @RequestMapping(value = "/{serviceProblemId}/hold", method = RequestMethod.POST)
     @ResponseBody
-    public Collection<ServiceProblem> hold(@PathVariable int serviceProblemId) {
-        return serviceProblemApiService.hold(serviceProblemId);
+    public Collection<DomainServiceProblem> hold(@PathVariable Long serviceProblemId) {
+        return serviceProblemApiService.hold(new ServiceProblemId(serviceProblemId));
     }
 
     @RequestMapping(value = "/{serviceProblemId}/unhold", method = RequestMethod.POST)
     @ResponseBody
-    public Collection<ServiceProblem> release(@PathVariable int serviceProblemId) {
-        return serviceProblemApiService.release(serviceProblemId);
+    public Collection<DomainServiceProblem> release(@PathVariable Long serviceProblemId) {
+        return serviceProblemApiService.release(new ServiceProblemId(serviceProblemId));
     }
 }

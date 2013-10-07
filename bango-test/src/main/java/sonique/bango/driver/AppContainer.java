@@ -20,7 +20,7 @@ public class AppContainer extends SupermanContainer {
         return new SearchPanel(this);
     }
 
-    public ServiceProblemTab serviceProblemTab(Integer serviceProblemId) {
+    public ServiceProblemTab serviceProblemTab(Long serviceProblemId) {
         return new ServiceProblemTab(this, serviceProblemId);
     }
 }

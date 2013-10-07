@@ -5,25 +5,18 @@ import org.junit.Before;
 import org.junit.Test;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.ServiceProblemScenario;
-import sonique.bango.domain.Agent;
 import sonique.bango.driver.panel.ServiceProblemTab;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static sonique.bango.driver.panel.SearchPanel.SearchType.*;
-import static sonique.bango.givens.AgentBuilder.anAgent;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
 
     private ServiceProblemScenario serviceProblemScenario;
-
-    @Override
-    protected Agent agentForTest() {
-        return anAgent();
-    }
 
     @Before
     public void setUp() throws Exception {

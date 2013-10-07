@@ -1,13 +1,13 @@
 package sonique.bango;
 
-import sonique.bango.domain.Agent;
+import sky.sns.spm.domain.model.DomainAgent;
 import sonique.bango.driver.ScenarioDriver;
 
 public abstract class SupermanScenario {
     protected final ScenarioDriver scenarioDriver;
-    protected final Agent agent;
+    protected final DomainAgent agent;
 
-    public SupermanScenario(Agent agent, ScenarioDriver scenarioDriver) {
+    public SupermanScenario(DomainAgent agent, ScenarioDriver scenarioDriver) {
         this.agent = agent;
         this.scenarioDriver = scenarioDriver;
     }

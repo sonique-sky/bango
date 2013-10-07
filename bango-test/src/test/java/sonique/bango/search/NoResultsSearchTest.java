@@ -3,16 +3,16 @@ package sonique.bango.search;
 import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.junit.Before;
 import org.junit.Test;
+import sky.sns.spm.domain.model.DomainAgent;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.NoServiceProblemsScenario;
-import sonique.bango.domain.Agent;
 import sonique.bango.driver.panel.MessageBox;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
+import spm.domain.model.refdata.DomainAgentBuilder;
 
 import static sonique.bango.driver.panel.SearchPanel.SearchType.ServiceProblemId;
-import static sonique.bango.givens.AgentBuilder.anAgent;
 import static sonique.bango.matcher.ATitleOf.*;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
@@ -21,8 +21,8 @@ public class NoResultsSearchTest extends BangoYatspecTest {
     private NoServiceProblemsScenario serviceProblemScenario;
 
     @Override
-    protected Agent agentForTest() {
-        return anAgent();
+    protected DomainAgent agentForTest() {
+        return new DomainAgentBuilder().build();
     }
 
     @Before

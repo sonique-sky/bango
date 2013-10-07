@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sonique.bango.domain.ServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.service.SearchApiService;
-
-import java.util.Collection;
+import spm.domain.DirectoryNumber;
+import spm.domain.ServiceProblemId;
+import spm.domain.SnsServiceId;
 
 @Controller
 public class SearchApiController {
@@ -21,26 +23,26 @@ public class SearchApiController {
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/serviceProblemId/{serviceProblemId}")
     @ResponseBody
-    public Collection<ServiceProblem> serviceProblemsById(@PathVariable int serviceProblemId) {
-        return searchApiService.serviceProblemById(serviceProblemId);
+    public PagedSearchResults<DomainServiceProblem> serviceProblemsById(@PathVariable Long serviceProblemId) {
+        return searchApiService.serviceProblemById(new ServiceProblemId(serviceProblemId));
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/directoryNumber/{directoryNumber}")
     @ResponseBody
-    public Collection<ServiceProblem> serviceProblemsByDirectoryNumber(@PathVariable String directoryNumber) {
-        return searchApiService.serviceProblemByDirectoryNumber(directoryNumber);
+    public PagedSearchResults<DomainServiceProblem> serviceProblemsByDirectoryNumber(@PathVariable String directoryNumber) {
+        return searchApiService.serviceProblemByDirectoryNumber(new DirectoryNumber(directoryNumber));
 
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/serviceId/{serviceId}")
     @ResponseBody
-    public Collection<ServiceProblem> serviceProblemsByServiceId(@PathVariable String serviceId) {
-        return searchApiService.serviceProblemsByServiceId(serviceId);
+    public PagedSearchResults<DomainServiceProblem> serviceProblemsByServiceId(@PathVariable String serviceId) {
+        return searchApiService.serviceProblemsByServiceId(new SnsServiceId(serviceId));
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/mspId/{mspId}")
     @ResponseBody
-    public Collection<ServiceProblem> serviceProblemsByMspId(@PathVariable String mspId) {
+    public PagedSearchResults<DomainServiceProblem> serviceProblemsByMspId(@PathVariable String mspId) {
         return searchApiService.serviceProblemsByMspId(mspId);
     }
 }

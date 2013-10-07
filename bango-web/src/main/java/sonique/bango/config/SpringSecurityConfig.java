@@ -33,10 +33,12 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
 import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.security.web.util.AntPathRequestMatcher;
 import org.springframework.security.web.util.RequestMatcher;
+import sky.sns.spm.application.SystemService;
+import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
+import sky.sns.spm.infrastructure.spring.SpmSessionRegistry;
+import sky.sns.spm.infrastructure.spring.SpmUserDetailsService;
 import sonique.bango.filter.SpmSecurityExceptionFilter;
 import sonique.bango.filter.SpmSessionControlFilter;
-import sonique.bango.filter.SpmSessionRegistry;
-import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -54,7 +56,7 @@ import static java.util.Arrays.asList;
 public class SpringSecurityConfig {
 
     @Resource
-    private SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider;
+    private DomainAgentRepository agentRepository;
 
     // Don't change this bean name - or Spring will chastise you...
     @Bean
@@ -81,7 +83,7 @@ public class SpringSecurityConfig {
         DefaultFilterInvocationSecurityMetadataSource ms = new DefaultFilterInvocationSecurityMetadataSource(urlPatternToRoleMap);
 
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(springSecurityAuthorisedActorProvider);
+        authenticationProvider.setUserDetailsService(new SpmUserDetailsService(agentRepository));
         authenticationProvider.setPasswordEncoder(new Md5PasswordEncoder());
         authenticationProvider.setSaltSource(createSaltSource());
         authenticationProvider.setHideUserNotFoundExceptions(true);
@@ -91,7 +93,27 @@ public class SpringSecurityConfig {
         filterSecurityInterceptor.setAccessDecisionManager(accessDecisionManager);
         filterSecurityInterceptor.setSecurityMetadataSource(ms);
 
-        SpmSessionRegistry sessionRegistry = new SpmSessionRegistry();
+        SpmSessionRegistry sessionRegistry = new SpmSessionRegistry(new SystemService() {
+            @Override
+            public void resetAllAgentsState() {
+            }
+
+            @Override
+            public void loginAgent(String agentCode) {
+            }
+
+            @Override
+            public void logOffAgent(String agentCode) {
+            }
+
+            @Override
+            public void pushWorkItemsThatHaveBreachedSla() {
+            }
+
+            @Override
+            public void completeWorkRemindersThatHaveBreachedSla() {
+            }
+        });
         ConcurrentSessionControlStrategy sessionControlStrategy = new ConcurrentSessionControlStrategy(sessionRegistry);
         sessionControlStrategy.setAlwaysCreateSession(true);
 

@@ -4,9 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sonique.bango.domain.Agent;
-import sonique.bango.domain.AgentState;
-import sonique.bango.domain.ServiceProblem;
+import sky.sns.spm.domain.model.AgentState;
+import sky.sns.spm.domain.model.DomainAgent;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.service.AgentApiService;
 
 import java.util.Collection;
@@ -22,7 +22,7 @@ public class AgentApiController {
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/authenticatedAgent")
     @ResponseBody
-    public Agent authenticatedAgent() {
+    public DomainAgent authenticatedAgent() {
         return agentApiService.authenticatedAgent();
     }
 
@@ -35,13 +35,13 @@ public class AgentApiController {
     @RequestMapping(method = {RequestMethod.GET}, value = "/agentState")
     @ResponseBody
     public AgentState agentState() {
-        return this.authenticatedAgent().agentState();
+        return agentApiService.agentState();
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/myItems")
     @ResponseBody
-    public Collection<ServiceProblem> myItems() {
-        return agentApiService.myItems();
+    public Collection<DomainServiceProblem> myItems() {
+        return agentApiService.agentItems();
     }
 
 }

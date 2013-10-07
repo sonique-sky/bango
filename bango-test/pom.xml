@@ -38,10 +38,22 @@
             <artifactId>selenium-java</artifactId>
             <scope>compile</scope>
         </dependency>
+
+        <!--Sad Face!-->
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit-dep</artifactId>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit-addons</groupId>
+            <artifactId>junit-addons</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>

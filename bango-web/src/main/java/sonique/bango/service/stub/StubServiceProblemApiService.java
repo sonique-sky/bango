@@ -1,63 +1,63 @@
 package sonique.bango.service.stub;
 
-import sonique.bango.domain.EventHistoryItem;
-import sonique.bango.domain.ServiceProblem;
+import sky.sns.spm.domain.model.EventHistoryItem;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
+import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sonique.bango.service.ServiceProblemApiService;
-import sonique.bango.store.ServiceProblemStore;
-import sonique.bango.util.SpringSecurityAuthorisedActorProvider;
+import spm.domain.ServiceProblemId;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
 public class StubServiceProblemApiService implements ServiceProblemApiService {
-    private final ServiceProblemStore serviceProblemStore;
+    private final DomainServiceProblemRepository serviceProblemRepository;
     private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
 
-    public StubServiceProblemApiService(ServiceProblemStore serviceProblemStore, SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
-        this.serviceProblemStore = serviceProblemStore;
+    public StubServiceProblemApiService(DomainServiceProblemRepository serviceProblemRepository, SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
+        this.serviceProblemRepository = serviceProblemRepository;
         this.authorisedActorProvider = authorisedActorProvider;
     }
 
     @Override
-    public Collection<ServiceProblem> serviceProblemsById(int serviceProblemId) {
-        return serviceProblemStore.serviceProblemsById(serviceProblemId);
+    public Collection<DomainServiceProblem> serviceProblemsById(ServiceProblemId serviceProblemId) {
+        return newArrayList(this.serviceProblemWithId(serviceProblemId));
     }
 
     @Override
-    public ServiceProblem serviceProblemWithId(int serviceProblemId) {
-        return serviceProblemStore.serviceProblemWithId(serviceProblemId);
+    public DomainServiceProblem serviceProblemWithId(ServiceProblemId serviceProblemId) {
+        return serviceProblemRepository.findBy(serviceProblemId);
     }
 
     @Override
-    public List<EventHistoryItem> addNote(int serviceProblemId, String note) {
-        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
-        serviceProblem.addNote(new EventHistoryItem("Note", note, new Date(), "Me"));
-        return serviceProblem.eventHistoryItems();
+    public List<EventHistoryItem> addNote(ServiceProblemId serviceProblemId, String note) {
+        DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
+        serviceProblem.addNote(authorisedActorProvider.getLoggedInAgent(), "Note");
+        return serviceProblem.historyItems();
     }
 
     @Override
-    public Collection<ServiceProblem> pull(int serviceProblemId) {
-        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
-        serviceProblem.assignTo(authorisedActorProvider.authenticatedAgent());
+    public Collection<DomainServiceProblem> pull(ServiceProblemId serviceProblemId) {
+        DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
+        serviceProblem.tug(authorisedActorProvider.getLoggedInAgent());
 
         return newArrayList(serviceProblem);
     }
 
     @Override
-    public Collection<ServiceProblem> hold(int serviceProblemId) {
-        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
-        serviceProblem.holdActiveWorkItem();
+    public Collection<DomainServiceProblem> hold(ServiceProblemId serviceProblemId) {
+        DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
+        serviceProblem.holdWorkItem(authorisedActorProvider.getLoggedInAgent());
 
         return newArrayList(serviceProblem);
     }
 
     @Override
-    public Collection<ServiceProblem> release(int serviceProblemId) {
-        ServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
-        serviceProblem.unholdActiveWorkItem();
+    public Collection<DomainServiceProblem> release(ServiceProblemId serviceProblemId) {
+        DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
+        serviceProblem.unholdWorkItem(authorisedActorProvider.getLoggedInAgent());
 
         return newArrayList(serviceProblem);
     }

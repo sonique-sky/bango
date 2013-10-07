@@ -1,21 +1,23 @@
 package sonique.bango.domain.request;
 
+import spm.domain.QueueId;
+
 import java.util.Collection;
 
 public class BulkTransferRequest {
-    private Integer destinationQueueId;
-    private Integer originalQueueId;
-    private Collection<Integer> serviceProblemIds;
+    private QueueId destinationQueueId;
+    private QueueId originalQueueId;
+    private Collection<Long> serviceProblemIds;
 
-    public Integer destinationQueueId() {
+    public QueueId destinationQueueId() {
         return destinationQueueId;
     }
 
-    public Collection<Integer> serviceProblemIds() {
+    public Collection<Long> serviceProblemIds() {
         return serviceProblemIds;
     }
 
-    public Integer originalQueueId() {
+    public QueueId originalQueueId() {
         return originalQueueId;
     }
 }

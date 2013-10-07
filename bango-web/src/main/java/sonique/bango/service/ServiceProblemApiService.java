@@ -1,16 +1,17 @@
 package sonique.bango.service;
 
-import sonique.bango.domain.EventHistoryItem;
-import sonique.bango.domain.ServiceProblem;
+import sky.sns.spm.domain.model.EventHistoryItem;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import spm.domain.ServiceProblemId;
 
 import java.util.Collection;
 import java.util.List;
 
 public interface ServiceProblemApiService {
-    Collection<ServiceProblem> serviceProblemsById(int serviceProblemId);
-    ServiceProblem serviceProblemWithId(int serviceProblemId);
-    List<EventHistoryItem> addNote(int serviceProblemId, String note);
-    Collection<ServiceProblem> pull(int serviceProblemId);
-    Collection<ServiceProblem> hold(int serviceProblemId);
-    Collection<ServiceProblem> release(int serviceProblemId);
+    Collection<DomainServiceProblem> serviceProblemsById(ServiceProblemId serviceProblemId);
+    DomainServiceProblem serviceProblemWithId(ServiceProblemId serviceProblemId);
+    List<EventHistoryItem> addNote(ServiceProblemId serviceProblemId, String note);
+    Collection<DomainServiceProblem> pull(ServiceProblemId serviceProblemId);
+    Collection<DomainServiceProblem> hold(ServiceProblemId serviceProblemId);
+    Collection<DomainServiceProblem> release(ServiceProblemId serviceProblemId);
 }

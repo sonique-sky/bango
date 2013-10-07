@@ -3,8 +3,8 @@ package sonique.bango.privilege;
 import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
 import org.junit.Ignore;
 import org.junit.Test;
+import sky.sns.spm.domain.model.DomainAgent;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.domain.Agent;
 
 @Ignore
 public class QueueControllerPrivilegeTest extends BangoYatspecTest {
@@ -33,7 +33,7 @@ public class QueueControllerPrivilegeTest extends BangoYatspecTest {
     }
 
     @Override
-    protected Agent agentForTest() {
+    protected DomainAgent agentForTest() {
         throw new UnsupportedOperationException("Method QueueControllerPrivilegeTest agentForTest() not yet implemented");
     }
 }

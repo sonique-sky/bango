@@ -7,8 +7,8 @@ import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import sky.sns.spm.domain.model.DomainAgent;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.domain.Agent;
 
 @Ignore
 public class ServiceProblemTest extends BangoYatspecTest {
@@ -43,7 +43,7 @@ public class ServiceProblemTest extends BangoYatspecTest {
     }
 
     @Override
-    protected Agent agentForTest() {
+    protected DomainAgent agentForTest() {
         throw new UnsupportedOperationException("Method ServiceProblemTest agentForTest() not yet implemented");
     }
 }
