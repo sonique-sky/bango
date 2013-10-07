@@ -1,15 +1,13 @@
 package sonique.bango.service.stub;
 
 import sky.sns.spm.domain.model.AgentAvailability;
-import sky.sns.spm.domain.model.AgentState;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
-import sky.sns.spm.infrastructure.repository.hibernate.HibernateDomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
+import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sonique.bango.service.AgentApiService;
 
-import java.util.Collection;
 import java.util.List;
 
 public class StubAgentApiService implements AgentApiService {
@@ -28,16 +26,16 @@ public class StubAgentApiService implements AgentApiService {
     }
 
     @Override
-    public AgentState toggleAvailability() {
+    public AgentStateDTO toggleAvailability() {
         AgentAvailability availability = authenticatedAgent().availability();
-        if(availability == AgentAvailability.Available) {
+        if (availability == AgentAvailability.Available) {
             this.authenticatedAgent().makeAvailable(false);
-        } else if(availability == AgentAvailability.Unavailable) {
+        } else if (availability == AgentAvailability.Unavailable) {
             this.authenticatedAgent().makeAvailable(true);
         }
 
         // Fix me - (needs state)
-        return new AgentState();
+        return agentState();
     }
 
     @Override
@@ -46,12 +44,30 @@ public class StubAgentApiService implements AgentApiService {
     }
 
     @Override
-    public AgentState agentState() {
-        throw new UnsupportedOperationException("Method StubAgentApiService agentState() not yet implemented");
+    public AgentStateDTO agentState() {
+        return statisticsFor(myItems());
     }
 
-    @Override
-    public Collection<DomainServiceProblem> agentItems() {
-        throw new UnsupportedOperationException("Method StubAgentApiService agentItems() not yet implemented");
+    private AgentStateDTO statisticsFor(List<DomainServiceProblem> serviceProblemsForAgent) {
+        int pullCount = 0;
+        int pushCount = 0;
+        int heldCount = 0;
+
+        for (DomainServiceProblem domainServiceProblem : serviceProblemsForAgent) {
+            if (domainServiceProblem.hasWorkItem()) {
+                switch (domainServiceProblem.workItem().assignmentType()) {
+                    case Pull:
+                        pullCount++;
+                        break;
+                    case Push:
+                        pushCount++;
+                        break;
+                }
+                if (domainServiceProblem.workItem().isHeld()) {
+                    heldCount++;
+                }
+            }
+        }
+        return new AgentStateDTO(authenticatedAgent().availability(), "", serviceProblemsForAgent.size(), heldCount, pullCount, pushCount);
     }
 }

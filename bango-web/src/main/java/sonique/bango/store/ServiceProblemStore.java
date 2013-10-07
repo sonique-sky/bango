@@ -14,7 +14,6 @@ import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import spm.domain.*;
-import sun.management.resources.agent;
 
 import java.util.Collection;
 import java.util.List;
@@ -22,8 +21,7 @@ import java.util.List;
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.newArrayList;
 
-public class
-        ServiceProblemStore implements DomainServiceProblemRepository {
+public class ServiceProblemStore implements DomainServiceProblemRepository {
 
     private final List<DomainServiceProblem> serviceProblems;
 
@@ -33,7 +31,7 @@ public class
         List<Queue> queues = queueStore.getAllQueues();
         Long serviceProblemId = 1L;
         for (Queue queue : queues) {
-            for (int i = 0; i <10; i++) {
+            for (int i = 0; i < 10; i++) {
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
                         .withServiceProblemId(new ServiceProblemId(serviceProblemId++))
                         .withQueue(queue)
@@ -103,7 +101,7 @@ public class
         String searchProperty = searchParameters.getSearchProperty();
 
         Collection<DomainServiceProblem> filter = null;
-        if(searchProperty.equals("serviceProblemId")) {
+        if (searchProperty.equals("serviceProblemId")) {
             filter = filter(serviceProblems, new Predicate<DomainServiceProblem>() {
                 @Override
                 public boolean apply(DomainServiceProblem serviceProblem) {
@@ -111,7 +109,6 @@ public class
                 }
             });
         }
-
 
         return new PagedSearchResults<DomainServiceProblem>(newArrayList(filter), new Long(filter.size()));
     }
@@ -122,8 +119,13 @@ public class
     }
 
     @Override
-    public List<DomainServiceProblem> getServiceProblemsForAgent(DomainAgent agent) {
-        throw new UnsupportedOperationException("Method ServiceProblemStore getServiceProblemsForAgent() not yet implemented");
+    public List<DomainServiceProblem> getServiceProblemsForAgent(final DomainAgent agent) {
+        return newArrayList(filter(serviceProblems, new Predicate<DomainServiceProblem>() {
+            @Override
+            public boolean apply(DomainServiceProblem serviceProblem) {
+                return serviceProblem.isAssignedTo(agent);
+            }
+        }));
     }
 
     @Override

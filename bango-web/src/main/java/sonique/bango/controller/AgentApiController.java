@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sky.sns.spm.domain.model.AgentState;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sonique.bango.service.AgentApiService;
 
 import java.util.Collection;
@@ -28,20 +29,20 @@ public class AgentApiController {
 
     @RequestMapping(method = {RequestMethod.POST}, value = "/toggleAvailability")
     @ResponseBody
-    public AgentState toggleAvailability() {
+    public AgentStateDTO toggleAvailability() {
         return agentApiService.toggleAvailability();
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/agentState")
     @ResponseBody
-    public AgentState agentState() {
+    public AgentStateDTO agentState() {
         return agentApiService.agentState();
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/myItems")
     @ResponseBody
     public Collection<DomainServiceProblem> myItems() {
-        return agentApiService.agentItems();
+        return agentApiService.myItems();
     }
 
 }

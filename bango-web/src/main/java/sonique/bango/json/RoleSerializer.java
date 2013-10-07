@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import sonique.bango.domain.Privilege;
-import sonique.bango.domain.Role;
+import sky.sns.spm.domain.model.refdata.Role;
 
 import java.io.IOException;
 
@@ -16,7 +16,8 @@ public class RoleSerializer extends JsonSerializer<Role> {
 
         jsonGenerator.writeArrayFieldStart("privileges");
 
-        for (Privilege privilege : role.privileges()) {
+        sonique.bango.domain.Role bangoRole = sonique.bango.domain.Role.valueOf(role.name());
+        for (Privilege privilege : bangoRole.privileges()) {
             jsonGenerator.writeString(privilege.name());
         }
 

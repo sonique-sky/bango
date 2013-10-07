@@ -100,10 +100,12 @@ public class SpringSecurityConfig {
 
             @Override
             public void loginAgent(String agentCode) {
+                agentRepository.findByAgentCode(agentCode).login();
             }
 
             @Override
             public void logOffAgent(String agentCode) {
+                agentRepository.findByAgentCode(agentCode).logoff();
             }
 
             @Override
