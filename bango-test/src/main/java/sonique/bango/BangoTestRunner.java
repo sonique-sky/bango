@@ -29,7 +29,6 @@ public class BangoTestRunner {
         context = new WebAppContext();
 
         context.setDescriptor("bango-web/src/main/webapp/WEB-INF/web.xml");
-//        context.setResourceBase("bango-js/target/superman");
         context.setResourceBase("bango-js/src/main/javascript");
         context.setContextPath("/superman");
         context.setParentLoaderPriority(true);

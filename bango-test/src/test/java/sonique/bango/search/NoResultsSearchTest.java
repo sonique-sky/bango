@@ -22,7 +22,7 @@ public class NoResultsSearchTest extends BangoYatspecTest {
 
     @Override
     protected DomainAgent agentForTest() {
-        return new DomainAgentBuilder().build();
+        return new DomainAgentBuilder().withPassword("a").build();
     }
 
     @Before

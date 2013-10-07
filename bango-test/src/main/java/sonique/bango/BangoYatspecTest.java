@@ -6,6 +6,7 @@ import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.refdata.Role;
 import sonique.bango.driver.ScenarioDriver;
@@ -17,7 +18,6 @@ import spm.domain.model.refdata.DomainAgentBuilder;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
-import static util.SupermanDataFixtures.someAgent;
 
 @RunWith(SpecRunner.class)
 public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements WithTestState {
@@ -45,8 +45,6 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
         if(headerPanel.isDisplayed()) {
             headerPanel.logout();
         }
-        bangoTestEnvironment.releaseSupermanApp(supermanApp);
-        scenarioDriver.deRegisterAgent(agentForTest);
     }
 
     @Override

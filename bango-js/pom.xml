@@ -48,7 +48,6 @@
                         <configuration>
                             <target>
                                 <property name="cmd.dir" value="${java.io.tmpdir}/ext-cmd/${ext.cmd.version}"/>
-                                <property name="build.dir" value="${basedir}/target/superman"/>
 
                                 <delete dir="${java.io.tmpdir}/ext-cmd"/>
                                 <get src="http://repo.sns.sky.com:8081/artifactory/ext-releases-local/com/sencha/ext-cmd/${ext.cmd.version}/ext-cmd-${ext.cmd.version}.zip"
@@ -64,6 +63,17 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+               <artifactId>maven-clean-plugin</artifactId>
+               <configuration>
+                 <filesets>
+                   <fileset>
+                     <directory>src/main/javascript/build</directory>
+                     <followSymlinks>false</followSymlinks>
+                   </fileset>
+                 </filesets>
+               </configuration>
+             </plugin>
         </plugins>
     </build>
 

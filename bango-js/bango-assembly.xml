@@ -8,7 +8,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>target/superman</directory>
+            <directory>src/main/javascript/build/Spm/production</directory>
             <outputDirectory>/</outputDirectory>
             <excludes>
                 <exclude>**/Readme.md</exclude>
