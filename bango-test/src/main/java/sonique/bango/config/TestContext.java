@@ -10,8 +10,10 @@ import sonique.bango.service.SearchApiService;
 import sonique.bango.store.AgentStore;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
+import static java.util.Arrays.asList;
 import static net.sf.cglib.proxy.Proxy.newProxyInstance;
 
 @Configuration
@@ -34,7 +36,6 @@ public class TestContext extends BangoApplicationContext {
     }
 
     private static class ServiceByAgentInvocationHandler<T> implements InvocationHandler {
-
         private final SpringSecurityAuthorisedActorProvider actorProvider;
         private final Map<DomainAgent, T> services;
 
@@ -45,6 +46,12 @@ public class TestContext extends BangoApplicationContext {
 
         @Override
         public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+            if (method.getName().equals("hashCode")) {
+                return this.hashCode();
+            } else if (method.getName().equals("equals")) {
+                return this.equals(objects[0]);
+            }
+
             T service = services.get(actorProvider.getLoggedInAgent());
             return method.invoke(service, objects);
         }

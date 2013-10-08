@@ -2,6 +2,7 @@ package sonique.bango.search;
 
 import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.ServiceProblemScenario;
@@ -14,6 +15,7 @@ import static sonique.bango.driver.panel.SearchPanel.SearchType.*;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
+@Ignore
 public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
 
     private ServiceProblemScenario serviceProblemScenario;

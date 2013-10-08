@@ -4,6 +4,8 @@ import sonique.bango.driver.AppPool;
 import sonique.bango.driver.ScenarioDriver;
 import sonique.bango.driver.SupermanApp;
 
+import static java.lang.Integer.parseInt;
+
 public class BangoTestEnvironment {
 
     private static final int PORT = 8081;
@@ -20,8 +22,12 @@ public class BangoTestEnvironment {
         if(!started) {
             started = true;
             bangoTestRunner.start();
-            appPool = new AppPool(PORT, 1);
+            appPool = new AppPool(PORT, poolSize());
         }
+    }
+
+    private int poolSize() {
+        return parseInt(System.getProperty("bango.app.pool.size", "1"));
     }
 
     public synchronized void stop() {

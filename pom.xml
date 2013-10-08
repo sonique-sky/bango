@@ -9,13 +9,29 @@
     <name>Bango</name>
     <packaging>pom</packaging>
     <version>DEV-SNAPSHOT</version>
+
     <modules>
         <module>bango-js</module>
         <module>bango-web</module>
         <module>bango-test</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>quickBuild</id>
+            <activation>
+                <property>
+                    <name>quickBuild</name>
+                </property>
+            </activation>
+            <properties>
+                <skip.bango.javascript>true</skip.bango.javascript>
+            </properties>
+        </profile>
+    </profiles>
+
     <properties>
+        <skip.bango.javascript>false</skip.bango.javascript>
         <jetty.version>8.1.8.v20121106</jetty.version>
         <spring.version>3.2.1.RELEASE</spring.version>
         <spring.security.version>3.1.3.RELEASE</spring.security.version>
@@ -28,6 +44,11 @@
                 <groupId>sky.sns</groupId>
                 <artifactId>superman-core</artifactId>
                 <version>NETSTREAM-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+            	<groupId>xml-apis</groupId>
+            	<artifactId>xml-apis</artifactId>
+                <version>1.4.01</version>
             </dependency>
             <dependency>
                 <groupId>sky.sns</groupId>
