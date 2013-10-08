@@ -20,11 +20,11 @@ public class IsDisplayed<T extends SupermanElement> extends AsynchronousMatcher<
 
     @Override
     protected String expectedDescription() {
-        return " element to be displayed";
+        return "element to be displayed";
     }
 
     @Override
     protected String actualDescription(T actual) {
-        return " wasn't displayed";
+        return "was not displayed";
     }
 }

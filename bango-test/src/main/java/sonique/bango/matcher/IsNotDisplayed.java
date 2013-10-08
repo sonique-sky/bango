@@ -22,11 +22,11 @@ public class IsNotDisplayed<T extends SupermanElement> extends AsynchronousMatch
 
     @Override
     protected String expectedDescription() {
-        return " element not to be displayed";
+        return "element not to be displayed";
     }
 
     @Override
     protected String actualDescription(T actual) {
-        return " was displayed";
+        return "was displayed";
     }
 }

@@ -2,11 +2,13 @@ package sonique.bango.matcher;
 
 import com.google.common.base.Predicate;
 import org.hamcrest.Description;
-import org.junit.internal.matchers.TypeSafeMatcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.concurrent.TimeUnit;
+
+import static sonique.utils.StringUtils.unCamelClassOf;
 
 public abstract class AsynchronousMatcher<T> extends TypeSafeMatcher<T> {
     @Override
@@ -34,7 +36,7 @@ public abstract class AsynchronousMatcher<T> extends TypeSafeMatcher<T> {
     }
 
     @Override
-    public void describeMismatch(Object actual, Description description) {
-        description.appendText(actualDescription((T) actual));
+    protected void describeMismatchSafely(T actual, Description description) {
+        description.appendText(unCamelClassOf(actual) + " " + actualDescription(actual));
     }
 }

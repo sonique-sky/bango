@@ -45,6 +45,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
         if(headerPanel.isDisplayed()) {
             headerPanel.logout();
         }
+        bangoTestEnvironment.releaseSupermanApp(supermanApp);
     }
 
     @Override

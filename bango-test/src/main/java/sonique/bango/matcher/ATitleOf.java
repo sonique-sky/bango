@@ -28,11 +28,11 @@ public class ATitleOf extends AsynchronousMatcher<HasTitle> {
 
     @Override
     protected String expectedDescription() {
-        return String.format(" an element with title [%s]", expectedTitle);
+        return String.format("an element with title [%s]", expectedTitle);
     }
 
     @Override
     protected String actualDescription(HasTitle actual) {
-        return String.format(" was an element with title [%s] ", actual.title());
+        return String.format("was an element with title [%s] ", actual.title());
     }
 }

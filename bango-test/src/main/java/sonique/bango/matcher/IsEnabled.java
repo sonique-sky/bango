@@ -20,11 +20,11 @@ public class IsEnabled<T extends SupermanElement> extends AsynchronousMatcher<T>
 
     @Override
     protected String expectedDescription() {
-        return " element to be enabled";
+        return "element to be enabled";
     }
 
     @Override
     protected String actualDescription(T actual) {
-        return " was disabled";
+        return "was disabled";
     }
 }
