@@ -35,7 +35,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
         supermanApp = bangoTestEnvironment.borrowSupermanApp();
         agentForTest = agentForTest();
 
-        scenarioDriver.registerAgent(agentForTest);
+        scenarioDriver().registerAgent(agentForTest);
         testState.interestingGivens.add("Agent", agentForTest);
     }
 
@@ -64,7 +64,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     }
 
     protected ScenarioDriver scenarioDriver() {
-        return scenarioDriver;
+        return bangoTestEnvironment.scenarioDriver();
     }
 
     public TestState given(GivensBuilder builder) throws Exception {

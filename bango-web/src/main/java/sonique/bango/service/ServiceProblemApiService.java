@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.List;
 
 public interface ServiceProblemApiService {
-    Collection<DomainServiceProblem> serviceProblemsById(ServiceProblemId serviceProblemId);
     DomainServiceProblem serviceProblemWithId(ServiceProblemId serviceProblemId);
     List<EventHistoryItem> addNote(ServiceProblemId serviceProblemId, String note);
     Collection<DomainServiceProblem> pull(ServiceProblemId serviceProblemId);

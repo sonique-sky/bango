@@ -11,7 +11,7 @@ public class BangoTestEnvironment {
     private static final int PORT = 8081;
 
     private AppPool appPool;
-    private BangoTestRunner bangoTestRunner;
+    private final BangoTestRunner bangoTestRunner;
     private boolean started;
 
     public BangoTestEnvironment() {
@@ -48,5 +48,13 @@ public class BangoTestEnvironment {
 
     public ScenarioDriver scenarioDriver() {
         return bangoTestRunner.scenarioDriver();
+    }
+
+    public AppPool appPool() {
+        return appPool;
+    }
+
+    public boolean isRunning() {
+        return started;
     }
 }

@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.remote.UnreachableBrowserException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class SupermanWebDriver {
     private final WebDriverWait wait;
@@ -21,20 +21,15 @@ public class SupermanWebDriver {
     }
 
     public WebElement waitFor(By by) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        return wait.until(presenceOfElementLocated(by));
     }
 
     public WebElement waitFor(By by, int seconds) {
-        return new WebDriverWait(webDriver, seconds)
-                .until(ExpectedConditions.presenceOfElementLocated(by));
+        return new WebDriverWait(webDriver, seconds).until(presenceOfElementLocated(by));
     }
 
     public void close() {
-        try {
-            webDriver.close();
-        } catch (UnreachableBrowserException e) {
-           // Not much we can do about this. But lets not fail if other drivers can be closed...
-        }
+        webDriver.quit();
     }
 
     public enum DriverFactory {

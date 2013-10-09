@@ -22,11 +22,6 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     }
 
     @Override
-    public Collection<DomainServiceProblem> serviceProblemsById(ServiceProblemId serviceProblemId) {
-        return newArrayList(this.serviceProblemWithId(serviceProblemId));
-    }
-
-    @Override
     public DomainServiceProblem serviceProblemWithId(ServiceProblemId serviceProblemId) {
         return serviceProblemRepository.findBy(serviceProblemId);
     }
