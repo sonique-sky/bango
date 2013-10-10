@@ -1,24 +1,22 @@
 package sonique.bango;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import sonique.bango.driver.ScenarioDriver;
-
 public class OncePerSuiteBangoTest {
 
-    protected static final BangoTestEnvironment bangoTestEnvironment = new BangoTestEnvironment();
+    protected static BangoTestEnvironment bangoTestEnvironment;
 
-    @BeforeClass
-    public static synchronized void startTheBango() {
-        if (!bangoTestEnvironment.isRunning()) {
-            bangoTestEnvironment.start();
-        }
+    static {
+        doOncePerSuiteSetup();
     }
 
-    @AfterClass
-    public static void killBango() {
-        if (bangoTestEnvironment.appPool().getBorrowed() == 0) {
-            bangoTestEnvironment.stop();
-        }
+    private static void doOncePerSuiteSetup() {
+        bangoTestEnvironment = new BangoTestEnvironment();
+        bangoTestEnvironment.start();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                bangoTestEnvironment.stop();
+            }
+        }));
     }
 }

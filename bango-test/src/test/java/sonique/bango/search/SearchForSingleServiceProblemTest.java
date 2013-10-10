@@ -15,7 +15,6 @@ import static sonique.bango.driver.panel.SearchPanel.SearchType.*;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
-@Ignore
 public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
 
     private ServiceProblemScenario serviceProblemScenario;

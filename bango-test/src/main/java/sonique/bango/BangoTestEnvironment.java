@@ -27,7 +27,7 @@ public class BangoTestEnvironment {
     }
 
     private int poolSize() {
-        return parseInt(System.getProperty("bango.app.pool.size", "1"));
+        return parseInt(System.getProperty("bango.app.pool.size", "2"));
     }
 
     public synchronized void stop() {
@@ -48,13 +48,5 @@ public class BangoTestEnvironment {
 
     public ScenarioDriver scenarioDriver() {
         return bangoTestRunner.scenarioDriver();
-    }
-
-    public AppPool appPool() {
-        return appPool;
-    }
-
-    public boolean isRunning() {
-        return started;
     }
 }

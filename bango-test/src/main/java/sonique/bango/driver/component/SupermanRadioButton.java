@@ -3,6 +3,9 @@ package sonique.bango.driver.component;
 import org.openqa.selenium.By;
 import sonique.bango.driver.panel.SupermanComponent;
 import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.predicate.IsEnabledPredicate;
+
+import static sonique.bango.driver.BetterWait.dally;
 
 public class SupermanRadioButton extends SupermanComponent {
 
@@ -16,7 +19,7 @@ public class SupermanRadioButton extends SupermanComponent {
     }
 
     public void click() {
-        waitFor(element());
+        dally().until(this, IsEnabledPredicate.isEnabled());
         element().click();
     }
 }

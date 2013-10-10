@@ -1,6 +1,7 @@
 package sonique.bango.search;
 
 import com.googlecode.yatspec.state.givenwhenthen.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import sky.sns.spm.domain.model.DomainAgent;
@@ -30,6 +31,11 @@ public class NoResultsSearchTest extends BangoYatspecTest {
         serviceProblemScenario = new NoServiceProblemsScenario(scenarioDriver(), agentForTest);
 
         loginAgent();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        supermanApp.messageBox().clickOk();
     }
 
     @Test

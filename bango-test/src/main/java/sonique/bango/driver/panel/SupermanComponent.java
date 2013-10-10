@@ -5,9 +5,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
+import sonique.bango.driver.predicate.IsEnabledPredicate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static sonique.bango.driver.BetterWait.dally;
 
 public abstract class SupermanComponent implements SupermanElement {
 
@@ -25,7 +29,7 @@ public abstract class SupermanComponent implements SupermanElement {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return element.isEnabled();
     }
 
     @Override
@@ -40,15 +44,6 @@ public abstract class SupermanComponent implements SupermanElement {
     @Override
     public WebElement find(By by) {
         return element().findElement(by);
-    }
-
-    public void waitFor(WebElement element) {
-        new FluentWait<WebElement>(element).until(new Predicate<WebElement>() {
-            @Override
-            public boolean apply(WebElement webElement) {
-                return webElement.isEnabled();
-            }
-        });
     }
 
     protected List<String> classes() {
