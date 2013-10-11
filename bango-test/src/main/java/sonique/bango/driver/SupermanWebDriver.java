@@ -1,6 +1,7 @@
 package sonique.bango.driver;
 
-import com.google.common.base.Predicate;
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import com.google.common.base.Function;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,17 +25,19 @@ public class SupermanWebDriver {
     }
 
     public WebElement waitUntil(final By by, long milliseconds) {
-        dally().withTimeout(milliseconds, MILLISECONDS)
-                .until(webDriver, new Predicate<WebDriver>() {
-                    @Override
-                    public boolean apply(WebDriver webDriver) {
-                        WebElement element = webDriver.findElement(by);
+        Function<WebDriver, WebElement> function = new Function<WebDriver, WebElement>() {
+            @Override
+            public WebElement apply(WebDriver webDriver) {
+                try {
+                    return webDriver.findElement(by);
+                } catch (ElementNotFoundException e) {
+                    return null;
+                }
+            }
+        };
 
-                        return element != null;
-                    }
-                });
-
-        return webDriver.findElement(by);
+        return dally().withTimeout(milliseconds, MILLISECONDS)
+                .until(webDriver, function);
     }
 
     public void close() {

@@ -1,5 +1,6 @@
 package sonique.bango.driver;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,7 +15,7 @@ public class BetterWait {
     public static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = newScheduledThreadPool(Integer.parseInt(System.getProperty("bango.app.pool.size", "2")));
 
     private long timeout = 500;
-    private long interval = 500;
+    private long interval = 100;
     private TimeUnit timeoutUnit = MILLISECONDS;
     private TimeUnit intervalUnit = MILLISECONDS;
 
@@ -23,6 +24,30 @@ public class BetterWait {
     }
 
     private BetterWait() {
+    }
+
+    public <T, R> R until(T target, Function<T, R> function) {
+        TimeOutRunnable timeOutRunnable = new TimeOutRunnable();
+        ScheduledFuture<?> future = SCHEDULED_EXECUTOR_SERVICE.schedule(timeOutRunnable, timeout, timeoutUnit);
+
+        R result;
+
+        do {
+            result = function.apply(target);
+
+            if (result == null) {
+                sleep();
+            }
+
+        } while (!timeOutRunnable.timedOut() && result == null);
+
+        future.cancel(true);
+
+        if (result == null) {
+            throw new RuntimeException("Timed out waiting for condition");
+        }
+
+        return result;
     }
 
     public <T> void until(T target, Predicate<T> predicate) {
