@@ -5,6 +5,9 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import sonique.bango.driver.SupermanWebDriver;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public abstract class SupermanContainer implements SupermanElement {
 
     protected final SupermanWebDriver driver;
@@ -16,7 +19,7 @@ public abstract class SupermanContainer implements SupermanElement {
     }
 
     protected WebElement element() {
-        return driver.waitFor(by);
+        return driver.waitUntil(by);
     }
 
     @Override
@@ -27,7 +30,7 @@ public abstract class SupermanContainer implements SupermanElement {
     @Override
     public boolean isDisplayed() {
         try {
-            return driver.waitFor(by, 1).isDisplayed();
+            return driver.waitUntil(by, 1000).isDisplayed();
         } catch (TimeoutException e) {
             return false;
         }

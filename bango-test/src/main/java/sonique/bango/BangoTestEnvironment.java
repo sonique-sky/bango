@@ -27,7 +27,7 @@ public class BangoTestEnvironment {
     }
 
     private int poolSize() {
-        return parseInt(System.getProperty("bango.app.pool.size", "2"));
+        return parseInt(System.getProperty("bango.app.pool.size", "1"));
     }
 
     public synchronized void stop() {

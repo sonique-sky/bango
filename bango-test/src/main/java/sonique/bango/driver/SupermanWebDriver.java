@@ -1,31 +1,40 @@
 package sonique.bango.driver;
 
+import com.google.common.base.Predicate;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static java.util.concurrent.TimeUnit.*;
+import static sonique.bango.driver.BetterWait.*;
 
 public class SupermanWebDriver {
-    private final WebDriverWait wait;
     private final WebDriver webDriver;
 
     public SupermanWebDriver(String url) {
 //        webDriver = DriverFactory.HTML_UNIT.build();
         webDriver = DriverFactory.FIREFOX.build();
-        wait = new WebDriverWait(webDriver, 5);
         webDriver.get(url);
     }
 
-    public WebElement waitFor(By by) {
-        return wait.until(presenceOfElementLocated(by));
+    public WebElement waitUntil(final By by) {
+        return waitUntil(by, 500);
     }
 
-    public WebElement waitFor(By by, int seconds) {
-        return new WebDriverWait(webDriver, seconds).until(presenceOfElementLocated(by));
+    public WebElement waitUntil(final By by, long milliseconds) {
+        dally().withTimeout(milliseconds, MILLISECONDS)
+                .until(webDriver, new Predicate<WebDriver>() {
+                    @Override
+                    public boolean apply(WebDriver webDriver) {
+                        WebElement element = webDriver.findElement(by);
+
+                        return element != null;
+                    }
+                });
+
+        return webDriver.findElement(by);
     }
 
     public void close() {
