@@ -1,7 +1,6 @@
 package sonique.bango.driver.component;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.panel.SupermanComponent;
 import sonique.bango.driver.panel.SupermanElement;
 import sonique.bango.driver.predicate.IsEnabledPredicate;
 

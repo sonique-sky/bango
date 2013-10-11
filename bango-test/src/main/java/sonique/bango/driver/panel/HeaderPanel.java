@@ -2,6 +2,7 @@ package sonique.bango.driver.panel;
 
 import org.openqa.selenium.By;
 import sonique.bango.driver.AppContainer;
+import sonique.bango.driver.component.SupermanComponent;
 
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.id;

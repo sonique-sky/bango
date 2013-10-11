@@ -10,7 +10,8 @@ Ext.define('Spm.controller.action.serviceproblem.PullServiceProblemAction', {
         this.callParent([{
             name: Spm.action.PullServiceProblemAction.ACTION_NAME,
             tooltip: 'Pull this item',
-            iconCls: 'icon-pull'
+            iconCls: 'icon-pull',
+            id: Ext.id(this, 'pull-service-problem-')
         }]);
     },
 

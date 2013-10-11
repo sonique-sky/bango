@@ -1,35 +1,30 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.component;
 
-import com.google.common.base.Predicate;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.FluentWait;
-import sonique.bango.driver.predicate.IsEnabledPredicate;
+import sonique.bango.driver.panel.SupermanElement;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static sonique.bango.driver.BetterWait.dally;
 
 public abstract class SupermanComponent implements SupermanElement {
 
-    private final SupermanElement element;
+    protected final SupermanElement parentElement;
     private final By by;
 
-    protected SupermanComponent(SupermanElement element, By by) {
-        this.element = element;
+    protected SupermanComponent(SupermanElement parentElement, By by) {
+        this.parentElement = parentElement;
         this.by = by;
     }
 
     protected WebElement element() {
-        return element.find(by);
+        return parentElement.find(by);
     }
 
     @Override
     public boolean isEnabled() {
-        return element.isEnabled();
+        return parentElement.isEnabled();
     }
 
     @Override

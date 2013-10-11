@@ -7,6 +7,7 @@ import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sonique.bango.driver.ScenarioDriver;
 import sonique.bango.service.SearchApiService;
+import sonique.bango.service.ServiceProblemApiService;
 import sonique.bango.store.AgentStore;
 
 import java.lang.reflect.Method;
@@ -25,6 +26,15 @@ public class TestContext extends BangoApplicationContext {
                 getClass().getClassLoader(),
                 new Class[]{SearchApiService.class},
                 new ServiceByAgentInvocationHandler<SearchApiService>(springSecurityAuthorisedActorProvider(), scenarioDriver().searchApiServices())
+        );
+    }
+
+    @Override
+    public ServiceProblemApiService serviceProblemApiService() {
+        return (ServiceProblemApiService) newProxyInstance(
+                getClass().getClassLoader(),
+                new Class[]{ServiceProblemApiService.class},
+                new ServiceByAgentInvocationHandler<ServiceProblemApiService>(springSecurityAuthorisedActorProvider(), scenarioDriver().serviceProblemApiServices())
         );
     }
 

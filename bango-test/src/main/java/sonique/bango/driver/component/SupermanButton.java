@@ -1,11 +1,10 @@
 package sonique.bango.driver.component;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.BetterWait;
-import sonique.bango.driver.panel.SupermanComponent;
 import sonique.bango.driver.panel.SupermanElement;
 import sonique.bango.driver.predicate.IsEnabledPredicate;
 
+import static java.util.concurrent.TimeUnit.*;
 import static org.openqa.selenium.By.cssSelector;
 import static sonique.bango.driver.BetterWait.dally;
 
@@ -25,7 +24,7 @@ public class SupermanButton extends SupermanComponent {
     }
 
     public void click() {
-        dally().until(this, IsEnabledPredicate.isEnabled());
+        dally().withTimeout(5, SECONDS).until(this, IsEnabledPredicate.isEnabled());
         element().click();
     }
 }

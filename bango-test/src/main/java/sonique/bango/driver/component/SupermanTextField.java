@@ -2,7 +2,6 @@ package sonique.bango.driver.component;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import sonique.bango.driver.panel.SupermanComponent;
 import sonique.bango.driver.panel.SupermanElement;
 
 public class SupermanTextField extends SupermanComponent implements SupermanField {
@@ -19,7 +18,7 @@ public class SupermanTextField extends SupermanComponent implements SupermanFiel
 
     @Override
     public String value() {
-        return element().getText();
+        return element().getAttribute("value");
     }
 
     @Override

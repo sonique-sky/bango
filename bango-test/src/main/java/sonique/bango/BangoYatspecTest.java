@@ -46,6 +46,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
             headerPanel.logout();
         }
         bangoTestEnvironment.releaseSupermanApp(supermanApp);
+        scenarioDriver().deRegisterAgent(agentForTest);
     }
 
     @Override

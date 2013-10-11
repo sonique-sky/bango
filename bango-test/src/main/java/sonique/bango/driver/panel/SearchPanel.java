@@ -2,6 +2,7 @@ package sonique.bango.driver.panel;
 
 import org.openqa.selenium.By;
 import sonique.bango.driver.component.SupermanButton;
+import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.driver.component.SupermanRadioGroup;
 import sonique.bango.driver.component.SupermanTextField;
 
