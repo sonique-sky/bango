@@ -7,7 +7,7 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 
 import java.io.IOException;
 
-public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProblem>{
+public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProblem> {
     @Override
     public void serialize(DomainServiceProblem domainServiceProblem, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
@@ -17,7 +17,15 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
         jsonGenerator.writeStringField("snsServiceId", domainServiceProblem.serviceId().asString());
         jsonGenerator.writeBooleanField("hasActiveTroubleReport", domainServiceProblem.hasActiveTroubleReport());
 
-        jsonGenerator.writeObjectField("workItem", domainServiceProblem.workItem());
+        if (domainServiceProblem.hasWorkItem()) {
+            jsonGenerator.writeObjectField("workItem", domainServiceProblem.workItem());
+        } else {
+            jsonGenerator.writeObjectFieldStart("workItem");
+            jsonGenerator.writeObjectFieldStart("agent");
+            jsonGenerator.writeEndObject();
+            jsonGenerator.writeEndObject();
+        }
+
         jsonGenerator.writeObjectField("queue", domainServiceProblem.getQueue());
 
         jsonGenerator.writeEndObject();

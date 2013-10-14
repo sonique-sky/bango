@@ -83,4 +83,8 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     public <ItemOfInterest> TestState then(StateExtractor<ItemOfInterest> extractor, Matcher<? super ItemOfInterest> matcher) throws Exception {
         return testState.then(extractor, matcher);
     }
+
+    public <ItemOfInterest> TestState and(StateExtractor<ItemOfInterest> stateExtractor, Matcher<? super ItemOfInterest> matcher) throws Exception {
+        return then(stateExtractor, matcher);
+    }
 }

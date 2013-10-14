@@ -14,4 +14,8 @@ public class WorkItemPanel extends SupermanFormPanel {
     public String status() {
         return textField("Status").value();
     }
+
+    public boolean hasNoWorkItem() {
+        return contains(By.className("no-work-item-text"));
+    }
 }

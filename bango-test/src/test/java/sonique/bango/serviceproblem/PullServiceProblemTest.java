@@ -1,9 +1,12 @@
 package sonique.bango.serviceproblem;
 
 import com.googlecode.yatspec.state.givenwhenthen.*;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.ServiceProblemScenario;
 import sonique.bango.driver.panel.ServiceProblemTab;
@@ -11,6 +14,7 @@ import sonique.bango.driver.panel.WorkItemPanel;
 import sonique.bango.matcher.workitempanel.WorkItemAssignedAgentMatcher;
 import sonique.bango.matcher.workitempanel.WorkItemStatusMatcher;
 import sonique.bango.scenario.ScenarioGivensBuilder;
+import sonique.bango.service.ServiceProblemApiService;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -33,7 +37,32 @@ public class PullServiceProblemTest extends BangoYatspecTest {
 
         when(theAgentPullsTheServiceProblem());
 
-        then(theWorkItem(), isAssignedToTheLoggedInAgent().and(hasStatusOfAssigned()));
+        then(theServiceProblemService(), isCalled());
+        and(theWorkItem(), isAssignedToTheLoggedInAgent().and(hasStatusOfAssigned())); // Testing our stubs/mocktio framework???? are we stooooopid?
+    }
+
+    private Matcher<ServiceProblemApiService> isCalled() {
+        return new TypeSafeMatcher<ServiceProblemApiService>() {
+            @Override
+            protected boolean matchesSafely(ServiceProblemApiService item) {
+                Mockito.verify(item).pull(serviceProblemScenario.serviceProblemId());
+                return true;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                throw new UnsupportedOperationException("Method  describeTo() not yet implemented");
+            }
+        };
+    }
+
+    private StateExtractor<ServiceProblemApiService> theServiceProblemService() {
+        return new StateExtractor<ServiceProblemApiService>() {
+            @Override
+            public ServiceProblemApiService execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
+                return scenarioDriver().serviceProblemApiServiceFor(agentForTest);
+            }
+        };
     }
 
     private Matcher<WorkItemPanel> hasStatusOfAssigned() {

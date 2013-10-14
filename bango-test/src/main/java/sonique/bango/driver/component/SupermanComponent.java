@@ -41,6 +41,15 @@ public abstract class SupermanComponent implements SupermanElement {
         return element().findElement(by);
     }
 
+    protected boolean contains(By by) {
+        try {
+            find(by);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
     protected List<String> classes() {
         return Arrays.asList(element().getAttribute("class").split(" "));
     }

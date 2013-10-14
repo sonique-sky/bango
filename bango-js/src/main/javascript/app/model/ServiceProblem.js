@@ -3,7 +3,7 @@ Ext.define('Spm.model.ServiceProblem', {
     alias: 'model.serviceProblem',
 
     uses: [
-            'Spm.model.WorkItem'
+        'Spm.model.WorkItem'
     ],
 
     fields: [
@@ -30,7 +30,11 @@ Ext.define('Spm.model.ServiceProblem', {
         'queue', {model: 'Spm.model.Queue', name: 'queue', associationKey: 'queue', getterName: 'queue'}
     ],
 
-    serviceProblemId: function() {
+    serviceProblemId: function () {
         return this.get('serviceProblemId');
+    },
+
+    hasWorkItem: function () {
+        return this.workItem().get('status') != '';
     }
 });

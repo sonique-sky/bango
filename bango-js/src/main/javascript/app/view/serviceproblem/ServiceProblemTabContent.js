@@ -32,7 +32,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
     serviceProblemPanel: undefined,
     eventHistoryPanel: undefined,
 
-    constructor: function() {
+    constructor: function () {
         this.mixins.isActionContext.constructor.call(this);
 
         this.callParent(arguments);
@@ -55,7 +55,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
         this.serviceProblemPanel = Ext.widget('serviceProblemPanel');
         this.eventHistoryPanel = Ext.widget('eventHistoryPanel', {registeredActions: registeredActions});
 
-        this.id =  'service-problem-tab-content-' + serviceProblemId;
+        this.id = 'service-problem-tab-content-' + serviceProblemId;
         this.tabConfig = {id: 'service-problem-tab-' + serviceProblemId};
 
         Ext.applyIf(this, {

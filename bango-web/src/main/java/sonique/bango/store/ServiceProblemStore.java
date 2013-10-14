@@ -37,7 +37,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                         .withServiceId(new SnsServiceId(serviceProblemId + 100))
                         .withDirectoryNumber(new DirectoryNumber("directoryNumber-" + (serviceProblemId % 4)))
                         .withQueue(queue)
-                        .withWorkItem(DomainWorkItemBuilder.withAllDefaults().build())
+                        .withWorkItem(serviceProblemId % 2 == 0 ? DomainWorkItemBuilder.withAllDefaults().build() : null)
                         .build();
                 serviceProblems.add(serviceProblem);
             }

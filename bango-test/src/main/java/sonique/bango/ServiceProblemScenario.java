@@ -19,19 +19,16 @@ import spm.domain.model.refdata.QueueBuilder;
 
 import java.util.List;
 
-import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.when;
 import static util.SupermanDataFixtures.*;
 
 public class ServiceProblemScenario extends SupermanScenario {
 
-    private Long serviceProblemId;
-    private String serviceId;
-    private String directoryNumber;
     private final DomainServiceProblem serviceProblem;
 
     public static ServiceProblemScenario noWorkItemScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
         DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
+                .withNoWorkItem()
                 .withServiceProblemId(someServiceProblemId())
                 .withQueue(new QueueBuilder().with(new QueueName("Queue")).build())
                 .withDirectoryNumber(someDirectoryNumber())
@@ -69,7 +66,7 @@ public class ServiceProblemScenario extends SupermanScenario {
         when(searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId())).thenReturn(serviceProblems);
 
         ServiceProblemApiService serviceProblemApiService = scenarioDriver.serviceProblemApiServiceFor(agent);
-        stub(serviceProblemApiService.pull(serviceProblem.serviceProblemId())).toAnswer(new Answer<List<DomainServiceProblem>>() {
+        when(serviceProblemApiService.pull(serviceProblem.serviceProblemId())).thenAnswer(new Answer<List<DomainServiceProblem>>() {
             @Override
             public List<DomainServiceProblem> answer(InvocationOnMock invocationOnMock) throws Throwable {
                 serviceProblem.tug(agent);
