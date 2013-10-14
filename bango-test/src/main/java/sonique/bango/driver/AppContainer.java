@@ -22,6 +22,14 @@ public class AppContainer extends SupermanContainer {
         return new SearchPanel(this);
     }
 
+    public MyQueuesPanel myQueuesPanel() {
+        return new MyQueuesPanel(this);
+    }
+
+    public AgentStatusPanel agentStatusPanel() {
+        return new AgentStatusPanel(this);
+    }
+
     public ServiceProblemTab serviceProblemTab(ServiceProblemId serviceProblemId) {
         return new ServiceProblemTab(this, serviceProblemId);
     }
