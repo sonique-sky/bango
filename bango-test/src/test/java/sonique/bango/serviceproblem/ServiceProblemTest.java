@@ -46,6 +46,16 @@ public class ServiceProblemTest extends BangoYatspecTest {
         then(theWorkItemPanel(), isPopulatedCorrectly());
     }
 
+    @Test
+    public void findsAndDisplaysAssignedServiceProblem() throws Exception {
+
+    }
+
+    @Test
+    public void findsAndDisplaysServiceProblemWithReminder() throws Exception {
+
+    }
+
     private Matcher<WorkItemPanel> isPopulatedCorrectly() {
         DomainWorkItem workItem = serviceProblemScenario.serviceProblem().workItem();
 
