@@ -9,7 +9,7 @@ import java.util.Date;
 
 public abstract class WorkItemPanelMatcher<TYPE> extends TypeSafeMatcher<WorkItemPanel> {
 
-    public static WorkItemPanelMatcher aWorkItemStatus(Matcher<String> matcher) {
+    public static Matcher<? super WorkItemPanel> aWorkItemStatus(Matcher<String> matcher) {
         return new WorkItemPanelMatcher<String>(matcher) {
             @Override
             protected String actualValue(WorkItemPanel item) {
@@ -18,7 +18,7 @@ public abstract class WorkItemPanelMatcher<TYPE> extends TypeSafeMatcher<WorkIte
         };
     }
 
-    public static WorkItemPanelMatcher aWorkItemCreatedDate(Matcher<Date> matcher) {
+    public static Matcher<? super WorkItemPanel> aWorkItemCreatedDate(Matcher<Date> matcher) {
         return new WorkItemPanelMatcher<Date>(matcher) {
             @Override
             protected Date actualValue(WorkItemPanel item) {
@@ -27,7 +27,7 @@ public abstract class WorkItemPanelMatcher<TYPE> extends TypeSafeMatcher<WorkIte
         };
     }
 
-    public static WorkItemPanelMatcher aWorkItemAssignedAgent(Matcher<String> matcher) {
+    public static Matcher<? super WorkItemPanel> aWorkItemAssignedAgent(Matcher<String> matcher) {
         return new WorkItemPanelMatcher<String>(matcher) {
             @Override
             protected String actualValue(WorkItemPanel item) {
@@ -36,7 +36,7 @@ public abstract class WorkItemPanelMatcher<TYPE> extends TypeSafeMatcher<WorkIte
         };
     }
 
-    public static WorkItemPanelMatcher aWorkItemType(Matcher<String> matcher) {
+    public static Matcher<? super WorkItemPanel> aWorkItemType(Matcher<String> matcher) {
         return new WorkItemPanelMatcher<String>(matcher) {
             @Override
             protected String actualValue(WorkItemPanel item) {
@@ -45,7 +45,7 @@ public abstract class WorkItemPanelMatcher<TYPE> extends TypeSafeMatcher<WorkIte
         };
     }
 
-    public static WorkItemPanelMatcher aWorkItemAction(Matcher<String> matcher) {
+    public static Matcher<? super WorkItemPanel> aWorkItemAction(Matcher<String> matcher) {
         return new WorkItemPanelMatcher<String>(matcher) {
             @Override
             protected String actualValue(WorkItemPanel item) {
@@ -54,7 +54,7 @@ public abstract class WorkItemPanelMatcher<TYPE> extends TypeSafeMatcher<WorkIte
         };
     }
 
-    public static WorkItemPanelMatcher aWorkItemPriority(Matcher<String> matcher) {
+    public static Matcher<? super WorkItemPanel> aWorkItemPriority(Matcher<String> matcher) {
         return new WorkItemPanelMatcher<String>(matcher) {
             @Override
             protected String actualValue(WorkItemPanel item) {

@@ -10,15 +10,7 @@ import org.mockito.Mockito;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.ServiceProblemScenario;
 import sonique.bango.driver.panel.ServiceProblemTab;
-import sonique.bango.driver.panel.WorkItemPanel;
-import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.bango.service.ServiceProblemApiService;
-import sonique.testsupport.matchers.AppendableAllOf;
-
-import static org.hamcrest.core.IsEqual.equalTo;
-import static sonique.bango.matcher.workitempanel.WorkItemPanelMatcher.aWorkItemAssignedAgent;
-import static sonique.bango.matcher.workitempanel.WorkItemPanelMatcher.aWorkItemStatus;
-import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class PullServiceProblemTest extends BangoYatspecTest {
 
@@ -26,8 +18,6 @@ public class PullServiceProblemTest extends BangoYatspecTest {
 
     @Before
     public void setUp() throws Exception {
-        serviceProblemScenario = ServiceProblemScenario.serviceProblemScenario(scenarioDriver(), agentForTest);
-
         loginAgent();
     }
 
@@ -38,7 +28,6 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         when(theAgentPullsTheServiceProblem());
 
         then(theServiceProblemService(), isCalled());
-        and(theWorkItem(), isAssignedToTheLoggedInAgent().and(hasStatusOfAssigned())); // Testing our stubs/mocktio framework???? are we stooooopid?
     }
 
     private Matcher<ServiceProblemApiService> isCalled() {
@@ -65,24 +54,6 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         };
     }
 
-    private Matcher<WorkItemPanel> hasStatusOfAssigned() {
-        return aWorkItemStatus(equalTo("Assigned"));
-    }
-
-    private AppendableAllOf<WorkItemPanel> isAssignedToTheLoggedInAgent() {
-        return thatHas(aWorkItemAssignedAgent(equalTo(agentForTest.details().getDisplayName())));
-    }
-
-    private StateExtractor<WorkItemPanel> theWorkItem() {
-        return new StateExtractor<WorkItemPanel>() {
-            @Override
-            public WorkItemPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                ServiceProblemTab serviceProblemTab = supermanApp.appContainer().serviceProblemTab(serviceProblemScenario.serviceProblemId());
-
-                return serviceProblemTab.tabContent().workItemPanel();
-            }
-        };
-    }
 
     private ActionUnderTest theAgentPullsTheServiceProblem() {
         return new ActionUnderTest() {
@@ -98,10 +69,11 @@ public class PullServiceProblemTest extends BangoYatspecTest {
     }
 
     private GivensBuilder anAgentHasFoundAServiceProblem() {
-        return new ScenarioGivensBuilder(serviceProblemScenario) {
+        return new GivensBuilder() {
             @Override
             public InterestingGivens build(InterestingGivens givens) throws Exception {
-                super.build(givens);
+                serviceProblemScenario = ServiceProblemScenario.serviceProblemScenario(scenarioDriver(), agentForTest);
+                serviceProblemScenario.bindScenario();
 
                 supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblemId());
 
