@@ -1,18 +1,22 @@
 package sonique.bango.serviceproblem;
 
 import com.googlecode.yatspec.state.givenwhenthen.*;
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Test;
+import sky.sns.spm.domain.model.serviceproblem.DomainWorkItem;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.ServiceProblemScenario;
 import sonique.bango.driver.panel.ServiceProblemTab;
+import sonique.bango.driver.panel.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
+import sonique.bango.matcher.NoWorkItemMatcher;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
+import static org.hamcrest.core.IsEqual.equalTo;
+import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
+import static sonique.bango.matcher.workitempanel.WorkItemPanelMatcher.*;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class ServiceProblemTest extends BangoYatspecTest {
@@ -30,24 +34,34 @@ public class ServiceProblemTest extends BangoYatspecTest {
 
         when(anAgentViewsTheServiceProblem());
 
-        then(theServiceProblemTab(), isDisplayed().with(anEmptyWorkItemPanel()));
+        then(theServiceProblemTab(), isDisplayed().with(NoWorkItemMatcher.anEmptyWorkItemPanel()));
     }
 
-    private Matcher<? super ServiceProblemTab> anEmptyWorkItemPanel() {
-        return new TypeSafeMatcher<ServiceProblemTab>() {
-            @Override
-            protected boolean matchesSafely(ServiceProblemTab item) {
-                return item.tabContent().workItemPanel().hasNoWorkItem();
-            }
+    @Test
+    public void findsAndDisplaysServiceProblemWithAWorkItem() throws Exception {
+        given(aServiceProblemWithWorkItem());
 
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("'No work item' text is displayed");
-            }
+        when(anAgentViewsTheServiceProblem());
 
+        then(theWorkItemPanel(), isPopulatedCorrectly());
+    }
+
+    private Matcher<? super WorkItemPanel> isPopulatedCorrectly() {
+        DomainWorkItem workItem = serviceProblemScenario.serviceProblem().workItem();
+
+        return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
+                .and(aWorkItemStatus(equalTo(workItem.status().name())))
+                .and(aWorkItemCreatedDate(isSameDateToMinute(workItem.createdDate())))
+                .and(aWorkItemType(equalTo(workItem.assignmentType().name())))
+                .and(aWorkItemAction(equalTo(workItem.action().toString())))
+                ;
+    }
+
+    private StateExtractor<WorkItemPanel> theWorkItemPanel() {
+        return new StateExtractor<WorkItemPanel>() {
             @Override
-            protected void describeMismatchSafely(ServiceProblemTab item, Description mismatchDescription) {
-                mismatchDescription.appendText("was not displayed :(");
+            public WorkItemPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
+                return supermanApp.appContainer().serviceProblemTab(serviceProblemScenario.serviceProblemId()).tabContent().workItemPanel();
             }
         };
     }
@@ -67,6 +81,11 @@ public class ServiceProblemTest extends BangoYatspecTest {
 
     private GivensBuilder aServiceProblemWithoutWorkItem() {
         serviceProblemScenario = ServiceProblemScenario.noWorkItemScenario(scenarioDriver(), agentForTest);
+        return new ScenarioGivensBuilder(serviceProblemScenario);
+    }
+
+    private GivensBuilder aServiceProblemWithWorkItem() {
+        serviceProblemScenario = ServiceProblemScenario.serviceProblemScenario(scenarioDriver(), agentForTest);
         return new ScenarioGivensBuilder(serviceProblemScenario);
     }
 

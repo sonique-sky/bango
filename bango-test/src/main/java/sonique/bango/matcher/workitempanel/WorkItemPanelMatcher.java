@@ -1,14 +1,68 @@
 package sonique.bango.matcher.workitempanel;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.joda.time.format.DateTimeFormat;
 import sonique.bango.driver.panel.WorkItemPanel;
 
-public abstract class WorkItemPanelMatcher extends TypeSafeMatcher<WorkItemPanel> {
-    private final Matcher<String> matcher;
+import java.util.Date;
 
-    WorkItemPanelMatcher(Matcher<String> matcher) {
+public abstract class WorkItemPanelMatcher<TYPE> extends TypeSafeMatcher<WorkItemPanel> {
+
+    public static WorkItemPanelMatcher aWorkItemStatus(Matcher<String> matcher) {
+        return new WorkItemPanelMatcher<String>(matcher) {
+            @Override
+            protected String actualValue(WorkItemPanel item) {
+                return item.status();
+            }
+        };
+    }
+
+    public static WorkItemPanelMatcher aWorkItemCreatedDate(Matcher<Date> matcher) {
+        return new WorkItemPanelMatcher<Date>(matcher) {
+            @Override
+            protected Date actualValue(WorkItemPanel item) {
+                String actualDate = item.createdDate();
+                if (StringUtils.isEmpty(actualDate)) {
+                    return null;
+                }
+                return DateTimeFormat.forPattern("dd/MM/yyyy HH:mm").parseDateTime(actualDate).toDate();
+            }
+        };
+    }
+
+    public static WorkItemPanelMatcher aWorkItemAssignedAgent(Matcher<String> matcher) {
+        return new WorkItemPanelMatcher<String>(matcher) {
+            @Override
+            protected String actualValue(WorkItemPanel item) {
+                return item.assignedAgent();
+            }
+        };
+    }
+
+    public static WorkItemPanelMatcher aWorkItemType(Matcher<String> matcher) {
+        return new WorkItemPanelMatcher<String>(matcher) {
+            @Override
+            protected String actualValue(WorkItemPanel item) {
+                return item.type();
+            }
+        };
+    }
+
+    public static WorkItemPanelMatcher aWorkItemAction(Matcher<String> matcher) {
+        return new WorkItemPanelMatcher<String>(matcher) {
+            @Override
+            protected String actualValue(WorkItemPanel item) {
+                return item.action();
+            }
+        };
+    }
+
+    private final Matcher<TYPE> matcher;
+
+    private WorkItemPanelMatcher(Matcher<TYPE> matcher) {
         this.matcher = matcher;
     }
 
@@ -17,7 +71,7 @@ public abstract class WorkItemPanelMatcher extends TypeSafeMatcher<WorkItemPanel
         return matcher.matches(actualValue(item));
     }
 
-    protected abstract String actualValue(WorkItemPanel item);
+    protected abstract TYPE actualValue(WorkItemPanel item);
 
     @Override
     public void describeTo(Description description) {

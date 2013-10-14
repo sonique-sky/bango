@@ -57,10 +57,12 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                     items: [
                                         {
                                             xtype: 'textfield',
+                                            name: 'createdDate',
                                             fieldLabel: 'Created Date'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            name: 'priority',
                                             fieldLabel: 'Priority'
                                         }
                                     ]
@@ -89,10 +91,12 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                     items: [
                                         {
                                             xtype: 'textfield',
+                                            name: 'type',
                                             fieldLabel: 'Type'
                                         },
                                         {
                                             xtype: 'textfield',
+                                            name: 'reminder',
                                             fieldLabel: 'Reminder'
                                         }
                                     ]
@@ -109,7 +113,8 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                             items: [
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Action'
+                                    fieldLabel: 'Action',
+                                    name: 'action'
                                 }
                             ]
                         }

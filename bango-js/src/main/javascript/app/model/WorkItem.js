@@ -8,22 +8,40 @@ Ext.define('Spm.model.WorkItem', {
         },
         {
             name: 'status'
+        },
+        {
+            name: 'createdDate'
+//            type: 'date',
+//            dateFormat: 'd/m/Y H:i'
+        },
+        {
+            name: 'type',
+            mapping: 'assignmentType'
+        },
+        {
+            name: 'action'
+        },
+        {
+            name: 'priority'
+        },
+        {
+            name: 'reminder'
         }
     ],
 
-    isHeld: function() {
+    isHeld: function () {
         return 'Held' == this.get('status');
     },
 
-    isAssigned: function() {
+    isAssigned: function () {
         return 'Unassigned' != this.get('status');
     },
 
-    isPullable: function() {
+    isPullable: function () {
         return 'Unassigned' == this.get('status');
     },
 
-    isAssignedTo: function(agent) {
+    isAssignedTo: function (agent) {
         return this.agent().get('code') === agent.get('code');
     },
 

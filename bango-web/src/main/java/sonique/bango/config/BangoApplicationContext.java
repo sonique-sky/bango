@@ -15,6 +15,7 @@ import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.Role;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
 import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
@@ -71,6 +72,7 @@ public class BangoApplicationContext {
         module.addSerializer(EventHistoryItem.class, new EventHistoryItemSerializer());
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
         module.addSerializer(DomainAgent.class, new AgentSerializer());
+        module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
         module.addSerializer(Queue.class, new QueueSerializer());
 
         objectMapper.registerModule(module);

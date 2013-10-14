@@ -77,7 +77,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceId());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblem().serviceId());
 
                 return capturedInputAndOutputs;
             }
@@ -88,7 +88,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.directoryNumber());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblem().getDirectoryNumber());
 
                 return capturedInputAndOutputs;
             }

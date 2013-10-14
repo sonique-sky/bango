@@ -14,7 +14,6 @@ import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.DirectoryNumber;
 import spm.domain.QueueName;
 import spm.domain.ServiceProblemId;
-import spm.domain.SnsServiceId;
 import spm.domain.model.refdata.QueueBuilder;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class ServiceProblemScenario extends SupermanScenario {
                 .withDirectoryNumber(someDirectoryNumber())
                 .withServiceId(someSnsServiceId())
                 .build();
-        return new ServiceProblemScenario(scenarioDriver, agent,serviceProblem);
+        return new ServiceProblemScenario(scenarioDriver, agent, serviceProblem);
     }
 
     private ServiceProblemScenario(ScenarioDriver scenarioDriver, DomainAgent agent, DomainServiceProblem serviceProblem) {
@@ -75,15 +74,11 @@ public class ServiceProblemScenario extends SupermanScenario {
         });
     }
 
+    public DomainServiceProblem serviceProblem() {
+        return serviceProblem;
+    }
+
     public ServiceProblemId serviceProblemId() {
         return serviceProblem.serviceProblemId();
-    }
-
-    public SnsServiceId serviceId() {
-        return serviceProblem.serviceId();
-    }
-
-    public DirectoryNumber directoryNumber() {
-        return serviceProblem.getDirectoryNumber();
     }
 }
