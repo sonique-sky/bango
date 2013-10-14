@@ -10,9 +10,9 @@ Ext.define('Spm.model.WorkItem', {
             name: 'status'
         },
         {
-            name: 'createdDate'
-//            type: 'date',
-//            dateFormat: 'd/m/Y H:i'
+            name: 'createdDate',
+            type: 'date',
+            dateFormat: 'd/m/Y H:i'
         },
         {
             name: 'type',

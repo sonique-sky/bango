@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import sonique.bango.driver.panel.SupermanElement;
 
-public class SupermanTextField extends SupermanComponent implements SupermanField {
+public class SupermanTextField extends SupermanComponent implements SupermanField<String> {
 
     public SupermanTextField(SupermanElement element, By by) {
         super(element, by);

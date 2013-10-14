@@ -46,7 +46,7 @@ public class ServiceProblemTest extends BangoYatspecTest {
         then(theWorkItemPanel(), isPopulatedCorrectly());
     }
 
-    private Matcher<? super WorkItemPanel> isPopulatedCorrectly() {
+    private Matcher<WorkItemPanel> isPopulatedCorrectly() {
         DomainWorkItem workItem = serviceProblemScenario.serviceProblem().workItem();
 
         return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
@@ -54,6 +54,7 @@ public class ServiceProblemTest extends BangoYatspecTest {
                 .and(aWorkItemCreatedDate(isSameDateToMinute(workItem.createdDate())))
                 .and(aWorkItemType(equalTo(workItem.assignmentType().name())))
                 .and(aWorkItemAction(equalTo(workItem.action().toString())))
+                .and(aWorkItemPriority(equalTo(workItem.priority().name())))
                 ;
     }
 

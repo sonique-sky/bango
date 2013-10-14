@@ -2,6 +2,8 @@ package sonique.bango.driver.panel;
 
 import org.openqa.selenium.By;
 
+import java.util.Date;
+
 public class WorkItemPanel extends SupermanFormPanel {
     public WorkItemPanel(ServiceProblemTabContent serviceProblemTabContent) {
         super(serviceProblemTabContent, By.cssSelector("[id^='workItemPanel']"));
@@ -15,8 +17,8 @@ public class WorkItemPanel extends SupermanFormPanel {
         return textField("Status").value();
     }
 
-    public String createdDate() {
-        return textField("Created Date").value();
+    public Date createdDate() {
+        return dateField("Created Date", "dd/MM/yyyy HH:mm").value();
     }
 
     public String type() {
