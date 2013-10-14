@@ -7,7 +7,7 @@ public abstract class SupermanScenario {
     protected final ScenarioDriver scenarioDriver;
     protected final DomainAgent agent;
 
-    public SupermanScenario(DomainAgent agent, ScenarioDriver scenarioDriver) {
+    public SupermanScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
         this.agent = agent;
         this.scenarioDriver = scenarioDriver;
     }

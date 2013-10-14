@@ -2,6 +2,7 @@ package sonique.bango.driver;
 
 import org.openqa.selenium.By;
 import sonique.bango.driver.panel.*;
+import spm.domain.ServiceProblemId;
 
 public class AppContainer extends SupermanContainer {
 
@@ -21,7 +22,7 @@ public class AppContainer extends SupermanContainer {
         return new SearchPanel(this);
     }
 
-    public ServiceProblemTab serviceProblemTab(Long serviceProblemId) {
+    public ServiceProblemTab serviceProblemTab(ServiceProblemId serviceProblemId) {
         return new ServiceProblemTab(this, serviceProblemId);
     }
 }

@@ -2,7 +2,6 @@ package sonique.bango.search;
 
 import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.ServiceProblemScenario;
@@ -11,7 +10,7 @@ import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
-import static sonique.bango.driver.panel.SearchPanel.SearchType.*;
+import static sonique.bango.ServiceProblemScenario.serviceProblemScenario;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
@@ -21,8 +20,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
 
     @Before
     public void setUp() throws Exception {
-        serviceProblemScenario = new ServiceProblemScenario(scenarioDriver(), agentForTest)
-                .withDefaults();
+        serviceProblemScenario = serviceProblemScenario(scenarioDriver(), agentForTest);
 
         loginAgent();
     }
@@ -55,7 +53,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
     }
 
     private AppendableAllOf<ServiceProblemTab> isDisplayedForTheExpectedServiceProblem() {
-        String expectedTabTitle = String.format("Service Problem [%d]", serviceProblemScenario.serviceProblemId());
+        String expectedTabTitle = String.format("Service Problem [%d]", serviceProblemScenario.serviceProblemId().asLong());
 
         return isDisplayed().with(aTitleOf(expectedTabTitle));
     }
@@ -68,7 +66,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchUsing(ServiceProblemId, serviceProblemScenario.serviceProblemId().toString());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblemId());
 
                 return capturedInputAndOutputs;
             }
@@ -79,7 +77,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchUsing(ServiceId, serviceProblemScenario.serviceId());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceId());
 
                 return capturedInputAndOutputs;
             }
@@ -90,7 +88,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchUsing(DirectoryNumber, serviceProblemScenario.directoryNumber());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.directoryNumber());
 
                 return capturedInputAndOutputs;
             }

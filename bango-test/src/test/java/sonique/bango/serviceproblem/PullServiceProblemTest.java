@@ -14,7 +14,6 @@ import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static sonique.bango.driver.panel.SearchPanel.SearchType.ServiceProblemId;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class PullServiceProblemTest extends BangoYatspecTest {
@@ -23,8 +22,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
 
     @Before
     public void setUp() throws Exception {
-        serviceProblemScenario = new ServiceProblemScenario(scenarioDriver(), agentForTest)
-                .withDefaults();
+        serviceProblemScenario = ServiceProblemScenario.serviceProblemScenario(scenarioDriver(), agentForTest);
 
         loginAgent();
     }
@@ -76,7 +74,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
             public InterestingGivens build(InterestingGivens givens) throws Exception {
                 super.build(givens);
 
-                supermanApp.appContainer().searchPanel().searchUsing(ServiceProblemId, serviceProblemScenario.serviceProblemId().toString());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblemId());
 
                 return givens;
             }

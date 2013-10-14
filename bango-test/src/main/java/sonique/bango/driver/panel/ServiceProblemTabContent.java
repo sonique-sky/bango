@@ -4,13 +4,14 @@ import org.openqa.selenium.By;
 import sonique.bango.driver.component.ServiceProblemToolbar;
 import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.driver.predicate.IsDisplayedPredicate;
+import spm.domain.ServiceProblemId;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static sonique.bango.driver.BetterWait.dally;
 
 public class ServiceProblemTabContent extends SupermanComponent {
-    ServiceProblemTabContent(SupermanElement parentElement, Long serviceProblemId) {
-        super(parentElement, By.id(String.format("service-problem-tab-content-%d", serviceProblemId)));
+    ServiceProblemTabContent(SupermanElement parentElement, ServiceProblemId serviceProblemId) {
+        super(parentElement, By.id(String.format("service-problem-tab-content-%d", serviceProblemId.asLong())));
     }
 
     public ServiceProblemToolbar serviceProblemToolbar() {

@@ -13,9 +13,9 @@ import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 import spm.domain.model.refdata.DomainAgentBuilder;
 
-import static sonique.bango.driver.panel.SearchPanel.SearchType.ServiceProblemId;
-import static sonique.bango.matcher.ATitleOf.*;
+import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
+import static util.SupermanDataFixtures.someServiceProblemId;
 
 public class NoResultsSearchTest extends BangoYatspecTest {
 
@@ -55,7 +55,7 @@ public class NoResultsSearchTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchUsing(ServiceProblemId, "8787");
+                supermanApp.appContainer().searchPanel().searchFor(someServiceProblemId());
 
                 return capturedInputAndOutputs;
             }

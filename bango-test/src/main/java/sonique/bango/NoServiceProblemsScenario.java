@@ -4,12 +4,9 @@ import com.google.common.collect.Lists;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sky.sns.spm.interfaces.shared.ServiceProblem;
 import sonique.bango.driver.ScenarioDriver;
 import sonique.bango.service.SearchApiService;
 import spm.domain.ServiceProblemId;
-
-import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.mockito.Matchers.any;
@@ -18,7 +15,7 @@ import static org.mockito.Mockito.when;
 public class NoServiceProblemsScenario extends SupermanScenario {
 
     public NoServiceProblemsScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
-        super(agent, scenarioDriver);
+        super(scenarioDriver, agent);
     }
 
     @Override
