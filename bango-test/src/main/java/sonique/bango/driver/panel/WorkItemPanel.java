@@ -10,4 +10,8 @@ public class WorkItemPanel extends SupermanFormPanel {
     public String assignedAgent() {
         return textField("Assigned Agent").value();
     }
+
+    public String status() {
+        return textField("Status").value();
+    }
 }

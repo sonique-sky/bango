@@ -7,12 +7,17 @@ import org.junit.Test;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.ServiceProblemScenario;
 import sonique.bango.driver.panel.ServiceProblemTab;
+import sonique.bango.driver.panel.WorkItemPanel;
+import sonique.bango.matcher.workitempanel.WorkItemAssignedAgentMatcher;
+import sonique.bango.matcher.workitempanel.WorkItemStatusMatcher;
 import sonique.bango.scenario.ScenarioGivensBuilder;
+import sonique.testsupport.matchers.AppendableAllOf;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static sonique.bango.driver.panel.SearchPanel.SearchType.ServiceProblemId;
+import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
-public class ServiceProblemTest extends BangoYatspecTest {
+public class PullServiceProblemTest extends BangoYatspecTest {
 
     private ServiceProblemScenario serviceProblemScenario;
 
@@ -30,20 +35,24 @@ public class ServiceProblemTest extends BangoYatspecTest {
 
         when(theAgentPullsTheServiceProblem());
 
-        then(theAssignedAgent(), isLoggedInAgent());
+        then(theWorkItem(), isAssignedToTheLoggedInAgent().and(hasStatusOfAssigned()));
     }
 
-    private Matcher<String> isLoggedInAgent() {
-        return is(agentForTest.details().getDisplayName());
+    private Matcher<WorkItemPanel> hasStatusOfAssigned() {
+        return new WorkItemStatusMatcher(equalTo("Assigned"));
     }
 
-    private StateExtractor<String> theAssignedAgent() {
-        return new StateExtractor<String>() {
+    private AppendableAllOf<WorkItemPanel> isAssignedToTheLoggedInAgent() {
+        return thatHas(new WorkItemAssignedAgentMatcher(equalTo(agentForTest.details().getDisplayName())));
+    }
+
+    private StateExtractor<WorkItemPanel> theWorkItem() {
+        return new StateExtractor<WorkItemPanel>() {
             @Override
-            public String execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
+            public WorkItemPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
                 ServiceProblemTab serviceProblemTab = supermanApp.appContainer().serviceProblemTab(serviceProblemScenario.serviceProblemId());
 
-                return serviceProblemTab.tabContent().workItemPanel().assignedAgent();
+                return serviceProblemTab.tabContent().workItemPanel();
             }
         };
     }
@@ -56,8 +65,6 @@ public class ServiceProblemTest extends BangoYatspecTest {
 
                 serviceProblemTab.tabContent().serviceProblemToolbar().pull();
 
-
-                Thread.sleep(10000);
                 return capturedInputAndOutputs;
             }
         };
