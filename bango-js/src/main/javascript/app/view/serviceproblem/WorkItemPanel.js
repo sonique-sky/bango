@@ -23,7 +23,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                         align: 'stretch',
                         type: 'vbox'
                     },
-                    height: 86,
+                    height: 87,
                     items: [
                         {xtype: 'label', cls: 'no-work-item-text', text: 'No Work Item Exists for this Service Problem'}
                     ]
