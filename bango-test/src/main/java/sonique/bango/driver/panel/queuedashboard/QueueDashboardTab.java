@@ -1,9 +1,10 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.panel.queuedashboard;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import sonique.bango.driver.AppContainer;
+import sonique.bango.driver.component.HasTitle;
 import sonique.bango.driver.component.SupermanComponent;
+import sonique.bango.driver.panel.AppContainer;
 
 import static org.openqa.selenium.By.id;
 

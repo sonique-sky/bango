@@ -1,10 +1,9 @@
-package sonique.bango.driver.component;
+package sonique.bango.driver.component.form;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.panel.HasLabel;
-import sonique.bango.driver.panel.SupermanElement;
-
-import static com.google.common.collect.Maps.newHashMap;
+import sonique.bango.driver.component.HasLabel;
+import sonique.bango.driver.component.SupermanComponent;
+import sonique.bango.driver.component.SupermanElement;
 
 public class SupermanRadioGroup extends SupermanComponent {
 

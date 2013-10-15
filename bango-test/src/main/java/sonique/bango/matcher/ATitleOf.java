@@ -2,7 +2,7 @@ package sonique.bango.matcher;
 
 import com.google.common.base.Predicate;
 import org.hamcrest.Matcher;
-import sonique.bango.driver.panel.HasTitle;
+import sonique.bango.driver.component.HasTitle;
 
 public class ATitleOf extends AsynchronousMatcher<HasTitle> {
 

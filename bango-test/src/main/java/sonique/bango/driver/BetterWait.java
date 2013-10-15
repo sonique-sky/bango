@@ -100,7 +100,6 @@ public class BetterWait {
 
         @Override
         public void run() {
-            System.out.println("timingout");
             timedOut = true;
         }
 

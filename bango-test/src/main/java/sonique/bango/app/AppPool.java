@@ -1,4 +1,4 @@
-package sonique.bango.driver;
+package sonique.bango.app;
 
 import java.util.Deque;
 import java.util.concurrent.LinkedBlockingDeque;

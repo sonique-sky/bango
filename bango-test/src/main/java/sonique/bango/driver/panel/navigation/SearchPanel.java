@@ -1,10 +1,12 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.panel.navigation;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.component.SupermanButton;
+import sonique.bango.driver.component.form.SupermanButton;
 import sonique.bango.driver.component.SupermanComponent;
-import sonique.bango.driver.component.SupermanRadioGroup;
-import sonique.bango.driver.component.SupermanTextField;
+import sonique.bango.driver.component.form.SupermanRadioGroup;
+import sonique.bango.driver.component.form.SupermanTextField;
+import sonique.bango.driver.component.HasLabel;
+import sonique.bango.driver.component.SupermanContainer;
 import sonique.types.StringValue;
 import spm.domain.DirectoryNumber;
 import spm.domain.ServiceProblemId;

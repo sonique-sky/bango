@@ -1,8 +1,9 @@
-package sonique.bango.driver.component;
+package sonique.bango.driver.component.form;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.component.SupermanComponent;
+import sonique.bango.driver.component.SupermanElement;
 
 public class SupermanTextField extends SupermanComponent implements SupermanField<String> {
 

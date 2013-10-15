@@ -1,9 +1,10 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.panel.serviceproblem;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import sonique.bango.driver.AppContainer;
+import sonique.bango.driver.panel.AppContainer;
 import sonique.bango.driver.component.SupermanComponent;
+import sonique.bango.driver.component.HasTitle;
 import spm.domain.ServiceProblemId;
 
 import static org.openqa.selenium.By.id;
@@ -25,6 +26,6 @@ public class ServiceProblemTab extends SupermanComponent implements HasTitle {
     }
 
     public ServiceProblemTabContent tabContent() {
-        return new ServiceProblemTabContent(parentElement, serviceProblemId);
+        return new ServiceProblemTabContent(parent(), serviceProblemId);
     }
 }

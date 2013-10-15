@@ -3,12 +3,10 @@ package sonique.bango.driver.panel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import sonique.bango.driver.SupermanWebDriver;
-import sonique.bango.driver.predicate.IsDisplayedPredicate;
-import sonique.bango.driver.predicate.IsEnabledPredicate;
+import sonique.bango.driver.component.HasTitle;
+import sonique.bango.driver.component.SupermanContainer;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.By.cssSelector;
-import static sonique.bango.driver.BetterWait.dally;
 
 public class MessageBox extends SupermanContainer implements HasTitle {
 

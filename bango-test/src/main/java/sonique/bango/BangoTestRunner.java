@@ -3,8 +3,7 @@ package sonique.bango;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
-import sonique.bango.driver.ScenarioDriver;
+import sonique.bango.app.ScenarioDriver;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.springframework.web.context.WebApplicationContext.*;

@@ -4,11 +4,9 @@ import com.google.common.collect.Lists;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.driver.ScenarioDriver;
-import sonique.bango.service.SearchApiService;
+import sonique.bango.app.ScenarioDriver;
 import spm.domain.ServiceProblemId;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 

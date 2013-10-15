@@ -1,7 +1,7 @@
 package sonique.bango.driver.predicate;
 
 import com.google.common.base.Predicate;
-import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.component.SupermanElement;
 
 public class IsEnabledPredicate<T extends SupermanElement> implements Predicate<T> {
 

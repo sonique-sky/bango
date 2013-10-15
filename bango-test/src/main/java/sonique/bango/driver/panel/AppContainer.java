@@ -1,7 +1,14 @@
-package sonique.bango.driver;
+package sonique.bango.driver.panel;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.panel.*;
+import sonique.bango.driver.SupermanWebDriver;
+import sonique.bango.driver.component.SupermanContainer;
+import sonique.bango.driver.panel.navigation.AgentStatusPanel;
+import sonique.bango.driver.panel.navigation.HeaderPanel;
+import sonique.bango.driver.panel.navigation.MyQueuesPanel;
+import sonique.bango.driver.panel.navigation.SearchPanel;
+import sonique.bango.driver.panel.queuedashboard.QueueDashboardTab;
+import sonique.bango.driver.panel.serviceproblem.ServiceProblemTab;
 import spm.domain.ServiceProblemId;
 
 public class AppContainer extends SupermanContainer {

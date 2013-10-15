@@ -5,16 +5,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
-import sonique.bango.driver.ScenarioDriver;
+import sonique.bango.app.ScenarioDriver;
 import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;
 import sonique.bango.store.AgentStore;
 
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 
-import static java.util.Arrays.asList;
 import static net.sf.cglib.proxy.Proxy.newProxyInstance;
 
 @Configuration

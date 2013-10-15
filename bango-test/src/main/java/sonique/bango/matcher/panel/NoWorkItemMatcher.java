@@ -3,7 +3,7 @@ package sonique.bango.matcher.panel;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import sonique.bango.driver.panel.WorkItemPanel;
+import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 
 public class NoWorkItemMatcher extends TypeSafeMatcher<WorkItemPanel> {
     public static Matcher<? super WorkItemPanel> anEmptyWorkItemPanel() {

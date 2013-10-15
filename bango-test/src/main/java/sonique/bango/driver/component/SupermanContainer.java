@@ -1,12 +1,9 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.component;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import sonique.bango.driver.SupermanWebDriver;
-
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public abstract class SupermanContainer implements SupermanElement {
 
@@ -25,6 +22,11 @@ public abstract class SupermanContainer implements SupermanElement {
     @Override
     public boolean isEnabled() {
         throw new UnsupportedOperationException("Method SupermanContainer isEnabled() not yet implemented");
+    }
+
+    @Override
+    public SupermanElement parent() {
+        throw new UnsupportedOperationException("method parent not yet implemented ");
     }
 
     @Override

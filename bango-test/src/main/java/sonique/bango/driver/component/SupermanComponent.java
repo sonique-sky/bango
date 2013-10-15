@@ -3,14 +3,13 @@ package sonique.bango.driver.component;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import sonique.bango.driver.panel.SupermanElement;
 
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class SupermanComponent implements SupermanElement {
 
-    protected final SupermanElement parentElement;
+    private final SupermanElement parentElement;
     private final By by;
 
     protected SupermanComponent(SupermanElement parentElement, By by) {
@@ -52,5 +51,10 @@ public abstract class SupermanComponent implements SupermanElement {
 
     protected List<String> classes() {
         return Arrays.asList(element().getAttribute("class").split(" "));
+    }
+
+    @Override
+    public SupermanElement parent() {
+        return parentElement;
     }
 }

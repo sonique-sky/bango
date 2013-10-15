@@ -1,10 +1,11 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.panel.serviceproblem;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
+import sonique.bango.driver.component.HasTitle;
+import sonique.bango.driver.component.form.SupermanFormPanel;
 import spm.domain.DirectoryNumber;
 import spm.domain.QueueName;
 import spm.domain.ServiceProblemId;

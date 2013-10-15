@@ -3,7 +3,6 @@ package sonique.bango.matcher.panel;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import sonique.bango.driver.panel.WorkItemPanel;
 
 public abstract class AbstractPanelMatcher<PANEL, TYPE> extends TypeSafeMatcher<PANEL> {
     protected final Matcher<TYPE> matcher;

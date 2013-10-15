@@ -1,8 +1,8 @@
 package sonique.bango;
 
-import sonique.bango.driver.AppPool;
-import sonique.bango.driver.ScenarioDriver;
-import sonique.bango.driver.SupermanApp;
+import sonique.bango.app.AppPool;
+import sonique.bango.app.ScenarioDriver;
+import sonique.bango.app.SupermanApp;
 
 import static java.lang.Integer.parseInt;
 

@@ -1,5 +1,7 @@
-package sonique.bango.driver;
+package sonique.bango.app;
 
+import sonique.bango.driver.SupermanWebDriver;
+import sonique.bango.driver.panel.AppContainer;
 import sonique.bango.driver.panel.*;
 
 public class SupermanApp {

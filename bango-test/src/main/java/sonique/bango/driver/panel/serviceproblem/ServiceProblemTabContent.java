@@ -1,8 +1,8 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.panel.serviceproblem;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.component.ServiceProblemToolbar;
 import sonique.bango.driver.component.SupermanComponent;
+import sonique.bango.driver.component.SupermanElement;
 import sonique.bango.driver.predicate.IsDisplayedPredicate;
 import spm.domain.ServiceProblemId;
 

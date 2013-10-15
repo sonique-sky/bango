@@ -8,9 +8,13 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.refdata.Role;
-import sonique.bango.driver.ScenarioDriver;
-import sonique.bango.driver.SupermanApp;
+import sonique.bango.app.ScenarioDriver;
+import sonique.bango.app.SupermanApp;
 import sonique.bango.driver.panel.*;
+import sonique.bango.driver.panel.navigation.AgentStatusPanel;
+import sonique.bango.driver.panel.navigation.HeaderPanel;
+import sonique.bango.driver.panel.navigation.MyQueuesPanel;
+import sonique.bango.driver.panel.queuedashboard.QueueDashboardTab;
 import spm.domain.model.refdata.DomainAgentBuilder;
 
 import static org.hamcrest.MatcherAssert.assertThat;

@@ -7,7 +7,7 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblemBuilder;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.driver.ScenarioDriver;
+import sonique.bango.app.ScenarioDriver;
 import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.QueueName;

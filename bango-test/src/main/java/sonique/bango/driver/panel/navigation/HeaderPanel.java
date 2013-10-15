@@ -1,7 +1,7 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.panel.navigation;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.AppContainer;
+import sonique.bango.driver.panel.AppContainer;
 import sonique.bango.driver.component.SupermanComponent;
 
 import static org.openqa.selenium.By.cssSelector;

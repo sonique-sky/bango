@@ -1,4 +1,4 @@
-package sonique.bango.driver;
+package sonique.bango.app;
 
 import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;

@@ -1,7 +1,8 @@
-package sonique.bango.driver.component;
+package sonique.bango.driver.component.form;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.component.SupermanComponent;
+import sonique.bango.driver.component.SupermanElement;
 import sonique.bango.driver.predicate.IsEnabledPredicate;
 
 import static sonique.bango.driver.BetterWait.dally;

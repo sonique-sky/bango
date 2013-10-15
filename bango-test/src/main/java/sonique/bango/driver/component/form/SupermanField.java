@@ -1,6 +1,6 @@
-package sonique.bango.driver.component;
+package sonique.bango.driver.component.form;
 
-import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.component.SupermanElement;
 
 public interface SupermanField<T> extends SupermanElement {
     void clear();

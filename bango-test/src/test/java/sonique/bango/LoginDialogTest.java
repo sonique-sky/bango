@@ -1,7 +1,7 @@
 package sonique.bango;
 
 import org.junit.*;
-import sonique.bango.driver.SupermanApp;
+import sonique.bango.app.SupermanApp;
 import sonique.bango.driver.panel.LoginDialog;
 import sonique.bango.driver.panel.MessageBox;
 

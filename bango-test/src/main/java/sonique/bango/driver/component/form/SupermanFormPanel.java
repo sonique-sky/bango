@@ -1,14 +1,12 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.component.form;
 
 import org.openqa.selenium.By;
-import sonique.bango.driver.component.SupermanButton;
 import sonique.bango.driver.component.SupermanComponent;
-import sonique.bango.driver.component.SupermanDateField;
-import sonique.bango.driver.component.SupermanTextField;
+import sonique.bango.driver.component.SupermanElement;
 
-public class SupermanFormPanel extends SupermanComponent {
+public abstract class SupermanFormPanel extends SupermanComponent {
 
-    public SupermanFormPanel(SupermanElement element, By locator) {
+    protected SupermanFormPanel(SupermanElement element, By locator) {
         super (element, locator);
     }
 

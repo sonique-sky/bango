@@ -1,9 +1,10 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.panel.navigation;
 
 import com.google.common.base.Function;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import sonique.bango.driver.component.SupermanComponent;
+import sonique.bango.driver.component.SupermanElement;
 import spm.domain.QueueName;
 
 import java.util.List;

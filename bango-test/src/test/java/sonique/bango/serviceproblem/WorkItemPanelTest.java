@@ -7,7 +7,7 @@ import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItem;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.scenario.ServiceProblemScenario;
-import sonique.bango.driver.panel.WorkItemPanel;
+import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;

@@ -1,4 +1,4 @@
-package sonique.bango.driver;
+package sonique.bango.app;
 
 import com.google.common.collect.Maps;
 import sky.sns.spm.domain.model.DomainAgent;
@@ -10,7 +10,6 @@ import java.util.Map;
 
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Maps.transformEntries;
-import static org.mockito.Mockito.mock;
 
 public class ScenarioDriver {
 

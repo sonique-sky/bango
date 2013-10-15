@@ -5,7 +5,7 @@ import sky.sns.spm.domain.model.serviceproblem.AssignmentType;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemPriority;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemStatus;
-import sonique.bango.driver.panel.WorkItemPanel;
+import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 
 import java.util.Date;
 

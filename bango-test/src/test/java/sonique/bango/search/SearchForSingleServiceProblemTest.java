@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.scenario.ServiceProblemScenario;
-import sonique.bango.driver.panel.ServiceProblemTab;
+import sonique.bango.driver.panel.serviceproblem.ServiceProblemTab;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;

@@ -1,10 +1,11 @@
-package sonique.bango.driver.component;
+package sonique.bango.driver.component.form;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.component.SupermanComponent;
+import sonique.bango.driver.component.SupermanElement;
 
 import java.util.Date;
 

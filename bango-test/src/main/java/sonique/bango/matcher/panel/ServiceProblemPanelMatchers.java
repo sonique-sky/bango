@@ -1,10 +1,9 @@
 package sonique.bango.matcher.panel;
 
 import org.hamcrest.Matcher;
-import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
-import sonique.bango.driver.panel.ServiceProblemPanel;
+import sonique.bango.driver.panel.serviceproblem.ServiceProblemPanel;
 import spm.domain.DirectoryNumber;
 import spm.domain.QueueName;
 import spm.domain.ServiceProblemId;

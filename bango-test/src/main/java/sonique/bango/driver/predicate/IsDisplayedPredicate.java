@@ -3,7 +3,7 @@ package sonique.bango.driver.predicate;
 import com.google.common.base.Predicate;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
-import sonique.bango.driver.panel.SupermanElement;
+import sonique.bango.driver.component.SupermanElement;
 
 public class IsDisplayedPredicate<T extends SupermanElement> implements Predicate<T> {
 

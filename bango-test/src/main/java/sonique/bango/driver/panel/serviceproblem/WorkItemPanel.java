@@ -1,4 +1,4 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.panel.serviceproblem;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -6,6 +6,8 @@ import sky.sns.spm.domain.model.serviceproblem.AssignmentType;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemPriority;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemStatus;
+import sonique.bango.driver.component.HasTitle;
+import sonique.bango.driver.component.form.SupermanFormPanel;
 
 import java.util.Date;
 

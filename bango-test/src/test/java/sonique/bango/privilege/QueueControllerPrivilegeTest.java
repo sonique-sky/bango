@@ -8,7 +8,7 @@ import org.junit.Test;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.refdata.Role;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.driver.panel.AgentStatusPanel;
+import sonique.bango.driver.panel.navigation.AgentStatusPanel;
 import sonique.bango.matcher.IsDisplayed;
 import spm.domain.model.refdata.DomainAgentBuilder;
 

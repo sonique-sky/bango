@@ -3,7 +3,7 @@ package sonique.bango.matcher.panel;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import sonique.bango.driver.panel.MyQueuesPanel;
+import sonique.bango.driver.panel.navigation.MyQueuesPanel;
 import spm.domain.QueueName;
 
 import java.util.List;
