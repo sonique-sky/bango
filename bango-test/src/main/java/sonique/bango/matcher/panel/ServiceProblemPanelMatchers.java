@@ -2,6 +2,7 @@ package sonique.bango.matcher.panel;
 
 import org.hamcrest.Matcher;
 import sky.sns.spm.domain.model.refdata.Queue;
+import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.driver.panel.ServiceProblemPanel;
 import spm.domain.DirectoryNumber;
@@ -63,6 +64,15 @@ public class ServiceProblemPanelMatchers {
             @Override
             protected Date actualValue(ServiceProblemPanel item) {
                 return item.openedDate();
+            }
+        };
+    }
+
+    public static AbstractPanelMatcher<ServiceProblemPanel, ServiceTypeCode> aServiceType(Matcher<ServiceTypeCode> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, ServiceTypeCode>(matcher) {
+            @Override
+            protected ServiceTypeCode actualValue(ServiceProblemPanel item) {
+                return item.serviceType();
             }
         };
     }

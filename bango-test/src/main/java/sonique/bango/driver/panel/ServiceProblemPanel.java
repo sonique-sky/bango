@@ -3,6 +3,7 @@ package sonique.bango.driver.panel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import sky.sns.spm.domain.model.refdata.Queue;
+import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import spm.domain.DirectoryNumber;
 import spm.domain.QueueName;
@@ -44,5 +45,9 @@ public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
 
     public Date openedDate() {
         return dateField("Opened Date", "dd/MM/yyyy HH:mm").value();
+    }
+
+    public ServiceTypeCode serviceType() {
+        return null;
     }
 }

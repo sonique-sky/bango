@@ -20,6 +20,9 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
         jsonGenerator.writeStringField("status", domainServiceProblem.getStatus().asString());
         jsonGenerator.writeStringField("directoryNumber", domainServiceProblem.getDirectoryNumber().asString());
         jsonGenerator.writeStringField("snsServiceId", domainServiceProblem.serviceId().asString());
+        jsonGenerator.writeObjectField("serviceType", domainServiceProblem.getServiceType());
+
+
         jsonGenerator.writeBooleanField("hasActiveTroubleReport", domainServiceProblem.hasActiveTroubleReport());
 
         jsonGenerator.writeStringField("openedDate", JSON_DATE_FORMAT.print(domainServiceProblem.openedDate().getTime()));
