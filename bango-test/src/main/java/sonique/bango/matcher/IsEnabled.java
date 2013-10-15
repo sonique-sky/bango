@@ -6,8 +6,8 @@ import sonique.bango.driver.predicate.IsEnabledPredicate;
 
 public class IsEnabled<T extends SupermanElement> extends AsynchronousMatcher<T> {
 
-    public static IsEnabled isEnabled() {
-        return new IsEnabled();
+    public static <T extends SupermanElement> IsEnabled<T> isEnabled() {
+        return new IsEnabled<T>();
     }
 
     private IsEnabled() {
