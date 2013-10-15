@@ -1,5 +1,6 @@
 package sonique.bango.driver;
 
+import com.google.common.collect.Maps;
 import sky.sns.spm.domain.model.DomainAgent;
 import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;
@@ -8,13 +9,13 @@ import sonique.bango.store.AgentStore;
 import java.util.Map;
 
 import static com.google.common.collect.Maps.newHashMap;
+import static com.google.common.collect.Maps.transformEntries;
 import static org.mockito.Mockito.mock;
 
 public class ScenarioDriver {
 
     private final AgentStore agentStore;
-    private final Map<DomainAgent, SearchApiService> searchApiServices = newHashMap();
-    private final Map<DomainAgent, ServiceProblemApiService> serviceProblemApiServices = newHashMap();
+    private final Map<DomainAgent, ServiceWrapper> agentServices = newHashMap();
 
     public ScenarioDriver(AgentStore agentStore) {
         this.agentStore = agentStore;
@@ -22,28 +23,33 @@ public class ScenarioDriver {
 
     public void registerAgent(DomainAgent agent) {
         agentStore.registerAgent(agent);
-        searchApiServices.put(agent, mock(SearchApiService.class));
-        serviceProblemApiServices.put(agent, mock(ServiceProblemApiService.class));
+        agentServices.put(agent, new ServiceWrapper());
     }
 
     public void deRegisterAgent(DomainAgent agent) {
         agentStore.removeAgent(agent);
-        searchApiServices.remove(agent);
+        agentServices.remove(agent);
     }
 
     public Map<DomainAgent, SearchApiService> searchApiServices() {
-        return searchApiServices;
-    }
-
-    public SearchApiService searchApiServiceFor(DomainAgent agent) {
-        return searchApiServices.get(agent);
+        return transformEntries(agentServices, new Maps.EntryTransformer<DomainAgent, ServiceWrapper, SearchApiService>() {
+            @Override
+            public SearchApiService transformEntry(DomainAgent domainAgent, ServiceWrapper serviceWrapper) {
+                return serviceWrapper.searchApiService();
+            }
+        });
     }
 
     public Map<DomainAgent, ServiceProblemApiService> serviceProblemApiServices() {
-        return serviceProblemApiServices;
+        return transformEntries(agentServices, new Maps.EntryTransformer<DomainAgent, ServiceWrapper, ServiceProblemApiService>() {
+            @Override
+            public ServiceProblemApiService transformEntry(DomainAgent domainAgent, ServiceWrapper serviceWrapper) {
+                return serviceWrapper.serviceProblemApiService();
+            }
+        });
     }
 
-    public ServiceProblemApiService serviceProblemApiServiceFor(DomainAgent agent) {
-        return serviceProblemApiServices.get(agent);
+    public ServiceWrapper servicesFor(DomainAgent agent) {
+        return agentServices.get(agent);
     }
 }

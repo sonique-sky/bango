@@ -6,15 +6,15 @@ import org.junit.Before;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItem;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.ServiceProblemScenario;
+import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.driver.panel.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static sonique.bango.ServiceProblemScenario.assignedServiceProblemScenario;
-import static sonique.bango.ServiceProblemScenario.serviceProblemWithReminderScenario;
+import static sonique.bango.scenario.ServiceProblemScenario.assignedServiceProblemScenario;
+import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithReminderScenario;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
 import static sonique.bango.matcher.workitempanel.NoWorkItemMatcher.anEmptyWorkItemPanel;
