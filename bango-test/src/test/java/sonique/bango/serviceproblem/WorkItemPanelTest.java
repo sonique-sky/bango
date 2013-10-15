@@ -7,22 +7,21 @@ import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItem;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.ServiceProblemScenario;
-import sonique.bango.driver.panel.ServiceProblemTab;
 import sonique.bango.driver.panel.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
-import sonique.bango.matcher.NoWorkItemMatcher;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static sonique.bango.ServiceProblemScenario.assignedServiceProblemScenario;
 import static sonique.bango.ServiceProblemScenario.serviceProblemWithReminderScenario;
-import static sonique.bango.matcher.AgentDisplayNameMatcher.withTheDisplayNameOf;
+import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
+import static sonique.bango.matcher.workitempanel.NoWorkItemMatcher.anEmptyWorkItemPanel;
 import static sonique.bango.matcher.workitempanel.WorkItemPanelMatcher.*;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
-public class ServiceProblemTabContentTest extends BangoYatspecTest {
+public class WorkItemPanelTest extends BangoYatspecTest {
 
     private ServiceProblemScenario serviceProblemScenario;
 
@@ -37,7 +36,7 @@ public class ServiceProblemTabContentTest extends BangoYatspecTest {
 
         when(anAgentViewsTheServiceProblem());
 
-        then(theServiceProblemTab(), isDisplayed().with(NoWorkItemMatcher.anEmptyWorkItemPanel()));
+        then(theWorkItemPanel(), isDisplayed().with(anEmptyWorkItemPanel()));
     }
 
     @Test
@@ -55,7 +54,7 @@ public class ServiceProblemTabContentTest extends BangoYatspecTest {
 
         when(anAgentViewsTheServiceProblem());
 
-        then(theWorkItemPanel(), displaysTheWorkItemAsAssigned());
+        then(theWorkItemPanel(), isDisplayed().and(isAssigned()).with(theLoggedInAgent()));
     }
 
     @Test
@@ -64,26 +63,29 @@ public class ServiceProblemTabContentTest extends BangoYatspecTest {
 
         when(anAgentViewsTheServiceProblem());
 
-        then(theWorkItemPanel(), displaysAReminder());
+        then(theWorkItemPanel(), isDisplayed().and(hasTheCorrectReminderTime()));
     }
 
-    private Matcher<WorkItemPanel> displaysAReminder() {
-        DomainWorkItem workItem = serviceProblemScenario.serviceProblem().workItem();
+    private Matcher<? super WorkItemPanel> hasTheCorrectReminderTime() {
+        DomainWorkItem workItem = workItemPanel();
 
-        return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
-                .and(aWorkItemReminder(isSameDateToMinute(workItem.reminderTime())));
+        return aWorkItemReminder(isSameDateToMinute(workItem.reminderTime()));
     }
 
-    private Matcher<WorkItemPanel> displaysTheWorkItemAsAssigned() {
-        DomainWorkItem workItem = serviceProblemScenario.serviceProblem().workItem();
+    private DomainWorkItem workItemPanel() {
+        return serviceProblemScenario.serviceProblem().workItem();
+    }
 
-        return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
-                .and(aWorkItemStatus(equalTo(workItem.status().name())))
-                .and(aWorkItemAssignedAgent(withTheDisplayNameOf(agentForTest)));
+    private Matcher<? super WorkItemPanel> isAssigned() {
+        return aWorkItemStatus(equalTo(workItemPanel().status().name()));
+    }
+
+    private Matcher<? super WorkItemPanel> theLoggedInAgent() {
+        return aWorkItemAssignedAgent(equalTo(agentForTest.details().getDisplayName()));
     }
 
     private Matcher<WorkItemPanel> isPopulatedCorrectly() {
-        DomainWorkItem workItem = serviceProblemScenario.serviceProblem().workItem();
+        DomainWorkItem workItem = workItemPanel();
 
         return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
                 .and(aWorkItemStatus(equalTo(workItem.status().name())))
@@ -93,8 +95,8 @@ public class ServiceProblemTabContentTest extends BangoYatspecTest {
                 .and(aWorkItemPriority(equalTo(workItem.priority().name())));
     }
 
-    private AppendableAllOf<ServiceProblemTab> isDisplayed() {
-        return thatHas(IsDisplayed.<ServiceProblemTab>isDisplayed());
+    private AppendableAllOf<WorkItemPanel> isDisplayed() {
+        return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed()).and(aTitleOf("Work Item"));
     }
 
     private StateExtractor<WorkItemPanel> theWorkItemPanel() {
@@ -102,15 +104,6 @@ public class ServiceProblemTabContentTest extends BangoYatspecTest {
             @Override
             public WorkItemPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
                 return supermanApp.appContainer().serviceProblemTab(serviceProblemScenario.serviceProblemId()).tabContent().workItemPanel();
-            }
-        };
-    }
-
-    private StateExtractor<ServiceProblemTab> theServiceProblemTab() {
-        return new StateExtractor<ServiceProblemTab>() {
-            @Override
-            public ServiceProblemTab execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblemScenario.serviceProblemId());
             }
         };
     }
