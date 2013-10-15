@@ -4,14 +4,12 @@ import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import sky.sns.spm.domain.model.DomainAgent;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.scenario.NoServiceProblemsScenario;
 import sonique.bango.driver.panel.MessageBox;
 import sonique.bango.matcher.IsDisplayed;
+import sonique.bango.scenario.NoServiceProblemsScenario;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
-import spm.domain.model.refdata.DomainAgentBuilder;
 
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
@@ -21,15 +19,8 @@ public class NoResultsSearchTest extends BangoYatspecTest {
 
     private NoServiceProblemsScenario serviceProblemScenario;
 
-    @Override
-    protected DomainAgent agentForTest() {
-        return new DomainAgentBuilder().withPassword("a").build();
-    }
-
     @Before
     public void setUp() throws Exception {
-        serviceProblemScenario = new NoServiceProblemsScenario(scenarioDriver(), agentForTest);
-
         loginAgent();
     }
 
@@ -48,6 +39,7 @@ public class NoResultsSearchTest extends BangoYatspecTest {
     }
 
     private GivensBuilder noServiceProblemsExist() {
+        serviceProblemScenario = new NoServiceProblemsScenario(scenarioDriver(), agentForTest);
         return new ScenarioGivensBuilder(serviceProblemScenario);
     }
 

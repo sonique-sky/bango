@@ -24,7 +24,7 @@ import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 @RunWith(SpecRunner.class)
 public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements WithTestState {
 
-    private TestState testState = new TestState();
+    private final TestState testState = new TestState();
     protected SupermanApp supermanApp;
     protected DomainAgent agentForTest;
 
