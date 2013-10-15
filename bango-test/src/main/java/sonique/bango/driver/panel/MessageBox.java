@@ -17,11 +17,11 @@ public class MessageBox extends SupermanContainer implements HasTitle {
     }
 
     public void clickOk() {
-        element().findElement(By.xpath("//span[text()='OK']")).click();
+        element().findElement(By.xpath(".//span[text()='OK']")).click();
     }
 
     public void clickYes() {
-        element().findElement(By.xpath("//span[text()='Yes']")).click();
+        element().findElement(By.xpath(".//span[text()='Yes']")).click();
     }
 
     @Override

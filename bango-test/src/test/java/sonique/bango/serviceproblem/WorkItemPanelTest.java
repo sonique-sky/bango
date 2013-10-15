@@ -17,8 +17,8 @@ import static sonique.bango.scenario.ServiceProblemScenario.assignedServiceProbl
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithReminderScenario;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
-import static sonique.bango.matcher.workitempanel.NoWorkItemMatcher.anEmptyWorkItemPanel;
-import static sonique.bango.matcher.workitempanel.WorkItemPanelMatcher.*;
+import static sonique.bango.matcher.panel.NoWorkItemMatcher.anEmptyWorkItemPanel;
+import static sonique.bango.matcher.panel.WorkItemPanelMatchers.*;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class WorkItemPanelTest extends BangoYatspecTest {
@@ -77,7 +77,7 @@ public class WorkItemPanelTest extends BangoYatspecTest {
     }
 
     private Matcher<? super WorkItemPanel> isAssigned() {
-        return aWorkItemStatus(equalTo(workItemPanel().status().name()));
+        return aWorkItemStatus(equalTo(workItemPanel().status()));
     }
 
     private Matcher<? super WorkItemPanel> theLoggedInAgent() {
@@ -88,11 +88,11 @@ public class WorkItemPanelTest extends BangoYatspecTest {
         DomainWorkItem workItem = workItemPanel();
 
         return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
-                .and(aWorkItemStatus(equalTo(workItem.status().name())))
+                .and(aWorkItemStatus(equalTo(workItem.status())))
                 .and(aWorkItemCreatedDate(isSameDateToMinute(workItem.createdDate())))
-                .and(aWorkItemType(equalTo(workItem.assignmentType().name())))
-                .and(aWorkItemAction(equalTo(workItem.action().toString())))
-                .and(aWorkItemPriority(equalTo(workItem.priority().name())));
+                .and(aWorkItemType(equalTo(workItem.assignmentType())))
+                .and(aWorkItemAction(equalTo(workItem.action())))
+                .and(aWorkItemPriority(equalTo(workItem.priority())));
     }
 
     private AppendableAllOf<WorkItemPanel> isDisplayed() {

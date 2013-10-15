@@ -23,4 +23,8 @@ public class ServiceProblemTabContent extends SupermanComponent {
     public WorkItemPanel workItemPanel() {
         return new WorkItemPanel(this);
     }
+
+    public ServiceProblemPanel serviceProblemPanel() {
+        return new ServiceProblemPanel(this);
+    }
 }

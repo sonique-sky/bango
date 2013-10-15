@@ -17,10 +17,10 @@ public class SupermanFormPanel extends SupermanComponent {
     }
 
     protected SupermanTextField textField(String label) {
-        return new SupermanTextField(this, By.xpath(String.format("//label[text() = '%s:']/parent::td/parent::tr/td/input", label)));
+        return new SupermanTextField(this, By.xpath(String.format(".//label[text() = '%s:']/parent::td/parent::tr/td/input", label)));
     }
 
     protected SupermanDateField dateField(String label, String dateFormat) {
-        return new SupermanDateField(this, dateFormat,  By.xpath(String.format("//label[text() = '%s:']/parent::td/parent::tr/td/table/tbody/tr/td/input", label)));
+        return new SupermanDateField(this, dateFormat,  By.xpath(String.format(".//label[text() = '%s:']/parent::td/parent::tr/td/table/tbody/tr/td/input", label)));
     }
 }

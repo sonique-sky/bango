@@ -1,4 +1,4 @@
-package sonique.bango.matcher;
+package sonique.bango.matcher.panel;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

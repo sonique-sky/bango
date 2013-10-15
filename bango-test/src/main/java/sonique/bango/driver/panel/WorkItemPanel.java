@@ -2,6 +2,10 @@ package sonique.bango.driver.panel;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import sky.sns.spm.domain.model.serviceproblem.AssignmentType;
+import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
+import sky.sns.spm.domain.model.serviceproblem.WorkItemPriority;
+import sky.sns.spm.domain.model.serviceproblem.WorkItemStatus;
 
 import java.util.Date;
 
@@ -14,24 +18,24 @@ public class WorkItemPanel extends SupermanFormPanel implements HasTitle {
         return textField("Assigned Agent").value();
     }
 
-    public String status() {
-        return textField("Status").value();
+    public WorkItemStatus status() {
+        return WorkItemStatus.valueOf(textField("Status").value());
     }
 
     public Date createdDate() {
         return dateField("Created Date", "dd/MM/yyyy HH:mm").value();
     }
 
-    public String type() {
-        return textField("Type").value();
+    public AssignmentType type() {
+        return AssignmentType.valueOf(textField("Type").value());
     }
 
-    public String priority() {
-        return textField("Priority").value();
+    public WorkItemPriority priority() {
+        return WorkItemPriority.valueOf(textField("Priority").value());
     }
 
-    public String action() {
-        return textField("Action").value();
+    public WorkItemAction action() {
+        return WorkItemAction.getByDescription(textField("Action").value());
     }
 
     public Date reminder() {
