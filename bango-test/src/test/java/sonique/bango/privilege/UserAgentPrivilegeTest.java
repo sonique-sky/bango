@@ -15,7 +15,7 @@ import spm.domain.model.refdata.DomainAgentBuilder;
 import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 import static sonique.bango.matcher.IsEnabled.isEnabled;
 import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
-import static sonique.bango.matcher.ToggleAvailabilityMatcher.availabilityButton;
+import static sonique.bango.matcher.ToggleAvailabilityMatcher.theAvailabilityButton;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
@@ -53,7 +53,7 @@ public class UserAgentPrivilegeTest extends BangoYatspecTest {
     }
 
     private Matcher<AgentStatusPanel> isDisplayedAndTheAvailabilityButtonIsEnabled() {
-        return thatHas(IsDisplayed.<AgentStatusPanel>isDisplayed()).and(availabilityButton(isEnabled()));
+        return thatHas(IsDisplayed.<AgentStatusPanel>isDisplayed()).and(theAvailabilityButton(isEnabled()));
     }
 
     protected ActionUnderTest theAgentLogsOn() {

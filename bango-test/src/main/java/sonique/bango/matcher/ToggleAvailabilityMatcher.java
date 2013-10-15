@@ -8,7 +8,7 @@ import sonique.bango.driver.panel.AgentStatusPanel;
 public class ToggleAvailabilityMatcher extends TypeSafeMatcher<AgentStatusPanel> {
     private final Matcher matcher;
 
-    public static ToggleAvailabilityMatcher availabilityButton(Matcher matcher) {
+    public static ToggleAvailabilityMatcher theAvailabilityButton(Matcher matcher) {
         return new ToggleAvailabilityMatcher(matcher);
     }
 
