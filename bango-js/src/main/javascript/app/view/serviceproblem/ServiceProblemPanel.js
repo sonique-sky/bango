@@ -80,8 +80,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                             margins: '0, 0, 0 3',
                             items: [
                                 {
-                                    xtype: 'textfield',
-                                    fieldLabel: 'Opened Date'
+                                    xtype: 'datefield',
+                                    fieldLabel: 'Opened Date',
+                                    name: 'openedDate',
+                                    format: 'd/m/y H:i',
+                                    hideTrigger: true
                                 },
                                 {
                                     xtype: 'textfield',

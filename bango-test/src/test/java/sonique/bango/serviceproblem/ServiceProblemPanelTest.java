@@ -8,13 +8,14 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.driver.panel.ServiceProblemPanel;
+import sonique.bango.matcher.DateMatcher;
 import sonique.bango.matcher.IsDisplayed;
-import sonique.bango.matcher.panel.ServiceProblemPanelMatchers;
 import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
+import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
 import static sonique.bango.matcher.panel.ServiceProblemPanelMatchers.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemScenario;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
@@ -44,6 +45,8 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
                 .and(aServiceId(equalTo(serviceProblem.serviceId())))
                 .and(aServiceProblemStatus(equalTo(ServiceProblemStatus.Open)))
                 .and(aDirectoryNumber(equalTo(serviceProblem.getDirectoryNumber())))
+                .and(aQueueName(equalTo(serviceProblem.queue().getName())))
+                .and(anOpenedDate(isSameDateToMinute(serviceProblem.openedDate())))
                 ;
     }
 

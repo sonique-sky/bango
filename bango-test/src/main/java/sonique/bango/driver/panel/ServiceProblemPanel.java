@@ -2,8 +2,10 @@ package sonique.bango.driver.panel;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import spm.domain.DirectoryNumber;
+import spm.domain.QueueName;
 import spm.domain.ServiceProblemId;
 import spm.domain.SnsServiceId;
 
@@ -34,5 +36,13 @@ public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
 
     public DirectoryNumber directoryNumber() {
         return new DirectoryNumber(textField("Directory No").value());
+    }
+
+    public QueueName queue() {
+        return new QueueName(textField("Queue").value());
+    }
+
+    public Date openedDate() {
+        return dateField("Opened Date", "dd/MM/yyyy HH:mm").value();
     }
 }

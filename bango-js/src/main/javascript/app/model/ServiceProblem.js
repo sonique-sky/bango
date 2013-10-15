@@ -22,6 +22,11 @@ Ext.define('Spm.model.ServiceProblem', {
         {
             name: 'hasActiveTroubleReport',
             type: 'boolean'
+        },
+        {
+            name: 'openedDate',
+            type: 'date',
+            dateFormat: 'd/m/Y H:i:s'
         }
     ],
 
