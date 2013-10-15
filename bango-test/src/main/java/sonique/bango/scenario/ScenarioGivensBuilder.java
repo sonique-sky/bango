@@ -2,7 +2,6 @@ package sonique.bango.scenario;
 
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
 import com.googlecode.yatspec.state.givenwhenthen.InterestingGivens;
-import sonique.bango.SupermanScenario;
 
 public class ScenarioGivensBuilder implements GivensBuilder {
 

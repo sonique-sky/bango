@@ -1,4 +1,4 @@
-package sonique.bango;
+package sonique.bango.scenario;
 
 import com.google.common.collect.Lists;
 import sky.sns.spm.domain.model.DomainAgent;
@@ -22,8 +22,6 @@ public class NoServiceProblemsScenario extends SupermanScenario {
     public void bindScenario() {
         PagedSearchResults<DomainServiceProblem> emptyList = new PagedSearchResults<DomainServiceProblem>(Lists.<DomainServiceProblem>newArrayList(), 0L);
 
-        SearchApiService searchApiService = scenarioDriver.searchApiServiceFor(agent);
-
-        when(searchApiService.serviceProblemById(any(ServiceProblemId.class))).thenReturn(emptyList);
+        when(services.searchApiService().serviceProblemById(any(ServiceProblemId.class))).thenReturn(emptyList);
     }
 }

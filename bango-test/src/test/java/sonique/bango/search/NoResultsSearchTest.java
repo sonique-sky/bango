@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import sky.sns.spm.domain.model.DomainAgent;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.NoServiceProblemsScenario;
+import sonique.bango.scenario.NoServiceProblemsScenario;
 import sonique.bango.driver.panel.MessageBox;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;

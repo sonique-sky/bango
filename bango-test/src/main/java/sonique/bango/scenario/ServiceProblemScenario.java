@@ -1,6 +1,5 @@
-package sonique.bango;
+package sonique.bango.scenario;
 
-import com.google.common.collect.Lists;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import sky.sns.spm.domain.model.DomainAgent;
@@ -72,13 +71,13 @@ public class ServiceProblemScenario extends SupermanScenario {
     public void bindScenario() {
         PagedSearchResults<DomainServiceProblem> serviceProblems = new PagedSearchResults<DomainServiceProblem>(newArrayList(serviceProblem), 1L);
 
-        SearchApiService searchApiService = scenarioDriver.searchApiServiceFor(agent);
+        SearchApiService searchApiService = services.searchApiService();
 
         when(searchApiService.serviceProblemById(serviceProblem.serviceProblemId())).thenReturn(serviceProblems);
         when(searchApiService.serviceProblemByDirectoryNumber(serviceProblem.getDirectoryNumber())).thenReturn(serviceProblems);
         when(searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId())).thenReturn(serviceProblems);
 
-        ServiceProblemApiService serviceProblemApiService = scenarioDriver.serviceProblemApiServiceFor(agent);
+        ServiceProblemApiService serviceProblemApiService = services.serviceProblemApiService();
 
 
         when(serviceProblemApiService.pull(serviceProblem.serviceProblemId())).thenAnswer(new Answer<List<DomainServiceProblem>>() {

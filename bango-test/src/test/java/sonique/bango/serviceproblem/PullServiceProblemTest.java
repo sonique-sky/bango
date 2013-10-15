@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.ServiceProblemScenario;
+import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.driver.panel.ServiceProblemTab;
 import sonique.bango.service.ServiceProblemApiService;
 
@@ -49,7 +49,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         return new StateExtractor<ServiceProblemApiService>() {
             @Override
             public ServiceProblemApiService execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return scenarioDriver().serviceProblemApiServiceFor(agentForTest);
+                return scenarioDriver().servicesFor(agentForTest).serviceProblemApiService();
             }
         };
     }

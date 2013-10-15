@@ -4,13 +4,13 @@ import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.junit.Before;
 import org.junit.Test;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.ServiceProblemScenario;
+import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.driver.panel.ServiceProblemTab;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
-import static sonique.bango.ServiceProblemScenario.serviceProblemScenario;
+import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemScenario;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
