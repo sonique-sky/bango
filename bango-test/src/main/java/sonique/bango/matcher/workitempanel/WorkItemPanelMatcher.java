@@ -63,6 +63,15 @@ public abstract class WorkItemPanelMatcher<TYPE> extends TypeSafeMatcher<WorkIte
         };
     }
 
+    public static Matcher<? super WorkItemPanel> aWorkItemReminder(Matcher<Date> matcher) {
+        return new WorkItemPanelMatcher<Date>(matcher) {
+            @Override
+            protected Date actualValue(WorkItemPanel item) {
+                return item.reminder();
+            }
+        };
+    }
+
     private final Matcher<TYPE> matcher;
 
     private WorkItemPanelMatcher(Matcher<TYPE> matcher) {

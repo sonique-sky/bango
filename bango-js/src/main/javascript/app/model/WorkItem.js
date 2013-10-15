@@ -25,7 +25,10 @@ Ext.define('Spm.model.WorkItem', {
             name: 'priority'
         },
         {
-            name: 'reminder'
+            name: 'reminder',
+            mapping: 'reminderTime',
+            type: 'date',
+            dateFormat: 'd/m/Y H:i'
         }
     ],
 

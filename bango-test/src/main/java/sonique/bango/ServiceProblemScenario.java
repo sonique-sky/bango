@@ -11,41 +11,57 @@ import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.driver.ScenarioDriver;
 import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;
-import spm.domain.DirectoryNumber;
 import spm.domain.QueueName;
 import spm.domain.ServiceProblemId;
 import spm.domain.model.refdata.QueueBuilder;
 
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.mockito.Mockito.when;
+import static sonique.datafixtures.DateTimeDataFixtures.someDateInTheNextYear;
 import static util.SupermanDataFixtures.*;
 
 public class ServiceProblemScenario extends SupermanScenario {
 
-    private final DomainServiceProblem serviceProblem;
-
     public static ServiceProblemScenario noWorkItemScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
-        DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
+        DomainServiceProblem serviceProblem = serviceProblemBuilder()
                 .withNoWorkItem()
-                .withServiceProblemId(someServiceProblemId())
-                .withQueue(new QueueBuilder().with(new QueueName("Queue")).build())
-                .withDirectoryNumber(someDirectoryNumber())
-                .withServiceId(someSnsServiceId())
                 .build();
         return new ServiceProblemScenario(scenarioDriver, agent, serviceProblem);
     }
 
     public static ServiceProblemScenario serviceProblemScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
-        DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
-                .withServiceProblemId(someServiceProblemId())
-                .withWorkItem(DomainWorkItemBuilder.withAllDefaults().build())
-                .withQueue(new QueueBuilder().with(new QueueName("Queue")).build())
-                .withDirectoryNumber(someDirectoryNumber())
-                .withServiceId(someSnsServiceId())
-                .build();
+        DomainServiceProblem serviceProblem = serviceProblemWithWorkItem().build();
         return new ServiceProblemScenario(scenarioDriver, agent, serviceProblem);
     }
+
+    public static ServiceProblemScenario assignedServiceProblemScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
+        DomainServiceProblem serviceProblem = serviceProblemWithWorkItem().withAssignedAgent(agent).build();
+        return new ServiceProblemScenario(scenarioDriver, agent, serviceProblem);
+    }
+
+    public static ServiceProblemScenario serviceProblemWithReminderScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
+        DomainServiceProblem serviceProblem = serviceProblemBuilder()
+                .withWorkItem(DomainWorkItemBuilder.withAllDefaults().withWorkReminder(someDateInTheNextYear().toDate()).build())
+                .build();
+
+        return new ServiceProblemScenario(scenarioDriver, agent, serviceProblem);
+    }
+
+    private static DomainServiceProblemBuilder serviceProblemWithWorkItem() {
+        return serviceProblemBuilder().withWorkItem(DomainWorkItemBuilder.withAllDefaults().build());
+    }
+
+    private static DomainServiceProblemBuilder serviceProblemBuilder() {
+        return new DomainServiceProblemBuilder()
+                .withServiceProblemId(someServiceProblemId())
+                .withQueue(new QueueBuilder().with(new QueueName("Queue")).build())
+                .withDirectoryNumber(someDirectoryNumber())
+                .withServiceId(someSnsServiceId());
+    }
+
+    private final DomainServiceProblem serviceProblem;
 
     private ServiceProblemScenario(ScenarioDriver scenarioDriver, DomainAgent agent, DomainServiceProblem serviceProblem) {
         super(scenarioDriver, agent);
@@ -54,9 +70,7 @@ public class ServiceProblemScenario extends SupermanScenario {
 
     @Override
     public void bindScenario() {
-
-        final List<DomainServiceProblem> serviceProblemList = Lists.newArrayList(serviceProblem);
-        PagedSearchResults<DomainServiceProblem> serviceProblems = new PagedSearchResults<DomainServiceProblem>(serviceProblemList, 1L);
+        PagedSearchResults<DomainServiceProblem> serviceProblems = new PagedSearchResults<DomainServiceProblem>(newArrayList(serviceProblem), 1L);
 
         SearchApiService searchApiService = scenarioDriver.searchApiServiceFor(agent);
 
@@ -65,11 +79,13 @@ public class ServiceProblemScenario extends SupermanScenario {
         when(searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId())).thenReturn(serviceProblems);
 
         ServiceProblemApiService serviceProblemApiService = scenarioDriver.serviceProblemApiServiceFor(agent);
+
+
         when(serviceProblemApiService.pull(serviceProblem.serviceProblemId())).thenAnswer(new Answer<List<DomainServiceProblem>>() {
             @Override
             public List<DomainServiceProblem> answer(InvocationOnMock invocationOnMock) throws Throwable {
                 serviceProblem.tug(agent);
-                return serviceProblemList;
+                return newArrayList(serviceProblem);
             }
         });
     }

@@ -33,6 +33,10 @@ public class WorkItemPanel extends SupermanFormPanel {
         return textField("Action").value();
     }
 
+    public Date reminder() {
+        return dateField("Reminder", "dd/MM/yyyy HH:mm").value();
+    }
+
     public boolean hasNoWorkItem() {
         return contains(By.className("no-work-item-text"));
     }

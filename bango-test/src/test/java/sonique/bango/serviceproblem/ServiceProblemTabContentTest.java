@@ -15,11 +15,14 @@ import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.core.IsEqual.equalTo;
+import static sonique.bango.ServiceProblemScenario.assignedServiceProblemScenario;
+import static sonique.bango.ServiceProblemScenario.serviceProblemWithReminderScenario;
+import static sonique.bango.matcher.AgentDisplayNameMatcher.withTheDisplayNameOf;
 import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
 import static sonique.bango.matcher.workitempanel.WorkItemPanelMatcher.*;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
-public class ServiceProblemTest extends BangoYatspecTest {
+public class ServiceProblemTabContentTest extends BangoYatspecTest {
 
     private ServiceProblemScenario serviceProblemScenario;
 
@@ -48,12 +51,35 @@ public class ServiceProblemTest extends BangoYatspecTest {
 
     @Test
     public void findsAndDisplaysAssignedServiceProblem() throws Exception {
+        given(aServiceProblemThatIsAssignedToAnAgent());
 
+        when(anAgentViewsTheServiceProblem());
+
+        then(theWorkItemPanel(), displaysTheWorkItemAsAssigned());
     }
 
     @Test
     public void findsAndDisplaysServiceProblemWithReminder() throws Exception {
+        given(aServiceProblemWithAReminder());
 
+        when(anAgentViewsTheServiceProblem());
+
+        then(theWorkItemPanel(), displaysAReminder());
+    }
+
+    private Matcher<WorkItemPanel> displaysAReminder() {
+        DomainWorkItem workItem = serviceProblemScenario.serviceProblem().workItem();
+
+        return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
+                .and(aWorkItemReminder(isSameDateToMinute(workItem.reminderTime())));
+    }
+
+    private Matcher<WorkItemPanel> displaysTheWorkItemAsAssigned() {
+        DomainWorkItem workItem = serviceProblemScenario.serviceProblem().workItem();
+
+        return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
+                .and(aWorkItemStatus(equalTo(workItem.status().name())))
+                .and(aWorkItemAssignedAgent(withTheDisplayNameOf(agentForTest)));
     }
 
     private Matcher<WorkItemPanel> isPopulatedCorrectly() {
@@ -64,8 +90,11 @@ public class ServiceProblemTest extends BangoYatspecTest {
                 .and(aWorkItemCreatedDate(isSameDateToMinute(workItem.createdDate())))
                 .and(aWorkItemType(equalTo(workItem.assignmentType().name())))
                 .and(aWorkItemAction(equalTo(workItem.action().toString())))
-                .and(aWorkItemPriority(equalTo(workItem.priority().name())))
-                ;
+                .and(aWorkItemPriority(equalTo(workItem.priority().name())));
+    }
+
+    private AppendableAllOf<ServiceProblemTab> isDisplayed() {
+        return thatHas(IsDisplayed.<ServiceProblemTab>isDisplayed());
     }
 
     private StateExtractor<WorkItemPanel> theWorkItemPanel() {
@@ -77,10 +106,6 @@ public class ServiceProblemTest extends BangoYatspecTest {
         };
     }
 
-    private AppendableAllOf<ServiceProblemTab> isDisplayed() {
-        return thatHas(IsDisplayed.<ServiceProblemTab>isDisplayed());
-    }
-
     private StateExtractor<ServiceProblemTab> theServiceProblemTab() {
         return new StateExtractor<ServiceProblemTab>() {
             @Override
@@ -88,6 +113,23 @@ public class ServiceProblemTest extends BangoYatspecTest {
                 return supermanApp.appContainer().serviceProblemTab(serviceProblemScenario.serviceProblemId());
             }
         };
+    }
+
+    private GivensBuilder aServiceProblemWithAReminder() {
+        return new GivensBuilder() {
+            @Override
+            public InterestingGivens build(InterestingGivens givens) throws Exception {
+                serviceProblemScenario = serviceProblemWithReminderScenario(scenarioDriver(), agentForTest);
+                serviceProblemScenario.bindScenario();
+
+                return givens;
+            }
+        };
+    }
+
+    private GivensBuilder aServiceProblemThatIsAssignedToAnAgent() {
+        serviceProblemScenario = assignedServiceProblemScenario(scenarioDriver(), agentForTest);
+        return new ScenarioGivensBuilder(serviceProblemScenario);
     }
 
     private GivensBuilder aServiceProblemWithoutWorkItem() {

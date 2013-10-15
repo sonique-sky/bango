@@ -60,7 +60,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                             name: 'createdDate',
                                             fieldLabel: 'Created Date',
                                             format: 'd/m/y H:i',
-                                            hideTrigger : true
+                                            hideTrigger: true
                                         },
                                         {
                                             xtype: 'textfield',
@@ -97,9 +97,11 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                             fieldLabel: 'Type'
                                         },
                                         {
-                                            xtype: 'textfield',
+                                            xtype: 'datefield',
                                             name: 'reminder',
-                                            fieldLabel: 'Reminder'
+                                            fieldLabel: 'Reminder',
+                                            format: 'd/m/y H:i',
+                                            hideTrigger: true
                                         }
                                     ]
                                 }
