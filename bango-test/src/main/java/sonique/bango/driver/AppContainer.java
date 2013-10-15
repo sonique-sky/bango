@@ -30,6 +30,10 @@ public class AppContainer extends SupermanContainer {
         return new AgentStatusPanel(this);
     }
 
+    public QueueDashboardTab queueDashboardTab() {
+        return new QueueDashboardTab(this);
+    }
+
     public ServiceProblemTab serviceProblemTab(ServiceProblemId serviceProblemId) {
         return new ServiceProblemTab(this, serviceProblemId);
     }

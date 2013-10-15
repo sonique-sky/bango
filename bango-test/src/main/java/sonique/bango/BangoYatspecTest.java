@@ -6,13 +6,11 @@ import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.refdata.Role;
 import sonique.bango.driver.ScenarioDriver;
 import sonique.bango.driver.SupermanApp;
-import sonique.bango.driver.panel.HeaderPanel;
-import sonique.bango.driver.panel.LoginDialog;
+import sonique.bango.driver.panel.*;
 import spm.domain.model.refdata.DomainAgentBuilder;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -86,5 +84,32 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
 
     public <ItemOfInterest> TestState and(StateExtractor<ItemOfInterest> stateExtractor, Matcher<? super ItemOfInterest> matcher) throws Exception {
         return then(stateExtractor, matcher);
+    }
+
+    protected StateExtractor<QueueDashboardTab> theQueueDashboardTab() {
+        return new StateExtractor<QueueDashboardTab>() {
+            @Override
+            public QueueDashboardTab execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
+                return supermanApp.appContainer().queueDashboardTab();
+            }
+        };
+    }
+
+    protected StateExtractor<AgentStatusPanel> theAgentStatusPanel() {
+        return new StateExtractor<AgentStatusPanel>() {
+            @Override
+            public AgentStatusPanel execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+                return supermanApp.appContainer().agentStatusPanel();
+            }
+        };
+    }
+
+    protected StateExtractor<MyQueuesPanel> theMyQueuesPanel() {
+        return new StateExtractor<MyQueuesPanel>() {
+            @Override
+            public MyQueuesPanel execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+                return supermanApp.appContainer().myQueuesPanel();
+            }
+        };
     }
 }

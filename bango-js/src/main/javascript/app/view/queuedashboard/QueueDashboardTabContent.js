@@ -38,9 +38,8 @@ Ext.define('Spm.view.queuedashboard.QueueDashboardTabContent', {
 
         this.store = Spm.store.QueueDashboardEntries.queueDashboardEntriesStore();
         this.store.addManagedListener(this.store, 'beforeLoad', this.onBeforeLoad, this);
-
+        this.tabConfig = {id: 'queue-dashboard-tab'};
         Ext.applyIf(this, {
-
             dockedItems: [
                 {
                     xtype: 'queueDashboardToolbar',

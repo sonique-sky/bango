@@ -12,6 +12,7 @@ Ext.define('Spm.controller.action.ToggleAvailabilityAction', {
     constructor: function () {
         this.callParent([
             {
+                id: 'toggle-availability',
                 name: Spm.action.ToggleAvailabilityAction.ACTION_NAME
             }
         ]);
