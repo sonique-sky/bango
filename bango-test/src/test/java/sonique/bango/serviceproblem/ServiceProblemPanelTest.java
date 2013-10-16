@@ -45,7 +45,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
                 .and(aServiceProblemStatus(equalTo(ServiceProblemStatus.Open)))
                 .and(aDirectoryNumber(equalTo(serviceProblem.getDirectoryNumber())))
                 .and(aQueueName(equalTo(serviceProblem.queue().getName())))
-//                .and(aServiceType(equalTo(serviceProblem.getServiceType())))
+                .and(aServiceType(equalTo(serviceProblem.getServiceType())))
                 .and(anOpenedDate(isSameDateToMinute(serviceProblem.openedDate())))
                 ;
     }

@@ -3,7 +3,8 @@ Ext.define('Spm.model.ServiceProblem', {
     alias: 'model.serviceProblem',
 
     uses: [
-        'Spm.model.WorkItem'
+        'Spm.model.WorkItem',
+        'Spm.model.ServiceType'
     ],
 
     fields: [
@@ -32,7 +33,8 @@ Ext.define('Spm.model.ServiceProblem', {
 
     hasOne: [
         'workItem', {model: 'Spm.model.WorkItem', name: 'workItem', associationKey: 'workItem', getterName: 'workItem'},
-        'queue', {model: 'Spm.model.Queue', name: 'queue', associationKey: 'queue', getterName: 'queue'}
+        'queue', {model: 'Spm.model.Queue', name: 'queue', associationKey: 'queue', getterName: 'queue'},
+        'serviceType', {model: 'Spm.model.ServiceType', name: 'serviceType', associationKey: 'serviceType', getterName: 'serviceType'}
     ],
 
     serviceProblemId: function () {

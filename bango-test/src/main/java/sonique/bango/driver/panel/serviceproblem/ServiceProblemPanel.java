@@ -13,6 +13,8 @@ import spm.domain.SnsServiceId;
 
 import java.util.Date;
 
+import static sonique.utils.StringUtils.unCamel;
+
 public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
     public ServiceProblemPanel(ServiceProblemTabContent serviceProblemTabContent) {
         super(serviceProblemTabContent, By.cssSelector("[id^='serviceProblemPanel']"));
@@ -49,6 +51,16 @@ public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
     }
 
     public ServiceTypeCode serviceType() {
-        return null;
+        return fromDescription(textField("Service Type").value());
+    }
+
+
+    private ServiceTypeCode fromDescription(String description) {
+        for (ServiceTypeCode serviceTypeCode : ServiceTypeCode.values()) {
+            if (serviceTypeCode.getDisplayName().equals(description)){
+                return serviceTypeCode;
+            }
+        }
+        throw new IllegalArgumentException(String.format("No %s for [%s]", unCamel(ServiceTypeCode.class), description));
     }
 }
