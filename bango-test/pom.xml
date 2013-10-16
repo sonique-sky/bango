@@ -13,8 +13,7 @@
     <name>Bango Test</name>
 
     <properties>
-        <bango.app.pool.size>4</bango.app.pool.size>
-        <test.thread.count>4</test.thread.count>
+        <test.thread.count>3</test.thread.count>
     </properties>
 
     <build>
@@ -24,7 +23,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.14</version>
                 <configuration>
-                    <argLine>-Dbango.app.pool.size=${bango.app.pool.size}</argLine>
                     <parallel>classes</parallel>
                     <threadCount>${test.thread.count}</threadCount>
                     <perCoreThreadCount>false</perCoreThreadCount>

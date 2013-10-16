@@ -12,7 +12,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class BetterWait {
 
-    private static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = newScheduledThreadPool(Integer.parseInt(System.getProperty("bango.app.pool.size", "2")));
+    private static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = newScheduledThreadPool(5);
 
     private long timeout = 500;
     private long interval = 100;

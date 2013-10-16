@@ -6,16 +6,19 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class AppPool {
 
     private final Deque<SupermanApp> appPool = new LinkedBlockingDeque<SupermanApp>();
+    private final int port;
 
-    public AppPool(int port, int poolSize) {
-        for (int i = 0; i < poolSize; i++) {
-             appPool.add(new SupermanApp(port));
-        }
+    public AppPool(int port) {
+        this.port = port;
     }
 
     public SupermanApp borrow() {
         synchronized (appPool) {
-            return appPool.poll();
+            SupermanApp supermanApp = appPool.poll();
+            if (supermanApp == null ){
+                supermanApp = new SupermanApp(port);
+            }
+            return supermanApp;
         }
     }
 
