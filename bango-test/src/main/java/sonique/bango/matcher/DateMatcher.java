@@ -8,7 +8,7 @@ import java.util.Date;
 
 public abstract class DateMatcher extends TypeSafeMatcher<Date> {
 
-    public static DateMatcher isSameDateToMinute(Date date) {
+    public static DateMatcher theSameDateAs(Date date) {
         return new DateMatcher(date) {
             protected DateTime rounded(DateTime datetime) {
                 return datetime.withSecondOfMinute(0).withMillis(0);

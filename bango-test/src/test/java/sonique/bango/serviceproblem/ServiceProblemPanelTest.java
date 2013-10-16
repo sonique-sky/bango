@@ -6,18 +6,15 @@ import org.junit.Before;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemResolution;
-import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemPanel;
 import sonique.bango.matcher.IsDisplayed;
-import sonique.bango.scenario.ScenarioGivensBuilder;
-import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus.*;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
-import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
+import static sonique.bango.matcher.DateMatcher.theSameDateAs;
 import static sonique.bango.matcher.panel.ServiceProblemPanelMatchers.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemBuilder;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
@@ -67,7 +64,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
     }
 
     private Matcher<ServiceProblemPanel> theClosedDate() {
-        return aClosedDate(isSameDateToMinute(serviceProblem.closedDate()));
+        return aClosedDate(theSameDateAs(serviceProblem.closedDate()));
     }
 
     private Matcher<ServiceProblemPanel> theFaultCauseAndResolutionReason() {
@@ -84,7 +81,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
                 .and(aDirectoryNumber(equalTo(serviceProblem.getDirectoryNumber())))
                 .and(aQueueName(equalTo(serviceProblem.queue().getName())))
                 .and(aServiceType(equalTo(serviceProblem.getServiceType())))
-                .and(anOpenedDate(isSameDateToMinute(serviceProblem.openedDate())))
+                .and(anOpenedDate(theSameDateAs(serviceProblem.openedDate())))
                 .and(aCustomerName(equalTo(serviceProblem.getEndUserInformation().getName())))
                 .and(aContactNumber(equalTo(serviceProblem.getEndUserInformation().getPreferredContactNumber())))
                 .and(anOperatorAccountNumber(equalTo(serviceProblem.getEndUserInformation().getOperatorAccountNumber())))

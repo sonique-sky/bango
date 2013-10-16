@@ -10,12 +10,11 @@ import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
-import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
-import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
+import static sonique.bango.matcher.DateMatcher.theSameDateAs;
 import static sonique.bango.matcher.panel.NoWorkItemMatcher.anEmptyWorkItemPanel;
 import static sonique.bango.matcher.panel.WorkItemPanelMatchers.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemBuilder;
@@ -71,7 +70,7 @@ public class WorkItemPanelTest extends BangoYatspecTest {
     private Matcher<? super WorkItemPanel> hasTheCorrectReminderTime() {
         DomainWorkItem workItem = workItemPanel();
 
-        return aWorkItemReminder(isSameDateToMinute(workItem.reminderTime()));
+        return aWorkItemReminder(theSameDateAs(workItem.reminderTime()));
     }
 
     private DomainWorkItem workItemPanel() {
@@ -91,7 +90,7 @@ public class WorkItemPanelTest extends BangoYatspecTest {
 
         return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
                 .and(aWorkItemStatus(equalTo(workItem.status())))
-                .and(aWorkItemCreatedDate(isSameDateToMinute(workItem.createdDate())))
+                .and(aWorkItemCreatedDate(theSameDateAs(workItem.createdDate())))
                 .and(aWorkItemType(equalTo(workItem.assignmentType())))
                 .and(aWorkItemAction(equalTo(workItem.action())))
                 .and(aWorkItemPriority(equalTo(workItem.priority())));
