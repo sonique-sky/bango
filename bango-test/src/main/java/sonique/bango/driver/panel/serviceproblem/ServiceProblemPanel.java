@@ -54,6 +54,17 @@ public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
         return fromDescription(textField("Service Type").value());
     }
 
+    public String customerName() {
+        return textField("Customer Name").value();
+    }
+
+    public String contactNumber() {
+        return textField("Contact No").value();
+    }
+
+    public String operatorAccountNumber() {
+        return textField("Chordiant Acc No").value();
+    }
 
     private ServiceTypeCode fromDescription(String description) {
         for (ServiceTypeCode serviceTypeCode : ServiceTypeCode.values()) {

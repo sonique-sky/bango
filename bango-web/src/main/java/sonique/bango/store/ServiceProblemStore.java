@@ -20,6 +20,9 @@ import java.util.List;
 
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.newArrayList;
+import static sonique.datafixtures.PrimitiveDataFixtures.someString;
+import static util.SupermanDataFixtures.someContactName;
+import static util.SupermanDataFixtures.someTelephoneNumber;
 
 public class ServiceProblemStore implements DomainServiceProblemRepository {
 
@@ -38,6 +41,9 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                         .withDirectoryNumber(new DirectoryNumber("directoryNumber-" + (serviceProblemId % 4)))
                         .withQueue(queue)
                         .withWorkItem(serviceProblemId % 2 == 0 ? DomainWorkItemBuilder.withAllDefaults().build() : null)
+                        .withPreferredContactName(someContactName().asString())
+                        .withPreferredContactNumber(someTelephoneNumber().asString())
+                        .withOperatorAccountNumber(someString())
                         .build();
                 serviceProblems.add(serviceProblem);
             }

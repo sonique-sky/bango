@@ -1,5 +1,6 @@
 package sonique.bango.matcher.panel;
 
+import org.apache.commons.lang.StringUtils;
 import org.hamcrest.Matcher;
 import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
@@ -72,6 +73,33 @@ public class ServiceProblemPanelMatchers {
             @Override
             protected ServiceTypeCode actualValue(ServiceProblemPanel item) {
                 return item.serviceType();
+            }
+        };
+    }
+
+    public static AbstractPanelMatcher<ServiceProblemPanel, String> aCustomerName(Matcher<String> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, String>(matcher) {
+            @Override
+            protected String actualValue(ServiceProblemPanel item) {
+                return StringUtils.trimToNull(item.customerName());
+            }
+        };
+    }
+
+    public static AbstractPanelMatcher<ServiceProblemPanel, String> aContactNumber(Matcher<String> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, String>(matcher) {
+            @Override
+            protected String actualValue(ServiceProblemPanel item) {
+                return StringUtils.trimToNull(item.contactNumber());
+            }
+        };
+    }
+
+    public static AbstractPanelMatcher<ServiceProblemPanel, String> anOperatorAccountNumber(Matcher<String> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, String>(matcher) {
+            @Override
+            protected String actualValue(ServiceProblemPanel item) {
+                return StringUtils.trimToNull(item.operatorAccountNumber());
             }
         };
     }

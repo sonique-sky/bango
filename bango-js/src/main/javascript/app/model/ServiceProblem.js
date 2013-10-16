@@ -25,6 +25,18 @@ Ext.define('Spm.model.ServiceProblem', {
             type: 'boolean'
         },
         {
+            name: 'customerName',
+            mapping: 'endUserInformation.name'
+        },
+        {
+            name: 'contactNumber',
+            mapping: 'endUserInformation.preferredContactNumber'
+        },
+        {
+            name: 'chordiantAccountNumber',
+            mapping: 'endUserInformation.operatorAccountNumber'
+        },
+        {
             name: 'openedDate',
             type: 'date',
             dateFormat: 'd/m/Y H:i:s'

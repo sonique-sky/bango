@@ -25,6 +25,6 @@ public abstract class AbstractPanelMatcher<PANEL, TYPE> extends TypeSafeMatcher<
 
     @Override
     protected void describeMismatchSafely(PANEL item, Description mismatchDescription) {
-        mismatchDescription.appendText("was " + actualValue(item));
+        mismatchDescription.appendText(String.format("was [%s]", actualValue(item)));
     }
 }

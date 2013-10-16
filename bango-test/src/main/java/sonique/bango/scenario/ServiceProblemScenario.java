@@ -19,6 +19,7 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.mockito.Mockito.when;
 import static sonique.datafixtures.DateTimeDataFixtures.someDateInTheNextYear;
+import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 import static util.SupermanDataFixtures.*;
 
 public class ServiceProblemScenario extends SupermanScenario {
@@ -57,7 +58,11 @@ public class ServiceProblemScenario extends SupermanScenario {
                 .withServiceProblemId(someServiceProblemId())
                 .withQueue(new QueueBuilder().with(new QueueName("Queue")).build())
                 .withDirectoryNumber(someDirectoryNumber())
-                .withServiceId(someSnsServiceId());
+                .withPreferredContactName(someContactName().asString())
+                .withPreferredContactNumber(someTelephoneNumber().asString())
+                .withServiceId(someSnsServiceId())
+                .withOperatorAccountNumber(someString())
+                ;
     }
 
     private final DomainServiceProblem serviceProblem;
@@ -78,7 +83,6 @@ public class ServiceProblemScenario extends SupermanScenario {
         when(searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId())).thenReturn(serviceProblems);
 
         ServiceProblemApiService serviceProblemApiService = services.serviceProblemApiService();
-
 
         when(serviceProblemApiService.pull(serviceProblem.serviceProblemId())).thenAnswer(new Answer<List<DomainServiceProblem>>() {
             @Override

@@ -35,6 +35,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
         when(theAgentViewsTheServiceProblem());
 
         then(theServiceProblemPanel(), isDisplayed().with(theCorrectInformation()));
+
     }
 
     private Matcher<ServiceProblemPanel> theCorrectInformation() {
@@ -47,6 +48,9 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
                 .and(aQueueName(equalTo(serviceProblem.queue().getName())))
                 .and(aServiceType(equalTo(serviceProblem.getServiceType())))
                 .and(anOpenedDate(isSameDateToMinute(serviceProblem.openedDate())))
+                .and(aCustomerName(equalTo(serviceProblem.getEndUserInformation().getName())))
+                .and(aContactNumber(equalTo(serviceProblem.getEndUserInformation().getPreferredContactNumber())))
+                .and(anOperatorAccountNumber(equalTo(serviceProblem.getEndUserInformation().getOperatorAccountNumber())))
                 ;
     }
 

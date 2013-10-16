@@ -50,7 +50,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                                 },
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Chordiant Acc No'
+                                    fieldLabel: 'Chordiant Acc No',
+                                    name: 'chordiantAccountNumber'
                                 }
                             ]
                         },
@@ -105,11 +106,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                                 },
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Customer Name'
+                                    fieldLabel: 'Customer Name',
+                                    name: 'customerName'
                                 },
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Contact No'
+                                    fieldLabel: 'Contact No',
+                                    name: 'contactNumber'
                                 }
                             ]
                         }
