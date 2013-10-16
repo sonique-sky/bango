@@ -12,14 +12,12 @@ import sonique.bango.app.ScenarioDriver;
 import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.QueueName;
-import spm.domain.ServiceProblemId;
 import spm.domain.model.refdata.QueueBuilder;
 
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.mockito.Mockito.when;
-import static sonique.datafixtures.DateTimeDataFixtures.someDateInTheNextYear;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 import static util.SupermanDataFixtures.*;
 
@@ -63,6 +61,7 @@ public class ServiceProblemScenario extends SupermanScenario {
         when(searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId())).thenReturn(serviceProblems);
 
         ServiceProblemApiService serviceProblemApiService = services.serviceProblemApiService();
+        when(serviceProblemApiService.serviceProblemWithId(serviceProblem.serviceProblemId())).thenReturn(serviceProblem);
 
         when(serviceProblemApiService.pull(serviceProblem.serviceProblemId())).thenAnswer(new Answer<List<DomainServiceProblem>>() {
             @Override

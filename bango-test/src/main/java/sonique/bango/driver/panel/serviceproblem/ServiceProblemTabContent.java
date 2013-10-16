@@ -27,4 +27,8 @@ public class ServiceProblemTabContent extends SupermanComponent {
     public ServiceProblemPanel serviceProblemPanel() {
         return new ServiceProblemPanel(this);
     }
+
+    public EventHistoryPanel eventHistoryPanel() {
+        return new EventHistoryPanel(this);
+    }
 }
