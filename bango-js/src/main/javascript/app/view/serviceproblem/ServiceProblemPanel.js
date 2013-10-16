@@ -138,15 +138,18 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                         },
                         {
                             xtype: 'textfield',
-                            fieldLabel: 'Fault'
+                            fieldLabel: 'Fault',
+                            name: 'fault'
                         },
                         {
                             xtype: 'textfield',
-                            fieldLabel: 'Cause'
+                            fieldLabel: 'Cause',
+                            name: 'cause'
                         },
                         {
                             xtype: 'textfield',
-                            fieldLabel: 'Resolution Reason'
+                            fieldLabel: 'Resolution Reason',
+                            name: 'resolutionReason'
                         }
                     ]
                 }

@@ -3,22 +3,26 @@ package sonique.bango.serviceproblem;
 import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.hamcrest.Matcher;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.ServiceProblemResolution;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
+import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus.*;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
 import static sonique.bango.matcher.panel.ServiceProblemPanelMatchers.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
+import static sonique.bango.matcher.DescriptionOf.withDescriptionOf;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
+import static util.SupermanDataFixtures.someServiceProblemResolution;
 
 public class ServiceProblemPanelTest extends BangoYatspecTest {
 
@@ -35,27 +39,31 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
 
         when(theAgentViewsTheServiceProblem());
 
-        then(theServiceProblemPanel(), isDisplayed().with(theCorrectInformation()));
+        then(theServiceProblemPanel(), isDisplayed().with(theCorrectInformation()).and(aServiceProblemStatus(equalTo(Open))));
     }
 
-    @Ignore
     @Test
     public void displaysClearedServiceProblem() throws Exception {
         given(aClearedServiceProblem());
 
         when(theAgentViewsTheServiceProblem());
 
-        then(theServiceProblemPanel(), isDisplayed().with(theCorrectInformation()).and(theFaultCauseAndResolutionReason()));
+        then(theServiceProblemPanel(), isDisplayed().with(theCorrectInformation())
+                .and(aServiceProblemStatus(equalTo(Cleared)))
+                .and(theFaultCauseAndResolutionReason()));
     }
 
     private Matcher<ServiceProblemPanel> theFaultCauseAndResolutionReason() {
-        return null;
+        ServiceProblemResolution resolution = serviceProblem.getResolution();
+        return thatHas(aFault(withDescriptionOf(resolution.getFault())))
+                .and(aCause(withDescriptionOf(resolution.getCause())))
+                .and(aResolutionReason(withDescriptionOf(resolution.getResolutionReason())))
+                ;
     }
 
     private Matcher<ServiceProblemPanel> theCorrectInformation() {
         return thatHas(aServiceProblemId(equalTo(serviceProblem.serviceProblemId())))
                 .and(aServiceId(equalTo(serviceProblem.serviceId())))
-                .and(aServiceProblemStatus(equalTo(ServiceProblemStatus.Open)))
                 .and(aDirectoryNumber(equalTo(serviceProblem.getDirectoryNumber())))
                 .and(aQueueName(equalTo(serviceProblem.queue().getName())))
                 .and(aServiceType(equalTo(serviceProblem.getServiceType())))
@@ -91,12 +99,13 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
         };
     }
 
-    private GivensBuilder aClearedServiceProblem() {
-        return null;
-    }
-
     private GivensBuilder anOpenServiceProblem() {
         serviceProblem = serviceProblemWithWorkItem().build();
+        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
+    }
+
+    private GivensBuilder aClearedServiceProblem() {
+        serviceProblem = ServiceProblemScenario.serviceProblemBuilder().withStatus(ServiceProblemStatus.Cleared).withResolution(someServiceProblemResolution()).build();
         return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
     }
 }

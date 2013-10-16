@@ -46,6 +46,18 @@ Ext.define('Spm.model.ServiceProblem', {
         },
         {
             name: 'problem'
+        },
+        {
+            name: 'fault',
+            mapping: 'resolution.fault'
+        },
+        {
+            name: 'cause',
+            mapping: 'resolution.cause'
+        },
+        {
+            name: 'resolutionReason',
+            mapping: 'resolution.resolutionReason'
         }
     ],
 

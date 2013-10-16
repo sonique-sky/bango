@@ -71,6 +71,18 @@ public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
         return new OperatorReference(textField("Operator Ref").value());
     }
 
+    public String fault() {
+        return textField("Fault").value();
+    }
+
+    public String cause() {
+        return textField("Cause").value();
+    }
+
+    public String resolutionReason() {
+        return textField("Resolution Reason").value();
+    }
+
     private ServiceTypeCode fromDescription(String description) {
         for (ServiceTypeCode serviceTypeCode : ServiceTypeCode.values()) {
             if (serviceTypeCode.getDisplayName().equals(description)){

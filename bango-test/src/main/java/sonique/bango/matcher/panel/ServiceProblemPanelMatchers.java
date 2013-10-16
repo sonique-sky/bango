@@ -109,11 +109,39 @@ public class ServiceProblemPanelMatchers {
             }
         };
     }
+
     public static AbstractPanelMatcher<ServiceProblemPanel, OperatorReference> anOperatorReference(Matcher<OperatorReference> matcher) {
         return new AbstractPanelMatcher<ServiceProblemPanel, OperatorReference>(matcher) {
             @Override
             protected OperatorReference actualValue(ServiceProblemPanel item) {
                 return item.operatorReference();
+            }
+        };
+    }
+
+    public static AbstractPanelMatcher<ServiceProblemPanel, String> aFault(Matcher<String> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, String>(matcher) {
+            @Override
+            protected String actualValue(ServiceProblemPanel item) {
+                return item.fault();
+            }
+        };
+    }
+
+    public static AbstractPanelMatcher<ServiceProblemPanel, String> aCause(Matcher<String> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, String>(matcher) {
+            @Override
+            protected String actualValue(ServiceProblemPanel item) {
+                return item.cause();
+            }
+        };
+    }
+
+    public static AbstractPanelMatcher<ServiceProblemPanel, String> aResolutionReason(Matcher<String> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, String>(matcher) {
+            @Override
+            protected String actualValue(ServiceProblemPanel item) {
+                return item.resolutionReason();
             }
         };
     }
