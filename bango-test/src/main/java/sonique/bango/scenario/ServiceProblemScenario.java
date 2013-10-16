@@ -3,6 +3,7 @@ package sonique.bango.scenario;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import sky.sns.spm.domain.model.DomainAgent;
+import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblemBuilder;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
@@ -54,6 +55,7 @@ public class ServiceProblemScenario extends SupermanScenario {
     }
 
     private static DomainServiceProblemBuilder serviceProblemBuilder() {
+        ServiceTypeCode serviceTypeCode = someServiceType();
         return new DomainServiceProblemBuilder()
                 .withServiceProblemId(someServiceProblemId())
                 .withQueue(new QueueBuilder().with(new QueueName("Queue")).build())
@@ -62,6 +64,9 @@ public class ServiceProblemScenario extends SupermanScenario {
                 .withPreferredContactNumber(someTelephoneNumber().asString())
                 .withServiceId(someSnsServiceId())
                 .withOperatorAccountNumber(someString())
+                .withOperatorReference(someOperatorReference())
+                .withServiceType(serviceTypeCode)
+                .withProblem(someProblemCategoryFor(serviceTypeCode))
                 ;
     }
 

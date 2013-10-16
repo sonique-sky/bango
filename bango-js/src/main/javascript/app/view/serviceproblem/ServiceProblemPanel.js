@@ -72,7 +72,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                                 },
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Operator Ref'
+                                    fieldLabel: 'Operator Ref',
+                                    name: 'operatorReference'
                                 }
                             ]
                         },
@@ -132,7 +133,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                         },
                         {
                             xtype: 'textfield',
-                            fieldLabel: 'Problem'
+                            fieldLabel: 'Problem',
+                            name: 'problem'
                         },
                         {
                             xtype: 'textfield',

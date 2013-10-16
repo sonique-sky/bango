@@ -6,10 +6,7 @@ import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.driver.component.HasTitle;
 import sonique.bango.driver.component.form.SupermanFormPanel;
-import spm.domain.DirectoryNumber;
-import spm.domain.QueueName;
-import spm.domain.ServiceProblemId;
-import spm.domain.SnsServiceId;
+import spm.domain.*;
 
 import java.util.Date;
 
@@ -64,6 +61,14 @@ public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
 
     public String operatorAccountNumber() {
         return textField("Chordiant Acc No").value();
+    }
+
+    public String problem() {
+        return textField("Problem").value();
+    }
+
+    public OperatorReference operatorReference() {
+        return new OperatorReference(textField("Operator Ref").value());
     }
 
     private ServiceTypeCode fromDescription(String description) {

@@ -51,6 +51,8 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
                 .and(aCustomerName(equalTo(serviceProblem.getEndUserInformation().getName())))
                 .and(aContactNumber(equalTo(serviceProblem.getEndUserInformation().getPreferredContactNumber())))
                 .and(anOperatorAccountNumber(equalTo(serviceProblem.getEndUserInformation().getOperatorAccountNumber())))
+                .and(anOperatorReference(equalTo(serviceProblem.operatorReference())))
+                .and(aProblem(equalTo(serviceProblem.problem().description())))
                 ;
     }
 

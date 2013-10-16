@@ -5,10 +5,7 @@ import org.hamcrest.Matcher;
 import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemPanel;
-import spm.domain.DirectoryNumber;
-import spm.domain.QueueName;
-import spm.domain.ServiceProblemId;
-import spm.domain.SnsServiceId;
+import spm.domain.*;
 
 import java.util.Date;
 
@@ -100,6 +97,23 @@ public class ServiceProblemPanelMatchers {
             @Override
             protected String actualValue(ServiceProblemPanel item) {
                 return StringUtils.trimToNull(item.operatorAccountNumber());
+            }
+        };
+    }
+
+    public static AbstractPanelMatcher<ServiceProblemPanel, String> aProblem(Matcher<String> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, String>(matcher) {
+            @Override
+            protected String actualValue(ServiceProblemPanel item) {
+                return item.problem();
+            }
+        };
+    }
+    public static AbstractPanelMatcher<ServiceProblemPanel, OperatorReference> anOperatorReference(Matcher<OperatorReference> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, OperatorReference>(matcher) {
+            @Override
+            protected OperatorReference actualValue(ServiceProblemPanel item) {
+                return item.operatorReference();
             }
         };
     }

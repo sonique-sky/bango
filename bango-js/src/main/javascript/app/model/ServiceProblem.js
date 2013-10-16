@@ -37,9 +37,15 @@ Ext.define('Spm.model.ServiceProblem', {
             mapping: 'endUserInformation.operatorAccountNumber'
         },
         {
+            name: 'operatorReference'
+        },
+        {
             name: 'openedDate',
             type: 'date',
             dateFormat: 'd/m/Y H:i:s'
+        },
+        {
+            name: 'problem'
         }
     ],
 
