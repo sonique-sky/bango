@@ -1,5 +1,6 @@
 package sonique.bango.store;
 
+import com.google.common.base.Predicate;
 import sky.sns.spm.domain.model.QueueDashboardEntry;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
@@ -10,6 +11,7 @@ import spm.domain.model.refdata.QueueBuilder;
 import java.util.Collection;
 import java.util.List;
 
+import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.newArrayList;
 
 public class QueueStore implements QueueRepository {
@@ -18,7 +20,7 @@ public class QueueStore implements QueueRepository {
 
     public QueueStore() {
         allQueues = newArrayList();
-        for(int i =0; i<10; i++) {
+        for (int i = 0; i < 10; i++) {
             allQueues.add(new QueueBuilder().build());
         }
     }
@@ -29,8 +31,13 @@ public class QueueStore implements QueueRepository {
     }
 
     @Override
-    public Queue findQueueBy(QueueId queueId) {
-        throw new UnsupportedOperationException("Method QueueStore findQueueBy() not yet implemented");
+    public Queue findQueueBy(final QueueId queueId) {
+        return find(allQueues, new Predicate<Queue>() {
+            @Override
+            public boolean apply(Queue input) {
+                return input.id().equals(queueId);
+            }
+        });
     }
 
     @Override
