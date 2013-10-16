@@ -3,25 +3,26 @@ package sonique.bango.serviceproblem;
 import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.hamcrest.Matcher;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemPanel;
 import sonique.bango.matcher.IsDisplayed;
-import sonique.bango.scenario.ServiceProblemScenario;
+import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
 import static sonique.bango.matcher.panel.ServiceProblemPanelMatchers.*;
-import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemScenario;
+import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class ServiceProblemPanelTest extends BangoYatspecTest {
 
-    private ServiceProblemScenario serviceProblemScenario;
+    private DomainServiceProblem serviceProblem;
 
     @Before
     public void setUp() throws Exception {
@@ -35,13 +36,24 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
         when(theAgentViewsTheServiceProblem());
 
         then(theServiceProblemPanel(), isDisplayed().with(theCorrectInformation()));
+    }
 
+    @Ignore
+    @Test
+    public void displaysClearedServiceProblem() throws Exception {
+        given(aClearedServiceProblem());
+
+        when(theAgentViewsTheServiceProblem());
+
+        then(theServiceProblemPanel(), isDisplayed().with(theCorrectInformation()).and(theFaultCauseAndResolutionReason()));
+    }
+
+    private Matcher<ServiceProblemPanel> theFaultCauseAndResolutionReason() {
+        return null;
     }
 
     private Matcher<ServiceProblemPanel> theCorrectInformation() {
-        DomainServiceProblem serviceProblem = serviceProblemScenario.serviceProblem();
-
-        return thatHas(aServiceProblemId(equalTo(serviceProblemScenario.serviceProblemId())))
+        return thatHas(aServiceProblemId(equalTo(serviceProblem.serviceProblemId())))
                 .and(aServiceId(equalTo(serviceProblem.serviceId())))
                 .and(aServiceProblemStatus(equalTo(ServiceProblemStatus.Open)))
                 .and(aDirectoryNumber(equalTo(serviceProblem.getDirectoryNumber())))
@@ -64,7 +76,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
         return new StateExtractor<ServiceProblemPanel>() {
             @Override
             public ServiceProblemPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblemScenario.serviceProblemId()).tabContent().serviceProblemPanel();
+                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().serviceProblemPanel();
             }
         };
     }
@@ -73,21 +85,18 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblemId());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
                 return capturedInputAndOutputs;
             }
         };
     }
 
-    private GivensBuilder anOpenServiceProblem() {
-        return new GivensBuilder() {
-            @Override
-            public InterestingGivens build(InterestingGivens gibbons) throws Exception {
-                serviceProblemScenario = serviceProblemScenario(scenarioDriver(), agentForTest);
-                serviceProblemScenario.bindScenario();
+    private GivensBuilder aClearedServiceProblem() {
+        return null;
+    }
 
-                return gibbons;
-            }
-        };
+    private GivensBuilder anOpenServiceProblem() {
+        serviceProblem = serviceProblemWithWorkItem().build();
+        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
     }
 }

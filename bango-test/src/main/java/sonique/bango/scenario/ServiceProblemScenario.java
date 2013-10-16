@@ -25,36 +25,11 @@ import static util.SupermanDataFixtures.*;
 
 public class ServiceProblemScenario extends SupermanScenario {
 
-    public static ServiceProblemScenario noWorkItemScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
-        DomainServiceProblem serviceProblem = serviceProblemBuilder()
-                .withNoWorkItem()
-                .build();
-        return new ServiceProblemScenario(scenarioDriver, agent, serviceProblem);
-    }
-
-    public static ServiceProblemScenario serviceProblemScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
-        DomainServiceProblem serviceProblem = serviceProblemWithWorkItem().build();
-        return new ServiceProblemScenario(scenarioDriver, agent, serviceProblem);
-    }
-
-    public static ServiceProblemScenario assignedServiceProblemScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
-        DomainServiceProblem serviceProblem = serviceProblemWithWorkItem().withAssignedAgent(agent).build();
-        return new ServiceProblemScenario(scenarioDriver, agent, serviceProblem);
-    }
-
-    public static ServiceProblemScenario serviceProblemWithReminderScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
-        DomainServiceProblem serviceProblem = serviceProblemBuilder()
-                .withWorkItem(DomainWorkItemBuilder.withAllDefaults().withWorkReminder(someDateInTheNextYear().toDate()).build())
-                .build();
-
-        return new ServiceProblemScenario(scenarioDriver, agent, serviceProblem);
-    }
-
-    private static DomainServiceProblemBuilder serviceProblemWithWorkItem() {
+    public static DomainServiceProblemBuilder serviceProblemWithWorkItem() {
         return serviceProblemBuilder().withWorkItem(DomainWorkItemBuilder.withAllDefaults().build());
     }
 
-    private static DomainServiceProblemBuilder serviceProblemBuilder() {
+    public static DomainServiceProblemBuilder serviceProblemBuilder() {
         ServiceTypeCode serviceTypeCode = someServiceType();
         return new DomainServiceProblemBuilder()
                 .withServiceProblemId(someServiceProblemId())
@@ -72,7 +47,7 @@ public class ServiceProblemScenario extends SupermanScenario {
 
     private final DomainServiceProblem serviceProblem;
 
-    private ServiceProblemScenario(ScenarioDriver scenarioDriver, DomainAgent agent, DomainServiceProblem serviceProblem) {
+    public ServiceProblemScenario(ScenarioDriver scenarioDriver, DomainAgent agent, DomainServiceProblem serviceProblem) {
         super(scenarioDriver, agent);
         this.serviceProblem = serviceProblem;
     }
@@ -96,13 +71,5 @@ public class ServiceProblemScenario extends SupermanScenario {
                 return newArrayList(serviceProblem);
             }
         });
-    }
-
-    public DomainServiceProblem serviceProblem() {
-        return serviceProblem;
-    }
-
-    public ServiceProblemId serviceProblemId() {
-        return serviceProblem.serviceProblemId();
     }
 }

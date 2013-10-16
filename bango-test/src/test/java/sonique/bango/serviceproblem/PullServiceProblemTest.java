@@ -7,14 +7,17 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemTab;
+import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.bango.service.ServiceProblemApiService;
+
+import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
 
 public class PullServiceProblemTest extends BangoYatspecTest {
 
-    private ServiceProblemScenario serviceProblemScenario;
+    private DomainServiceProblem serviceProblem;
 
     @Before
     public void setUp() throws Exception {
@@ -23,7 +26,8 @@ public class PullServiceProblemTest extends BangoYatspecTest {
 
     @Test
     public void canPullAServiceProblem() throws Exception {
-        given(anAgentHasFoundAServiceProblem());
+        given(anOpenServiceProblem());
+        and(theAgentIsViewingTheServiceProblem());
 
         when(theAgentPullsTheServiceProblem());
 
@@ -34,7 +38,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         return new TypeSafeMatcher<ServiceProblemApiService>() {
             @Override
             protected boolean matchesSafely(ServiceProblemApiService item) {
-                Mockito.verify(item).pull(serviceProblemScenario.serviceProblemId());
+                Mockito.verify(item).pull(serviceProblem.serviceProblemId());
                 return true;
             }
 
@@ -54,12 +58,11 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         };
     }
 
-
     private ActionUnderTest theAgentPullsTheServiceProblem() {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                ServiceProblemTab serviceProblemTab = supermanApp.appContainer().serviceProblemTab(serviceProblemScenario.serviceProblemId());
+                ServiceProblemTab serviceProblemTab = supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId());
 
                 serviceProblemTab.tabContent().serviceProblemToolbar().pull();
 
@@ -68,15 +71,17 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         };
     }
 
-    private GivensBuilder anAgentHasFoundAServiceProblem() {
+
+    private GivensBuilder anOpenServiceProblem() {
+        serviceProblem = serviceProblemWithWorkItem().build();
+        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
+    }
+
+    private GivensBuilder theAgentIsViewingTheServiceProblem() {
         return new GivensBuilder() {
             @Override
             public InterestingGivens build(InterestingGivens givens) throws Exception {
-                serviceProblemScenario = ServiceProblemScenario.serviceProblemScenario(scenarioDriver(), agentForTest);
-                serviceProblemScenario.bindScenario();
-
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblemId());
-
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
                 return givens;
             }
         };

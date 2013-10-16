@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.refdata.Role;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.app.ScenarioDriver;
 import sonique.bango.app.SupermanApp;
 import sonique.bango.driver.panel.*;
@@ -15,6 +16,7 @@ import sonique.bango.driver.panel.navigation.AgentStatusPanel;
 import sonique.bango.driver.panel.navigation.HeaderPanel;
 import sonique.bango.driver.panel.navigation.MyQueuesPanel;
 import sonique.bango.driver.panel.queuedashboard.QueueDashboardTab;
+import sonique.bango.scenario.ServiceProblemScenario;
 import spm.domain.model.refdata.DomainAgentBuilder;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -115,5 +117,9 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
                 return supermanApp.appContainer().myQueuesPanel();
             }
         };
+    }
+
+    protected ServiceProblemScenario serviceProblemScenarioFor(DomainServiceProblem serviceProblem) {
+        return new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem);
     }
 }

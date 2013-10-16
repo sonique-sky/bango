@@ -4,26 +4,28 @@ import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItem;
+import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static sonique.bango.scenario.ServiceProblemScenario.assignedServiceProblemScenario;
-import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithReminderScenario;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.DateMatcher.isSameDateToMinute;
 import static sonique.bango.matcher.panel.NoWorkItemMatcher.anEmptyWorkItemPanel;
 import static sonique.bango.matcher.panel.WorkItemPanelMatchers.*;
+import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemBuilder;
+import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
+import static sonique.datafixtures.DateTimeDataFixtures.someDateInTheNextYear;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class WorkItemPanelTest extends BangoYatspecTest {
 
-    private ServiceProblemScenario serviceProblemScenario;
+    private DomainServiceProblem serviceProblem;
 
     @Before
     public void setUp() throws Exception {
@@ -73,7 +75,7 @@ public class WorkItemPanelTest extends BangoYatspecTest {
     }
 
     private DomainWorkItem workItemPanel() {
-        return serviceProblemScenario.serviceProblem().workItem();
+        return serviceProblem.workItem();
     }
 
     private Matcher<? super WorkItemPanel> isAssigned() {
@@ -103,44 +105,38 @@ public class WorkItemPanelTest extends BangoYatspecTest {
         return new StateExtractor<WorkItemPanel>() {
             @Override
             public WorkItemPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblemScenario.serviceProblemId()).tabContent().workItemPanel();
+                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().workItemPanel();
             }
         };
     }
 
     private GivensBuilder aServiceProblemWithAReminder() {
-        return new GivensBuilder() {
-            @Override
-            public InterestingGivens build(InterestingGivens givens) throws Exception {
-                serviceProblemScenario = serviceProblemWithReminderScenario(scenarioDriver(), agentForTest);
-                serviceProblemScenario.bindScenario();
-
-                return givens;
-            }
-        };
+        serviceProblem = serviceProblemBuilder()
+               .withWorkItem(DomainWorkItemBuilder.withAllDefaults().withWorkReminder(someDateInTheNextYear().toDate()).build())
+               .build();
+        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
     }
 
     private GivensBuilder aServiceProblemThatIsAssignedToAnAgent() {
-        serviceProblemScenario = assignedServiceProblemScenario(scenarioDriver(), agentForTest);
-        return new ScenarioGivensBuilder(serviceProblemScenario);
+        serviceProblem = serviceProblemWithWorkItem().withAssignedAgent(agentForTest).build();
+        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
     }
 
     private GivensBuilder aServiceProblemWithoutWorkItem() {
-        serviceProblemScenario = ServiceProblemScenario.noWorkItemScenario(scenarioDriver(), agentForTest);
-        return new ScenarioGivensBuilder(serviceProblemScenario);
+        serviceProblem = serviceProblemBuilder().withNoWorkItem().build();
+        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
     }
 
     private GivensBuilder aServiceProblemWithWorkItem() {
-        serviceProblemScenario = ServiceProblemScenario.serviceProblemScenario(scenarioDriver(), agentForTest);
-        return new ScenarioGivensBuilder(serviceProblemScenario);
+        serviceProblem = serviceProblemWithWorkItem().build();
+        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
     }
 
     private ActionUnderTest anAgentViewsTheServiceProblem() {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblemId());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
 
                 return capturedInputAndOutputs;
             }

@@ -3,24 +3,24 @@ package sonique.bango.search;
 import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.junit.Before;
 import org.junit.Test;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemTab;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
-import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemScenario;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
+import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
 
-    private ServiceProblemScenario serviceProblemScenario;
+    private DomainServiceProblem serviceProblem;
 
     @Before
     public void setUp() throws Exception {
-        serviceProblemScenario = serviceProblemScenario(scenarioDriver(), agentForTest);
+        serviceProblem = serviceProblemWithWorkItem().build();
 
         loginAgent();
     }
@@ -53,20 +53,20 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
     }
 
     private AppendableAllOf<ServiceProblemTab> isDisplayedForTheExpectedServiceProblem() {
-        String expectedTabTitle = String.format("Service Problem [%d]", serviceProblemScenario.serviceProblemId().asLong());
+        String expectedTabTitle = String.format("Service Problem [%d]", serviceProblem.serviceProblemId().asLong());
 
         return isDisplayed().with(aTitleOf(expectedTabTitle));
     }
 
     private GivensBuilder aServiceProblem() {
-        return new ScenarioGivensBuilder(serviceProblemScenario);
+        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
     }
 
     private ActionUnderTest theAgentSearchesForTheServiceProblemUsingServiceProblemId() {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblemId());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
 
                 return capturedInputAndOutputs;
             }
@@ -77,7 +77,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblem().serviceId());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceId());
 
                 return capturedInputAndOutputs;
             }
@@ -88,7 +88,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblemScenario.serviceProblem().getDirectoryNumber());
+                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.getDirectoryNumber());
 
                 return capturedInputAndOutputs;
             }
@@ -99,7 +99,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new StateExtractor<ServiceProblemTab>() {
             @Override
             public ServiceProblemTab execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblemScenario.serviceProblemId());
+                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId());
             }
         };
     }
