@@ -12,7 +12,7 @@ Ext.define('Spm.model.EventHistoryItem', {
         {
             name: 'createdDate',
             type: 'date',
-            dateFormat: 'd/m/Y H:i'
+            dateFormat: 'd/m/Y H:i:s'
         },
         {
             name: 'createdBy'

@@ -90,8 +90,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                                     hideTrigger: true
                                 },
                                 {
-                                    xtype: 'textfield',
-                                    fieldLabel: 'Closed Date'
+                                    xtype: 'datefield',
+                                    fieldLabel: 'Closed Date',
+                                    name: 'closedDate',
+                                    format: 'd/m/y H:i',
+                                    hideTrigger: true
                                 }
                             ]
                         },

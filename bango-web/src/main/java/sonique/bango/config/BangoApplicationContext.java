@@ -36,6 +36,7 @@ import sonique.bango.store.ServiceProblemStore;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
@@ -66,7 +67,7 @@ public class BangoApplicationContext {
             }
         });
         objectMapper.setVisibilityChecker(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
-        objectMapper.setDateFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm"));
+        objectMapper.setDateFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"));
 
         SimpleModule module = new SimpleModule("BangoModule");
         module.addSerializer(Role.class, new RoleSerializer());

@@ -65,6 +65,15 @@ public class ServiceProblemPanelMatchers {
         };
     }
 
+    public static AbstractPanelMatcher<ServiceProblemPanel, Date> aClosedDate(Matcher<Date> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, Date>(matcher) {
+            @Override
+            protected Date actualValue(ServiceProblemPanel item) {
+                return item.closedDate();
+            }
+        };
+    }
+
     public static AbstractPanelMatcher<ServiceProblemPanel, ServiceTypeCode> aServiceType(Matcher<ServiceTypeCode> matcher) {
         return new AbstractPanelMatcher<ServiceProblemPanel, ServiceTypeCode>(matcher) {
             @Override

@@ -24,63 +24,71 @@ public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
     }
 
     public ServiceProblemId serviceProblemId() {
-        return new ServiceProblemId(textField("Service Problem Id").value());
+        return new ServiceProblemId(textFieldValue("Service Problem Id"));
     }
 
     public SnsServiceId serviceId() {
-        return new SnsServiceId(textField("Service Id").value());
+        return new SnsServiceId(textFieldValue("Service Id"));
     }
 
     public ServiceProblemStatus status() {
-        return ServiceProblemStatus.valueOf(textField("Status").value());
+        return ServiceProblemStatus.valueOf(textFieldValue("Status"));
     }
 
     public DirectoryNumber directoryNumber() {
-        return new DirectoryNumber(textField("Directory No").value());
+        return new DirectoryNumber(textFieldValue("Directory No"));
     }
 
     public QueueName queue() {
-        return new QueueName(textField("Queue").value());
+        return new QueueName(textFieldValue("Queue"));
     }
 
     public Date openedDate() {
         return dateField("Opened Date", "dd/MM/yyyy HH:mm").value();
     }
 
+    public Date closedDate() {
+        return dateField("Closed Date", "dd/MM/yyyy HH:mm").value();
+    }
+
     public ServiceTypeCode serviceType() {
-        return fromDescription(textField("Service Type").value());
+        return fromDescription(textFieldValue("Service Type"));
     }
 
     public String customerName() {
-        return textField("Customer Name").value();
+        return textFieldValue("Customer Name");
     }
 
     public String contactNumber() {
-        return textField("Contact No").value();
+        return textFieldValue("Contact No");
     }
 
     public String operatorAccountNumber() {
-        return textField("Chordiant Acc No").value();
+        return textFieldValue("Chordiant Acc No");
     }
 
     public String problem() {
-        return textField("Problem").value();
+        return textFieldValue("Problem");
     }
 
     public OperatorReference operatorReference() {
-        return new OperatorReference(textField("Operator Ref").value());
+        return new OperatorReference(textFieldValue("Operator Ref"));
     }
 
     public String fault() {
-        return textField("Fault").value();
+        return textFieldValue("Fault");
     }
 
     public String cause() {
-        return textField("Cause").value();
+        return textFieldValue("Cause");
     }
 
     public String resolutionReason() {
-        return textField("Resolution Reason").value();
+        return textFieldValue("Resolution Reason");
+    }
+
+    private String textFieldValue(String label) {
+        return textField(label).value();
     }
 
     private ServiceTypeCode fromDescription(String description) {

@@ -45,6 +45,11 @@ Ext.define('Spm.model.ServiceProblem', {
             dateFormat: 'd/m/Y H:i:s'
         },
         {
+            name: 'closedDate',
+            type: 'date',
+            dateFormat: 'd/m/Y H:i:s'
+        },
+        {
             name: 'problem'
         },
         {

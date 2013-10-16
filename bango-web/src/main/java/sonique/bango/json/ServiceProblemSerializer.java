@@ -10,10 +10,9 @@ import sky.sns.spm.domain.model.serviceproblem.EndUserInformation;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemResolution;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProblem> {
-
-    private static final DateTimeFormatter JSON_DATE_FORMAT = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
 
     @Override
     public void serialize(DomainServiceProblem serviceProblem, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
@@ -30,7 +29,8 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
 
         jsonGenerator.writeBooleanField("hasActiveTroubleReport", serviceProblem.hasActiveTroubleReport());
 
-        jsonGenerator.writeStringField("openedDate", JSON_DATE_FORMAT.print(serviceProblem.openedDate().getTime()));
+        jsonGenerator.writeObjectField("openedDate", serviceProblem.openedDate());
+        jsonGenerator.writeObjectField("closedDate", serviceProblem.closedDate());
 
         if (serviceProblem.hasWorkItem()) {
             jsonGenerator.writeObjectField("workItem", serviceProblem.workItem());

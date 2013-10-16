@@ -24,7 +24,7 @@ Ext.define('Spm.model.QueueDashboardEntry', {
         {
             name: 'oldestServiceProblemDate',
             type: 'date',
-            dateFormat: 'd/m/Y H:i'
+            dateFormat: 'd/m/Y H:i:s'
         },
         {
             name: 'noWorkItemCount'

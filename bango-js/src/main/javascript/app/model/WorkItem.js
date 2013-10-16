@@ -12,7 +12,7 @@ Ext.define('Spm.model.WorkItem', {
         {
             name: 'createdDate',
             type: 'date',
-            dateFormat: 'd/m/Y H:i'
+            dateFormat: 'd/m/Y H:i:s'
         },
         {
             name: 'type',
@@ -28,7 +28,7 @@ Ext.define('Spm.model.WorkItem', {
             name: 'reminder',
             mapping: 'reminderTime',
             type: 'date',
-            dateFormat: 'd/m/Y H:i'
+            dateFormat: 'd/m/Y H:i:s'
         }
     ],
 
