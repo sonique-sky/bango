@@ -71,10 +71,9 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         };
     }
 
-
     private GivensBuilder anOpenServiceProblem() {
         serviceProblem = serviceProblemWithWorkItem().build();
-        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
+        return scenarioGivensBuilderFor(serviceProblem);
     }
 
     private GivensBuilder theAgentIsViewingTheServiceProblem() {

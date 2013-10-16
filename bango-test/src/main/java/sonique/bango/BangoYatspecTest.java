@@ -16,6 +16,7 @@ import sonique.bango.driver.panel.navigation.AgentStatusPanel;
 import sonique.bango.driver.panel.navigation.HeaderPanel;
 import sonique.bango.driver.panel.navigation.MyQueuesPanel;
 import sonique.bango.driver.panel.queuedashboard.QueueDashboardTab;
+import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.bango.scenario.ServiceProblemScenario;
 import spm.domain.model.refdata.DomainAgentBuilder;
 
@@ -119,7 +120,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
         };
     }
 
-    protected ServiceProblemScenario serviceProblemScenarioFor(DomainServiceProblem serviceProblem) {
-        return new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem);
+    protected ScenarioGivensBuilder scenarioGivensBuilderFor(DomainServiceProblem serviceProblem) {
+        return new ScenarioGivensBuilder(new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem));
     }
 }

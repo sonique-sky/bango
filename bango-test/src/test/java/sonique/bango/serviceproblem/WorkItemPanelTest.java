@@ -114,22 +114,22 @@ public class WorkItemPanelTest extends BangoYatspecTest {
         serviceProblem = serviceProblemBuilder()
                .withWorkItem(DomainWorkItemBuilder.withAllDefaults().withWorkReminder(someDateInTheNextYear().toDate()).build())
                .build();
-        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
+        return scenarioGivensBuilderFor(serviceProblem);
     }
 
     private GivensBuilder aServiceProblemThatIsAssignedToAnAgent() {
         serviceProblem = serviceProblemWithWorkItem().withAssignedAgent(agentForTest).build();
-        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
+        return scenarioGivensBuilderFor(serviceProblem);
     }
 
     private GivensBuilder aServiceProblemWithoutWorkItem() {
         serviceProblem = serviceProblemBuilder().withNoWorkItem().build();
-        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
+        return scenarioGivensBuilderFor(serviceProblem);
     }
 
     private GivensBuilder aServiceProblemWithWorkItem() {
         serviceProblem = serviceProblemWithWorkItem().build();
-        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
+        return scenarioGivensBuilderFor(serviceProblem);
     }
 
     private ActionUnderTest anAgentViewsTheServiceProblem() {

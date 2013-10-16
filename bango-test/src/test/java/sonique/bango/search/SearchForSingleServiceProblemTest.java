@@ -59,7 +59,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
     }
 
     private GivensBuilder aServiceProblem() {
-        return new ScenarioGivensBuilder(serviceProblemScenarioFor(serviceProblem));
+        return scenarioGivensBuilderFor(serviceProblem);
     }
 
     private ActionUnderTest theAgentSearchesForTheServiceProblemUsingServiceProblemId() {
