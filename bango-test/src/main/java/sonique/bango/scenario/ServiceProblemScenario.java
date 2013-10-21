@@ -1,7 +1,5 @@
 package sonique.bango.scenario;
 
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
@@ -12,16 +10,20 @@ import sonique.bango.app.ScenarioDriver;
 import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.QueueName;
+import spm.domain.ServiceProblemId;
 import spm.domain.model.refdata.QueueBuilder;
 
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 import static util.SupermanDataFixtures.*;
 
 public class ServiceProblemScenario extends SupermanScenario {
+
+    private final List<ScenarioStep> steps = newArrayList();
 
     public static DomainServiceProblemBuilder serviceProblemWithWorkItem() {
         return serviceProblemBuilder().withWorkItem(DomainWorkItemBuilder.withAllDefaults().build());
@@ -50,6 +52,16 @@ public class ServiceProblemScenario extends SupermanScenario {
         this.serviceProblem = serviceProblem;
     }
 
+    public ServiceProblemScenario returnsWhenPulled(final DomainServiceProblem returnedServiceProblem) {
+        steps.add(new ScenarioStep() {
+            @Override
+            public void doStep() {
+                when(services.serviceProblemApiService().pull(any(ServiceProblemId.class))).thenReturn(newArrayList(returnedServiceProblem));
+            }
+        });
+        return this;
+    }
+
     @Override
     public void bindScenario() {
         PagedSearchResults<DomainServiceProblem> serviceProblems = new PagedSearchResults<DomainServiceProblem>(newArrayList(serviceProblem), 1L);
@@ -63,12 +75,12 @@ public class ServiceProblemScenario extends SupermanScenario {
         ServiceProblemApiService serviceProblemApiService = services.serviceProblemApiService();
         when(serviceProblemApiService.serviceProblemWithId(serviceProblem.serviceProblemId())).thenReturn(serviceProblem);
 
-        when(serviceProblemApiService.pull(serviceProblem.serviceProblemId())).thenAnswer(new Answer<List<DomainServiceProblem>>() {
-            @Override
-            public List<DomainServiceProblem> answer(InvocationOnMock invocationOnMock) throws Throwable {
-                serviceProblem.tug(agent);
-                return newArrayList(serviceProblem);
-            }
-        });
+        for (ScenarioStep step : steps) {
+            step.doStep();
+        }
+    }
+
+    private interface ScenarioStep {
+        void doStep();
     }
 }

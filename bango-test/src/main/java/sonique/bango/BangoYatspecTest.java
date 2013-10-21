@@ -11,11 +11,12 @@ import sky.sns.spm.domain.model.refdata.Role;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.app.ScenarioDriver;
 import sonique.bango.app.SupermanApp;
-import sonique.bango.driver.panel.*;
+import sonique.bango.driver.panel.LoginDialog;
 import sonique.bango.driver.panel.navigation.AgentStatusPanel;
 import sonique.bango.driver.panel.navigation.HeaderPanel;
 import sonique.bango.driver.panel.navigation.MyQueuesPanel;
 import sonique.bango.driver.panel.queuedashboard.QueueDashboardTab;
+import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.bango.scenario.ServiceProblemScenario;
 import spm.domain.model.refdata.DomainAgentBuilder;
@@ -122,5 +123,14 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
 
     protected ScenarioGivensBuilder scenarioGivensBuilderFor(DomainServiceProblem serviceProblem) {
         return new ScenarioGivensBuilder(new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem));
+    }
+
+    protected StateExtractor<WorkItemPanel> theWorkItemPanelFor(final DomainServiceProblem theServiceProblem) {
+        return new StateExtractor<WorkItemPanel>() {
+            @Override
+            public WorkItemPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
+                return supermanApp.appContainer().serviceProblemTab(theServiceProblem.serviceProblemId()).tabContent().workItemPanel();
+            }
+        };
     }
 }
