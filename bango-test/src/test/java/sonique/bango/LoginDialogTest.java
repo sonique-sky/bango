@@ -1,14 +1,19 @@
 package sonique.bango;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import sonique.bango.app.SupermanApp;
 import sonique.bango.driver.panel.LoginDialog;
 import sonique.bango.driver.panel.MessageBox;
+import sonique.bango.matcher.IsDisplayed;
+import sonique.testsupport.matchers.AppendableAllOf;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.isEmptyString;
+import static sonique.bango.matcher.AMessageOf.aMessageOf;
+import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.IsDisabled.isDisabled;
-import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 import static sonique.bango.matcher.IsEnabled.isEnabled;
 
 public class LoginDialogTest extends OncePerSuiteBangoTest {
@@ -70,7 +75,11 @@ public class LoginDialogTest extends OncePerSuiteBangoTest {
         loginDialog.loginButton().click();
 
         MessageBox notificationWindow = supermanApp.messageBox();
-        assertThat(notificationWindow, isDisplayed());
+        assertThat(notificationWindow, isDisplayed().with(aTitleOf("Error")).and(aMessageOf("Bad Credentials")));
         notificationWindow.clickOk();
+    }
+
+    private AppendableAllOf<MessageBox> isDisplayed() {
+        return IsDisplayed.isDisplayed();
     }
 }
