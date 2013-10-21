@@ -29,7 +29,7 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     @Override
     public List<EventHistoryItem> addNote(ServiceProblemId serviceProblemId, String note) {
         DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
-        serviceProblem.addNote(authorisedActorProvider.getLoggedInAgent(), "Note");
+        serviceProblem.addNote(authorisedActorProvider.getLoggedInAgent(), note);
         return serviceProblem.historyItems();
     }
 

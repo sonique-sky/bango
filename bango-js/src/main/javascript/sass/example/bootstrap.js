@@ -186,6 +186,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.controller.AgentStatus": [],
   "Ext.ux.DataTip": [],
   "Ext.ux.grid.filter.DateTimeFilter": [],
+  "Spm.model.ServiceType": [],
   "Ext.ux.form.ItemSelector": [
     "Ext.ux.ItemSelector"
   ],
@@ -458,6 +459,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Ext.ux.grid.filter.DateTimeFilter": [
     "gridfilter.datetime"
+  ],
+  "Spm.model.ServiceType": [
+    "model.serviceType"
   ],
   "Ext.ux.form.ItemSelector": [
     "widget.itemselector",

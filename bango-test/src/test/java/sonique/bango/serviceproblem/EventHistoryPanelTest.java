@@ -5,6 +5,7 @@ import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.ServiceProblemEventHistoryItem;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.driver.panel.serviceproblem.EventHistoryPanel;
 import sonique.bango.matcher.IsDisplayed;
@@ -12,11 +13,12 @@ import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
+import static sonique.bango.matcher.EventHistoryMatcher.eventHistoryMatches;
+import static sonique.bango.matcher.panel.EventHistoryPanelMatchers.eventHistoryItems;
 import static sonique.datafixtures.DateTimeDataFixtures.someDateInTheNextYear;
 import static sonique.datafixtures.PrimitiveDataFixtures.someNumberBetween;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
-import static util.SupermanDataFixtures.someAgent;
-import static util.SupermanDataFixtures.someEventDescription;
+import static util.SupermanDataFixtures.*;
 
 public class EventHistoryPanelTest extends BangoYatspecTest {
 
@@ -34,12 +36,12 @@ public class EventHistoryPanelTest extends BangoYatspecTest {
         when(anAgentViewsTheServiceProblem());
 
         then(theEventHistoryPanel(), isDisplayed()
-//                .with(theEventHistoryItems())
+                .with(theEventHistoryItems())
         );
     }
 
     private Matcher<EventHistoryPanel> theEventHistoryItems() {
-        return null;
+        return eventHistoryItems(eventHistoryMatches(serviceProblem.historyItems()));
     }
 
     private AppendableAllOf<EventHistoryPanel> isDisplayed() {
@@ -69,7 +71,7 @@ public class EventHistoryPanelTest extends BangoYatspecTest {
     private GivensBuilder aServiceProblemWithSomeHistoryEvents() {
         serviceProblem = ServiceProblemScenario.serviceProblemBuilder().build();
         for (int i = 0; i < someNumberBetween(3, 7); i++) {
-            serviceProblem.writeHistoryItem(someEventDescription(), someAgent(), someDateInTheNextYear().toDate());
+            serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(someEventDescription(), someDateInTheNextYear().toDate(), someAgent().getActorName(), someNoteText(), serviceProblem));
         }
 
         return scenarioGivensBuilderFor(serviceProblem);
