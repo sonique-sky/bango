@@ -7,12 +7,14 @@ Ext.define('Spm.controller.action.serviceproblem.PullServiceProblemAction', {
     },
 
     constructor: function () {
-        this.callParent([{
-            name: Spm.action.PullServiceProblemAction.ACTION_NAME,
-            tooltip: 'Pull this item',
-            iconCls: 'icon-pull',
-            id: Ext.id(this, 'pull-service-problem-')
-        }]);
+        this.callParent([
+            {
+                name: Spm.action.PullServiceProblemAction.ACTION_NAME,
+                tooltip: 'Pull this item',
+                iconCls: 'icon-pull',
+                id: Ext.id(this, 'pull-service-problem-')
+            }
+        ]);
     },
 
     startAction: function (serviceProblemTab) {
@@ -42,7 +44,7 @@ Ext.define('Spm.controller.action.serviceproblem.PullServiceProblemAction', {
         }, this);
     },
 
-    updateState: function(serviceProblemTab, authenticatedAgent) {
+    updateState: function (serviceProblemTab, authenticatedAgent) {
         var workItem = serviceProblemTab.getServiceProblem().workItem();
         var hasPrivilege = authenticatedAgent.hasPrivilege('PullServiceProblem');
 

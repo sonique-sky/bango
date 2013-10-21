@@ -4,10 +4,10 @@ import com.google.common.base.Predicate;
 import org.hamcrest.Matcher;
 import sonique.bango.driver.component.HasTitle;
 
-public class ATitleOf extends AsynchronousMatcher<HasTitle> {
+public class ATitleOf< T extends HasTitle> extends AsynchronousMatcher<T> {
 
-    public static Matcher<HasTitle> aTitleOf(String expectedTitle) {
-        return new ATitleOf(expectedTitle);
+    public static <T extends HasTitle>  Matcher<T> aTitleOf(String expectedTitle) {
+        return new ATitleOf<T>(expectedTitle);
     }
 
     private final String expectedTitle;
@@ -17,10 +17,10 @@ public class ATitleOf extends AsynchronousMatcher<HasTitle> {
     }
 
     @Override
-    protected Predicate<HasTitle> until() {
-        return new Predicate<HasTitle>() {
+    protected Predicate<T> until() {
+        return new Predicate<T>() {
             @Override
-            public boolean apply(HasTitle element) {
+            public boolean apply(T element) {
                 return element.title().equals(expectedTitle);
             }
         };
@@ -32,7 +32,7 @@ public class ATitleOf extends AsynchronousMatcher<HasTitle> {
     }
 
     @Override
-    protected String actualDescription(HasTitle actual) {
+    protected String actualDescription(T actual) {
         return String.format("was an element with title [%s] ", actual.title());
     }
 }
