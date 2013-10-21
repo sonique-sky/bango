@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sky.sns.spm.domain.model.AgentState;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;

@@ -9,9 +9,9 @@ import org.junit.runner.RunWith;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.refdata.Role;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sonique.bango.action.LoginAction;
 import sonique.bango.app.ScenarioDriver;
 import sonique.bango.app.SupermanApp;
-import sonique.bango.driver.panel.LoginDialog;
 import sonique.bango.driver.panel.navigation.AgentStatusPanel;
 import sonique.bango.driver.panel.navigation.HeaderPanel;
 import sonique.bango.driver.panel.navigation.MyQueuesPanel;
@@ -21,8 +21,6 @@ import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.bango.scenario.ServiceProblemScenario;
 import spm.domain.model.refdata.DomainAgentBuilder;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 
 @RunWith(SpecRunner.class)
@@ -61,13 +59,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     }
 
     protected void loginAgent() {
-        LoginDialog loginDialog = supermanApp.loginDialog();
-        loginDialog.username().enter(agentForTest.getAgentCode());
-        loginDialog.password().enter("a");
-
-        loginDialog.loginButton().click();
-
-        assertThat(supermanApp.appContainer().headerPanel(), isDisplayed());
+        new LoginAction(supermanApp, agentForTest).goBoom();
     }
 
     protected ScenarioDriver scenarioDriver() {
@@ -92,6 +84,10 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
 
     public <ItemOfInterest> TestState and(StateExtractor<ItemOfInterest> stateExtractor, Matcher<? super ItemOfInterest> matcher) throws Exception {
         return then(stateExtractor, matcher);
+    }
+
+    protected ScenarioGivensBuilder scenarioGivensBuilderFor(DomainServiceProblem serviceProblem) {
+        return new ScenarioGivensBuilder(new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem));
     }
 
     protected StateExtractor<QueueDashboardTab> theQueueDashboardTab() {
@@ -119,10 +115,6 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
                 return supermanApp.appContainer().myQueuesPanel();
             }
         };
-    }
-
-    protected ScenarioGivensBuilder scenarioGivensBuilderFor(DomainServiceProblem serviceProblem) {
-        return new ScenarioGivensBuilder(new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem));
     }
 
     protected StateExtractor<WorkItemPanel> theWorkItemPanelFor(final DomainServiceProblem theServiceProblem) {

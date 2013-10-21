@@ -1,18 +1,18 @@
 package sonique.bango.serviceproblem;
 
 import com.googlecode.yatspec.state.givenwhenthen.*;
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemEventHistoryItem;
 import sonique.bango.BangoYatspecTest;
+import sonique.bango.action.BangoActionUnderTest;
+import sonique.bango.action.ViewServiceProblemAction;
 import sonique.bango.driver.panel.serviceproblem.EventHistoryPanel;
 import sonique.bango.matcher.IsDisplayed;
+import sonique.bango.matcher.MockieMatcher;
 import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.service.ServiceProblemApiService;
 import sonique.testsupport.matchers.AppendableAllOf;
@@ -22,7 +22,6 @@ import static sonique.bango.matcher.EventHistoryMatcher.eventHistoryMatches;
 import static sonique.bango.matcher.panel.EventHistoryPanelMatchers.eventHistoryItems;
 import static sonique.datafixtures.DateTimeDataFixtures.someDateInTheNextYear;
 import static sonique.datafixtures.PrimitiveDataFixtures.someNumberBetween;
-import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 import static util.SupermanDataFixtures.*;
 
 public class EventHistoryPanelTest extends BangoYatspecTest {
@@ -59,16 +58,10 @@ public class EventHistoryPanelTest extends BangoYatspecTest {
     }
 
     private Matcher<ServiceProblemApiService> isCalledWith(final String theNote) {
-        return new TypeSafeMatcher<ServiceProblemApiService>() {
+        return new MockieMatcher<ServiceProblemApiService>() {
             @Override
-            protected boolean matchesSafely(ServiceProblemApiService item) {
-                Mockito.verify(item).addNote(serviceProblem.serviceProblemId(), theNote);
-                return true;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("wasn't called");
+            protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
+                serviceProblemApiService.addNote(serviceProblem.serviceProblemId(), theNote);
             }
         };
     }
@@ -93,20 +86,13 @@ public class EventHistoryPanelTest extends BangoYatspecTest {
 
     private GivensBuilder aServiceProblemIsOpenAndDisplayed() {
         serviceProblem = ServiceProblemScenario.serviceProblemBuilder().build();
-        supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
+        new ViewServiceProblemAction(supermanApp, serviceProblem).goBoom();
 
         return scenarioGivensBuilderFor(serviceProblem);
     }
 
     private ActionUnderTest aServiceProblemIsDisplayed() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
-
-                return capturedInputAndOutputs;
-            }
-        };
+        return new BangoActionUnderTest(new ViewServiceProblemAction(supermanApp, serviceProblem));
     }
 
     private ActionUnderTest theAgentAddsANewNote() {
@@ -141,6 +127,6 @@ public class EventHistoryPanelTest extends BangoYatspecTest {
     }
 
     private AppendableAllOf<EventHistoryPanel> isDisplayed() {
-        return thatHas(IsDisplayed.<EventHistoryPanel>isDisplayed()).with(aTitleOf("Event History"));
+        return IsDisplayed.<EventHistoryPanel>isDisplayed().with(aTitleOf("Event History"));
     }
 }

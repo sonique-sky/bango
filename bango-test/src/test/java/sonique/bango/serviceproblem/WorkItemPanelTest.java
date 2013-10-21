@@ -1,9 +1,7 @@
 package sonique.bango.serviceproblem;
 
 import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
-import com.googlecode.yatspec.state.givenwhenthen.CapturedInputAndOutputs;
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
-import com.googlecode.yatspec.state.givenwhenthen.InterestingGivens;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +9,8 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
 import sonique.bango.BangoYatspecTest;
+import sonique.bango.action.BangoActionUnderTest;
+import sonique.bango.action.ViewServiceProblemAction;
 import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.testsupport.matchers.AppendableAllOf;
@@ -126,13 +126,6 @@ public class WorkItemPanelTest extends BangoYatspecTest {
     }
 
     private ActionUnderTest anAgentViewsTheServiceProblem() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(theServiceProblem.serviceProblemId());
-
-                return capturedInputAndOutputs;
-            }
-        };
+        return new BangoActionUnderTest(new ViewServiceProblemAction(supermanApp, theServiceProblem));
     }
 }

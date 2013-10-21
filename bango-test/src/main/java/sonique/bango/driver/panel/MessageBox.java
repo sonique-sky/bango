@@ -40,7 +40,7 @@ public class MessageBox extends SupermanContainer implements HasTitle, HasMessag
         return titleElement.getText();
     }
 
-    private SupermanButton buttonLabeled(String label) {
+    public SupermanButton buttonLabeled(String label) {
         return new SupermanButton(this, By.xpath(String.format(".//span[text()='%s']", label)));
     }
 }

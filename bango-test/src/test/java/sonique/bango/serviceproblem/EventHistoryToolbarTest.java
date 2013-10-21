@@ -16,7 +16,6 @@ import sonique.testsupport.matchers.AppendableAllOf;
 import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 import static sonique.bango.matcher.IsEnabled.isEnabled;
 import static sonique.bango.matcher.panel.EventHistoryToolbarMatchers.*;
-import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class EventHistoryToolbarTest extends BangoYatspecTest {
 
@@ -42,7 +41,7 @@ public class EventHistoryToolbarTest extends BangoYatspecTest {
     }
 
     private AppendableAllOf<EventHistoryToolbar> isShown() {
-        return thatHas(IsDisplayed.<EventHistoryToolbar>isDisplayed());
+        return IsDisplayed.isDisplayed();
     }
 
     private StateExtractor<EventHistoryToolbar> theEventHistoryToolbar() {

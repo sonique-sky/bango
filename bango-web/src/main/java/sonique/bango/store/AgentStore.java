@@ -23,10 +23,6 @@ public class AgentStore implements DomainAgentRepository {
         agentCodeToAgentMap.remove(agentCode(agent));
     }
 
-    private String agentCode(DomainAgent agent) {
-        return agent.getAgentCode().toUpperCase();
-    }
-
     @Override
     public DomainAgent findByAgentCode(String agentCode) {
         return agentCodeToAgentMap.get(agentCode.toUpperCase());
@@ -65,5 +61,9 @@ public class AgentStore implements DomainAgentRepository {
     @Override
     public void markAllAgentsOffline() {
         throw new UnsupportedOperationException("Method AgentStore markAllAgentsOffline() not yet implemented");
+    }
+
+    private String agentCode(DomainAgent agent) {
+        return agent.getAgentCode().toUpperCase();
     }
 }

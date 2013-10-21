@@ -1,13 +1,13 @@
 package sonique.bango.privilege;
 
 import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
-import com.googlecode.yatspec.state.givenwhenthen.CapturedInputAndOutputs;
-import com.googlecode.yatspec.state.givenwhenthen.InterestingGivens;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.refdata.Role;
 import sonique.bango.BangoYatspecTest;
+import sonique.bango.action.BangoActionUnderTest;
+import sonique.bango.action.LoginAction;
 import sonique.bango.driver.component.form.SupermanButton;
 import sonique.bango.driver.panel.navigation.AgentStatusPanel;
 import sonique.bango.matcher.IsDisabled;
@@ -18,7 +18,6 @@ import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
 import static sonique.bango.matcher.panel.AgentStatusPanelMatchers.theAvailabilityButton;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
-import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class QueueControllerPrivilegeTest extends BangoYatspecTest {
 
@@ -45,8 +44,8 @@ public class QueueControllerPrivilegeTest extends BangoYatspecTest {
     }
 
     private Matcher<AgentStatusPanel> isDisplayedAndTheAvailabilityButtonIsDisabled() {
-         return thatHas(IsDisplayed.<AgentStatusPanel>isDisplayed()).and(theAvailabilityButton(IsDisabled.<SupermanButton>isDisabled()));
-     }
+        return IsDisplayed.<AgentStatusPanel>isDisplayed().and(theAvailabilityButton(IsDisabled.<SupermanButton>isDisabled()));
+    }
 
     @Override
     protected DomainAgent agentForTest() {
@@ -60,12 +59,6 @@ public class QueueControllerPrivilegeTest extends BangoYatspecTest {
     }
 
     private ActionUnderTest theQueueControllerLogsOn() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                loginAgent();
-                return capturedInputAndOutputs;
-            }
-        };
+        return new BangoActionUnderTest(new LoginAction(supermanApp, agentForTest));
     }
 }

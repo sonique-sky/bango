@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 public class NoServiceProblemsScenario extends SupermanScenario {
 
     public NoServiceProblemsScenario(ScenarioDriver scenarioDriver, DomainAgent agent) {
-        super(scenarioDriver, agent);
+        super(scenarioDriver.servicesFor(agent));
     }
 
     @Override

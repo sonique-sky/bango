@@ -1,18 +1,21 @@
 package sonique.bango.search;
 
 import com.googlecode.yatspec.state.givenwhenthen.*;
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.BangoYatspecTest;
+import sonique.bango.action.BangoActionUnderTest;
+import sonique.bango.action.ViewServiceProblemAction;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemTab;
 import sonique.bango.matcher.IsDisplayed;
-import sonique.bango.scenario.ScenarioGivensBuilder;
+import sonique.bango.matcher.MockieMatcher;
+import sonique.bango.service.SearchApiService;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
-import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
 
@@ -32,6 +35,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         when(theAgentSearchesForTheServiceProblemUsingDirectoryNumber());
 
         then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
+        and(theSearchApiService(), searchedUsingTheDirectoryNumber());
     }
 
     @Test
@@ -41,6 +45,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         when(theAgentSearchesForTheServiceProblemUsingServiceProblemId());
 
         then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
+        and(theSearchApiService(), searchedUsingTheServiceProblemId());
     }
 
     @Test
@@ -50,12 +55,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         when(theAgentSearchesForTheServiceProblemUsingAServiceId());
 
         then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
-    }
-
-    private AppendableAllOf<ServiceProblemTab> isDisplayedForTheExpectedServiceProblem() {
-        String expectedTabTitle = String.format("Service Problem [%d]", serviceProblem.serviceProblemId().asLong());
-
-        return isDisplayed().with(aTitleOf(expectedTabTitle));
+        and(theSearchApiService(), searchedUsingTheServiceId());
     }
 
     private GivensBuilder aServiceProblem() {
@@ -63,14 +63,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
     }
 
     private ActionUnderTest theAgentSearchesForTheServiceProblemUsingServiceProblemId() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
-
-                return capturedInputAndOutputs;
-            }
-        };
+        return new BangoActionUnderTest(new ViewServiceProblemAction(supermanApp, serviceProblem));
     }
 
     private ActionUnderTest theAgentSearchesForTheServiceProblemUsingAServiceId() {
@@ -95,6 +88,15 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         };
     }
 
+    private StateExtractor<SearchApiService> theSearchApiService() {
+        return new StateExtractor<SearchApiService>() {
+            @Override
+            public SearchApiService execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+                return scenarioDriver().servicesFor(agentForTest).searchApiService();
+            }
+        };
+    }
+
     private StateExtractor<ServiceProblemTab> aServiceProblemTab() {
         return new StateExtractor<ServiceProblemTab>() {
             @Override
@@ -105,6 +107,39 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
     }
 
     private AppendableAllOf<ServiceProblemTab> isDisplayed() {
-        return thatHas(IsDisplayed.<ServiceProblemTab>isDisplayed());
+        return IsDisplayed.isDisplayed();
+    }
+
+    private AppendableAllOf<ServiceProblemTab> isDisplayedForTheExpectedServiceProblem() {
+        String expectedTabTitle = String.format("Service Problem [%d]", serviceProblem.serviceProblemId().asLong());
+
+        return isDisplayed().with(aTitleOf(expectedTabTitle));
+    }
+
+    private Matcher<SearchApiService> searchedUsingTheDirectoryNumber() {
+        return new MockieMatcher<SearchApiService>() {
+            @Override
+            protected void doTheMock(SearchApiService searchApiService) {
+                searchApiService.serviceProblemByDirectoryNumber(serviceProblem.getDirectoryNumber());
+            }
+        };
+    }
+
+    private Matcher<SearchApiService> searchedUsingTheServiceProblemId() {
+        return new MockieMatcher<SearchApiService>() {
+            @Override
+            protected void doTheMock(SearchApiService searchApiService) {
+                searchApiService.serviceProblemById(serviceProblem.serviceProblemId());
+            }
+        };
+    }
+
+    private Matcher<SearchApiService> searchedUsingTheServiceId() {
+        return new MockieMatcher<SearchApiService>() {
+            @Override
+            protected void doTheMock(SearchApiService searchApiService) {
+                searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId());
+            }
+        };
     }
 }

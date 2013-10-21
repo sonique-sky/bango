@@ -11,13 +11,11 @@ import sonique.bango.scenario.NoServiceProblemsScenario;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.testsupport.matchers.AppendableAllOf;
 
+import static sonique.bango.matcher.AMessageOf.aMessageOf;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
-import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 import static util.SupermanDataFixtures.someServiceProblemId;
 
 public class NoResultsSearchTest extends BangoYatspecTest {
-
-    private NoServiceProblemsScenario serviceProblemScenario;
 
     @Before
     public void setUp() throws Exception {
@@ -35,11 +33,11 @@ public class NoResultsSearchTest extends BangoYatspecTest {
 
         when(theAgentSearchesForTheServiceProblem());
 
-        then(aMessageBox(), isDisplayed().with(aTitleOf("No Results")));
+        then(aMessageBox(), isDisplayed().with(aTitleOf("No Results")).and(aMessageOf("The search did not return any records.")));
     }
 
     private GivensBuilder noServiceProblemsExist() {
-        serviceProblemScenario = new NoServiceProblemsScenario(scenarioDriver(), agentForTest);
+        NoServiceProblemsScenario serviceProblemScenario = new NoServiceProblemsScenario(scenarioDriver(), agentForTest);
         return new ScenarioGivensBuilder(serviceProblemScenario);
     }
 
@@ -64,6 +62,6 @@ public class NoResultsSearchTest extends BangoYatspecTest {
     }
 
     private AppendableAllOf<MessageBox> isDisplayed() {
-        return thatHas(IsDisplayed.<MessageBox>isDisplayed());
+        return IsDisplayed.isDisplayed();
     }
 }

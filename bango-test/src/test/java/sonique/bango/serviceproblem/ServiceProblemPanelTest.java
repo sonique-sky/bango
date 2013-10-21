@@ -1,12 +1,17 @@
 package sonique.bango.serviceproblem;
 
-import com.googlecode.yatspec.state.givenwhenthen.*;
+import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
+import com.googlecode.yatspec.state.givenwhenthen.CapturedInputAndOutputs;
+import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
+import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemResolution;
 import sonique.bango.BangoYatspecTest;
+import sonique.bango.action.BangoActionUnderTest;
+import sonique.bango.action.ViewServiceProblemAction;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.testsupport.matchers.AppendableAllOf;
@@ -15,10 +20,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus.*;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.DateMatcher.theSameDateAs;
+import static sonique.bango.matcher.DescriptionOf.withDescriptionOf;
 import static sonique.bango.matcher.panel.ServiceProblemPanelMatchers.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemBuilder;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
-import static sonique.bango.matcher.DescriptionOf.withDescriptionOf;
 import static sonique.datafixtures.DateTimeDataFixtures.someDateInTheNextYear;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 import static util.SupermanDataFixtures.someServiceProblemResolution;
@@ -38,7 +43,10 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
 
         when(theAgentViewsTheServiceProblem());
 
-        then(theServiceProblemPanel(), isDisplayed().with(theCorrectInformation()).and(aServiceProblemStatus(equalTo(Open))));
+        then(theServiceProblemPanel(), isDisplayed()
+                .with(aTitleOf("Service Problem"))
+                .and(theCorrectInformation())
+                .and(aServiceProblemStatus(equalTo(Open))));
     }
 
     @Test
@@ -47,7 +55,9 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
 
         when(theAgentViewsTheServiceProblem());
 
-        then(theServiceProblemPanel(), isDisplayed().with(theCorrectInformation())
+        then(theServiceProblemPanel(), isDisplayed()
+                .and(aTitleOf("Service Problem"))
+                .and(theCorrectInformation())
                 .and(aServiceProblemStatus(equalTo(Cleared)))
                 .and(theFaultCauseAndResolutionReason()));
     }
@@ -58,9 +68,15 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
 
         when(theAgentViewsTheServiceProblem());
 
-        then(theServiceProblemPanel(), isDisplayed().with(theCorrectInformation())
+        then(theServiceProblemPanel(), isDisplayed()
+                .with(aTitleOf("Service Problem"))
+                .and(theCorrectInformation())
                 .and(aServiceProblemStatus(equalTo(Closed)))
                 .and(theClosedDate()));
+    }
+
+    private AppendableAllOf<ServiceProblemPanel> isDisplayed() {
+        return IsDisplayed.isDisplayed();
     }
 
     private Matcher<ServiceProblemPanel> theClosedDate() {
@@ -90,8 +106,8 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
                 ;
     }
 
-    private AppendableAllOf<ServiceProblemPanel> isDisplayed() {
-        return thatHas(IsDisplayed.<ServiceProblemPanel>isDisplayed()).and(aTitleOf("Service Problem"));
+    private ActionUnderTest theAgentViewsTheServiceProblem() {
+        return new BangoActionUnderTest(new ViewServiceProblemAction(supermanApp, serviceProblem));
     }
 
     private StateExtractor<ServiceProblemPanel> theServiceProblemPanel() {
@@ -99,16 +115,6 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
             @Override
             public ServiceProblemPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
                 return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().serviceProblemPanel();
-            }
-        };
-    }
-
-    private ActionUnderTest theAgentViewsTheServiceProblem() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
-                return capturedInputAndOutputs;
             }
         };
     }

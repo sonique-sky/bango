@@ -15,6 +15,7 @@ import sonique.bango.driver.panel.MessageBox;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemTab;
 import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
+import sonique.bango.matcher.MockieMatcher;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.service.ServiceProblemApiService;
@@ -103,16 +104,10 @@ public class PullServiceProblemTest extends BangoYatspecTest {
     }
 
     private Matcher<ServiceProblemApiService> hasPullMethodCalled() {
-        return new TypeSafeMatcher<ServiceProblemApiService>() {
+        return new MockieMatcher<ServiceProblemApiService>() {
             @Override
-            protected boolean matchesSafely(ServiceProblemApiService item) {
-                Mockito.verify(item).pull(theServiceProblem.serviceProblemId());
-                return true;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                throw new UnsupportedOperationException("Method  describeTo() not yet implemented");
+            protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
+                serviceProblemApiService.pull(theServiceProblem.serviceProblemId());
             }
         };
     }
@@ -149,8 +144,6 @@ public class PullServiceProblemTest extends BangoYatspecTest {
             }
         };
     }
-
-
 
     private ActionUnderTest theAgentPullsTheServiceProblem() {
         return new ActionUnderTest() {

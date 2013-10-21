@@ -48,7 +48,7 @@ public class ServiceProblemScenario extends SupermanScenario {
     private final DomainServiceProblem serviceProblem;
 
     public ServiceProblemScenario(ScenarioDriver scenarioDriver, DomainAgent agent, DomainServiceProblem serviceProblem) {
-        super(scenarioDriver, agent);
+        super(scenarioDriver.servicesFor(agent));
         this.serviceProblem = serviceProblem;
     }
 
