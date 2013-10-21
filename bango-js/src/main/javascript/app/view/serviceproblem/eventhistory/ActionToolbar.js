@@ -11,10 +11,10 @@ Ext.define('Spm.view.serviceproblem.eventhistory.ActionToolbar', {
             padding: 0,
             defaults: {padding: '1 5 1 5'},
             items: [
-                {xtype: 'button', iconCls: 'icon-filter-event-notes', tooltip: 'Show notes only'},
-                this.registeredActions.actionNamed('add-note'),
-                this.registeredActions.actionNamed('refresh-events'),
-                {xtype: 'button', iconCls: 'icon-filter-events', tooltip: 'Filter history by type'}
+                this.registeredActions.actionNamed(Spm.action.ShowNotesOnlyAction.ACTION_NAME),
+                this.registeredActions.actionNamed(Spm.action.AddNoteAction.ACTION_NAME),
+                this.registeredActions.actionNamed(Spm.action.RefreshEventHistoryAction.ACTION_NAME),
+                this.registeredActions.actionNamed(Spm.action.FilterHistoryAction.ACTION_NAME)
             ]
         });
 

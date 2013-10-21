@@ -48,4 +48,8 @@ public class EventHistoryPanel extends SupermanFormPanel implements HasTitle {
             }
         });
     }
+
+    public EventHistoryToolbar eventHistoryToolbar() {
+        return new EventHistoryToolbar(this);
+    }
 }

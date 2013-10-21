@@ -8,6 +8,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
         'Spm.controller.action.serviceproblem.RefreshEventHistoryAction',
         'Spm.controller.action.serviceproblem.PullServiceProblemAction',
         'Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction',
+        'Spm.controller.action.serviceproblem.FilterHistoryAction',
+        'Spm.controller.action.serviceproblem.ShowNotesOnlyAction',
         'Spm.view.serviceproblem.ActionToolbar',
         'Spm.view.serviceproblem.WorkItemPanel',
         'Spm.view.serviceproblem.ServiceProblemPanel',
@@ -46,7 +48,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
             'Spm.action.RefreshAction',
             'Spm.action.RefreshEventHistoryAction',
             'Spm.action.PullServiceProblemAction',
-            'Spm.action.HoldAndReleaseWorkItemAction'
+            'Spm.action.HoldAndReleaseWorkItemAction',
+            'Spm.action.FilterHistoryAction',
+            'Spm.action.ShowNotesOnlyAction'
         ]);
 
         var serviceProblemId = me.serviceProblem.serviceProblemId();

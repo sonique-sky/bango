@@ -84,6 +84,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.grid.filter.NumericFilter": [],
   "Ext.ux.event.Recorder": [],
   "Spm.view.application.LoginDialog": [],
+  "Spm.controller.action.serviceproblem.FilterHistoryAction": [
+    "Spm.action.FilterHistoryAction"
+  ],
   "Spm.controller.mixins.ActionContextManager": [],
   "Spm.controller.action.serviceproblem.PullServiceProblemAction": [
     "Spm.action.PullServiceProblemAction"
@@ -104,6 +107,9 @@ Ext.ClassManager.addNameAlternateMappings({
     "Spm.action.AddNoteAction"
   ],
   "Spm.view.search.SearchResultTabContent": [],
+  "Spm.controller.action.serviceproblem.ShowNotesOnlyAction": [
+    "Spm.action.ShowNotesOnlyAction"
+  ],
   "Ext.ux.form.SearchField": [],
   "Ext.ux.dd.CellFieldDropZone": [],
   "Ext.ux.LiveSearchGridPanel": [],
@@ -284,6 +290,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Spm.view.application.LoginDialog": [
     "widget.loginDialog"
   ],
+  "Spm.controller.action.serviceproblem.FilterHistoryAction": [],
   "Spm.controller.mixins.ActionContextManager": [],
   "Spm.controller.action.serviceproblem.PullServiceProblemAction": [],
   "Ext.ux.ajax.SimManager": [],
@@ -312,6 +319,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Spm.view.search.SearchResultTabContent": [
     "widget.searchResultTabContent"
   ],
+  "Spm.controller.action.serviceproblem.ShowNotesOnlyAction": [],
   "Ext.ux.form.SearchField": [
     "widget.searchfield"
   ],

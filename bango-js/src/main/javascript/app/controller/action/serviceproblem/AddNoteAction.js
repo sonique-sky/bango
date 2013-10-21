@@ -14,7 +14,9 @@ Ext.define('Spm.controller.action.serviceproblem.AddNoteAction', {
         this.callParent([{
             name: Spm.action.AddNoteAction.ACTION_NAME,
             tooltip: 'Add a note to this service problem',
-            iconCls: 'icon-add-note'
+            iconCls: 'icon-add-note',
+            id: Ext.id(this, 'add-note-')
+
         }]);
     },
 

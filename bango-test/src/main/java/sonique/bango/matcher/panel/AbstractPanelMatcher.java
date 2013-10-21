@@ -5,9 +5,9 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 public abstract class AbstractPanelMatcher<PANEL, TYPE> extends TypeSafeMatcher<PANEL> {
-    protected final Matcher<TYPE> matcher;
+    protected final Matcher<? super TYPE> matcher;
 
-    public AbstractPanelMatcher(Matcher<TYPE> matcher) {
+    public AbstractPanelMatcher(Matcher<? super TYPE> matcher) {
         this.matcher = matcher;
     }
 
