@@ -14,6 +14,7 @@ import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static sonique.bango.matcher.IsDisplayed.isDisplayed;
+import static sonique.bango.matcher.IsEnabled.isEnabled;
 import static sonique.bango.matcher.panel.EventHistoryToolbarMatchers.*;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
@@ -28,15 +29,15 @@ public class EventHistoryToolbarTest extends BangoYatspecTest {
     }
 
     @Test
-    public void filterButton() throws Exception {
+    public void toolbarButtonsAreDisplayedAndEnabled() throws Exception {
         given(aServiceProblemIsDisplayed());
         and(theAgentIsViewingTheServiceProblem());
 
         then(theEventHistoryToolbar(), isShown()
-                .and(theShowNoteOnlyButton(isDisplayed()))
-                .and(theAddNoteButton(isDisplayed()))
-                .and(theRefreshButton(isDisplayed()))
-                .and(theFilterButton(isDisplayed()))
+                .and(theShowNoteOnlyButton(isDisplayed().and(isEnabled())))
+                .and(theAddNoteButton(isDisplayed().and(isEnabled())))
+                .and(theRefreshButton(isDisplayed().and(isEnabled())))
+                .and(theFilterButton(isDisplayed().and(isEnabled())))
         );
     }
 

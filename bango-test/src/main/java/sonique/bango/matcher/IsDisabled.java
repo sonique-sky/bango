@@ -3,13 +3,14 @@ package sonique.bango.matcher;
 import com.google.common.base.Predicate;
 import sonique.bango.driver.component.SupermanElement;
 import sonique.bango.driver.predicate.IsEnabledPredicate;
+import sonique.testsupport.matchers.AppendableAllOf;
 
 import static com.google.common.base.Predicates.not;
 
 public class IsDisabled<T extends SupermanElement> extends AsynchronousMatcher<T> {
 
-    public static <T extends SupermanElement> IsDisabled<T> isDisabled() {
-        return new IsDisabled<T>();
+    public static <T extends SupermanElement> AppendableAllOf<T> isDisabled() {
+        return AppendableAllOf.thatHas(new IsDisabled<T>());
     }
 
     private IsDisabled() {
