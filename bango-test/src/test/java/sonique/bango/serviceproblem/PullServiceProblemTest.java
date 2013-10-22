@@ -79,7 +79,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().messageBox().clickYes();
+                supermanApp.messageBox().clickYes();
                 return capturedInputAndOutputs;
             }
         };
@@ -89,7 +89,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().messageBox().clickNo();
+                supermanApp.messageBox().clickNo();
                 return capturedInputAndOutputs;
             }
         };
@@ -131,7 +131,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         return new StateExtractor<MessageBox>() {
             @Override
             public MessageBox execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.appContainer().messageBox();
+                return supermanApp.messageBox();
             }
         };
     }

@@ -7,7 +7,7 @@ import sonique.bango.driver.SupermanWebDriver;
 
 public abstract class SupermanContainer implements SupermanElement {
 
-    protected final SupermanWebDriver driver;
+    private final SupermanWebDriver driver;
     private final By by;
 
     protected SupermanContainer(SupermanWebDriver driver, By by) {

@@ -17,10 +17,6 @@ public class AppContainer extends SupermanContainer {
         super(driver, By.id("superman-app-container"));
     }
 
-    public MessageBox messageBox() {
-        return new MessageBox(driver);
-    }
-
     public HeaderPanel headerPanel() {
         return new HeaderPanel(this);
     }
