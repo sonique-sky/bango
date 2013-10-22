@@ -1,12 +1,9 @@
 package sonique.bango.serviceproblem;
 
 import com.googlecode.yatspec.state.givenwhenthen.*;
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
@@ -113,16 +110,10 @@ public class PullServiceProblemTest extends BangoYatspecTest {
     }
 
     private Matcher<ServiceProblemApiService> isNotCalled() {
-        return new TypeSafeMatcher<ServiceProblemApiService>() {
+        return new MockieMatcher<ServiceProblemApiService>(never()) {
             @Override
-            protected boolean matchesSafely(ServiceProblemApiService item) {
-                Mockito.verify(item, never()).pull(theServiceProblem.serviceProblemId());
-                return true;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                throw new UnsupportedOperationException("Method  describeTo() not yet implemented");
+            protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
+                serviceProblemApiService.pull(theServiceProblem.serviceProblemId());
             }
         };
     }
