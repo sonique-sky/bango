@@ -71,6 +71,15 @@ public class ServiceProblemScenario extends SupermanScenario {
         });
     }
 
+    public ServiceProblemScenario returnsEventHistoryRefreshed(final List<EventHistoryItem> expectedEventHistoryItems) {
+        return addStep(new ScenarioStep() {
+            @Override
+            public void doStep() {
+                when(services.serviceProblemApiService().eventHistory(any(ServiceProblemId.class))).thenReturn(expectedEventHistoryItems);
+            }
+        });
+    }
+
     private ServiceProblemScenario addStep(ScenarioStep scenarioStep) {
         steps.add(scenarioStep);
         return this;
@@ -88,6 +97,7 @@ public class ServiceProblemScenario extends SupermanScenario {
 
         ServiceProblemApiService serviceProblemApiService = services.serviceProblemApiService();
         when(serviceProblemApiService.serviceProblemWithId(serviceProblem.serviceProblemId())).thenReturn(serviceProblem);
+        when(serviceProblemApiService.eventHistory(serviceProblem.serviceProblemId())).thenReturn(serviceProblem.historyItems());
 
         for (ScenarioStep step : steps) {
             step.doStep();

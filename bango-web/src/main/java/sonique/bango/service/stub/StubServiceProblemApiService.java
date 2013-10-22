@@ -34,6 +34,11 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     }
 
     @Override
+    public List<EventHistoryItem> eventHistory(ServiceProblemId serviceProblemId) {
+        return serviceProblemWithId(serviceProblemId).historyItems();
+    }
+
+    @Override
     public Collection<DomainServiceProblem> pull(ServiceProblemId serviceProblemId) {
         DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
         serviceProblem.tug(authorisedActorProvider.getLoggedInAgent());

@@ -13,4 +13,5 @@ public interface ServiceProblemApiService {
     Collection<DomainServiceProblem> pull(ServiceProblemId serviceProblemId);
     Collection<DomainServiceProblem> hold(ServiceProblemId serviceProblemId);
     Collection<DomainServiceProblem> release(ServiceProblemId serviceProblemId);
+    List<EventHistoryItem> eventHistory(ServiceProblemId serviceProblemId);
 }

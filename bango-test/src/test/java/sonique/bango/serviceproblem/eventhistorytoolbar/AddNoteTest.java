@@ -10,7 +10,7 @@ import org.junit.Test;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.action.EventHistoryPanelActions;
+import sonique.bango.action.AddNoteAgentActions;
 import sonique.bango.action.ViewServiceProblemAction;
 import sonique.bango.driver.component.SupermanElement;
 import sonique.bango.driver.component.form.SupermanButton;
@@ -41,8 +41,8 @@ import static util.SupermanDataFixtures.someNoteText;
 public class AddNoteTest extends BangoYatspecTest {
 
     private DomainServiceProblem serviceProblem;
-    private String theNote;
     private List<EventHistoryItem> expectedEventHistoryItems;
+    private String theNote;
 
     @Before
     public void setUp() throws Exception {
@@ -133,22 +133,12 @@ public class AddNoteTest extends BangoYatspecTest {
         };
     }
 
-    private EventHistoryPanelActions theAgent() {
-        return new EventHistoryPanelActions(supermanApp, serviceProblem);
+    private AddNoteAgentActions theAgent() {
+        return new AddNoteAgentActions(supermanApp, serviceProblem);
     }
 
     private AppendableAllOf<AddNoteDialog> isDisplayed() {
         return IsDisplayed.isDisplayed();
-    }
-
-    private GivensBuilder theAgentIsViewingTheServiceProblem() {
-        return new GivensBuilder() {
-            @Override
-            public InterestingGivens build(InterestingGivens givens) throws Exception {
-                new ViewServiceProblemAction(supermanApp, serviceProblem).goBango();
-                return givens;
-            }
-        };
     }
 
     private StateExtractor<AddNoteDialog> theDialog() {
@@ -174,6 +164,16 @@ public class AddNoteTest extends BangoYatspecTest {
             @Override
             public ServiceProblemApiService execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
                 return scenarioDriver().servicesFor(agentForTest).serviceProblemApiService();
+            }
+        };
+    }
+
+    private GivensBuilder theAgentIsViewingTheServiceProblem() {
+        return new GivensBuilder() {
+            @Override
+            public InterestingGivens build(InterestingGivens givens) throws Exception {
+                new ViewServiceProblemAction(supermanApp, serviceProblem).goBango();
+                return givens;
             }
         };
     }

@@ -8,11 +8,11 @@ import sonique.bango.app.SupermanApp;
 
 import static util.SupermanDataFixtures.someNoteText;
 
-public class EventHistoryPanelActions {
+public class AddNoteAgentActions {
     private final SupermanApp supermanApp;
     private final DomainServiceProblem serviceProblem;
 
-    public EventHistoryPanelActions(SupermanApp supermanApp, DomainServiceProblem serviceProblem) {
+    public AddNoteAgentActions(SupermanApp supermanApp, DomainServiceProblem serviceProblem) {
         this.supermanApp = supermanApp;
         this.serviceProblem = serviceProblem;
     }

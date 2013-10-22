@@ -31,7 +31,7 @@ public class ServiceProblemApiController {
     @RequestMapping(value = "/{serviceProblemId}/eventHistory", method = RequestMethod.GET)
     @ResponseBody
     public List<EventHistoryItem> eventHistory(@PathVariable Long serviceProblemId) {
-        return serviceProblemApiService.serviceProblemWithId(new ServiceProblemId(serviceProblemId)).historyItems();
+        return serviceProblemApiService.eventHistory(new ServiceProblemId(serviceProblemId));
     }
 
     @RequestMapping(consumes = "application/json", value = "/{serviceProblemId}/eventHistory", method = RequestMethod.POST)
