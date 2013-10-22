@@ -13,7 +13,7 @@ public class BangoActionUnderTest implements ActionUnderTest {
 
     @Override
     public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-        action.goBoom();
+        action.goBango();
         return capturedInputAndOutputs;
     }
 }

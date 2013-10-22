@@ -1,5 +1,5 @@
 package sonique.bango.action;
 
 public interface BangoAction {
-    void goBoom();
+    void goBango();
 }

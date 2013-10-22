@@ -11,7 +11,6 @@ public abstract class MockieMatcher<T> extends TypeSafeMatcher<T> {
 
     private final VerificationMode verificationMode;
 
-
     protected MockieMatcher() {
         this.verificationMode = times(1);
     }

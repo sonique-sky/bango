@@ -17,7 +17,7 @@ public class LoginAction implements BangoAction{
     }
 
     @Override
-    public void goBoom() {
+    public void goBango() {
         LoginDialog loginDialog = supermanApp.dialogs().login();
         loginDialog.username().enter(agent.getAgentCode());
         loginDialog.password().enter("a");

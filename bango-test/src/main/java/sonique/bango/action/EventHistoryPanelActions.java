@@ -6,6 +6,8 @@ import com.googlecode.yatspec.state.givenwhenthen.InterestingGivens;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.app.SupermanApp;
 
+import static util.SupermanDataFixtures.someNoteText;
+
 public class EventHistoryPanelActions {
     private final SupermanApp supermanApp;
     private final DomainServiceProblem serviceProblem;
@@ -15,7 +17,7 @@ public class EventHistoryPanelActions {
         this.serviceProblem = serviceProblem;
     }
 
-    public ActionUnderTest addNote() {
+    public ActionUnderTest clicksTheAddNoteButton() {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
@@ -37,7 +39,7 @@ public class EventHistoryPanelActions {
         };
     }
 
-    public ActionUnderTest clicksCancelNote() {
+    public ActionUnderTest clicksCancelNoteButton() {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
@@ -48,4 +50,24 @@ public class EventHistoryPanelActions {
         };
     }
 
+    public ActionUnderTest typeSomeTextIntoTheNoteField() {
+        return new ActionUnderTest() {
+            @Override
+            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+                supermanApp.dialogs().addNote().noteField().enter(someNoteText());
+
+                return capturedInputAndOutputs;
+            }
+        };
+    }
+
+    public ActionUnderTest clearsTheNoteText() {
+        return new ActionUnderTest() {
+            @Override
+            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+                supermanApp.dialogs().addNote().noteField().clear();
+                return capturedInputAndOutputs;
+            }
+        };
+    }
 }

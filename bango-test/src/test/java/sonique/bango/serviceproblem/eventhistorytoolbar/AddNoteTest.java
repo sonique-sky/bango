@@ -1,6 +1,9 @@
 package sonique.bango.serviceproblem.eventhistorytoolbar;
 
-import com.googlecode.yatspec.state.givenwhenthen.*;
+import com.googlecode.yatspec.state.givenwhenthen.CapturedInputAndOutputs;
+import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
+import com.googlecode.yatspec.state.givenwhenthen.InterestingGivens;
+import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,10 +12,10 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.action.EventHistoryPanelActions;
 import sonique.bango.action.ViewServiceProblemAction;
+import sonique.bango.driver.component.SupermanElement;
 import sonique.bango.driver.component.form.SupermanButton;
 import sonique.bango.driver.panel.dialog.AddNoteDialog;
 import sonique.bango.driver.panel.serviceproblem.EventHistoryPanel;
-import sonique.bango.matcher.IsDisabled;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.matcher.MockieMatcher;
 import sonique.bango.matcher.panel.AbstractPanelMatcher;
@@ -28,6 +31,8 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.EventHistoryMatcher.eventHistoryMatches;
+import static sonique.bango.matcher.IsDisabled.isDisabled;
+import static sonique.bango.matcher.IsEnabled.isEnabled;
 import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
 import static sonique.bango.matcher.panel.EventHistoryPanelMatchers.eventHistoryItems;
 import static sonique.bango.util.BangoDatafixtures.someEventHistoryItemsFor;
@@ -50,10 +55,10 @@ public class AddNoteTest extends BangoYatspecTest {
         given(aServiceProblemIsOpen());
         and(theAgentIsViewingTheServiceProblem());
 
-        when(theAgentClicksTheAddNoteButton());
+        when(theAgent().clicksTheAddNoteButton());
         then(theDialog(), isDisplayed().with(aTitleOf("Add Note")));
 
-        when(theAgentEntersANote());
+        when(theAgent().enterNote(theNote));
 
         then(theEventHistoryPanel(), showsTheReturnedNotes());
         and(theServiceProblemService(), wasCalledWith(theNote));
@@ -64,10 +69,10 @@ public class AddNoteTest extends BangoYatspecTest {
         given(aServiceProblemIsOpen());
         and(theAgentIsViewingTheServiceProblem());
 
-        when(theAgentClicksTheAddNoteButton());
+        when(theAgent().clicksTheAddNoteButton());
         then(theDialog(), isDisplayed());
 
-        when(theAgentClicksTheCancelButton());
+        when(theAgent().clicksCancelNoteButton());
         then(theDialog(), isNotDisplayed());
         and(theServiceProblemService(), isNotCalled());
     }
@@ -77,14 +82,28 @@ public class AddNoteTest extends BangoYatspecTest {
         given(aServiceProblemIsOpen());
         and(theAgentIsViewingTheServiceProblem());
 
-        when(theAgentClicksTheAddNoteButton());
+        when(theAgent().clicksTheAddNoteButton());
         then(theDialog(), isDisplayed().and(theAddNoteDialogButtonIsDisabled()));
 
-        when(theAgentClicksTheCancelButton());
+        when(theAgent().typeSomeTextIntoTheNoteField());
+        then(theDialog(), theAddNoteDialogButtonIsEnabled());
+
+        when(theAgent().clearsTheNoteText());
+        then(theDialog(), theAddNoteDialogButtonIsDisabled());
+
+        and(theAgent().clicksCancelNoteButton());
+    }
+
+    private Matcher<? super AddNoteDialog> theAddNoteDialogButtonIsEnabled() {
+        return theAddNoteDialogButton(isEnabled());
     }
 
     private Matcher<AddNoteDialog> theAddNoteDialogButtonIsDisabled() {
-        return new AbstractPanelMatcher<AddNoteDialog, SupermanButton>(IsDisabled.isDisabled()) {
+        return theAddNoteDialogButton(isDisabled());
+    }
+
+    private AbstractPanelMatcher<AddNoteDialog, SupermanButton> theAddNoteDialogButton(final AppendableAllOf<SupermanElement> matcher) {
+        return new AbstractPanelMatcher<AddNoteDialog, SupermanButton>(matcher) {
             @Override
             protected SupermanButton actualValue(AddNoteDialog item) {
                 return item.addNoteButton();
@@ -114,15 +133,7 @@ public class AddNoteTest extends BangoYatspecTest {
         };
     }
 
-    private ActionUnderTest theAgentClicksTheCancelButton() {
-        return eventHistoryPanel().clicksCancelNote();
-    }
-
-    private ActionUnderTest theAgentEntersANote() {
-        return eventHistoryPanel().enterNote(theNote);
-    }
-
-    private EventHistoryPanelActions eventHistoryPanel() {
+    private EventHistoryPanelActions theAgent() {
         return new EventHistoryPanelActions(supermanApp, serviceProblem);
     }
 
@@ -134,7 +145,7 @@ public class AddNoteTest extends BangoYatspecTest {
         return new GivensBuilder() {
             @Override
             public InterestingGivens build(InterestingGivens givens) throws Exception {
-                new ViewServiceProblemAction(supermanApp, serviceProblem).goBoom();
+                new ViewServiceProblemAction(supermanApp, serviceProblem).goBango();
                 return givens;
             }
         };
@@ -173,9 +184,5 @@ public class AddNoteTest extends BangoYatspecTest {
         ServiceProblemScenario supermanScenario = new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem)
                 .returnsWhenNoteAdded(expectedEventHistoryItems);
         return new ScenarioGivensBuilder(supermanScenario);
-    }
-
-    private ActionUnderTest theAgentClicksTheAddNoteButton() {
-        return eventHistoryPanel().addNote();
     }
 }

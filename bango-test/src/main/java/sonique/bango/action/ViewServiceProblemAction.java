@@ -16,7 +16,7 @@ public class ViewServiceProblemAction implements BangoAction {
     }
 
     @Override
-    public void goBoom() {
+    public void goBango() {
         supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
         assertThat(supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()), isDisplayed());
     }

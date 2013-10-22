@@ -59,7 +59,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     }
 
     protected void loginAgent() {
-        new LoginAction(supermanApp, agentForTest).goBoom();
+        new LoginAction(supermanApp, agentForTest).goBango();
     }
 
     protected ScenarioDriver scenarioDriver() {
@@ -76,6 +76,10 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
 
     public TestState when(ActionUnderTest actionUndertest) throws Exception {
         return testState.when(actionUndertest);
+    }
+
+    public TestState and(ActionUnderTest actionUndertest) throws Exception {
+        return when(actionUndertest);
     }
 
     public <ItemOfInterest> TestState then(StateExtractor<ItemOfInterest> extractor, Matcher<? super ItemOfInterest> matcher) throws Exception {
