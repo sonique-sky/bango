@@ -22,8 +22,8 @@ Ext.define('Spm.controller.action.serviceproblem.ShowNotesOnlyAction', {
     startAction: function (serviceProblemTab) {
         if (this.filterOn) {
             serviceProblemTab.eventHistoryPanel.removeEventHistoryFilter();
-            this.filterOn = false;
             this.setTooltip('Show notes only');
+            this.filterOn = false;
         } else {
             serviceProblemTab.eventHistoryPanel.filterEventHistoryBy(function (eventHistoryItem) {
                 return eventHistoryItem.get('eventType') == 'Note'
