@@ -25,7 +25,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
             tools: [
                 {
                     xtype: 'eventHistoryActionToolbar',
-                    registeredActions : me.registeredActions
+                    registeredActions: me.registeredActions
                 }
             ],
             items: [
@@ -40,7 +40,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                     store: this.store,
                     columns: [
                         {text: 'Event Type', dataIndex: 'eventType', flex: 1, tdCls: 'event-type', resizable: false},
-                        {text: 'Created Date', dataIndex: 'createdDate', tdCls:'event-created-date', renderer: Ext.util.Format.dateRenderer('d/m/Y H:i'), resizable: false, align: 'center', width: 140},
+                        {text: 'Created Date', dataIndex: 'createdDate', tdCls: 'event-created-date', renderer: Ext.util.Format.dateRenderer('d/m/Y H:i'), resizable: false, align: 'center', width: 140},
                         {text: 'Created By', dataIndex: 'createdBy', tdCls: 'event-created-by', resizable: false, align: 'center', width: 130}
                     ],
                     features: [
@@ -66,7 +66,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
         me.callParent(arguments);
     },
 
-    reload: function() {
+    reload: function () {
         this.store.reload();
     },
 
@@ -78,11 +78,25 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
         this.store.loadRecords(records);
     },
 
-    filterEventHistoryBy: function(filterFunction) {
+    filterEventHistoryBy: function (filterFunction) {
         this.store.filterBy(filterFunction);
     },
 
-    removeEventHistoryFilter: function() {
+    removeEventHistoryFilter: function () {
         this.store.removeFilter(null);
+    },
+
+    allEventTypes: function () {
+        var eventTypes = [];
+        this.store.queryBy(
+            function () {
+                return true;
+            }
+        ).each(
+            function (historyItem) {
+                eventTypes.push(historyItem.get('eventType'));
+            }
+        );
+        return eventTypes;
     }
 });

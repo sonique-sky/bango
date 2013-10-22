@@ -64,6 +64,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Spm.controller.action.ToggleAvailabilityAction": [
     "Spm.action.ToggleAvailabilityAction"
   ],
+  "Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog": [],
   "Spm.model.WorkItem": [],
   "Spm.view.component.StandardDialog": [],
   "Ext.ux.PreviewPlugin": [],
@@ -246,6 +247,9 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.multiselectfield"
   ],
   "Spm.controller.action.ToggleAvailabilityAction": [],
+  "Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog": [
+    "widget.addNoteDialog"
+  ],
   "Spm.model.WorkItem": [
     "model.workItem"
   ],

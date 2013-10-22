@@ -1,6 +1,6 @@
 Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {
     extend: 'Spm.view.component.ActionDialog',
-    alias: 'widget.addNoteDialog',
+    alias: 'widget.filterEventHistoryDialog',
 
     height: 350,
     width: 600,
@@ -12,13 +12,17 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {
 
         Ext.apply(me, {
             acceptButtonText: 'Filter',
-         //   acceptButtonDefaultDisabled: true,
+            //   acceptButtonDefaultDisabled: true,
             content: {
                 xtype: 'grid',
+                multiSelect: true,
                 flex: 1,
                 store: me.store,
                 name: 'eventTypes',
-                columns: [{text: 'EventType', dataIndex: 'eventType', width: "100%"}]
+                hideHeaders: true,
+                columns: [
+                    {dataIndex: 'eventType', width: "100%"}
+                ]
             }
         });
 
@@ -30,6 +34,10 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {
     },
 
     doCollect: function () {
-        return [this.down('grid').getValue()];
+        var selected = this.down('gridview').getSelectionModel().getSelection();
+
+        return [Ext.Array.map(selected, function (model) {
+            return model.get('eventType');
+        })];
     }
 });

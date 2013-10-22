@@ -6,9 +6,6 @@ Ext.define('Spm.controller.action.queuedashboard.RefreshDashboardAction', {
         ACTION_NAME: 'refresh-dashboard'
     },
 
-    requires: [
-    ],
-
     constructor: function () {
         this.callParent([
             {

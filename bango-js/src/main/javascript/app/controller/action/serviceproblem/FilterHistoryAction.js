@@ -20,29 +20,32 @@ Ext.define('Spm.controller.action.serviceproblem.FilterHistoryAction', {
                 id: Ext.id(this, 'filter-history-')
 
             }
-        ])
-        ;
+        ]);
     },
 
     startAction: function (serviceProblemTab) {
-
-        var eventTypes = [];
-        serviceProblemTab.eventHistoryPanel.store.each(function (historyItem) {
-            var eventType = historyItem.get('eventType');
-            if (!Ext.Array.contains(eventTypes, eventType)) {
-                eventTypes.push([eventType]);
-            }
-        });
-
         var store = Ext.create('Ext.data.ArrayStore', {
             storeId: 'eventNameStore',
             fields: ['eventType']
         });
 
-        store.loadData(eventTypes);
+        var eventTypes = serviceProblemTab.eventHistoryPanel.allEventTypes();
+        var unique = Ext.Array.unique(eventTypes).map(function (eventType) {
+            return [eventType];
+        });
+
+        store.loadData(unique);
 
         Ext.create('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {actionName: this.name, actionContext: serviceProblemTab, store: store}).show();
-    }
+    },
 
-})
-;
+    finishAction: function (serviceProblemTab, eventTypes) {
+        if (eventTypes.length > 0) {
+            serviceProblemTab.eventHistoryPanel.filterEventHistoryBy(function (historyItem) {
+                return Ext.Array.contains(eventTypes, historyItem.get('eventType'));
+            })
+        } else {
+            serviceProblemTab.eventHistoryPanel.removeEventHistoryFilter();
+        }
+    }
+});
