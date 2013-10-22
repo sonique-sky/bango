@@ -34,7 +34,7 @@ Ext.define('Spm.controller.Security', {
                     msg: response.statusText,
                     buttons: Ext.Msg.OK,
                     icon: Ext.Msg.WARNING,
-                    closable:false,
+                    closable: false,
                     callback: me.onAuthenticationRequired, scope: me
                 });
             },

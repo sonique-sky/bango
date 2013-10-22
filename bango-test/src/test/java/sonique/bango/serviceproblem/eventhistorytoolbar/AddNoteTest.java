@@ -9,19 +9,26 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.action.EventHistoryPanelActions;
 import sonique.bango.action.ViewServiceProblemAction;
+import sonique.bango.driver.component.form.SupermanButton;
 import sonique.bango.driver.panel.dialog.AddNoteDialog;
 import sonique.bango.driver.panel.serviceproblem.EventHistoryPanel;
+import sonique.bango.matcher.IsDisabled;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.matcher.MockieMatcher;
+import sonique.bango.matcher.panel.AbstractPanelMatcher;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.service.ServiceProblemApiService;
 import sonique.testsupport.matchers.AppendableAllOf;
+import spm.domain.ServiceProblemId;
 
 import java.util.List;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.never;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.EventHistoryMatcher.eventHistoryMatches;
+import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
 import static sonique.bango.matcher.panel.EventHistoryPanelMatchers.eventHistoryItems;
 import static sonique.bango.util.BangoDatafixtures.someEventHistoryItemsFor;
 import static util.SupermanDataFixtures.someNoteText;
@@ -46,11 +53,52 @@ public class AddNoteTest extends BangoYatspecTest {
         when(theAgentClicksTheAddNoteButton());
         then(theDialog(), isDisplayed().with(aTitleOf("Add Note")));
 
-
         when(theAgentEntersANote());
 
         then(theEventHistoryPanel(), showsTheReturnedNotes());
         and(theServiceProblemService(), wasCalledWith(theNote));
+    }
+
+    @Test
+    public void canCancelTheAddHistoryItemDialog() throws Exception {
+        given(aServiceProblemIsOpen());
+        and(theAgentIsViewingTheServiceProblem());
+
+        when(theAgentClicksTheAddNoteButton());
+        then(theDialog(), isDisplayed());
+
+        when(theAgentClicksTheCancelButton());
+        then(theDialog(), isNotDisplayed());
+        and(theServiceProblemService(), isNotCalled());
+    }
+
+    @Test
+    public void addNoteDialogButtonIsDisabledWhenTextEmpty() throws Exception {
+        given(aServiceProblemIsOpen());
+        and(theAgentIsViewingTheServiceProblem());
+
+        when(theAgentClicksTheAddNoteButton());
+        then(theDialog(), isDisplayed().and(theAddNoteDialogButtonIsDisabled()));
+
+        when(theAgentClicksTheCancelButton());
+    }
+
+    private Matcher<AddNoteDialog> theAddNoteDialogButtonIsDisabled() {
+        return new AbstractPanelMatcher<AddNoteDialog, SupermanButton>(IsDisabled.isDisabled()) {
+            @Override
+            protected SupermanButton actualValue(AddNoteDialog item) {
+                return item.addNoteButton();
+            }
+        };
+    }
+
+    private Matcher<ServiceProblemApiService> isNotCalled() {
+        return new MockieMatcher<ServiceProblemApiService>(never()) {
+            @Override
+            protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
+                serviceProblemApiService.addNote(any(ServiceProblemId.class), any(String.class));
+            }
+        };
     }
 
     private Matcher<EventHistoryPanel> showsTheReturnedNotes() {
@@ -66,8 +114,12 @@ public class AddNoteTest extends BangoYatspecTest {
         };
     }
 
+    private ActionUnderTest theAgentClicksTheCancelButton() {
+        return eventHistoryPanel().clicksCancelNote();
+    }
+
     private ActionUnderTest theAgentEntersANote() {
-       return  eventHistoryPanel().enterNote(theNote);
+        return eventHistoryPanel().enterNote(theNote);
     }
 
     private EventHistoryPanelActions eventHistoryPanel() {

@@ -4,7 +4,6 @@ Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {
 
     height: 350,
     width: 600,
-//    iconCls: 'icon-bulk-transfer',
     title: 'Add Note',
     cls: 'add-note-dialog',
 
@@ -13,14 +12,22 @@ Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {
 
         Ext.apply(me, {
             acceptButtonText: 'Add Note',
-//            acceptButtonDefaultDisabled: true,
+            acceptButtonDefaultDisabled: true,
             content: {
                 xtype: 'textareafield',
-                name: 'note'
+                allowBlank: false,
+                name: 'note',
+                listeners: {
+                    validitychange: { fn: me.onValidityChange, scope: me}
+                }
             }
         });
 
         me.callParent(arguments);
+    },
+
+    onValidityChange: function (form, valid) {
+        this.setAcceptButtonDisabled(!valid);
     },
 
     doCollect: function () {

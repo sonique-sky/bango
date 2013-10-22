@@ -8,8 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-import static java.util.concurrent.TimeUnit.*;
-import static sonique.bango.driver.BetterWait.*;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static sonique.bango.driver.BetterWait.dally;
 
 public class SupermanWebDriver {
     private final WebDriver webDriver;

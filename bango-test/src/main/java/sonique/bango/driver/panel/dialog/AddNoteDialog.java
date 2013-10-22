@@ -21,4 +21,8 @@ public class AddNoteDialog extends SupermanDialog {
     public SupermanButton addNoteButton() {
         return buttonLabeled("Add Note");
     }
+
+    public SupermanButton cancelButton() {
+        return buttonLabeled("Cancel");
+    }
 }

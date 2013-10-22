@@ -36,4 +36,16 @@ public class EventHistoryPanelActions {
             }
         };
     }
+
+    public ActionUnderTest clicksCancelNote() {
+        return new ActionUnderTest() {
+            @Override
+            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+                supermanApp.dialogs().addNote().cancelButton().click();
+
+                return capturedInputAndOutputs;
+            }
+        };
+    }
+
 }
