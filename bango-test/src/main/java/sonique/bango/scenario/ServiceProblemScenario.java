@@ -1,6 +1,7 @@
 package sonique.bango.scenario;
 
 import sky.sns.spm.domain.model.DomainAgent;
+import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblemBuilder;
@@ -53,12 +54,25 @@ public class ServiceProblemScenario extends SupermanScenario {
     }
 
     public ServiceProblemScenario returnsWhenPulled(final DomainServiceProblem returnedServiceProblem) {
-        steps.add(new ScenarioStep() {
+        return addStep(new ScenarioStep() {
             @Override
             public void doStep() {
                 when(services.serviceProblemApiService().pull(any(ServiceProblemId.class))).thenReturn(newArrayList(returnedServiceProblem));
             }
         });
+    }
+
+    public ServiceProblemScenario returnsWhenNoteAdded(final List<EventHistoryItem> expectedEventHistoryItems) {
+        return addStep(new ScenarioStep() {
+            @Override
+            public void doStep() {
+                when(services.serviceProblemApiService().addNote(any(ServiceProblemId.class), any(String.class))).thenReturn(expectedEventHistoryItems);
+            }
+        });
+    }
+
+    private ServiceProblemScenario addStep(ScenarioStep scenarioStep) {
+        steps.add(scenarioStep);
         return this;
     }
 

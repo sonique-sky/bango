@@ -6,6 +6,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {
     width: 600,
 //    iconCls: 'icon-bulk-transfer',
     title: 'Add Note',
+    cls: 'add-note-dialog',
 
     initComponent: function () {
         var me = this;

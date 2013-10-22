@@ -29,7 +29,7 @@ public class EventHistoryToolbarTest extends BangoYatspecTest {
 
     @Test
     public void toolbarButtonsAreDisplayedAndEnabled() throws Exception {
-        given(aServiceProblemIsDisplayed());
+        given(aServiceProblemExists());
         and(theAgentIsViewingTheServiceProblem());
 
         then(theEventHistoryToolbar(), isShown()
@@ -53,7 +53,7 @@ public class EventHistoryToolbarTest extends BangoYatspecTest {
         };
     }
 
-    private GivensBuilder aServiceProblemIsDisplayed() {
+    private GivensBuilder aServiceProblemExists() {
         return scenarioGivensBuilderFor(serviceProblem);
     }
 

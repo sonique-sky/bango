@@ -1,47 +1,91 @@
 package sonique.bango.serviceproblem.eventhistorytoolbar;
 
-import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
-import com.googlecode.yatspec.state.givenwhenthen.CapturedInputAndOutputs;
-import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
-import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
+import com.googlecode.yatspec.state.givenwhenthen.*;
 import org.hamcrest.Matcher;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.action.EventHistoryPanelActions;
 import sonique.bango.action.ViewServiceProblemAction;
 import sonique.bango.driver.panel.dialog.AddNoteDialog;
+import sonique.bango.driver.panel.serviceproblem.EventHistoryPanel;
+import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.matcher.MockieMatcher;
+import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.service.ServiceProblemApiService;
+import sonique.testsupport.matchers.AppendableAllOf;
 
-import static sonique.bango.matcher.IsDisplayed.isDisplayed;
+import java.util.List;
+
+import static sonique.bango.matcher.ATitleOf.aTitleOf;
+import static sonique.bango.matcher.EventHistoryMatcher.eventHistoryMatches;
+import static sonique.bango.matcher.panel.EventHistoryPanelMatchers.eventHistoryItems;
+import static sonique.bango.util.BangoDatafixtures.someEventHistoryItemsFor;
+import static util.SupermanDataFixtures.someNoteText;
 
 public class AddNoteTest extends BangoYatspecTest {
 
     private DomainServiceProblem serviceProblem;
     private String theNote;
+    private List<EventHistoryItem> expectedEventHistoryItems;
 
     @Before
     public void setUp() throws Exception {
         loginAgent();
-        theNote = "the Note";
+        theNote = someNoteText();
     }
 
-    @Ignore
     @Test
     public void addsHistoryItem() throws Exception {
-        given(aServiceProblemIsOpenAndDisplayed());
+        given(aServiceProblemIsOpen());
+        and(theAgentIsViewingTheServiceProblem());
 
         when(theAgentClicksTheAddNoteButton());
+        then(theDialog(), isDisplayed().with(aTitleOf("Add Note")));
 
-        then(theDialog(), isDisplayed());
 
-        then(theServiceProblemService(), isCalledWith(theNote));
+        when(theAgentEntersANote());
 
-        //        and(theResults(), areDisplayed());
+        then(theEventHistoryPanel(), showsTheReturnedNotes());
+        and(theServiceProblemService(), wasCalledWith(theNote));
+    }
+
+    private Matcher<EventHistoryPanel> showsTheReturnedNotes() {
+        return eventHistoryItems(eventHistoryMatches(expectedEventHistoryItems));
+    }
+
+    private StateExtractor<EventHistoryPanel> theEventHistoryPanel() {
+        return new StateExtractor<EventHistoryPanel>() {
+            @Override
+            public EventHistoryPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
+                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
+            }
+        };
+    }
+
+    private ActionUnderTest theAgentEntersANote() {
+       return  eventHistoryPanel().enterNote(theNote);
+    }
+
+    private EventHistoryPanelActions eventHistoryPanel() {
+        return new EventHistoryPanelActions(supermanApp, serviceProblem);
+    }
+
+    private AppendableAllOf<AddNoteDialog> isDisplayed() {
+        return IsDisplayed.isDisplayed();
+    }
+
+    private GivensBuilder theAgentIsViewingTheServiceProblem() {
+        return new GivensBuilder() {
+            @Override
+            public InterestingGivens build(InterestingGivens givens) throws Exception {
+                new ViewServiceProblemAction(supermanApp, serviceProblem).goBoom();
+                return givens;
+            }
+        };
     }
 
     private StateExtractor<AddNoteDialog> theDialog() {
@@ -53,7 +97,7 @@ public class AddNoteTest extends BangoYatspecTest {
         };
     }
 
-    private Matcher<ServiceProblemApiService> isCalledWith(final String theNote) {
+    private Matcher<ServiceProblemApiService> wasCalledWith(final String theNote) {
         return new MockieMatcher<ServiceProblemApiService>() {
             @Override
             protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
@@ -71,14 +115,15 @@ public class AddNoteTest extends BangoYatspecTest {
         };
     }
 
-    private GivensBuilder aServiceProblemIsOpenAndDisplayed() {
+    private GivensBuilder aServiceProblemIsOpen() {
         serviceProblem = ServiceProblemScenario.serviceProblemBuilder().build();
-        new ViewServiceProblemAction(supermanApp, serviceProblem).goBoom();
-
-        return scenarioGivensBuilderFor(serviceProblem);
+        expectedEventHistoryItems = someEventHistoryItemsFor(serviceProblem);
+        ServiceProblemScenario supermanScenario = new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem)
+                .returnsWhenNoteAdded(expectedEventHistoryItems);
+        return new ScenarioGivensBuilder(supermanScenario);
     }
 
     private ActionUnderTest theAgentClicksTheAddNoteButton() {
-        return new EventHistoryPanelActions(supermanApp, serviceProblem).addNote();
+        return eventHistoryPanel().addNote();
     }
 }

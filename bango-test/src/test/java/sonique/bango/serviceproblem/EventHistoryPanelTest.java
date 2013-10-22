@@ -8,7 +8,6 @@ import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
-import sky.sns.spm.domain.model.serviceproblem.ServiceProblemEventHistoryItem;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.action.BangoActionUnderTest;
 import sonique.bango.action.ViewServiceProblemAction;
@@ -20,9 +19,7 @@ import sonique.testsupport.matchers.AppendableAllOf;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.EventHistoryMatcher.eventHistoryMatches;
 import static sonique.bango.matcher.panel.EventHistoryPanelMatchers.eventHistoryItems;
-import static sonique.datafixtures.DateTimeDataFixtures.someDateInTheNextYear;
-import static sonique.datafixtures.PrimitiveDataFixtures.someNumberBetween;
-import static util.SupermanDataFixtures.*;
+import static sonique.bango.util.BangoDatafixtures.someEventHistoryItemsFor;
 
 public class EventHistoryPanelTest extends BangoYatspecTest {
 
@@ -46,10 +43,7 @@ public class EventHistoryPanelTest extends BangoYatspecTest {
 
     private GivensBuilder aServiceProblemWithSomeHistoryEvents() {
         serviceProblem = ServiceProblemScenario.serviceProblemBuilder().build();
-        for (int i = 0; i < someNumberBetween(3, 7); i++) {
-            serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(someEventDescription(), someDateInTheNextYear().toDate(), someAgent().getActorName(), someNoteText(), serviceProblem));
-        }
-
+        serviceProblem.historyItems().addAll(someEventHistoryItemsFor(serviceProblem));
         return scenarioGivensBuilderFor(serviceProblem);
     }
 

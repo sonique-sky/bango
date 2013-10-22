@@ -24,4 +24,16 @@ public class EventHistoryPanelActions {
             }
         };
     }
+
+    public ActionUnderTest enterNote(final String theNote) {
+        return new ActionUnderTest() {
+            @Override
+            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
+                supermanApp.dialogs().addNote().noteField().enter(theNote);
+                supermanApp.dialogs().addNote().addNoteButton().click();
+
+                return capturedInputAndOutputs;
+            }
+        };
+    }
 }
