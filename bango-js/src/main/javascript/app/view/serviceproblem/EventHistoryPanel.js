@@ -76,5 +76,13 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
 
     loadWith: function (records) {
         this.store.loadRecords(records);
+    },
+
+    filterEventHistoryBy: function(filterFunction) {
+        this.store.filterBy(filterFunction);
+    },
+
+    removeEventHistoryFilter: function() {
+        this.store.removeFilter(null);
     }
 });

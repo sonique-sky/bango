@@ -19,7 +19,7 @@ import sonique.testsupport.matchers.AppendableAllOf;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
 import static sonique.bango.matcher.EventHistoryMatcher.eventHistoryMatches;
 import static sonique.bango.matcher.panel.EventHistoryPanelMatchers.eventHistoryItems;
-import static sonique.bango.util.BangoDatafixtures.someEventHistoryItemsFor;
+import static sonique.bango.util.BangoDataFixtures.someEventHistoryItemsFor;
 
 public class EventHistoryPanelTest extends BangoYatspecTest {
 

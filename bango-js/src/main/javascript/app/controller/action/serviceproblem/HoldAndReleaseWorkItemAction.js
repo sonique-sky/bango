@@ -18,7 +18,7 @@ Ext.define('Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction', 
         var eventName = undefined;
 
         if (serviceProblem.workItem().isHeld()) {
-            operation = Spm.proxy.ApiOperation.workItemUnhold({params: {serviceProblemId: serviceProblemTab.getServiceProblem().serviceProblemId()}});
+            operation = Spm.proxy.ApiOperation.workItemUnhold({params: {serviceProblemId: serviceProblem.serviceProblemId()}});
             eventName = 'workItemReleased';
         } else {
             operation = Spm.proxy.ApiOperation.workItemHold({params: {serviceProblemId: serviceProblem.serviceProblemId()}});

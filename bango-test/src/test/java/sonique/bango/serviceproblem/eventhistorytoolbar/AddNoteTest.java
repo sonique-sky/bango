@@ -35,7 +35,7 @@ import static sonique.bango.matcher.IsDisabled.isDisabled;
 import static sonique.bango.matcher.IsEnabled.isEnabled;
 import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
 import static sonique.bango.matcher.panel.EventHistoryPanelMatchers.eventHistoryItems;
-import static sonique.bango.util.BangoDatafixtures.someEventHistoryItemsFor;
+import static sonique.bango.util.BangoDataFixtures.someEventHistoryItemsFor;
 import static util.SupermanDataFixtures.someNoteText;
 
 public class AddNoteTest extends BangoYatspecTest {

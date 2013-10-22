@@ -16,7 +16,7 @@ import java.util.List;
 
 import static sonique.bango.matcher.EventHistoryMatcher.eventHistoryMatches;
 import static sonique.bango.matcher.panel.EventHistoryPanelMatchers.eventHistoryItems;
-import static sonique.bango.util.BangoDatafixtures.someEventHistoryItemsFor;
+import static sonique.bango.util.BangoDataFixtures.someEventHistoryItemsFor;
 
 public class HistoryRefreshTest extends BangoYatspecTest {
 
