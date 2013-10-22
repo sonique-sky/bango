@@ -8,14 +8,11 @@ import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.action.EventHistoryPanelActions;
 import sonique.bango.action.ViewServiceProblemAction;
-import sonique.bango.driver.SupermanWebDriver;
-import sonique.bango.driver.component.HasTitle;
-import sonique.bango.driver.component.SupermanContainer;
+import sonique.bango.driver.panel.dialog.AddNoteDialog;
 import sonique.bango.matcher.MockieMatcher;
 import sonique.bango.scenario.ServiceProblemScenario;
 import sonique.bango.service.ServiceProblemApiService;
@@ -40,18 +37,18 @@ public class AddNoteTest extends BangoYatspecTest {
 
         when(theAgentClicksTheAddNoteButton());
 
-        then(theMessageBox(), isDisplayed());
+        then(theDialog(), isDisplayed());
 
         then(theServiceProblemService(), isCalledWith(theNote));
 
         //        and(theResults(), areDisplayed());
     }
 
-    private StateExtractor<AddNoteDialog> theMessageBox() {
+    private StateExtractor<AddNoteDialog> theDialog() {
         return new StateExtractor<AddNoteDialog>() {
             @Override
             public AddNoteDialog execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                throw new UnsupportedOperationException("Method  execute() not yet implemented");
+                return supermanApp.dialogs().addNote();
             }
         };
     }
@@ -83,17 +80,5 @@ public class AddNoteTest extends BangoYatspecTest {
 
     private ActionUnderTest theAgentClicksTheAddNoteButton() {
         return new EventHistoryPanelActions(supermanApp, serviceProblem).addNote();
-    }
-
-    private class AddNoteDialog extends SupermanContainer implements HasTitle {
-
-        protected AddNoteDialog(SupermanWebDriver driver, By by) {
-            super(driver, by);
-        }
-
-        @Override
-        public String title() {
-            throw new UnsupportedOperationException("Method AddNoteDialog title() not yet implemented");
-        }
     }
 }

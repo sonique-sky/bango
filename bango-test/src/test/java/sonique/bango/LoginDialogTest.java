@@ -4,8 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import sonique.bango.app.SupermanApp;
-import sonique.bango.driver.panel.LoginDialog;
-import sonique.bango.driver.panel.MessageBox;
+import sonique.bango.driver.panel.dialog.LoginDialog;
+import sonique.bango.driver.panel.dialog.MessageBox;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.testsupport.matchers.AppendableAllOf;
 
@@ -24,7 +24,7 @@ public class LoginDialogTest extends OncePerSuiteBangoTest {
     @Before
     public void setUp() throws Exception {
         supermanApp = bangoTestEnvironment.borrowSupermanApp();
-        loginDialog = supermanApp.loginDialog();
+        loginDialog = supermanApp.dialogs().login();
         loginDialog.username().clear();
         loginDialog.password().clear();
     }
@@ -74,7 +74,7 @@ public class LoginDialogTest extends OncePerSuiteBangoTest {
 
         loginDialog.loginButton().click();
 
-        MessageBox notificationWindow = supermanApp.messageBox();
+        MessageBox notificationWindow = supermanApp.dialogs().message();
         assertThat(notificationWindow, isDisplayed().with(aTitleOf("Error")).and(aMessageOf("Bad Credentials")));
         notificationWindow.clickOk();
     }

@@ -1,13 +1,14 @@
-package sonique.bango.driver.panel;
+package sonique.bango.driver.panel.dialog;
 
 import org.openqa.selenium.By;
 import sonique.bango.driver.SupermanWebDriver;
-import sonique.bango.driver.component.*;
+import sonique.bango.driver.component.SupermanElement;
 import sonique.bango.driver.component.form.SupermanButton;
 import sonique.bango.driver.component.form.SupermanFormPanel;
 import sonique.bango.driver.component.form.SupermanTextField;
+import sonique.bango.driver.panel.SupermanDialog;
 
-public class LoginDialog extends SupermanContainer {
+public class LoginDialog extends SupermanDialog {
 
     private final LoginFormPanel formPanel;
 
@@ -26,11 +27,11 @@ public class LoginDialog extends SupermanContainer {
     }
 
     public SupermanButton loginButton() {
-        return new SupermanButton(this, By.cssSelector("a#accept-button"));
+        return buttonLabeled("Login");
     }
 
     public SupermanButton resetButton() {
-        return new SupermanButton(this, By.cssSelector("a#cancel-button"));
+        return buttonLabeled("Reset");
     }
 
     private static class LoginFormPanel extends SupermanFormPanel {

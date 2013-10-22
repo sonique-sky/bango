@@ -2,25 +2,23 @@ package sonique.bango.app;
 
 import sonique.bango.driver.SupermanWebDriver;
 import sonique.bango.driver.panel.AppContainer;
-import sonique.bango.driver.panel.*;
+import sonique.bango.driver.panel.dialog.SupermanDialogs;
 
 public class SupermanApp {
     private final SupermanWebDriver driver;
+    private final SupermanDialogs dialogs;
 
     public SupermanApp(int port) {
         driver = new SupermanWebDriver(String.format("http://localhost:%d/superman", port));
-    }
-
-    public LoginDialog loginDialog() {
-        return new LoginDialog(driver);
-    }
-
-    public MessageBox messageBox() {
-        return new MessageBox(driver);
+        dialogs = new SupermanDialogs(driver);
     }
 
     public AppContainer appContainer() {
         return new AppContainer(driver);
+    }
+
+    public SupermanDialogs dialogs() {
+        return dialogs;
     }
 
     public void close() {

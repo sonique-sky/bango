@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.driver.panel.MessageBox;
+import sonique.bango.driver.panel.dialog.MessageBox;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.scenario.NoServiceProblemsScenario;
 import sonique.bango.scenario.ScenarioGivensBuilder;
@@ -24,7 +24,7 @@ public class NoResultsSearchTest extends BangoYatspecTest {
 
     @After
     public void tearDown() throws Exception {
-        supermanApp.messageBox().clickOk();
+        supermanApp.dialogs().message().clickOk();
     }
 
     @Test
@@ -56,7 +56,7 @@ public class NoResultsSearchTest extends BangoYatspecTest {
         return new StateExtractor<MessageBox>() {
             @Override
             public MessageBox execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.messageBox();
+                return supermanApp.dialogs().message();
             }
         };
     }

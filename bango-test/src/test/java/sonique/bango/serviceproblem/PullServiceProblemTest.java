@@ -8,7 +8,7 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
 import sonique.bango.BangoYatspecTest;
-import sonique.bango.driver.panel.MessageBox;
+import sonique.bango.driver.panel.dialog.MessageBox;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemTab;
 import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
@@ -79,7 +79,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.messageBox().clickYes();
+                supermanApp.dialogs().message().clickYes();
                 return capturedInputAndOutputs;
             }
         };
@@ -89,7 +89,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.messageBox().clickNo();
+                supermanApp.dialogs().message().clickNo();
                 return capturedInputAndOutputs;
             }
         };
@@ -131,7 +131,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
         return new StateExtractor<MessageBox>() {
             @Override
             public MessageBox execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.messageBox();
+                return supermanApp.dialogs().message();
             }
         };
     }

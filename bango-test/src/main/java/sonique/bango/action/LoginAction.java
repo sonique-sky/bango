@@ -2,7 +2,7 @@ package sonique.bango.action;
 
 import sky.sns.spm.domain.model.DomainAgent;
 import sonique.bango.app.SupermanApp;
-import sonique.bango.driver.panel.LoginDialog;
+import sonique.bango.driver.panel.dialog.LoginDialog;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static sonique.bango.matcher.IsDisplayed.isDisplayed;
@@ -18,7 +18,7 @@ public class LoginAction implements BangoAction{
 
     @Override
     public void goBoom() {
-        LoginDialog loginDialog = supermanApp.loginDialog();
+        LoginDialog loginDialog = supermanApp.dialogs().login();
         loginDialog.username().enter(agent.getAgentCode());
         loginDialog.password().enter("a");
 
