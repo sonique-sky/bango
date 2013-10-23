@@ -20,4 +20,8 @@ public class SupermanDialogs {
     public AddNoteDialog addNote() {
         return new AddNoteDialog(driver);
     }
+
+    public FilterByTypeDialog filterHistoryByType() {
+        return new FilterByTypeDialog(driver);
+    }
 }

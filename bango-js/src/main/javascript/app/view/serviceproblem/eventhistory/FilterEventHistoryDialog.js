@@ -12,11 +12,9 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {
 
         Ext.apply(me, {
             acceptButtonText: 'Filter',
-            //   acceptButtonDefaultDisabled: true,
             content: {
                 xtype: 'grid',
                 multiSelect: true,
-                flex: 1,
                 store: me.store,
                 name: 'eventTypes',
                 hideHeaders: true,
