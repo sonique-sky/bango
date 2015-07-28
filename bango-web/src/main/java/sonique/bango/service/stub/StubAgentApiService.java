@@ -8,6 +8,7 @@ import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sonique.bango.service.AgentApiService;
 
+import java.util.Date;
 import java.util.List;
 
 public class StubAgentApiService implements AgentApiService {
@@ -29,9 +30,9 @@ public class StubAgentApiService implements AgentApiService {
     public AgentStateDTO toggleAvailability() {
         AgentAvailability availability = authenticatedAgent().availability();
         if (availability == AgentAvailability.Available) {
-            this.authenticatedAgent().makeAvailable(false);
+            this.authenticatedAgent().makeAvailable(false, new Date());
         } else if (availability == AgentAvailability.Unavailable) {
-            this.authenticatedAgent().makeAvailable(true);
+            this.authenticatedAgent().makeAvailable(true, new Date());
         }
 
         return agentState();

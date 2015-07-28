@@ -5,9 +5,9 @@ import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.SearchApiService;
-import spm.domain.DirectoryNumber;
 import spm.domain.ServiceProblemId;
 import spm.domain.SnsServiceId;
+import spm.messages.bt.types.DirectoryNumber;
 
 public class StubSearchApiService implements SearchApiService {
     private final DomainServiceProblemRepository serviceProblemRepository;

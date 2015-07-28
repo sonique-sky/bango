@@ -2,7 +2,7 @@ package sonique.bango.scenario;
 
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.EventHistoryItem;
-import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
+import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblemBuilder;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
@@ -31,7 +31,7 @@ public class ServiceProblemScenario extends SupermanScenario {
     }
 
     public static DomainServiceProblemBuilder serviceProblemBuilder() {
-        ServiceTypeCode serviceTypeCode = someServiceType();
+        PresentedServiceType serviceTypeCode = somePresentedServiceType();
         return new DomainServiceProblemBuilder()
                 .withServiceProblemId(someServiceProblemId())
                 .withQueue(new QueueBuilder().with(new QueueName("Queue")).build())

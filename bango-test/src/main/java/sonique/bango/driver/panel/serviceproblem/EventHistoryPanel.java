@@ -2,14 +2,14 @@ package sonique.bango.driver.panel.serviceproblem;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.format.DateTimeFormat;
+import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.EventDescription;
 import sonique.bango.driver.component.HasTitle;
 import sonique.bango.driver.component.form.SupermanFormPanel;
+import sonique.types.date.format.LocalDateTimeFormatter;
 
 import java.util.Date;
 import java.util.List;
@@ -44,7 +44,7 @@ public class EventHistoryPanel extends SupermanFormPanel implements HasTitle {
                 if (StringUtils.isEmpty(value)) {
                     return null;
                 }
-                return DateTimeFormat.forPattern("dd/MM/yyyy HH:mm").parseDateTime(value).toDate();
+                return Date.from(LocalDateTimeFormatter.localDateTimeFormatter().parse(value).toInstant());
             }
         });
     }

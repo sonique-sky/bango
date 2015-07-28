@@ -23,7 +23,7 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
 
     @Override
     public DomainServiceProblem serviceProblemWithId(ServiceProblemId serviceProblemId) {
-        return serviceProblemRepository.findBy(serviceProblemId);
+        return serviceProblemRepository.findByServiceProblemId(serviceProblemId);
     }
 
     @Override

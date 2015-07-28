@@ -8,9 +8,9 @@ import sonique.bango.driver.component.form.SupermanTextField;
 import sonique.bango.driver.component.HasLabel;
 import sonique.bango.driver.component.SupermanContainer;
 import sonique.types.StringValue;
-import spm.domain.DirectoryNumber;
 import spm.domain.ServiceProblemId;
 import spm.domain.SnsServiceId;
+import spm.messages.bt.types.DirectoryNumber;
 
 import static org.openqa.selenium.By.cssSelector;
 

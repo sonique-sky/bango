@@ -4,8 +4,8 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
+import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.Queue;
-import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblemBuilder;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
@@ -15,6 +15,7 @@ import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import spm.domain.*;
+import spm.messages.bt.types.DirectoryNumber;
 
 import java.util.Collection;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
         Long serviceProblemId = 1L;
         for (Queue queue : queues) {
             for (int i = 0; i < 10; i++) {
-                ServiceTypeCode serviceTypeCode = someServiceType();
+                PresentedServiceType serviceTypeCode = somePresentedServiceType();
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
                         .withServiceProblemId(new ServiceProblemId(serviceProblemId++))
                         .withServiceId(new SnsServiceId(serviceProblemId + 100))
@@ -54,7 +55,6 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
         }
     }
 
-    @Override
     public DomainServiceProblem findBy(final ServiceProblemId serviceProblemId) {
         return Iterables.getFirst(filter(serviceProblems, new Predicate<DomainServiceProblem>() {
             public boolean apply(DomainServiceProblem serviceProblem) {

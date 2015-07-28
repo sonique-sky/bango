@@ -5,6 +5,7 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.EventDescription;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemEventHistoryItem;
 
+import java.util.Date;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -17,7 +18,7 @@ public class BangoDataFixtures {
     public static List<EventHistoryItem> someEventHistoryItemsFor(DomainServiceProblem serviceProblem) {
         List<EventHistoryItem> list = newArrayList();
         for (int i = 0; i < someNumberBetween(3, 7); i++) {
-            list.add(ServiceProblemEventHistoryItem.createEvent(someEventDescription(), someDateInTheNextYear().toDate(), someAgent().getActorName(), someNoteText(), serviceProblem));
+            list.add(ServiceProblemEventHistoryItem.createEvent(someEventDescription(), new Date(someDateInTheNextYear().toEpochDay()), someAgent().getActorName(), someNoteText(), serviceProblem));
         }
         return list;
     }
@@ -26,7 +27,7 @@ public class BangoDataFixtures {
         List<EventHistoryItem> list = newArrayList();
         for (int i = 0; i < someNumberBetween(6, 10); i++) {
             EventDescription description = i % 2 == 0 ? someEventDescription() : wantedEvent;
-            list.add(ServiceProblemEventHistoryItem.createEvent(description, someDateInTheNextYear().toDate(), someAgent().getActorName(), someNoteText(), serviceProblem));
+            list.add(ServiceProblemEventHistoryItem.createEvent(description, new Date(someDateInTheNextYear().toEpochDay()), someAgent().getActorName(), someNoteText(), serviceProblem));
         }
         return list;
     }

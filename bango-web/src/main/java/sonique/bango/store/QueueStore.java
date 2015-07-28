@@ -2,13 +2,13 @@ package sonique.bango.store;
 
 import com.google.common.base.Predicate;
 import sky.sns.spm.domain.model.QueueDashboardEntry;
+import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.Queue;
-import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
+import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
 import spm.domain.QueueId;
 import spm.domain.model.refdata.QueueBuilder;
 
-import java.util.Collection;
 import java.util.List;
 
 import static com.google.common.collect.Iterables.find;
@@ -23,11 +23,6 @@ public class QueueStore implements QueueRepository {
         for (int i = 0; i < 10; i++) {
             allQueues.add(new QueueBuilder().build());
         }
-    }
-
-    @Override
-    public Queue findOpenreachQueueForServiceType(ServiceTypeCode serviceType) {
-        throw new UnsupportedOperationException("Method QueueStore findOpenreachQueueForServiceType() not yet implemented");
     }
 
     @Override
@@ -46,8 +41,19 @@ public class QueueStore implements QueueRepository {
     }
 
     @Override
-    public Collection<QueueDashboardEntry> getQueueDashboardEntries() {
+    public List<QueueDashboardEntry> getQueueDashboardEntries() {
         throw new UnsupportedOperationException("Method QueueStore getQueueDashboardEntries() not yet implemented");
+    }
+
+
+    @Override
+    public Queue findOpenreachQueueForServiceType(PresentedServiceType presentedServiceType) {
+        throw new UnsupportedOperationException("Method QueueStore findOpenreachQueueForServiceType() not yet implemented");
+    }
+
+    @Override
+    public void deleteQueue(Queue queue) {
+        throw new UnsupportedOperationException("Method QueueStore deleteQueue() not yet implemented");
     }
 
     @Override

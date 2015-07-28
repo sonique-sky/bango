@@ -48,7 +48,6 @@ public class UserAgentPrivilegeTest extends BangoYatspecTest {
                 .with(Role.ROLE_USER)
                 .withFirstName(someString())
                 .withLastName(someString())
-                .withPassword("a")
                 .build();
     }
 

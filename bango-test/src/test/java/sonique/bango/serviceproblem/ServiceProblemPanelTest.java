@@ -16,10 +16,12 @@ import sonique.bango.driver.panel.serviceproblem.ServiceProblemPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.testsupport.matchers.AppendableAllOf;
 
+import java.util.Date;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus.*;
+import static sky.sns.spm.matchers.DateMatcher.isSameInstant;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
-import static sonique.bango.matcher.DateMatcher.theSameDateAs;
 import static sonique.bango.matcher.DescriptionOf.withDescriptionOf;
 import static sonique.bango.matcher.panel.ServiceProblemPanelMatchers.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemBuilder;
@@ -80,7 +82,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
     }
 
     private Matcher<ServiceProblemPanel> theClosedDate() {
-        return aClosedDate(theSameDateAs(serviceProblem.closedDate()));
+        return aClosedDate(isSameInstant(serviceProblem.closedDate()));
     }
 
     private Matcher<ServiceProblemPanel> theFaultCauseAndResolutionReason() {
@@ -97,7 +99,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
                 .and(aDirectoryNumber(equalTo(serviceProblem.getDirectoryNumber())))
                 .and(aQueueName(equalTo(serviceProblem.queue().getName())))
                 .and(aServiceType(equalTo(serviceProblem.getServiceType())))
-                .and(anOpenedDate(theSameDateAs(serviceProblem.openedDate())))
+                .and(anOpenedDate(isSameInstant(serviceProblem.openedDate())))
                 .and(aCustomerName(equalTo(serviceProblem.getEndUserInformation().getName())))
                 .and(aContactNumber(equalTo(serviceProblem.getEndUserInformation().getPreferredContactNumber())))
                 .and(anOperatorAccountNumber(equalTo(serviceProblem.getEndUserInformation().getOperatorAccountNumber())))
@@ -130,7 +132,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
     }
 
     private GivensBuilder aClosedServiceProblem() {
-        serviceProblem = serviceProblemBuilder().withStatus(Closed).withClosedDate(someDateInTheNextYear().toDate()).build();
+        serviceProblem = serviceProblemBuilder().withStatus(Closed).withClosedDate(new Date(someDateInTheNextYear().toEpochDay())).build();
         return scenarioGivensBuilderFor(serviceProblem);
     }
 }

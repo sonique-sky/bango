@@ -1,11 +1,11 @@
 package sonique.bango.driver.component.form;
 
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.format.DateTimeFormat;
+import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.driver.component.SupermanElement;
+import sonique.types.date.format.LocalDateTimeFormatter;
 
 import java.util.Date;
 
@@ -31,7 +31,7 @@ public class SupermanDateField extends SupermanComponent implements SupermanFiel
         if (StringUtils.isEmpty(value)) {
             return null;
         }
-        return DateTimeFormat.forPattern(dateFormat).parseDateTime(value).toDate();
+        return Date.from(LocalDateTimeFormatter.localDateTimeFormatter().parse(value).toInstant());
     }
 
     @Override

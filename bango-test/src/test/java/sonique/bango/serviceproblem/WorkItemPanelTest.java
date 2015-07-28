@@ -15,9 +15,11 @@ import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.testsupport.matchers.AppendableAllOf;
 
+import java.util.Date;
+
 import static org.hamcrest.core.IsEqual.equalTo;
+import static sky.sns.spm.matchers.DateMatcher.isSameInstant;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
-import static sonique.bango.matcher.DateMatcher.theSameDateAs;
 import static sonique.bango.matcher.panel.NoWorkItemMatcher.anEmptyWorkItemPanel;
 import static sonique.bango.matcher.panel.WorkItemPanelMatchers.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemBuilder;
@@ -73,7 +75,7 @@ public class WorkItemPanelTest extends BangoYatspecTest {
     private Matcher<? super WorkItemPanel> hasTheCorrectReminderTime() {
         DomainWorkItem workItem = workItemPanel();
 
-        return aWorkItemReminder(theSameDateAs(workItem.reminderTime()));
+        return aWorkItemReminder(isSameInstant(workItem.reminderTime()));
     }
 
     private DomainWorkItem workItemPanel() {
@@ -93,7 +95,7 @@ public class WorkItemPanelTest extends BangoYatspecTest {
 
         return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
                 .and(aWorkItemStatus(equalTo(workItem.status())))
-                .and(aWorkItemCreatedDate(theSameDateAs(workItem.createdDate())))
+                .and(aWorkItemCreatedDate(isSameInstant(workItem.createdDate())))
                 .and(aWorkItemType(equalTo(workItem.assignmentType())))
                 .and(aWorkItemAction(equalTo(workItem.action())))
                 .and(aWorkItemPriority(equalTo(workItem.priority())));
@@ -105,8 +107,8 @@ public class WorkItemPanelTest extends BangoYatspecTest {
 
     private GivensBuilder aServiceProblemWithAReminder() {
         theServiceProblem = serviceProblemBuilder()
-               .withWorkItem(DomainWorkItemBuilder.withAllDefaults().withWorkReminder(someDateInTheNextYear().toDate()).build())
-               .build();
+                .withWorkItem(DomainWorkItemBuilder.withAllDefaults().withWorkReminder(new Date(someDateInTheNextYear().toEpochDay())).build())
+                .build();
         return scenarioGivensBuilderFor(theServiceProblem);
     }
 

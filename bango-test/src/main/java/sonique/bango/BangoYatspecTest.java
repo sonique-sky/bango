@@ -31,7 +31,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     protected DomainAgent agentForTest;
 
     protected DomainAgent agentForTest() {
-        return new DomainAgentBuilder().with(Role.ROLE_USER).withFirstName(someString()).withLastName("A").withPassword("a").build();
+        return new DomainAgentBuilder().with(Role.ROLE_USER).withFirstName(someString()).withLastName("A").build();
     }
 
     @Before

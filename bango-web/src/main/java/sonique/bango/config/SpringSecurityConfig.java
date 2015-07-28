@@ -26,13 +26,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.security.web.session.SessionManagementFilter;
-import org.springframework.security.web.util.AntPathRequestMatcher;
-import org.springframework.security.web.util.RequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import sky.sns.spm.application.SystemService;
 import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
 import sky.sns.spm.infrastructure.spring.SpmSessionRegistry;
@@ -45,10 +46,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 import static java.util.Arrays.asList;
 
@@ -100,12 +98,12 @@ public class SpringSecurityConfig {
 
             @Override
             public void loginAgent(String agentCode) {
-                agentRepository.findByAgentCode(agentCode).login();
+                agentRepository.findByAgentCode(agentCode).login(new Date());
             }
 
             @Override
             public void logOffAgent(String agentCode) {
-                agentRepository.findByAgentCode(agentCode).logoff();
+                agentRepository.findByAgentCode(agentCode).logoff(new Date());
             }
 
             @Override
@@ -119,13 +117,14 @@ public class SpringSecurityConfig {
         ConcurrentSessionControlStrategy sessionControlStrategy = new ConcurrentSessionControlStrategy(sessionRegistry);
         sessionControlStrategy.setAlwaysCreateSession(true);
 
+        SecurityContextHolderAwareRequestFilter securityContextHolderAwareRequestFilter = new SecurityContextHolderAwareRequestFilter();
         SecurityFilterChain secureChain = new DefaultSecurityFilterChain(
                 new AntPathRequestMatcher("/**"),
                 new SecurityContextPersistenceFilter(httpSessionSecurityContextRepository),
                 new SpmSessionControlFilter(sessionRegistry, securityContextLogoutHandler),
                 logoutFilter(securityContextLogoutHandler),
                 usernamePasswordAuthenticationFilter(providerManager, sessionControlStrategy),
-                new SecurityContextHolderAwareRequestFilter(),
+                securityContextHolderAwareRequestFilter,
                 new SessionManagementFilter(httpSessionSecurityContextRepository, sessionControlStrategy),
                 new SpmSecurityExceptionFilter(),
                 filterSecurityInterceptor
@@ -141,6 +140,8 @@ public class SpringSecurityConfig {
                 new DefaultSecurityFilterChain(new AntPathRequestMatcher("/superman.html")),
                 secureChain
         );
+
+        securityContextHolderAwareRequestFilter.afterPropertiesSet();
 
         return new FilterChainProxy(securityFilterChains);
     }

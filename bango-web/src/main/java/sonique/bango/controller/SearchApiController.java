@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.service.SearchApiService;
-import spm.domain.DirectoryNumber;
 import spm.domain.ServiceProblemId;
 import spm.domain.SnsServiceId;
+import spm.messages.bt.types.DirectoryNumber;
 
 @Controller
 public class SearchApiController {

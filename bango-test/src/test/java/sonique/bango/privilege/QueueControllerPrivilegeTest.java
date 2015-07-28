@@ -53,7 +53,6 @@ public class QueueControllerPrivilegeTest extends BangoYatspecTest {
                 .with(Role.ROLE_QUEUE_CONTROLLER)
                 .withFirstName(someString())
                 .withLastName(someString())
-                .withPassword("a")
                 .build();
 
     }

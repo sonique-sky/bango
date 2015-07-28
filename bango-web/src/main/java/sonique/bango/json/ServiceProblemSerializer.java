@@ -3,14 +3,11 @@ package sonique.bango.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.EndUserInformation;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemResolution;
 
 import java.io.IOException;
-import java.util.Date;
 
 public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProblem> {
 

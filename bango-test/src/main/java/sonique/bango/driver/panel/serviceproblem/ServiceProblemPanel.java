@@ -2,11 +2,15 @@ package sonique.bango.driver.panel.serviceproblem;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
+import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.driver.component.HasTitle;
 import sonique.bango.driver.component.form.SupermanFormPanel;
-import spm.domain.*;
+import spm.domain.OperatorReference;
+import spm.domain.QueueName;
+import spm.domain.ServiceProblemId;
+import spm.domain.SnsServiceId;
+import spm.messages.bt.types.DirectoryNumber;
 
 import java.util.Date;
 
@@ -51,7 +55,7 @@ public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
         return dateField("Closed Date", "dd/MM/yyyy HH:mm").value();
     }
 
-    public ServiceTypeCode serviceType() {
+    public ServiceType serviceType() {
         return fromDescription(textFieldValue("Service Type"));
     }
 
@@ -91,12 +95,12 @@ public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
         return textField(label).value();
     }
 
-    private ServiceTypeCode fromDescription(String description) {
-        for (ServiceTypeCode serviceTypeCode : ServiceTypeCode.values()) {
+    private ServiceType fromDescription(String description) {
+        for (ServiceType serviceTypeCode : ServiceType.values()) {
             if (serviceTypeCode.getDisplayName().equals(description)){
                 return serviceTypeCode;
             }
         }
-        throw new IllegalArgumentException(String.format("No %s for [%s]", unCamel(ServiceTypeCode.class), description));
+        throw new IllegalArgumentException(String.format("No %s for [%s]", unCamel(ServiceType.class), description));
     }
 }

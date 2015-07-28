@@ -2,10 +2,11 @@ package sonique.bango.matcher.panel;
 
 import org.apache.commons.lang.StringUtils;
 import org.hamcrest.Matcher;
-import sky.sns.spm.domain.model.refdata.ServiceTypeCode;
+import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemPanel;
 import spm.domain.*;
+import spm.messages.bt.types.DirectoryNumber;
 
 import java.util.Date;
 
@@ -74,10 +75,10 @@ public class ServiceProblemPanelMatchers {
         };
     }
 
-    public static AbstractPanelMatcher<ServiceProblemPanel, ServiceTypeCode> aServiceType(Matcher<ServiceTypeCode> matcher) {
-        return new AbstractPanelMatcher<ServiceProblemPanel, ServiceTypeCode>(matcher) {
+    public static AbstractPanelMatcher<ServiceProblemPanel, ServiceType> aServiceType(Matcher<ServiceType> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, ServiceType>(matcher) {
             @Override
-            protected ServiceTypeCode actualValue(ServiceProblemPanel item) {
+            protected ServiceType actualValue(ServiceProblemPanel item) {
                 return item.serviceType();
             }
         };

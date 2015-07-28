@@ -3,6 +3,7 @@ package sonique.bango.store;
 import sky.sns.spm.domain.model.AgentDashboardEntry;
 import sky.sns.spm.domain.model.AgentState;
 import sky.sns.spm.domain.model.DomainAgent;
+import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
 import spm.domain.QueueId;
 
@@ -24,6 +25,21 @@ public class AgentStore implements DomainAgentRepository {
     }
 
     @Override
+    public void deleteAgent(DomainAgent domainAgent) {
+        throw new UnsupportedOperationException("Method AgentStore deleteAgent() not yet implemented");
+    }
+
+    @Override
+    public DomainAgent findByAuthorisedUid(String s) {
+        throw new UnsupportedOperationException("Method AgentStore findByAuthorisedUid() not yet implemented");
+    }
+
+    @Override
+    public List<DomainAgent> findAssignableAgents(Queue queue) {
+        throw new UnsupportedOperationException("Method AgentStore findAssignableAgents() not yet implemented");
+    }
+
+    @Override
     public DomainAgent findByAgentCode(String agentCode) {
         return agentCodeToAgentMap.get(agentCode.toUpperCase());
     }
@@ -36,11 +52,6 @@ public class AgentStore implements DomainAgentRepository {
     @Override
     public DomainAgent insert(DomainAgent agent) {
         throw new UnsupportedOperationException("Method AgentStore insert() not yet implemented");
-    }
-
-    @Override
-    public List<DomainAgent> findAssignableAgents(QueueId queueId) {
-        throw new UnsupportedOperationException("Method AgentStore findAssignableAgents() not yet implemented");
     }
 
     @Override
