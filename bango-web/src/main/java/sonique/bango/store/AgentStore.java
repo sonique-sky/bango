@@ -31,7 +31,7 @@ public class AgentStore implements DomainAgentRepository {
 
     @Override
     public DomainAgent findByAuthorisedUid(String s) {
-        throw new UnsupportedOperationException("Method AgentStore findByAuthorisedUid() not yet implemented");
+        return agentCodeToAgentMap.get(s);
     }
 
     @Override
