@@ -138,5 +138,6 @@
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:3.2.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:3.2.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.unboundid:unboundid-ldapsdk:2.3.5" level="project" />
   </component>
 </module>

@@ -2,10 +2,10 @@ package sonique.bango;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.DomainTeam;
+import sky.sns.spm.domain.model.refdata.AgentDetails;
 import sky.sns.spm.domain.model.refdata.Role;
 import sky.sns.spm.domain.model.refdata.TeamBuilder;
 import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
@@ -20,10 +20,8 @@ import static org.springframework.web.context.WebApplicationContext.ROOT_WEB_APP
 public class BangoDevRunner {
 
     private final WebAppContext context;
-    private static final Logger logger = LoggerFactory.getLogger(BangoDevRunner.class);
 
     public BangoDevRunner() throws Exception {
-        logger.info("Hello");
         Server server = new Server(8080);
         context = new WebAppContext();
         context.setDescriptor("bango-web/src/main/webapp/WEB-INF/web.xml");
@@ -44,8 +42,9 @@ public class BangoDevRunner {
 
     private void registerAgentsWith(AgentStore agentStore, QueueStore queueStore) {
         DomainTeam team = new TeamBuilder().with(new TeamName("A Team")).withAssignedQueues(queueStore.getAllQueues()).build();
-        agentStore.registerAgent(new DomainAgentBuilder().with(Role.ROLE_USER).withFirstName("A").withLastName("A").withTeam(team).build());
-        agentStore.registerAgent(new DomainAgentBuilder().with(Role.ROLE_QUEUE_CONTROLLER).withFirstName("Q").withLastName("Q").build());
+        agentStore.registerAgent(new DomainAgentBuilder().with(Role.ROLE_USER).withFirstName("a").withLastName("a").withTeam(team).build());
+//        agentStore.registerAgent(new DomainAgentBuilder().with(Role.ROLE_QUEUE_CONTROLLER).withFirstName("q").withLastName("q").build());
+        agentStore.registerAgent(new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, team));
     }
 
     public static void main(String[] args) throws Exception {

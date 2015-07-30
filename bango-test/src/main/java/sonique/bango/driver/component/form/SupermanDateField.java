@@ -5,17 +5,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.driver.component.SupermanElement;
-import sonique.types.date.format.LocalDateTimeFormatter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 public class SupermanDateField extends SupermanComponent implements SupermanField<Date> {
 
-    private final String dateFormat;
+    private static final String ORIGIN_DATE_FORMAT = "dd/MM/yy HH:mm";
+    private final String targetDateFormat;
 
-    public SupermanDateField(SupermanElement element, String dateFormat, By by) {
+    public SupermanDateField(SupermanElement element, String targetDateFormat, By by) {
         super(element, by);
-        this.dateFormat = dateFormat;
+        this.targetDateFormat = targetDateFormat;
     }
 
     @Override
@@ -31,11 +36,27 @@ public class SupermanDateField extends SupermanComponent implements SupermanFiel
         if (StringUtils.isEmpty(value)) {
             return null;
         }
-        return Date.from(LocalDateTimeFormatter.localDateTimeFormatter().parse(value).toInstant());
+
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat(ORIGIN_DATE_FORMAT);
+            Date oldDate = formatter.parse(value);
+            formatter.applyPattern(targetDateFormat);
+            Instant newDateInstant = formatter.parse(formatter.format(oldDate)).toInstant();
+            ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(newDateInstant, ZoneId.systemDefault());
+
+            return Date.from(zonedDateTime.toInstant());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void clear() {
         element().clear();
     }
+
+    public static void main(String[] args) {
+
+    }
+
 }

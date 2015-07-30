@@ -23,7 +23,7 @@ public class TestContext extends BangoApplicationContext {
         return (SearchApiService) newProxyInstance(
                 getClass().getClassLoader(),
                 new Class[]{SearchApiService.class},
-                new ServiceByAgentInvocationHandler<SearchApiService>(springSecurityAuthorisedActorProvider(), scenarioDriver().searchApiServices())
+                new ServiceByAgentInvocationHandler<>(springSecurityAuthorisedActorProvider(), scenarioDriver().searchApiServices())
         );
     }
 
@@ -32,7 +32,7 @@ public class TestContext extends BangoApplicationContext {
         return (ServiceProblemApiService) newProxyInstance(
                 getClass().getClassLoader(),
                 new Class[]{ServiceProblemApiService.class},
-                new ServiceByAgentInvocationHandler<ServiceProblemApiService>(springSecurityAuthorisedActorProvider(), scenarioDriver().serviceProblemApiServices())
+                new ServiceByAgentInvocationHandler<>(springSecurityAuthorisedActorProvider(), scenarioDriver().serviceProblemApiServices())
         );
     }
 

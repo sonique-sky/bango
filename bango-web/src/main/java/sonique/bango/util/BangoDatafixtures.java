@@ -18,7 +18,7 @@ public class BangoDataFixtures {
     public static List<EventHistoryItem> someEventHistoryItemsFor(DomainServiceProblem serviceProblem) {
         List<EventHistoryItem> list = newArrayList();
         for (int i = 0; i < someNumberBetween(3, 7); i++) {
-            list.add(ServiceProblemEventHistoryItem.createEvent(someEventDescription(), new Date(someDateInTheNextYear().toEpochDay()), someAgent().getActorName(), someNoteText(), serviceProblem));
+            list.add(ServiceProblemEventHistoryItem.createEvent(someEventDescription(), new Date(), someAgent().getActorName(), someNoteText(), serviceProblem));
         }
         return list;
     }
@@ -27,7 +27,7 @@ public class BangoDataFixtures {
         List<EventHistoryItem> list = newArrayList();
         for (int i = 0; i < someNumberBetween(6, 10); i++) {
             EventDescription description = i % 2 == 0 ? someEventDescription() : wantedEvent;
-            list.add(ServiceProblemEventHistoryItem.createEvent(description, new Date(someDateInTheNextYear().toEpochDay()), someAgent().getActorName(), someNoteText(), serviceProblem));
+            list.add(ServiceProblemEventHistoryItem.createEvent(description, new Date(), someAgent().getActorName(), someNoteText(), serviceProblem));
         }
         return list;
     }

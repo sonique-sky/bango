@@ -3,10 +3,12 @@ package sonique.bango;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.context.ApplicationContext;
+import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
 import sonique.bango.app.ScenarioDriver;
+import sonique.bango.store.AgentStore;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static org.springframework.web.context.WebApplicationContext.*;
+import static org.springframework.web.context.WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE;
 
 public class BangoTestRunner {
 
@@ -22,16 +24,17 @@ public class BangoTestRunner {
             e.printStackTrace();
         }
     }
+
     public BangoTestRunner(int port) {
         server = new Server(port);
 
         context = new WebAppContext();
 
-        context.setDescriptor("bango-web/src/main/webapp/WEB-INF/web.xml");
-        context.setResourceBase("bango-js/src/main/javascript");
+        context.setDescriptor("../bango-web/src/main/webapp/WEB-INF/web.xml");
+        context.setResourceBase("../bango-js/src/main/javascript");
         context.setContextPath("/superman");
         context.setParentLoaderPriority(true);
-        context.setOverrideDescriptors(newArrayList("bango-test/src/main/webapp/WEB-INF/web.xml"));
+        context.setOverrideDescriptors(newArrayList("src/main/webapp/WEB-INF/web.xml"));
 
         server.setHandler(context);
     }

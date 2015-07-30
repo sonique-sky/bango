@@ -15,6 +15,8 @@ import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.testsupport.matchers.AppendableAllOf;
 
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -24,7 +26,6 @@ import static sonique.bango.matcher.panel.NoWorkItemMatcher.anEmptyWorkItemPanel
 import static sonique.bango.matcher.panel.WorkItemPanelMatchers.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemBuilder;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
-import static sonique.datafixtures.DateTimeDataFixtures.someDateInTheNextYear;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class WorkItemPanelTest extends BangoYatspecTest {
@@ -105,9 +106,10 @@ public class WorkItemPanelTest extends BangoYatspecTest {
         return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed()).and(aTitleOf("Work Item"));
     }
 
-    private GivensBuilder aServiceProblemWithAReminder() {
+    private GivensBuilder aServiceProblemWithAReminder() throws Exception {
+        Date workReminderDate = Date.from(ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES).toInstant());
         theServiceProblem = serviceProblemBuilder()
-                .withWorkItem(DomainWorkItemBuilder.withAllDefaults().withWorkReminder(new Date(someDateInTheNextYear().toEpochDay())).build())
+                .withWorkItem(DomainWorkItemBuilder.withAllDefaults().withWorkReminder(workReminderDate).build())
                 .build();
         return scenarioGivensBuilderFor(theServiceProblem);
     }

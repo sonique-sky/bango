@@ -4,6 +4,7 @@ import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 import sky.sns.spm.domain.model.DomainAgent;
+import sky.sns.spm.domain.model.refdata.AgentDetails;
 import sky.sns.spm.domain.model.refdata.Role;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.action.BangoActionUnderTest;
@@ -44,11 +45,7 @@ public class UserAgentPrivilegeTest extends BangoYatspecTest {
 
     @Override
     protected DomainAgent agentForTest() {
-        return new DomainAgentBuilder()
-                .with(Role.ROLE_USER)
-                .withFirstName(someString())
-                .withLastName(someString())
-                .build();
+        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_USER, null);
     }
 
     private Matcher<AgentStatusPanel> isDisplayedAndTheAvailabilityButtonIsEnabled() {
@@ -56,6 +53,6 @@ public class UserAgentPrivilegeTest extends BangoYatspecTest {
     }
 
     protected ActionUnderTest theAgentLogsOn() {
-        return new BangoActionUnderTest(new LoginAction(supermanApp, agentForTest));
+        return new BangoActionUnderTest(new LoginAction(supermanApp, agentForTest, "q"));
     }
 }

@@ -4,6 +4,7 @@ import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 import sky.sns.spm.domain.model.DomainAgent;
+import sky.sns.spm.domain.model.refdata.AgentDetails;
 import sky.sns.spm.domain.model.refdata.Role;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.action.BangoActionUnderTest;
@@ -12,12 +13,10 @@ import sonique.bango.driver.component.form.SupermanButton;
 import sonique.bango.driver.panel.navigation.AgentStatusPanel;
 import sonique.bango.matcher.IsDisabled;
 import sonique.bango.matcher.IsDisplayed;
-import spm.domain.model.refdata.DomainAgentBuilder;
 
 import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
 import static sonique.bango.matcher.panel.AgentStatusPanelMatchers.theAvailabilityButton;
-import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 
 public class QueueControllerPrivilegeTest extends BangoYatspecTest {
 
@@ -49,15 +48,11 @@ public class QueueControllerPrivilegeTest extends BangoYatspecTest {
 
     @Override
     protected DomainAgent agentForTest() {
-        return new DomainAgentBuilder()
-                .with(Role.ROLE_QUEUE_CONTROLLER)
-                .withFirstName(someString())
-                .withLastName(someString())
-                .build();
-
+        String agentCode = "q.q";
+        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null);
     }
 
     private ActionUnderTest theQueueControllerLogsOn() {
-        return new BangoActionUnderTest(new LoginAction(supermanApp, agentForTest));
+        return new BangoActionUnderTest(new LoginAction(supermanApp, agentForTest, "q"));
     }
 }

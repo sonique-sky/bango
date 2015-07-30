@@ -5,7 +5,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public class AppPool {
 
-    private final Deque<SupermanApp> appPool = new LinkedBlockingDeque<SupermanApp>();
+    private final Deque<SupermanApp> appPool = new LinkedBlockingDeque<>();
     private final int port;
 
     public AppPool(int port) {

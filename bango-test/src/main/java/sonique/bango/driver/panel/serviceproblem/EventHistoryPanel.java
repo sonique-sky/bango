@@ -11,6 +11,11 @@ import sonique.bango.driver.component.HasTitle;
 import sonique.bango.driver.component.form.SupermanFormPanel;
 import sonique.types.date.format.LocalDateTimeFormatter;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -37,14 +42,20 @@ public class EventHistoryPanel extends SupermanFormPanel implements HasTitle {
                 String createdBy = webElement.findElement(By.cssSelector("td.event-created-by > div.x-grid-cell-inner")).getText();
 
                 String note = webElement.findElement(By.cssSelector("div.event-note")).getText();
-                return new EventHistoryItem(eventDescription, dateFor(createDateAsString), createdBy, note) { };
+                return new EventHistoryItem(eventDescription, dateFor(createDateAsString), createdBy, note) {
+                };
             }
 
             private Date dateFor(String value) {
                 if (StringUtils.isEmpty(value)) {
                     return null;
                 }
-                return Date.from(LocalDateTimeFormatter.localDateTimeFormatter().parse(value).toInstant());
+                try {
+                    return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(value);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return new Date();
             }
         });
     }

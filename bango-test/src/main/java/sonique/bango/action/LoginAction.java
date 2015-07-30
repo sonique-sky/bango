@@ -10,17 +10,19 @@ import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 public class LoginAction implements BangoAction{
     private final SupermanApp supermanApp;
     private final DomainAgent agent;
+    private String password;
 
-    public LoginAction(SupermanApp supermanApp, DomainAgent agent) {
+    public LoginAction(SupermanApp supermanApp, DomainAgent agent, String password) {
         this.supermanApp = supermanApp;
         this.agent = agent;
+        this.password = password;
     }
 
     @Override
     public void goBango() {
         LoginDialog loginDialog = supermanApp.dialogs().login();
         loginDialog.username().enter(agent.getAgentCode());
-        loginDialog.password().enter("a");
+        loginDialog.password().enter(password);
 
         loginDialog.loginButton().click();
 

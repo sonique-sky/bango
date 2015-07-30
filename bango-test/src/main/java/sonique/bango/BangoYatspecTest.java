@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import sky.sns.spm.domain.model.DomainAgent;
+import sky.sns.spm.domain.model.refdata.AgentDetails;
 import sky.sns.spm.domain.model.refdata.Role;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.action.LoginAction;
@@ -31,7 +32,8 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     protected DomainAgent agentForTest;
 
     protected DomainAgent agentForTest() {
-        return new DomainAgentBuilder().with(Role.ROLE_USER).withFirstName(someString()).withLastName("A").build();
+//        return new DomainAgentBuilder().with(Role.ROLE_USER).withFirstName("q").withLastName("q").build();
+        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null);
     }
 
     @Before
@@ -59,7 +61,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     }
 
     protected void loginAgent() {
-        new LoginAction(supermanApp, agentForTest).goBango();
+        new LoginAction(supermanApp, agentForTest, "q").goBango();
     }
 
     protected ScenarioDriver scenarioDriver() {
