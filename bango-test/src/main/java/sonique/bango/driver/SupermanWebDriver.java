@@ -40,8 +40,8 @@ public class SupermanWebDriver {
                 .until(webDriver, function);
     }
 
-    public void close() {
-        webDriver.close();
+    public void quit() {
+        webDriver.quit();
     }
 
     public enum DriverFactory {

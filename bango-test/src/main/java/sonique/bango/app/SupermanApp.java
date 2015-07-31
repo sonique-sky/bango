@@ -21,7 +21,7 @@ public class SupermanApp {
         return dialogs;
     }
 
-    public void close() {
-        driver.close();
+    public void quit() {
+        driver.quit();
     }
 }
