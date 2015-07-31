@@ -31,21 +31,11 @@ public class ScenarioDriver {
     }
 
     public Map<DomainAgent, SearchApiService> searchApiServices() {
-        return transformEntries(agentServices, new Maps.EntryTransformer<DomainAgent, ServiceWrapper, SearchApiService>() {
-            @Override
-            public SearchApiService transformEntry(DomainAgent domainAgent, ServiceWrapper serviceWrapper) {
-                return serviceWrapper.searchApiService();
-            }
-        });
+        return transformEntries(agentServices, (domainAgent, serviceWrapper) -> serviceWrapper.searchApiService());
     }
 
     public Map<DomainAgent, ServiceProblemApiService> serviceProblemApiServices() {
-        return transformEntries(agentServices, new Maps.EntryTransformer<DomainAgent, ServiceWrapper, ServiceProblemApiService>() {
-            @Override
-            public ServiceProblemApiService transformEntry(DomainAgent domainAgent, ServiceWrapper serviceWrapper) {
-                return serviceWrapper.serviceProblemApiService();
-            }
-        });
+        return transformEntries(agentServices, (domainAgent, serviceWrapper) -> serviceWrapper.serviceProblemApiService());
     }
 
     public ServiceWrapper servicesFor(DomainAgent agent) {

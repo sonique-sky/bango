@@ -62,14 +62,6 @@ public class BangoTestRunner {
     }
 
     private <T> T get(Class<T> clazz, String beanName) {
-        System.out.println("clazz = [" + clazz + "], beanName = [" + beanName + "]");
-        System.out.println("context = " + context);
-//        Enumeration<String> attributeNames = context.getServletHandler().getServletContext().getAttributeNames();
-//        while (attributeNames.hasMoreElements()) {
-//            System.out.println("an attribute " + attributeNames.nextElement());
-//        }
-        ApplicationContext attribute = (ApplicationContext) context.getServletHandler().getServletContext().getAttribute(ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-        System.out.println("attribute = " + attribute);
-        return attribute.getBean(beanName, clazz);
+        return ((ApplicationContext) context.getServletHandler().getServletContext().getAttribute(ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE)).getBean(beanName, clazz);
     }
 }

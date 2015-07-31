@@ -73,11 +73,6 @@ public class HistoryRefreshTest extends BangoYatspecTest {
     }
 
     private StateExtractor<EventHistoryPanel> theEventHistoryPanel() {
-        return new StateExtractor<EventHistoryPanel>() {
-            @Override
-            public EventHistoryPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
-            }
-        };
+        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
     }
 }

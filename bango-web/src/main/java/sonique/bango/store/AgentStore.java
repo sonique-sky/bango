@@ -5,7 +5,6 @@ import sky.sns.spm.domain.model.AgentState;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
-import spm.domain.QueueId;
 
 import java.util.List;
 import java.util.Map;

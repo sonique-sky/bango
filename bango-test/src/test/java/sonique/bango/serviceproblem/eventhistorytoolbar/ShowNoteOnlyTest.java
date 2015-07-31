@@ -1,8 +1,9 @@
 package sonique.bango.serviceproblem.eventhistorytoolbar;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.googlecode.yatspec.state.givenwhenthen.*;
+import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
+import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
+import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,43 +47,27 @@ public class ShowNoteOnlyTest extends BangoYatspecTest {
     }
 
     private Matcher<EventHistoryPanel> showsOnlyNotes() {
-        Iterable<EventHistoryItem> onlyNotes = Iterables.filter(serviceProblem.historyItems(), new Predicate<EventHistoryItem>() {
-            @Override
-            public boolean apply(EventHistoryItem input) {
-                return input.type() == EventDescription.Note;
-            }
-        });
+        Iterable<EventHistoryItem> onlyNotes = Iterables.filter(serviceProblem.historyItems(), input -> input.type() == EventDescription.Note);
 
         return eventHistoryItems(eventHistoryMatches(newArrayList(onlyNotes)));
     }
 
     private StateExtractor<EventHistoryPanel> theEventHistoryPanel() {
-        return new StateExtractor<EventHistoryPanel>() {
-            @Override
-            public EventHistoryPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
-            }
-        };
+        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
     }
 
     private ActionUnderTest theAgentClicksTheShowNotesOnlyButton() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar().showNotesOnlyButton().click();
+        return (givens, capturedInputAndOutputs) -> {
+            supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar().showNotesOnlyButton().click();
 
-                return capturedInputAndOutputs;
-            }
+            return capturedInputAndOutputs;
         };
     }
 
     private GivensBuilder theAgentIsViewingTheServiceProblem() {
-        return new GivensBuilder() {
-            @Override
-            public InterestingGivens build(InterestingGivens givens) throws Exception {
-                new ViewServiceProblemAction(supermanApp, serviceProblem).goBango();
-                return givens;
-            }
+        return givens -> {
+            new ViewServiceProblemAction(supermanApp, serviceProblem).goBango();
+            return givens;
         };
     }
 

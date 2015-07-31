@@ -1,6 +1,8 @@
 package sonique.bango.serviceproblem;
 
-import com.googlecode.yatspec.state.givenwhenthen.*;
+import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
+import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
+import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -76,22 +78,16 @@ public class PullServiceProblemTest extends BangoYatspecTest {
     }
 
     private ActionUnderTest theAgentClicksYes() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.dialogs().message().clickYes();
-                return capturedInputAndOutputs;
-            }
+        return (givens, capturedInputAndOutputs) -> {
+            supermanApp.dialogs().message().clickYes();
+            return capturedInputAndOutputs;
         };
     }
 
     private ActionUnderTest theAgentClicksNo() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.dialogs().message().clickNo();
-                return capturedInputAndOutputs;
-            }
+        return (givens, capturedInputAndOutputs) -> {
+            supermanApp.dialogs().message().clickNo();
+            return capturedInputAndOutputs;
         };
     }
 
@@ -119,33 +115,20 @@ public class PullServiceProblemTest extends BangoYatspecTest {
     }
 
     private StateExtractor<ServiceProblemApiService> theServiceProblemService() {
-        return new StateExtractor<ServiceProblemApiService>() {
-            @Override
-            public ServiceProblemApiService execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return scenarioDriver().servicesFor(agentForTest).serviceProblemApiService();
-            }
-        };
+        return inputAndOutputs -> scenarioDriver().servicesFor(agentForTest).serviceProblemApiService();
     }
 
     private StateExtractor<MessageBox> aMessageBox() {
-        return new StateExtractor<MessageBox>() {
-            @Override
-            public MessageBox execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.dialogs().message();
-            }
-        };
+        return capturedInputAndOutputs -> supermanApp.dialogs().message();
     }
 
     private ActionUnderTest theAgentPullsTheServiceProblem() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                ServiceProblemTab serviceProblemTab = supermanApp.appContainer().serviceProblemTab(theServiceProblem.serviceProblemId());
+        return (givens, capturedInputAndOutputs) -> {
+            ServiceProblemTab serviceProblemTab = supermanApp.appContainer().serviceProblemTab(theServiceProblem.serviceProblemId());
 
-                serviceProblemTab.tabContent().serviceProblemToolbar().pullButton().click();
+            serviceProblemTab.tabContent().serviceProblemToolbar().pullButton().click();
 
-                return capturedInputAndOutputs;
-            }
+            return capturedInputAndOutputs;
         };
     }
 
@@ -160,12 +143,9 @@ public class PullServiceProblemTest extends BangoYatspecTest {
     }
 
     private GivensBuilder theAgentIsViewingTheServiceProblem() {
-        return new GivensBuilder() {
-            @Override
-            public InterestingGivens build(InterestingGivens givens) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(theServiceProblem.serviceProblemId());
-                return givens;
-            }
+        return givens -> {
+            supermanApp.appContainer().searchPanel().searchFor(theServiceProblem.serviceProblemId());
+            return givens;
         };
     }
 }

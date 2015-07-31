@@ -25,14 +25,11 @@ public class SupermanWebDriver {
     }
 
     public WebElement waitUntil(final By by, long milliseconds) {
-        Function<WebDriver, WebElement> function = new Function<WebDriver, WebElement>() {
-            @Override
-            public WebElement apply(WebDriver webDriver) {
-                try {
-                    return webDriver.findElement(by);
-                } catch (ElementNotFoundException e) {
-                    return null;
-                }
+        Function<WebDriver, WebElement> function = webDriver1 -> {
+            try {
+                return webDriver1.findElement(by);
+            } catch (ElementNotFoundException e) {
+                return null;
             }
         };
 

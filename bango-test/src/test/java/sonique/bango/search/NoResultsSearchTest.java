@@ -42,23 +42,15 @@ public class NoResultsSearchTest extends BangoYatspecTest {
     }
 
     private ActionUnderTest theAgentSearchesForTheServiceProblem() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(someServiceProblemId());
+        return (interestingGivens, capturedInputAndOutputs) -> {
+            supermanApp.appContainer().searchPanel().searchFor(someServiceProblemId());
 
-                return capturedInputAndOutputs;
-            }
+            return capturedInputAndOutputs;
         };
     }
 
     private StateExtractor<MessageBox> aMessageBox() {
-        return new StateExtractor<MessageBox>() {
-            @Override
-            public MessageBox execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.dialogs().message();
-            }
-        };
+        return capturedInputAndOutputs -> supermanApp.dialogs().message();
     }
 
     private AppendableAllOf<MessageBox> isDisplayed() {

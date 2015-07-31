@@ -125,12 +125,7 @@ public class AddNoteTest extends BangoYatspecTest {
     }
 
     private StateExtractor<EventHistoryPanel> theEventHistoryPanel() {
-        return new StateExtractor<EventHistoryPanel>() {
-            @Override
-            public EventHistoryPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
-            }
-        };
+        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
     }
 
     private AddNoteAgentActions theAgent() {
@@ -142,12 +137,7 @@ public class AddNoteTest extends BangoYatspecTest {
     }
 
     private StateExtractor<AddNoteDialog> theDialog() {
-        return new StateExtractor<AddNoteDialog>() {
-            @Override
-            public AddNoteDialog execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.dialogs().addNote();
-            }
-        };
+        return inputAndOutputs -> supermanApp.dialogs().addNote();
     }
 
     private Matcher<ServiceProblemApiService> wasCalledWith(final String theNote) {
@@ -160,21 +150,13 @@ public class AddNoteTest extends BangoYatspecTest {
     }
 
     private StateExtractor<ServiceProblemApiService> theServiceProblemService() {
-        return new StateExtractor<ServiceProblemApiService>() {
-            @Override
-            public ServiceProblemApiService execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return scenarioDriver().servicesFor(agentForTest).serviceProblemApiService();
-            }
-        };
+        return inputAndOutputs -> scenarioDriver().servicesFor(agentForTest).serviceProblemApiService();
     }
 
     private GivensBuilder theAgentIsViewingTheServiceProblem() {
-        return new GivensBuilder() {
-            @Override
-            public InterestingGivens build(InterestingGivens givens) throws Exception {
-                new ViewServiceProblemAction(supermanApp, serviceProblem).goBango();
-                return givens;
-            }
+        return givens -> {
+            new ViewServiceProblemAction(supermanApp, serviceProblem).goBango();
+            return givens;
         };
     }
 

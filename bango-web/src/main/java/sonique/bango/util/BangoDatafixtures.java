@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static sonique.datafixtures.DateTimeDataFixtures.someDateInTheNextYear;
 import static sonique.datafixtures.PrimitiveDataFixtures.someNumberBetween;
 import static util.SupermanDataFixtures.*;
 

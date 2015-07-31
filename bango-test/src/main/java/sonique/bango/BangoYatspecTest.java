@@ -44,7 +44,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     @After
     public void afterTest() throws Exception {
         HeaderPanel headerPanel = supermanApp.appContainer().headerPanel();
-        if(headerPanel.isDisplayed()) {
+        if (headerPanel.isDisplayed()) {
             headerPanel.logout();
         }
         bangoTestEnvironment.releaseSupermanApp(supermanApp);
@@ -93,38 +93,18 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     }
 
     protected StateExtractor<QueueDashboardTab> theQueueDashboardTab() {
-        return new StateExtractor<QueueDashboardTab>() {
-            @Override
-            public QueueDashboardTab execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().queueDashboardTab();
-            }
-        };
+        return inputAndOutputs -> supermanApp.appContainer().queueDashboardTab();
     }
 
     protected StateExtractor<AgentStatusPanel> theAgentStatusPanel() {
-        return new StateExtractor<AgentStatusPanel>() {
-            @Override
-            public AgentStatusPanel execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.appContainer().agentStatusPanel();
-            }
-        };
+        return capturedInputAndOutputs -> supermanApp.appContainer().agentStatusPanel();
     }
 
     protected StateExtractor<MyQueuesPanel> theMyQueuesPanel() {
-        return new StateExtractor<MyQueuesPanel>() {
-            @Override
-            public MyQueuesPanel execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.appContainer().myQueuesPanel();
-            }
-        };
+        return capturedInputAndOutputs -> supermanApp.appContainer().myQueuesPanel();
     }
 
     protected StateExtractor<WorkItemPanel> theWorkItemPanelFor(final DomainServiceProblem theServiceProblem) {
-        return new StateExtractor<WorkItemPanel>() {
-            @Override
-            public WorkItemPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(theServiceProblem.serviceProblemId()).tabContent().workItemPanel();
-            }
-        };
+        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(theServiceProblem.serviceProblemId()).tabContent().workItemPanel();
     }
 }

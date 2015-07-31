@@ -13,12 +13,10 @@ import sonique.bango.driver.component.form.SupermanButton;
 import sonique.bango.driver.panel.navigation.AgentStatusPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.matcher.IsEnabled;
-import spm.domain.model.refdata.DomainAgentBuilder;
 
 import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
 import static sonique.bango.matcher.panel.AgentStatusPanelMatchers.theAvailabilityButton;
-import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 
 public class UserAgentPrivilegeTest extends BangoYatspecTest {
 

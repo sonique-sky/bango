@@ -1,10 +1,8 @@
 package sonique.bango.store;
 
-import com.google.common.base.Predicate;
 import sky.sns.spm.domain.model.QueueDashboardEntry;
 import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.Queue;
-import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
 import spm.domain.QueueId;
 import spm.domain.model.refdata.QueueBuilder;
@@ -27,12 +25,7 @@ public class QueueStore implements QueueRepository {
 
     @Override
     public Queue findQueueBy(final QueueId queueId) {
-        return find(allQueues, new Predicate<Queue>() {
-            @Override
-            public boolean apply(Queue input) {
-                return input.id().equals(queueId);
-            }
-        });
+        return find(allQueues, input -> input.id().equals(queueId));
     }
 
     @Override

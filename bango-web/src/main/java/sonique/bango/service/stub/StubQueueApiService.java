@@ -1,6 +1,5 @@
 package sonique.bango.service.stub;
 
-import com.google.common.base.Function;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
@@ -11,7 +10,6 @@ import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
 import sonique.bango.service.QueueApiService;
-import sonique.bango.store.QueueStore;
 import spm.domain.ServiceProblemId;
 
 import java.util.Collection;
@@ -67,11 +65,6 @@ public class StubQueueApiService implements QueueApiService {
     }
 
     private Collection<ServiceProblemId> transformServiceProblemIds(Collection<Long> serviceProblemIds) {
-        return transform(serviceProblemIds, new Function<Long, ServiceProblemId>() {
-            @Override
-            public ServiceProblemId apply(Long idAsInteger) {
-                return new ServiceProblemId(idAsInteger);
-            }
-        });
+        return transform(serviceProblemIds, ServiceProblemId::new);
     }
 }

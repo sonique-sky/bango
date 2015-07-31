@@ -1,6 +1,5 @@
 package sonique.bango.store;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
@@ -56,11 +55,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
     }
 
     public DomainServiceProblem findBy(final ServiceProblemId serviceProblemId) {
-        return Iterables.getFirst(filter(serviceProblems, new Predicate<DomainServiceProblem>() {
-            public boolean apply(DomainServiceProblem serviceProblem) {
-                return serviceProblem.serviceProblemId().equals(serviceProblemId);
-            }
-        }), null);
+        return Iterables.getFirst(filter(serviceProblems, serviceProblem -> serviceProblem.serviceProblemId().equals(serviceProblemId)), null);
     }
 
     @Override
@@ -100,51 +95,32 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
     @Override
     public PagedSearchResults<DomainServiceProblem> searchForServiceProblemsInQueue(final SearchParametersDTO searchParameters) {
-        List<DomainServiceProblem> domainServiceProblems = newArrayList(filter(serviceProblems, new Predicate<DomainServiceProblem>() {
-            public boolean apply(DomainServiceProblem serviceProblem) {
-                return serviceProblem.queue().id().equals(new QueueId(searchParameters.getSearchValue())) && ServiceProblemStatus.Open.equals(serviceProblem.getStatus());
-            }
-        }));
-        return new PagedSearchResults<DomainServiceProblem>(domainServiceProblems, new Long(domainServiceProblems.size()));
+        List<DomainServiceProblem> domainServiceProblems = newArrayList(filter(serviceProblems, serviceProblem -> serviceProblem.queue().id().equals(new QueueId(searchParameters.getSearchValue())) && ServiceProblemStatus.Open.equals(serviceProblem.getStatus())));
+        return new PagedSearchResults<>(domainServiceProblems, (long) domainServiceProblems.size());
     }
 
     @Override
     public PagedSearchResults<DomainServiceProblem> searchForServiceProblems(final SearchParametersDTO searchParameters) {
         Collection<DomainServiceProblem> filter = filterFor(searchParameters);
 
-        return new PagedSearchResults<DomainServiceProblem>(newArrayList(filter), new Long(filter.size()));
+        return new PagedSearchResults<>(newArrayList(filter), (long) filter.size());
     }
 
     private Collection<DomainServiceProblem> filterFor(final SearchParametersDTO searchParameters) {
         SearchProperty searchProperty = SearchProperty.fromString(searchParameters.getSearchProperty());
         switch (searchProperty) {
             case serviceProblemId:
-                return filter(serviceProblems, new Predicate<DomainServiceProblem>() {
-                    @Override
-                    public boolean apply(DomainServiceProblem serviceProblem) {
-                        return serviceProblem.serviceProblemId().asString().equals(searchParameters.getSearchValue());
-                    }
-                });
+                return filter(serviceProblems, serviceProblem -> serviceProblem.serviceProblemId().asString().equals(searchParameters.getSearchValue()));
             case serviceId:
-                return filter(serviceProblems, new Predicate<DomainServiceProblem>() {
-                    @Override
-                    public boolean apply(DomainServiceProblem serviceProblem) {
-                        return serviceProblem.serviceId().asString().equals(searchParameters.getSearchValue());
-                    }
-                });
+                return filter(serviceProblems, serviceProblem -> serviceProblem.serviceId().asString().equals(searchParameters.getSearchValue()));
             case directoryNumber:
-                return filter(serviceProblems, new Predicate<DomainServiceProblem>() {
-                    @Override
-                    public boolean apply(DomainServiceProblem serviceProblem) {
-                        return serviceProblem.getDirectoryNumber().asString().equals(searchParameters.getSearchValue());
-                    }
-                });
+                return filter(serviceProblems, serviceProblem -> serviceProblem.getDirectoryNumber().asString().equals(searchParameters.getSearchValue()));
             case mspId:
         }
         return null;
     }
 
-    private static enum SearchProperty {
+    private enum SearchProperty {
         serviceProblemId, serviceId, directoryNumber, mspId;
 
         public static SearchProperty fromString(String searchPropertyAsString) {
@@ -163,12 +139,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
     @Override
     public List<DomainServiceProblem> getServiceProblemsForAgent(final DomainAgent agent) {
-        return newArrayList(filter(serviceProblems, new Predicate<DomainServiceProblem>() {
-            @Override
-            public boolean apply(DomainServiceProblem serviceProblem) {
-                return serviceProblem.isAssignedTo(agent);
-            }
-        }));
+        return newArrayList(filter(serviceProblems, serviceProblem -> serviceProblem.isAssignedTo(agent)));
     }
 
     @Override

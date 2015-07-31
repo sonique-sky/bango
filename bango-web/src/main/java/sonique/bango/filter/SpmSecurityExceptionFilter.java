@@ -3,7 +3,6 @@ package sonique.bango.filter;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.util.ThrowableAnalyzer;
-import org.springframework.security.web.util.ThrowableCauseExtractor;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -25,11 +24,11 @@ public class SpmSecurityExceptionFilter extends GenericFilterBean {
             Throwable[] causeChain = throwableAnalyzer.determineCauseChain(ex);
 
             Throwable securityException = throwableAnalyzer.getFirstThrowableOfType(AuthenticationException.class, causeChain);
-            if(securityException == null) {
+            if (securityException == null) {
                 securityException = throwableAnalyzer.getFirstThrowableOfType(AccessDeniedException.class, causeChain);
             }
 
-            if(securityException != null) {
+            if (securityException != null) {
                 ((HttpServletResponse) response).setStatus(403);
 //                try {
 //                    String failureResponse = RPC.encodeResponseForFailure(null, new SupermanException(SpmError.AgentSessionNotFound));
@@ -54,11 +53,9 @@ public class SpmSecurityExceptionFilter extends GenericFilterBean {
         protected void initExtractorMap() {
             super.initExtractorMap();
 
-            registerExtractor(ServletException.class, new ThrowableCauseExtractor() {
-                public Throwable extractCause(Throwable throwable) {
-                    ThrowableAnalyzer.verifyThrowableHierarchy(throwable, ServletException.class);
-                    return ((ServletException) throwable).getRootCause();
-                }
+            registerExtractor(ServletException.class, throwable -> {
+                ThrowableAnalyzer.verifyThrowableHierarchy(throwable, ServletException.class);
+                return ((ServletException) throwable).getRootCause();
             });
         }
     }

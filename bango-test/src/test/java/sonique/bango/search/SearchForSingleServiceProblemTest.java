@@ -1,6 +1,8 @@
 package sonique.bango.search;
 
-import com.googlecode.yatspec.state.givenwhenthen.*;
+import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
+import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
+import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,43 +69,27 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
     }
 
     private ActionUnderTest theAgentSearchesForTheServiceProblemUsingAServiceId() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceId());
+        return (givens, capturedInputAndOutputs) -> {
+            supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceId());
 
-                return capturedInputAndOutputs;
-            }
+            return capturedInputAndOutputs;
         };
     }
 
     private ActionUnderTest theAgentSearchesForTheServiceProblemUsingDirectoryNumber() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens interestingGivens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.getDirectoryNumber());
+        return (interestingGivens, capturedInputAndOutputs) -> {
+            supermanApp.appContainer().searchPanel().searchFor(serviceProblem.getDirectoryNumber());
 
-                return capturedInputAndOutputs;
-            }
+            return capturedInputAndOutputs;
         };
     }
 
     private StateExtractor<SearchApiService> theSearchApiService() {
-        return new StateExtractor<SearchApiService>() {
-            @Override
-            public SearchApiService execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return scenarioDriver().servicesFor(agentForTest).searchApiService();
-            }
-        };
+        return capturedInputAndOutputs -> scenarioDriver().servicesFor(agentForTest).searchApiService();
     }
 
     private StateExtractor<ServiceProblemTab> aServiceProblemTab() {
-        return new StateExtractor<ServiceProblemTab>() {
-            @Override
-            public ServiceProblemTab execute(CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId());
-            }
-        };
+        return capturedInputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId());
     }
 
     private AppendableAllOf<ServiceProblemTab> isDisplayed() {

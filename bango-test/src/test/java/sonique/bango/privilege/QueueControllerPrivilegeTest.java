@@ -48,7 +48,6 @@ public class QueueControllerPrivilegeTest extends BangoYatspecTest {
 
     @Override
     protected DomainAgent agentForTest() {
-        String agentCode = "q.q";
         return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null);
     }
 

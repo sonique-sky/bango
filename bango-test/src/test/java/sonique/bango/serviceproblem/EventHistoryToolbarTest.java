@@ -1,8 +1,6 @@
 package sonique.bango.serviceproblem;
 
-import com.googlecode.yatspec.state.givenwhenthen.CapturedInputAndOutputs;
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
-import com.googlecode.yatspec.state.givenwhenthen.InterestingGivens;
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,10 +31,10 @@ public class EventHistoryToolbarTest extends BangoYatspecTest {
         and(theAgentIsViewingTheServiceProblem());
 
         then(theEventHistoryToolbar(), isShown()
-                .and(theShowNoteOnlyButton(isDisplayed().and(isEnabled())))
-                .and(theAddNoteButton(isDisplayed().and(isEnabled())))
-                .and(theRefreshButton(isDisplayed().and(isEnabled())))
-                .and(theFilterButton(isDisplayed().and(isEnabled())))
+                        .and(theShowNoteOnlyButton(isDisplayed().and(isEnabled())))
+                        .and(theAddNoteButton(isDisplayed().and(isEnabled())))
+                        .and(theRefreshButton(isDisplayed().and(isEnabled())))
+                        .and(theFilterButton(isDisplayed().and(isEnabled())))
         );
     }
 
@@ -45,12 +43,7 @@ public class EventHistoryToolbarTest extends BangoYatspecTest {
     }
 
     private StateExtractor<EventHistoryToolbar> theEventHistoryToolbar() {
-        return new StateExtractor<EventHistoryToolbar>() {
-            @Override
-            public EventHistoryToolbar execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar();
-            }
-        };
+        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar();
     }
 
     private GivensBuilder aServiceProblemExists() {
@@ -58,12 +51,9 @@ public class EventHistoryToolbarTest extends BangoYatspecTest {
     }
 
     private GivensBuilder theAgentIsViewingTheServiceProblem() {
-        return new GivensBuilder() {
-            @Override
-            public InterestingGivens build(InterestingGivens givens) throws Exception {
-                supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
-                return givens;
-            }
+        return givens -> {
+            supermanApp.appContainer().searchPanel().searchFor(serviceProblem.serviceProblemId());
+            return givens;
         };
     }
 }
