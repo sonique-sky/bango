@@ -1,7 +1,6 @@
 package sonique.bango.serviceproblem;
 
 import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
-import com.googlecode.yatspec.state.givenwhenthen.CapturedInputAndOutputs;
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import org.hamcrest.Matcher;
@@ -37,7 +36,7 @@ public class EventHistoryPanelTest extends BangoYatspecTest {
         when(aServiceProblemIsDisplayed());
 
         then(theEventHistoryPanel(), isDisplayed()
-                .with(theEventHistoryItems())
+                        .with(theEventHistoryItems())
         );
     }
 
@@ -52,12 +51,7 @@ public class EventHistoryPanelTest extends BangoYatspecTest {
     }
 
     private StateExtractor<EventHistoryPanel> theEventHistoryPanel() {
-        return new StateExtractor<EventHistoryPanel>() {
-            @Override
-            public EventHistoryPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
-            }
-        };
+        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
     }
 
     private Matcher<EventHistoryPanel> theEventHistoryItems() {

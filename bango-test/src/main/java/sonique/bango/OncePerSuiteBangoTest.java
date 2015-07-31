@@ -12,11 +12,8 @@ public class OncePerSuiteBangoTest {
         bangoTestEnvironment = new BangoTestEnvironment();
         bangoTestEnvironment.start();
 
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            @Override
-            public void run() {
-                bangoTestEnvironment.stop();
-            }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            bangoTestEnvironment.stop();
         }));
     }
 }

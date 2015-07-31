@@ -15,17 +15,16 @@ import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.testsupport.matchers.AppendableAllOf;
 
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static sky.sns.spm.matchers.DateMatcher.isSameInstant;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
+import static sonique.bango.matcher.DateMatcher.theSameDateAs;
 import static sonique.bango.matcher.panel.NoWorkItemMatcher.anEmptyWorkItemPanel;
 import static sonique.bango.matcher.panel.WorkItemPanelMatchers.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemBuilder;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
+import static sonique.datafixtures.DateTimeDataFixtures.someDateTimeInTheNext24Hours;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
 
 public class WorkItemPanelTest extends BangoYatspecTest {
@@ -76,7 +75,7 @@ public class WorkItemPanelTest extends BangoYatspecTest {
     private Matcher<? super WorkItemPanel> hasTheCorrectReminderTime() {
         DomainWorkItem workItem = workItemPanel();
 
-        return aWorkItemReminder(isSameInstant(workItem.reminderTime()));
+        return aWorkItemReminder(theSameDateAs(workItem.reminderTime()));
     }
 
     private DomainWorkItem workItemPanel() {
@@ -96,7 +95,7 @@ public class WorkItemPanelTest extends BangoYatspecTest {
 
         return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
                 .and(aWorkItemStatus(equalTo(workItem.status())))
-                .and(aWorkItemCreatedDate(isSameInstant(workItem.createdDate())))
+                .and(aWorkItemCreatedDate(theSameDateAs(workItem.createdDate())))
                 .and(aWorkItemType(equalTo(workItem.assignmentType())))
                 .and(aWorkItemAction(equalTo(workItem.action())))
                 .and(aWorkItemPriority(equalTo(workItem.priority())));
@@ -107,15 +106,18 @@ public class WorkItemPanelTest extends BangoYatspecTest {
     }
 
     private GivensBuilder aServiceProblemWithAReminder() throws Exception {
-        Date workReminderDate = Date.from(ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES).toInstant());
         theServiceProblem = serviceProblemBuilder()
-                .withWorkItem(DomainWorkItemBuilder.withAllDefaults().withWorkReminder(workReminderDate).build())
+                .withWorkItem(DomainWorkItemBuilder.withAllDefaults().withWorkReminder(someDateTime()).build())
                 .build();
         return scenarioGivensBuilderFor(theServiceProblem);
     }
 
+    private Date someDateTime() {
+        return Date.from(someDateTimeInTheNext24Hours().toInstant());
+    }
+
     private GivensBuilder aServiceProblemThatIsAssignedToAnAgent() {
-        theServiceProblem = serviceProblemWithWorkItem().withAssignedAgent(agentForTest).build();
+        theServiceProblem = serviceProblemWithWorkItem().withOpenDate(someDateTime()).withAssignedAgent(agentForTest).build();
         return scenarioGivensBuilderFor(theServiceProblem);
     }
 
@@ -125,7 +127,7 @@ public class WorkItemPanelTest extends BangoYatspecTest {
     }
 
     private GivensBuilder aServiceProblemWithWorkItem() {
-        theServiceProblem = serviceProblemWithWorkItem().build();
+        theServiceProblem = serviceProblemWithWorkItem().withOpenDate(someDateTime()).build();
         return scenarioGivensBuilderFor(theServiceProblem);
     }
 

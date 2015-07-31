@@ -54,30 +54,15 @@ public class ServiceProblemScenario extends SupermanScenario {
     }
 
     public ServiceProblemScenario returnsWhenPulled(final DomainServiceProblem returnedServiceProblem) {
-        return addStep(new ScenarioStep() {
-            @Override
-            public void doStep() {
-                when(services.serviceProblemApiService().pull(any(ServiceProblemId.class))).thenReturn(newArrayList(returnedServiceProblem));
-            }
-        });
+        return addStep(() -> when(services.serviceProblemApiService().pull(any(ServiceProblemId.class))).thenReturn(newArrayList(returnedServiceProblem)));
     }
 
     public ServiceProblemScenario returnsWhenNoteAdded(final List<EventHistoryItem> expectedEventHistoryItems) {
-        return addStep(new ScenarioStep() {
-            @Override
-            public void doStep() {
-                when(services.serviceProblemApiService().addNote(any(ServiceProblemId.class), any(String.class))).thenReturn(expectedEventHistoryItems);
-            }
-        });
+        return addStep(() -> when(services.serviceProblemApiService().addNote(any(ServiceProblemId.class), any(String.class))).thenReturn(expectedEventHistoryItems));
     }
 
     public ServiceProblemScenario returnsEventHistoryRefreshed(final List<EventHistoryItem> expectedEventHistoryItems) {
-        return addStep(new ScenarioStep() {
-            @Override
-            public void doStep() {
-                when(services.serviceProblemApiService().eventHistory(any(ServiceProblemId.class))).thenReturn(expectedEventHistoryItems);
-            }
-        });
+        return addStep(() -> when(services.serviceProblemApiService().eventHistory(any(ServiceProblemId.class))).thenReturn(expectedEventHistoryItems));
     }
 
     private ServiceProblemScenario addStep(ScenarioStep scenarioStep) {
@@ -87,7 +72,7 @@ public class ServiceProblemScenario extends SupermanScenario {
 
     @Override
     public void bindScenario() {
-        PagedSearchResults<DomainServiceProblem> serviceProblems = new PagedSearchResults<DomainServiceProblem>(newArrayList(serviceProblem), 1L);
+        PagedSearchResults<DomainServiceProblem> serviceProblems = new PagedSearchResults<>(newArrayList(serviceProblem), 1L);
 
         SearchApiService searchApiService = services.searchApiService();
 
@@ -99,9 +84,7 @@ public class ServiceProblemScenario extends SupermanScenario {
         when(serviceProblemApiService.serviceProblemWithId(serviceProblem.serviceProblemId())).thenReturn(serviceProblem);
         when(serviceProblemApiService.eventHistory(serviceProblem.serviceProblemId())).thenReturn(serviceProblem.historyItems());
 
-        for (ScenarioStep step : steps) {
-            step.doStep();
-        }
+        steps.forEach(ServiceProblemScenario.ScenarioStep::doStep);
     }
 
     private interface ScenarioStep {

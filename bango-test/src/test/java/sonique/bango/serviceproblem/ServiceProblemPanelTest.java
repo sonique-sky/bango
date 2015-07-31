@@ -1,7 +1,6 @@
 package sonique.bango.serviceproblem;
 
 import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
-import com.googlecode.yatspec.state.givenwhenthen.CapturedInputAndOutputs;
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import org.hamcrest.Matcher;
@@ -20,8 +19,8 @@ import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus.*;
-import static sky.sns.spm.matchers.DateMatcher.isSameInstant;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
+import static sonique.bango.matcher.DateMatcher.theSameDateAs;
 import static sonique.bango.matcher.DescriptionOf.withDescriptionOf;
 import static sonique.bango.matcher.panel.ServiceProblemPanelMatchers.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemBuilder;
@@ -82,7 +81,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
     }
 
     private Matcher<ServiceProblemPanel> theClosedDate() {
-        return aClosedDate(isSameInstant(serviceProblem.closedDate()));
+        return aClosedDate(theSameDateAs(serviceProblem.closedDate()));
     }
 
     private Matcher<ServiceProblemPanel> theFaultCauseAndResolutionReason() {
@@ -99,7 +98,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
                 .and(aDirectoryNumber(equalTo(serviceProblem.getDirectoryNumber())))
                 .and(aQueueName(equalTo(serviceProblem.queue().getName())))
                 .and(aServiceType(equalTo(serviceProblem.getServiceType())))
-                .and(anOpenedDate(isSameInstant(serviceProblem.openedDate())))
+                .and(anOpenedDate(theSameDateAs(serviceProblem.openedDate())))
                 .and(aCustomerName(equalTo(serviceProblem.getEndUserInformation().getName())))
                 .and(aContactNumber(equalTo(serviceProblem.getEndUserInformation().getPreferredContactNumber())))
                 .and(anOperatorAccountNumber(equalTo(serviceProblem.getEndUserInformation().getOperatorAccountNumber())))
@@ -113,12 +112,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
     }
 
     private StateExtractor<ServiceProblemPanel> theServiceProblemPanel() {
-        return new StateExtractor<ServiceProblemPanel>() {
-            @Override
-            public ServiceProblemPanel execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().serviceProblemPanel();
-            }
-        };
+        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().serviceProblemPanel();
     }
 
     private GivensBuilder anOpenServiceProblem() {

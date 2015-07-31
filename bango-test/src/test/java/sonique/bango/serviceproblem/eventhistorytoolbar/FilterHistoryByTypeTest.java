@@ -1,8 +1,10 @@
 package sonique.bango.serviceproblem.eventhistorytoolbar;
 
-import com.googlecode.yatspec.state.givenwhenthen.*;
+import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
+import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
+import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.EventDescription;
@@ -25,7 +27,11 @@ public class FilterHistoryByTypeTest extends BangoYatspecTest {
         loginAgent();
     }
 
-    @Ignore
+    @After
+    public void tearDown() {
+        supermanApp.dialogs().filterHistoryByType().cancelButton().click();
+    }
+
     @Test
     public void canFilterHistoryByEventType() throws Exception {
         given(aServiceProblemIsOpenWithNotes());
@@ -33,7 +39,6 @@ public class FilterHistoryByTypeTest extends BangoYatspecTest {
 
         when(theAgentClicksTheFilterByEventTypeButton());
         then(theFilterByTypeDialog(), isDisplayed());
-
     }
 
     private GivensBuilder aServiceProblemIsOpenWithNotes() {
@@ -46,36 +51,25 @@ public class FilterHistoryByTypeTest extends BangoYatspecTest {
     }
 
     private GivensBuilder theAgentIsViewingTheServiceProblem() {
-        return new GivensBuilder() {
-            @Override
-            public InterestingGivens build(InterestingGivens givens) throws Exception {
-                new ViewServiceProblemAction(supermanApp, serviceProblem).goBango();
-                return givens;
-            }
+        return givens -> {
+            new ViewServiceProblemAction(supermanApp, serviceProblem).goBango();
+            return givens;
         };
     }
 
     private ActionUnderTest theAgentClicksTheFilterByEventTypeButton() {
-        return new ActionUnderTest() {
-            @Override
-            public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar().filterButton().click();
+        return (givens, capturedInputAndOutputs) -> {
+            supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar().filterButton().click();
 
-                return capturedInputAndOutputs;
-            }
+            return capturedInputAndOutputs;
         };
     }
 
     private StateExtractor<FilterByTypeDialog> theFilterByTypeDialog() {
-        return new StateExtractor<FilterByTypeDialog>() {
-            @Override
-            public FilterByTypeDialog execute(CapturedInputAndOutputs inputAndOutputs) throws Exception {
-                return supermanApp.dialogs().filterHistoryByType();
-            }
-        };
+        return inputAndOutputs -> supermanApp.dialogs().filterHistoryByType();
     }
 
     private AppendableAllOf<FilterByTypeDialog> isDisplayed() {
-            return IsDisplayed.isDisplayed();
-        }
+        return IsDisplayed.isDisplayed();
+    }
 }

@@ -66,6 +66,7 @@ public class AddNoteAgentActions {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
                 supermanApp.dialogs().addNote().noteField().clear();
+                supermanApp.dialogs().addNote().noteField().enter("");
                 return capturedInputAndOutputs;
             }
         };

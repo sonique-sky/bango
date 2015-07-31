@@ -13,7 +13,6 @@ import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sonique.bango.store.AgentStore;
 import sonique.bango.store.QueueStore;
 import spm.domain.TeamName;
-import spm.domain.model.refdata.DomainAgentBuilder;
 
 import static org.springframework.web.context.WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE;
 
@@ -42,8 +41,6 @@ public class BangoDevRunner {
 
     private void registerAgentsWith(AgentStore agentStore, QueueStore queueStore) {
         DomainTeam team = new TeamBuilder().with(new TeamName("A Team")).withAssignedQueues(queueStore.getAllQueues()).build();
-        agentStore.registerAgent(new DomainAgentBuilder().with(Role.ROLE_USER).withFirstName("a").withLastName("a").withTeam(team).build());
-//        agentStore.registerAgent(new DomainAgentBuilder().with(Role.ROLE_QUEUE_CONTROLLER).withFirstName("q").withLastName("q").build());
         agentStore.registerAgent(new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, team));
     }
 

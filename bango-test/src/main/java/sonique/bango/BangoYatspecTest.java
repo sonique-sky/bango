@@ -20,9 +20,6 @@ import sonique.bango.driver.panel.queuedashboard.QueueDashboardTab;
 import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.bango.scenario.ServiceProblemScenario;
-import spm.domain.model.refdata.DomainAgentBuilder;
-
-import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 
 @RunWith(SpecRunner.class)
 public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements WithTestState {
@@ -32,8 +29,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     protected DomainAgent agentForTest;
 
     protected DomainAgent agentForTest() {
-//        return new DomainAgentBuilder().with(Role.ROLE_USER).withFirstName("q").withLastName("q").build();
-        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null);
+        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_USER, null);
     }
 
     @Before

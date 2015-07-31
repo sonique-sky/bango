@@ -13,11 +13,11 @@ import static org.openqa.selenium.By.cssSelector;
 public class FilterByTypeDialog extends SupermanDialog {
 
     public FilterByTypeDialog(SupermanWebDriver driver) {
-        super(driver, cssSelector("div.add-note-dialog"));
+        super(driver, cssSelector("div.filter-event-history-dialog"));
     }
 
     public List<SupermanTextField> eventDescriptions() {
-        return new ArrayList();
+        return new ArrayList<>();
     }
 
     public SupermanButton filterButton() {

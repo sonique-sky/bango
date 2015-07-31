@@ -5,10 +5,11 @@ import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.EventDescription;
-import sky.sns.spm.matchers.DateMatcher;
 
 import java.util.Date;
 import java.util.List;
+
+import static sonique.bango.matcher.DateMatcher.theSameDateAs;
 
 public class EventHistoryMatcher extends TypeSafeMatcher<List<EventHistoryItem>> {
 
@@ -81,7 +82,7 @@ public class EventHistoryMatcher extends TypeSafeMatcher<List<EventHistoryItem>>
         return (StringUtils.equals(thisEventHistoryItem.createdBy(), thatEventHistoryItem.createdBy()) &&
                 StringUtils.equals(thisEventHistoryItem.note(), thatEventHistoryItem.note()) &&
                 thisEventHistoryItem.type().equals(thatEventHistoryItem.type()) &&
-                DateMatcher.isSameInstant(thisEventHistoryItem.createdDate()).matches(thatEventHistoryItem.createdDate()));
+                theSameDateAs(thisEventHistoryItem.createdDate()).matches(thatEventHistoryItem.createdDate()));
     }
 
     private boolean sameSizeOrBothNull(List<?> list1, List<?> list2) {
