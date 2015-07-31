@@ -3,9 +3,10 @@ package sonique.bango;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.context.ApplicationContext;
-import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
 import sonique.bango.app.ScenarioDriver;
-import sonique.bango.store.AgentStore;
+
+import java.io.File;
+import java.util.Enumeration;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.springframework.web.context.WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE;
@@ -34,8 +35,7 @@ public class BangoTestRunner {
         context.setResourceBase("../bango-js/src/main/javascript");
         context.setContextPath("/superman");
         context.setParentLoaderPriority(true);
-        context.setOverrideDescriptors(newArrayList("src/main/webapp/WEB-INF/web.xml"));
-
+        context.setOverrideDescriptors(newArrayList("../bango-test/src/main/webapp/WEB-INF/web.xml"));
         server.setHandler(context);
     }
 
@@ -62,6 +62,14 @@ public class BangoTestRunner {
     }
 
     private <T> T get(Class<T> clazz, String beanName) {
-        return ((ApplicationContext) context.getServletHandler().getServletContext().getAttribute(ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE)).getBean(beanName, clazz);
+        System.out.println("clazz = [" + clazz + "], beanName = [" + beanName + "]");
+        System.out.println("context = " + context);
+//        Enumeration<String> attributeNames = context.getServletHandler().getServletContext().getAttributeNames();
+//        while (attributeNames.hasMoreElements()) {
+//            System.out.println("an attribute " + attributeNames.nextElement());
+//        }
+        ApplicationContext attribute = (ApplicationContext) context.getServletHandler().getServletContext().getAttribute(ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        System.out.println("attribute = " + attribute);
+        return attribute.getBean(beanName, clazz);
     }
 }

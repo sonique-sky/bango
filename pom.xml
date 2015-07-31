@@ -36,7 +36,7 @@
         <spring.version>4.1.6.RELEASE</spring.version>
         <spring.security.version>3.2.7.RELEASE</spring.security.version>
         <sonique.workshop.version>1149</sonique.workshop.version>
-        <ext.cmd.version>3.1.2.342</ext.cmd.version>
+        <ext.cmd.version>6.0.0.202</ext.cmd.version>
     </properties>
 
     <dependencyManagement>
