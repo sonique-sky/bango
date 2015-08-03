@@ -1,5 +1,6 @@
 package sonique.bango.store;
 
+import com.google.common.collect.ImmutableList;
 import sky.sns.spm.domain.model.AgentDashboardEntry;
 import sky.sns.spm.domain.model.AgentState;
 import sky.sns.spm.domain.model.DomainAgent;
@@ -60,7 +61,7 @@ public class AgentStore implements DomainAgentRepository {
 
     @Override
     public List<DomainAgent> getAllAgents() {
-        throw new UnsupportedOperationException("Method AgentStore getAllAgents() not yet implemented");
+        return ImmutableList.copyOf(agentCodeToAgentMap.values());
     }
 
     @Override

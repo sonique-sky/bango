@@ -17,22 +17,19 @@ import sky.sns.spm.domain.model.refdata.Role;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
+import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
 import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
+import sky.sns.spm.infrastructure.repository.DomainTroubleReportRepository;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sonique.bango.json.*;
-import sonique.bango.service.AgentApiService;
-import sonique.bango.service.QueueApiService;
-import sonique.bango.service.SearchApiService;
-import sonique.bango.service.ServiceProblemApiService;
-import sonique.bango.service.stub.StubAgentApiService;
-import sonique.bango.service.stub.StubQueueApiService;
-import sonique.bango.service.stub.StubSearchApiService;
-import sonique.bango.service.stub.StubServiceProblemApiService;
+import sonique.bango.service.*;
+import sonique.bango.service.stub.*;
 import sonique.bango.store.AgentStore;
 import sonique.bango.store.QueueStore;
 import sonique.bango.store.ServiceProblemStore;
+import sonique.bango.store.TroubleReportStore;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,11 +44,13 @@ public class BangoApplicationContext {
     protected final DomainAgentRepository agentRepository;
     private final DomainServiceProblemRepository serviceProblemRepository;
     private final QueueRepository queueRepository;
+    private final DomainTroubleReportRepository troubleReportRepository;
 
     public BangoApplicationContext() {
         agentRepository = new AgentStore();
         queueRepository = new QueueStore();
         serviceProblemRepository = new ServiceProblemStore(queueRepository);
+        troubleReportRepository = new TroubleReportStore(agentRepository.getAllAgents(), serviceProblemRepository);
     }
 
     @Bean
@@ -73,6 +72,7 @@ public class BangoApplicationContext {
         module.addSerializer(ServiceType.class, new ServiceTypeSerializer());
         module.addSerializer(EventHistoryItem.class, new EventHistoryItemSerializer());
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
+        module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
         module.addSerializer(DomainAgent.class, new AgentSerializer());
         module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
         module.addSerializer(Queue.class, new QueueSerializer());
@@ -115,5 +115,11 @@ public class BangoApplicationContext {
     @Bean
     public ServiceProblemApiService serviceProblemApiService() {
         return new StubServiceProblemApiService(serviceProblemRepository, springSecurityAuthorisedActorProvider());
+    }
+
+    @Bean
+    public TroubleReportApiService troubleReportApiService()
+    {
+        return new StubTroubleReportApiService(troubleReportRepository);
     }
 }

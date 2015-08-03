@@ -31,4 +31,8 @@ public class ServiceProblemTabContent extends SupermanComponent {
     public EventHistoryPanel eventHistoryPanel() {
         return new EventHistoryPanel(this);
     }
+
+    public ViewToolbar viewToolbar() {
+        return new ViewToolbar(this);
+    }
 }
