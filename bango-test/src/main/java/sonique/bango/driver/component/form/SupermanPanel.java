@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.driver.component.SupermanElement;
 
-public abstract class SupermanFormPanel extends SupermanComponent {
+public abstract class SupermanPanel extends SupermanComponent {
 
-    protected SupermanFormPanel(SupermanElement element, By locator) {
+    protected SupermanPanel(SupermanElement element, By locator) {
         super (element, locator);
     }
 

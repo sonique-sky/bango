@@ -7,11 +7,11 @@ import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemPriority;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemStatus;
 import sonique.bango.driver.component.HasTitle;
-import sonique.bango.driver.component.form.SupermanFormPanel;
+import sonique.bango.driver.component.form.SupermanPanel;
 
 import java.util.Date;
 
-public class WorkItemPanel extends SupermanFormPanel implements HasTitle {
+public class WorkItemPanel extends SupermanPanel implements HasTitle {
     public WorkItemPanel(ServiceProblemTabContent serviceProblemTabContent) {
         super(serviceProblemTabContent, By.cssSelector("[id^='workItemPanel']"));
     }

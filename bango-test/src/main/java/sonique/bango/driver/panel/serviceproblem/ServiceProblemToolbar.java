@@ -2,9 +2,9 @@ package sonique.bango.driver.panel.serviceproblem;
 
 import org.openqa.selenium.By;
 import sonique.bango.driver.component.form.SupermanButton;
-import sonique.bango.driver.component.form.SupermanFormPanel;
+import sonique.bango.driver.component.form.SupermanPanel;
 
-public class ServiceProblemToolbar extends SupermanFormPanel {
+public class ServiceProblemToolbar extends SupermanPanel {
     public ServiceProblemToolbar(ServiceProblemTabContent serviceProblemTabContent) {
         super(serviceProblemTabContent, By.cssSelector("[id^='serviceProblemTabToolbar']"));
     }

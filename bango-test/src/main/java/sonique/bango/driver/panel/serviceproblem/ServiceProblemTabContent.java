@@ -3,6 +3,7 @@ package sonique.bango.driver.panel.serviceproblem;
 import org.openqa.selenium.By;
 import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.driver.component.SupermanElement;
+import sonique.bango.driver.panel.troublereport.TroubleReportPanel;
 import sonique.bango.driver.predicate.IsDisplayedPredicate;
 import spm.domain.ServiceProblemId;
 
@@ -34,5 +35,9 @@ public class ServiceProblemTabContent extends SupermanComponent {
 
     public ViewToolbar viewToolbar() {
         return new ViewToolbar(this);
+    }
+
+    public TroubleReportPanel troubleReportPanel() {
+        return new TroubleReportPanel(this);
     }
 }

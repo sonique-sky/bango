@@ -7,11 +7,11 @@ import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.EventDescription;
 import sonique.bango.driver.HasDateFormatterSupport;
 import sonique.bango.driver.component.HasTitle;
-import sonique.bango.driver.component.form.SupermanFormPanel;
+import sonique.bango.driver.component.form.SupermanPanel;
 
 import java.util.List;
 
-public class EventHistoryPanel extends SupermanFormPanel implements HasTitle, HasDateFormatterSupport {
+public class EventHistoryPanel extends SupermanPanel implements HasTitle, HasDateFormatterSupport {
     public EventHistoryPanel(ServiceProblemTabContent serviceProblemTabContent) {
         super(serviceProblemTabContent, By.cssSelector("[id^='eventHistoryPanel']"));
     }

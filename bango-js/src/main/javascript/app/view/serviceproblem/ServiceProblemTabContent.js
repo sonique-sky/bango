@@ -76,6 +76,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                     items: [
                         {
                             xtype: 'toolbar',
+                            id: 'view-toolbar',
                             items: [
                                 {
                                     xtype: 'buttongroup',
@@ -91,11 +92,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabContent', {
                                         {
                                             text: 'Service Problem',
                                             itemId: 'serviceProblem',
+                                            id:'view-service-problem',
                                             pressed: true
                                         },
                                         {
                                             text: 'Trouble Report',
-                                            itemId: 'troubleReport'
+                                            itemId: 'troubleReport',
+                                            id:'view-trouble-report'
                                         }
                                     ]
                                 }

@@ -4,18 +4,18 @@ import org.openqa.selenium.By;
 import sonique.bango.driver.SupermanWebDriver;
 import sonique.bango.driver.component.SupermanElement;
 import sonique.bango.driver.component.form.SupermanButton;
-import sonique.bango.driver.component.form.SupermanFormPanel;
+import sonique.bango.driver.component.form.SupermanPanel;
 import sonique.bango.driver.component.form.SupermanTextField;
 import sonique.bango.driver.panel.SupermanDialog;
 
 public class LoginDialog extends SupermanDialog {
 
-    private final LoginFormPanel formPanel;
+    private final LoginPanel formPanel;
 
     public LoginDialog(SupermanWebDriver driver) {
         super(driver, By.cssSelector("div.spm-login-dialog"));
 
-        this.formPanel = new LoginFormPanel(this);
+        this.formPanel = new LoginPanel(this);
     }
 
     public SupermanTextField username() {
@@ -34,8 +34,8 @@ public class LoginDialog extends SupermanDialog {
         return buttonLabeled("Reset");
     }
 
-    private static class LoginFormPanel extends SupermanFormPanel {
-        protected LoginFormPanel(SupermanElement element) {
+    private static class LoginPanel extends SupermanPanel {
+        protected LoginPanel(SupermanElement element) {
             super(element, By.cssSelector("div.x-panel"));
         }
 

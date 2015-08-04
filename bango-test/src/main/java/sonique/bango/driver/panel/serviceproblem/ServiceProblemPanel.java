@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.driver.component.HasTitle;
-import sonique.bango.driver.component.form.SupermanFormPanel;
+import sonique.bango.driver.component.form.SupermanPanel;
 import spm.domain.OperatorReference;
 import spm.domain.QueueName;
 import spm.domain.ServiceProblemId;
@@ -16,7 +16,7 @@ import java.util.Date;
 
 import static sonique.utils.StringUtils.unCamel;
 
-public class ServiceProblemPanel extends SupermanFormPanel implements HasTitle {
+public class ServiceProblemPanel extends SupermanPanel implements HasTitle {
     public ServiceProblemPanel(ServiceProblemTabContent serviceProblemTabContent) {
         super(serviceProblemTabContent, By.cssSelector("[id^='serviceProblemPanel']"));
     }

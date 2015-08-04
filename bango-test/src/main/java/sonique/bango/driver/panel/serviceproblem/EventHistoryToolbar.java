@@ -3,9 +3,9 @@ package sonique.bango.driver.panel.serviceproblem;
 import org.openqa.selenium.By;
 import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.driver.component.form.SupermanButton;
-import sonique.bango.driver.component.form.SupermanFormPanel;
+import sonique.bango.driver.component.form.SupermanPanel;
 
-public class EventHistoryToolbar extends SupermanFormPanel{
+public class EventHistoryToolbar extends SupermanPanel {
     public EventHistoryToolbar(SupermanComponent eventHistoryPanel) {
         super(eventHistoryPanel, By.cssSelector("[id^='eventHistoryActionToolbar']"));
     }

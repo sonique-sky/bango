@@ -42,8 +42,7 @@ public class ServiceProblemScenario extends SupermanScenario {
                 .withOperatorAccountNumber(someString())
                 .withOperatorReference(someOperatorReference())
                 .withServiceType(serviceTypeCode)
-                .withProblem(someProblemCategoryFor(serviceTypeCode))
-                ;
+                .withProblem(someProblemCategoryFor(serviceTypeCode));
     }
 
     private final DomainServiceProblem serviceProblem;
