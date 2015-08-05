@@ -14,7 +14,7 @@ Ext.define('Spm.view.component.StandardDialog', {
     initComponent: function () {
         var me = this;
 
-        Ext.applyIf(me, {
+        Ext.apply(me, {
             collectFn: me.collectFn || Ext.emptyFn,
             items: me.content,
             dockedItems: [
@@ -61,11 +61,11 @@ Ext.define('Spm.view.component.StandardDialog', {
         me.callParent(arguments);
     },
 
-    setAcceptButtonDisabled: function(disabled) {
+    setAcceptButtonDisabled: function (disabled) {
         this.down('#accept-button').setDisabled(disabled);
     },
 
-    onAccept: function() {
+    onAccept: function () {
         // get the required information from the dialog
         var eventArguments = this.collectFn();
         // push the event type into the first element of the array
@@ -78,7 +78,7 @@ Ext.define('Spm.view.component.StandardDialog', {
         this.close();
     },
 
-    onCancel: function() {
+    onCancel: function () {
         this.close();
     }
 });
