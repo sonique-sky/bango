@@ -55,6 +55,8 @@ import static java.util.Collections.singletonList;
 @Configuration
 public class SpringSecurityConfig {
 
+    public static final String LDAP_SERVER_ADDRESS = System.getProperty("ldap.server.address", "ldap://localhost:11899");
+
     @Resource
     private DomainAgentRepository agentRepository;
 
@@ -82,7 +84,7 @@ public class SpringSecurityConfig {
 
         DefaultFilterInvocationSecurityMetadataSource ms = new DefaultFilterInvocationSecurityMetadataSource(urlPatternToRoleMap);
 
-        LdapContextSource contextSource = new DefaultSpringSecurityContextSource(new URI("ldap://localhost:11899").toASCIIString());
+        LdapContextSource contextSource = new DefaultSpringSecurityContextSource(new URI(LDAP_SERVER_ADDRESS).toASCIIString());
         contextSource.setPooled(false);
 
         BindAuthenticator authenticator = new BindAuthenticator(contextSource);

@@ -1,5 +1,5 @@
 Ext.define('Spm.proxy.ApiOperation', {
-    extend: 'Ext.data.Operation',
+    extend: 'Ext.data.operation.Operation',
 
     statics: {
         search: function (options) {
@@ -78,5 +78,6 @@ Ext.define('Spm.proxy.ApiOperation', {
         }
     },
 
+    urlPattern: undefined,
     parameterNames: []
 });

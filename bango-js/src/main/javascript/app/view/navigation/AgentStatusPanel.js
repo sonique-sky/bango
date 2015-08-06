@@ -37,7 +37,7 @@ Ext.define('Spm.view.navigation.AgentStatusPanel', {
 
         this.statusLabel = Ext.widget('label', {margin: '0 0 2 0'});
         this.availabilityButton = Ext.widget('button', this.registeredActions.actionNamed('toggle-availability'));
-        Ext.applyIf(me, {
+        Ext.apply(me, {
             items: [
                 this.statusLabel,
                 this.availabilityButton,

@@ -1,4 +1,13 @@
 {
+    /**
+     * The Sencha Framework for this application: "ext" or "touch".     */
+    "framework": "ext",
+
+    /**
+     * The toolkit to use. Select either "classic" or "modern".
+     */
+    "toolkit": "classic",
+
     "name": "Spm",
 
     "requires": [

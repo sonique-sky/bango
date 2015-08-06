@@ -58,6 +58,7 @@ Ext.define('Spm.controller.AgentStatus', {
     },
 
     onAgentStateLoaded: function (agentStateStore) {
-        this.getAgentStatusPanel().updateState(agentStateStore.first().get('isAvailable'));
+        var available = agentStateStore.first().get('isAvailable');
+        this.getAgentStatusPanel().updateState(available);
     }
 });

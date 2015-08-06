@@ -1,8 +1,11 @@
 Ext.define('Spm.proxy.ApiProxy', {
     extend: 'Ext.data.proxy.Ajax',
-
+    requires : [
+        'Spm.proxy.ApiOperation',
+        'Ext.data.operation.Operation'
+    ],
     buildUrl: function (request) {
-        var operation = request.operation;
+        var operation = request.getOperation();
         var params = request.params;
         delete request.params;  // Stop params from being appended to url
 

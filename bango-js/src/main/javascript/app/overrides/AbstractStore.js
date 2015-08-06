@@ -5,7 +5,7 @@ Ext.define('Spm.overrides.AbstractStore', {
 
     /**
      * Loads the Store using its configured {@link #proxy}.
-     * @param {Object} options (optional) config object. This is passed into the {@link Ext.data.Operation Operation}
+     * @param {Object} options (optional) config object. This is passed into the {@link Ext.data.operation.Operation Operation}
      * object that is created and then sent to the proxy's {@link Ext.data.proxy.Proxy#read} function
      *
      * @return {Ext.data.Store} this

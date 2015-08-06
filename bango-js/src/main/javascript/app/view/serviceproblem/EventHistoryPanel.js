@@ -5,8 +5,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
     requires: [
         'Spm.store.EventHistory',
         'Spm.view.serviceproblem.eventhistory.ActionToolbar',
-        'Ext.grid.feature.RowBody',
-        'Ext.grid.feature.RowWrap'
+        'Ext.grid.feature.RowBody'
     ],
 
     layout: 'fit',
@@ -56,8 +55,7 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                                     rowBodyColspan: colspan
                                 };
                             }
-                        },
-                        { ftype: 'rowwrap' }
+                        }
                     ]
                 }
             ]
