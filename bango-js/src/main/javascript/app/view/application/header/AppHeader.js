@@ -1,6 +1,6 @@
-Ext.define('Spm.view.application.header.HeaderView', {
+Ext.define('Spm.view.application.header.AppHeader', {
     extend: 'Ext.view.View',
-    alias: 'widget.headerView',
+    alias: 'widget.appHeader',
 
     height: 60,
     disableSelection: true,

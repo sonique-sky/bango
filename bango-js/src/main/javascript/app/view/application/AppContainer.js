@@ -6,7 +6,7 @@ Ext.define('Spm.view.application.AppContainer', {
         'Ext.tab.Panel',
         'Ext.layout.container.Border',
         'Spm.view.navigation.NavigationPanel',
-        'Spm.view.application.header.HeaderView',
+        'Spm.view.application.header.AppHeader',
         'Spm.view.application.MyItemsTabContent'
     ],
 
@@ -32,7 +32,7 @@ Ext.define('Spm.view.application.AppContainer', {
             //searchesActionContextManager: me.searchesActionContextManager
         },
         {
-            xtype: 'headerView',
+            xtype: 'appHeader',
             region: 'north'
         }
     ]
