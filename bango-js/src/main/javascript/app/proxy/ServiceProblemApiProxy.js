@@ -11,6 +11,6 @@ Ext.define('Spm.proxy.ServiceProblemApiProxy', {
 
     reader: {
         type: 'json',
-        root: 'onePageOfSearchResults'
+        rootProperty: 'onePageOfSearchResults'
     }
 });

@@ -91,6 +91,7 @@ Ext.define('Spm.controller.Security', {
     },
 
     onLogout: function () {
+        debugger;
         Ext.Ajax.request({
             url: 'j_spring_security_logout',
             success: function () {

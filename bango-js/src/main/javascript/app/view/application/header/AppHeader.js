@@ -1,27 +1,26 @@
 Ext.define('Spm.view.application.header.AppHeader', {
-    extend: 'Ext.view.View',
+    extend: 'Ext.panel.Panel',
     alias: 'widget.appHeader',
 
-    height: 60,
-    disableSelection: true,
-    itemSelector: 'span#login-name',
-    store: 'AuthenticatedAgent',
+    controller: 'appHeader',
+    viewModel: {type: 'appHeader'},
+    reference: 'appHeader',
 
-    itemTpl: [
-        '<div class="app-header">',
-        '    <div class="login-info">Welcome <span id="login-name" class="login-name">{displayName}</span> | <span id="logout" class="logout">Logout</span></div>',
-        '	<div class="app-logo"/>',
+    height: 60,
+
+    bind: {
+        html: '' +
+        '<div class="app-header">' +
+        '    <div class="login-info">Welcome <span id="login-name" class="login-name">{authenticatedAgent.displayName}</span> | <span id="logout" class="logout">Logout</span></div>' +
+        '    <div class="app-logo"/>' +
         '</div>'
-    ],
-    listen: {
-        click: {
-            delegate: 'span#logout',
-            fn: 'onLogoutClick',
-            element: 'el'
-        }
     },
 
-    onLogoutClick: function () {
-        Ext.GlobalEvents.fireEvent('logout');
+    listeners: {
+        click: {
+            delegate: 'span#logout',
+            fn: 'onLogout',
+            element: 'el'
+        }
     }
 });
