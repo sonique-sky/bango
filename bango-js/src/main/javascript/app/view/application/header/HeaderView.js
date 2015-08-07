@@ -1,4 +1,4 @@
-Ext.define('Spm.view.application.HeaderView', {
+Ext.define('Spm.view.application.header.HeaderView', {
     extend: 'Ext.view.View',
     alias: 'widget.headerView',
 
