@@ -1,7 +1,1 @@
-.idea/workspace.xml
-.idea/libraries
-target/
-!bango-js/src/main/javascript/ext/src/fx/target/
-build/
-!bango-js/src/main/javascript/ext/packages/**/build/
-.DS_Store
+!bango-js/src/main/javascript/ext/**
