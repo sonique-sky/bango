@@ -6,34 +6,16 @@ Ext.define('Spm.store.AuthenticatedAgent', {
         'Spm.model.Agent'
     ],
 
-    constructor: function (cfg) {
-        var me = this;
-        cfg = cfg || {};
-        me.callParent([Ext.apply({
-            autoLoad: false,
-            filterOnLoad: false,
-            model: 'Spm.model.Agent',
-            sortOnLoad: false,
-            proxy: {
-                type: 'ajax',
-                url: 'api/agent/authenticatedAgent',
-                reader: {
-                    type: 'json'
-                }
-            },
-            listeners: {
-                load: {
-                    fn: me.onAuthenticatedAgentLoaded,
-                    scope: me
-                }
-            }
-        }, cfg)]);
-    },
-
-    onAuthenticatedAgentLoaded: function (store) {
-        var queueStore = Ext.data.StoreManager.lookup('AgentQueues');
-
-        queueStore.loadRawData(store.proxy.reader.jsonData);
+    autoLoad: false,
+    filterOnLoad: false,
+    model: 'Spm.model.Agent',
+    sortOnLoad: false,
+    proxy: {
+        type: 'ajax',
+        url: 'api/agent/authenticatedAgent',
+        reader: {
+            type: 'json'
+        }
     },
 
     authenticatedAgent: function () {

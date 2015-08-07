@@ -8,6 +8,7 @@ Ext.Loader.setConfig({
     enabled: true,
     disableCaching: true
 });
+Ext.Loader.setPath('Ext.ux', 'app/ux');
 
 Ext.require('Spm.view.application.SpmViewport');
 

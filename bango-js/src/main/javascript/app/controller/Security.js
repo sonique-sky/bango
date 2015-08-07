@@ -20,6 +20,25 @@ Ext.define('Spm.controller.Security', {
         }
     ],
 
+    listen: {
+        global: {
+            login: 'onPerformAuthentication',
+            logout: 'onLogout',
+            authenticationRequired: 'onAuthenticationRequired'
+        },
+        store: {
+            '#AuthenticatedAgent': {
+                load: 'onAuthenticatedAgentLoaded'
+            }
+        }
+    },
+
+    onAuthenticatedAgentLoaded: function (store) {
+        var queueStore = Ext.data.StoreManager.lookup('AgentQueues');
+
+        queueStore.loadRawData(store.proxy.reader.jsonData);
+    },
+
     onPerformAuthentication: function (credentials) {
         var me = this;
         Ext.Ajax.request({
@@ -58,17 +77,17 @@ Ext.define('Spm.controller.Security', {
 
     authenticatedAgentCallback: function (records, operation, success) {
         if (success) {
-            this.fireEvent('authenticated', records[0]);
+            Ext.GlobalEvents.fireEvent('authenticated', records[0]);
             this.getAppContainer().show();
         }
     },
 
     startAuthentication: function () {
         this.getAuthenticatedAgentStore().load(
-                {
-                    callback: this.authenticatedAgentCallback,
-                    scope: this
-                });
+            {
+                callback: this.authenticatedAgentCallback,
+                scope: this
+            });
     },
 
     onLogout: function () {
@@ -79,27 +98,6 @@ Ext.define('Spm.controller.Security', {
                 this.onAuthenticationRequired();
             },
             scope: this
-        });
-    },
-
-    init: function () {
-        this.listen({
-            controller: {
-                '#Errors': {
-                    authenticationRequired: this.onAuthenticationRequired
-                },
-                '#Login': {
-                    performAuthentication: this.onPerformAuthentication
-                }
-            },
-            component: {
-                'headerView': {
-                    logout: this.onLogout
-                },
-                'loginDialog': {
-                    accepted: this.onPerformAuthentication
-                }
-            }
         });
     },
 

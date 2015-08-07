@@ -31,6 +31,6 @@ Ext.define('Spm.view.application.HeaderView', {
     },
 
     onLogoutClick: function () {
-        this.fireEvent('logout');
+        Ext.GlobalEvents.fireEvent('logout');
     }
 });

@@ -4,19 +4,17 @@ Ext.define('Spm.controller.Errors', {
 
     requires: ['Spm.domain.ProxyEventDomain'],
 
-    init: function () {
-        this.listen({
-            proxy: {
-                '#ajax': {
-                    exception: this.onProxyException
-                }
+    listen: {
+        proxy: {
+            '#ajax': {
+                exception: 'onProxyException'
             }
-        });
+        }
     },
 
     onProxyException: function (proxy, response, operation, eOpts) {
         if (response.status == 403) {
-            this.fireEvent('authenticationRequired', response);
+            Ext.GlobalEvents.fireEvent('authenticationRequired', response);
         }
     }
 });

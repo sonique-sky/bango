@@ -28,24 +28,22 @@ Ext.define('Spm.controller.AgentStatus', {
         }
     ],
 
-    init: function () {
-        this.listen({
-            controller: {
-                '#ServiceProblems': {
-                    'serviceProblemPulled': this.refreshAgentState,
-                    'workItemHeld': this.refreshAgentState,
-                    'workItemReleased': this.refreshAgentState
-                },
-                '#Security': {
-                    'authenticated': this.onAuthenticated
-                }
-            },
-            store: {
-                '#AgentState': {
-                    'refresh': this.onAgentStateLoaded
-                }
+    listen: {
+        global: {
+            authenticated: 'onAuthenticated'
+        },
+        controller: {
+            '#ServiceProblems': {
+                'serviceProblemPulled': 'refreshAgentState',
+                'workItemHeld': 'refreshAgentState',
+                'workItemReleased': 'refreshAgentState'
             }
-        });
+        },
+        store: {
+            '#AgentState': {
+                'refresh': 'onAgentStateLoaded'
+            }
+        }
     },
 
     onAuthenticated: function () {

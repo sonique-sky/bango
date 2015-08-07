@@ -4,6 +4,7 @@ Ext.define('Spm.proxy.ApiProxy', {
         'Spm.proxy.ApiOperation',
         'Ext.data.operation.Operation'
     ],
+
     buildUrl: function (request) {
         var operation = request.getOperation();
         var params = request.params;
