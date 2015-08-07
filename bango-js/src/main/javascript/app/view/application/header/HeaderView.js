@@ -7,27 +7,18 @@ Ext.define('Spm.view.application.header.HeaderView', {
     itemSelector: 'span#login-name',
     store: 'AuthenticatedAgent',
 
-    initComponent: function () {
-        var me = this;
-
-        Ext.applyIf(me, {
-            itemTpl: [
-                '<div class="app-header">',
-                '    <div class="login-info">Welcome <span id="login-name" class="login-name">{displayName}</span> | <span id="logout" class="logout">Logout</span></div>',
-                '	<div class="app-logo"/>',
-                '</div>'
-            ],
-            listeners: {
-                click: {
-                    delegate: 'span#logout',
-                    fn: me.onLogoutClick,
-                    element: 'el',
-                    scope: me
-                }
-            }
-        });
-
-        me.callParent(arguments);
+    itemTpl: [
+        '<div class="app-header">',
+        '    <div class="login-info">Welcome <span id="login-name" class="login-name">{displayName}</span> | <span id="logout" class="logout">Logout</span></div>',
+        '	<div class="app-logo"/>',
+        '</div>'
+    ],
+    listen: {
+        click: {
+            delegate: 'span#logout',
+            fn: 'onLogoutClick',
+            element: 'el'
+        }
     },
 
     onLogoutClick: function () {
