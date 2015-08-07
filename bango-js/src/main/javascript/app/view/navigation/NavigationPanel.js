@@ -3,7 +3,7 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
     alias: 'widget.navigationPanel',
 
     requires: [
-        'Spm.view.navigation.AgentStatusPanel',
+        'Spm.view.navigation.state.AgentState',
         'Spm.view.navigation.MyQueuesPanel',
         'Spm.view.navigation.SearchPanel'
     ],
@@ -15,31 +15,20 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
         type: 'vbox'
     },
 
-    initComponent: function () {
-        var me = this;
-
-        Ext.applyIf(me, {
-            defaults :{
-                margin: '0 5 5 5'
-            },
-            items: [
-                {
-                    xtype: 'agentStatusPanel',
-                    actionContextManager: me.agentStatusActionContextManager
-                },
-                {
-                    xtype: 'myQueuesPanel',
-                    collapsible:true
-                },
-                {
-                    xtype: 'searchPanel',
-                    actionContextManager: me.searchesActionContextManager,
-                    collapsible:true
-                }
-            ]
-        });
-
-        me.callParent(arguments);
-    }
+    items: [
+        {
+            xtype: 'agentState',
+            //actionContextManager: me.agentStatusActionContextManager
+        },
+        //{
+        //    xtype: 'myQueuesPanel',
+        //    collapsible:true
+        //},
+        //{
+        //    xtype: 'searchPanel',
+        //    //actionContextManager: me.searchesActionContextManager,
+        //    collapsible:true
+        //}
+    ]
 
 });

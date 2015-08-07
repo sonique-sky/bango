@@ -18,29 +18,23 @@ Ext.define('Spm.view.application.AppContainer', {
         type: 'border'
     },
 
-    initComponent: function () {
-        var me = this;
+    items: [
+        {
+            xtype: 'tabpanel',
+            region: 'center',
+            id: 'tab-panel'
+        },
+        {
+            xtype: 'navigationPanel',
+            region: 'west'
+            //,
+            //agentStatusActionContextManager: me.agentStatusActionContextManager,
+            //searchesActionContextManager: me.searchesActionContextManager
+        },
+        {
+            xtype: 'headerView',
+            region: 'north'
+        }
+    ]
 
-        Ext.applyIf(me, {
-            items: [
-                {
-                    xtype: 'tabpanel',
-                    region: 'center',
-                    id: 'tab-panel'
-                },
-                {
-                    xtype: 'navigationPanel',
-                    region: 'west',
-                    agentStatusActionContextManager: me.agentStatusActionContextManager,
-                    searchesActionContextManager: me.searchesActionContextManager
-                },
-                {
-                    xtype: 'headerView',
-                    region: 'north'
-                }
-            ]
-        });
-
-        me.callParent(arguments);
-    }
 });

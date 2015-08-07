@@ -10,7 +10,7 @@ Ext.Loader.setConfig({
 });
 Ext.Loader.setPath('Ext.ux', 'app/ux');
 
-Ext.require('Spm.view.application.SpmViewport');
+Ext.require('Spm.view.application.Superman');
 
 Ext.application({
     name: 'Spm',
@@ -23,7 +23,7 @@ Ext.application({
     controllers: [
         'Errors',
         'MyQueues',
-        'AgentStatus',
+        //'AgentStatus',
         'Security',
         'Queues',
         'ServiceProblems',
@@ -33,9 +33,11 @@ Ext.application({
     ],
 
     launch: function () {
-        Ext.create('Spm.view.application.SpmViewport', {
-            agentStatusActionContextManager: this.getAgentStatusController(),
-            searchesActionContextManager: this.getSearchesController()
-        });
+        Ext.create('Spm.view.application.Superman'
+        //    , {
+        //    agentStatusActionContextManager: this.getAgentStatusController(),
+        //    searchesActionContextManager: this.getSearchesController()
+        //}
+        );
     }
 });

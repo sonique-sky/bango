@@ -13,10 +13,10 @@ Ext.define('Spm.model.AgentState', {
             name: 'availability'
         },
         {
+            name: 'isAvailable',
             convert: function (v, rec) {
                 return rec.get('availability') == 'Available';
-            },
-            name: 'isAvailable'
+            }
         }
     ]
 });
