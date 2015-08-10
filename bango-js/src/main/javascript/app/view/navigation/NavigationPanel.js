@@ -4,7 +4,7 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
 
     requires: [
         'Spm.view.navigation.state.AgentState',
-        'Spm.view.navigation.MyQueuesPanel',
+        'Spm.view.navigation.queues.Queues',
         'Spm.view.navigation.search.Search'
     ],
 
@@ -21,7 +21,7 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
             //actionContextManager: me.agentStatusActionContextManager
         },
         {
-            xtype: 'myQueuesPanel',
+            xtype: 'myQueues',
             collapsible:true
         },
         {

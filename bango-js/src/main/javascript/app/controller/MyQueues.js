@@ -1,6 +1,6 @@
 Ext.define('Spm.controller.MyQueues', {
     extend: 'Ext.app.Controller',
-    alias: 'controller.myQueues',
+    alias: 'controller.oldMyQueues',
 
     stores: [
         'AgentQueues'

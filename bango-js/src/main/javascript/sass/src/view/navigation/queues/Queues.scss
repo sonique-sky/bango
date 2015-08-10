@@ -1,28 +1,28 @@
-.my-queues-panel .x-panel-body {
+.queues-panel .x-panel-body {
     background: #F1F1F1;
 }
 
-.my-queues ul {
+.queues ul {
     list-style-image: url('images/queue.png');
     line-height: 1.5;
 }
 
-.my-queues.queue-wrap {
+.queues.queue-wrap {
     margin: 3px;
     padding-left: 20px;
     height: 17px;
 }
 
-.my-queues li {
+.queues li {
     padding-bottom: 2px;
 }
 
-.my-queues li.x-item-over {
+.queues li.x-item-over {
     text-decoration: underline;
     color: #15428B;
 }
 
-.my-queues li.x-item-selected {
+.queues li.x-item-selected {
     text-decoration: underline;
     color: #15428B;
 }

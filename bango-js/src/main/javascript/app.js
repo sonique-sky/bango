@@ -22,7 +22,7 @@ Ext.application({
     ],
     controllers: [
         'Errors',
-        'MyQueues',
+        //'MyQueues',
         //'AgentStatus',
         //'Security',
         'Queues',

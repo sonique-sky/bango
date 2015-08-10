@@ -42,6 +42,7 @@ public class BangoDevRunner {
     private void registerAgentsWith(AgentStore agentStore, QueueStore queueStore) {
         DomainTeam team = new TeamBuilder().with(new TeamName("A Team")).withAssignedQueues(queueStore.getAllQueues()).build();
         agentStore.registerAgent(new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, team));
+        agentStore.registerAgent(new DomainAgent("b.b", "b.b", new AgentDetails("b", "b", 1, 1), Role.ROLE_USER, team));
     }
 
     public static void main(String[] args) throws Exception {
