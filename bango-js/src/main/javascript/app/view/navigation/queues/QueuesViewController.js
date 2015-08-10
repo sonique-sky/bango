@@ -16,6 +16,7 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
     },
 
     onQueueSelect: function(dataViewModel, selectedQueue) {
+        this.fireEvent('queueSelected', selectedQueue);
     },
 
     onAuthenticated: function(authenticatedAgent) {
