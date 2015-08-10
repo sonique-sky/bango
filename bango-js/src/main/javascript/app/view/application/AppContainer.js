@@ -10,6 +10,10 @@ Ext.define('Spm.view.application.AppContainer', {
         'Spm.view.application.MyItemsTabContent'
     ],
 
+    controller: 'appContainer',
+    viewmodel: {
+        type: 'appContainer'
+    },
     reference: 'appContainer',
     hidden: true,
     cls: 'superman-app-container',
