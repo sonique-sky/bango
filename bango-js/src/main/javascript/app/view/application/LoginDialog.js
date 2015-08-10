@@ -14,7 +14,6 @@ Ext.define('Spm.view.application.LoginDialog', {
 
     controller: 'loginDialog',
     viewModel: {type: 'loginDialog'},
-    reference: 'loginDialog',
 
     closable: false,
     draggable: false,
@@ -23,7 +22,6 @@ Ext.define('Spm.view.application.LoginDialog', {
     title: 'Please Login',
     defaultFocus: 'usernameField',
     modal: true,
-
 
     items: [
         {
