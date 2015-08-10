@@ -6,8 +6,8 @@ Ext.define('Spm.view.queue.ActionToolbar', {
         var me = this;
         Ext.applyIf(me, {
             items: [
-                this.registeredActions.actionNamed('bulk-transfer'),
-                this.registeredActions.actionNamed('bulk-clear')
+                //this.registeredActions.actionNamed('bulk-transfer'),
+                //this.registeredActions.actionNamed('bulk-clear')
             ]
         });
 

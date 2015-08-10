@@ -17,8 +17,12 @@ Ext.define('Spm.view.application.AppContainerViewController', {
         if(!viewModel.containsQueueTabForId(queueId)) {
             var tabPanel = this.lookupReference('tabPanel');
             tabPanel.add({
-                xtype: 'queueTabContent',
-                title: 'Queue :: '+queueId
+                xtype: 'queueTab',
+                viewModel: {
+                    data: {
+                        queue: selectedQueue
+                    }
+                }
             });
 
             viewModel.addQueueTab(queueId);

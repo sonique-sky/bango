@@ -8,7 +8,7 @@ Ext.define('Spm.controller.Queues', {
     },
 
     requires: [
-        'Spm.view.queue.QueueTabContent'
+        'Spm.view.queue.QueueTab'
     ],
 
     refs: [

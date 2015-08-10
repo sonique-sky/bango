@@ -1,6 +1,6 @@
-Ext.define('Spm.view.queue.QueueTabContent', {
+Ext.define('Spm.view.queue.QueueTab', {
     extend: 'Ext.panel.Panel',
-    alias: 'widget.queueTabContent',
+    alias: 'widget.queueTab',
 
     requires: [
         'Spm.view.queue.ActionToolbar',
@@ -13,18 +13,78 @@ Ext.define('Spm.view.queue.QueueTabContent', {
         'Ext.toolbar.Paging'
     ],
 
-    mixins: {
-        isActionContext: 'Spm.controller.mixins.IsActionContext'
-    },
-
-    config: {
-        queue: undefined
-    },
-
     border: 0,
 
+    controller: 'queueTab',
+    viewModel: {type: 'queueTab'},
     closable: true,
     iconCls: 'icon-queue',
+
+    bind: {
+        title: '{queue.name}'
+    },
+
+    dockedItems: [
+        {
+            xtype: 'container',
+            layout: {type: 'hbox', align: 'stretch'},
+            dock: 'top',
+            defaults: {
+                border: 0
+            },
+            items: [
+                {
+                    xtype: 'queueTabToolbar',
+                },
+                {
+                    xtype: 'pagingtoolbar',
+                    flex: 1.0,
+                    bind: {
+                        store: '{serviceProblems}'
+                    }
+                }
+            ]
+        }
+    ],
+    items: [
+        {
+            xtype: 'gridpanel',
+            store: this.store,
+            selModel: {
+                selType: 'checkboxmodel',
+                checkOnly: true
+            },
+            border: 0,
+            listeners: {
+                cellclick: {fn: this.onCellClicked, scope: this},
+                selectionchange: {fn: this.onSelectionChanged, scope: this}
+            },
+            columns: [
+                {
+                    text: 'Service Problem',
+                    columns: [
+                        {text: 'Service Problem Id', dataIndex: 'serviceProblemId'},
+                        {text: 'Status', dataIndex: 'status'}
+                    ]
+                },
+                {
+                    text: 'Work Item',
+                    columns: [
+                        {
+                            text: 'Work Item Status',
+                            dataIndex: 'workItem.status',
+                            renderer: Spm.view.renderer.NestedPropertyRenderer.renderer
+                        },
+                        {
+                            text: 'Agent',
+                            dataIndex: 'workItem.agent.displayName',
+                            renderer: Spm.view.renderer.NestedPropertyRenderer.renderer
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
 
     //constructor: function() {
     //    this.mixins.isActionContext.constructor.call(this);
