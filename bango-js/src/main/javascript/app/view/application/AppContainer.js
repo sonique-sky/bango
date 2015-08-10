@@ -26,6 +26,7 @@ Ext.define('Spm.view.application.AppContainer', {
     items: [
         {
             xtype: 'tabpanel',
+            reference: 'tabPanel',
             region: 'center',
             id: 'tab-panel'
         },
