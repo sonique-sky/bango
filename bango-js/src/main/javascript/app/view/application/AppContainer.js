@@ -11,7 +11,7 @@ Ext.define('Spm.view.application.AppContainer', {
     ],
 
     controller: 'appContainer',
-    viewmodel: {
+    viewModel: {
         type: 'appContainer'
     },
     reference: 'appContainer',

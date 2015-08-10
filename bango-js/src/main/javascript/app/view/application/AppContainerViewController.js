@@ -11,7 +11,12 @@ Ext.define('Spm.view.application.AppContainerViewController', {
     },
 
     onAgentQueueSelected: function(selectedQueue) {
-        debugger;
+        var viewModel = this.getViewModel();
+        var queueId = selectedQueue.queueId();
+
+        if(!viewModel.containsQueueTabForId(queueId)) {
+            viewModel.addQueueTab(queueId);
+        }
     }
 
 });
