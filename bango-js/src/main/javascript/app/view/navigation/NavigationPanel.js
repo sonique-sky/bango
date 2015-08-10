@@ -5,7 +5,7 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
     requires: [
         'Spm.view.navigation.state.AgentState',
         'Spm.view.navigation.MyQueuesPanel',
-        'Spm.view.navigation.SearchPanel'
+        'Spm.view.navigation.search.Search'
     ],
 
     height: 730,
@@ -20,15 +20,15 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
             xtype: 'agentState',
             //actionContextManager: me.agentStatusActionContextManager
         },
-        //{
-        //    xtype: 'myQueuesPanel',
-        //    collapsible:true
-        //},
-        //{
-        //    xtype: 'searchPanel',
-        //    //actionContextManager: me.searchesActionContextManager,
-        //    collapsible:true
-        //}
+        {
+            xtype: 'myQueuesPanel',
+            collapsible:true
+        },
+        {
+            xtype: 'search',
+            //actionContextManager: me.searchesActionContextManager,
+            collapsible:true
+        }
     ]
 
 });

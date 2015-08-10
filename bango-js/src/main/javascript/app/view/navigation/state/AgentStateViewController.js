@@ -5,7 +5,13 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
     listen: {
         global: {
             authenticated: 'onAuthenticated'
+        },
+        controller: {
+            'superman' : {
+                authenticated: 'onAuthenticated'
+            }
         }
+
         //controller: {
         //    '#ServiceProblems': {
         //        'serviceProblemPulled': 'refreshAgentState',
@@ -20,7 +26,7 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
     },
 
     refreshAgentState: function () {
-        this.getViewModel().get('agentState').load();
+        this.getViewModel().getStore('agentState').load();
     },
 
     onAgentStateLoaded: function (agentStateStore) {
