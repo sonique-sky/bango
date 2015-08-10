@@ -7,7 +7,15 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
             'superman': {
                 authenticated: 'onAuthenticated'
             }
+        },
+        component: {
+            '#queues-view': {
+                select: 'onQueueSelect'
+            }
         }
+    },
+
+    onQueueSelect: function(dataViewModel, selectedQueue) {
     },
 
     onAuthenticated: function(authenticatedAgent) {
