@@ -6,6 +6,7 @@ Ext.define('Spm.store.AuthenticatedAgent', {
         'Spm.model.Agent'
     ],
 
+    storeId: 'authenticatedAgentFoo',
     autoLoad: false,
     filterOnLoad: false,
     model: 'Spm.model.Agent',

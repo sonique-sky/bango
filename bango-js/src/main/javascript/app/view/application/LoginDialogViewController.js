@@ -11,7 +11,7 @@ Ext.define('Spm.view.application.LoginDialogViewController', {
     onAccept: function () {
         if (this.lookupReference('loginForm').isValid()) {
             var viewModel = this.getViewModel();
-            Ext.GlobalEvents.fireEvent('login', {
+            this.fireEvent('performAuthentication', {
                 username: viewModel.get('username'),
                 password: viewModel.get('password')
             });
@@ -25,6 +25,6 @@ Ext.define('Spm.view.application.LoginDialogViewController', {
         viewModel.set('password', null);
 
         this.lookupReference('loginForm').reset();
-    },
+    }
 
 });

@@ -10,6 +10,7 @@ Ext.define('Spm.view.application.AppContainer', {
         'Spm.view.application.MyItemsTabContent'
     ],
 
+    reference: 'appContainer',
     hidden: true,
     cls: 'superman-app-container',
     itemId: 'appContainer',

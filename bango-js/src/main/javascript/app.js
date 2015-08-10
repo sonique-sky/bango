@@ -24,7 +24,7 @@ Ext.application({
         'Errors',
         'MyQueues',
         //'AgentStatus',
-        'Security',
+        //'Security',
         'Queues',
         'ServiceProblems',
         'Searches',

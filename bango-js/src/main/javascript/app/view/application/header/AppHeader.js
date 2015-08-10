@@ -3,7 +3,6 @@ Ext.define('Spm.view.application.header.AppHeader', {
     alias: 'widget.appHeader',
 
     controller: 'appHeader',
-    viewModel: {type: 'appHeader'},
     reference: 'appHeader',
 
     height: 60,
