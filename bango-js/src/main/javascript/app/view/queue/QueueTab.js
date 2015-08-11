@@ -4,8 +4,6 @@ Ext.define('Spm.view.queue.QueueTab', {
 
     requires: [
         'Spm.view.queue.QueueTabToolbar',
-        'Spm.controller.action.queue.BulkClearAction',
-        'Spm.controller.action.queue.BulkTransferAction',
         'Spm.view.renderer.NestedPropertyRenderer',
         'Spm.store.ServiceProblems',
         'Ext.grid.Panel',

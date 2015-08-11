@@ -3,6 +3,11 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     alias: 'controller.queueTab',
 
     listen: {
+        controller: {
+            'bulkClearDialog': {
+                bulkOperationCompleted: 'onBulkOperationCompleted'
+            }
+        },
         component: {
             'queueTab': {
                 activate: 'onQueueTabActivated',
@@ -10,6 +15,10 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
                 added: 'onQueueTabAdded'
             }
         }
+    },
+
+    onBulkOperationCompleted: function(rawJsonResponse) {
+        this.getStore('queuedServiceProblems').loadRawData(rawJsonResponse);
     },
 
     onQueueTabAdded: function () {
@@ -66,7 +75,8 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
                 viewModel: {
                     data: {
                         message: theMessage,
-                        acceptButtonDefaultDisabled: false
+                        acceptButtonDefaultDisabled: false,
+                        serviceProblems: selectedServiceProblems
                     }
                 }
             });
