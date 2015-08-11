@@ -3,7 +3,7 @@ Ext.define('Spm.view.queue.QueueTab', {
     alias: 'widget.queueTab',
 
     requires: [
-        'Spm.view.queue.ActionToolbar',
+        'Spm.view.queue.QueueTabToolbar',
         'Spm.controller.action.queue.BulkClearAction',
         'Spm.controller.action.queue.BulkTransferAction',
         'Spm.view.renderer.NestedPropertyRenderer',
@@ -49,6 +49,7 @@ Ext.define('Spm.view.queue.QueueTab', {
     items: [
         {
             xtype: 'gridpanel',
+            reference: 'queueTabGrid',
             bind: {
                 store: '{queuedServiceProblems}'
             },
