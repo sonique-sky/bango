@@ -38,5 +38,13 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
 
     onDeselectAll: function () {
         this.lookupReference('queueTabGrid').getSelectionModel().deselectAll(true);
+    },
+
+    onBulkTransfer: function () {
+        var dialog = this.getView().add({
+            xtype: 'bulkTransferDialog'
+        });
+
+        dialog.show();
     }
 });

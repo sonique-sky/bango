@@ -34,8 +34,10 @@ Ext.define('Spm.view.navigation.queues.Queues', {
             bind: {
                 store: '{agentQueues}'
             },
-            trackOver: true
+            trackOver: true,
+            listeners: {
+                select: 'onAgentQueueSelect'
+            }
         }
     ]
-
 });

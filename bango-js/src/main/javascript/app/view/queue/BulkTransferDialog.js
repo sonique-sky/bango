@@ -1,5 +1,5 @@
 Ext.define('Spm.view.queue.BulkTransferDialog', {
-    extend: 'Spm.view.component.ActionDialog',
+    extend: 'Spm.view.component.StandardDialog',
     alias: 'widget.bulkTransferDialog',
 
     height: 250,
@@ -7,46 +7,43 @@ Ext.define('Spm.view.queue.BulkTransferDialog', {
     iconCls: 'icon-bulk-transfer',
     title: 'Bulk Transfer',
 
-    initComponent: function () {
-        var me = this;
+    controller: 'bulkTransferDialog',
+    viewModel: {
+        type: 'bulkTransferDialog'
+    },
 
-        Ext.apply(me, {
-            acceptButtonText: 'Transfer',
-            acceptButtonDefaultDisabled: true,
-            content: {
-                id: 'bulk-transfer-view',
-                xtype: 'dataview',
-                cls: 'bulk-transfer-view',
-                tpl: [
-                    '<div id="transfer-queues-group">',
-                    '   <tpl for=".">',
-                    '      <div id="transfer-{name}" class="queue x-view-item">{name}</div>',
-                    '   </tpl>',
-                    '</div>'
-                ],
-                itemSelector: 'div.queue',
-                overItemCls: 'x-item-over',
-                store: 'AllQueues',
-                trackOver: true,
-                autoScroll: true,
-                margin: 5,
-                border: 1,
-                style: {
-                    borderColor: '#bcb1b0',
-                    borderStyle: 'solid'
-                },
-                listeners: {
-                    select: { fn: me.onQueueSelected, scope: me}
-                }
+    reference: 'bulkTransferDialog',
+
+    items: [
+        {
+            id: 'bulkTransferView',
+            xtype: 'dataview',
+            cls: 'bulk-transfer-view',
+            tpl: [
+                '<div id="transfer-queues-group">',
+                '   <tpl for=".">',
+                '      <div id="transfer-{name}" class="queue x-view-item">{name}</div>',
+                '   </tpl>',
+                '</div>'
+            ],
+            itemSelector: 'div.queue',
+            overItemCls: 'x-item-over',
+            bind: {
+                store: '{allQueues}'
+            },
+            trackOver: true,
+            autoScroll: true,
+            margin: 5,
+            border: 1,
+            style: {
+                borderColor: '#bcb1b0',
+                borderStyle: 'solid'
+            },
+            listeners: {
+                select: 'onTransferQueueSelected'
             }
-        });
-
-        me.callParent(arguments);
-    },
-
-    onQueueSelected: function () {
-        this.setAcceptButtonDisabled(false);
-    },
+        }
+    ],
 
     doCollect: function () {
         return [this.down('dataview').getSelectionModel().getSelection()[0]];

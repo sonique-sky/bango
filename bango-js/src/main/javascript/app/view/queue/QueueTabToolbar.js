@@ -15,13 +15,12 @@ Ext.define('Spm.view.queue.QueueTabToolbar', {
         },
         {
             xtype: 'button',
-            text: 'Transfer'
+            text: 'Transfer',
+            handler: 'onBulkTransfer'
         },
         {
             xtype: 'button',
             text: 'Clear'
         }
-        //this.registeredActions.actionNamed('bulk-transfer'),
-        //this.registeredActions.actionNamed('bulk-clear')
     ]
 });

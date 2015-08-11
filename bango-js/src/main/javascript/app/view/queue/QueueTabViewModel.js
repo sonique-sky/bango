@@ -14,4 +14,5 @@ Ext.define('Spm.view.queue.QueueTabViewModel', {
     data: {
         queue: null
     }
+
 });

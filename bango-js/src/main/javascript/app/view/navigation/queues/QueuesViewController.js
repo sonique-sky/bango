@@ -12,11 +12,6 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
                 queueTabDeselected: 'onQueueTabDeselected',
                 queueTabClosed: 'onQueueTabClosed'
             }
-        },
-        component: {
-            '#queues-view': {
-                select: 'onAgentQueueSelect'
-            }
         }
     },
 
