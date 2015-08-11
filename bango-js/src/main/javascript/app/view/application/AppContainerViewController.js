@@ -4,20 +4,20 @@ Ext.define('Spm.view.application.AppContainerViewController', {
 
     listen: {
         controller: {
-            'myQueues' : {
+            'myQueues': {
                 agentQueueSelected: 'onAgentQueueSelected'
             }
         }
     },
 
-    onAgentQueueSelected: function(selectedQueue) {
+    onAgentQueueSelected: function (selectedQueue) {
+        var tabPanel = this.lookupReference('tabPanel');
         var viewModel = this.getViewModel();
         var queueId = selectedQueue.queueId();
+        var queueTab = viewModel.queueTabForId(queueId);
 
-        if(!viewModel.containsQueueTabForId(queueId)) {
-            var tabPanel = this.lookupReference('tabPanel');
-            tabPanel.add({
-                xtype: 'queueTab',
+        if (queueTab === null) {
+            queueTab = Ext.create('widget.queueTab', {
                 viewModel: {
                     data: {
                         queue: selectedQueue
@@ -25,9 +25,11 @@ Ext.define('Spm.view.application.AppContainerViewController', {
                 }
             });
 
-            viewModel.addQueueTab(queueId);
+            viewModel.addQueueTab(queueId, queueTab);
+            tabPanel.add(queueTab);
         }
 
+        tabPanel.setActiveTab(queueTab);
         this.fireEvent('queueTabSelected', queueId);
     }
 

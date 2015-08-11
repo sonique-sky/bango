@@ -6,6 +6,9 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
         controller: {
             'superman': {
                 authenticated: 'onAuthenticated'
+            },
+            'queueTab': {
+                queueTabSelected: 'onQueueTabSelected'
             }
         },
         component: {
@@ -27,6 +30,14 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
             var queueStore = this.getStore('agentQueues');
             queueStore.loadRawData(authenticatedAgent.getData());
         }
+    },
+
+    onQueueTabSelected: function(queueId) {
+        var dataView = this.lookupReference('myQueuesDataView');
+        var agentQueues = this.getViewModel().getStore('agentQueues');
+        var index = agentQueues.indexOfId(queueId);
+
+        dataView.getSelectionModel().select(index, false, true);
     }
 
 });

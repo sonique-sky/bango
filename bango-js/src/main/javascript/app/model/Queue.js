@@ -2,6 +2,8 @@ Ext.define('Spm.model.Queue', {
     extend: 'Ext.data.Model',
     alias: 'model.queue',
 
+    idProperty: 'id',
+
     fields: [
         {
             name: 'id'

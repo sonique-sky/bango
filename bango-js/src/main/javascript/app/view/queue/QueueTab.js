@@ -34,7 +34,7 @@ Ext.define('Spm.view.queue.QueueTab', {
             },
             items: [
                 {
-                    xtype: 'queueTabToolbar',
+                    xtype: 'queueTabToolbar'
                 },
                 {
                     xtype: 'pagingtoolbar',

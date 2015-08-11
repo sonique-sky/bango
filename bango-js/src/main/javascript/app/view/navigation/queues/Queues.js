@@ -16,6 +16,7 @@ Ext.define('Spm.view.navigation.queues.Queues', {
     items: [
         {
             id: 'queues-view',
+            reference: 'myQueuesDataView',
             xtype: 'dataview',
             cls: 'queues',
             tpl: [

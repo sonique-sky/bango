@@ -6,12 +6,16 @@ Ext.define('Spm.view.application.AppContainerViewModel', {
             activeQueueTabs: Ext.create('Ext.util.MixedCollection')
         },
 
-        containsQueueTabForId: function(queueId) {
-            return this.get('activeQueueTabs').containsKey(queueId);
+        activeQueueTabs: function () {
+            return this.get('activeQueueTabs');
         },
 
-        addQueueTab: function(queueId) {
-            this.get('activeQueueTabs').add(queueId, queueId);
+        queueTabForId: function (queueId) {
+            return this.activeQueueTabs().containsKey(queueId) ? this.activeQueueTabs().get(queueId) : null;
+        },
+
+        addQueueTab: function (queueId, queueTab) {
+            this.activeQueueTabs().add(queueId, queueTab);
         }
     }
 );
