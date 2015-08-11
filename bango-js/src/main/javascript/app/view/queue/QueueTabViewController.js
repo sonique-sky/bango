@@ -17,7 +17,21 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         }
     },
 
-    onBulkOperationCompleted: function(rawJsonResponse) {
+    onCellClicked: function (view, td, cellIndex, record) {
+        if (cellIndex > 0) {
+            console.log('cell clicked');
+
+            // TODO: fire event to navigate to service problem
+        }
+    },
+
+    onSelectionChanged: function (selectionModel, selections) {
+        var hasSelected = selections.length > 0;
+        this.getViewModel().set('bulkTransferDisabled', !hasSelected);
+        this.getViewModel().set('bulkClearDisabled', !hasSelected);
+    },
+
+    onBulkOperationCompleted: function (rawJsonResponse) {
         this.getStore('queuedServiceProblems').loadRawData(rawJsonResponse);
     },
 
@@ -38,62 +52,43 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     },
 
     onSelectAll: function () {
-        this.gridSelectionModel().selectAll(true);
+        this.gridSelectionModel().selectAll(false);
     },
     onDeselectAll: function () {
-        this.gridSelectionModel().deselectAll(true);
+        this.gridSelectionModel().deselectAll(false);
     },
 
 
     onBulkTransfer: function () {
-        if (this.ensureServiceProblemsSelected()) {
-            var dialog = this.getView().add({
-                xtype: 'bulkTransferDialog'
-            });
+        var dialog = this.getView().add({
+            xtype: 'bulkTransferDialog'
+        });
 
-            dialog.show();
-        }
-        else {
-            this.showNoServiceProblemsSelectedMessage()
-        }
+        dialog.show();
     },
 
     onBulkClear: function () {
-        if (this.ensureServiceProblemsSelected()) {
-            var selectedServiceProblems = this.selectedServiceProblems();
-            var hasActiveTroubleReports = this.hasActiveTroubleReports(selectedServiceProblems);
-            var theMessage;
+        var selectedServiceProblems = this.selectedServiceProblems();
+        var hasActiveTroubleReports = this.hasActiveTroubleReports(selectedServiceProblems);
+        var theMessage;
 
-            if (hasActiveTroubleReports) {
-                theMessage = 'One or more of the selected Service Problems has an active Trouble Report.<br/><br/>Are you sure you wish to continue?';
-            } else {
-                theMessage = 'Are you sure you wish to clear these Service Problems?';
-            }
+        if (hasActiveTroubleReports) {
+            theMessage = 'One or more of the selected Service Problems has an active Trouble Report.<br/><br/>Are you sure you wish to continue?';
+        } else {
+            theMessage = 'Are you sure you wish to clear these Service Problems?';
+        }
 
-            var dialog = this.getView().add({
-                xtype: 'bulkClearDialog',
-                viewModel: {
-                    data: {
-                        message: theMessage,
-                        acceptButtonDefaultDisabled: false,
-                        serviceProblems: selectedServiceProblems
-                    }
+        var dialog = this.getView().add({
+            xtype: 'bulkClearDialog',
+            viewModel: {
+                data: {
+                    message: theMessage,
+                    acceptButtonDefaultDisabled: false,
+                    serviceProblems: selectedServiceProblems
                 }
-            });
-            dialog.show();
-        }
-        else {
-            this.showNoServiceProblemsSelectedMessage();
-        }
-    },
-
-    showNoServiceProblemsSelectedMessage: function () {
-        Ext.Msg.show({
-            title: 'Error',
-            message: 'Please select at least one Service Problem!',
-            buttons: Ext.Msg.OK,
-            icon: Ext.Msg.WARNING
+            }
         });
+        dialog.show();
     },
 
     queueId: function () {
@@ -106,10 +101,6 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
 
     selectedServiceProblems: function () {
         return this.gridSelectionModel().getSelection();
-    },
-
-    ensureServiceProblemsSelected: function () {
-        return this.selectedServiceProblems().length > 0;
     },
 
     hasActiveTroubleReports: function (selectedServiceProblems) {
