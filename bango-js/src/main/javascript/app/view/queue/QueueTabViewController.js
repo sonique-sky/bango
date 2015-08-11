@@ -5,13 +5,18 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     listen: {
         component: {
             'queueTab': {
-                activate: 'onQueueTabActivated'
+                activate: 'onQueueTabActivated',
+                close: 'onQueueTabClosed'
             }
         }
     },
 
     onQueueTabActivated: function () {
         this.fireEvent('queueTabSelected', this.getViewModel().get('queue').get('id'));
+    },
+
+    onQueueTabClosed: function () {
+        this.fireEvent('queueTabClosed', this.getViewModel().get('queue').get('id'));
     }
 
 });

@@ -8,7 +8,9 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
                 authenticated: 'onAuthenticated'
             },
             'queueTab': {
-                queueTabSelected: 'onQueueTabSelected'
+                queueTabSelected: 'onQueueTabSelected',
+                queueTabDeselected: 'onQueueTabDeselected',
+                queueTabClosed: 'onQueueTabClosed'
             }
         },
         component: {
@@ -18,11 +20,11 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
         }
     },
 
-    onAgentQueueSelect: function(dataViewModel, selectedQueue) {
+    onAgentQueueSelect: function (dataViewModel, selectedQueue) {
         this.fireEvent('agentQueueSelected', selectedQueue);
     },
 
-    onAuthenticated: function(authenticatedAgent) {
+    onAuthenticated: function (authenticatedAgent) {
         var hasAssignedQueues = authenticatedAgent.hasPrivilege('HasAssignedQueues');
         this.getView().setVisible(hasAssignedQueues);
 
@@ -32,12 +34,30 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
         }
     },
 
-    onQueueTabSelected: function(queueId) {
+    onQueueTabSelected: function (queueId) {
         var dataView = this.lookupReference('myQueuesDataView');
         var agentQueues = this.getViewModel().getStore('agentQueues');
         var index = agentQueues.indexOfId(queueId);
 
         dataView.getSelectionModel().select(index, false, true);
-    }
+    },
 
+    onQueueTabClosed: function (queueId) {
+        var dataView = this.lookupReference('myQueuesDataView');
+        var agentQueues = this.getViewModel().getStore('agentQueues');
+        var index = agentQueues.indexOfId(queueId);
+
+        dataView.getSelectionModel().deselect(index, true);
+    },
+
+    onQueueTabDeselected: function () {
+        this.deselectAll();
+    },
+
+    deselectAll: function () {
+        var dataView = this.lookupReference('myQueuesDataView');
+        var agentQueues = this.getViewModel().getStore('agentQueues');
+
+        dataView.getSelectionModel().deselectAll(true);
+    }
 });

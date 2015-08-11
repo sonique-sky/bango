@@ -6,8 +6,15 @@ Ext.define('Spm.view.application.AppContainerViewController', {
         controller: {
             'myQueues': {
                 agentQueueSelected: 'onAgentQueueSelected'
+            },
+            'queueTab': {
+                queueTabClosed: 'onQueueTabClosed'
             }
         }
+    },
+
+    onQueueTabClosed: function(queueId) {
+        this.getViewModel().removeTabForId(queueId);
     },
 
     onAgentQueueSelected: function (selectedQueue) {

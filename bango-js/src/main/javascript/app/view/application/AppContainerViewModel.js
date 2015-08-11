@@ -16,6 +16,10 @@ Ext.define('Spm.view.application.AppContainerViewModel', {
 
         addQueueTab: function (queueId, queueTab) {
             this.activeQueueTabs().add(queueId, queueTab);
+        },
+
+        removeTabForId: function(queueId) {
+            this.activeQueueTabs().removeAtKey(queueId);
         }
     }
 );
