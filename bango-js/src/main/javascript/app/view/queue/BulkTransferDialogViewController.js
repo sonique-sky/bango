@@ -26,5 +26,10 @@ Ext.define('Spm.view.queue.BulkTransferDialogViewController', {
 
     onShow: function () {
         this.getViewModel().getStore('allQueues').load();
+    },
+
+    onCancel: function () {
+        this.getView().close();
     }
+
 });

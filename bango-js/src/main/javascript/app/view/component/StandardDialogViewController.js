@@ -6,5 +6,4 @@ Ext.define('Spm.view.component.StandardDialogViewController', {
         this.close();
     }
 
-
 });
