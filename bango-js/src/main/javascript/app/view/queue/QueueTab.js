@@ -40,7 +40,7 @@ Ext.define('Spm.view.queue.QueueTab', {
                     xtype: 'pagingtoolbar',
                     flex: 1.0,
                     bind: {
-                        store: '{serviceProblems}'
+                        store: '{queuedServiceProblems}'
                     }
                 }
             ]
@@ -49,7 +49,9 @@ Ext.define('Spm.view.queue.QueueTab', {
     items: [
         {
             xtype: 'gridpanel',
-            store: this.store,
+            bind: {
+                store: '{queuedServiceProblems}'
+            },
             selModel: {
                 selType: 'checkboxmodel',
                 checkOnly: true

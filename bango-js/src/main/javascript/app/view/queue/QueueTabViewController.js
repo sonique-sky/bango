@@ -6,17 +6,29 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         component: {
             'queueTab': {
                 activate: 'onQueueTabActivated',
-                close: 'onQueueTabClosed'
+                close: 'onQueueTabClosed',
+                added: 'onQueueTabAdded'
             }
         }
     },
 
-    onQueueTabActivated: function () {
-        this.fireEvent('queueTabSelected', this.getViewModel().get('queue').get('id'));
+    onQueueTabAdded: function() {
+        this.getViewModel().getStore('queuedServiceProblems').load();
     },
 
-    onQueueTabClosed: function () {
-        this.fireEvent('queueTabClosed', this.getViewModel().get('queue').get('id'));
-    }
+    onBeforeLoad: function(store, operation) {
+        operation.setParams({queueId: this.queueId()});
+    },
 
+
+    onQueueTabActivated: function () {
+        this.fireEvent('queueTabSelected', this.queueId());
+    },
+    onQueueTabClosed: function () {
+        this.fireEvent('queueTabClosed', this.queueId());
+    },
+
+    queueId: function () {
+        return this.getViewModel().get('queue').get('id');
+    }
 });
