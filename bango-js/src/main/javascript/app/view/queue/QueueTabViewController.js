@@ -6,6 +6,9 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         controller: {
             'bulkClearDialog': {
                 bulkOperationCompleted: 'onBulkOperationCompleted'
+            },
+            'bulkTransferDialog': {
+                bulkOperationCompleted: 'onBulkOperationCompleted'
             }
         },
         component: {
@@ -60,10 +63,16 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         this.gridSelectionModel().deselectAll(false);
     },
 
-
     onBulkTransfer: function () {
+        var selectedServiceProblems = this.selectedServiceProblems();
+
         var dialog = this.getView().add({
-            xtype: 'bulkTransferDialog'
+            xtype: 'bulkTransferDialog',
+            viewModel: {
+                data: {
+                    serviceProblems: selectedServiceProblems
+                }
+            }
         });
 
         dialog.show();
