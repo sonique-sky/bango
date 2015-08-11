@@ -20,7 +20,8 @@ Ext.define('Spm.view.queue.QueueTabToolbar', {
         },
         {
             xtype: 'button',
-            text: 'Clear'
+            text: 'Clear',
+            handler: 'onBulkClear'
         }
     ]
 });
