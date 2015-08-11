@@ -27,8 +27,10 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
 
     onSelectionChanged: function (selectionModel, selections) {
         var hasSelected = selections.length > 0;
-        this.getViewModel().set('bulkTransferDisabled', !hasSelected);
-        this.getViewModel().set('bulkClearDisabled', !hasSelected);
+        var viewModel = this.getViewModel();
+
+        viewModel.set('bulkTransferDisabled', !hasSelected);
+        viewModel.set('bulkClearDisabled', !hasSelected);
     },
 
     onBulkOperationCompleted: function (rawJsonResponse) {
