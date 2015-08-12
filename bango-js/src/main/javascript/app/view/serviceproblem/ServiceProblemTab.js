@@ -23,6 +23,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     iconCls: 'icon-sp-unassigned',
 
     viewModel: {type: 'serviceProblemTab'},
+
     bind: {
         title: '{serviceProblemTabTitle}'
     },
@@ -32,6 +33,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     //eventHistoryPanel: undefined,
 
     layout: 'card',
+
     //dockedItems: [
     //    {
     //        xtype: 'container',
@@ -144,4 +146,5 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     //switchView: function (button) {
     //    this.getLayout().setActiveItem(button.itemId + 'Panel');
     //}
+
 });

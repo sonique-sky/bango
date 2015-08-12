@@ -33,6 +33,7 @@ Ext.define('Spm.view.application.AppContainerViewController', {
         }
 
         tabPanel.setActiveTab(serviceProblemTab);
+
         this.fireEvent('serviceProblemTabSelected', serviceProblemId);
     },
 
@@ -60,6 +61,7 @@ Ext.define('Spm.view.application.AppContainerViewController', {
         }
 
         tabPanel.setActiveTab(queueTab);
+
         this.fireEvent('queueTabSelected', queueId);
     }
 
