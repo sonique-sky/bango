@@ -4,7 +4,6 @@ Ext.define('Spm.view.queue.QueueTab', {
 
     requires: [
         'Spm.view.queue.QueueTabToolbar',
-        'Spm.view.renderer.NestedPropertyRenderer',
         'Spm.store.ServiceProblems',
         'Ext.grid.Panel',
         'Ext.toolbar.Spacer',
@@ -72,14 +71,14 @@ Ext.define('Spm.view.queue.QueueTab', {
                     text: 'Work Item',
                     columns: [
                         {
-                            text: 'Work Item Status',
-                            dataIndex: 'workItem.status',
-                            renderer: Spm.view.renderer.NestedPropertyRenderer.renderer
+                            xtype: 'templatecolumn',
+                            tpl: '{workItem.status}',
+                            text: 'Work Item Status'
                         },
                         {
-                            text: 'Agent',
-                            dataIndex: 'workItem.agent.displayName',
-                            renderer: Spm.view.renderer.NestedPropertyRenderer.renderer
+                            xtype: 'templatecolumn',
+                            tpl: '{workItem.agent.displayName}',
+                            text: 'Agent'
                         }
                     ]
                 }

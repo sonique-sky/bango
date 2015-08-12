@@ -46,9 +46,5 @@ Ext.define('Spm.model.WorkItem', {
 
     isAssignedTo: function (agent) {
         return this.agent().get('code') === agent.get('code');
-    },
-
-    hasOne: [
-        'agent', {model: 'Spm.model.Agent', name: 'agent', associationKey: 'agent', getterName: 'agent'}
-    ]
+    }
 });

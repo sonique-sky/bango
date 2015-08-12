@@ -2,10 +2,6 @@ Ext.define('Spm.view.search.SearchResultTabContent', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.searchResultTabContent',
 
-    requires: [
-        'Spm.view.renderer.NestedPropertyRenderer'
-    ],
-
     config: {
         searchCriteria: undefined
     },

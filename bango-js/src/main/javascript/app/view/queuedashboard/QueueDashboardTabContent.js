@@ -7,7 +7,6 @@ Ext.define('Spm.view.queuedashboard.QueueDashboardTabContent', {
     requires: [
         'Spm.view.queuedashboard.ActionToolbar',
         'Spm.controller.action.queuedashboard.RefreshDashboardAction',
-        'Spm.view.renderer.NestedPropertyRenderer',
         'Spm.store.QueueDashboardEntries',
         'Ext.grid.Panel',
         'Ext.toolbar.Spacer',
