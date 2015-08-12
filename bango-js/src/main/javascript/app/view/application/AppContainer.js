@@ -33,9 +33,6 @@ Ext.define('Spm.view.application.AppContainer', {
         {
             xtype: 'navigationPanel',
             region: 'west'
-            //,
-            //agentStatusActionContextManager: me.agentStatusActionContextManager,
-            //searchesActionContextManager: me.searchesActionContextManager
         },
         {
             xtype: 'appHeader',

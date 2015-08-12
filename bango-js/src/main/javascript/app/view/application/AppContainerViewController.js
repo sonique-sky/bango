@@ -8,13 +8,36 @@ Ext.define('Spm.view.application.AppContainerViewController', {
                 agentQueueSelected: 'onAgentQueueSelected'
             },
             'queueTab': {
-                queueTabClosed: 'onQueueTabClosed'
+                queueTabClosed: 'onQueueTabClosed',
+                serviceProblemSelected: 'onServiceProblemSelected'
             }
         }
     },
 
+    onServiceProblemSelected: function(serviceProblemId) {
+        var tabPanel = this.lookupReference('tabPanel');
+        var viewModel = this.getViewModel();
+        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+
+        if (serviceProblemTab === null) {
+            serviceProblemTab = Ext.create('widget.serviceProblemTab', {
+                viewModel: {
+                    data: {
+                        serviceProblemId: serviceProblemId
+                    }
+                }
+            });
+
+            viewModel.addServiceproblemTab(serviceProblemId, serviceProblemTab);
+            tabPanel.add(serviceProblemTab);
+        }
+
+        tabPanel.setActiveTab(serviceProblemTab);
+        this.fireEvent('serviceProblemTabSelected', serviceProblemId);
+    },
+
     onQueueTabClosed: function(queueId) {
-        this.getViewModel().removeTabForId(queueId);
+        this.getViewModel().removeQueueTabForId(queueId);
     },
 
     onAgentQueueSelected: function (selectedQueue) {

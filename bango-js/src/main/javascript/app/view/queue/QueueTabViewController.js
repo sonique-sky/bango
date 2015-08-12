@@ -22,9 +22,7 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
 
     onCellClicked: function (view, td, cellIndex, record) {
         if (cellIndex > 0) {
-            console.log('cell clicked');
-
-            // TODO: fire event to navigate to service problem
+            this.fireEvent('serviceProblemSelected', record.serviceProblemId());
         }
     },
 

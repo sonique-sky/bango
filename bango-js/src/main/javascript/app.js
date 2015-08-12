@@ -26,7 +26,7 @@ Ext.application({
         //'AgentStatus',
         //'Security',
         //'Queues',
-        'ServiceProblems',
+        //'ServiceProblems',
         'Searches',
         'MyItems',
         'QueueDashboard'

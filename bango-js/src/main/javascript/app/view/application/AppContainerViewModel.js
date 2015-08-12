@@ -3,11 +3,8 @@ Ext.define('Spm.view.application.AppContainerViewModel', {
         alias: 'viewmodel.appContainer',
 
         data: {
-            activeQueueTabs: Ext.create('Ext.util.MixedCollection')
-        },
-
-        activeQueueTabs: function () {
-            return this.get('activeQueueTabs');
+            activeQueueTabs: Ext.create('Ext.util.MixedCollection'),
+            activeServiceProblemTabs: Ext.create('Ext.util.MixedCollection')
         },
 
         queueTabForId: function (queueId) {
@@ -18,8 +15,28 @@ Ext.define('Spm.view.application.AppContainerViewModel', {
             this.activeQueueTabs().add(queueId, queueTab);
         },
 
-        removeTabForId: function(queueId) {
+        removeQueueTabForId: function(queueId) {
             this.activeQueueTabs().removeAtKey(queueId);
+        },
+
+        activeQueueTabs: function () {
+            return this.get('activeQueueTabs');
+        },
+
+        serviceProblemTabForId: function (serviceProblemId) {
+            return this.activeServiceProblemTabs().containsKey(serviceProblemId) ? this.activeServiceProblemTabs().get(serviceProblemId) : null;
+        },
+
+        addServiceproblemTab: function (serviceProblemId, serviceProblemTab) {
+            this.activeServiceProblemTabs().add(serviceProblemId, serviceProblemTab);
+        },
+
+        removeServiceProblemTabForId: function(serviceProblemId) {
+            this.activeServiceProblemTabs().removeAtKey(serviceProblemId);
+        },
+
+        activeServiceProblemTabs: function () {
+            return this.get('activeServiceProblemTabs');
         }
     }
 );

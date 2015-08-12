@@ -2,7 +2,7 @@ Ext.define('Spm.controller.ServiceProblems', {
     extend: 'Ext.app.Controller',
     alias: 'controller.serviceProblems',
     requires: [
-        'Spm.view.serviceproblem.ServiceProblemTabContent',
+        'Spm.view.serviceproblem.ServiceProblemTab',
         'Spm.view.component.Notification'
     ],
 
