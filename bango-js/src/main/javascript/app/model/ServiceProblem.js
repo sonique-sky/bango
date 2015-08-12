@@ -76,6 +76,8 @@ Ext.define('Spm.model.ServiceProblem', {
     },
 
     hasWorkItem: function () {
-        return this.workItem().get('status') != '';
+        var workItemStatus = this.getData().workItem.status;
+
+        return workItemStatus !== '' && workItemStatus !== undefined;
     }
 });

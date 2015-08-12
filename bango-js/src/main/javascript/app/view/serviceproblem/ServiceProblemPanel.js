@@ -36,18 +36,24 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                     items: [
                         {
                             xtype: 'textfield',
-                            name: 'serviceProblemId',
+                            bind: {
+                                value: '{serviceProblem.serviceProblemId}'
+                            },
                             fieldLabel: 'Service Problem Id'
                         },
                         {
                             xtype: 'textfield',
-                            name: 'snsServiceId',
+                            bind: {
+                                value: '{serviceProblem.snsServiceId}'
+                            },
                             fieldLabel: 'Service Id'
                         },
                         {
                             xtype: 'textfield',
                             fieldLabel: 'Chordiant Acc No',
-                            name: 'chordiantAccountNumber'
+                            bind: {
+                                value: '{serviceProblem.chordiantAccountNumber}'
+                            }
                         }
                     ]
                 },
@@ -59,17 +65,24 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                         {
                             xtype: 'textfield',
                             name: 'status',
+                            bind: {
+                                value: '{serviceProblem.status}'
+                            },
                             fieldLabel: 'Status'
                         },
                         {
                             xtype: 'textfield',
                             fieldLabel: 'Service Type',
-                            name: 'serviceType.description'
+                            bind: {
+                                value: '{serviceProblem.serviceType.description}'
+                            }
                         },
                         {
                             xtype: 'textfield',
                             fieldLabel: 'Operator Ref',
-                            name: 'operatorReference'
+                            bind: {
+                                value: '{serviceProblem.operatorReference}'
+                            }
                         }
                     ]
                 },
@@ -81,14 +94,18 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                         {
                             xtype: 'datefield',
                             fieldLabel: 'Opened Date',
-                            name: 'openedDate',
+                            bind: {
+                                value: '{serviceProblem.openedDate}'
+                            },
                             format: 'd/m/y H:i',
                             hideTrigger: true
                         },
                         {
                             xtype: 'datefield',
                             fieldLabel: 'Closed Date',
-                            name: 'closedDate',
+                            bind: {
+                                value: '{serviceProblem.closedDate}'
+                            },
                             format: 'd/m/y H:i',
                             hideTrigger: true
                         }
@@ -101,18 +118,24 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                     items: [
                         {
                             xtype: 'textfield',
-                            name: 'directoryNumber',
+                            bind: {
+                                value: '{serviceProblem.directoryNumber}'
+                            },
                             fieldLabel: 'Directory No'
                         },
                         {
                             xtype: 'textfield',
                             fieldLabel: 'Customer Name',
-                            name: 'customerName'
+                            bind: {
+                                value: '{serviceProblem.customerName}'
+                            }
                         },
                         {
                             xtype: 'textfield',
                             fieldLabel: 'Contact No',
-                            name: 'contactNumber'
+                            bind: {
+                                value: '{serviceProblem.contactNumber}'
+                            }
                         }
                     ]
                 }
@@ -128,27 +151,37 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                 {
                     xtype: 'textfield',
                     fieldLabel: 'Queue',
-                    name: 'queue.name'
+                    bind: {
+                        value: '{serviceProblem.queue.name}'
+                    }
                 },
                 {
                     xtype: 'textfield',
                     fieldLabel: 'Problem',
-                    name: 'problem'
+                    bind: {
+                        value: '{serviceProblem.problem}'
+                    }
                 },
                 {
                     xtype: 'textfield',
                     fieldLabel: 'Fault',
-                    name: 'fault'
+                    bind: {
+                        value: '{serviceProblem.fault}'
+                    }
                 },
                 {
                     xtype: 'textfield',
                     fieldLabel: 'Cause',
-                    name: 'cause'
+                    bind: {
+                        value: '{serviceProblem.cause}'
+                    }
                 },
                 {
                     xtype: 'textfield',
                     fieldLabel: 'Resolution Reason',
-                    name: 'resolutionReason'
+                    bind: {
+                        value: '{serviceProblem.resolutionReason}'
+                    }
                 }
             ]
         }

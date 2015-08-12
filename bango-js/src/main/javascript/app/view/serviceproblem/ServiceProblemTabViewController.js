@@ -18,12 +18,23 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         var serviceProblemId = viewModel.get('serviceProblemId');
 
         Spm.model.ServiceProblem.load(serviceProblemId, {
-            success: function () {
-                viewModel.set('serviceProblem', this);
+            scope: this,
+            success: function (serviceProblem) {
+                viewModel.set('serviceProblem', serviceProblem);
+                this.switchWorkItemPanel();
             }
         });
+    },
 
+    switchWorkItemPanel: function () {
+        var viewModel = this.getViewModel();
+        var serviceProblem = viewModel.get('serviceProblem');
 
+        var layout = this.lookupReference('workItemPanel').getLayout();
+        if (serviceProblem.hasWorkItem()) {
+            layout.setActiveItem(1);
+        } else {
+            layout.setActiveItem(0);
+        }
     }
-
 });

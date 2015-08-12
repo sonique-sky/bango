@@ -5,15 +5,13 @@ import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
 import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.Queue;
-import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
-import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblemBuilder;
-import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
-import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
+import sky.sns.spm.domain.model.serviceproblem.*;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import spm.domain.*;
+import spm.domain.model.refdata.DomainAgentBuilder;
 import spm.messages.bt.types.DirectoryNumber;
 
 import java.util.Collection;
@@ -34,14 +32,21 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
         List<Queue> queues = queueStore.getAllQueues();
         Long serviceProblemId = 1L;
         for (Queue queue : queues) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 20; i++) {
+                DomainWorkItem workItem = null;
+                if (serviceProblemId % 2 == 0) {
+                    workItem = DomainWorkItemBuilder.withAllDefaults().build();
+                } else if (serviceProblemId % 3 == 0) {
+                    DomainAgent agent = new DomainAgentBuilder().build();
+                    workItem = DomainWorkItemBuilder.anAssignedPushWorkItem().withAgent(agent).build();
+                }
                 PresentedServiceType serviceTypeCode = somePresentedServiceType();
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
                         .withServiceProblemId(new ServiceProblemId(serviceProblemId++))
                         .withServiceId(new SnsServiceId(serviceProblemId + 100))
                         .withDirectoryNumber(new DirectoryNumber("directoryNumber-" + (serviceProblemId % 4)))
                         .withQueue(queue)
-                        .withWorkItem(serviceProblemId % 2 == 0 ? DomainWorkItemBuilder.withAllDefaults().build() : null)
+                        .withWorkItem(workItem)
                         .withPreferredContactName(someContactName().asString())
                         .withPreferredContactNumber(someTelephoneNumber().asString())
                         .withOperatorAccountNumber(someString())

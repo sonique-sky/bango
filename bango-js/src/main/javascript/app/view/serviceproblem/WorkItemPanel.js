@@ -8,134 +8,122 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
     fieldDefaults: {
         disabled: true
     },
+    reference: 'workItemPanel',
 
-    initComponent: function () {
-        var me = this;
-
-        Ext.applyIf(me, {
-            itemId: 'workItemPanel',
+    items: [
+        {
+            xtype: 'container',
+            layout: {
+                align: 'stretch',
+                type: 'vbox'
+            },
+            height: 87,
+            items: [
+                {xtype: 'label', cls: 'no-work-item-text', text: 'No Work Item Exists for this Service Problem'}
+            ]
+        },
+        {
+            xtype: 'container',
+            layout: {
+                align: 'stretch',
+                type: 'vbox'
+            },
             items: [
                 {
-                    itemId: 'workItemPanelWithNoData',
-
                     xtype: 'container',
+                    flex: 1,
                     layout: {
                         align: 'stretch',
-                        type: 'vbox'
+                        type: 'hbox'
                     },
-                    height: 87,
-                    items: [
-                        {xtype: 'label', cls: 'no-work-item-text', text: 'No Work Item Exists for this Service Problem'}
-                    ]
-                },
-                {
-                    itemId: 'workItemPanelWithData',
-                    xtype: 'container',
-                    layout: {
-                        align: 'stretch',
-                        type: 'vbox'
+                    defaults: {
+                        layout: {type: 'form', labelWidth: 110}
                     },
                     items: [
                         {
                             xtype: 'container',
-                            flex: 0,
-                            layout: {
-                                align: 'stretch',
-                                type: 'hbox'
-                            },
-                            defaults: {
-                                layout: 'form'
-                            },
+                            flex: 1,
                             items: [
                                 {
-                                    xtype: 'fieldcontainer',
-                                    labelWidth: 110,
-                                    flex: 1,
-                                    fieldDefaults: {
-                                        labelWidth: 110
+                                    xtype: 'datefield',
+                                    bind: {
+                                        value: '{serviceProblem.workItem.createdDate}'
                                     },
-                                    items: [
-                                        {
-                                            xtype: 'datefield',
-                                            name: 'createdDate',
-                                            fieldLabel: 'Created Date',
-                                            format: 'd/m/y H:i',
-                                            hideTrigger: true
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            name: 'priority',
-                                            fieldLabel: 'Priority'
-                                        }
-                                    ]
+                                    fieldLabel: 'Created Date',
+                                    altFormats: 'd/m/Y H:i:s',
+                                    format: 'd-m-Y H:i',
+                                    hideTrigger: true
                                 },
                                 {
-                                    xtype: 'fieldcontainer',
-                                    flex: 1,
-                                    margins: '0, 0, 0 3',
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            name: 'status',
-                                            fieldLabel: 'Status'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            name: 'agent.displayName',
-                                            fieldLabel: 'Assigned Agent'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'fieldcontainer',
-                                    flex: 1,
-                                    margins: '0, 0, 0 3',
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            name: 'type',
-                                            fieldLabel: 'Type'
-                                        },
-                                        {
-                                            xtype: 'datefield',
-                                            name: 'reminder',
-                                            fieldLabel: 'Reminder',
-                                            format: 'd/m/y H:i',
-                                            hideTrigger: true
-                                        }
-                                    ]
+                                    xtype: 'textfield',
+                                    bind: {
+                                        value: '{serviceProblem.workItem.priority}'
+                                    },
+                                    fieldLabel: 'Priority'
                                 }
                             ]
                         },
                         {
-                            xtype: 'fieldcontainer',
+                            xtype: 'container',
                             flex: 1,
-                            layout: 'form',
-                            fieldDefaults: {
-                                labelWidth: 110
-                            },
+                            margins: '0, 0, 0 3',
                             items: [
                                 {
                                     xtype: 'textfield',
-                                    fieldLabel: 'Action',
-                                    name: 'action'
+                                    bind: {
+                                        value: '{serviceProblem.workItem.status}'
+                                    },
+                                    fieldLabel: 'Status'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    bind: {
+                                        value: '{serviceProblem.workItem.agent.details.firstName} {serviceProblem.workItem.agent.details.lastName}'
+                                    },
+                                    fieldLabel: 'Assigned Agent'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'container',
+                            flex: 1,
+                            margins: '0, 0, 0 3',
+                            items: [
+                                {
+                                    xtype: 'textfield',
+                                    bind: {
+                                        value: '{serviceProblem.workItem.assignmentType}'
+                                    },
+                                    fieldLabel: 'Type'
+                                },
+                                {
+                                    xtype: 'datefield',
+                                    bind: {
+                                        value: '{serviceProblem.workItem.reminderTime}'
+                                    },
+                                    fieldLabel: 'Reminder',
+                                    format: 'd/m/y H:i',
+                                    hideTrigger: true
                                 }
                             ]
                         }
                     ]
+                },
+                {
+                    xtype: 'container',
+                    flex: 1,
+                    layout: {type: 'form', labelWidth: 110},
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            fieldLabel: 'Action',
+                            bind: {
+                                value: '{serviceProblem.workItem.action}'
+                            }
+                        }
+                    ]
                 }
             ]
-        });
-
-        me.callParent(arguments);
-    },
-
-    bindTo: function (serviceProblem) {
-        if (serviceProblem.hasWorkItem()) {
-            this.getLayout().setActiveItem('workItemPanelWithData');
-            this.loadRecord(serviceProblem.workItem());
-        } else {
-            this.getLayout().setActiveItem('workItemPanelWithNoData');
         }
-    }
+    ]
 });

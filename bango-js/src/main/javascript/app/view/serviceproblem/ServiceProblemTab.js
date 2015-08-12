@@ -20,77 +20,80 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
 
     layout: 'card',
 
-    //dockedItems: [
-    //    {
-    //        xtype: 'container',
-    //        layout: { type: 'hbox', align: 'stretch'},
-    //        dock: 'top',
-    //        defaults: {
-    //            border: 0
-    //        },
-    //        items: [
-    //            {
-    //                xtype: 'toolbar',
-    //                id: 'view-toolbar',
-    //                items: [
-    //                    {
-    //                        xtype: 'buttongroup',
-    //                        title: 'View',
-    //                        defaults: {
-    //                            xtype: 'button',
-    //                            toggleGroup: 'panelToggle',
-    //                            allowDepress: false,
-    //                            //handler: me.switchView,
-    //                            //scope: me
-    //                        },
-    //                        items: [
-    //                            {
-    //                                text: 'Service Problem',
-    //                                itemId: 'serviceProblem',
-    //                                id:'view-service-problem',
-    //                                pressed: true
-    //                            },
-    //                            {
-    //                                text: 'Trouble Report',
-    //                                itemId: 'troubleReport',
-    //                                id:'view-trouble-report'
-    //                            }
-    //                        ]
-    //                    }
-    //                ]},
-    //            {
-    //                xtype: 'serviceProblemTabToolbar',
-    //                //registeredActions: registeredActions
-    //            },
-    //            {
-    //                xtype: 'toolbar',
-    //                flex: 1
-    //            }
-    //        ]
-    //    }
-    //],
-    //items: [
-    //    {
-    //        xtype: 'container',
-    //        layout: { type: 'vbox', align: 'stretch'},
-    //        itemId: 'serviceProblemPanel',
-    //        //items: [
-    //        //    this.workItemPanel,
-    //        //    this.serviceProblemPanel,
-    //        //    this.eventHistoryPanel
-    //        //]
-    //    },
-    //    {
-    //        xtype: 'form',
-    //        itemId: 'troubleReportPanel',
-    //        items: [
-    //            {
-    //                xtype: 'label',
-    //                text: 'Trouble Report'
-    //            }
-    //        ]
-    //    }
-    //],
+    dockedItems: [
+        {
+            xtype: 'container',
+            layout: {type: 'hbox', align: 'stretch'},
+            dock: 'top',
+            defaults: {
+                border: 0
+            },
+            items: [
+                {
+                    xtype: 'toolbar',
+                    items: [
+                        {
+                            xtype: 'buttongroup',
+                            title: 'View',
+                            defaults: {
+                                xtype: 'button',
+                                toggleGroup: 'panelToggle',
+                                allowDepress: false
+                                //handler: me.switchView,
+                                //scope: me
+                            },
+                            items: [
+                                {
+                                    text: 'Service Problem',
+                                    itemId: 'serviceProblem',
+                                    pressed: true
+                                },
+                                {
+                                    text: 'Trouble Report',
+                                    itemId: 'troubleReport'
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    //xtype: 'serviceProblemTabToolbar',
+                    //registeredActions: registeredActions
+                },
+                {
+                    xtype: 'toolbar',
+                    flex: 1
+                }
+            ]
+        }
+    ],
+    items: [
+        {
+            xtype: 'container',
+            layout: {type: 'vbox', align: 'stretch'},
+            itemId: 'serviceProblemPanel',
+            items: [
+                {
+                    xtype: 'workItemPanel'
+                },
+                {
+                    xtype: 'serviceProblemPanel'
+                }
+                //this.serviceProblemPanel,
+                //this.eventHistoryPanel
+            ]
+        },
+        {
+            xtype: 'form',
+            itemId: 'troubleReportPanel',
+            items: [
+                {
+                    xtype: 'label',
+                    text: 'Trouble Report'
+                }
+            ]
+        }
+    ],
 
     //initComponent: function () {
     //var me = this;
