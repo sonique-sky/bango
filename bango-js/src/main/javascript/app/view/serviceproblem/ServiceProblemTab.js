@@ -78,9 +78,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                 },
                 {
                     xtype: 'serviceProblemPanel'
+                }, {
+                    xtype: 'eventHistoryPanel'
                 }
-                //this.serviceProblemPanel,
-                //this.eventHistoryPanel
             ]
         },
         {

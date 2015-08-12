@@ -15,11 +15,15 @@ import spm.domain.model.refdata.DomainAgentBuilder;
 import spm.messages.bt.types.DirectoryNumber;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.newArrayList;
+import static sky.sns.spm.domain.model.serviceproblem.EventDescription.Note;
+import static sonique.datafixtures.DateTimeDataFixtures.someInstantInTheLast24Hours;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
+import static sonique.datafixtures.PrimitiveDataFixtures.someWords;
 import static util.SupermanDataFixtures.*;
 
 public class ServiceProblemStore implements DomainServiceProblemRepository {
@@ -54,6 +58,9 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                         .withServiceType(serviceTypeCode)
                         .withProblem(someProblemCategoryFor(serviceTypeCode))
                         .build();
+                serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(Note, Date.from(someInstantInTheLast24Hours()), someString(), someWords(), serviceProblem));
+                serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(Note, Date.from(someInstantInTheLast24Hours()), someString(), someWords(), serviceProblem));
+                serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(Note, Date.from(someInstantInTheLast24Hours()), someString(), someWords(), serviceProblem));
                 serviceProblems.add(serviceProblem);
             }
         }

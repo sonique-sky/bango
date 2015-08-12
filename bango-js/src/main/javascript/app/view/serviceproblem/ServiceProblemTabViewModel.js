@@ -3,6 +3,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
         alias: 'viewmodel.serviceProblemTab',
 
     stores: {
+        eventHistory : {
+            type: 'eventHistory'
+        }
     },
 
     data: {

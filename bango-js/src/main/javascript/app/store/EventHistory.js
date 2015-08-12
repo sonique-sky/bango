@@ -5,13 +5,13 @@ Ext.define('Spm.store.EventHistory', {
     filterOnLoad: false,
 
     requires: [
-        'Spm.model.EventHistoryItem',
-        'Spm.proxy.EventHistoryApiProxy'
+        'Spm.model.EventHistoryItem'
     ],
 
-    statics: {
-        eventHistoryStore: function () {
-            return Ext.create('Spm.store.EventHistory', {operationFactory: Spm.proxy.ApiOperation.serviceProblemEventHistory, proxy: Spm.proxy.EventHistoryApiProxy});
+    proxy: {
+        type: 'serviceProblemEventHistoryProxy',
+        reader: {
+            type: 'json'
         }
     }
 });
