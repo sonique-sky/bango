@@ -2,27 +2,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.serviceProblemTab',
 
-    requires: [
-        'Spm.controller.action.serviceproblem.AddNoteAction',
-        'Spm.controller.action.serviceproblem.RefreshAction',
-        'Spm.controller.action.serviceproblem.RefreshEventHistoryAction',
-        'Spm.controller.action.serviceproblem.PullServiceProblemAction',
-        'Spm.controller.action.serviceproblem.HoldAndReleaseWorkItemAction',
-        'Spm.controller.action.serviceproblem.FilterHistoryAction',
-        'Spm.controller.action.serviceproblem.ShowNotesOnlyAction',
-        'Spm.view.serviceproblem.ActionToolbar',
-        'Spm.view.serviceproblem.WorkItemPanel',
-        'Spm.view.serviceproblem.ServiceProblemPanel',
-        'Spm.view.serviceproblem.EventHistoryPanel',
-        'Ext.container.ButtonGroup'
-    ],
-
     border: 0,
 
     closable: true,
     iconCls: 'icon-sp-unassigned',
 
     viewModel: {type: 'serviceProblemTab'},
+    controller: 'serviceProblemTab',
 
     bind: {
         title: '{serviceProblemTabTitle}'

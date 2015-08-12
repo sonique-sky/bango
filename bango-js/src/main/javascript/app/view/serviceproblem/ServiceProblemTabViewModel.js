@@ -6,7 +6,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
     },
 
     data: {
-        serviceProblemId: null
+        serviceProblemId: null,
+        serviceProblem: null
     },
 
     formulas: {
