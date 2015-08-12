@@ -28,15 +28,18 @@ Ext.define('Spm.view.application.AppContainer', {
             xtype: 'tabpanel',
             reference: 'tabPanel',
             region: 'center',
-            id: 'tab-panel'
+            id: 'tab-panel',
+            padding: 2
         },
         {
             xtype: 'navigationPanel',
-            region: 'west'
+            region: 'west',
+            padding: 2
         },
         {
             xtype: 'appHeader',
-            region: 'north'
+            region: 'north',
+            border: 0
         }
     ]
 

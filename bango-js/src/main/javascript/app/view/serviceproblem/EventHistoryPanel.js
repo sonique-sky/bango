@@ -11,10 +11,35 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
     title: 'Event History',
     flex: 1,
 
+    ui: 'custom-tool',
+
     tools: [
-        //{
-        //    xtype: 'eventHistoryActionToolbar'
-        //}
+        {
+            xtype: 'toolbar',
+            ui: 'custom-tool',
+            items: [
+                {
+                    xtype: 'button',
+                    tooltip: 'Show notes only',
+                    iconCls: 'icon-show-notes-only'
+                },
+                {
+                    xtype: 'button',
+                    tooltip: 'Add a note to this service problem',
+                    iconCls: 'icon-add-note',
+                },
+                {
+                    xtype: 'button',
+                    tooltip: 'Refresh history',
+                    iconCls: 'icon-refresh-history',
+                },
+                {
+                    xtype: 'button',
+                    tooltip: 'Filter history by type',
+                    iconCls: 'icon-filter-events',
+                }
+            ]
+        }
     ],
     items: [
         {
