@@ -15,6 +15,18 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanelViewController', {
         eventHistoryStore.load({params: {serviceProblemId: serviceProblemId}});
     },
 
+    onEventHistoryAddNote: function() {
+        var eventHistoryStore = this.getViewModel().getStore('eventHistory');
+        var dialog = this.getView().add(
+            {
+                xtype: 'addNoteDialog'
+            }
+        );
+
+        //Ext.create('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {actionName: this.name, actionContext: serviceProblemTab}).show();
+        dialog.show();
+    },
+
     onEventHistoryRefresh: function () {
         var eventHistoryStore = this.getViewModel().getStore('eventHistory');
         eventHistoryStore.reload();

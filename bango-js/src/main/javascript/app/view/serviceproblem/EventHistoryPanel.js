@@ -31,7 +31,8 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                 {
                     xtype: 'button',
                     tooltip: 'Add a note to this service problem',
-                    iconCls: 'icon-add-note'
+                    iconCls: 'icon-add-note',
+                    handler: 'onEventHistoryAddNote'
                 },
                 {
                     xtype: 'button',

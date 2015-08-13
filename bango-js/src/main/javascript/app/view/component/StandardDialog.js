@@ -1,5 +1,5 @@
 Ext.define('Spm.view.component.StandardDialog', {
-    extend: 'Ext.window.Window',
+    extend: 'Ux.window.Window',
 
     layout: {
         type: 'fit'

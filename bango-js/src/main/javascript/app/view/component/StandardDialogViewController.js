@@ -3,7 +3,7 @@ Ext.define('Spm.view.component.StandardDialogViewController', {
     alias: 'controller.standardDialog',
 
     onCancel: function() {
-        this.close();
+        this.getView().close();
     }
 
 });

@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {
-    extend: 'Spm.view.component.ActionDialog',
+    extend: 'Spm.view.component.StandardDialog',
     alias: 'widget.addNoteDialog',
 
     height: 350,
@@ -7,30 +7,16 @@ Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {
     title: 'Add Note',
     cls: 'add-note-dialog',
 
-    initComponent: function () {
-        var me = this;
+    controller: 'addNoteDialog',
+    viewModel: {type: 'addNoteDialog'},
 
-        Ext.apply(me, {
-            acceptButtonText: 'Add Note',
-            acceptButtonDefaultDisabled: true,
-            content: {
-                xtype: 'textareafield',
-                allowBlank: false,
-                name: 'note',
-                listeners: {
-                    validitychange: { fn: me.onValidityChange, scope: me}
-                }
+    items: [
+        {
+            xtype: 'textareafield',
+            allowBlank: false,
+            bind: {
+                value: '{noteText}'
             }
-        });
-
-        me.callParent(arguments);
-    },
-
-    onValidityChange: function (form, valid) {
-        this.setAcceptButtonDisabled(!valid);
-    },
-
-    doCollect: function () {
-        return [this.down('textareafield').getValue()];
-    }
+        }
+    ]
 });

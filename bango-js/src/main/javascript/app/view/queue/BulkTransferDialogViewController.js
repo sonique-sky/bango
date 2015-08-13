@@ -1,5 +1,5 @@
 Ext.define('Spm.view.queue.BulkTransferDialogViewController', {
-    extend: 'Ext.app.ViewController',
+    extend: 'Spm.view.component.StandardDialogViewController',
     alias: 'controller.bulkTransferDialog',
 
     listen: {
@@ -57,10 +57,5 @@ Ext.define('Spm.view.queue.BulkTransferDialogViewController', {
                 }
             }
         );
-    },
-
-    onCancel: function () {
-        this.getView().close();
     }
-
 });

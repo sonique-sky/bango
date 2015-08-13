@@ -43,9 +43,5 @@ Ext.define('Spm.view.queue.BulkTransferDialog', {
                 select: 'onTransferQueueSelected'
             }
         }
-    ],
-
-    doCollect: function () {
-        return [this.down('dataview').getSelectionModel().getSelection()[0]];
-    }
+    ]
 });
