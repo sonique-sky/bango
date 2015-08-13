@@ -8,6 +8,9 @@ Ext.define('Spm.controller.Errors', {
         proxy: {
             '#ajax': {
                 exception: 'onProxyException'
+            },
+            '#rest': {
+                exception: 'onProxyException'
             }
         }
     },

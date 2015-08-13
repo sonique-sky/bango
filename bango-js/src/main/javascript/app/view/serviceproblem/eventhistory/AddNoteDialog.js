@@ -15,7 +15,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {
             xtype: 'textareafield',
             allowBlank: false,
             bind: {
-                value: '{noteText}'
+                value: '{note.note}'
             }
         }
     ]

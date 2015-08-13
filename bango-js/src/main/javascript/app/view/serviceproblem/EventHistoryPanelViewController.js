@@ -4,26 +4,28 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanelViewController', {
 
     listen: {
         controller: {
+            addNoteDialog: {
+                eventHistoryNoteAdded: 'onEventHistoryNoteAdded'
+            },
             serviceProblemTab: {
                 serviceProblemLoaded: 'onServiceProblemLoaded'
             }
         }
     },
 
-    onServiceProblemLoaded: function(serviceProblemId) {
+    onServiceProblemLoaded: function (serviceProblemId) {
         var eventHistoryStore = this.getViewModel().getStore('eventHistory');
         eventHistoryStore.load({params: {serviceProblemId: serviceProblemId}});
     },
 
-    onEventHistoryAddNote: function() {
+    onEventHistoryNoteAdded: function (response) {
         var eventHistoryStore = this.getViewModel().getStore('eventHistory');
-        var dialog = this.getView().add(
-            {
-                xtype: 'addNoteDialog'
-            }
-        );
+        eventHistoryStore.loadRawData(response, false);
+    },
 
-        //Ext.create('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {actionName: this.name, actionContext: serviceProblemTab}).show();
+    onEventHistoryAddNote: function () {
+        var dialog = this.getView().add({xtype: 'addNoteDialog'}
+        );
         dialog.show();
     },
 
