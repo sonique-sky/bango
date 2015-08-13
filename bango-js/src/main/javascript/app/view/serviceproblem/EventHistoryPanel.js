@@ -13,6 +13,9 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
 
     ui: 'custom-tool',
 
+    controller: 'eventHistoryPanel',
+    viewModel: {type: 'eventHistoryPanel'},
+
     tools: [
         {
             xtype: 'toolbar',
@@ -20,23 +23,26 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
             items: [
                 {
                     xtype: 'button',
+                    enableToggle: true,
                     tooltip: 'Show notes only',
-                    iconCls: 'icon-show-notes-only'
+                    iconCls: 'icon-show-notes-only',
+                    toggleHandler: 'onEventHistoryNotesFilter'
                 },
                 {
                     xtype: 'button',
                     tooltip: 'Add a note to this service problem',
-                    iconCls: 'icon-add-note',
+                    iconCls: 'icon-add-note'
                 },
                 {
                     xtype: 'button',
                     tooltip: 'Refresh history',
                     iconCls: 'icon-refresh-history',
+                    handler: 'onEventHistoryRefresh'
                 },
                 {
                     xtype: 'button',
                     tooltip: 'Filter history by type',
-                    iconCls: 'icon-filter-events',
+                    iconCls: 'icon-filter-events'
                 }
             ]
         }

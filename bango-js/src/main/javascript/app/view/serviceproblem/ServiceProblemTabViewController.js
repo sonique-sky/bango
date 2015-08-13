@@ -22,7 +22,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
             success: function (serviceProblem) {
                 viewModel.set('serviceProblem', serviceProblem);
                 this.switchWorkItemPanel();
-                viewModel.getStore('eventHistory').load({params: {serviceProblemId: serviceProblemId}});
+
+                this.fireEvent('serviceProblemLoaded', serviceProblemId);
             }
         });
     },
