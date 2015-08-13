@@ -43,6 +43,7 @@ Ext.define('Spm.view.queue.QueueTab', {
             ]
         }
     ],
+
     items: [
         {
             xtype: 'gridpanel',

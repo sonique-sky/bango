@@ -4,6 +4,9 @@ Ext.define('Spm.view.application.AppContainerViewController', {
 
     listen: {
         controller: {
+            'superman': {
+                authenticated: 'onAuthenticated'
+            },
             'myQueues': {
                 agentQueueSelected: 'onAgentQueueSelected'
             },
@@ -12,6 +15,12 @@ Ext.define('Spm.view.application.AppContainerViewController', {
                 serviceProblemSelected: 'onServiceProblemSelected'
             }
         }
+    },
+
+    onAuthenticated: function() {
+        var tabPanel = this.lookupReference('tabPanel');
+        tabPanel.removeAll(true);
+        this.getViewModel().clearActiveTabs();
     },
 
     onServiceProblemSelected: function(serviceProblemId) {

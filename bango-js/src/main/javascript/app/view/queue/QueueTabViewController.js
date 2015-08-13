@@ -62,6 +62,7 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     onSelectAll: function () {
         this.gridSelectionModel().selectAll(false);
     },
+
     onDeselectAll: function () {
         this.gridSelectionModel().deselectAll(false);
     },

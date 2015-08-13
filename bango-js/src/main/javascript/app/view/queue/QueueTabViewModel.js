@@ -15,10 +15,5 @@ Ext.define('Spm.view.queue.QueueTabViewModel', {
         queue: null,
         bulkTransferDisabled: true,
         bulkClearDisabled: true
-    },
-
-    formulas: {
-
     }
-
 });
