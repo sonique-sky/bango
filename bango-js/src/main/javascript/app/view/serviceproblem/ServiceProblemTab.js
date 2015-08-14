@@ -14,16 +14,15 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
         title: '{serviceProblemTabTitle}'
     },
 
-    //workItemPanel: undefined,
-    //serviceProblemPanel: undefined,
-    //eventHistoryPanel: undefined,
-
     layout: 'card',
 
     dockedItems: [
         {
             xtype: 'container',
-            layout: {type: 'hbox', align: 'stretch'},
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
             dock: 'top',
             defaults: {
                 border: 0
@@ -38,9 +37,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                             defaults: {
                                 xtype: 'button',
                                 toggleGroup: 'panelToggle',
-                                allowDepress: false
+                                allowDepress: false,
+                                padding: '5,5,5,5'
                                 //handler: me.switchView,
-                                //scope: me
                             },
                             items: [
                                 {
@@ -57,12 +56,84 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                     ]
                 },
                 {
-                    //xtype: 'serviceProblemTabToolbar',
-                    //registeredActions: registeredActions
+                    xtype: 'toolbar',
+                    items: [
+                        {
+                            xtype: 'buttongroup',
+                            title: 'Service Problem',
+                            defaults: {
+                                xtype: 'button',
+                                padding: '5,5,5,5'
+                            },
+                            items: [
+                                {iconCls: 'icon-refresh', tooltip: 'Refresh'},
+                                {iconCls: 'icon-pull', tooltip: 'Pull this item'},
+                                {iconCls: 'icon-hold', tooltip: 'Hold this Service Problem'},
+                                {iconCls: 'icon-reassign', tooltip: 'Reassign service problem to another agent'},
+                                {iconCls: 'icon-transfer', tooltip: 'Transfer to another queue'},
+                                {iconCls: 'icon-clear', tooltip: 'Clear this service problem'},
+                                {iconCls: 'icon-line-test', tooltip: 'Request a managed line test'},
+                                {iconCls: 'icon-feature-check', tooltip: 'Request a feature check for this service'},
+                                {iconCls: 'icon-work-reminder', tooltip: 'Set a work reminder'},
+                                {iconCls: 'icon-associate-msp', tooltip: 'Associate this service problem to a MSP'}
+                            ]
+                        }
+                    ]
                 },
                 {
                     xtype: 'toolbar',
-                    flex: 1
+                    items: [
+                        {
+                            xtype: 'buttongroup',
+                            title: 'Trouble Report',
+                            defaults: {
+                                xtype: 'button',
+                                padding: '5,5,5,5'
+                            },
+                            items: [
+                                {iconCls: 'icon-create-trouble-report', tooltip: 'Create Trouble Report'},
+                                {iconCls: 'icon-amend-trouble-report', tooltip: 'Amend Trouble Report'},
+                                {iconCls: 'icon-cancel-trouble-report', tooltip: 'Cancel Trouble Report'},
+                                {
+                                    iconCls: 'icon-confirm-equipment-disconnect',
+                                    tooltip: 'Confirm Equipment is Disconnected'
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    xtype: 'toolbar',
+                    items: [
+                        {
+                            xtype: 'buttongroup',
+                            title: 'Work Item',
+                            defaults: {
+                                xtype: 'button',
+                                padding: '5,5,5,5'
+                            },
+                            items: [
+                                {iconCls: 'icon-next-work-item', tooltip: 'Select Next Work Item'}
+                            ]
+                        }
+
+                    ]
+                },
+                {
+                    xtype: 'toolbar',
+                    items: [
+                        {
+                            xtype: 'buttongroup',
+                            title: 'External Links',
+                            defaults: {
+                                xtype: 'button',
+                                padding: '5,5,5,5'
+                            },
+                            items: [
+                                {iconCls: 'icon-av', tooltip: 'Do AV awesomeness!'}
+                            ]
+                        }
+                    ]
                 }
             ]
         }
@@ -78,7 +149,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                 },
                 {
                     xtype: 'serviceProblemPanel'
-                }, {
+                },
+                {
                     xtype: 'eventHistoryPanel'
                 }
             ]
@@ -93,47 +165,48 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                 }
             ]
         }
-    ],
+    ]
 
-    //initComponent: function () {
-    //var me = this;
-    //
-    //var registeredActions = me.actionContextManager.registerActionsFor(this, [
-    //    'Spm.action.AddNoteAction',
-    //    'Spm.action.RefreshAction',
-    //    'Spm.action.RefreshEventHistoryAction',
-    //    'Spm.action.PullServiceProblemAction',
-    //    'Spm.action.HoldAndReleaseWorkItemAction',
-    //    'Spm.action.FilterHistoryAction',
-    //    'Spm.action.ShowNotesOnlyAction'
-    //]);
-    //
-    //var serviceProblemId = me.serviceProblem.serviceProblemId();
-    //
-    //this.workItemPanel = Ext.widget('workItemPanel');
-    //this.serviceProblemPanel = Ext.widget('serviceProblemPanel');
-    //this.eventHistoryPanel = Ext.widget('eventHistoryPanel', {registeredActions: registeredActions});
-    //
-    //this.id = 'service-problem-tab-content-' + serviceProblemId;
-    //this.tabConfig = {id: 'service-problem-tab-' + serviceProblemId};
-    //
-    //Ext.applyIf(this, {
-    //    title: 'Service Problem [' + serviceProblemId + ']',
-    //});
-    //
-    //this.callParent(arguments);
-    //},
+//initComponent: function () {
+//var me = this;
+//
+//var registeredActions = me.actionContextManager.registerActionsFor(this, [
+//    'Spm.action.AddNoteAction',
+//    'Spm.action.RefreshAction',
+//    'Spm.action.RefreshEventHistoryAction',
+//    'Spm.action.PullServiceProblemAction',
+//    'Spm.action.HoldAndReleaseWorkItemAction',
+//    'Spm.action.FilterHistoryAction',
+//    'Spm.action.ShowNotesOnlyAction'
+//]);
+//
+//var serviceProblemId = me.serviceProblem.serviceProblemId();
+//
+//this.workItemPanel = Ext.widget('workItemPanel');
+//this.serviceProblemPanel = Ext.widget('serviceProblemPanel');
+//this.eventHistoryPanel = Ext.widget('eventHistoryPanel', {registeredActions: registeredActions});
+//
+//this.id = 'service-problem-tab-content-' + serviceProblemId;
+//this.tabConfig = {id: 'service-problem-tab-' + serviceProblemId};
+//
+//Ext.applyIf(this, {
+//    title: 'Service Problem [' + serviceProblemId + ']',
+//});
+//
+//this.callParent(arguments);
+//},
 
-    //load: function (serviceProblem) {
-    //    this.serviceProblem = serviceProblem;
-    //
-    //    this.workItemPanel.bindTo(serviceProblem);
-    //    this.serviceProblemPanel.bindTo(serviceProblem);
-    //    this.eventHistoryPanel.bindTo(serviceProblem);
-    //},
+//load: function (serviceProblem) {
+//    this.serviceProblem = serviceProblem;
+//
+//    this.workItemPanel.bindTo(serviceProblem);
+//    this.serviceProblemPanel.bindTo(serviceProblem);
+//    this.eventHistoryPanel.bindTo(serviceProblem);
+//},
 
-    //switchView: function (button) {
-    //    this.getLayout().setActiveItem(button.itemId + 'Panel');
-    //}
+//switchView: function (button) {
+//    this.getLayout().setActiveItem(button.itemId + 'Panel');
+//}
 
-});
+})
+;

@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
-    extend: 'Spm.view.component.AssociationCapableForm',
+    extend: 'Ext.panel.Panel',
     alias: 'widget.workItemPanel',
 
     layout: 'card',
