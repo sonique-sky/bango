@@ -22,8 +22,7 @@ import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.newArrayList;
 import static sky.sns.spm.domain.model.serviceproblem.EventDescription.Note;
 import static sonique.datafixtures.DateTimeDataFixtures.someInstantInTheLast24Hours;
-import static sonique.datafixtures.PrimitiveDataFixtures.someString;
-import static sonique.datafixtures.PrimitiveDataFixtures.someWords;
+import static sonique.datafixtures.PrimitiveDataFixtures.*;
 import static util.SupermanDataFixtures.*;
 
 public class ServiceProblemStore implements DomainServiceProblemRepository {
@@ -58,12 +57,20 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                         .withServiceType(serviceTypeCode)
                         .withProblem(someProblemCategoryFor(serviceTypeCode))
                         .build();
-                serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(Note, Date.from(someInstantInTheLast24Hours()), someString(), someWords(), serviceProblem));
+                serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(pickOneOf(EventDescription.class), Date.from(someInstantInTheLast24Hours()), someString(), allTheWords(), serviceProblem));
                 serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(Note, Date.from(someInstantInTheLast24Hours()), someString(), someWords(), serviceProblem));
                 serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(Note, Date.from(someInstantInTheLast24Hours()), someString(), someWords(), serviceProblem));
                 serviceProblems.add(serviceProblem);
             }
         }
+    }
+
+    private String allTheWords() {
+        return "Lorem ipsum dolor sit amet, cu audire probatus urbanitas vis, tota lobortis iudicabit vis te. Stet postea at cum. Eu justo oportere usu, magna putant accommodare mel ea, vis offendit senserit dignissim at. Imperdiet patrioque est ne, elitr adolescens pro et. Debet perfecto te quo." +
+                "His ut volumus petentium mediocritatem. In ius menandri adipisci, dicat falli no mei. Vim sumo aperiam at, no laoreet indoctum quo. Nobis molestie duo te. Eu probo altera est, ne offendit qualisque has, vel at omittam pericula hendrerit." +
+                "At vix nostrum corrumpit, eum prima gloriatur ex. Discere blandit voluptatibus sed ad. Ius id alia atqui inimicus, nominavi invidunt his eu. Te mei novum insolens, no eirmod interpretaris his, per ea recusabo consequat deterruisset. Has nisl nonumes ne, an vis mutat aliquando." +
+                "Ius eu alia detracto torquatos, nec insolens accusamus id. Iriure utroque consequat ad cum. Aperiri dignissim scriptorem ea vim, nec ex quem convenire aliquando. Ei nisl falli possit vel, sit eu quem vocent." +
+                "Nisl veniam mea ea, est expetenda euripidis in. No ius mandamus assentior. Magna vocent ad est, pro nulla ancillae nominavi id, nullam tibique ullamcorper ius no. Tempor recteque vix et, et his vidisse ancillae delicata, ne pri illud expetenda. Id sed vidit labitur appetere.";
     }
 
     public DomainServiceProblem findBy(final ServiceProblemId serviceProblemId) {

@@ -44,7 +44,8 @@ Ext.define('Spm.view.component.StandardDialog', {
                     id: 'cancel-button',
                     width: 80,
                     bind: {
-                        text: '{cancelButtonText}'
+                        text: '{cancelButtonText}',
+                        hidden: '{cancelButtonHidden}'
                     },
                     handler: 'onCancel'
                 }

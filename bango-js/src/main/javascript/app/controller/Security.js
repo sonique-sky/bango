@@ -99,7 +99,7 @@ Ext.define('Spm.controller.Security', {
             },
             scope: this
         });
-    },
+    }
 
     //onLaunch: function () {
     //    this.startAuthentication();

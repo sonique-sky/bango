@@ -17,17 +17,15 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
 
     items: [
         {
-            xtype: 'agentState',
-            //actionContextManager: me.agentStatusActionContextManager
+            xtype: 'agentState'
         },
         {
             xtype: 'myQueues',
-            collapsible:true
+            collapsible: true
         },
         {
             xtype: 'search',
-            //actionContextManager: me.searchesActionContextManager,
-            collapsible:true
+            collapsible: true
         }
     ]
 

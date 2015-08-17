@@ -23,10 +23,11 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
             items: [
                 {
                     xtype: 'button',
+                    reference: 'notesOnlyToggleButton',
                     enableToggle: true,
                     tooltip: 'Show notes only',
                     iconCls: 'icon-show-notes-only',
-                    toggleHandler: 'onEventHistoryNotesFilter'
+                    toggleHandler: 'onEventHistoryNotesOnly'
                 },
                 {
                     xtype: 'button',
@@ -43,11 +44,13 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                 {
                     xtype: 'button',
                     tooltip: 'Filter history by type',
-                    iconCls: 'icon-filter-events'
+                    iconCls: 'icon-filter-events',
+                    handler: 'onEventHistoryFilter'
                 }
             ]
         }
     ],
+
     items: [
         {
             xtype: 'grid',
@@ -61,7 +64,13 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                 store: '{eventHistory}'
             },
             columns: [
-                {text: 'Event Type', dataIndex: 'eventType', flex: 1, tdCls: 'event-type', resizable: false},
+                {
+                    text: 'Event Type',
+                    dataIndex: 'eventType',
+                    tdCls: 'event-type',
+                    flex: 1,
+                    resizable: false
+                },
                 {
                     text: 'Created Date',
                     dataIndex: 'createdDate',
@@ -79,7 +88,8 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                     align: 'center',
                     width: 130
                 }
-            ],
+            ]
+            ,
             features: [
                 {
                     ftype: 'rowbody',

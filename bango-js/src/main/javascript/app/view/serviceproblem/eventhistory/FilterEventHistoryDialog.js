@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {
-    extend: 'Spm.view.component.ActionDialog',
+    extend: 'Spm.view.component.StandardDialog',
     alias: 'widget.filterEventHistoryDialog',
 
     height: 350,
@@ -7,35 +7,46 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {
     title: 'History Event Filter',
     cls: 'filter-event-history-dialog',
 
-    initComponent: function () {
-        var me = this;
+    controller: 'filterEventHistoryDialog',
+    viewModel: {
+        type: 'filterEventHistoryDialog'
+    },
 
-        Ext.apply(me, {
-            acceptButtonText: 'Filter',
-            content: {
-                xtype: 'grid',
-                multiSelect: true,
-                store: me.store,
-                name: 'eventTypes',
-                hideHeaders: true,
-                columns: [
-                    {dataIndex: 'eventType', width: "100%"}
-                ]
+    reference: 'filterEventHistoryDialog',
+
+    tbar: [
+        {
+            xtype: 'button',
+            reference: 'selectAllEventTypesToggleButton',
+            enableToggle: true,
+            text: 'Select All',
+            tooltip: 'Select/Clear All',
+            toggleHandler: 'onFilterEventHistorySelectAllEventTypesToggle'
+        }
+    ],
+
+    items: [
+        {
+            id: 'selectedEventHistoryFilter',
+            xtype: 'grid',
+            multiSelect: true,
+            hideHeaders: true,
+            columns: [
+                {dataIndex: 'eventType', width: "100%"}
+            ],
+            overItemCls: 'x-item-over',
+            bind: {
+                store: '{eventTypes}'
+            },
+            trackOver: true,
+            autoScroll: true,
+            margin: 5,
+            border: 1,
+            style: {
+                borderColor: '#bcb1b0',
+                borderStyle: 'solid'
             }
-        });
+        }
+    ]
 
-        me.callParent(arguments);
-    },
-
-    onValidityChange: function (form, valid) {
-        this.setAcceptButtonDisabled(!valid);
-    },
-
-    doCollect: function () {
-        var selected = this.down('gridview').getSelectionModel().getSelection();
-
-        return [Ext.Array.map(selected, function (model) {
-            return model.get('eventType');
-        })];
-    }
 });

@@ -5,8 +5,7 @@ Ext.define('Spm.view.application.LoginDialog', {
     requires: [
         'Spm.view.component.StandardDialog',
         'Spm.view.application.LoginDialogViewModel',
-        'Spm.view.application.LoginDialogViewController',
-        'Ux.form.field.Text'
+        'Spm.view.application.LoginDialogViewController'
     ],
 
     height: 135,
