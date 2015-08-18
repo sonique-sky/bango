@@ -9,16 +9,16 @@ import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
 import sonique.bango.service.QueueApiService;
 
+import javax.annotation.Resource;
+import javax.annotation.Resources;
 import java.util.Collection;
 
 @Controller
+@RequestMapping("/api/queue")
 public class QueueApiController {
 
-    private final QueueApiService queueApiService;
-
-    public QueueApiController(QueueApiService queueApiService) {
-        this.queueApiService = queueApiService;
-    }
+    @Resource
+    private QueueApiService queueApiService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody

@@ -1,57 +1,71 @@
 package sonique.bango;
 
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.springframework.context.ApplicationContext;
+import com.google.common.collect.ImmutableSet;
+import org.apache.catalina.Context;
+import org.apache.catalina.LifecycleState;
+import org.apache.catalina.startup.Tomcat;
+import org.springframework.web.SpringServletContainerInitializer;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import sonique.bango.app.ScenarioDriver;
+import sonique.bango.config.TestContextInitializer;
+import sonique.bango.springconfig.SecurityConfigInitializer;
 
-import java.io.File;
-import java.util.Enumeration;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static org.springframework.web.context.WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE;
+import static com.google.common.util.concurrent.Uninterruptibles.awaitUninterruptibly;
 
-public class BangoTestRunner {
-
-    private final Server server;
-    private final WebAppContext context;
-
-    public static void main(String[] args) {
-        new BangoTestRunner(8081).start();
-
-        try {
-            Thread.sleep(500000000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+public final class BangoTestRunner {
+    private Tomcat tomcat;
+    private Context context;
+    private Future<?> handlerFuture;
 
     public BangoTestRunner(int port) {
-        server = new Server(port);
+        tomcat = new Tomcat();
+        tomcat.setPort(port);
 
-        context = new WebAppContext();
-
-        context.setDescriptor("../bango-web/src/main/webapp/WEB-INF/web.xml");
-        context.setResourceBase("../bango-js/src/main/javascript");
-        context.setContextPath("/superman");
-        context.setParentLoaderPriority(true);
-        context.setOverrideDescriptors(newArrayList("../bango-test/src/main/webapp/WEB-INF/web.xml"));
-        server.setHandler(context);
+        String userDir = System.getProperty("user.dir");
+        tomcat.setBaseDir(userDir + "/target/tomcat");
+        context = tomcat.addContext("/superman", userDir);
+        context.addServletContainerInitializer(
+                new SpringServletContainerInitializer(),
+                ImmutableSet.of(TestContextInitializer.class, SecurityConfigInitializer.class)
+        );
+        context.addMimeMapping("css", "text/css");
+        context.addMimeMapping("js", "application/javascript");
+        context.addMimeMapping("map", "application/json");
+        context.addMimeMapping("png", "image/png");
+        context.addMimeMapping("jpg", "image/jpeg");
     }
 
     public synchronized void start() {
-        if (!server.isRunning()) {
-            try {
-                server.start();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        if (!isRunning()) {
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            CountDownLatch latch = new CountDownLatch(1);
+            handlerFuture = executorService.submit(() -> {
+                try {
+                    tomcat.start();
+                    latch.countDown();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            awaitUninterruptibly(latch);
         }
+    }
+
+    private boolean isRunning() {
+        LifecycleState state = tomcat.getServer().getState();
+        return state == LifecycleState.STARTED || state == LifecycleState.STARTING;
     }
 
     public synchronized void stop() {
         try {
-            server.stop();
+            tomcat.stop();
+            tomcat.destroy();
+            handlerFuture.cancel(true);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -62,6 +76,6 @@ public class BangoTestRunner {
     }
 
     private <T> T get(Class<T> clazz, String beanName) {
-        return ((ApplicationContext) context.getServletHandler().getServletContext().getAttribute(ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE)).getBean(beanName, clazz);
+        return WebApplicationContextUtils.getWebApplicationContext(context.getServletContext()).getBean(beanName, clazz);
     }
 }

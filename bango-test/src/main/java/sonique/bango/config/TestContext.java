@@ -8,6 +8,7 @@ import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider
 import sonique.bango.app.ScenarioDriver;
 import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;
+import sonique.bango.springconfig.BangoApplicationContext;
 import sonique.bango.store.AgentStore;
 
 import java.lang.reflect.Method;

@@ -7,6 +7,7 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.ServiceProblemId;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -14,13 +15,11 @@ import java.util.Map;
 import static com.google.common.collect.Lists.newArrayList;
 
 @Controller
+@RequestMapping("/api/serviceProblem")
 public class ServiceProblemApiController {
 
-    private final ServiceProblemApiService serviceProblemApiService;
-
-    public ServiceProblemApiController(ServiceProblemApiService serviceProblemApiService) {
-        this.serviceProblemApiService = serviceProblemApiService;
-    }
+    @Resource
+    private ServiceProblemApiService serviceProblemApiService;
 
     @RequestMapping(value = "/{serviceProblemId}", method = RequestMethod.GET)
     @ResponseBody

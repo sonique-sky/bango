@@ -9,7 +9,7 @@ public class SupermanApp {
     private final SupermanDialogs dialogs;
 
     public SupermanApp(int port) {
-        driver = new SupermanWebDriver(String.format("http://localhost:%d/superman", port));
+        driver = new SupermanWebDriver(String.format("http://localhost:%d/superman/superman.html", port));
         dialogs = new SupermanDialogs(driver);
     }
 

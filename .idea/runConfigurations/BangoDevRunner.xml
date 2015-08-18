@@ -7,7 +7,7 @@
       </pattern>
     </extension>
     <option name="MAIN_CLASS_NAME" value="sonique.bango.BangoDevRunner" />
-    <option name="VM_PARAMETERS" value="-Dldap.server.address=ldap://10.240.225.13:11899" />
+    <option name="VM_PARAMETERS" value="-Dldap.server.address=ldap://192.168.0.10:11899" />
     <option name="PROGRAM_PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />

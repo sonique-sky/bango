@@ -12,14 +12,14 @@ import spm.domain.ServiceProblemId;
 import spm.domain.SnsServiceId;
 import spm.messages.bt.types.DirectoryNumber;
 
+import javax.annotation.Resource;
+
 @Controller
+@RequestMapping("/api/search")
 public class SearchApiController {
 
-    private final SearchApiService searchApiService;
-
-    public SearchApiController(SearchApiService searchApiService) {
-        this.searchApiService = searchApiService;
-    }
+    @Resource
+    private SearchApiService searchApiService;
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/serviceProblemId/{serviceProblemId}")
     @ResponseBody

@@ -75,6 +75,6 @@ public class AgentStore implements DomainAgentRepository {
     }
 
     private String agentCode(DomainAgent agent) {
-        return agent.getAgentCode();
+        return agent.getAgentCode().toUpperCase();
     }
 }

@@ -10,15 +10,15 @@ import sonique.bango.service.TroubleReportApiService;
 import spm.domain.ServiceProblemId;
 import spm.domain.TroubleReportId;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 
 @Controller
+@RequestMapping("/api/troubleReport")
 public class TroubleReportApiController {
-    private final TroubleReportApiService troubleReportApiService;
 
-    public TroubleReportApiController(TroubleReportApiService troubleReportApiService) {
-        this.troubleReportApiService = troubleReportApiService;
-    }
+    @Resource
+    private TroubleReportApiService troubleReportApiService;
 
     @RequestMapping(value = "/troubleReportId/{troubleReportId}", method = RequestMethod.GET)
     @ResponseBody

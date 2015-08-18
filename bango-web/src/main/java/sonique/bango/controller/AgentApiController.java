@@ -9,16 +9,15 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sonique.bango.service.AgentApiService;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 
 @Controller
+@RequestMapping("/api/agent")
 public class AgentApiController {
 
-    private final AgentApiService agentApiService;
-
-    public AgentApiController(AgentApiService agentApiService) {
-        this.agentApiService = agentApiService;
-    }
+    @Resource
+    private AgentApiService agentApiService;
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/authenticatedAgent")
     @ResponseBody
