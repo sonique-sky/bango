@@ -41,6 +41,32 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     onRefreshServiceProblem: function () {
         this.onServiceProblemTabAdded();
+    },
+
+    onPullServiceProblem: function () {
+        var me = this;
+        Ext.Msg.show({
+            title: 'Confirm Assign',
+            msg: 'Do you want to assign this Work Item to yourself?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+
+            callback: function (buttonId) {
+                if ('yes' == buttonId) {
+                    var serviceProblemId = me.getViewModel().get('serviceProblemId');
+                    Ext.Ajax.request(
+                        {
+                            url: Ext.String.format('api/serviceProblem/{0}/pull', serviceProblemId),
+                            method: 'POST',
+                            success: function () {
+                                me.onServiceProblemTabAdded();
+                                me.fireEvent('serviceProblemPulled');
+                            }
+                        }
+                    );
+                }
+            }
+        });
     }
 
 });

@@ -24,6 +24,7 @@ import sky.sns.spm.infrastructure.security.AuthenticatedUserDetails;
 import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 @Configuration
 @EnableWebMvcSecurity
@@ -41,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 if (agent == null) {
                     throw new UsernameNotFoundException("Invalid username/password");
                 }
+
+                agent.login(new Date());
                 UserDetails user = new AuthenticatedUserDetails(agent);
                 return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             }

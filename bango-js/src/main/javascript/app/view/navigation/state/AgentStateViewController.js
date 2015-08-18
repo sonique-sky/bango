@@ -9,6 +9,9 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
         controller: {
             'superman' : {
                 authenticated: 'onAuthenticated'
+            },
+            'serviceProblemTab' : {
+                serviceProblemPulled: 'refreshAgentState'
             }
         }
 
