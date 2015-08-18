@@ -16,7 +16,6 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     onServiceProblemTabAdded: function () {
         var viewModel = this.getViewModel();
         var serviceProblemId = viewModel.get('serviceProblemId');
-
         Spm.model.ServiceProblem.load(serviceProblemId, {
             scope: this,
             success: function (serviceProblem) {
@@ -38,5 +37,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         } else {
             layout.setActiveItem(0);
         }
+    },
+
+    onRefreshServiceProblem: function () {
+        this.onServiceProblemTabAdded();
     }
+
 });

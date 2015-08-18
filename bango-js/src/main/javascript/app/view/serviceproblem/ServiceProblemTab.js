@@ -66,16 +66,48 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                 padding: '5,5,5,5'
                             },
                             items: [
-                                {iconCls: 'icon-refresh', tooltip: 'Refresh'},
-                                {iconCls: 'icon-pull', tooltip: 'Pull this item'},
-                                {iconCls: 'icon-hold', tooltip: 'Hold this Service Problem'},
-                                {iconCls: 'icon-reassign', tooltip: 'Reassign service problem to another agent'},
-                                {iconCls: 'icon-transfer', tooltip: 'Transfer to another queue'},
-                                {iconCls: 'icon-clear', tooltip: 'Clear this service problem'},
-                                {iconCls: 'icon-line-test', tooltip: 'Request a managed line test'},
-                                {iconCls: 'icon-feature-check', tooltip: 'Request a feature check for this service'},
-                                {iconCls: 'icon-work-reminder', tooltip: 'Set a work reminder'},
-                                {iconCls: 'icon-associate-msp', tooltip: 'Associate this service problem to a MSP'}
+                                {
+                                    iconCls: 'icon-refresh',
+                                    tooltip: 'Refresh',
+                                    handler: 'onRefreshServiceProblem'
+                                },
+                                {
+                                    reference: 'serviceProblemPullButton',
+                                    iconCls: 'icon-pull',
+                                    tooltip: 'Pull this item'
+                                },
+                                {
+                                    iconCls: 'icon-hold',
+                                    tooltip: 'Hold this Service Problem'
+                                },
+                                {
+                                    iconCls: 'icon-reassign',
+                                    tooltip: 'Reassign service problem to another agent'
+                                },
+                                {
+                                    iconCls: 'icon-transfer',
+                                    tooltip: 'Transfer to another queue'
+                                },
+                                {
+                                    iconCls: 'icon-clear',
+                                    tooltip: 'Clear this service problem'
+                                },
+                                {
+                                    iconCls: 'icon-line-test',
+                                    tooltip: 'Request a managed line test'
+                                },
+                                {
+                                    iconCls: 'icon-feature-check',
+                                    tooltip: 'Request a feature check for this service'
+                                },
+                                {
+                                    iconCls: 'icon-work-reminder',
+                                    tooltip: 'Set a work reminder'
+                                },
+                                {
+                                    iconCls: 'icon-associate-msp',
+                                    tooltip: 'Associate this service problem to a MSP'
+                                }
                             ]
                         }
                     ]
