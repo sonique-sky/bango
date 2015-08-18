@@ -57,7 +57,6 @@ public final class BangoRunner {
         context.addMimeMapping("map", "application/json");
         context.addMimeMapping("png", "image/png");
         context.addMimeMapping("jpg", "image/jpeg");
-
         try {
             tomcat.start();
             registerAgents(context.getServletContext());
