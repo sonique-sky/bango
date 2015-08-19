@@ -28,6 +28,10 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {
     items: [
         {
             id: 'selectedEventHistoryFilter',
+            reference: 'eventTypeGrid',
+            listeners: {
+                viewReady: 'onGridViewReady'
+            },
             xtype: 'grid',
             multiSelect: true,
             hideHeaders: true,

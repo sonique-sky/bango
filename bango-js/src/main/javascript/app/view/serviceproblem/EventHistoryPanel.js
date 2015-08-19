@@ -24,10 +24,13 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                 {
                     xtype: 'button',
                     reference: 'notesOnlyToggleButton',
-                    enableToggle: true,
+                    //enableToggle: true,
                     tooltip: 'Show notes only',
                     iconCls: 'icon-show-notes-only',
-                    toggleHandler: 'onEventHistoryNotesOnly'
+                    handler: 'onEventHistoryNotesOnly',
+                    bind: {
+                        pressed: '{notesOnlyFilterActive}'
+                    }
                 },
                 {
                     xtype: 'button',

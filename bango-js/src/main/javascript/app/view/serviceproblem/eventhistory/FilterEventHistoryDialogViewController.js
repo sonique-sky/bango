@@ -2,24 +2,12 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialogViewCon
     extend: 'Spm.view.component.StandardDialogViewController',
     alias: 'controller.filterEventHistoryDialog',
 
-    control: {
-        '#selectedEventHistoryFilter': {
-            selectionchange: 'onEventHistoryItemTypeSelectionChanged'
-        }
-    },
-
-    onEventHistoryItemTypeSelectionChanged: function (field, selection) {
-        this.getViewModel().set('historyItemTypes', selection);
-
-        if (selection.length === 1 && selection[0].get('eventType') === 'Note') {
-            this.fireEvent('eventHistoryNotesOnlyFilterThing');
-        } else {
-            this.fireEvent('eventHistoryNotNotesOnlyFilterThing');
-        }
-    },
-
     onAccept: function () {
-        this.fireEvent('eventHistoryNoteFilter', this.getViewModel().get('historyItemTypes'));
+        var viewModel = this.getViewModel();
+        var grid = this.lookupReference('eventTypeGrid');
+
+        viewModel.set('currentFilterState.selectedEventTypes', grid.getSelection());
+
         this.getView().close();
     },
 
@@ -29,6 +17,14 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialogViewCon
         } else {
             button.setText('Select All');
         }
+    },
+
+    onGridViewReady: function() {
+        var eventTypeGrid = this.lookupReference('eventTypeGrid');
+
+        var selectedEventTypes = this.getViewModel().get('currentFilterState.selectedEventTypes');
+
+        eventTypeGrid.getSelectionModel().select(selectedEventTypes, false, true);
     }
 
 });

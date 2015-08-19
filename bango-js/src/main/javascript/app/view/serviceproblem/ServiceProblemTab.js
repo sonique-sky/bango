@@ -75,7 +75,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                     reference: 'serviceProblemPullButton',
                                     iconCls: 'icon-pull',
                                     tooltip: 'Pull this item',
-                                    handler: 'onPullServiceProblem'
+                                    handler: 'onPullServiceProblem',
+                                    bind: {
+                                        disabled: '{pullServiceProblemButtonDisabled}'
+                                    }
                                 },
                                 {
                                     iconCls: 'icon-hold',

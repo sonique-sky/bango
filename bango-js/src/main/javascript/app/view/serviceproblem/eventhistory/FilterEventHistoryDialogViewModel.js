@@ -2,16 +2,9 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialogViewMod
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.filterEventHistoryDialog',
 
-    stores: {
-        eventTypes: {
-            type: 'eventHistoryItemType'
-        }
-    },
-
     data: {
         acceptButtonText: 'Filter',
-        cancelButtonHidden: true,
-        historyItemTypes: []
+        cancelButtonHidden: true
     }
 
 });
