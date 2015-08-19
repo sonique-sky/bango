@@ -14,6 +14,14 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     onServiceProblemTabAdded: function () {
+        this.loadServiceProblem();
+    },
+
+    onRefreshServiceProblem: function () {
+        this.loadServiceProblem();
+    },
+
+    loadServiceProblem: function () {
         var viewModel = this.getViewModel();
         var serviceProblemId = viewModel.get('serviceProblemId');
         Spm.model.ServiceProblem.load(serviceProblemId, {
@@ -27,6 +35,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         });
     },
 
+
     switchWorkItemPanel: function () {
         var viewModel = this.getViewModel();
         var serviceProblem = viewModel.get('serviceProblem');
@@ -37,10 +46,6 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         } else {
             layout.setActiveItem(0);
         }
-    },
-
-    onRefreshServiceProblem: function () {
-        this.onServiceProblemTabAdded();
     },
 
     onPullServiceProblem: function () {
