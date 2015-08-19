@@ -35,7 +35,6 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         });
     },
 
-
     switchWorkItemPanel: function () {
         var viewModel = this.getViewModel();
         var serviceProblem = viewModel.get('serviceProblem');
