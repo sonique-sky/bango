@@ -12,7 +12,8 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanelViewModel', {
         eventTypes: {
             fields: [
                 'eventType'
-            ]
+            ],
+            sorters: 'eventType'
         }
     },
 
