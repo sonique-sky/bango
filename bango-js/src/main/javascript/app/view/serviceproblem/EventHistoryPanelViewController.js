@@ -21,6 +21,29 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanelViewController', {
         }
     },
 
+    selectedEventTypesBinding: null,
+
+    init: function () {
+        this.selectedEventTypesBinding = this.getViewModel().bind('{currentFilterState.selectedEventTypes}', function (selectedEventTypes) {
+            var store = this.getStore('eventHistory');
+            store.clearFilter();
+
+            if (selectedEventTypes.length > 0) {
+                store.filterBy(function (record) {
+                    return 0 !== selectedEventTypes.filter(function (value) {
+                            return record.get('eventType') === value.get('eventType');
+                        }).length;
+                });
+            }
+        });
+    },
+
+    destroy: function() {
+        this.selectedEventTypesBinding.destroy();
+
+        this.callParent();
+    },
+
     onServiceProblemLoaded: function (serviceProblemId) {
         var eventHistoryStore = this.getViewModel().getStore('eventHistory');
         eventHistoryStore.load({params: {serviceProblemId: serviceProblemId}});
