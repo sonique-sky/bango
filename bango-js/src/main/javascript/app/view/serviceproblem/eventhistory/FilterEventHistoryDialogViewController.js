@@ -11,20 +11,36 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialogViewCon
         this.getView().close();
     },
 
-    onFilterEventHistorySelectAllEventTypesToggle: function (button, state) {
-        if (state) {
-            button.setText('Clear All');
-        } else {
+    updateButtonText: function (selected) {
+        var button = this.lookupReference('selectAllClearAllButton');
+        if (selected.length === 0) {
             button.setText('Select All');
+        } else {
+            button.setText('Clear All');
         }
     },
 
-    onGridViewReady: function() {
+    onGridSelectionChange: function (grid, selected) {
+        this.updateButtonText(selected);
+    },
+
+    onSelectAllClearAll: function (button) {
+        var eventTypeGrid = this.lookupReference('eventTypeGrid');
+        if (button.getText() === 'Select All') {
+            eventTypeGrid.getSelectionModel().selectAll(false);
+        } else {
+            eventTypeGrid.getSelectionModel().deselectAll(false);
+        }
+    },
+
+    onGridViewReady: function () {
         var eventTypeGrid = this.lookupReference('eventTypeGrid');
 
         var selectedEventTypes = this.getViewModel().get('currentFilterState.selectedEventTypes');
 
-        eventTypeGrid.getSelectionModel().select(selectedEventTypes, false, true);
+        this.updateButtonText(selectedEventTypes);
+
+        eventTypeGrid.getSelectionModel().select(selectedEventTypes, false, false);
     }
 
 });

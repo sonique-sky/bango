@@ -17,11 +17,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {
     tbar: [
         {
             xtype: 'button',
-            reference: 'selectAllEventTypesToggleButton',
-            enableToggle: true,
-            text: 'Select All',
-            tooltip: 'Select/Clear All',
-            toggleHandler: 'onFilterEventHistorySelectAllEventTypesToggle'
+            reference: 'selectAllClearAllButton',
+            handler: 'onSelectAllClearAll'
         }
     ],
 
@@ -30,7 +27,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {
             id: 'selectedEventHistoryFilter',
             reference: 'eventTypeGrid',
             listeners: {
-                viewReady: 'onGridViewReady'
+                viewReady: 'onGridViewReady',
+                selectionchange: 'onGridSelectionChange'
             },
             xtype: 'grid',
             multiSelect: true,
