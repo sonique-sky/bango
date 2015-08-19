@@ -61,6 +61,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                             success: function () {
                                 me.onServiceProblemTabAdded();
                                 me.fireEvent('serviceProblemPulled');
+                                Ext.GlobalEvents.fireEvent('displayNotification', {
+                                    title: 'Service Problem Assigned',
+                                    message: Ext.String.format('Service Problem [{0}] has been assigned to you', serviceProblemId)
+                                });
                             }
                         }
                     );

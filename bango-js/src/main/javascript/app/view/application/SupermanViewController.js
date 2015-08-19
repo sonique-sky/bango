@@ -2,9 +2,12 @@ Ext.define('Spm.view.application.SupermanViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.superman',
 
+    requires: ['Ext.window.Toast'],
+
     listen: {
         global: {
-            authenticationRequired: 'onAuthenticationRequired'
+            authenticationRequired: 'onAuthenticationRequired',
+            displayNotification: 'onDisplayNotification'
         },
         controller: {
             'loginDialog': {
@@ -54,6 +57,15 @@ Ext.define('Spm.view.application.SupermanViewController', {
         if (!alreadyAuthenticated) {
             this.loadAuthenticatedAgent();
         }
+    },
+
+    onDisplayNotification: function (params) {
+        Ext.toast({
+            html: params.message,
+            title: params.title,
+            width: 200,
+            align: 'br'
+        });
     },
 
     onAuthenticationRequired: function () {
