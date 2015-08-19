@@ -1,10 +1,10 @@
-Ext.define('Spm.view.admindashboard.teams.TeamsTabViewModel', {
+Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.adminTeamsTab',
+    alias: 'viewmodel.teamAdminTab',
 
     stores: {
         teams: {
-            type: 'adminTeams',
+            type: 'teams',
             listeners: {
                 load: 'onTeamStoreLoaded'
             }

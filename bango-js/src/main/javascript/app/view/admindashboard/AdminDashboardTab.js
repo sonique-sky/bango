@@ -3,7 +3,7 @@ Ext.define('Spm.view.admindashboard.AdminDashboardTab', {
     alias: 'widget.adminDashboardTab',
 
     require: [
-        'Spm.view.admindashboard.teams.TeamsTab'
+        'Spm.view.admindashboard.teams.TeamAdminTab'
     ],
 
     title: 'Admin Dashboard',
@@ -14,7 +14,7 @@ Ext.define('Spm.view.admindashboard.AdminDashboardTab', {
         xtype: 'tabpanel',
         items: [
             {
-                xtype: 'adminTeamsTab'
+                xtype: 'teamAdminTab'
             },
             {
                 xtype: 'panel',

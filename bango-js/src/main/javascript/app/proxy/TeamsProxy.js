@@ -1,6 +1,6 @@
-Ext.define('Spm.proxy.AdminTeamsProxy', {
+Ext.define('Spm.proxy.TeamsProxy', {
     extend: 'Ext.data.proxy.Rest',
-    alias: 'proxy.adminTeamsProxy',
+    alias: 'proxy.teamsProxy',
 
     url: 'api/teams',
     reader: {

@@ -1,6 +1,6 @@
-Ext.define('Spm.view.admindashboard.teams.TeamTabViewController', {
+Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.adminTeamsTab',
+    alias: 'controller.teamAdminTab',
 
     onActivated: function () {
         this.getViewModel().getStore('teams').load();

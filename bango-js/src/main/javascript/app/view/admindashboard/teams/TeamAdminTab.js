@@ -1,13 +1,13 @@
-Ext.define('Spm.view.admindashboard.teams.TeamsTab', {
+Ext.define('Spm.view.admindashboard.teams.TeamAdminTab', {
     extend: 'Ext.panel.Panel',
-    alias: 'widget.adminTeamsTab',
+    alias: 'widget.teamAdminTab',
 
     require: [
-        'Spm.view.admindashboard.teams.TeamsTabViewModel'
+        'Spm.view.admindashboard.teams.TeamAdminTabViewModel'
     ],
 
-    viewModel: 'adminTeamsTab',
-    controller: 'adminTeamsTab',
+    viewModel: 'teamAdminTab',
+    controller: 'teamAdminTab',
 
     title: 'Teams',
     iconCls: 'icon-admin-teams',
