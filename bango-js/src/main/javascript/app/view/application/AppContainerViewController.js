@@ -17,13 +17,17 @@ Ext.define('Spm.view.application.AppContainerViewController', {
         }
     },
 
-    onAuthenticated: function() {
+    onAuthenticated: function (authenticatedAgent) {
         var tabPanel = this.lookupReference('tabPanel');
         tabPanel.removeAll(true);
         this.getViewModel().clearActiveTabs();
+
+        if (authenticatedAgent.hasPrivilege('AccessAdminDashboard')) {
+            tabPanel.add(Ext.create('widget.adminDashboardTab'));
+        }
     },
 
-    onServiceProblemSelected: function(serviceProblemId) {
+    onServiceProblemSelected: function (serviceProblemId) {
         var tabPanel = this.lookupReference('tabPanel');
         var viewModel = this.getViewModel();
         var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
@@ -44,7 +48,7 @@ Ext.define('Spm.view.application.AppContainerViewController', {
         tabPanel.setActiveTab(serviceProblemTab);
     },
 
-    onQueueTabClosed: function(queueId) {
+    onQueueTabClosed: function (queueId) {
         this.getViewModel().removeQueueTabForId(queueId);
     },
 
