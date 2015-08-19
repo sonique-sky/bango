@@ -9,14 +9,6 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanelViewController', {
             },
             serviceProblemTab: {
                 serviceProblemLoaded: 'onServiceProblemLoaded'
-            },
-            eventHistoryPanel: {
-                eventHistoryNoteFilter: 'onEventHistoryNoteFilter'
-            },
-            filterEventHistoryDialog: {
-                eventHistoryNoteFilter: 'onEventHistoryNoteFilter',
-                eventHistoryNotesOnlyFilterThing: 'onEventHistoryNotesOnlyFilterThing',
-                eventHistoryNotNotesOnlyFilterThing: 'onEventHistoryNotNotesOnlyFilterThing'
             }
         }
     },
@@ -49,16 +41,6 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanelViewController', {
         eventHistoryStore.load({params: {serviceProblemId: serviceProblemId}});
     },
 
-    onEventHistoryNotesOnlyFilterThing: function () {
-        var notesOnlyToggleButton = this.lookupReference('notesOnlyToggleButton');
-        notesOnlyToggleButton.toggle(true, true);
-    },
-
-    onEventHistoryNotNotesOnlyFilterThing: function () {
-        var notesOnlyToggleButton = this.lookupReference('notesOnlyToggleButton');
-        notesOnlyToggleButton.toggle(false, true);
-    },
-
     onEventHistoryNoteAdded: function (response) {
         var eventHistoryStore = this.getViewModel().getStore('eventHistory');
         eventHistoryStore.loadRawData(response, false);
@@ -72,16 +54,6 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanelViewController', {
     onEventHistoryRefresh: function () {
         this.getViewModel().getStore('eventHistory').reload();
     },
-
-    onEventHistoryNoteFilter: function (selection) {
-        //var eventHistoryStore = this.getViewModel().getStore('eventHistory');
-        //eventHistoryStore.clearFilter();
-
-        //if (selection !== null && selection.length > 0) {
-        //    eventHistoryStore.filterBy();
-        //}
-    },
-
 
     onEventHistoryNotesOnly: function () {
         var viewModel = this.getViewModel();

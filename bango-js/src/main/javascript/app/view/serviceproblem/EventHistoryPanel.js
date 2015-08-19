@@ -109,39 +109,5 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
                 }
             ]
         }
-    ],
-
-    reload: function () {
-        this.store.reload();
-    },
-
-    bindTo: function (serviceProblem) {
-        this.store.load({params: {serviceProblemId: serviceProblem.serviceProblemId()}})
-    },
-
-    loadWith: function (records) {
-        this.store.loadRecords(records);
-    },
-
-    filterEventHistoryBy: function (filterFunction) {
-        this.store.filterBy(filterFunction);
-    },
-
-    removeEventHistoryFilter: function () {
-        this.store.removeFilter(null);
-    },
-
-    allEventTypes: function () {
-        var eventTypes = [];
-        this.store.queryBy(
-            function () {
-                return true;
-            }
-        ).each(
-            function (historyItem) {
-                eventTypes.push(historyItem.get('eventType'));
-            }
-        );
-        return eventTypes;
-    }
+    ]
 });
