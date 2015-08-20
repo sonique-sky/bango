@@ -20,6 +20,7 @@ import java.util.List;
 
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 import static sky.sns.spm.domain.model.serviceproblem.EventDescription.Note;
 import static sonique.datafixtures.DateTimeDataFixtures.someInstantInTheLast24Hours;
 import static sonique.datafixtures.PrimitiveDataFixtures.*;
@@ -35,7 +36,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
         List<Queue> queues = queueStore.getAllQueues();
         Long serviceProblemId = 1L;
         for (Queue queue : queues) {
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 20; i++, serviceProblemId++) {
                 DomainWorkItem workItem = null;
                 if (serviceProblemId % 2 == 0) {
                     workItem = DomainWorkItemBuilder.withAllDefaults().build();
@@ -43,9 +44,17 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                     DomainAgent agent = new DomainAgentBuilder().build();
                     workItem = DomainWorkItemBuilder.anAssignedPushWorkItem().withAgent(agent).build();
                 }
+                if (workItem != null) {
+                    try {
+                        writeField(workItem, "id", serviceProblemId, true);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
                 PresentedServiceType serviceTypeCode = somePresentedServiceType();
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
-                        .withServiceProblemId(new ServiceProblemId(serviceProblemId++))
+                        .withServiceProblemId(new ServiceProblemId(serviceProblemId))
                         .withServiceId(new SnsServiceId(serviceProblemId + 100))
                         .withDirectoryNumber(new DirectoryNumber("directoryNumber-" + (serviceProblemId % 4)))
                         .withQueue(queue)

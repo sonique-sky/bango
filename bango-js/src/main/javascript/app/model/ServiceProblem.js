@@ -63,6 +63,11 @@ Ext.define('Spm.model.ServiceProblem', {
         {
             name: 'resolutionReason',
             mapping: 'resolution.resolutionReason'
+        },
+        {
+            name: 'workItemId',
+            reference: 'Spm.model.WorkItem',
+            unique: true
         }
     ],
 
@@ -76,8 +81,6 @@ Ext.define('Spm.model.ServiceProblem', {
     },
 
     hasWorkItem: function () {
-        var workItemStatus = this.getData().workItem.status;
-
-        return workItemStatus !== '' && workItemStatus !== undefined;
+        return this.getWorkItem() !== null;
     }
 });

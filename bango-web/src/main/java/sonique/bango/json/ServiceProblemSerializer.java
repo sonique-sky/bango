@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.DomainWorkItem;
 import sky.sns.spm.domain.model.serviceproblem.EndUserInformation;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemResolution;
 
@@ -30,7 +31,9 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
         jsonGenerator.writeObjectField("closedDate", serviceProblem.closedDate());
 
         if (serviceProblem.hasWorkItem()) {
-            jsonGenerator.writeObjectField("workItem", serviceProblem.workItem());
+            jsonGenerator.writeNumberField("workItemId", serviceProblem.serviceProblemId().asLong());
+            DomainWorkItem workItem = serviceProblem.workItem();
+            jsonGenerator.writeObjectField("workItem", workItem);
         } else {
             jsonGenerator.writeObjectFieldStart("workItem");
             jsonGenerator.writeObjectFieldStart("agent");

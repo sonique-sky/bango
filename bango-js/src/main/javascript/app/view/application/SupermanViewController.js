@@ -64,7 +64,8 @@ Ext.define('Spm.view.application.SupermanViewController', {
             html: params.message,
             title: params.title,
             width: 200,
-            align: 'br'
+            align: 'br',
+            header: false
         });
     },
 

@@ -4,7 +4,7 @@ Ext.define('Spm.model.WorkItem', {
 
     fields: [
         {
-            name: 'workItemId'
+            name: 'id'
         },
         {
             name: 'status'

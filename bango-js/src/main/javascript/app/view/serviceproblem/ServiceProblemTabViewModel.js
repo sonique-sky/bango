@@ -16,14 +16,16 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
             }
         },
         pullServiceProblemButtonDisabled: {
-            get: function (get) {
-                //var authenticatedAgent = this.getStore('authenticatedAgent').load();
-                //var workItem = get('serviceProblem').workItem();
-                //
-                //return !authenticatedAgent.hasPrivilege('PullServiceProblem') || !workItem.isPullable();
-                return false;
+            bind: {
+                bindTo: '{serviceProblem}',
+                deep: true
+            },
+            get: function (serviceProblem) {
+                var isNotPullable = serviceProblem == null || serviceProblem.getWorkItem() == null || !serviceProblem.getWorkItem().isPullable();
+                var authenticatedAgent = this.get('authenticatedAgent');
+                var agentCanPullWorkItems = authenticatedAgent.hasPrivilege('PullServiceProblem');
+                return isNotPullable || !agentCanPullWorkItems;
             }
         }
     }
-
 });
