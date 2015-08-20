@@ -11,6 +11,10 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
     },
 
     createNewTeam: function () {
-        console.log('hey');
+        var dialog = this.getView().add({
+            xtype: 'createTeamDialog'
+        });
+
+        dialog.show();
     }
 });
