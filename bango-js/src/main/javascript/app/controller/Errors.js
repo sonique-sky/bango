@@ -18,7 +18,7 @@ Ext.define('Spm.controller.Errors', {
         }
 
         if (response.status == 400) {
-            console.log(response)
+            Ext.Msg.alert("Error", JSON.parse(response.responseText).message);
         }
     }
 });
