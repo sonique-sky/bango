@@ -16,5 +16,16 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
         });
 
         dialog.show();
+    },
+
+    assignQueuesToTeam: function () {
+        var selectedTeams = this.lookupReference('teamGrid').getSelectionModel().getSelection();
+        if (selectedTeams.length == 1) {
+            var dialog = this.getView().add({
+                xtype: 'queueAssignmentDialog'
+            });
+
+            dialog.show();
+        }
     }
 });

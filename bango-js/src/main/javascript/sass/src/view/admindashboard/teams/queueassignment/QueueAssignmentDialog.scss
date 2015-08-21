@@ -1,0 +1,28 @@
+.queue-assignment-view {
+  background-color: #F1F1F1;
+}
+
+.queue-assignment-view div.x-item-selected {
+  background-color: #A3BAE9;
+}
+
+.queue-assignment-view .queue {
+  height: 2em;
+  line-height: 2em;
+}
+
+.icon-admin-assign-add {
+  background-image: url('images/right.gif');
+}
+
+.icon-admin-assign-remove {
+  background-image: url('images/left.gif');
+}
+
+.icon-admin-assign-add-all {
+  background-image: url("images/doubleright.gif");
+}
+
+.icon-admin-assign-remove-all {
+  background-image: url("images/doubleleft.gif");
+}

@@ -27,7 +27,8 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTab', {
             items: [
                 {
                     tooltip: 'Assign Queues to this Team',
-                    iconCls: 'icon-admin-teams-edit'
+                    iconCls: 'icon-admin-teams-edit',
+                    handler: 'assignQueuesToTeam'
                 },
                 {
                     tooltip: 'Create a Team',
