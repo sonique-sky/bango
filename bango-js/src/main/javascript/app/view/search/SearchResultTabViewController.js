@@ -14,14 +14,21 @@ Ext.define('Spm.view.search.SearchResultTabViewController', {
         var viewModel = this.getViewModel();
 
         var serviceProblemsStore = viewModel.get('serviceProblems');
-        serviceProblemsStore.mon(serviceProblemsStore, 'beforeload', this.onBeforeLoad, this);
+        this.mon(serviceProblemsStore, 'beforeload', this.onBeforeLoad, this);
+    },
+
+    onTabClosed: function() {
+        this.fireEvent('searchResultTabClosed', this.params());
     },
 
     onBeforeLoad: function (store, operation) {
         var viewModel = this.getViewModel();
 
         operation.setParams(viewModel.get('params'));
-    }
+    },
 
+    params: function () {
+        return this.getViewModel().get('params');
+    }
 })
 ;
