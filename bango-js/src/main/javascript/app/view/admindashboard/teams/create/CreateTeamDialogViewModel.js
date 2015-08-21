@@ -3,15 +3,16 @@ Ext.define('Spm.view.admindashboard.teams.create.CreateTeamDialogViewModel', {
     alias: 'viewmodel.createTeamDialog',
 
     data: {
-        team: {
-            name: ''
-        }
+        team: null
     },
 
     formulas: {
         acceptButtonDefaultDisabled: {
-            get: function (get) {
-                return get('team.name') === '';
+            bind: {
+                bindTo: '{team.name}'
+            },
+            get: function (name) {
+                return !name;
             }
         }
     }

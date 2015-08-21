@@ -5,5 +5,9 @@ Ext.define('Spm.proxy.TeamsProxy', {
     url: 'api/teams',
     reader: {
         type: 'json'
-    }
+    },
+    writer: {
+        type: 'json'
+    },
+    appendId: false
 });
