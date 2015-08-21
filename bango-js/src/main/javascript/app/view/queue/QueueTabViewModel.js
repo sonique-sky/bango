@@ -6,7 +6,7 @@ Ext.define('Spm.view.queue.QueueTabViewModel', {
         queuedServiceProblems: {
             type: 'queuedServiceProblems',
             listeners: {
-                beforeLoad: 'onBeforeLoad'
+                beforeload: 'onBeforeLoad'
             }
         }
     },
