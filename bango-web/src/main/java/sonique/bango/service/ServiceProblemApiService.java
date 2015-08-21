@@ -10,7 +10,7 @@ import java.util.List;
 public interface ServiceProblemApiService {
     DomainServiceProblem serviceProblemWithId(ServiceProblemId serviceProblemId);
     List<EventHistoryItem> addNote(ServiceProblemId serviceProblemId, String note);
-    Collection<DomainServiceProblem> pull(ServiceProblemId serviceProblemId);
+    DomainServiceProblem pull(ServiceProblemId serviceProblemId);
     Collection<DomainServiceProblem> hold(ServiceProblemId serviceProblemId);
     Collection<DomainServiceProblem> release(ServiceProblemId serviceProblemId);
     List<EventHistoryItem> eventHistory(ServiceProblemId serviceProblemId);

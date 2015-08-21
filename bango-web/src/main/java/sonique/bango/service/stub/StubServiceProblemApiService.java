@@ -39,11 +39,10 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     }
 
     @Override
-    public Collection<DomainServiceProblem> pull(ServiceProblemId serviceProblemId) {
+    public DomainServiceProblem pull(ServiceProblemId serviceProblemId) {
         DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
         serviceProblem.tug(authorisedActorProvider.getLoggedInAgent());
-
-        return newArrayList(serviceProblem);
+        return serviceProblem;
     }
 
     @Override

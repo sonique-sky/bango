@@ -32,8 +32,12 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
 
         if (serviceProblem.hasWorkItem()) {
             jsonGenerator.writeNumberField("workItemId", serviceProblem.serviceProblemId().asLong());
+
+            jsonGenerator.writeFieldName("workItem");
+
             DomainWorkItem workItem = serviceProblem.workItem();
-            jsonGenerator.writeObjectField("workItem", workItem);
+            JsonSerializer<Object> workItemSerializer = serializerProvider.findTypedValueSerializer(DomainWorkItem.class, false, null);
+            workItemSerializer.serialize(workItem, jsonGenerator, serializerProvider);
         } else {
             jsonGenerator.writeObjectFieldStart("workItem");
             jsonGenerator.writeObjectFieldStart("agent");

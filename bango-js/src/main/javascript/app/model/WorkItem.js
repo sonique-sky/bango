@@ -2,9 +2,11 @@ Ext.define('Spm.model.WorkItem', {
     extend: 'Ext.data.Model',
     alias: 'model.workItem',
 
+    idProperty: 'workItemId',
+
     fields: [
         {
-            name: 'id'
+            name: 'workItemId'
         },
         {
             name: 'status'
@@ -29,6 +31,13 @@ Ext.define('Spm.model.WorkItem', {
             mapping: 'reminderTime',
             type: 'date',
             dateFormat: 'd/m/Y H:i:s'
+        },
+        {
+            name: 'agent',
+            reference: {
+                type: 'Spm.model.Agent'
+            },
+            unique: true
         }
     ],
 
@@ -45,6 +54,6 @@ Ext.define('Spm.model.WorkItem', {
     },
 
     isAssignedTo: function (agent) {
-        return this.agent().get('code') === agent.get('code');
+        return this.getAgent() && this.getAgent().get('code') === agent.get('code');
     }
 });

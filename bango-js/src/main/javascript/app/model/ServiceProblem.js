@@ -71,10 +71,7 @@ Ext.define('Spm.model.ServiceProblem', {
         }
     ],
 
-    proxy: {
-        type: 'rest',
-        url: 'api/serviceProblem/'
-    },
+    proxy: 'serviceProblemProxy',
 
     serviceProblemId: function () {
         return this.get('serviceProblemId');

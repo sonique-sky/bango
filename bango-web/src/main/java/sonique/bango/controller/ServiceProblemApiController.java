@@ -12,8 +12,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static com.google.common.collect.Lists.newArrayList;
-
 @Controller
 @RequestMapping("/api/serviceProblem")
 public class ServiceProblemApiController {
@@ -23,8 +21,8 @@ public class ServiceProblemApiController {
 
     @RequestMapping(value = "/{serviceProblemId}", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<DomainServiceProblem> serviceProblem(@PathVariable Long serviceProblemId) {
-        return newArrayList(serviceProblemApiService.serviceProblemWithId(new ServiceProblemId(serviceProblemId)));
+    public DomainServiceProblem serviceProblem(@PathVariable Long serviceProblemId) {
+        return serviceProblemApiService.serviceProblemWithId(new ServiceProblemId(serviceProblemId));
     }
 
     @RequestMapping(value = "/{serviceProblemId}/eventHistory", method = RequestMethod.GET)
@@ -41,7 +39,7 @@ public class ServiceProblemApiController {
 
     @RequestMapping(value = "/{serviceProblemId}/pull", method = RequestMethod.POST)
     @ResponseBody
-    public Collection<DomainServiceProblem> pull(@PathVariable Long serviceProblemId) {
+    public DomainServiceProblem pull(@PathVariable Long serviceProblemId) {
         return serviceProblemApiService.pull(new ServiceProblemId(serviceProblemId));
     }
 

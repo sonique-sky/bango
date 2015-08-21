@@ -47,7 +47,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                 {
                                     xtype: 'datefield',
                                     bind: {
-                                        value: '{serviceProblem.workItem.createdDate}'
+                                        value: '{workItem.createdDate}'
                                     },
                                     fieldLabel: 'Created Date',
                                     altFormats: 'd/m/Y H:i:s',
@@ -57,7 +57,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                 {
                                     xtype: 'textfield',
                                     bind: {
-                                        value: '{serviceProblem.workItem.priority}'
+                                        value: '{workItem.priority}'
                                     },
                                     fieldLabel: 'Priority'
                                 }
@@ -71,14 +71,14 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                 {
                                     xtype: 'textfield',
                                     bind: {
-                                        value: '{serviceProblem.workItem.status}'
+                                        value: '{workItem.status}'
                                     },
                                     fieldLabel: 'Status'
                                 },
                                 {
                                     xtype: 'textfield',
                                     bind: {
-                                        value: '{serviceProblem.workItem.agent.details.firstName} {serviceProblem.workItem.agent.details.lastName}'
+                                        value: '{workItem.agent.displayName}'
                                     },
                                     fieldLabel: 'Assigned Agent'
                                 }
@@ -92,14 +92,14 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                                 {
                                     xtype: 'textfield',
                                     bind: {
-                                        value: '{serviceProblem.workItem.assignmentType}'
+                                        value: '{workItem.assignmentType}'
                                     },
                                     fieldLabel: 'Type'
                                 },
                                 {
                                     xtype: 'datefield',
                                     bind: {
-                                        value: '{serviceProblem.workItem.reminderTime}'
+                                        value: '{workItem.reminderTime}'
                                     },
                                     fieldLabel: 'Reminder',
                                     format: 'd/m/y H:i',
@@ -118,7 +118,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                             xtype: 'textfield',
                             fieldLabel: 'Action',
                             bind: {
-                                value: '{serviceProblem.workItem.action}'
+                                value: '{workItem.action}'
                             }
                         }
                     ]
