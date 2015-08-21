@@ -6,14 +6,6 @@ Ext.define('Spm.view.admindashboard.teams.create.CreateTeamDialogViewController'
         'Ext.window.MessageBox'
     ],
 
-    listen: {
-        component: {
-            'createTeamDialog': {
-                show: 'onShow'
-            }
-        }
-    },
-
     onShow: function () {
         this.getViewModel().set('team', Ext.create('Spm.model.Team'));
     },

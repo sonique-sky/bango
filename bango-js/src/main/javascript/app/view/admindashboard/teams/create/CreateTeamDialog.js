@@ -19,6 +19,10 @@ Ext.define('Spm.view.admindashboard.teams.create.CreateTeamDialog', {
 
     modal: true,
 
+    listeners: {
+        show: 'onShow'
+    },
+
     items: [
         {
             xtype: 'textfield',
