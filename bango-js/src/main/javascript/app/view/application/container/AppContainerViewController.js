@@ -34,7 +34,9 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
         this.getViewModel().clearActiveTabs();
 
         if (authenticatedAgent.hasPrivilege('AccessAdminDashboard')) {
-            tabPanel.add(Ext.create('widget.adminDashboardTab'));
+            var adminDashboardTab = Ext.create('widget.adminDashboardTab');
+            tabPanel.add(adminDashboardTab);
+            tabPanel.setActiveTab(adminDashboardTab);
         }
     },
 
