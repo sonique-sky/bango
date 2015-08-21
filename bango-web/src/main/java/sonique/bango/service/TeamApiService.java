@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface TeamApiService {
     List<DomainTeam> teams();
+
+    DomainTeam addTeam(DomainTeam team);
 }

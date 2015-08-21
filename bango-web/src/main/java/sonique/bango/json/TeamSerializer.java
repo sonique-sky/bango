@@ -12,6 +12,7 @@ public class TeamSerializer extends JsonSerializer<DomainTeam> {
     @Override
     public void serialize(DomainTeam team, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
+        jsonGenerator.writeObjectField("id", team.id());
         jsonGenerator.writeObjectField("name", team.name());
         jsonGenerator.writeFieldName("assignedQueues");
         jsonGenerator.writeStartArray();

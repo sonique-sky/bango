@@ -1,21 +1,24 @@
 package sonique.bango.store;
 
+import com.google.common.base.Throwables;
 import sky.sns.spm.domain.model.DomainTeam;
+import sky.sns.spm.validation.SpmError;
+import sky.sns.spm.validation.SupermanException;
 import spm.domain.TeamId;
 import spm.domain.TeamName;
 
-import java.util.Arrays;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTeamRepository {
-    private List<DomainTeam> domainTeams;
+    private List<DomainTeam> domainTeams = new ArrayList<>();
+    private long id = 220;
 
     public TeamStore() {
-        domainTeams = Arrays.asList(
-                new DomainTeam(new TeamName("My favorite Team")),
-                new DomainTeam(new TeamName("My second favorite Team")),
-                new DomainTeam(new TeamName("My least favorite Team"))
-        );
+        insert(new DomainTeam(new TeamName("My favorite Team")));
+        insert(new DomainTeam(new TeamName("My second favorite Team")));
+        insert(new DomainTeam(new TeamName("My least favorite Team")));
     }
 
     @Override
@@ -30,11 +33,22 @@ public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTe
 
     @Override
     public void insert(DomainTeam domainTeam) {
-        throw new UnsupportedOperationException("Method TeamStore insert() not yet implemented");
+        if (isNameDuplicate(domainTeam.name())) {
+            throw new SupermanException(SpmError.TeamAlreadyExists);
+        }
+
+        try {
+            Field idField = DomainTeam.class.getDeclaredField("id");
+            idField.setAccessible(true);
+            idField.set(domainTeam, new TeamId(id++));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            Throwables.propagate(e);
+        }
+        domainTeams.add(domainTeam);
     }
 
     @Override
     public boolean isNameDuplicate(TeamName teamName) {
-        throw new UnsupportedOperationException("Method TeamStore isNameDuplicate() not yet implemented");
+        return domainTeams.stream().filter((team) -> team.name().equals(teamName)).findAny().isPresent();
     }
 }

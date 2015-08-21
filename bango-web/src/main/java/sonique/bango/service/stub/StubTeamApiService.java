@@ -18,4 +18,10 @@ public class StubTeamApiService implements TeamApiService {
     public List<DomainTeam> teams() {
         return domainTeamRepository.getTeams();
     }
+
+    @Override
+    public DomainTeam addTeam(DomainTeam team) {
+        domainTeamRepository.insert(team);
+        return team;
+    }
 }

@@ -20,6 +20,7 @@ import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
 import sky.sns.spm.infrastructure.repository.*;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
+import sky.sns.spm.validation.SpmCodeAndMessage;
 import sonique.bango.json.*;
 import sonique.bango.service.*;
 import sonique.bango.service.stub.*;
@@ -66,6 +67,7 @@ public class BangoApplicationContext {
         module.addSerializer(Role.class, new RoleSerializer());
         module.addSerializer(ServiceType.class, new ServiceTypeSerializer());
         module.addSerializer(DomainTeam.class, new TeamSerializer());
+        module.addDeserializer(DomainTeam.class, new TeamDeserializer());
         module.addSerializer(EventHistoryItem.class, new EventHistoryItemSerializer());
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
@@ -73,6 +75,7 @@ public class BangoApplicationContext {
         module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
         module.addSerializer(Queue.class, new QueueSerializer());
 
+        module.addSerializer(SpmCodeAndMessage.class, new SpmCodeAndMessageSerializer());
         objectMapper.registerModule(module);
 
         return objectMapper;
