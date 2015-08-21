@@ -2,19 +2,15 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.serviceProblemTab',
 
-    listen: {
-        component: {
-            'serviceProblemTab': {
-                //activate: 'onServiceProblemTabActivated',
-                //deactivate: 'onServiceProblemTabDeactivated',
-                //close: 'onServiceProblemTabClosed',
-                added: 'onServiceProblemTabAdded'
-            }
-        }
+    onServiceProblemTabClosed: function () {
+        this.fireEvent('serviceProblemTabClosed', this.getViewModel().get('serviceProblemId'));
     },
 
     onServiceProblemTabAdded: function () {
-        this.loadServiceProblem();
+        var viewModel = this.getViewModel();
+        if (!viewModel.get('serviceProblem')) {
+            this.loadServiceProblem();
+        }
     },
 
     onRefreshServiceProblem: function () {

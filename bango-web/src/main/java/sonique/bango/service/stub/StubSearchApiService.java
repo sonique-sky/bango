@@ -27,8 +27,8 @@ public class StubSearchApiService implements SearchApiService {
     }
 
     @Override
-    public PagedSearchResults<DomainServiceProblem> serviceProblemsByServiceId(SnsServiceId serviceId) {
-        return serviceProblemRepository.searchForServiceProblems(SearchParametersDTO.withSearchProperties("serviceId", serviceId, 25, 0));
+    public PagedSearchResults<DomainServiceProblem> serviceProblemsByServiceId(SnsServiceId serviceId, Integer start, Integer limit) {
+        return serviceProblemRepository.searchForServiceProblems(SearchParametersDTO.withSearchProperties("serviceId", serviceId, limit, start));
     }
 
     @Override

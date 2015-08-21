@@ -4,12 +4,14 @@ Ext.define('Spm.view.application.AppContainerViewModel', {
 
         data: {
             activeQueueTabs: Ext.create('Ext.util.MixedCollection'),
-            activeServiceProblemTabs: Ext.create('Ext.util.MixedCollection')
+            activeServiceProblemTabs: Ext.create('Ext.util.MixedCollection'),
+            activeSearchResultTabs: Ext.create('Ext.util.MixedCollection')
         },
 
         clearActiveTabs: function () {
             this.activeQueueTabs().removeAll();
             this.activeServiceProblemTabs().removeAll();
+            this.activeSearchResultTabs().removeAll();
         },
 
         queueTabForId: function (queueId) {
@@ -24,15 +26,23 @@ Ext.define('Spm.view.application.AppContainerViewModel', {
             this.activeQueueTabs().removeAtKey(queueId);
         },
 
-        activeQueueTabs: function () {
-            return this.get('activeQueueTabs');
+        searchResultTabForId: function (searchResultId) {
+            return this.activeSearchResultTabs().containsKey(searchResultId) ? this.activeSearchResultTabs().get(searchResultId) : null;
+        },
+
+        addSearchResultTab: function (searchResultId, searchResultTab) {
+            this.activeSearchResultTabs().add(searchResultId, searchResultTab);
+        },
+
+        removeSearchResultTabForId: function (searchResultId) {
+            this.activeSearchResultTabs().removeAtKey(searchResultId);
         },
 
         serviceProblemTabForId: function (serviceProblemId) {
             return this.activeServiceProblemTabs().containsKey(serviceProblemId) ? this.activeServiceProblemTabs().get(serviceProblemId) : null;
         },
 
-        addServiceproblemTab: function (serviceProblemId, serviceProblemTab) {
+        addServiceProblemTab: function (serviceProblemId, serviceProblemTab) {
             this.activeServiceProblemTabs().add(serviceProblemId, serviceProblemTab);
         },
 
@@ -40,8 +50,16 @@ Ext.define('Spm.view.application.AppContainerViewModel', {
             this.activeServiceProblemTabs().removeAtKey(serviceProblemId);
         },
 
+        activeQueueTabs: function () {
+            return this.get('activeQueueTabs');
+        },
+
         activeServiceProblemTabs: function () {
             return this.get('activeServiceProblemTabs');
+        },
+        
+        activeSearchResultTabs: function () {
+            return this.get('activeSearchResultTabs');
         }
     }
 );

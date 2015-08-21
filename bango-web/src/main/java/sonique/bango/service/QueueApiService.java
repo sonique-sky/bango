@@ -10,7 +10,7 @@ import java.util.Collection;
 
 public interface QueueApiService {
     Collection<Queue> allQueues();
-    PagedSearchResults<DomainServiceProblem> serviceProblemsFor(int queueId);
+    PagedSearchResults<DomainServiceProblem> serviceProblemsFor(int queueId, Integer page, Integer start, Integer limit);
     PagedSearchResults<DomainServiceProblem> bulkTransfer(BulkTransferRequest request);
     PagedSearchResults<DomainServiceProblem> bulkClear(BulkClearRequest request);
 }

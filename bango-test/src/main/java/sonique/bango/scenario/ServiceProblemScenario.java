@@ -77,7 +77,7 @@ public class ServiceProblemScenario extends SupermanScenario {
 
         when(searchApiService.serviceProblemById(serviceProblem.serviceProblemId())).thenReturn(serviceProblems);
         when(searchApiService.serviceProblemByDirectoryNumber(serviceProblem.getDirectoryNumber())).thenReturn(serviceProblems);
-        when(searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId())).thenReturn(serviceProblems);
+        when(searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId(), 0, 20)).thenReturn(serviceProblems);
 
         ServiceProblemApiService serviceProblemApiService = services.serviceProblemApiService();
         when(serviceProblemApiService.serviceProblemWithId(serviceProblem.serviceProblemId())).thenReturn(serviceProblem);

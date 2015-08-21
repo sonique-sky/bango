@@ -1,10 +1,7 @@
 package sonique.bango.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.service.SearchApiService;
@@ -36,8 +33,8 @@ public class SearchApiController {
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/serviceId/{serviceId}")
     @ResponseBody
-    public PagedSearchResults<DomainServiceProblem> serviceProblemsByServiceId(@PathVariable String serviceId) {
-        return searchApiService.serviceProblemsByServiceId(new SnsServiceId(serviceId));
+    public PagedSearchResults<DomainServiceProblem> serviceProblemsByServiceId(@PathVariable String serviceId, @RequestParam Integer page, @RequestParam Integer start, @RequestParam Integer limit) {
+        return searchApiService.serviceProblemsByServiceId(new SnsServiceId(serviceId), start, limit);
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/mspId/{mspId}")

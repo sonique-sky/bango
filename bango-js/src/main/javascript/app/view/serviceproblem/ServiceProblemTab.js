@@ -10,6 +10,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     viewModel: {type: 'serviceProblemTab'},
     controller: 'serviceProblemTab',
 
+    listeners: {
+        //activate: 'onQueueTabActivated',
+        //deactivate: 'onQueueTabDeactivated',
+        close: 'onServiceProblemTabClosed',
+        added: 'onServiceProblemTabAdded'
+    },
+
     bind: {
         title: '{serviceProblemTabTitle}'
     },

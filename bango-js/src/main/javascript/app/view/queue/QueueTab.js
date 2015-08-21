@@ -17,6 +17,13 @@ Ext.define('Spm.view.queue.QueueTab', {
     closable: true,
     iconCls: 'icon-queue',
 
+    listeners: {
+        activate: 'onQueueTabActivated',
+        deactivate: 'onQueueTabDeactivated',
+        close: 'onQueueTabClosed',
+        added: 'onQueueTabAdded'
+    },
+
     bind: {
         title: '{queue.name}'
     },

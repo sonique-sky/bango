@@ -11,7 +11,7 @@ public interface SearchApiService {
 
     PagedSearchResults<DomainServiceProblem> serviceProblemByDirectoryNumber(DirectoryNumber directoryNumber);
 
-    PagedSearchResults<DomainServiceProblem> serviceProblemsByServiceId(SnsServiceId serviceId);
+    PagedSearchResults<DomainServiceProblem> serviceProblemsByServiceId(SnsServiceId serviceId, Integer start, Integer limit);
 
     PagedSearchResults<DomainServiceProblem> serviceProblemsByMspId(String mspId);
 }
