@@ -5,7 +5,7 @@ Ext.define('Spm.view.application.Superman', {
     requires: [
         'Spm.view.application.SupermanViewController',
         'Spm.view.application.SupermanViewModel',
-        'Spm.view.application.AppContainer'
+        'Spm.view.application.container.AppContainer'
     ],
 
     controller: 'superman',
@@ -20,9 +20,6 @@ Ext.define('Spm.view.application.Superman', {
     items: [
         {
             xtype: 'appContainer'
-            //,
-            //agentStatusActionContextManager: me.agentStatusActionContextManager,
-            //searchesActionContextManager: me.searchesActionContextManager
         }
     ]
 });

@@ -1,4 +1,4 @@
-Ext.define('Spm.view.application.AppContainer', {
+Ext.define('Spm.view.application.container.AppContainer', {
     extend: 'Ext.container.Container',
     alias: 'widget.appContainer',
 
