@@ -3,5 +3,6 @@ Ext.define('Spm.store.Teams', {
     alias: 'store.teams',
 
     model: 'Spm.model.Team',
-    proxy: {type: 'teamsProxy'}
+
+    sorters: 'name'
 });
