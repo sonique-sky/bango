@@ -1,5 +1,5 @@
 Ext.define('Spm.view.application.login.LoginDialog', {
-    extend: 'Spm.view.component.StandardDialog',
+    extend: 'Spm.component.StandardDialog',
     alias: 'widget.loginDialog',
 
     requires: [

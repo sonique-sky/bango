@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog', {
-    extend: 'Spm.view.component.StandardDialog',
+    extend: 'Spm.component.StandardDialog',
     alias: 'widget.filterEventHistoryDialog',
 
     height: 350,

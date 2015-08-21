@@ -1,5 +1,5 @@
 Ext.define('Spm.view.queue.BulkTransferDialogViewController', {
-    extend: 'Spm.view.component.StandardDialogViewController',
+    extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.bulkTransferDialog',
 
     listen: {

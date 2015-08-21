@@ -1,4 +1,5 @@
-Ext.define('Spm.view.component.StandardDialog', {
+Ext.define('Spm.view.component.dialog.StandardDialog', {
+    alternateClassName: 'Spm.component.StandardDialog',
     extend: 'Ux.window.Window',
 
     layout: {
@@ -7,7 +8,7 @@ Ext.define('Spm.view.component.StandardDialog', {
     modal: true,
     resizable: false,
 
-    viewModel: {type: 'standardDialog'},
+    viewModel: 'standardDialog',
     controller: 'standardDialog',
 
     dockedItems: [

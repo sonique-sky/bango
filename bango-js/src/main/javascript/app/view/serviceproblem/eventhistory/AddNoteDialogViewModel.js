@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialogViewModel', {
-    extend: 'Spm.view.component.StandardDialogViewModel',
+    extend: 'Spm.component.StandardDialogViewModel',
     alias: 'viewmodel.addNoteDialog',
 
     data: {

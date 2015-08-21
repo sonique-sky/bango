@@ -6,10 +6,7 @@ Ext.define('Spm.controller.Errors', {
 
     listen: {
         proxy: {
-            '#ajax': {
-                exception: 'onProxyException'
-            },
-            '#rest': {
+            '*': {
                 exception: 'onProxyException'
             }
         }
@@ -18,6 +15,10 @@ Ext.define('Spm.controller.Errors', {
     onProxyException: function (proxy, response, operation, eOpts) {
         if (response.status == 403) {
             Ext.GlobalEvents.fireEvent('authenticationRequired', response);
+        }
+
+        if (response.status == 400) {
+            console.log(response)
         }
     }
 });
