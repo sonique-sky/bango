@@ -6,13 +6,25 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
 
     data: {
         serviceProblemId: null,
-        serviceProblem: null
+        serviceProblem: null,
+        workItem: null
     },
 
     formulas: {
         serviceProblemTabTitle: {
             get: function (get) {
                 return Ext.String.format('Service Problem [{0}]', get('serviceProblemId'));
+            }
+        },
+        serviceProblemOwned: {
+            bind: {
+                bindTo: '{serviceProblem}',
+                deep: true
+            },
+            get: function (serviceProblem) {
+                var authenticatedAgent = this.get('authenticatedAgent');
+
+                return serviceProblem !== null && serviceProblem.getWorkItem().isAssignedTo(authenticatedAgent);
             }
         },
         pullServiceProblemButtonDisabled: {
