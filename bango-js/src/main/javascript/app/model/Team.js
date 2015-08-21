@@ -1,6 +1,7 @@
 Ext.define('Spm.model.Team', {
     extend: 'Ext.data.Model',
     alias: 'model.team',
+
     fields: [
         {
             mapping: 'id.value',
@@ -16,5 +17,12 @@ Ext.define('Spm.model.Team', {
         model: 'Spm.model.Queue',
         name: 'assignedQueues',
         associationkey: 'assignedQueues'
+    },
+
+    proxy: {
+        type: 'rest',
+        url: 'api/teams',
+        appendId: false
     }
+
 });

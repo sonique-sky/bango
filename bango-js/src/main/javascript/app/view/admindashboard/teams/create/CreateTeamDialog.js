@@ -8,22 +8,31 @@ Ext.define('Spm.view.admindashboard.teams.create.CreateTeamDialog', {
 
     height: 110,
     width: 430,
+    defaultFocus: 'teamNameField',
+
     layout: {
         type: 'vbox',
         vertical: false,
         align: 'middle',
         padding: 10
     },
+
     modal: true,
+
     items: [
         {
             xtype: 'textfield',
             flex: 4,
+            itemId: 'teamNameField',
             fieldLabel: 'Team Name',
             allowBlank: false,
             bind: {
                 value: '{team.name}'
+            },
+            listeners: {
+                specialkey: 'submitOnEnter'
             }
         }
     ]
+
 });
