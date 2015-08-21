@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialog', {
-    extend: 'Spm.view.component.StandardDialog',
+    extend: 'Spm.component.StandardDialog',
     alias: 'widget.addNoteDialog',
 
     height: 350,

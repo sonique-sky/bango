@@ -1,5 +1,5 @@
 Ext.define('Spm.view.queue.BulkClearDialog', {
-    extend: 'Spm.view.component.StandardDialog',
+    extend: 'Spm.component.StandardDialog',
     alias: 'widget.bulkClearDialog',
 
     width: 350,

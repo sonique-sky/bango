@@ -1,4 +1,5 @@
 Ext.define('Spm.view.component.StandardDialogViewModel', {
+        alternateClassName: 'Spm.component.StandardDialogViewModel',
         extend: 'Ext.app.ViewModel',
         alias: 'viewmodel.standardDialog',
 
@@ -7,6 +8,5 @@ Ext.define('Spm.view.component.StandardDialogViewModel', {
             cancelButtonText: 'Cancel',
             acceptButtonDefaultDisabled: true
         }
-
     }
 );

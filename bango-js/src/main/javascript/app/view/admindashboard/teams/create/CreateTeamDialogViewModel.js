@@ -1,5 +1,5 @@
 Ext.define('Spm.view.admindashboard.teams.create.CreateTeamDialogViewModel', {
-    extend: 'Spm.view.component.StandardDialogViewModel',
+    extend: 'Spm.component.StandardDialogViewModel',
     alias: 'viewmodel.createTeamDialog',
 
     data: {

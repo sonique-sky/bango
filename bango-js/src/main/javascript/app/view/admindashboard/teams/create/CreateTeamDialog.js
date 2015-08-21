@@ -1,5 +1,5 @@
 Ext.define('Spm.view.admindashboard.teams.create.CreateTeamDialog', {
-    extend: 'Spm.view.component.StandardDialog',
+    extend: 'Spm.component.StandardDialog',
     alias: 'widget.createTeamDialog',
 
     controller: 'createTeamDialog',

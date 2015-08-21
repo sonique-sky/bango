@@ -1,5 +1,5 @@
 Ext.define('Spm.view.application.login.LoginDialogViewController', {
-    extend: 'Spm.view.component.StandardDialogViewController',
+    extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.loginDialog',
 
     onAccept: function () {
