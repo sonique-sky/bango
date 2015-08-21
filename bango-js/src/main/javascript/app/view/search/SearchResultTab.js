@@ -11,7 +11,8 @@ Ext.define('Spm.view.search.SearchResultTab', {
     viewModel: {type: 'searchResultTab'},
 
     listeners: {
-        added: 'onTabAdded'
+        added: 'onTabAdded',
+        close: 'onTabClosed'
     },
 
     title: 'Search Results',

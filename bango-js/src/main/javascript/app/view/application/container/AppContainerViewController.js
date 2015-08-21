@@ -20,6 +20,9 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
             'search': {
                 displayServiceProblem: 'onDisplayServiceProblem',
                 displaySearchResults: 'onDisplaySearchResults'
+            },
+            'searchResultTab': {
+                searchResultTabClosed: 'onSearchResultTabClosed'
             }
         }
     },
@@ -34,8 +37,12 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
         }
     },
 
+    deriveSearchKey: function (params) {
+        return Ext.String.format('{0}-{1}', params.searchTerm, params.searchParameter);
+    },
+
     onDisplaySearchResults: function(store, params) {
-        var searchKey = Ext.String.format('{0}-{1}', params.searchTerm, params.searchParameter);
+        var searchKey = this.deriveSearchKey(params);
         var tabPanel = this.lookupReference('tabPanel');
         var viewModel = this.getViewModel();
         var searchResultTab = viewModel.searchResultTabForId(searchKey);
@@ -57,6 +64,10 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
         }
 
         tabPanel.setActiveTab(searchResultTab);
+    },
+
+    onSearchResultTabClosed: function(params) {
+        this.getViewModel().removeQueueTabForId(this.deriveSearchKey(params));
     },
 
     onDisplayServiceProblem: function(serviceProblem) {
