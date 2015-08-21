@@ -35,8 +35,8 @@ public class StubQueueApiService implements QueueApiService {
     }
 
     @Override
-    public PagedSearchResults<DomainServiceProblem> serviceProblemsFor(int queueId) {
-        return serviceProblemRepository.searchForServiceProblemsInQueue(SearchParametersDTO.withSearchProperties("queueId", (long) queueId, 20, 0));
+    public PagedSearchResults<DomainServiceProblem> serviceProblemsFor(int queueId, Integer page, Integer start, Integer limit) {
+        return serviceProblemRepository.searchForServiceProblemsInQueue(SearchParametersDTO.withSearchProperties("queueId", (long) queueId, limit, start));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class StubQueueApiService implements QueueApiService {
             serviceProblem.transfer(destinationQueue);
         }
 
-        return serviceProblemsFor(request.originalQueueId().asInteger());
+        return serviceProblemsFor(request.originalQueueId().asInteger(), null, 0, 20);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class StubQueueApiService implements QueueApiService {
             serviceProblem.bulkClear(someServiceProblemResolution(), authorisedActorProvider.authorisedActor());
         }
 
-        return serviceProblemsFor(request.originalQueueId().asInteger());
+        return serviceProblemsFor(request.originalQueueId().asInteger(), null, 0, 20);
     }
 
     private Collection<ServiceProblemId> transformServiceProblemIds(Collection<Long> serviceProblemIds) {

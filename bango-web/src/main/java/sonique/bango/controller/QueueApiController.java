@@ -10,7 +10,6 @@ import sonique.bango.domain.request.BulkTransferRequest;
 import sonique.bango.service.QueueApiService;
 
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 import java.util.Collection;
 
 @Controller
@@ -28,8 +27,8 @@ public class QueueApiController {
 
     @RequestMapping(value = "/{queueId}/serviceProblems", method = RequestMethod.GET)
     @ResponseBody
-    public PagedSearchResults<DomainServiceProblem> serviceProblems(@PathVariable int queueId) {
-        return queueApiService.serviceProblemsFor(queueId);
+    public PagedSearchResults<DomainServiceProblem> serviceProblems(@PathVariable int queueId, @RequestParam Integer page, @RequestParam Integer start, @RequestParam Integer limit) {
+        return queueApiService.serviceProblemsFor(queueId, page, start, limit);
     }
 
     @RequestMapping(value = "/bulkTransfer", method = RequestMethod.POST, consumes = "application/json")

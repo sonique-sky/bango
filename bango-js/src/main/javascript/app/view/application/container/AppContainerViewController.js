@@ -13,6 +13,13 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
             'queueTab': {
                 queueTabClosed: 'onQueueTabClosed',
                 serviceProblemSelected: 'onServiceProblemSelected'
+            },
+            'serviceProblemTab': {
+                serviceProblemTabClosed: 'onServiceProblemTabClosed'
+            },
+            'search': {
+                displayServiceProblem: 'onDisplayServiceProblem',
+                displaySearchResults: 'onDisplaySearchResults'
             }
         }
     },
@@ -25,6 +32,54 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
         if (authenticatedAgent.hasPrivilege('AccessAdminDashboard')) {
             tabPanel.add(Ext.create('widget.adminDashboardTab'));
         }
+    },
+
+    onDisplaySearchResults: function(store, params) {
+        var searchKey = Ext.String.format('{0}-{1}', params.searchTerm, params.searchParameter);
+        var tabPanel = this.lookupReference('tabPanel');
+        var viewModel = this.getViewModel();
+        var searchResultTab = viewModel.searchResultTabForId(searchKey);
+
+        if (searchResultTab === null) {
+            searchResultTab = Ext.create('widget.searchResultTab', {
+                viewModel: {
+                    stores: {
+                        serviceProblems: store
+                    },
+                    data: {
+                        params: params
+                    }
+                }
+            });
+
+            viewModel.addSearchResultTab(searchKey, searchResultTab);
+            tabPanel.add(searchResultTab);
+        }
+
+        tabPanel.setActiveTab(searchResultTab);
+    },
+
+    onDisplayServiceProblem: function(serviceProblem) {
+        var serviceProblemId = serviceProblem.serviceProblemId();
+        var tabPanel = this.lookupReference('tabPanel');
+        var viewModel = this.getViewModel();
+        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+
+        if (serviceProblemTab === null) {
+            serviceProblemTab = Ext.create('widget.serviceProblemTab', {
+                viewModel: {
+                    data: {
+                        serviceProblemId: serviceProblemId,
+                        serviceProblem: serviceProblem
+                    }
+                }
+            });
+
+            viewModel.addServiceProblemTab(serviceProblemId, serviceProblemTab);
+            tabPanel.add(serviceProblemTab);
+        }
+
+        tabPanel.setActiveTab(serviceProblemTab);
     },
 
     onServiceProblemSelected: function (serviceProblemId) {
@@ -41,7 +96,7 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
                 }
             });
 
-            viewModel.addServiceproblemTab(serviceProblemId, serviceProblemTab);
+            viewModel.addServiceProblemTab(serviceProblemId, serviceProblemTab);
             tabPanel.add(serviceProblemTab);
         }
 
@@ -50,6 +105,10 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
 
     onQueueTabClosed: function (queueId) {
         this.getViewModel().removeQueueTabForId(queueId);
+    },
+
+    onServiceProblemTabClosed: function (serviceProblemId) {
+        this.getViewModel().removeServiceProblemTabForId(serviceProblemId);
     },
 
     onAgentQueueSelected: function (selectedQueue) {

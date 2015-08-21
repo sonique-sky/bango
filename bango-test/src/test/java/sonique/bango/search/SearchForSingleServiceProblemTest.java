@@ -124,7 +124,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new MockieMatcher<SearchApiService>() {
             @Override
             protected void doTheMock(SearchApiService searchApiService) {
-                searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId());
+                searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId(), 0, 20);
             }
         };
     }

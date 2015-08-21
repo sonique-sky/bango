@@ -14,12 +14,13 @@ import spm.domain.*;
 import spm.domain.model.refdata.DomainAgentBuilder;
 import spm.messages.bt.types.DirectoryNumber;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 import static sky.sns.spm.domain.model.serviceproblem.EventDescription.Note;
 import static sonique.datafixtures.DateTimeDataFixtures.someInstantInTheLast24Hours;
@@ -36,7 +37,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
         List<Queue> queues = queueStore.getAllQueues();
         Long serviceProblemId = 1L;
         for (Queue queue : queues) {
-            for (int i = 0; i < 20; i++, serviceProblemId++) {
+            for (int i = 0; i < 40; i++, serviceProblemId++) {
                 DomainWorkItem workItem = null;
                 if (serviceProblemId % 2 == 0) {
                     workItem = DomainWorkItemBuilder.withAllDefaults().build();
@@ -55,7 +56,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                 PresentedServiceType serviceTypeCode = somePresentedServiceType();
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
                         .withServiceProblemId(new ServiceProblemId(serviceProblemId))
-                        .withServiceId(new SnsServiceId(serviceProblemId + 100))
+                        .withServiceId(new SnsServiceId(100L))
                         .withDirectoryNumber(new DirectoryNumber("directoryNumber-" + (serviceProblemId % 4)))
                         .withQueue(queue)
                         .withWorkItem(workItem)
@@ -123,26 +124,37 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
     @Override
     public PagedSearchResults<DomainServiceProblem> searchForServiceProblemsInQueue(final SearchParametersDTO searchParameters) {
-        List<DomainServiceProblem> domainServiceProblems = newArrayList(filter(serviceProblems, serviceProblem -> serviceProblem.queue().id().equals(new QueueId(searchParameters.getSearchValue())) && ServiceProblemStatus.Open.equals(serviceProblem.getStatus())));
-        return new PagedSearchResults<>(domainServiceProblems, (long) domainServiceProblems.size());
+        return getFilteredPage(searchParameters, serviceProblem -> serviceProblem.queue().id().equals(new QueueId(searchParameters.getSearchValue())) && ServiceProblemStatus.Open.equals(serviceProblem.getStatus()));
     }
 
     @Override
     public PagedSearchResults<DomainServiceProblem> searchForServiceProblems(final SearchParametersDTO searchParameters) {
-        Collection<DomainServiceProblem> filter = filterFor(searchParameters);
-
-        return new PagedSearchResults<>(newArrayList(filter), (long) filter.size());
+        return filterFor(searchParameters);
     }
 
-    private Collection<DomainServiceProblem> filterFor(final SearchParametersDTO searchParameters) {
+    private PagedSearchResults<DomainServiceProblem> getFilteredPage(SearchParametersDTO searchParameters, Predicate<DomainServiceProblem> predicate) {
+        List<DomainServiceProblem> filteredServiceProblems = serviceProblems.stream()
+                .filter(predicate)
+                .collect(toList());
+
+        List<DomainServiceProblem> pageOfServiceProblems = filteredServiceProblems.stream()
+                .skip(searchParameters.getStartRow())
+                .limit(searchParameters.getPageSize())
+                .collect(toList());
+
+        return new PagedSearchResults<>(pageOfServiceProblems, (long) filteredServiceProblems.size());
+    }
+
+    private PagedSearchResults<DomainServiceProblem> filterFor(final SearchParametersDTO searchParameters) {
         SearchProperty searchProperty = SearchProperty.fromString(searchParameters.getSearchProperty());
+
         switch (searchProperty) {
             case serviceProblemId:
-                return filter(serviceProblems, serviceProblem -> serviceProblem.serviceProblemId().asString().equals(searchParameters.getSearchValue()));
+                return getFilteredPage(searchParameters, serviceProblem -> serviceProblem.serviceProblemId().asString().equals(searchParameters.getSearchValue()));
             case serviceId:
-                return filter(serviceProblems, serviceProblem -> serviceProblem.serviceId().asString().equals(searchParameters.getSearchValue()));
+                return getFilteredPage(searchParameters, serviceProblem -> serviceProblem.serviceId().asString().equals(searchParameters.getSearchValue()));
             case directoryNumber:
-                return filter(serviceProblems, serviceProblem -> serviceProblem.getDirectoryNumber().asString().equals(searchParameters.getSearchValue()));
+                return getFilteredPage(searchParameters, serviceProblem -> serviceProblem.getDirectoryNumber().asString().equals(searchParameters.getSearchValue()));
             case mspId:
         }
         return null;

@@ -10,15 +10,15 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
             'bulkTransferDialog': {
                 bulkOperationCompleted: 'onBulkOperationCompleted'
             }
-        },
-        component: {
-            'queueTab': {
-                activate: 'onQueueTabActivated',
-                deactivate: 'onQueueTabDeactivated',
-                close: 'onQueueTabClosed',
-                added: 'onQueueTabAdded'
-            }
         }
+        //component: {
+        //    'queueTab': {
+        //        activate: 'onQueueTabActivated',
+        //        deactivate: 'onQueueTabDeactivated',
+        //        close: 'onQueueTabClosed',
+        //        added: 'onQueueTabAdded'
+        //    }
+        //}
     },
 
     onCellClicked: function (view, td, cellIndex, record) {

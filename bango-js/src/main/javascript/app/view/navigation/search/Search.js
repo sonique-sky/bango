@@ -4,9 +4,10 @@ Ext.define('Spm.view.navigation.search.Search', {
     requires: [
         'Ext.form.RadioGroup',
         'Spm.controller.action.SearchAction',
-        'Spm.view.search.SearchResultTabContent'
+        'Spm.view.search.SearchResultTab'
     ],
 
+    viewModel: {type: 'search'},
     controller: 'search',
     reference: 'search',
 
@@ -20,26 +21,27 @@ Ext.define('Spm.view.navigation.search.Search', {
         {
             xtype: 'radiogroup',
             columns: 1,
+            bind: {
+                value: '{radioValue}'
+            },
+            defaults: {
+                name: 'searchTerm'
+            },
             items: [
                 {
                     boxLabel: 'Service Problem ID',
-                    name: 'searchType',
-                    inputValue: 'serviceProblemId',
-                    checked: true
+                    inputValue: 'serviceProblemId'
                 },
                 {
                     boxLabel: 'Service ID',
-                    name: 'searchType',
                     inputValue: 'serviceId'
                 },
                 {
                     boxLabel: 'Directory Number',
-                    name: 'searchType',
                     inputValue: 'directoryNumber'
                 },
                 {
                     boxLabel: 'MSP ID',
-                    name: 'searchType',
                     inputValue: 'mspId'
                 }
             ]
@@ -58,11 +60,18 @@ Ext.define('Spm.view.navigation.search.Search', {
                     preventMark: true,
                     listeners: {
                         specialkey: 'onSpecialKey'
+                    },
+                    bind: {
+                        value: '{searchParameter}'
                     }
                 },
                 {
                     xtype: 'button',
-                    text: 'Search'
+                    text: 'Search',
+                    handler: 'onSearch',
+                    bind: {
+                        disabled: '{searchButtonDisabled}'
+                    }
                 }
             ]
         }
@@ -94,7 +103,7 @@ Ext.define('Spm.view.navigation.search.Search', {
         }
     },
 
-    reset: function() {
+    reset: function () {
         this.getForm().reset();
     }
 });
