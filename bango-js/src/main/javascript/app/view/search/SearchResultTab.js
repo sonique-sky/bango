@@ -7,9 +7,15 @@ Ext.define('Spm.view.search.SearchResultTab', {
     closable: true,
     iconCls: 'icon-search',
 
+    controller: 'searchResultTab',
     viewModel: {type: 'searchResultTab'},
 
+    listeners: {
+        added: 'onTabAdded'
+    },
+
     title: 'Search Results',
+
     dockedItems: [
         {
             xtype: 'pagingtoolbar',

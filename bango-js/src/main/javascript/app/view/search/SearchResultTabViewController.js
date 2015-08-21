@@ -10,10 +10,18 @@ Ext.define('Spm.view.search.SearchResultTabViewController', {
     //    this.loadServiceProblem();
     //},
 
+    onTabAdded: function () {
+        var viewModel = this.getViewModel();
+
+        var serviceProblemsStore = viewModel.get('serviceProblems');
+        serviceProblemsStore.mon(serviceProblemsStore, 'beforeload', this.onBeforeLoad, this);
+    },
+
     onBeforeLoad: function (store, operation) {
         var viewModel = this.getViewModel();
 
         operation.setParams(viewModel.get('params'));
     }
 
-});
+})
+;

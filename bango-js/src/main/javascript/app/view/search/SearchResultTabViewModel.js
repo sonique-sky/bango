@@ -4,6 +4,10 @@ Ext.define('Spm.view.search.SearchResultTabViewModel', {
 
     stores: {
         serviceProblems: null
+    },
+
+    data: {
+        params: null
     }
 
 });
