@@ -1,4 +1,4 @@
-Ext.define('Spm.view.application.AppContainerViewController', {
+Ext.define('Spm.view.application.container.AppContainerViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.appContainer',
 

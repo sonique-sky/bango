@@ -32,7 +32,5 @@ Ext.define('Spm.view.admindashboard.AdminDashboardTab', {
                 title: 'Queues'
             }
         ]
-
-    }
-    ]
+    }]
 });

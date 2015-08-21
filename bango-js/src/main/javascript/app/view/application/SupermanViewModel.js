@@ -9,7 +9,6 @@ Ext.define('Spm.view.application.SupermanViewModel', {
                     load: 'onAuthenticatedAgentLoaded'
                 }
             }
-
         },
 
         data: {
