@@ -74,7 +74,7 @@ Ext.define('Spm.view.application.SupermanViewController', {
         if (appContainer !== null) {
             appContainer.hide();
         }
-        Ext.create('Spm.view.application.LoginDialog').show();
+        Ext.create('Spm.view.application.login.LoginDialog').show();
     },
 
     onAuthenticatedAgentLoaded: function (store, records, success) {

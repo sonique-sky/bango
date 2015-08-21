@@ -1,18 +1,17 @@
-Ext.define('Spm.view.application.LoginDialog', {
+Ext.define('Spm.view.application.login.LoginDialog', {
     extend: 'Spm.view.component.StandardDialog',
     alias: 'widget.loginDialog',
 
     requires: [
-        'Spm.view.component.StandardDialog',
-        'Spm.view.application.LoginDialogViewModel',
-        'Spm.view.application.LoginDialogViewController'
+        'Spm.view.application.login.LoginDialogViewModel',
+        'Spm.view.application.login.LoginDialogViewController'
     ],
 
     height: 135,
     width: 372,
 
     controller: 'loginDialog',
-    viewModel: {type: 'loginDialog'},
+    viewModel: 'loginDialog',
 
     closable: false,
     draggable: false,
@@ -33,7 +32,7 @@ Ext.define('Spm.view.application.LoginDialog', {
             header: false,
             defaults: {
                 listeners: {
-                    specialkey: 'onSpecialKey'
+                    specialkey: 'submitOnEnter'
                 }
             },
             items: [
@@ -45,7 +44,7 @@ Ext.define('Spm.view.application.LoginDialog', {
                     fieldLabel: 'Username:',
                     allowBlank: false,
                     bind: {
-                        value: '{username}'
+                        value: '{login.username}'
                     }
                 },
                 {
@@ -57,7 +56,7 @@ Ext.define('Spm.view.application.LoginDialog', {
                     inputType: 'password',
                     allowBlank: false,
                     bind: {
-                        value: '{password}'
+                        value: '{login.password}'
                     }
                 }
             ]

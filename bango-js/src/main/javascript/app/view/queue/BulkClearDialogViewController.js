@@ -1,10 +1,6 @@
 Ext.define('Spm.view.queue.BulkClearDialogViewController', {
-    extend: 'Ext.app.ViewController',
+    extend: 'Spm.view.component.StandardDialogViewController',
     alias: 'controller.bulkClearDialog',
-
-    onCancel: function () {
-        this.getView().close();
-    },
 
     onAccept: function () {
         var me = this;

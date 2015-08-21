@@ -2,7 +2,7 @@ Ext.define('Spm.controller.Security', {
     extend: 'Ext.app.Controller',
     alias: 'controller.security',
     requires: [
-        'Spm.view.application.LoginDialog'
+        'Spm.view.application.login.LoginDialog'
     ],
 
     models: [
