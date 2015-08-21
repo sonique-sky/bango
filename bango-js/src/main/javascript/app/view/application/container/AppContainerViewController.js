@@ -22,7 +22,8 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
                 displaySearchResults: 'onDisplaySearchResults'
             },
             'searchResultTab': {
-                searchResultTabClosed: 'onSearchResultTabClosed'
+                searchResultTabClosed: 'onSearchResultTabClosed',
+                serviceProblemSelected: 'onServiceProblemSelected'
             }
         }
     },
@@ -67,7 +68,7 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
     },
 
     onSearchResultTabClosed: function(params) {
-        this.getViewModel().removeQueueTabForId(this.deriveSearchKey(params));
+        this.getViewModel().removeSearchResultTabForId(this.deriveSearchKey(params));
     },
 
     onDisplayServiceProblem: function(serviceProblem) {

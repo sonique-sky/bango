@@ -2,19 +2,17 @@ Ext.define('Spm.view.search.SearchResultTabViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.searchResultTab',
 
-    //onServiceProblemTabClosed: function () {
-    //    this.fireEvent('serviceProblemTabClosed', this.getViewModel().get('serviceProblemId'));
-    //},
-
-    //onRefreshServiceProblem: function () {
-    //    this.loadServiceProblem();
-    //},
-
     onTabAdded: function () {
         var viewModel = this.getViewModel();
 
         var serviceProblemsStore = viewModel.get('serviceProblems');
         this.mon(serviceProblemsStore, 'beforeload', this.onBeforeLoad, this);
+    },
+
+    onCellClicked: function (view, td, cellIndex, record) {
+        if (cellIndex > 0) {
+            this.fireEvent('serviceProblemSelected', record.serviceProblemId());
+        }
     },
 
     onTabClosed: function() {

@@ -33,9 +33,9 @@ Ext.define('Spm.view.search.SearchResultTab', {
                 store: '{serviceProblems}'
             },
             border: 0,
-            //listeners: {
-            //cellclick: {fn: this.onCellClicked, scope: this}
-            //},
+            listeners: {
+                cellclick: 'onCellClicked'
+            },
             columns: [
                 {
                     text: 'Service Problem',
