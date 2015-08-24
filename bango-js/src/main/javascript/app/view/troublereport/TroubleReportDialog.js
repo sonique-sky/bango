@@ -28,18 +28,16 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                 align: 'stretchmax'
             },
             flex: 1.0,
-            defaults: {
-                layout: 'form'
-            },
             items: [
                 {
                     xtype: 'fieldset',
                     title: 'Trouble Report Details',
                     flex: 0.5,
-                    fieldDefaults: {
-                        labelWidth: 150
-                    },
                     margin: '0 5 0 0',
+                    defaults: {
+                        labelWidth: 150,
+                        anchor: '100%'
+                    },
                     items: [
                         {
                             xtype: 'textfield',
@@ -66,7 +64,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                             xtype: 'fieldcontainer',
                             layout: {
                                 type: 'hbox',
-                                padding: '0, 5, 0, 0'
+                                padding: '0 5 0 0'
                             },
                             fieldLabel: 'Engineer Options',
                             items: [
@@ -150,7 +148,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
             flex: 1.0,
             layout: {
                 type: 'hbox',
-                align: 'stretch'
+                align: 'stretchmax'
             },
             items: [
                 {
@@ -158,6 +156,53 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                     title: 'Appointment / Access',
                     flex: 0.5,
                     margin: '0 5 0 0',
+                    defaults: {
+                        labelWidth: 150,
+                        anchor: '100%'
+                    },
+                    items: [
+                        {
+                            xtype: 'fieldcontainer',
+                            layout: {
+                                type: 'hbox'
+                            },
+                            fieldLabel: 'Appointment Reference',
+                            items: [
+                                {
+                                    xtype: 'textfield',
+                                    flex: 1.0
+                                },
+                                {
+                                    xtype: 'button',
+                                    text: 'Request Appointment',
+                                    flex: 0.8
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'fieldcontainer',
+                            layout: {
+                                type: 'hbox'
+                            },
+                            fieldLabel: 'Access',
+                            items: [
+                                {
+                                    xtype: 'checkbox',
+                                    boxLabel: '24 Hour?',
+                                    labelAlign: 'right',
+                                    flex: 1.0
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'textfield',
+                            bind: {
+                                value: '{troubleReport.shortDescription}'
+                            },
+                            fieldLabel: 'Short Description'
+                        },
+
+                    ]
                 },
                 {
                     xtype: 'fieldset',
