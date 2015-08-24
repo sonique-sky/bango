@@ -21,10 +21,30 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
     height: 650,
 
     listeners: {
-           beforeshow: 'onBeforeShow'
-       },
+        beforeshow: 'onBeforeShow'
+    },
 
     items: [
+        // +++++= Remove when layout done
+        {
+            xtype: 'combobox',
+            displayField: 'serviceType',
+            valueField: 'serviceType',
+            store: {
+                fields: ['serviceType'],
+                data: [
+                    ['Fttc'],
+                    ['Wlr3'],
+                    ['RoiFttc']
+                ]
+            },
+            bind: {
+                value: '{troubleReportTemplate.serviceType}'
+            },
+            dock: 'top'
+
+        },
+        // +++++=
         {
             xtype: 'fieldcontainer',
             layout: {
@@ -45,21 +65,21 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.shortDescription}'
+                                value: '{troubleReportTemplate.shortDescription}'
                             },
                             fieldLabel: 'Short Description'
                         },
                         {
                             xtype: 'combobox',
                             bind: {
-                                value: '{troubleReport.shortDescription}'
+                                value: '{troubleReportTemplate.shortDescription}'
                             },
                             fieldLabel: 'Diagnostic Id'
                         },
                         {
                             xtype: 'combobox',
                             bind: {
-                                value: '{troubleReport.testProduct}'
+                                value: '{troubleReportTemplate.testProduct}'
                             },
                             fieldLabel: 'Test Product'
                         },
@@ -88,14 +108,14 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         {
                             xtype: 'combobox',
                             bind: {
-                                value: '{troubleReport.trcBand}'
+                                value: '{troubleReportTemplate.trcBand}'
                             },
                             fieldLabel: 'TRC Band'
                         },
                         {
                             xtype: 'combobox',
                             bind: {
-                                value: '{troubleReport.structuredQuestionCode}'
+                                value: '{troubleReportTemplate.structuredQuestionCode}'
                             },
                             fieldLabel: 'Structured Question Code'
                         }
@@ -114,35 +134,35 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.primaryContactName}'
+                                value: '{troubleReportTemplate.primaryContactName}'
                             },
                             fieldLabel: 'Contact Name'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.primaryContactNumber}'
+                                value: '{troubleReportTemplate.primaryContactNumber}'
                             },
                             fieldLabel: 'Contact Number'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.secondaryContactName}'
+                                value: '{troubleReportTemplate.secondaryContactName}'
                             },
                             fieldLabel: 'Secondary Contact Name'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.secondaryContactNumber}'
+                                value: '{troubleReportTemplate.secondaryContactNumber}'
                             },
                             fieldLabel: 'Secondary Contact Number'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.tcdNumber}'
+                                value: '{troubleReportTemplate.tcdNumber}'
                             },
                             fieldLabel: 'Temporary Call Diversion Number'
                         }
@@ -203,7 +223,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.shortDescription}'
+                                value: '{troubleReportTemplate.shortDescription}'
                             },
                             fieldLabel: 'Short Description'
                         },
