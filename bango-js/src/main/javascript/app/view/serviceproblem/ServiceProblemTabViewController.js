@@ -87,7 +87,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     onCreateTroubleReport: function () {
+        var dialog = this.getView().add({
+            xtype: 'troubleReportDialog'
+        });
 
+        dialog.show();
     }
-
 });
