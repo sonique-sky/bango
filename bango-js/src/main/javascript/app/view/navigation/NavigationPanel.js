@@ -9,7 +9,7 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
     ],
 
     height: 730,
-    width: 200,
+    width: 230,
     layout: {
         align: 'stretch',
         type: 'vbox'
@@ -17,11 +17,13 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
 
     items: [
         {
-            xtype: 'agentState'
+            xtype: 'agentState',
+            padding: '0 0 5 0'
         },
         {
             xtype: 'myQueues',
-            collapsible: true
+            collapsible: true,
+            padding: '0 0 5 0'
         },
         {
             xtype: 'search',
