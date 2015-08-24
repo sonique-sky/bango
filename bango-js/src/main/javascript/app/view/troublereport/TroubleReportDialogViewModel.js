@@ -3,6 +3,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
     alias: 'viewmodel.troubleReportDialog',
 
     data: {
+        troubleReportTemplate: null
     },
 
     formulas: {

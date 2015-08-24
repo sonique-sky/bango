@@ -20,6 +20,10 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
     width: 1000,
     height: 650,
 
+    listeners: {
+           beforeshow: 'onBeforeShow'
+       },
+
     items: [
         {
             xtype: 'fieldcontainer',

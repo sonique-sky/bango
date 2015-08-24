@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
+import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.service.TroubleReportApiService;
 import spm.domain.ServiceProblemId;
 import spm.domain.TroubleReportId;
@@ -30,5 +31,11 @@ public class TroubleReportApiController {
     @ResponseBody
     public Collection<DomainTroubleReport> troubleReportsFor(@PathVariable ServiceProblemId serviceProblemId) {
         return troubleReportApiService.troubleReportsFor(serviceProblemId);
+    }
+
+    @RequestMapping(value = "/template/serviceProblemId/{serviceProblemId}", method = RequestMethod.GET)
+    @ResponseBody
+    public TroubleReportTemplate troubleReportTemplateFor(@PathVariable ServiceProblemId serviceProblemId) {
+        return troubleReportApiService.troubleReportTemplateFor(serviceProblemId);
     }
 }

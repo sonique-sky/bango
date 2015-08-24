@@ -6,6 +6,8 @@ import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
 import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.serviceproblem.*;
+import sky.sns.spm.domain.model.troublereport.TroubleReportAttributes;
+import sky.sns.spm.domain.model.troublereport.TroubleReportAttributesBuilder;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
@@ -54,6 +56,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                 }
 
                 PresentedServiceType serviceTypeCode = somePresentedServiceType();
+
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
                         .withServiceProblemId(new ServiceProblemId(serviceProblemId))
                         .withServiceId(new SnsServiceId(100L))
@@ -66,6 +69,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                         .withOperatorReference(someOperatorReference())
                         .withServiceType(serviceTypeCode)
                         .withProblem(someProblemCategoryFor(serviceTypeCode))
+                        .withTroubleReportAttributes(troubleReportAttributesFor(serviceTypeCode))
                         .build();
                 serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(pickOneOf(EventDescription.class), Date.from(someInstantInTheLast24Hours()), someString(), allTheWords(), serviceProblem));
                 serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(Note, Date.from(someInstantInTheLast24Hours()), someString(), someWords(), serviceProblem));
@@ -73,6 +77,18 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                 serviceProblems.add(serviceProblem);
             }
         }
+    }
+
+    private TroubleReportAttributes troubleReportAttributesFor(PresentedServiceType serviceTypeCode) {
+        TroubleReportAttributesBuilder builder = new TroubleReportAttributesBuilder();
+
+        switch(serviceTypeCode) {
+            case FTTC:
+                /* shrug */
+                break;
+        }
+
+        return builder.build();
     }
 
     private String allTheWords() {

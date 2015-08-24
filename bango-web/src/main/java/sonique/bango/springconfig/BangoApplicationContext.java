@@ -22,6 +22,8 @@ import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
 import sky.sns.spm.infrastructure.repository.*;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.validation.SpmCodeAndMessage;
+import sonique.bango.domain.troublereport.TroubleReportTemplate;
+import sonique.bango.domain.troublereport.TroubleReportTemplateFactory;
 import sonique.bango.json.*;
 import sonique.bango.service.*;
 import sonique.bango.service.stub.*;
@@ -74,6 +76,7 @@ public class BangoApplicationContext {
         module.addSerializer(DomainWorkItem.class, new WorkItemSerializer());
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
         module.addSerializer(DomainAgent.class, new AgentSerializer());
+        module.addSerializer(TroubleReportTemplate.class, new TroubleReportTemplateSerializer());
         module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
         module.addSerializer(Queue.class, new QueueSerializer());
 
@@ -125,6 +128,6 @@ public class BangoApplicationContext {
 
     @Bean
     public TroubleReportApiService troubleReportApiService() {
-        return new StubTroubleReportApiService(troubleReportRepository);
+        return new StubTroubleReportApiService(troubleReportRepository, serviceProblemRepository, new TroubleReportTemplateFactory());
     }
 }
