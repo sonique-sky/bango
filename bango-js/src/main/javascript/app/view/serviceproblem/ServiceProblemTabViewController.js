@@ -2,6 +2,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.serviceProblemTab',
 
+    requires: [
+        'Spm.reader.ServiceProblemReader'
+    ],
+
     onServiceProblemTabClosed: function () {
         this.fireEvent('serviceProblemTabClosed', this.getViewModel().get('serviceProblemId'));
     },
@@ -58,23 +62,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                     var viewModel = me.getViewModel();
                     var serviceProblem = viewModel.get('serviceProblem');
 
-
-                    //serviceProblem.save({
-                    //    params: {
-                    //        serviceProblemAction: 'pull'
-                    //    },
-                    //    success: function(record) {
-                    //        debugger;
-                    //        //viewModel.notify();
-                    //    }
-                    //});
-
                     Ext.Ajax.request(
                         {
                             url: Ext.String.format('api/serviceProblem/{0}/pull', serviceProblem.serviceProblemId()),
                             method: 'POST',
                             success: function (response) {
-                                var serviceProblem = Ext.create('Ext.data.reader.Json', {model: 'Spm.model.ServiceProblem'}).read(Ext.JSON.decode(response.responseText)).getRecords()[0];
+                                var decodedResponse = Ext.JSON.decode(response.responseText);
+                                var serviceProblem = ServiceProblemReader.read(decodedResponse).getRecords()[0];
                                 viewModel.set('serviceProblem', serviceProblem);
                                 viewModel.set('workItem', serviceProblem.getWorkItem());
 
