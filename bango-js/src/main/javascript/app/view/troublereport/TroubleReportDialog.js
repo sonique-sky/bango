@@ -27,7 +27,6 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                 type: 'hbox',
                 align: 'stretchmax'
             },
-            flex: 1.0,
             items: [
                 {
                     xtype: 'fieldset',
@@ -145,7 +144,6 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
         },
         {
             xtype: 'fieldcontainer',
-            flex: 1.0,
             layout: {
                 type: 'hbox',
                 align: 'stretchmax'
@@ -209,7 +207,22 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                     title: 'Access Information',
                     flex: 0.5,
                     margin: '0 5 0 0',
-
+                    defaults: {
+                        labelWidth: 150,
+                        anchor: '100%'
+                    },
+                    items: [
+                        {
+                            xtype: 'textarea',
+                            anchor: '100% 100%',
+                            fieldLabel: 'Access Hazards'
+                        },
+                        {
+                            xtype: 'textarea',
+                            anchor: '100% 100%',
+                            fieldLabel: 'Access Notes'
+                        }
+                    ]
                 }
             ]
         },
