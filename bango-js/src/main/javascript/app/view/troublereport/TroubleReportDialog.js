@@ -102,6 +102,10 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                     title: 'Customer Contact Details',
                     flex: 0.5,
                     margin: '0 5 0 0',
+                    defaults: {
+                        labelWidth: 190,
+                        anchor: '100%'
+                    },
                     items: [
                         {
                             xtype: 'textfield',
