@@ -7,6 +7,15 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
     },
 
     formulas: {
+        hasAppointmentReference: {
+            bind: {
+                bindTo: '{troubleReportTemplate.appointmentReference}',
+                deep: true
+            },
+            get: function(appointmentReference) {
+                return appointmentReference;
+            }
+        },
         isRoiFttc: {
             bind: {
                 bindTo: '{troubleReportTemplate}',

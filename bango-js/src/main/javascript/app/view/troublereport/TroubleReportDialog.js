@@ -218,12 +218,19 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                             items: [
                                 {
                                     xtype: 'textfield',
-                                    flex: 1.0
+                                    flex: 1.0,
+                                    bind: {
+                                        value: '{troubleReportTemplate.appointmentReference}',
+                                        disabled: '{troubleReportTemplate.twentyFourHourAccess}'
+                                    }
                                 },
                                 {
                                     xtype: 'button',
                                     text: 'Request Appointment',
-                                    flex: 0.8
+                                    flex: 0.8,
+                                    bind: {
+                                        disabled: '{troubleReportTemplate.twentyFourHourAccess}'
+                                    }
                                 }
                             ]
                         },
@@ -238,18 +245,14 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                     xtype: 'checkbox',
                                     boxLabel: '24 Hour?',
                                     labelAlign: 'right',
-                                    flex: 1.0
+                                    flex: 1.0,
+                                    bind: {
+                                        disabled: '{hasAppointmentReference}',
+                                        value: '{troubleReportTemplate.twentyFourHourAccess}'
+                                    }
                                 }
                             ]
-                        },
-                        {
-                            xtype: 'textfield',
-                            bind: {
-                                value: '{troubleReportTemplate.shortDescription}'
-                            },
-                            fieldLabel: 'Short Description'
-                        },
-
+                        }
                     ]
                 },
                 {

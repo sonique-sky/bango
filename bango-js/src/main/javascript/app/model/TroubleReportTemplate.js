@@ -13,6 +13,15 @@ Ext.define('Spm.model.TroubleReportTemplate', {
         {
             name: 'serviceProblemId',
             type: 'int'
+        },
+        {
+            name: 'appointmentReference',
+            type: 'string'
+        },
+        {
+            name: 'twentyFourHourAccess',
+            type: 'boolean',
+            defaultValue: false
         }
     ],
 
