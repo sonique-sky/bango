@@ -212,7 +212,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                     flex: 0.5,
                     margin: '0 5 0 0',
                     defaults: {
-                        labelWidth: 150,
+                        labelWidth: 190,
                         anchor: '100%'
                     },
                     items: [
