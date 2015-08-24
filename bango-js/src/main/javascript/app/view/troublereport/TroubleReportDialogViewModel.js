@@ -7,5 +7,14 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
     },
 
     formulas: {
+        isRoiFttc: {
+            bind: {
+                bindTo: '{troubleReportTemplate}',
+                deep: true
+            },
+            get: function(troubleReportTemplate) {
+                return 'RoiFttc' === troubleReportTemplate.get('serviceType');
+            }
+        }
     }
 });

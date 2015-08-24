@@ -18,7 +18,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
     },
 
     width: 1000,
-    height: 650,
+    minHeight: 450,
 
     listeners: {
         beforeshow: 'onBeforeShow'
@@ -65,21 +65,32 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReportTemplate.shortDescription}'
+                                value: '{troubleReportTemplate.shortDescription}',
+                                hidden: '{isRoiFttc}'
                             },
                             fieldLabel: 'Short Description'
                         },
                         {
                             xtype: 'combobox',
                             bind: {
-                                value: '{troubleReportTemplate.shortDescription}'
+                                value: '{troubleReportTemplate.symptom}',
+                                hidden: '{!isRoiFttc}'
+                            },
+                            fieldLabel: 'Symptom'
+                        },
+                        {
+                            xtype: 'combobox',
+                            bind: {
+                                value: '{troubleReportTemplate.diagnosticId}',
+                                hidden: '{isRoiFttc}'
                             },
                             fieldLabel: 'Diagnostic Id'
                         },
                         {
                             xtype: 'combobox',
                             bind: {
-                                value: '{troubleReportTemplate.testProduct}'
+                                value: '{troubleReportTemplate.testProduct}',
+                                hidden: '{isRoiFttc}'
                             },
                             fieldLabel: 'Test Product'
                         },
@@ -88,6 +99,9 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                             layout: {
                                 type: 'hbox',
                                 padding: '0 5 0 0'
+                            },
+                            bind: {
+                                hidden: '{isRoiFttc}'
                             },
                             fieldLabel: 'Engineer Options',
                             items: [
@@ -108,14 +122,16 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         {
                             xtype: 'combobox',
                             bind: {
-                                value: '{troubleReportTemplate.trcBand}'
+                                value: '{troubleReportTemplate.trcBand}',
+                                hidden: '{isRoiFttc}'
                             },
                             fieldLabel: 'TRC Band'
                         },
                         {
                             xtype: 'combobox',
                             bind: {
-                                value: '{troubleReportTemplate.structuredQuestionCode}'
+                                value: '{troubleReportTemplate.structuredQuestionCode}',
+                                hidden: '{isRoiFttc}'
                             },
                             fieldLabel: 'Structured Question Code'
                         }
@@ -148,21 +164,24 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReportTemplate.secondaryContactName}'
+                                value: '{troubleReportTemplate.secondaryContactName}',
+                                hidden: '{isRoiFttc}'
                             },
                             fieldLabel: 'Secondary Contact Name'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReportTemplate.secondaryContactNumber}'
+                                value: '{troubleReportTemplate.secondaryContactNumber}',
+                                hidden: '{isRoiFttc}'
                             },
                             fieldLabel: 'Secondary Contact Number'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReportTemplate.tcdNumber}'
+                                value: '{troubleReportTemplate.tcdNumber}',
+                                hidden: '{isRoiFttc}'
                             },
                             fieldLabel: 'Temporary Call Diversion Number'
                         }
@@ -185,6 +204,9 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                     defaults: {
                         labelWidth: 150,
                         anchor: '100%'
+                    },
+                    bind: {
+                        hidden: '{isRoiFttc}'
                     },
                     items: [
                         {
@@ -238,6 +260,9 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                     defaults: {
                         labelWidth: 190,
                         anchor: '100%'
+                    },
+                    bind: {
+                        hidden: '{isRoiFttc}'
                     },
                     items: [
                         {
