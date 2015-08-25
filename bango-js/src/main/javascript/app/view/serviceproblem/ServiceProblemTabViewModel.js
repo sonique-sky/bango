@@ -18,22 +18,22 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
         },
         serviceProblemOwned: {
             bind: {
-                bindTo: '{serviceProblem}',
+                bindTo: '{workItem}',
                 deep: true
             },
-            get: function (serviceProblem) {
+            get: function (workItem) {
                 var authenticatedAgent = this.get('authenticatedAgent');
 
-                return serviceProblem !== null && serviceProblem.getWorkItem().isAssignedTo(authenticatedAgent);
+                return workItem !== null && workItem.isAssignedTo(authenticatedAgent);
             }
         },
         pullServiceProblemButtonDisabled: {
             bind: {
-                bindTo: '{serviceProblem}',
+                bindTo: '{workItem}',
                 deep: true
             },
-            get: function (serviceProblem) {
-                var isNotPullable = serviceProblem == null || serviceProblem.getWorkItem() == null || !serviceProblem.getWorkItem().isPullable();
+            get: function (workItem) {
+                var isNotPullable = workItem == null || !workItem.isPullable();
                 var authenticatedAgent = this.get('authenticatedAgent');
                 var agentCanPullWorkItems = authenticatedAgent.hasPrivilege('PullServiceProblem');
                 return isNotPullable || !agentCanPullWorkItems;
@@ -46,6 +46,14 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
             },
             get: function(workItem) {
                 return workItem === null || !workItem.isHeld() ? 'icon-hold' : 'icon-release';
+            }
+        },
+        assignedStateIconClass: {
+            bind: {
+                bindTo: '{serviceProblemOwned}'
+            },
+            get: function(serviceProblemOwned) {
+                return serviceProblemOwned ? 'icon-sp-assigned' : 'icon-sp-unassigned';
             }
         }
     }

@@ -5,7 +5,6 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     border: 0,
 
     closable: true,
-    iconCls: 'icon-sp-unassigned',
 
     viewModel: {type: 'serviceProblemTab'},
     controller: 'serviceProblemTab',
@@ -19,6 +18,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     },
 
     bind: {
+        iconCls: '{assignedStateIconClass}',
         title: '{serviceProblemTabTitle}'
     },
 

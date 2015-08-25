@@ -10,6 +10,10 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
     },
     reference: 'workItemPanel',
 
+    bind: {
+        iconCls: '{assignedStateIconClass}'
+    },
+
     items: [
         {
             xtype: 'container',
