@@ -20,10 +20,6 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
     width: 1000,
     minHeight: 200,
 
-    listeners: {
-        beforeshow: 'onBeforeShow'
-    },
-
     items: [
         // +++++= Remove when layout done
         {
