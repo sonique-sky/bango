@@ -7,7 +7,7 @@ Ext.define('Spm.controller.action.serviceproblem.FilterHistoryAction', {
     },
 
     requires: [
-        'Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialog'
+        'Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialog'
     ],
 
 

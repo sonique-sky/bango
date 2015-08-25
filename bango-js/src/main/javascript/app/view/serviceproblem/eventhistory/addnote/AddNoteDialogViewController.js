@@ -1,4 +1,4 @@
-Ext.define('Spm.view.serviceproblem.eventhistory.AddNoteDialogViewController', {
+Ext.define('Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialogViewController', {
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.addNoteDialog',
 

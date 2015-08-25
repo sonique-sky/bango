@@ -73,7 +73,7 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
                     text: 'Service Problem',
                     columns: [
                         {text: 'Service Problem Id', dataIndex: 'serviceProblemId'},
-                        {text: 'Opened Date', dataIndex: 'openedDate'},
+                        {text: 'Opened Date', xtype: 'datecolumn', dataIndex: 'openedDate', format: 'd/m/y H:i'},
                         {text: 'Queue', xtype: 'templatecolumn', tpl: '{queue.name}'},
                         {text: 'Problem Description', dataIndex: 'problem'}
                     ]

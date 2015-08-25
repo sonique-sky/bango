@@ -1,4 +1,4 @@
-Ext.define('Spm.view.serviceproblem.EventHistoryPanelViewModel', {
+Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.eventHistoryPanel',
 

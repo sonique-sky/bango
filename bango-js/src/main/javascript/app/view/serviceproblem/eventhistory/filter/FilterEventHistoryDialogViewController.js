@@ -1,4 +1,4 @@
-Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialogViewController', {
+Ext.define('Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialogViewController', {
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.filterEventHistoryDialog',
 

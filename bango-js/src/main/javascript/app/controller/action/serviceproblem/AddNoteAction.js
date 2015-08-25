@@ -7,7 +7,7 @@ Ext.define('Spm.controller.action.serviceproblem.AddNoteAction', {
     },
 
     requires: [
-        'Spm.view.serviceproblem.eventhistory.AddNoteDialog'
+        'Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialog'
     ],
 
     constructor: function () {

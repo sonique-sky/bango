@@ -1,4 +1,4 @@
-Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
+Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.eventHistoryPanel',
 

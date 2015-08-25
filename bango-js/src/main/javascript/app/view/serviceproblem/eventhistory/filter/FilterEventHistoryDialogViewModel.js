@@ -1,4 +1,4 @@
-Ext.define('Spm.view.serviceproblem.eventhistory.FilterEventHistoryDialogViewModel', {
+Ext.define('Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialogViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.filterEventHistoryDialog',
 
