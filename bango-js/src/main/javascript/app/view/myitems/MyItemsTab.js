@@ -51,7 +51,7 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
                     widget: {
                         xtype: 'button',
                         iconCls: 'icon-hold',
-                        handler: 'onToggleHoldServiceProblem'
+                        handler: 'onToggleHoldServiceProblemFromWidget'
                     },
                     sortable: false,
                     groupable: false

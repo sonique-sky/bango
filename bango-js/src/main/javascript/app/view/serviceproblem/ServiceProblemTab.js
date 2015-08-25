@@ -11,6 +11,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     controller: 'serviceProblemTab',
 
     listeners: {
+        staleData: 'onStaleData',
         //activate: 'onQueueTabActivated',
         //deactivate: 'onQueueTabDeactivated',
         close: 'onServiceProblemTabClosed',
@@ -90,7 +91,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                 {
                                     iconCls: 'icon-hold',
                                     tooltip: 'Hold this Service Problem',
-                                    handler: 'onToggleHoldServiceProblem'
+                                    handler: 'onToggleHoldServiceProblemFromToolbar'
                                 },
                                 {
                                     iconCls: 'icon-reassign',

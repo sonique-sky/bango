@@ -5,7 +5,8 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
     listen: {
         controller: {
             'serviceProblemTab': {
-                serviceProblemPulled: 'onServiceProblemPulled'
+                serviceProblemPulled: 'onServiceProblemPulled',
+                serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
             }
         }
     },

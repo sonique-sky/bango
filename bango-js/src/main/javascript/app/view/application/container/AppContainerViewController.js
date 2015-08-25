@@ -15,7 +15,8 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
                 serviceProblemSelected: 'onServiceProblemSelected'
             },
             'myItems': {
-                serviceProblemSelected: 'onServiceProblemSelected'
+                serviceProblemSelected: 'onServiceProblemSelected',
+                serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
             },
             'serviceProblemTab': {
                 serviceProblemTabClosed: 'onServiceProblemTabClosed'
@@ -28,6 +29,14 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
                 searchResultTabClosed: 'onSearchResultTabClosed',
                 serviceProblemSelected: 'onServiceProblemSelected'
             }
+        }
+    },
+
+    onServiceProblemHoldToggled: function(serviceProblemId) {
+        var viewModel = this.getViewModel();
+        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+        if(serviceProblemTab) {
+            serviceProblemTab.fireEvent('staleData');
         }
     },
 

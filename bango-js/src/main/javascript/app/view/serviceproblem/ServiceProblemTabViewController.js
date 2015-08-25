@@ -6,6 +6,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         'Spm.reader.ServiceProblemReader'
     ],
 
+    onStaleData: function() {
+        this.loadServiceProblem();
+    },
+
     onServiceProblemTabClosed: function () {
         this.fireEvent('serviceProblemTabClosed', this.getViewModel().get('serviceProblemId'));
     },
