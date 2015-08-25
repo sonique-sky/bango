@@ -5,11 +5,15 @@ import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
+import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.AgentApiService;
 
 import java.util.Date;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 public class StubAgentApiService implements AgentApiService {
 
@@ -39,13 +43,20 @@ public class StubAgentApiService implements AgentApiService {
     }
 
     @Override
-    public List<DomainServiceProblem> myItems() {
-        return serviceProblemRepository.getServiceProblemsForAgent(authorisedActorProvider.getLoggedInAgent());
+    public PagedSearchResults<DomainServiceProblem> myItems(SearchParametersDTO searchParameters) {
+        List<DomainServiceProblem> serviceProblemsForAgent = serviceProblemRepository.getServiceProblemsForAgent(authorisedActorProvider.getLoggedInAgent());
+
+        List<DomainServiceProblem> pageOfServiceProblems = serviceProblemsForAgent.stream()
+                .skip(searchParameters.getStartRow())
+                .limit(searchParameters.getPageSize())
+                .collect(toList());
+
+        return new PagedSearchResults<>(pageOfServiceProblems, (long) serviceProblemsForAgent.size());
     }
 
     @Override
     public AgentStateDTO agentState() {
-        return statisticsFor(myItems());
+        return statisticsFor(myItems(SearchParametersDTO.withNoSearchProperties(Integer.MAX_VALUE, 0)).getOnePageOfSearchResults());
     }
 
     private AgentStateDTO statisticsFor(List<DomainServiceProblem> serviceProblemsForAgent) {
@@ -68,6 +79,6 @@ public class StubAgentApiService implements AgentApiService {
                 }
             }
         }
-        return new AgentStateDTO(authenticatedAgent().availability(), "", serviceProblemsForAgent.size()-heldCount, heldCount, pullCount, pushCount);
+        return new AgentStateDTO(authenticatedAgent().availability(), "", serviceProblemsForAgent.size() - heldCount, heldCount, pullCount, pushCount);
     }
 }

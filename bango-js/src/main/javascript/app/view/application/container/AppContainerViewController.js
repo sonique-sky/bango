@@ -14,6 +14,9 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
                 queueTabClosed: 'onQueueTabClosed',
                 serviceProblemSelected: 'onServiceProblemSelected'
             },
+            'myItemsTab': {
+                serviceProblemSelected: 'onServiceProblemSelected'
+            },
             'serviceProblemTab': {
                 serviceProblemTabClosed: 'onServiceProblemTabClosed'
             },
@@ -32,6 +35,10 @@ Ext.define('Spm.view.application.container.AppContainerViewController', {
         var tabPanel = this.lookupReference('tabPanel');
         tabPanel.removeAll(true);
         this.getViewModel().clearActiveTabs();
+
+        var myItemsTab = Ext.create('widget.myItemsTab');
+        tabPanel.add(myItemsTab);
+        tabPanel.setActiveTab(myItemsTab);
 
         if (authenticatedAgent.hasPrivilege('AccessAdminDashboard')) {
             var adminDashboardTab = Ext.create('widget.adminDashboardTab');

@@ -3,14 +3,16 @@ package sonique.bango.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.AgentApiService;
 
 import javax.annotation.Resource;
-import java.util.Collection;
 
 @Controller
 @RequestMapping("/api/agent")
@@ -39,8 +41,7 @@ public class AgentApiController {
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/myItems")
     @ResponseBody
-    public Collection<DomainServiceProblem> myItems() {
-        return agentApiService.myItems();
+    public PagedSearchResults<DomainServiceProblem> myItems(@RequestParam Integer start, @RequestParam Integer limit) {
+        return agentApiService.myItems(SearchParametersDTO.withNoSearchProperties(limit, start));
     }
-
 }

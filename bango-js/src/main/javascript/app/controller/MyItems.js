@@ -3,7 +3,7 @@ Ext.define('Spm.controller.MyItems', {
     alias: 'controller.myItems',
     requires: [
         'Spm.controller.Security',
-        'Spm.view.application.MyItemsTabContent'
+        'Spm.view.myitems.MyItemsTab'
     ],
     mixins: {
         serviceProblemClickHandler: 'Spm.controller.mixins.ServiceProblemClickHandler'
