@@ -7,10 +7,7 @@ import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.ServiceProblemId;
 
-import java.util.Collection;
 import java.util.List;
-
-import static com.google.common.collect.Lists.newArrayList;
 
 public class StubServiceProblemApiService implements ServiceProblemApiService {
     private final DomainServiceProblemRepository serviceProblemRepository;
@@ -46,18 +43,18 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     }
 
     @Override
-    public Collection<DomainServiceProblem> hold(ServiceProblemId serviceProblemId) {
+    public DomainServiceProblem hold(ServiceProblemId serviceProblemId) {
         DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
         serviceProblem.holdWorkItem(authorisedActorProvider.getLoggedInAgent());
 
-        return newArrayList(serviceProblem);
+        return serviceProblem;
     }
 
     @Override
-    public Collection<DomainServiceProblem> release(ServiceProblemId serviceProblemId) {
+    public DomainServiceProblem release(ServiceProblemId serviceProblemId) {
         DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
         serviceProblem.unholdWorkItem(authorisedActorProvider.getLoggedInAgent());
 
-        return newArrayList(serviceProblem);
+        return serviceProblem;
     }
 }

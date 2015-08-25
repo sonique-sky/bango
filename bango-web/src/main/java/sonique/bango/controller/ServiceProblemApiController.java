@@ -43,15 +43,15 @@ public class ServiceProblemApiController {
         return serviceProblemApiService.pull(new ServiceProblemId(serviceProblemId));
     }
 
-    @RequestMapping(value = "/{serviceProblemId}/hold", method = RequestMethod.POST)
+    @RequestMapping(value = "/{serviceProblemId}/hold", method = RequestMethod.PUT)
     @ResponseBody
-    public Collection<DomainServiceProblem> hold(@PathVariable Long serviceProblemId) {
+    public DomainServiceProblem hold(@PathVariable Long serviceProblemId) {
         return serviceProblemApiService.hold(new ServiceProblemId(serviceProblemId));
     }
 
-    @RequestMapping(value = "/{serviceProblemId}/unhold", method = RequestMethod.POST)
+    @RequestMapping(value = "/{serviceProblemId}/unhold", method = RequestMethod.PUT)
     @ResponseBody
-    public Collection<DomainServiceProblem> release(@PathVariable Long serviceProblemId) {
+    public DomainServiceProblem release(@PathVariable Long serviceProblemId) {
         return serviceProblemApiService.release(new ServiceProblemId(serviceProblemId));
     }
 }
