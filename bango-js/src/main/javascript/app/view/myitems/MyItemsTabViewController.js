@@ -1,5 +1,5 @@
 Ext.define('Spm.view.myitems.MyItemsTabViewController', {
-    extend: 'Ext.app.ViewController',
+    extend: 'Spm.view.common.BaseServiceProblemViewController',
     alias: 'controller.myItems',
 
     listen: {
@@ -18,14 +18,6 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
         if (cellIndex > 1) {
             this.fireEvent('serviceProblemSelected', record.serviceProblemId());
         }
-    },
-
-    onHoldServiceProblem: function (btn) {
-        this.fireEvent('holdServiceProblem', btn.getWidgetRecord())
-    },
-
-    onSetWorkReminder: function (btn) {
-        this.fireEvent('setWorkReminder', btn.getWidgetRecord())
     },
 
     onServiceProblemPulled: function() {

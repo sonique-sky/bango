@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
-    extend: 'Ext.app.ViewController',
+    extend: 'Spm.view.common.BaseServiceProblemViewController',
     alias: 'controller.serviceProblemTab',
 
     requires: [

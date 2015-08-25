@@ -89,7 +89,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                 },
                                 {
                                     iconCls: 'icon-hold',
-                                    tooltip: 'Hold this Service Problem'
+                                    tooltip: 'Hold this Service Problem',
+                                    handler: 'onToggleHoldServiceProblem'
                                 },
                                 {
                                     iconCls: 'icon-reassign',
@@ -113,7 +114,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                 },
                                 {
                                     iconCls: 'icon-work-reminder',
-                                    tooltip: 'Set a work reminder'
+                                    tooltip: 'Set a work reminder',
+                                    handler: 'onSetWorkReminder'
                                 },
                                 {
                                     iconCls: 'icon-associate-msp',
