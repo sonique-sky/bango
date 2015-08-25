@@ -22,6 +22,22 @@ Ext.define('Spm.model.TroubleReportTemplate', {
             name: 'twentyFourHourAccess',
             type: 'boolean',
             defaultValue: false
+        },
+        {
+            name: 'earliestAccessDate',
+            type: 'date'
+        },
+        {
+            name: 'earliestAccessTime',
+            type: 'string'
+        },
+        {
+            name: 'latestAccessDate',
+            type: 'date'
+        },
+        {
+            name: 'latestAccessTime',
+            type: 'string'
         }
     ],
 
