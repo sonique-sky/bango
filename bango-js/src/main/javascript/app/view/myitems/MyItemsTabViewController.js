@@ -1,8 +1,18 @@
 Ext.define('Spm.view.myitems.MyItemsTabViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.myItemsTab',
+    alias: 'controller.myItems',
 
-    listen: {},
+    listen: {
+        controller: {
+            'serviceProblemTab': {
+                serviceProblemPulled: 'onServiceProblemPulled'
+            }
+        }
+    },
+
+    onTabAdded: function() {
+        this.loadMyItems();
+    },
 
     onCellClicked: function (view, td, cellIndex, record) {
         if (cellIndex > 1) {
@@ -16,6 +26,14 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
 
     onSetWorkReminder: function (btn) {
         this.fireEvent('setWorkReminder', btn.getWidgetRecord())
+    },
+
+    onServiceProblemPulled: function() {
+
+    },
+
+    loadMyItems: function() {
+        this.getViewModel().get('myItems').load()
     }
 
 });

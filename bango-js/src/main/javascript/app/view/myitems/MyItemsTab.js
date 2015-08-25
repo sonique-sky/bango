@@ -1,16 +1,16 @@
 Ext.define('Spm.view.myitems.MyItemsTab', {
     extend: 'Ext.panel.Panel',
-    alias: 'widget.myItemsTab',
+    alias: 'widget.myItems',
 
-    requires: [
-        'Spm.store.MyItems'
-    ],
-
-    controller: 'myItemsTab',
-    viewModel: {type: 'myItemsTab'},
+    controller: 'myItems',
+    viewModel: {type: 'myItems'},
 
     title: 'My Items',
     iconCls: 'icon-my-items',
+
+    listeners: {
+        added: 'onTabAdded'
+    },
 
     dockedItems: [
         {
@@ -24,7 +24,9 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
                 {
                     xtype: 'pagingtoolbar',
                     flex: 1.0,
-                    store: this.store
+                    bind: {
+                        store: '{myItems}'
+                    }
                 },
                 {
                     xtype: 'tbspacer'

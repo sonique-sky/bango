@@ -27,7 +27,7 @@ Ext.application({
         //'Queues',
         //'ServiceProblems',
         'Searches',
-        'MyItems',
+        //'MyItems',
         'QueueDashboard'
     ],
 
