@@ -42,10 +42,10 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
             for (int i = 0; i < 40; i++, serviceProblemId++) {
                 DomainWorkItem workItem = null;
                 if (serviceProblemId % 2 == 0) {
-                    workItem = DomainWorkItemBuilder.withAllDefaults().build();
+                    workItem = DomainWorkItemBuilder.withAllDefaults().withCreatedDate(new Date()).build();
                 } else if (serviceProblemId % 3 == 0) {
                     DomainAgent agent = new DomainAgentBuilder().build();
-                    workItem = DomainWorkItemBuilder.anAssignedPushWorkItem().withAgent(agent).build();
+                    workItem = DomainWorkItemBuilder.anAssignedPushWorkItem().withAgent(agent).withCreatedDate(new Date()).build();
                 }
                 if (workItem != null) {
                     try {

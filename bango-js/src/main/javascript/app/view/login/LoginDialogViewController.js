@@ -1,4 +1,4 @@
-Ext.define('Spm.view.application.login.LoginDialogViewController', {
+Ext.define('Spm.view.login.LoginDialogViewController', {
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.loginDialog',
 

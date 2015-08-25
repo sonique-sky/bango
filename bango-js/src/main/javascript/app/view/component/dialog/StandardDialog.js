@@ -8,7 +8,7 @@ Ext.define('Spm.view.component.dialog.StandardDialog', {
     modal: true,
     resizable: false,
 
-    viewModel: 'standardDialog',
+    viewModel: {type: 'standardDialog'},
     controller: 'standardDialog',
 
     dockedItems: [

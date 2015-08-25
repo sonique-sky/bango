@@ -1,4 +1,4 @@
-Ext.define('Spm.view.queue.BulkClearDialogViewController', {
+Ext.define('Spm.view.queue.clear.BulkClearDialogViewController', {
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.bulkClearDialog',
 

@@ -2,7 +2,7 @@ Ext.define('Spm.controller.Security', {
     extend: 'Ext.app.Controller',
     alias: 'controller.security',
     requires: [
-        'Spm.view.application.login.LoginDialog'
+        'Spm.view.login.LoginDialog'
     ],
 
     models: [
@@ -72,7 +72,7 @@ Ext.define('Spm.controller.Security', {
 
     onAuthenticationRequired: function () {
         this.getAppContainer().hide();
-        Ext.create('Spm.view.application.LoginDialog').show();
+        Ext.create('Spm.view.login.LoginDialog').show();
     },
 
     authenticatedAgentCallback: function (records, operation, success) {

@@ -1,4 +1,4 @@
-Ext.define('Spm.view.queue.BulkTransferDialogViewModel', {
+Ext.define('Spm.view.queue.transfer.BulkTransferDialogViewModel', {
         extend: 'Ext.app.ViewModel',
         alias: 'viewmodel.bulkTransferDialog',
 

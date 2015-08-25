@@ -1,4 +1,4 @@
-Ext.define('Spm.view.application.SupermanViewController', {
+Ext.define('Spm.view.SupermanViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.superman',
 
@@ -74,7 +74,7 @@ Ext.define('Spm.view.application.SupermanViewController', {
         if (appContainer !== null) {
             appContainer.hide();
         }
-        Ext.create('Spm.view.application.login.LoginDialog').show();
+        Ext.create('Spm.view.login.LoginDialog').show();
     },
 
     onAuthenticatedAgentLoaded: function (store, records, success) {

@@ -1,4 +1,4 @@
-Ext.define('Spm.view.application.SupermanViewModel', {
+Ext.define('Spm.view.SupermanViewModel', {
         extend: 'Ext.app.ViewModel',
         alias: 'viewmodel.superman',
 

@@ -1,11 +1,11 @@
-Ext.define('Spm.view.application.Superman', {
+Ext.define('Spm.view.Superman', {
     extend: 'Ext.container.Viewport',
     alias: 'widget.superman',
 
     requires: [
-        'Spm.view.application.SupermanViewController',
-        'Spm.view.application.SupermanViewModel',
-        'Spm.view.application.container.AppContainer'
+        'Spm.view.SupermanViewController',
+        'Spm.view.SupermanViewModel',
+        'Spm.view.container.AppContainer'
     ],
 
     controller: 'superman',

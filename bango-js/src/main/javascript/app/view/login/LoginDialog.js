@@ -1,10 +1,10 @@
-Ext.define('Spm.view.application.login.LoginDialog', {
+Ext.define('Spm.view.login.LoginDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.loginDialog',
 
     requires: [
-        'Spm.view.application.login.LoginDialogViewModel',
-        'Spm.view.application.login.LoginDialogViewController'
+        'Spm.view.login.LoginDialogViewModel',
+        'Spm.view.login.LoginDialogViewController'
     ],
 
     height: 135,

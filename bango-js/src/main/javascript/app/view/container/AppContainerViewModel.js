@@ -1,4 +1,4 @@
-Ext.define('Spm.view.application.container.AppContainerViewModel', {
+Ext.define('Spm.view.container.AppContainerViewModel', {
         extend: 'Ext.app.ViewModel',
         alias: 'viewmodel.appContainer',
 

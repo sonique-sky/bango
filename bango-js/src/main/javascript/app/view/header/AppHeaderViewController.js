@@ -1,4 +1,4 @@
-Ext.define('Spm.view.application.header.AppHeaderViewController', {
+Ext.define('Spm.view.header.AppHeaderViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.appHeader',
 

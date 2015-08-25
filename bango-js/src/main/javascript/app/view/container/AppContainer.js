@@ -1,4 +1,4 @@
-Ext.define('Spm.view.application.container.AppContainer', {
+Ext.define('Spm.view.container.AppContainer', {
     extend: 'Ext.container.Container',
     alias: 'widget.appContainer',
 
@@ -6,13 +6,11 @@ Ext.define('Spm.view.application.container.AppContainer', {
         'Ext.tab.Panel',
         'Ext.layout.container.Border',
         'Spm.view.navigation.NavigationPanel',
-        'Spm.view.application.header.AppHeader'
+        'Spm.view.header.AppHeader'
     ],
 
     controller: 'appContainer',
-    viewModel: {
-        type: 'appContainer'
-    },
+    viewModel: {type: 'appContainer'},
     reference: 'appContainer',
     hidden: true,
     cls: 'superman-app-container',

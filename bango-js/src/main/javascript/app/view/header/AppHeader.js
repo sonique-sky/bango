@@ -1,4 +1,4 @@
-Ext.define('Spm.view.application.header.AppHeader', {
+Ext.define('Spm.view.header.AppHeader', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.appHeader',
 

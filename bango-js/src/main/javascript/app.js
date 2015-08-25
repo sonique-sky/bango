@@ -17,7 +17,7 @@ Ext.application({
     },
     requires: [
         'Spm.overrides.AbstractStore',
-        'Spm.view.application.Superman'
+        'Spm.view.Superman'
     ],
     controllers: [
         'Errors',
@@ -32,7 +32,7 @@ Ext.application({
     ],
 
     launch: function () {
-        Ext.create('Spm.view.application.Superman'
+        Ext.create('Spm.view.Superman'
             //    , {
             //    agentStatusActionContextManager: this.getAgentStatusController(),
             //    searchesActionContextManager: this.getSearchesController()

@@ -28,16 +28,16 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanelViewController', {
 
         if (selectedEventTypes.length > 0) {
             store.filterBy(function (record) {
-                return 0 !== selectedEventTypes.filter(function (value) {
-                        return record.get('eventType') === value.get('eventType');
-                    }).length;
+                return selectedEventTypes.some(function (value) {
+                    return record.get('eventType') === value.get('eventType');
+                });
             });
         }
     },
 
     onServiceProblemLoaded: function (serviceProblemId) {
         var viewModel = this.getViewModel();
-        viewModel.set('currentFilterState.selectedEventTypes', []);
+        viewModel.clearSelectedEvents();
         this.lookupReference('notesOnlyToggleButton').toggle(false, false);
         viewModel.getStore('eventHistory').load({params: {serviceProblemId: serviceProblemId}});
     },
