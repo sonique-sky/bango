@@ -138,8 +138,10 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialog'
                                         '      <div id="assigned-queue-{name}" class="queue x-view-item">{name}</div>',
                                         '   </tpl>',
                                         '</div>'
-                                    ]
-                                    //store: '{assignedQueues}'
+                                    ],
+                                    bind: {
+                                        store: '{assignedQueues}'
+                                    }
                                 }
                             ]
                         }

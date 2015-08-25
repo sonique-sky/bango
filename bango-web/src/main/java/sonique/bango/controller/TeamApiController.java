@@ -38,6 +38,11 @@ public class TeamApiController {
         return queues.stream().filter(((Predicate<Queue>) q -> team.assignedQueues().contains(q)).negate()).collect(toList());
     }
 
+    @RequestMapping(method = {RequestMethod.GET}, value = "/{teamId}/assignedQueues")
+    public List<Queue> assignedQueues(@PathVariable Long teamId) {
+        return teamApiService.getTeam(new TeamId(teamId)).assignedQueues();
+    }
+
     @RequestMapping(method = {RequestMethod.POST}, consumes = {APPLICATION_JSON_VALUE})
     public DomainTeam addTeam(@RequestBody DomainTeam team) {
         return teamApiService.addTeam(team);

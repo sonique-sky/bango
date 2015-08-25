@@ -4,6 +4,6 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
 
     onShow: function () {
         this.getViewModel().getStore('unassignedQueues').load({params: {teamId: this.getViewModel().get('teamId')}});
+        this.getViewModel().getStore('assignedQueues').load({params: {teamId: this.getViewModel().get('teamId')}});
     }
-
 });
