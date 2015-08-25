@@ -15,6 +15,11 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanel', {
 
     controller: 'eventHistoryPanel',
     viewModel: {type: 'eventHistoryPanel'},
+    reference: 'eventHistoryPanel',
+
+    listeners: {
+        serviceProblemLoaded: 'onServiceProblemLoaded'
+    },
 
     tools: [
         {

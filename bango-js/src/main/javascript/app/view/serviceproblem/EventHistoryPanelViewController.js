@@ -6,9 +6,6 @@ Ext.define('Spm.view.serviceproblem.EventHistoryPanelViewController', {
         controller: {
             addNoteDialog: {
                 eventHistoryNoteAdded: 'onEventHistoryNoteAdded'
-            },
-            serviceProblemTab: {
-                serviceProblemLoaded: 'onServiceProblemLoaded'
             }
         }
     },

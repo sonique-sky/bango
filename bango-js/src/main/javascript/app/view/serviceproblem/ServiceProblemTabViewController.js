@@ -36,7 +36,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
                 this.switchWorkItemPanel();
 
-                this.fireEvent('serviceProblemLoaded', serviceProblemId);
+                var eventHistoryPanel = this.lookupReference('eventHistoryPanel');
+                eventHistoryPanel.fireEvent('serviceProblemLoaded', serviceProblemId);
             }
         });
     },
