@@ -44,12 +44,13 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
             listeners: {
                 cellclick: 'onCellClicked'
             },
-
             columns: [
                 {
                     xtype: 'widgetcolumn',
+                    width: 40,
                     widget: {
                         xtype: 'button',
+                        height: 25,
                         iconCls: 'icon-hold',
                         handler: 'onToggleHoldServiceProblemFromMyItems'
                     },
@@ -58,8 +59,10 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
                 },
                 {
                     xtype: 'widgetcolumn',
+                    width: 40,
                     widget: {
                         xtype: 'button',
+                        height: 25,
                         iconCls: 'icon-work-reminder',
                         handler: 'onSetWorkReminder'
                     },
