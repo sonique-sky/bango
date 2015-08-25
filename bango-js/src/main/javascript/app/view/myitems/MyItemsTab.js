@@ -82,8 +82,8 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
                     text: 'Work Item',
                     columns: [
                         {text: 'Agent', xtype: 'templatecolumn', tpl: '{workItem.agent.details.displayName}'},
-                        {text: 'Action', xtype: 'templatecolumn', tpl: '{workItem.action}'},
-                        {text: 'Created', xtype: 'templatecolumn', tpl: '{workItem.createdDate}'},
+                        {text: 'Action', xtype: 'templatecolumn', tpl: '{workItem.action.description}'},
+                        {text: 'Created', renderer: 'formattedWorkItemCreatedDate'},
                         {text: 'Type', xtype: 'templatecolumn', tpl: '{workItem.assignmentType}'},
                         {text: 'Status', xtype: 'templatecolumn', tpl: '{workItem.status}'}
                     ]

@@ -10,6 +10,9 @@ import java.io.IOException;
 public class WorkItemActionSerializer extends JsonSerializer<WorkItemAction> {
     @Override
     public void serialize(WorkItemAction action, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeString(action.toString());
+        jsonGenerator.writeStartObject();
+        jsonGenerator.writeStringField("name", action.name());
+        jsonGenerator.writeStringField("description", action.getDescription());
+        jsonGenerator.writeEndObject();
     }
 }

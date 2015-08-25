@@ -122,7 +122,7 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
                             xtype: 'textfield',
                             fieldLabel: 'Action',
                             bind: {
-                                value: '{workItem.action}'
+                                value: '{workItem.action.description}'
                             }
                         }
                     ]

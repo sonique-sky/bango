@@ -16,7 +16,7 @@ public class WorkItemSerializer extends JsonSerializer<DomainWorkItem> {
         jsonGenerator.writeNumberField("workItemId", workItem.workItemId());
         jsonGenerator.writeStringField("status", workItem.status().name());
         jsonGenerator.writeStringField("assignmentType", workItem.assignmentType().name());
-        jsonGenerator.writeStringField("action", workItem.action().name());
+        jsonGenerator.writeObjectField("action", workItem.action());
         jsonGenerator.writeStringField("priority", workItem.priority().name());
         jsonGenerator.writeObjectField("createdDate", workItem.createdDate());
         jsonGenerator.writeObjectField("reminderTime", workItem.reminderTime());

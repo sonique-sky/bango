@@ -44,6 +44,10 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
 
     loadMyItems: function() {
         this.getViewModel().get('myItems').load()
+    },
+
+    formattedWorkItemCreatedDate: function(val, meta, record) {
+        return Ext.util.Format.date(record.getWorkItem().get('createdDate'), 'd/m/y H:i');
     }
 
 });
