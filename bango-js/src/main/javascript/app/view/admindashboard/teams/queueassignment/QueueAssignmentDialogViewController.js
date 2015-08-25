@@ -3,7 +3,7 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
     alias: 'controller.queueAssignmentDialog',
 
     onShow: function () {
-        this.getViewModel().getStore('allQueues').load();
+        this.getViewModel().getStore('unassignedQueues').load({params: {teamId: this.getViewModel().get('teamId')}});
     }
 
 });

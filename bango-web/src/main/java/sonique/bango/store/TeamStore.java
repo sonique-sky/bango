@@ -25,7 +25,7 @@ public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTe
 
     @Override
     public DomainTeam getTeam(TeamId teamId) {
-        throw new UnsupportedOperationException("Method TeamStore getTeam() not yet implemented");
+        return domainTeams.stream().filter(team -> team.id().equals(teamId)).findFirst().get();
     }
 
     @Override

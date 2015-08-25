@@ -12,7 +12,7 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialog'
     controller: 'queueAssignmentDialog',
 
     listeners: {
-        show : 'onShow'
+        show: 'onShow'
     },
     items: [
         {
@@ -83,7 +83,7 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialog'
                                         '</div>'
                                     ],
                                     bind: {
-                                        store: '{allQueues}'
+                                        store: '{unassignedQueues}'
                                     }
                                 },
                                 {

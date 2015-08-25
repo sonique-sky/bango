@@ -10,16 +10,13 @@ Ext.define('Spm.model.Team', {
         {
             mapping: 'name.value',
             name: 'name'
-        },
-        {
-            name: 'assignedQueues'
         }
     ],
 
     proxy: {
         type: 'rest',
-        url: 'api/teams',
-        appendId: false
+        appendId: false,
+        url: 'api/team'
     }
 
 });
