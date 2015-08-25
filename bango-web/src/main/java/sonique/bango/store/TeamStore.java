@@ -1,11 +1,13 @@
 package sonique.bango.store;
 
 import com.google.common.base.Throwables;
+import com.google.common.collect.Lists;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.validation.SpmError;
 import sky.sns.spm.validation.SupermanException;
 import spm.domain.TeamId;
 import spm.domain.TeamName;
+import util.SupermanDataFixtures;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -36,6 +38,8 @@ public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTe
         if (isNameDuplicate(domainTeam.name())) {
             throw new SupermanException(SpmError.TeamAlreadyExists);
         }
+
+        domainTeam.setAssignedQueues(Lists.newArrayList(SupermanDataFixtures.someQueue()));
 
         try {
             Field idField = DomainTeam.class.getDeclaredField("id");

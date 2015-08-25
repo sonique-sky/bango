@@ -23,6 +23,7 @@ import spm.domain.TeamName;
 import javax.servlet.ServletContext;
 
 import static java.util.Objects.isNull;
+import static util.SupermanDataFixtures.someTeamId;
 
 public final class BangoRunner {
 
@@ -85,7 +86,7 @@ public final class BangoRunner {
         AgentStore agentStore = (AgentStore) springContext.getBean(DomainAgentRepository.class);
         QueueStore queueStore = (QueueStore) springContext.getBean(QueueRepository.class);
 
-        DomainTeam team = new TeamBuilder().with(new TeamName("A Team")).withAssignedQueues(queueStore.getAllQueues()).build();
+        DomainTeam team = new TeamBuilder().with(someTeamId()).with(new TeamName("A Team")).withAssignedQueues(queueStore.getAllQueues()).build();
         agentStore.registerAgent(new DomainAgent("q.q", "Q.Q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, team));
         agentStore.registerAgent(new DomainAgent("q", "Q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, team));
         agentStore.registerAgent(new DomainAgent("a", "A", new AgentDetails("a", "a", 1, 1), Role.ROLE_USER, team));

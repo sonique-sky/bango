@@ -1,0 +1,9 @@
+Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogViewController', {
+    extend: 'Spm.component.StandardDialogViewController',
+    alias: 'controller.queueAssignmentDialog',
+
+    onShow: function () {
+        this.getViewModel().getStore('allQueues').load();
+    }
+
+});

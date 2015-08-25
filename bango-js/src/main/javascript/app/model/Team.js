@@ -10,14 +10,11 @@ Ext.define('Spm.model.Team', {
         {
             mapping: 'name.value',
             name: 'name'
+        },
+        {
+            name: 'assignedQueues'
         }
     ],
-
-    hasMany: {
-        model: 'Spm.model.Queue',
-        name: 'assignedQueues',
-        associationkey: 'assignedQueues'
-    },
 
     proxy: {
         type: 'rest',

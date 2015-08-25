@@ -53,7 +53,7 @@ public class ServiceProblemScenario extends SupermanScenario {
     }
 
     public ServiceProblemScenario returnsWhenPulled(final DomainServiceProblem returnedServiceProblem) {
-        return addStep(() -> when(services.serviceProblemApiService().pull(any(ServiceProblemId.class))).thenReturn(newArrayList(returnedServiceProblem)));
+        return addStep(() -> when(services.serviceProblemApiService().pull(any(ServiceProblemId.class))).thenReturn(returnedServiceProblem));
     }
 
     public ServiceProblemScenario returnsWhenNoteAdded(final List<EventHistoryItem> expectedEventHistoryItems) {
