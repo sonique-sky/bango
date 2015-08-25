@@ -3,9 +3,12 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
     alias: 'viewmodel.queueAssignmentDialog',
 
     stores: {
-        allQueues: {
-            type: 'allQueues'
+        unassignedQueues: {
+            type: 'unassignedQueues'
         }
+    },
+    data: {
+        teamId: null
     }
 
 });

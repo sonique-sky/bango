@@ -22,7 +22,13 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
         var selectedTeams = this.lookupReference('teamGrid').getSelectionModel().getSelection();
         if (selectedTeams.length == 1) {
             var dialog = this.getView().add({
-                xtype: 'queueAssignmentDialog'
+                xtype: 'queueAssignmentDialog',
+                viewModel: {
+                    type: 'queueAssignmentDialog',
+                    data: {
+                        teamId: selectedTeams[0].id
+                    }
+                }
             });
 
             dialog.show();
