@@ -11,6 +11,10 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
         }
     },
 
+    onServiceProblemHoldToggled: function() {
+        this.loadMyItems();
+    },
+
     onTabAdded: function() {
         this.loadMyItems();
     },
@@ -22,7 +26,7 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
     },
 
     onServiceProblemPulled: function() {
-
+        this.loadMyItems();
     },
 
     loadMyItems: function() {
