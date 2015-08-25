@@ -115,7 +115,10 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                     xtype: 'checkbox',
                                     boxLabel: 'DIS Requested',
                                     labelAlign: 'right',
-                                    flex: 1.0
+                                    flex: 1.0,
+                                    bind: {
+                                        hidden: '{!canRequestDisEngineer}'
+                                    }
                                 }
                             ]
                         },

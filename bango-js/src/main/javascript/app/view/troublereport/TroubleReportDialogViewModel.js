@@ -31,6 +31,11 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
                 return 'RoiFttc' === serviceType;
             }
         },
+        canRequestDisEngineer: {
+            get: function(get) {
+                return this.get('authenticatedAgent').hasPrivilege('RequestDisEngineer');
+            }
+        },
         canEnterAccessTimes: {
             bind: {
                 hasAppointmentReference: '{hasAppointmentReference}',
