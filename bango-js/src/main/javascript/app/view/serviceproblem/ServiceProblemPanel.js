@@ -16,6 +16,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
         disabled: true
     },
 
+    bind: {
+        iconCls: '{assignedStateIconClass}'
+    },
+
     items: [
         {
             xtype: 'container',
