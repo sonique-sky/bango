@@ -1,12 +1,43 @@
-.queue-assignment-view {
-  background-color: #F1F1F1;
+.queue-assignment-view-panel {
+  background-color: #e0e0e0;
 }
 
-.queue-assignment-view div.x-item-selected {
+.queue-assignment-view-panel .x-box-inner {
+  background-color: #e0e0e0;
+}
+
+.queue-assignment-view-panel label {
+  background-color: #e0e0e0;
+}
+
+.queue-assignment-button-panel div {
+  background-color: #e0e0e0;
+}
+
+.assigned-queues-view {
+  border: 1px solid #d0d0d0;
+  background-color: #ffffff;
+}
+
+.assigned-queues-view div.x-item-selected {
   background-color: #A3BAE9;
 }
 
-.queue-assignment-view .queue {
+.assigned-queues-view .queue {
+  height: 2em;
+  line-height: 2em;
+}
+
+.unassigned-queues-view {
+  border: 1px solid #d0d0d0;
+  background-color: #ffffff;
+}
+
+.assigned-queues-view div.x-item-selected {
+  background-color: #A3BAE9;
+}
+
+.unassigned-queues-view .queue {
   height: 2em;
   line-height: 2em;
 }

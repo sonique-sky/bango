@@ -4,100 +4,149 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialog'
 
     title: 'Assign Team Queues',
     width: 610,
-    height: 235,
+    height: 240,
     modal: true,
+    bodyPadding: 5,
 
+    viewModel: 'queueAssignmentDialog',
+    controller: 'queueAssignmentDialog',
+
+    listeners: {
+        show : 'onShow'
+    },
     items: [
         {
             xtype: 'panel',
-            layout: 'hbox',
-            padding: 10,
-            dockedItems: [{
-                xtype: 'panel',
-                dock: 'top',
-                height: 30,
-                layout: {
-                    type: 'hbox'
-                },
-                items: [
-                    {
-                        xtype: 'label',
-                        text: 'Unassigned Queues',
-                        width: '50%',
-                        align: 'middle'
-                    },
-                    {
-                        xtype: 'label',
-                        text: 'Assigned Queues',
-                        width: '50%',
-                        align: 'middle'
-                    }]
-            }],
+            cls: 'queue-assignment-view-panel',
+            border: false,
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            },
+            padding: '0,15,15,0',
             items: [
                 {
-                    xtype: 'dataview',
-                    width: '47%',
-                    cls: 'queue-assignment-view',
-                    itemSelector: 'div.queue',
-                    overItemCls: 'x-item-over',
-                    border: 1,
-                    tpl: [
-                        '<div id="unassigned-queues-group">',
-                        '   <tpl for=".">',
-                        '      <div id="unassigned-queue-{name}" class="queue x-view-item">{name}</div>',
-                        '   </tpl>',
-                        '</div>'
-                    ]
-                    //store: '{unassignedQueues}'
-                },
-                {
                     xtype: 'panel',
-                    width: '6%',
-                    height: '100%',
+                    border: false,
+                    flex: 0.15,
                     layout: {
-                        type: 'vbox',
-                        padding: 2,
+                        type: 'hbox',
                         align: 'middle',
-                        vertical: true
+                        vertical: false
                     },
                     items: [
                         {
-                            xtype: 'button',
-                            iconCls: 'icon-admin-assign-add-all'
+                            xtype: 'label',
+                            text: 'Unassigned Queues',
+                            style: 'text-align:center; display:block; font-weight:bold',
+                            flex: 0.45
                         },
                         {
-                            xtype: 'button',
-                            iconCls: 'icon-admin-assign-add'
+                            xtype: 'label',
+                            flex: 0.05
                         },
                         {
-                            xtype: 'button',
-                            iconCls: 'icon-admin-assign-remove'
-                        },
-                        {
-                            xtype: 'button',
-                            iconCls: 'icon-admin-assign-remove-all'
-                        }
-                    ]
-
+                            xtype: 'label',
+                            text: 'Assigned Queues',
+                            style: 'text-align:center; display:block; font-weight:bold;',
+                            flex: 0.45
+                        }]
                 },
                 {
-                    xtype: 'dataview',
-                    width: '47%',
-                    border: 1,
-                    cls: 'queue-assignment-view',
-                    itemSelector: 'div.queue',
-                    overItemCls: 'x-item-over',
-                    tpl: [
-                        '<div id="assigned-queues-group">',
-                        '   <tpl for=".">',
-                        '      <div id="assigned-queue-{name}" class="queue x-view-item">{name}</div>',
-                        '   </tpl>',
-                        '</div>'
-                    ],
-                    //store: '{assignedQueues}'
+                    xtype: 'panel',
+                    flex: 0.85,
+                    border: false,
+                    items: [
+                        {
+                            xtype: 'panel',
+                            border: false,
+                            layout: {
+                                type: 'hbox',
+                                vertical: false,
+                                align: 'stretch'
+                            },
+                            items: [
+                                {
+                                    xtype: 'dataview',
+                                    flex: 0.45,
+                                    height: 140,
+                                    border: true,
+                                    itemSelector: 'div.queue',
+                                    scrollable: true,
+                                    cls: 'unassigned-queues-view',
+                                    overItemCls: 'x-item-over',
+                                    tpl: [
+                                        '<div id="unassigned-queues-group">',
+                                        '   <tpl for=".">',
+                                        '      <div id="unassigned-queue-{name}" class="queue x-view-item">{name}</div>',
+                                        '   </tpl>',
+                                        '</div>'
+                                    ],
+                                    bind: {
+                                        store: '{allQueues}'
+                                    }
+                                },
+                                {
+                                    xtype: 'panel',
+                                    flex: 0.05,
+                                    height: 140,
+                                    border: false,
+                                    cls: 'queue-assignment-button-panel',
+                                    items: [{
+                                        xtype: 'panel',
+                                        border: false,
+                                        layout: {
+                                            type: 'vbox',
+                                            align: 'middle'
+                                        },
+                                        items: [
+                                            {
+                                                xtype: 'button',
+                                                iconCls: 'icon-admin-assign-add-all',
+                                                border: false
+                                            },
+                                            {
+                                                xtype: 'button',
+                                                iconCls: 'icon-admin-assign-add',
+                                                border: false
+                                            },
+                                            {
+                                                xtype: 'button',
+                                                iconCls: 'icon-admin-assign-remove',
+                                                border: false
+                                            },
+                                            {
+                                                xtype: 'button',
+                                                iconCls: 'icon-admin-assign-remove-all',
+                                                border: false
+                                            }
+                                        ]
+                                    }]
+                                },
+                                {
+                                    xtype: 'dataview',
+                                    flex: 0.40,
+                                    border: true,
+                                    height: 140,
+                                    itemSelector: 'div.queue',
+                                    scrollable: true,
+                                    cls: 'assigned-queues-view',
+                                    overItemCls: 'x-item-over',
+                                    tpl: [
+                                        '<div id="assigned-queues-group">',
+                                        '   <tpl for=".">',
+                                        '      <div id="assigned-queue-{name}" class="queue x-view-item">{name}</div>',
+                                        '   </tpl>',
+                                        '</div>'
+                                    ]
+                                    //store: '{assignedQueues}'
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
+
         }
     ]
-})
-;
+});
