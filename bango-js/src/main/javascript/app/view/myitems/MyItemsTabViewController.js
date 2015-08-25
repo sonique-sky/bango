@@ -14,6 +14,16 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
         }
     },
 
+    onToggleHoldWidgetAttach: function(column, widget, serviceProblem) {
+        if(serviceProblem.getWorkItem().isHeld()) {
+            widget.setIconCls('icon-release')
+            widget.setTooltip('Unhold this Work Item');
+        } else {
+            widget.setIconCls('icon-hold');
+            widget.setTooltip('Hold this Work Item');
+        }
+    },
+
     onServiceProblemHoldToggled: function() {
         this.loadMyItems();
     },

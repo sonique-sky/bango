@@ -48,10 +48,10 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
                 {
                     xtype: 'widgetcolumn',
                     width: 40,
+                    onWidgetAttach: 'onToggleHoldWidgetAttach',
                     widget: {
                         xtype: 'button',
                         height: 25,
-                        iconCls: 'icon-hold',
                         handler: 'onToggleHoldServiceProblemFromMyItems'
                     },
                     sortable: false,
