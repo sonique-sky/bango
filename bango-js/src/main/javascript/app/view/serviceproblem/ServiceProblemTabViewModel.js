@@ -38,6 +38,15 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                 var agentCanPullWorkItems = authenticatedAgent.hasPrivilege('PullServiceProblem');
                 return isNotPullable || !agentCanPullWorkItems;
             }
+        },
+        toggleHoldIconCls: {
+            bind: {
+                bindTo: '{workItem}',
+                deep: true
+            },
+            get: function(workItem) {
+                return workItem === null || !workItem.isHeld() ? 'icon-hold' : 'icon-release';
+            }
         }
     }
 });

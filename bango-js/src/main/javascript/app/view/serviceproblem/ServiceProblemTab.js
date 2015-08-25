@@ -91,36 +91,61 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                 {
                                     iconCls: 'icon-hold',
                                     tooltip: 'Hold this Service Problem',
-                                    handler: 'onToggleHoldServiceProblemFromTab'
+                                    handler: 'onToggleHoldServiceProblemFromTab',
+                                    bind: {
+                                        iconCls: '{toggleHoldIconCls}',
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
                                 },
                                 {
                                     iconCls: 'icon-reassign',
-                                    tooltip: 'Reassign service problem to another agent'
+                                    tooltip: 'Reassign service problem to another agent',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
                                 },
                                 {
                                     iconCls: 'icon-transfer',
-                                    tooltip: 'Transfer to another queue'
+                                    tooltip: 'Transfer to another queue',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
                                 },
                                 {
                                     iconCls: 'icon-clear',
-                                    tooltip: 'Clear this service problem'
+                                    tooltip: 'Clear this service problem',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
                                 },
                                 {
                                     iconCls: 'icon-line-test',
-                                    tooltip: 'Request a managed line test'
+                                    tooltip: 'Request a managed line test',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
                                 },
                                 {
                                     iconCls: 'icon-feature-check',
-                                    tooltip: 'Request a feature check for this service'
+                                    tooltip: 'Request a feature check for this service',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
                                 },
                                 {
                                     iconCls: 'icon-work-reminder',
                                     tooltip: 'Set a work reminder',
-                                    handler: 'onSetWorkReminder'
+                                    handler: 'onSetWorkReminder',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
                                 },
                                 {
                                     iconCls: 'icon-associate-msp',
-                                    tooltip: 'Associate this service problem to a MSP'
+                                    tooltip: 'Associate this service problem to a MSP',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
                                 }
                             ]
                         }
@@ -145,11 +170,26 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                         disabled: '{!serviceProblemOwned}'
                                     }
                                 },
-                                {iconCls: 'icon-amend-trouble-report', tooltip: 'Amend Trouble Report'},
-                                {iconCls: 'icon-cancel-trouble-report', tooltip: 'Cancel Trouble Report'},
+                                {
+                                    iconCls: 'icon-amend-trouble-report',
+                                    tooltip: 'Amend Trouble Report',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
+                                },
+                                {
+                                    iconCls: 'icon-cancel-trouble-report',
+                                    tooltip: 'Cancel Trouble Report',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
+                                },
                                 {
                                     iconCls: 'icon-confirm-equipment-disconnect',
-                                    tooltip: 'Confirm Equipment is Disconnected'
+                                    tooltip: 'Confirm Equipment is Disconnected',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
                                 }
                             ]
                         }
@@ -166,7 +206,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                 padding: '5,5,5,5'
                             },
                             items: [
-                                {iconCls: 'icon-next-work-item', tooltip: 'Select Next Work Item'}
+                                {
+                                    iconCls: 'icon-next-work-item',
+                                    tooltip: 'Select Next Work Item',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
+                                }
                             ]
                         }
 
@@ -183,7 +229,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                 padding: '5,5,5,5'
                             },
                             items: [
-                                {iconCls: 'icon-av', tooltip: 'Do AV awesomeness!'}
+                                {
+                                    iconCls: 'icon-av',
+                                    tooltip: 'Do AV awesomeness!',
+                                    bind: {
+                                        disabled: '{!serviceProblemOwned}'
+                                    }
+                                }
                             ]
                         }
                     ]
