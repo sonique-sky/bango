@@ -11,17 +11,13 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
                 authenticated: 'onAuthenticated'
             },
             'serviceProblemTab' : {
-                serviceProblemPulled: 'refreshAgentState'
+                serviceProblemPulled: 'refreshAgentState',
+                serviceProblemHoldToggled: 'refreshAgentState'
+            },
+            'myItems': {
+                serviceProblemHoldToggled: 'refreshAgentState'
             }
         }
-
-        //controller: {
-        //    '#ServiceProblems': {
-        //        'serviceProblemPulled': 'refreshAgentState',
-        //        'workItemHeld': 'refreshAgentState',
-        //        'workItemReleased': 'refreshAgentState'
-        //    }
-        //},
     },
 
     onAuthenticated: function () {
