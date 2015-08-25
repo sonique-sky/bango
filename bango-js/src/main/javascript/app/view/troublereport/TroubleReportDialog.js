@@ -18,7 +18,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
     },
 
     width: 1000,
-    minHeight: 450,
+    minHeight: 200,
 
     listeners: {
         beforeshow: 'onBeforeShow'
@@ -251,6 +251,56 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         value: '{troubleReportTemplate.twentyFourHourAccess}'
                                     }
                                 }
+                           ]
+                        },
+                        {
+                            xtype: 'fieldcontainer',
+                            layout: {
+                                type: 'hbox'
+                            },
+                            fieldLabel: 'Earliest Access Time',
+                            items: [
+                                {
+                                    xtype: 'datefield',
+                                    flex: 1.0,
+                                    bind: {
+                                        //value: '{troubleReportTemplate.appointmentReference}',
+                                        disabled: '{!canEnterAccessTimes}'
+                                    }
+                                },
+                                {
+                                    xtype: 'timefield',
+                                    flex: 1.0,
+                                    bind: {
+                                        //value: '{troubleReportTemplate.appointmentReference}',
+                                        disabled: '{!canEnterAccessTimes}'
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'fieldcontainer',
+                            layout: {
+                                type: 'hbox'
+                            },
+                            fieldLabel: 'Latest Access Time',
+                            items: [
+                                {
+                                    xtype: 'datefield',
+                                    flex: 1.0,
+                                    bind: {
+                                        //value: '{troubleReportTemplate.appointmentReference}',
+                                        disabled: '{!canEnterAccessTimes}'
+                                    }
+                                },
+                                {
+                                    xtype: 'timefield',
+                                    flex: 1.0,
+                                    bind: {
+                                        //value: '{troubleReportTemplate.appointmentReference}',
+                                        disabled: '{!canEnterAccessTimes}'
+                                    }
+                                }
                             ]
                         }
                     ]
@@ -294,5 +344,4 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
             ]
         }
     ]
-
 });

@@ -9,20 +9,35 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
     formulas: {
         hasAppointmentReference: {
             bind: {
-                bindTo: '{troubleReportTemplate.appointmentReference}',
-                deep: true
+                bindTo: '{troubleReportTemplate.appointmentReference}'
             },
             get: function(appointmentReference) {
-                return appointmentReference;
+                return appointmentReference !== null && appointmentReference !== '';
+            }
+        },
+        hasTwentyFourHourAccess: {
+            bind: {
+                bindTo: '{troubleReportTemplate.twentyFourHourAccess}'
+            },
+            get: function(twentyFourHourAccess) {
+                return twentyFourHourAccess;
             }
         },
         isRoiFttc: {
             bind: {
-                bindTo: '{troubleReportTemplate}',
-                deep: true
+                bindTo: '{troubleReportTemplate.serviceType}'
             },
-            get: function(troubleReportTemplate) {
-                return 'RoiFttc' === troubleReportTemplate.get('serviceType');
+            get: function(serviceType) {
+                return 'RoiFttc' === serviceType;
+            }
+        },
+        canEnterAccessTimes: {
+            bind: {
+                hasAppointmentReference: '{hasAppointmentReference}',
+                hasTwentyFourHourAccess: '{hasTwentyFourHourAccess}'
+            },
+            get: function(data) {
+                return !data.hasAppointmentReference && !data.hasTwentyFourHourAccess;
             }
         }
     }
