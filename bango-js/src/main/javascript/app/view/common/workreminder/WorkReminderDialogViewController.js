@@ -14,7 +14,7 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialogViewController', {
     },
 
     onAccept: function () {
-        console.log(this.getViewModel().serviceProblemId());
+        console.log(this.getViewModel().serviceProblemId() + " - " + this.getViewModel().reminderTime());
     },
 
     onValidityChange: function (form, isValid) {

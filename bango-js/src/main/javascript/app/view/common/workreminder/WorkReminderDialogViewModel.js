@@ -25,5 +25,13 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialogViewModel', {
 
     serviceProblemId: function() {
         return this.get('serviceProblemId');
+    },
+
+    reminderTime: function () {
+        var date = Ext.Date.clearTime(this.get('reminder.date'));
+        var time = this.get('reminder.time');
+        date.setHours(time.getHours());
+        date.setMinutes(time.getMinutes());
+        return date;
     }
 });
