@@ -105,15 +105,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     onToggleHoldServiceProblem: function () {
+        var me = this;
         var viewModel = this.getViewModel();
 
         this.doToggleHoldServiceProblem(
             viewModel.serviceProblem(),
             function (response) {
-                var decodedResponse = Ext.JSON.decode(response.responseText);
-                var serviceProblem = ServiceProblemReader.read(decodedResponse).getRecords()[0];
-                viewModel.set('serviceProblem', serviceProblem);
-                viewModel.set('workItem', serviceProblem.getWorkItem());
+                me.displayServiceProblem(ServiceProblemReader.fromJsonString(response.responseText));
             }
         );
     },

@@ -14,8 +14,8 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
         }
     },
 
-    onToggleHoldWidgetAttach: function(column, widget, serviceProblem) {
-        if(serviceProblem.getWorkItem().isHeld()) {
+    onToggleHoldWidgetAttach: function (column, widget, serviceProblem) {
+        if (serviceProblem.getWorkItem().isHeld()) {
             widget.setIconCls('icon-release')
             widget.setTooltip('Unhold this Work Item');
         } else {
@@ -31,11 +31,18 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
         );
     },
 
-    onServiceProblemHoldToggled: function() {
+    onSetWorkReminder: function (btn) {
+        this.doSetWorkReminder(
+            btn.getWidgetRecord(),
+            Ext.emptyFn
+        )
+    },
+
+    onServiceProblemHoldToggled: function () {
         this.loadMyItems();
     },
 
-    onTabAdded: function() {
+    onTabAdded: function () {
         this.loadMyItems();
     },
 
@@ -45,15 +52,16 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
         }
     },
 
-    onServiceProblemPulled: function() {
+    onServiceProblemPulled: function () {
         this.loadMyItems();
     },
 
-    loadMyItems: function() {
+
+    loadMyItems: function () {
         this.getViewModel().get('myItems').load()
     },
 
-    formattedWorkItemCreatedDate: function(val, meta, record) {
+    formattedWorkItemCreatedDate: function (val, meta, record) {
         return Ext.util.Format.date(record.getWorkItem().get('createdDate'), 'd/m/y H:i');
     }
 

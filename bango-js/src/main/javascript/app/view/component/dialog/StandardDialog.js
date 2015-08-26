@@ -28,7 +28,7 @@ Ext.define('Spm.view.component.dialog.StandardDialog', {
             items: [
                 {
                     xtype: 'button',
-                    id: 'accept-button',
+                    reference: 'acceptButton',
                     width: 80,
                     bind: {
                         text: '{acceptButtonText}',
@@ -42,7 +42,7 @@ Ext.define('Spm.view.component.dialog.StandardDialog', {
                 },
                 {
                     xtype: 'button',
-                    id: 'cancel-button',
+                    reference: 'cancelButton',
                     width: 80,
                     bind: {
                         text: '{cancelButtonText}',
