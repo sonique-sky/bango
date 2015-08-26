@@ -6,5 +6,5 @@ Ext.define('Spm.view.myitems.MyItemsTabViewModel', {
         myItems: {
             type: 'myItems'
         }
-    },
+    }
 });

@@ -4,7 +4,7 @@ Ext.define('Spm.view.navigation.search.SearchViewModel', {
 
     data: {
         radioValue: {
-            searchTerm: 'serviceProblemId',
+            searchTerm: 'serviceProblemId'
         },
         searchParameter: null
     },
