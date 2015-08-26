@@ -67,23 +67,26 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialog'
                             },
                             items: [
                                 {
-                                    xtype: 'dataview',
+                                    xtype: 'gridpanel',
+                                    reference: 'unassignedQueuesGrid',
                                     flex: 0.45,
                                     height: 140,
                                     border: true,
-                                    itemSelector: 'div.queue',
-                                    scrollable: true,
+                                    hideHeaders: true,
                                     cls: 'unassigned-queues-view',
-                                    overItemCls: 'x-item-over',
-                                    tpl: [
-                                        '<div id="unassigned-queues-group">',
-                                        '   <tpl for=".">',
-                                        '      <div id="unassigned-queue-{name}" class="queue x-view-item">{name}</div>',
-                                        '   </tpl>',
-                                        '</div>'
-                                    ],
                                     bind: {
                                         store: '{unassignedQueues}'
+                                    },
+                                    columns: [
+                                        {
+                                            dataIndex: 'name',
+                                            scrollable: true,
+                                            flex: 1
+                                        }
+                                    ],
+                                    selModel: {
+                                        selType: 'rowmodel',
+                                        mode: 'MULTI'
                                     }
                                 },
                                 {
@@ -103,44 +106,55 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialog'
                                             {
                                                 xtype: 'button',
                                                 iconCls: 'icon-admin-assign-add-all',
-                                                border: false
+                                                tooltip:'Add all',
+                                                border: false,
+                                                handler: 'assignAllQueues'
                                             },
                                             {
                                                 xtype: 'button',
                                                 iconCls: 'icon-admin-assign-add',
-                                                border: false
+                                                tooltip:'Add selected',
+                                                border: false,
+                                                handler: 'assignSelectedQueues'
                                             },
                                             {
                                                 xtype: 'button',
                                                 iconCls: 'icon-admin-assign-remove',
-                                                border: false
+                                                tooltip:'Remove selected',
+                                                border: false,
+                                                handler: 'removeAssignedQueues'
                                             },
                                             {
                                                 xtype: 'button',
                                                 iconCls: 'icon-admin-assign-remove-all',
-                                                border: false
+                                                tooltip:'Remove all',
+                                                border: false,
+                                                handler: 'removeAllAssignedQueues'
                                             }
                                         ]
                                     }]
                                 },
                                 {
-                                    xtype: 'dataview',
+                                    xtype: 'gridpanel',
+                                    reference: 'assignedQueuesGrid',
                                     flex: 0.40,
                                     border: true,
                                     height: 140,
-                                    itemSelector: 'div.queue',
-                                    scrollable: true,
+                                    hideHeaders: true,
                                     cls: 'assigned-queues-view',
-                                    overItemCls: 'x-item-over',
-                                    tpl: [
-                                        '<div id="assigned-queues-group">',
-                                        '   <tpl for=".">',
-                                        '      <div id="assigned-queue-{name}" class="queue x-view-item">{name}</div>',
-                                        '   </tpl>',
-                                        '</div>'
-                                    ],
                                     bind: {
                                         store: '{assignedQueues}'
+                                    },
+                                    columns: [
+                                        {
+                                            dataIndex: 'name',
+                                            scrollable: true,
+                                            flex: 1
+                                        }
+                                    ],
+                                    selModel: {
+                                        selType: 'rowmodel',
+                                        mode: 'MULTI'
                                     }
                                 }
                             ]

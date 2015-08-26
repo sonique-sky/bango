@@ -26,7 +26,7 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
                 viewModel: {
                     type: 'queueAssignmentDialog',
                     data: {
-                        teamId: selectedTeams[0].id
+                        team: selectedTeams[0]
                     }
                 }
             });

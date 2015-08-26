@@ -13,7 +13,7 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
         })
     },
     data: {
-        teamId: null
+        team: null
     }
 
 });
