@@ -1,4 +1,6 @@
 !bango-js/src/main/javascript/ext/**
-bango-js/src/main/javascript/bootstrap.js
 bango-js/src/main/javascript/bootstrap.json
+bango-js/src/main/javascript/bootstrap.js
+bango-js/src/main/javascript/bootstrap.css
 bango-js/src/main/javascript/sass/example/bootstrap.json
+bango-js/src/main/javascript/sass/example/bootstrap.js
