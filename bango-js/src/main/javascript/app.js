@@ -16,27 +16,13 @@ Ext.application({
         'Ext.ux': 'app/ux'
     },
     requires: [
-        'Spm.overrides.AbstractStore',
         'Spm.view.Superman'
     ],
     controllers: [
-        'Errors',
-        //'MyQueues',
-        //'AgentStatus',
-        //'Security',
-        //'Queues',
-        //'ServiceProblems',
-        'Searches',
-        //'MyItems',
-        'QueueDashboard'
+        'Errors'
     ],
 
     launch: function () {
-        Ext.create('Spm.view.Superman'
-            //    , {
-            //    agentStatusActionContextManager: this.getAgentStatusController(),
-            //    searchesActionContextManager: this.getSearchesController()
-            //}
-        );
+        Ext.create('Spm.view.Superman');
     }
 });
