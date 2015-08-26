@@ -1,6 +1,9 @@
-Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
+Ext.define('Spm.view.serviceproblem.workitem.WorkItemPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.workItemPanel',
+
+    controller: 'workItemPanel',
+    reference: 'workItemPanel',
 
     layout: 'card',
     title: 'Work Item',
@@ -8,10 +11,13 @@ Ext.define('Spm.view.serviceproblem.WorkItemPanel', {
     fieldDefaults: {
         disabled: true
     },
-    reference: 'workItemPanel',
 
     bind: {
         iconCls: '{assignedStateIconClass}'
+    },
+
+    listeners: {
+        switchWorkItem: 'onSwitchWorkItemPanel'
     },
 
     items: [

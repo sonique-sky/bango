@@ -40,21 +40,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         this.getViewModel().set('serviceProblemId', serviceProblem.serviceProblemId());
         this.getViewModel().set('workItem', serviceProblem.getWorkItem());
 
-        this.switchWorkItemPanel(serviceProblem);
+        var workItemPanel = this.lookupReference('workItemPanel');
+        workItemPanel.fireEvent('switchWorkItem', serviceProblem);
 
         var eventHistoryPanel = this.lookupReference('eventHistoryPanel');
         eventHistoryPanel.fireEvent('serviceProblemLoaded', serviceProblem.serviceProblemId());
-    },
-
-
-    switchWorkItemPanel: function (serviceProblem) {
-        var layout = this.lookupReference('workItemPanel').getLayout();
-
-        if (serviceProblem.hasWorkItem()) {
-            layout.setActiveItem(1);
-        } else {
-            layout.setActiveItem(0);
-        }
     },
 
     onPullServiceProblem: function () {
@@ -77,11 +67,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                             success: function (response) {
                                 var decodedResponse = Ext.JSON.decode(response.responseText);
                                 var serviceProblem = ServiceProblemReader.read(decodedResponse).getRecords()[0];
-                                viewModel.set('serviceProblem', serviceProblem);
-                                viewModel.set('workItem', serviceProblem.getWorkItem());
-
-                                me.onServiceProblemTabAdded();
+                                me.displayServiceProblem(serviceProblem);
                                 me.fireEvent('serviceProblemPulled');
+
                                 Ext.GlobalEvents.fireEvent('displayNotification', {
                                     title: 'Service Problem Assigned',
                                     message: Ext.String.format('Service Problem [{0}] has been assigned to you', serviceProblem.serviceProblemId())
