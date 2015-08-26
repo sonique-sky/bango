@@ -6,6 +6,7 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
         unassignedQueues: Ext.create("Ext.data.Store", {
             model: 'Spm.model.Queue',
             proxy: 'unassignedQueuesProxy'
+
         }),
         assignedQueues: Ext.create("Ext.data.Store", {
             model: 'Spm.model.Queue',
@@ -15,5 +16,4 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
     data: {
         team: null
     }
-
 });
