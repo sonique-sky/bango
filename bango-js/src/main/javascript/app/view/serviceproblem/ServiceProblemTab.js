@@ -88,9 +88,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                 },
                                 {
                                     iconCls: 'icon-hold',
-                                    tooltip: 'Hold this Service Problem',
-                                    handler: 'onToggleHoldServiceProblemFromTab',
+                                    handler: 'onToggleHoldServiceProblem',
                                     bind: {
+                                        tooltip: '{toggleHoldTooltip}',
                                         iconCls: '{toggleHoldIconCls}',
                                         disabled: '{!serviceProblemOwned}'
                                     }

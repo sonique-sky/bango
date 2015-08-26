@@ -48,6 +48,15 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                 return workItem === null || !workItem.isHeld() ? 'icon-hold' : 'icon-release';
             }
         },
+        toggleHoldTooltip: {
+            bind: {
+                bindTo: '{workItem}',
+                deep: true
+            },
+            get: function (workItem) {
+                return workItem === null || !workItem.isHeld() ? 'Hold this Work Item' : 'Unhold this Work Item';
+            }
+        },
         assignedStateIconClass: {
             bind: {
                 bindTo: '{serviceProblemOwned}'

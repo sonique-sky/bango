@@ -5,6 +5,7 @@ Ext.define('Spm.store.MyItems', {
     filterOnLoad: false,
     model: 'Spm.model.ServiceProblem',
     sortOnLoad: false,
+    groupField: 'status',
 
     proxy: {
         type: 'ajax',

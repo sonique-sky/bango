@@ -24,6 +24,13 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
         }
     },
 
+    onToggleHoldServiceProblem: function (btn) {
+        this.doToggleHoldServiceProblem(
+            btn.getWidgetRecord(),
+            Ext.emptyFn
+        );
+    },
+
     onServiceProblemHoldToggled: function() {
         this.loadMyItems();
     },
