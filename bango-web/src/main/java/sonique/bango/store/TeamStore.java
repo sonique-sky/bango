@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTeamRepository {
     private List<DomainTeam> domainTeams = new ArrayList<>();
-    private long id = 220;
+    private long id = 0;
 
     public TeamStore() {
         insert(new DomainTeam(new TeamName("My favorite Team")));
