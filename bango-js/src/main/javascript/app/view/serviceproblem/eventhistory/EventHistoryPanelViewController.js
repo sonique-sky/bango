@@ -38,7 +38,6 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     onServiceProblemLoaded: function (serviceProblemId) {
         var viewModel = this.getViewModel();
         viewModel.clearSelectedEvents();
-        this.lookupReference('notesOnlyToggleButton').toggle(false, false);
         viewModel.getStore('eventHistory').load({params: {serviceProblemId: serviceProblemId}});
     },
 

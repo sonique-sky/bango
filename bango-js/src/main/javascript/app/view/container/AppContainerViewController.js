@@ -99,7 +99,6 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             serviceProblemTab = Ext.create('widget.serviceProblemTab', {
                 viewModel: {
                     data: {
-                        serviceProblemId: serviceProblemId,
                         serviceProblem: serviceProblem
                     }
                 }

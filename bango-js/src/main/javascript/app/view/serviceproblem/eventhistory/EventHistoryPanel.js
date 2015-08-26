@@ -7,12 +7,6 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
         'Ext.grid.feature.RowBody'
     ],
 
-    layout: 'fit',
-    title: 'Event History',
-    flex: 1,
-
-    ui: 'custom-tool',
-
     controller: 'eventHistoryPanel',
     viewModel: {type: 'eventHistoryPanel'},
     reference: 'eventHistoryPanel',
@@ -21,6 +15,13 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
         serviceProblemLoaded: 'onServiceProblemLoaded'
     },
 
+    title: 'Event History',
+    iconCls: 'icon-event-history',
+    layout: 'fit',
+    flex: 1,
+
+    ui: 'custom-tool',
+
     tools: [
         {
             xtype: 'toolbar',
@@ -28,7 +29,6 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
             items: [
                 {
                     xtype: 'button',
-                    reference: 'notesOnlyToggleButton',
                     tooltip: 'Show notes only',
                     iconCls: 'icon-show-notes-only',
                     handler: 'onEventHistoryNotesOnly',

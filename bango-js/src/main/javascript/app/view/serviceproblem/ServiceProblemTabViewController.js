@@ -6,18 +6,20 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         'Spm.reader.ServiceProblemReader'
     ],
 
-    onStaleData: function() {
+    onStaleData: function () {
         this.loadServiceProblem();
     },
 
     onServiceProblemTabClosed: function () {
-        this.fireEvent('serviceProblemTabClosed', this.getViewModel().get('serviceProblemId'));
+        this.fireEvent('serviceProblemTabClosed', this.getViewModel().serviceProblemId());
     },
 
     onServiceProblemTabAdded: function () {
-        var viewModel = this.getViewModel();
-        if (!viewModel.get('serviceProblem')) {
+        var serviceProblem = this.getViewModel().serviceProblem();
+        if (!serviceProblem) {
             this.loadServiceProblem();
+        } else {
+            this.displayServiceProblem(serviceProblem);
         }
     },
 
@@ -26,27 +28,28 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     loadServiceProblem: function () {
-        var viewModel = this.getViewModel();
-        var serviceProblemId = viewModel.get('serviceProblemId');
+        var serviceProblemId = this.getViewModel().serviceProblemId();
         Spm.model.ServiceProblem.load(serviceProblemId, {
             scope: this,
-            success: function (serviceProblem) {
-                viewModel.set('serviceProblem', serviceProblem);
-                viewModel.set('workItem', serviceProblem.getWorkItem());
-
-                this.switchWorkItemPanel();
-
-                var eventHistoryPanel = this.lookupReference('eventHistoryPanel');
-                eventHistoryPanel.fireEvent('serviceProblemLoaded', serviceProblemId);
-            }
+            success: this.displayServiceProblem
         });
     },
 
-    switchWorkItemPanel: function () {
-        var viewModel = this.getViewModel();
-        var serviceProblem = viewModel.get('serviceProblem');
+    displayServiceProblem: function (serviceProblem) {
+        this.getViewModel().set('serviceProblem', serviceProblem);
+        this.getViewModel().set('serviceProblemId', serviceProblem.serviceProblemId());
+        this.getViewModel().set('workItem', serviceProblem.getWorkItem());
 
+        this.switchWorkItemPanel(serviceProblem);
+
+        var eventHistoryPanel = this.lookupReference('eventHistoryPanel');
+        eventHistoryPanel.fireEvent('serviceProblemLoaded', serviceProblem.serviceProblemId());
+    },
+
+
+    switchWorkItemPanel: function (serviceProblem) {
         var layout = this.lookupReference('workItemPanel').getLayout();
+
         if (serviceProblem.hasWorkItem()) {
             layout.setActiveItem(1);
         } else {
@@ -96,7 +99,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
         var troubleReportTemplate = Ext.create('Spm.model.TroubleReportTemplate');
         troubleReportTemplate.load({
-            params: {serviceProblemId: this.getViewModel().get('serviceProblemId')},
+            params: {serviceProblemId: this.getViewModel().serviceProblemId()},
             success: function () {
                 var dialog = me.getView().add({
                     xtype: 'troubleReportDialog',

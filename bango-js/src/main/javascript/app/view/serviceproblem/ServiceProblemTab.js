@@ -2,10 +2,6 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.serviceProblemTab',
 
-    border: 0,
-
-    closable: true,
-
     viewModel: {type: 'serviceProblemTab'},
     controller: 'serviceProblemTab',
 
@@ -23,6 +19,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     },
 
     layout: 'card',
+    border: 0,
+    closable: true,
 
     dockedItems: [
         {

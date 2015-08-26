@@ -44,7 +44,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                 bindTo: '{workItem}',
                 deep: true
             },
-            get: function(workItem) {
+            get: function (workItem) {
                 return workItem === null || !workItem.isHeld() ? 'icon-hold' : 'icon-release';
             }
         },
@@ -52,9 +52,17 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
             bind: {
                 bindTo: '{serviceProblemOwned}'
             },
-            get: function(serviceProblemOwned) {
+            get: function (serviceProblemOwned) {
                 return serviceProblemOwned ? 'icon-sp-assigned' : 'icon-sp-unassigned';
             }
         }
+    },
+
+    serviceProblem: function () {
+        return this.get('serviceProblem');
+    },
+
+    serviceProblemId: function () {
+        return this.get('serviceProblemId');
     }
 });
