@@ -46,10 +46,6 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
     },
 
     onQueueTabDeselected: function () {
-        this.deselectAll();
-    },
-
-    deselectAll: function () {
         var dataView = this.lookupReference('myQueuesDataView');
         var agentQueues = this.getViewModel().getStore('agentQueues');
 

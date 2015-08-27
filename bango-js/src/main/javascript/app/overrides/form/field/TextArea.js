@@ -1,6 +1,6 @@
-Ext.define('Ux.form.field.TextArea', {
-    extend: 'Ext.form.field.TextArea',
-    alias: 'widget.textareafield',
+Ext.define('Ext.overrides.form.field.TextArea', {
+    override: 'Ext.form.field.TextArea',
+
     //Override publish value so that it also will publish invalid values
     publishValue: function () {
         var me = this;

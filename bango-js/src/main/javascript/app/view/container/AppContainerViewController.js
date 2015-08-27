@@ -84,7 +84,7 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         var searchResultTab = viewModel.searchResultTabForId(searchKey);
 
         if (searchResultTab === null) {
-            searchResultTab = Ext.create('widget.searchResultTab', {
+            searchResultTab = Ext.create('widget.searchResult', {
                 viewModel: {
                     stores: {
                         serviceProblems: store
@@ -180,5 +180,4 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
         this.fireEvent('queueTabSelected', queueId);
     }
-
 });

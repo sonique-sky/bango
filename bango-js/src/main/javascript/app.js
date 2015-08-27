@@ -11,13 +11,11 @@ Ext.Loader.setConfig({
 
 Ext.application({
     name: 'Spm',
-    paths: {
-        'Ext.ux.window': 'app/thirdparty',
-        'Ext.ux': 'app/ux'
-    },
+
     requires: [
         'Spm.view.Superman'
     ],
+
     controllers: [
         'Errors'
     ],
