@@ -107,7 +107,7 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     },
 
     queueId: function () {
-        return this.getViewModel().get('queue').get('id');
+        return this.getViewModel().queueId();
     },
 
     gridSelectionModel: function () {

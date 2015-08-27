@@ -15,5 +15,9 @@ Ext.define('Spm.view.queue.QueueTabViewModel', {
         queue: null,
         bulkTransferDisabled: true,
         bulkClearDisabled: true
+    },
+
+    queueId: function() {
+        return this.get('queue').get('id');
     }
 });

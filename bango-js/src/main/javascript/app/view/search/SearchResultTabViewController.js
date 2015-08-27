@@ -5,7 +5,7 @@ Ext.define('Spm.view.search.SearchResultTabViewController', {
     onTabAdded: function () {
         var viewModel = this.getViewModel();
 
-        var serviceProblemsStore = viewModel.get('serviceProblems');
+        var serviceProblemsStore = viewModel.getStore('serviceProblems');
         this.mon(serviceProblemsStore, 'beforeload', this.onBeforeLoad, this);
     },
 
@@ -15,18 +15,15 @@ Ext.define('Spm.view.search.SearchResultTabViewController', {
         }
     },
 
-    onTabClosed: function() {
+    onTabClosed: function () {
         this.fireEvent('searchResultTabClosed', this.params());
     },
 
     onBeforeLoad: function (store, operation) {
-        var viewModel = this.getViewModel();
-
-        operation.setParams(viewModel.get('params'));
+        operation.setParams(this.params());
     },
 
     params: function () {
         return this.getViewModel().get('params');
     }
-})
-;
+});

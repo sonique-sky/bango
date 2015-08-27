@@ -6,5 +6,9 @@ Ext.define('Spm.view.myitems.MyItemsTabViewModel', {
         myItems: {
             type: 'myItems'
         }
+    },
+
+    load: function () {
+        return this.get('myItems').load();
     }
 });

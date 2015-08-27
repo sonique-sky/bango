@@ -11,16 +11,10 @@ Ext.define('Spm.view.navigation.search.SearchViewController', {
     },
 
     onSearch: function () {
-        var me = this,
-            viewModel = this.getViewModel(),
-            searchParameter = viewModel.get('searchParameter');
-
+        var me = this;
 
         var store = Ext.create('Spm.store.ServiceProblemSearchResults');
-        var params = {
-            searchTerm: viewModel.get('radioValue.searchTerm'),
-            searchParameter: searchParameter
-        };
+        var params = this.getViewModel().searchParams();
         store.load({
             params: params,
             callback: function (records, operation, success) {

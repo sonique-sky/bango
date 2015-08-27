@@ -58,7 +58,7 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
 
 
     loadMyItems: function () {
-        this.getViewModel().get('myItems').load()
+        this.getViewModel().load()
     },
 
     formattedWorkItemCreatedDate: function (val, meta, record) {
