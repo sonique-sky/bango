@@ -111,8 +111,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         this.doToggleHoldServiceProblem(
             viewModel.serviceProblem(),
             function (response) {
-                me.displayServiceProblem(ServiceProblemReader.fromJsonString(response.responseText));
+                var serviceProblem = ServiceProblemReader.fromJsonString(response.responseText);
+                me.displayServiceProblem(serviceProblem);
             }
         );
-    },
+    }
 });
