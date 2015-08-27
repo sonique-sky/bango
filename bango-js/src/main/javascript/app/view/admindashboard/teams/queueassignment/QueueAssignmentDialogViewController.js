@@ -8,9 +8,33 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
     },
 
     onAccept: function () {
-        this.queuesStoreOf('unassignedQueues').commitChanges();
-        this.queuesStoreOf('assignedQueues').commitChanges();
-        this.getView().close();
+        var me = this;
+        var unassignedQueues = this.queuesStoreOf('unassignedQueues');
+        var assignedQueuesStore = this.queuesStoreOf('assignedQueues');
+
+        if (this.hasStoreUpdates([assignedQueuesStore, unassignedQueues])) {
+            var team = this.getViewModel().get('team');
+            var assignedQueuesArray = [];
+
+            assignedQueuesStore.getData().each(function (q) {
+                var assignedQueue = Ext.create('Spm.model.Queue', {
+                    id: q.get('id'),
+                    name: q.get('name')
+                });
+                assignedQueuesArray.push(assignedQueue);
+            });
+
+            team.set("assignedQueues", assignedQueuesArray);
+
+            team.save({
+                success: function () {
+                    me.getView().close();
+                },
+                failure: function (exceptions) {
+                    console.log(exceptions);
+                }
+            });
+        }
     },
 
     //TODO: use extjs collections properly
@@ -19,10 +43,10 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
         var assignedQueuesStore = this.queuesStoreOf('assignedQueues');
 
         var unassignedQueues = unassignedQueuesStore.getData();
-        assignedQueuesStore.loadData(unassignedQueues.getRange(0, unassignedQueues.length), {append: true});
+        assignedQueuesStore.loadData(this.toArray(unassignedQueues), {append: true});
         unassignedQueuesStore.removeAll();
 
-        this.setOkButtonEnabled(unassignedQueuesStore, assignedQueuesStore);
+        this.setOkButtonEnabled([unassignedQueuesStore, assignedQueuesStore]);
     },
 
     assignSelectedQueues: function () {
@@ -32,8 +56,7 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
 
         assignedQueuesStore.loadData(selectedQueues, {append: true});
         unassignedQueuesStore.remove(selectedQueues);
-
-        this.setOkButtonEnabled(unassignedQueuesStore, unassignedQueuesStore);
+        this.setOkButtonEnabled([unassignedQueuesStore, assignedQueuesStore]);
     },
 
     removeAssignedQueues: function () {
@@ -44,7 +67,7 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
         unassignedQueuesStore.loadData(selectedQueues, {append: true});
         assignedQueuesStore.remove(selectedQueues);
 
-        this.setOkButtonEnabled(unassignedQueuesStore, assignedQueuesStore);
+        this.setOkButtonEnabled([unassignedQueuesStore, assignedQueuesStore]);
     },
 
     removeAllAssignedQueues: function () {
@@ -52,10 +75,10 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
         var assignedQueuesStore = this.queuesStoreOf('assignedQueues');
 
         var assignedQueues = assignedQueuesStore.getData();
-        unassignedQueuesStore.loadData(assignedQueues.getRange(0, assignedQueues.length), {append: true});
+        unassignedQueuesStore.loadData(this.toArray(assignedQueues), {append: true});
         assignedQueuesStore.removeAll();
 
-        this.setOkButtonEnabled(unassignedQueuesStore, assignedQueuesStore);
+        this.setOkButtonEnabled([unassignedQueuesStore, assignedQueuesStore]);
     },
 
     queuesStoreOf: function (storeName) {
@@ -66,12 +89,17 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
         return this.getView().lookupReference(reference).getSelection();
     },
 
-    //TODO: track updates correctly
-    setOkButtonEnabled: function (unassignedQueueStore, assignedQueueStore) {
-        var hasStoreChanges =
-            (unassignedQueueStore.getNewRecords().length > 0 || unassignedQueueStore.getRemovedRecords().length > 0)
-            && (assignedQueueStore.getNewRecords().length > 0 || assignedQueueStore.getRemovedRecords().length > 0);
+    setOkButtonEnabled: function (stores) {
+        this.getViewModel().set('acceptButtonDefaultDisabled', !this.hasStoreUpdates(stores));
+    },
 
-        this.getViewModel().set('acceptButtonDefaultDisabled', !hasStoreChanges);
+    hasStoreUpdates: function (stores) {
+        return stores.filter(function (store) {
+                return store.getRemovedRecords().length > 0;
+            }).length > 0;
+    },
+
+    toArray: function (dataCollection) {
+        return dataCollection.getRange(0, dataCollection.length);
     }
 });

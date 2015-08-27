@@ -11,4 +11,6 @@ public interface TeamApiService {
     DomainTeam addTeam(DomainTeam team);
 
     DomainTeam getTeam(TeamId teamId);
+
+    DomainTeam updateTeam(DomainTeam team);
 }

@@ -8,11 +8,15 @@ import spm.domain.TeamId;
 import spm.domain.TeamName;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTeamRepository {
-    private List<DomainTeam> domainTeams = new ArrayList<>();
+    private Map<TeamId, DomainTeam> domainTeamMap = new HashMap<>();
     private long id = 0;
 
     public TeamStore() {
@@ -23,32 +27,36 @@ public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTe
 
     @Override
     public DomainTeam getTeam(TeamId teamId) {
-        return domainTeams.stream().filter(team -> team.id().equals(teamId)).findFirst().get();
+        return domainTeamMap.get(teamId);
     }
 
     @Override
     public List<DomainTeam> getTeams() {
-        return domainTeams;
+        return domainTeamMap.values().stream().collect(toList());
     }
 
     @Override
     public void insert(DomainTeam domainTeam) {
-        if (isNameDuplicate(domainTeam.name())) {
-            throw new SupermanException(SpmError.TeamAlreadyExists);
-        }
+        Optional<DomainTeam> existingTeam = Optional.ofNullable(domainTeamMap.get(domainTeam.id()));
 
-        try {
-            Field idField = DomainTeam.class.getDeclaredField("id");
-            idField.setAccessible(true);
-            idField.set(domainTeam, new TeamId(id++));
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            Throwables.propagate(e);
+        if (existingTeam.isPresent()) {
+            if (!existingTeam.get().equals(domainTeam) && isNameDuplicate(domainTeam.name())) {
+                throw new SupermanException(SpmError.TeamAlreadyExists);
+            }
+        } else {
+            try {
+                Field idField = DomainTeam.class.getDeclaredField("id");
+                idField.setAccessible(true);
+                idField.set(domainTeam, new TeamId(id++));
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                Throwables.propagate(e);
+            }
         }
-        domainTeams.add(domainTeam);
+        domainTeamMap.put(domainTeam.id(), domainTeam);
     }
 
     @Override
     public boolean isNameDuplicate(TeamName teamName) {
-        return domainTeams.stream().filter((team) -> team.name().equals(teamName)).findAny().isPresent();
+        return getTeams().stream().filter((team) -> team.name().equals(teamName)).findAny().isPresent();
     }
 }

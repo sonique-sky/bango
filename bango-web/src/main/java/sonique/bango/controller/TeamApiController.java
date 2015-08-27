@@ -48,4 +48,9 @@ public class TeamApiController {
         return teamApiService.addTeam(team);
     }
 
+    @RequestMapping(method = {RequestMethod.PUT}, consumes = {APPLICATION_JSON_VALUE})
+    public DomainTeam updateTeam(@RequestBody DomainTeam team) {
+        return teamApiService.updateTeam(team);
+    }
+
 }
