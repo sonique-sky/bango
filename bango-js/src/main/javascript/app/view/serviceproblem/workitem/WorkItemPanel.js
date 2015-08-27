@@ -112,7 +112,8 @@ Ext.define('Spm.view.serviceproblem.workitem.WorkItemPanel', {
                                         value: '{workItem.reminderTime}'
                                     },
                                     fieldLabel: 'Reminder',
-                                    format: 'd/m/y H:i',
+                                    altFormats: 'd/m/Y H:i:s',
+                                    format: 'd-m-Y H:i',
                                     hideTrigger: true
                                 }
                             ]
