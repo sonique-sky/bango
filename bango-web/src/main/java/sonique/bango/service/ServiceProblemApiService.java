@@ -4,6 +4,7 @@ import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import spm.domain.ServiceProblemId;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ServiceProblemApiService {
@@ -13,4 +14,5 @@ public interface ServiceProblemApiService {
     DomainServiceProblem hold(ServiceProblemId serviceProblemId);
     DomainServiceProblem release(ServiceProblemId serviceProblemId);
     List<EventHistoryItem> eventHistory(ServiceProblemId serviceProblemId);
+    DomainServiceProblem createWorkReminder(ServiceProblemId serviceProblemId, Date dateTime);
 }

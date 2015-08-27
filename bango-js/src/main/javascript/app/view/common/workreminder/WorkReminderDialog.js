@@ -21,6 +21,7 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialog', {
             listeners: {
                 validitychange: 'onValidityChange'
             },
+            reference: 'workReminderForm',
             items: [
                 {
                     xtype: 'datefield',

@@ -14,6 +14,14 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         this.fireEvent('serviceProblemTabClosed', this.getViewModel().serviceProblemId());
     },
 
+    onSetWorkReminder: function () {
+        var serviceProblem = this.getViewModel().serviceProblem();
+        this.doSetWorkReminder(
+            serviceProblem,
+            Ext.emptyFn
+        )
+    },
+
     onServiceProblemTabAdded: function () {
         var serviceProblem = this.getViewModel().serviceProblem();
         if (!serviceProblem) {

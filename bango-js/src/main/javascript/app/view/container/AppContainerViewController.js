@@ -28,6 +28,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             'searchResultTab': {
                 searchResultTabClosed: 'onSearchResultTabClosed',
                 serviceProblemSelected: 'onServiceProblemSelected'
+            },
+            'workReminderDialog' : {
+                workReminderCreated: 'onWorkReminderCreated'
             }
         }
     },
@@ -38,6 +41,17 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         if(serviceProblemTab) {
             serviceProblemTab.fireEvent('staleData');
         }
+    },
+
+    onWorkReminderCreated: function(serviceProblemId) {
+        var tabPanel = this.lookupReference('tabPanel');
+        var viewModel = this.getViewModel();
+        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+        if(serviceProblemTab) {
+            tabPanel.remove(serviceProblemTab);
+            viewModel.removeServiceProblemTabForId(serviceProblemId);
+        }
+        tabPanel.setActiveTab(0);
     },
 
     onAuthenticated: function (authenticatedAgent) {

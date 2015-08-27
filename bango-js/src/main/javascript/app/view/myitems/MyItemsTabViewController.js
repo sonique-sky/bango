@@ -10,13 +10,16 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
             },
             'myItems': {
                 serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
+            },
+            'workReminderDialog': {
+                workReminderCreated: 'onWorkReminderCreated'
             }
         }
     },
 
     onToggleHoldWidgetAttach: function (column, widget, serviceProblem) {
         if (serviceProblem.getWorkItem().isHeld()) {
-            widget.setIconCls('icon-release')
+            widget.setIconCls('icon-release');
             widget.setTooltip('Unhold this Work Item');
         } else {
             widget.setIconCls('icon-hold');
@@ -39,6 +42,10 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
     },
 
     onServiceProblemHoldToggled: function () {
+        this.loadMyItems();
+    },
+
+    onWorkReminderCreated: function () {
         this.loadMyItems();
     },
 

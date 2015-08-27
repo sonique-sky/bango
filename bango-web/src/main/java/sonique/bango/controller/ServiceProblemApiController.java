@@ -8,6 +8,9 @@ import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.ServiceProblemId;
 
 import javax.annotation.Resource;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +44,15 @@ public class ServiceProblemApiController {
     @ResponseBody
     public DomainServiceProblem pull(@PathVariable Long serviceProblemId) {
         return serviceProblemApiService.pull(new ServiceProblemId(serviceProblemId));
+    }
+
+    @RequestMapping(value = "/{serviceProblemId}/workReminder", method = RequestMethod.POST)
+    @ResponseBody
+    public DomainServiceProblem createWorkReminder(@PathVariable Long serviceProblemId, @RequestBody String date) {
+        return serviceProblemApiService.createWorkReminder(
+                new ServiceProblemId(serviceProblemId),
+                Date.from(LocalDateTime.parse(date).toInstant(ZoneOffset.UTC))
+        );
     }
 
     @RequestMapping(value = "/{serviceProblemId}/hold", method = RequestMethod.PUT)

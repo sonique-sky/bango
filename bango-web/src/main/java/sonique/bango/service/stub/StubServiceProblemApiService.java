@@ -7,6 +7,7 @@ import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.ServiceProblemId;
 
+import java.util.Date;
 import java.util.List;
 
 public class StubServiceProblemApiService implements ServiceProblemApiService {
@@ -54,6 +55,17 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     public DomainServiceProblem release(ServiceProblemId serviceProblemId) {
         DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
         serviceProblem.unholdWorkItem(authorisedActorProvider.getLoggedInAgent());
+
+        return serviceProblem;
+    }
+
+    @Override
+    public DomainServiceProblem createWorkReminder(ServiceProblemId serviceProblemId, Date dateTime) {
+        DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
+        serviceProblem.createWorkReminder(
+                authorisedActorProvider.getLoggedInAgent(),
+                dateTime
+        );
 
         return serviceProblem;
     }
