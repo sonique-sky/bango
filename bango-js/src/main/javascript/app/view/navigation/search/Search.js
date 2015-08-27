@@ -3,7 +3,6 @@ Ext.define('Spm.view.navigation.search.Search', {
     alias: 'widget.search',
     requires: [
         'Ext.form.RadioGroup',
-        'Spm.controller.action.SearchAction',
         'Spm.view.search.SearchResultTab'
     ],
 

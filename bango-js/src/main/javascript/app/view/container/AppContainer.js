@@ -6,7 +6,11 @@ Ext.define('Spm.view.container.AppContainer', {
         'Ext.tab.Panel',
         'Ext.layout.container.Border',
         'Spm.view.navigation.NavigationPanel',
-        'Spm.view.header.AppHeader'
+        'Spm.view.header.AppHeader',
+        'Spm.view.header.AppHeaderViewController',
+        'Spm.store.MyItems',
+        'Spm.view.myitems.MyItemsTabViewModel',
+        'Spm.view.myitems.MyItemsTabViewController'
     ],
 
     controller: 'appContainer',
