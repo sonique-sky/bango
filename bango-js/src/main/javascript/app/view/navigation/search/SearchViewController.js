@@ -17,7 +17,7 @@ Ext.define('Spm.view.navigation.search.SearchViewController', {
         var params = this.getViewModel().searchParams();
         store.load({
             params: params,
-            callback: function (records, operation, success) {
+            callback: function (records) {
                 if (records.length == 0) {
                     Ext.Msg.show({
                         title: 'No Results',

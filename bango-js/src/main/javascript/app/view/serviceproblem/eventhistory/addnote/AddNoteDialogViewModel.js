@@ -3,7 +3,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialogViewModel'
     alias: 'viewmodel.addNoteDialog',
 
     data: {
-        note: null,
+        note: Ext.create('Spm.model.EventHistoryItem'),
         acceptButtonText: 'OK',
         acceptButtonDefaultDisabled: false
     },

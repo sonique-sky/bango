@@ -12,8 +12,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
 
     formulas: {
         serviceProblemTabTitle: {
-            get: function (get) {
-                return Ext.String.format('Service Problem [{0}]', get('serviceProblemId'));
+            bind: '{serviceProblemId}',
+            get: function (serviceProblemId) {
+                return Ext.String.format('Service Problem [{0}]', serviceProblemId);
             }
         },
         serviceProblemOwned: {
@@ -22,9 +23,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                 deep: true
             },
             get: function (workItem) {
-                var authenticatedAgent = this.get('authenticatedAgent');
-
-                return workItem !== null && workItem.isAssignedTo(authenticatedAgent);
+                return workItem !== null && workItem.isAssignedTo(this.authenticatedAgent());
             }
         },
         pullServiceProblemButtonDisabled: {
@@ -34,27 +33,21 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
             },
             get: function (workItem) {
                 var isNotPullable = workItem == null || !workItem.isPullable();
-                var authenticatedAgent = this.get('authenticatedAgent');
-                var agentCanPullWorkItems = authenticatedAgent.hasPrivilege('PullServiceProblem');
+                var agentCanPullWorkItems = this.authenticatedAgent().hasPrivilege('PullServiceProblem');
                 return isNotPullable || !agentCanPullWorkItems;
             }
         },
-        toggleHoldIconCls: {
+        toggleHoldData: {
             bind: {
                 bindTo: '{workItem}',
                 deep: true
             },
             get: function (workItem) {
-                return workItem === null || !workItem.isHeld() ? 'icon-hold' : 'icon-release';
-            }
-        },
-        toggleHoldTooltip: {
-            bind: {
-                bindTo: '{workItem}',
-                deep: true
-            },
-            get: function (workItem) {
-                return workItem === null || !workItem.isHeld() ? 'Hold this Work Item' : 'Unhold this Work Item';
+                var canBeHeld = workItem === null || !workItem.isHeld();
+                return {
+                    iconCls: (canBeHeld ? 'icon-hold' : 'icon-release'),
+                    tooltip: (canBeHeld ? 'Hold this Work Item' : 'Unhold this Work Item')
+                }
             }
         },
         assignedStateIconClass: {
@@ -73,5 +66,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
 
     serviceProblemId: function () {
         return this.get('serviceProblemId');
+    },
+
+    authenticatedAgent: function() {
+        return this.get('authenticatedAgent');
     }
 });

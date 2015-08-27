@@ -36,6 +36,10 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewModel', {
     },
 
     clearSelectedEvents: function () {
-        this.set('currentFilterState.selectedEventTypes', [])
+        this.setSelectedEvents([]);
+    },
+
+    setSelectedEvents: function (eventTypes) {
+        this.set('currentFilterState.selectedEventTypes', eventTypes)
     }
 });

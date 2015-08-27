@@ -18,7 +18,6 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
 
     destroy: function () {
         this.selectedEventTypesBinding.destroy();
-
         this.callParent();
     },
 
@@ -63,10 +62,10 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
             var filterStateWithoutNotes = viewModel.get('currentFilterState.selectedEventTypes').filter(function (item) {
                 return item.get('eventType') !== 'Note';
             });
-            viewModel.set('currentFilterState.selectedEventTypes', filterStateWithoutNotes);
+            viewModel.setSelectedEvents(filterStateWithoutNotes);
         } else {
             var noteEventType = viewModel.getStore('eventTypes').findRecord('eventType', 'Note');
-            viewModel.set('currentFilterState.selectedEventTypes', [noteEventType]);
+            viewModel.setSelectedEvents([noteEventType]);
         }
     },
 
@@ -74,10 +73,11 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
         var eventTypes = this.getViewModel().getStore('eventTypes');
         eventTypes.removeAll(true);
 
-        var eventTypeData = [];
-        eventHistory.collect('eventType', false, true).forEach(function (item) {
-            eventTypeData.push({eventType: item})
-        });
+        var eventTypeData = eventHistory
+                .collect('eventType', false, true)
+                .map(function (item) {
+                    return {eventType: item};
+                });
 
         eventTypes.loadRawData(eventTypeData);
     },

@@ -79,9 +79,10 @@ Ext.define('Spm.view.SupermanViewController', {
 
     onAuthenticatedAgentLoaded: function (store, records, success) {
         if (success) {
-            this.getViewModel().set('authenticatedAgent', records[0]);
+            var record = records[0];
 
-            this.fireEvent('authenticated', records[0]);
+            this.getViewModel().set('authenticatedAgent', record);
+            this.fireEvent('authenticated', record);
             this.lookupReference('appContainer').show();
         }
     },

@@ -57,26 +57,22 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
             callback: function (buttonId) {
                 if ('yes' == buttonId) {
-                    var viewModel = me.getViewModel();
-                    var serviceProblem = viewModel.get('serviceProblem');
+                    var serviceProblem = me.getViewModel().serviceProblem();
 
-                    Ext.Ajax.request(
-                        {
-                            url: Ext.String.format('api/serviceProblem/{0}/pull', serviceProblem.serviceProblemId()),
-                            method: 'POST',
-                            success: function (response) {
-                                var decodedResponse = Ext.JSON.decode(response.responseText);
-                                var serviceProblem = ServiceProblemReader.read(decodedResponse).getRecords()[0];
-                                me.displayServiceProblem(serviceProblem);
-                                me.fireEvent('serviceProblemPulled');
+                    Ext.Ajax.request({
+                        url: Ext.String.format('api/serviceProblem/{0}/pull', serviceProblem.serviceProblemId()),
+                        method: 'POST',
+                        success: function (response) {
+                            var serviceProblem = ServiceProblemReader.fromJsonString(response.responseText);
+                            me.displayServiceProblem(serviceProblem);
+                            me.fireEvent('serviceProblemPulled');
 
-                                Ext.GlobalEvents.fireEvent('displayNotification', {
-                                    title: 'Service Problem Assigned',
-                                    message: Ext.String.format('Service Problem [{0}] has been assigned to you', serviceProblem.serviceProblemId())
-                                });
-                            }
+                            Ext.GlobalEvents.fireEvent('displayNotification', {
+                                title: 'Service Problem Assigned',
+                                message: Ext.String.format('Service Problem [{0}] has been assigned to you', serviceProblem.serviceProblemId())
+                            });
                         }
-                    );
+                    });
                 }
             }
         });
@@ -98,7 +94,6 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                         }
                     }
                 });
-
                 dialog.show();
             }
         });
@@ -109,11 +104,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         var viewModel = this.getViewModel();
 
         this.doToggleHoldServiceProblem(
-            viewModel.serviceProblem(),
-            function (response) {
-                var serviceProblem = ServiceProblemReader.fromJsonString(response.responseText);
-                me.displayServiceProblem(serviceProblem);
-            }
+                viewModel.serviceProblem(),
+                function (response) {
+                    var serviceProblem = ServiceProblemReader.fromJsonString(response.responseText);
+                    me.displayServiceProblem(serviceProblem);
+                }
         );
     }
 });

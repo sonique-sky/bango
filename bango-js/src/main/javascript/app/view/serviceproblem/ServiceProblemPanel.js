@@ -189,11 +189,5 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                 }
             ]
         }
-    ],
-
-
-
-    bindTo: function (serviceProblem) {
-        this.loadRecord(serviceProblem);
-    }
+    ]
 });
