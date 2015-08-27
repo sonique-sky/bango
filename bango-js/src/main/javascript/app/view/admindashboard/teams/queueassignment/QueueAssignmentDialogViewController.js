@@ -9,10 +9,10 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
 
     onAccept: function () {
         var me = this;
-        var unassignedQueues = this.queuesStoreOf('unassignedQueues');
+        var unassignedQueuesStore = this.queuesStoreOf('unassignedQueues');
         var assignedQueuesStore = this.queuesStoreOf('assignedQueues');
 
-        if (this.hasStoreUpdates([assignedQueuesStore, unassignedQueues])) {
+        if (this.hasStoreUpdates([assignedQueuesStore, unassignedQueuesStore])) {
             var team = this.getViewModel().get('team');
             var assignedQueuesArray = [];
 
@@ -30,8 +30,12 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
                 success: function () {
                     me.getView().close();
                 },
-                failure: function (exceptions) {
-                    console.log(exceptions);
+                failure: function () {
+                    team.reject();
+                    unassignedQueuesStore.rejectChanges();
+                    assignedQueuesStore.rejectChanges();
+
+                    Ext.Msg.alert('Error', 'Failed to save queue assignment updates.');
                 }
             });
         }
