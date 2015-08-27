@@ -9,6 +9,13 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
             },
             'bulkTransferDialog': {
                 bulkOperationCompleted: 'onBulkOperationCompleted'
+            },
+            'serviceProblemTab': {
+                serviceProblemPulled: 'onServiceProblemPulled',
+                serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
+            },
+            'workReminderDialog':{
+                workReminderCreated: 'onWorkReminderCreated'
             }
         }
         //component: {
@@ -39,8 +46,20 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         this.getStore('queuedServiceProblems').loadRawData(rawJsonResponse);
     },
 
+    onServiceProblemPulled: function () {
+        this.loadQueuedServiceProblems()
+    },
+
+    onWorkReminderCreated: function () {
+        this.loadQueuedServiceProblems()
+    },
+
+    onServiceProblemHoldToggled: function () {
+        this.loadQueuedServiceProblems()
+    },
+
     onQueueTabAdded: function () {
-        this.getViewModel().getStore('queuedServiceProblems').load();
+        this.loadQueuedServiceProblems()
     },
 
     onBeforeLoad: function (store, operation) {
@@ -51,7 +70,7 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         this.fireEvent('queueTabSelected', this.queueId());
     },
 
-    onQueueTabDeactivated: function() {
+    onQueueTabDeactivated: function () {
         this.fireEvent('queueTabDeselected', this.queueId());
     },
 
@@ -124,5 +143,9 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         });
 
         return serviceProblemsWithTroubleReports.length > 0;
+    },
+
+    loadQueuedServiceProblems: function(){
+        this.getViewModel().getStore('queuedServiceProblems').load();
     }
 });

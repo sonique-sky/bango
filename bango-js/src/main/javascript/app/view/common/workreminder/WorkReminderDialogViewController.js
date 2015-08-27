@@ -15,26 +15,22 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialogViewController', {
     onAccept: function () {
         if (this.lookupReference('workReminderForm').isValid()) {
             var viewModel = this.getViewModel();
-            this.onCreateWorkReminder(viewModel.reminderTime(), viewModel.serviceProblemId());
-            this.getView().close();
+            var me = this;
+            Ext.Ajax.request(
+                {
+                    url: Ext.String.format('api/serviceProblem/{0}/workReminder', viewModel.serviceProblemId()),
+                    method: 'POST',
+                    jsonData: viewModel.reminderTime(),
+                    success: function () {
+                        me.fireEvent('workReminderCreated', viewModel.serviceProblemId());
+                        me.getView().close();
+                    }
+                }
+            );
         }
     },
 
     onValidityChange: function (form, isValid) {
         this.lookupReference('acceptButton').setDisabled(!isValid);
-    },
-
-    onCreateWorkReminder: function (reminder, serviceProblemId) {
-        var me = this;
-        Ext.Ajax.request(
-            {
-                url: Ext.String.format('api/serviceProblem/{0}/workReminder', serviceProblemId),
-                method: 'POST',
-                jsonData: reminder,
-                success: function (response) {
-                    me.fireEvent('workReminderCreated', serviceProblemId);
-                }
-            }
-        );
     }
 });

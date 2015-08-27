@@ -51,7 +51,7 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             tabPanel.remove(serviceProblemTab);
             viewModel.removeServiceProblemTabForId(serviceProblemId);
         }
-        tabPanel.setActiveTab(0);
+        tabPanel.setActiveTab('myItems');
     },
 
     onAuthenticated: function (authenticatedAgent) {

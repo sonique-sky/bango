@@ -7,6 +7,7 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
 
     title: 'My Items',
     iconCls: 'icon-my-items',
+    itemId: 'myItems',
 
     bind: {
         store: '{myItems}'
