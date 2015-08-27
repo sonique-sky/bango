@@ -19,7 +19,8 @@ Ext.define('Spm.view.container.AppContainerViewController', {
                 serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
             },
             'serviceProblemTab': {
-                serviceProblemTabClosed: 'onServiceProblemTabClosed'
+                serviceProblemTabClosed: 'onServiceProblemTabClosed',
+                serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
             },
             'search': {
                 displayServiceProblem: 'onDisplayServiceProblem',
@@ -37,10 +38,12 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
     onServiceProblemHoldToggled: function(serviceProblemId) {
         var viewModel = this.getViewModel();
+        var tabPanel = this.lookupReference('tabPanel');
         var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
         if(serviceProblemTab) {
             serviceProblemTab.fireEvent('staleData');
         }
+        tabPanel.setActiveTab('myItems');
     },
 
     onWorkReminderCreated: function(serviceProblemId) {

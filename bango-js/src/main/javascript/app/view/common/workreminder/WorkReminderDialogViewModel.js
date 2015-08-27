@@ -28,10 +28,11 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialogViewModel', {
     },
 
     reminderTime: function () {
-        var date = Ext.Date.clearTime(this.get('reminder.date'));
+        var date = this.get('reminder.date');
         var time = this.get('reminder.time');
         date.setHours(time.getHours());
         date.setMinutes(time.getMinutes());
+        date.setMilliseconds(0);
         return date;
     }
 });

@@ -28,7 +28,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                 type: 'hbox'
             },
             defaults: {
-                layout: 'form'
+                layout: 'form',
+                defaults: {readOnly:true}
             },
             items: [
                 {
@@ -148,7 +149,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
         {
             xtype: 'fieldcontainer',
             fieldDefaults: {
-                labelWidth: 110
+                labelWidth: 110,
+                readOnly:true
             },
             layout: 'form',
             items: [

@@ -8,6 +8,8 @@ import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.ServiceProblemId;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -46,7 +48,8 @@ public class ServiceProblemApiController {
 
     @RequestMapping(value = "/{serviceProblemId}/workReminder", method = RequestMethod.POST)
     @ResponseBody
-    public DomainServiceProblem createWorkReminder(@PathVariable Long serviceProblemId, @RequestBody Date date) {
+    public DomainServiceProblem createWorkReminder(@PathVariable Long serviceProblemId, @RequestBody LocalDateTime localDateTime) {
+        Date date = Date.from(localDateTime.toInstant(ZoneOffset.UTC));
         return serviceProblemApiService.createWorkReminder(
                 new ServiceProblemId(serviceProblemId),
                 date
