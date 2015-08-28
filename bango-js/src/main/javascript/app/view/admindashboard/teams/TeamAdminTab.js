@@ -9,12 +9,12 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTab', {
     viewModel: 'teamAdminTab',
     controller: 'teamAdminTab',
 
-    title: 'Teams',
-    iconCls: 'icon-admin-teams',
-
     listeners: {
         activate: 'loadStore'
     },
+
+    title: 'Teams',
+    iconCls: 'icon-admin-teams',
 
     dockedItems: [
         {

@@ -3,10 +3,10 @@ Ext.define('Spm.view.admindashboard.agents.AgentAdminTabViewModel', {
     alias: 'viewmodel.agentAdminTab',
 
     stores: {
-        teams: {
+        agents: {
             type: 'agents',
             listeners: {
-                //load: 'onAgStoreLoaded'
+                load: 'onAgentStoreLoaded'
             }
         }
     }

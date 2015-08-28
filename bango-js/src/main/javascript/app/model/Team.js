@@ -7,12 +7,13 @@ Ext.define('Spm.model.Team', {
 
     fields: [
         {
-            mapping: 'id.value',
             name: 'id'
         },
         {
-            mapping: 'name.value',
             name: 'name'
+        },
+        {
+            name: 'description'
         }
     ],
 

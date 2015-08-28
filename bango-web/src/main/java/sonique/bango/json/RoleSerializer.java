@@ -13,6 +13,7 @@ public class RoleSerializer extends JsonSerializer<Role> {
     public void serialize(Role role, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeStringField("name", role.name());
+        jsonGenerator.writeStringField("description", role.toString());
 
         jsonGenerator.writeArrayFieldStart("privileges");
 

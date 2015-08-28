@@ -86,10 +86,11 @@ public final class BangoRunner {
         AgentStore agentStore = (AgentStore) springContext.getBean(DomainAgentRepository.class);
         QueueStore queueStore = (QueueStore) springContext.getBean(QueueRepository.class);
 
-        DomainTeam team = new TeamBuilder().with(someTeamId()).with(new TeamName("A Team")).withAssignedQueues(queueStore.getAllQueues()).build();
-        agentStore.registerAgent(new DomainAgent("q.q", "Q.Q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, team));
-        agentStore.registerAgent(new DomainAgent("q", "Q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, team));
-        agentStore.registerAgent(new DomainAgent("a", "A", new AgentDetails("a", "a", 1, 1), Role.ROLE_USER, team));
-        agentStore.registerAgent(new DomainAgent("b.b", "B.B", new AgentDetails("b", "b", 1, 1), Role.ROLE_USER, team));
+        DomainTeam aTeam = new TeamBuilder().with(someTeamId()).with(new TeamName("A Team")).withAssignedQueues(queueStore.getAllQueues()).build();
+        DomainTeam bTeam = new TeamBuilder().with(someTeamId()).with(new TeamName("B Team")).withAssignedQueues(queueStore.getAllQueues()).build();
+        agentStore.registerAgent(new DomainAgent("q.q", "Q.Q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, bTeam));
+        agentStore.registerAgent(new DomainAgent("q", "Q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, aTeam));
+        agentStore.registerAgent(new DomainAgent("a", "A", new AgentDetails("a", "a", 1, 1), Role.ROLE_USER, aTeam));
+        agentStore.registerAgent(new DomainAgent("b.b", "B.B", new AgentDetails("b", "b", 1, 1), Role.ROLE_USER, bTeam));
     }
 }
