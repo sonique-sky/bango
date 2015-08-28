@@ -70,20 +70,21 @@ public class BangoApplicationContext {
         SimpleModule module = new SimpleModule("BangoModule");
         module.addSerializer(NumberValue.class, new NumberValueSerializer());
         module.addSerializer(StringValue.class, new StringValueSerializer());
+
+        module.addSerializer(SpmCodeAndMessage.class, new SpmCodeAndMessageSerializer());
+        module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
         module.addSerializer(Role.class, new RoleSerializer());
         module.addSerializer(ServiceType.class, new ServiceTypeSerializer());
-        module.addDeserializer(DomainTeam.class, new TeamDeserializer());
+
         module.addSerializer(EventHistoryItem.class, new EventHistoryItemSerializer());
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
-//        module.addSerializer(DomainWorkItem.class, new WorkItemSerializer());
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
         module.addSerializer(TroubleReportTemplate.class, new TroubleReportTemplateSerializer());
 //        module.addSerializer(TroubleReportSymptomDTO.class, new TroubleReportSymptomDTOSerializer());
         module.addSerializer(LineTestSummaryDTO.class, new LineTestSummaryDTOSerializer());
-        module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
-        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
 
-        module.addSerializer(SpmCodeAndMessage.class, new SpmCodeAndMessageSerializer());
+        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+        module.addDeserializer(DomainTeam.class, new TeamDeserializer());
         objectMapper.registerModule(module);
 
         return objectMapper;
