@@ -4,6 +4,7 @@ Ext.define('Spm.view.container.AppContainer', {
 
     requires: [
         'Ext.tab.Panel',
+        'Ext.data.proxy.Rest',
         'Ext.layout.container.Border',
         'Spm.view.navigation.NavigationPanel',
         'Spm.view.header.AppHeader',
@@ -43,5 +44,4 @@ Ext.define('Spm.view.container.AppContainer', {
             border: 0
         }
     ]
-
 });

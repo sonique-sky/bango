@@ -5,26 +5,23 @@ Ext.define('Spm.view.common.BaseServiceProblemViewController', {
         var me = this;
         var action = serviceProblem.getWorkItem().isHeld() ? 'unhold' : 'hold';
 
-        Ext.Ajax.request(
-            {
-                url: Ext.String.format('api/serviceProblem/{0}/{1}', serviceProblem.serviceProblemId(), action),
-                method: 'PUT',
-                success: function (response) {
-                    onSuccess(response);
-                    me.fireEvent('serviceProblemHoldToggled', serviceProblem.serviceProblemId());
-                }
+        Ext.Ajax.request({
+            url: Ext.String.format('api/serviceProblem/{0}/{1}', serviceProblem.serviceProblemId(), action),
+            method: 'PUT',
+            success: function (response) {
+                onSuccess(response);
+                me.fireEvent('serviceProblemHoldToggled', serviceProblem.serviceProblemId());
             }
-        );
+        });
 
     },
 
     doSetWorkReminder: function (serviceProblem, onSuccess) {
-        Ext.create('Spm.view.common.workreminder.WorkReminderDialog',
-            {
-                viewModel: {
-                    data: {serviceProblemId: serviceProblem.serviceProblemId()}
-                }
-            }).show();
+        Ext.create('Spm.view.common.workreminder.WorkReminderDialog', {
+            viewModel: {
+                data: {serviceProblemId: serviceProblem.serviceProblemId()}
+            }
+        }).show();
     }
 
 });

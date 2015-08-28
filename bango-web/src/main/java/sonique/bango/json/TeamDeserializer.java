@@ -24,12 +24,15 @@ public class TeamDeserializer extends JsonDeserializer<DomainTeam> {
 
         long id = node.get("id").asLong();
         String name = node.get("name").asText();
-        JsonNode assignedQueues = node.get("assignedQueues");
         List<Queue> assignedQueuesList = Lists.newArrayList();
-        assignedQueues.iterator().forEachRemaining(queue -> {
-            JsonNode data = queue.get("data");
-            assignedQueuesList.add(new Queue(new QueueId(data.get("id").asLong()), new QueueName(data.get("name").asText())));
-        });
+
+        JsonNode assignedQueues = node.get("assignedQueues");
+        if (assignedQueues != null) {
+            assignedQueues.iterator().forEachRemaining(queue -> {
+                JsonNode data = queue.get("data");
+                assignedQueuesList.add(new Queue(new QueueId(data.get("id").asLong()), new QueueName(data.get("name").asText())));
+            });
+        }
 
         return new TeamBuilder()
                 .with(new TeamId(id))

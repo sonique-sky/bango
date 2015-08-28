@@ -9,42 +9,42 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
 
     onAccept: function () {
         var me = this;
-        var unassignedQueues = this.queuesStoreOf('unassignedQueues');
+        var unassignedQueuesStore = this.queuesStoreOf('unassignedQueues');
         var assignedQueuesStore = this.queuesStoreOf('assignedQueues');
 
-        if (this.hasStoreUpdates([assignedQueuesStore, unassignedQueues])) {
+        if (this.hasStoreUpdates([assignedQueuesStore, unassignedQueuesStore])) {
             var team = this.getViewModel().get('team');
             var assignedQueuesArray = [];
 
             assignedQueuesStore.getData().each(function (q) {
-                var assignedQueue = Ext.create('Spm.model.Queue', {
+                assignedQueuesArray.push(Ext.create('Spm.model.Queue', {
                     id: q.get('id'),
                     name: q.get('name')
-                });
-                assignedQueuesArray.push(assignedQueue);
+                }));
             });
 
             team.set("assignedQueues", assignedQueuesArray);
-
             team.save({
                 success: function () {
                     me.getView().close();
                 },
-                failure: function (exceptions) {
-                    console.log(exceptions);
+                failure: function () {
+                    team.reject();
+                    unassignedQueuesStore.rejectChanges();
+                    assignedQueuesStore.rejectChanges();
+
+                    Ext.Msg.alert('Error', 'Failed to save queue assignment updates.');
                 }
             });
         }
     },
 
-    //TODO: use extjs collections properly
     assignAllQueues: function () {
         var unassignedQueuesStore = this.queuesStoreOf('unassignedQueues');
         var assignedQueuesStore = this.queuesStoreOf('assignedQueues');
 
-        var unassignedQueues = unassignedQueuesStore.getData();
-        assignedQueuesStore.loadData(this.toArray(unassignedQueues), {append: true});
-        unassignedQueuesStore.removeAll();
+        var allUnassignedQueues = unassignedQueuesStore.removeAll();
+        assignedQueuesStore.loadData(allUnassignedQueues, {append: true});
 
         this.setOkButtonEnabled([unassignedQueuesStore, assignedQueuesStore]);
     },
@@ -74,9 +74,8 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
         var unassignedQueuesStore = this.queuesStoreOf('unassignedQueues');
         var assignedQueuesStore = this.queuesStoreOf('assignedQueues');
 
-        var assignedQueues = assignedQueuesStore.getData();
-        unassignedQueuesStore.loadData(this.toArray(assignedQueues), {append: true});
-        assignedQueuesStore.removeAll();
+        var allAssignedQueues = assignedQueuesStore.removeAll();
+        unassignedQueuesStore.loadData(allAssignedQueues, {append: true});
 
         this.setOkButtonEnabled([unassignedQueuesStore, assignedQueuesStore]);
     },
@@ -97,9 +96,5 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
         return stores.filter(function (store) {
                 return store.getRemovedRecords().length > 0;
             }).length > 0;
-    },
-
-    toArray: function (dataCollection) {
-        return dataCollection.getRange(0, dataCollection.length);
     }
 });

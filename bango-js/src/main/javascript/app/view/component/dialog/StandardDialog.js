@@ -1,6 +1,11 @@
 Ext.define('Spm.view.component.dialog.StandardDialog', {
     alternateClassName: 'Spm.component.StandardDialog',
-    extend: 'Ux.window.Window',
+    extend: 'Ext.window.Window',
+
+    initComponent: function () {
+        this.renderTo = Ext.getBody();
+        this.callParent(arguments);
+    },
 
     layout: {
         type: 'fit'
@@ -53,5 +58,4 @@ Ext.define('Spm.view.component.dialog.StandardDialog', {
             ]
         }
     ]
-
 });
