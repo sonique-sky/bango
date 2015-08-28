@@ -11,4 +11,6 @@ public interface AgentApiService {
     AgentStateDTO toggleAvailability();
     AgentStateDTO agentState();
     PagedSearchResults<DomainServiceProblem> myItems(SearchParametersDTO searchParameters);
+
+    PagedSearchResults<DomainAgent> allAgents(Integer start, Integer limit);
 }

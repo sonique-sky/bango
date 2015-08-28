@@ -35,7 +35,38 @@ Ext.define('Spm.view.admindashboard.agents.AgentAdminTab', {
                 tooltip: 'Delete Agent',
                 iconCls: 'icon-admin-agent-delete',
                 handler: 'foo'
+            },
+            {xtype: 'tbspacer'},
+            {
+                xtype: 'pagingtoolbar',
+                border: 0,
+                bind: {
+                    store: '{agents}'
+                }
             }
         ]
-    }]
+    }],
+    items: [
+        {
+            xtype: 'gridpanel',
+            bind: {
+                store: '{agents}'
+            },
+            columns: [
+                {
+                    text: 'Agent',
+                    dataIndex: 'code'
+                },
+                {
+                    text: 'Team',
+                    dataIndex: 'team'
+                },
+                {
+                    text: 'Role',
+                    dataIndex: 'role'
+                }
+            ]
+        }
+    ]
+
 });

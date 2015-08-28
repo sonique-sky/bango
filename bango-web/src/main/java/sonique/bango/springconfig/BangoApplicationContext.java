@@ -9,21 +9,17 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.domain.model.EventHistoryItem;
-import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.Role;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
-import sky.sns.spm.domain.model.serviceproblem.DomainWorkItem;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
 import sky.sns.spm.infrastructure.repository.*;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.validation.SpmCodeAndMessage;
 import sky.sns.spm.web.spmapp.shared.dto.LineTestSummaryDTO;
-import sky.sns.spm.web.spmapp.shared.dto.TroubleReportSymptomDTO;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.domain.troublereport.TroubleReportTemplateFactory;
 import sonique.bango.json.*;
@@ -76,18 +72,15 @@ public class BangoApplicationContext {
         module.addSerializer(StringValue.class, new StringValueSerializer());
         module.addSerializer(Role.class, new RoleSerializer());
         module.addSerializer(ServiceType.class, new ServiceTypeSerializer());
-        module.addSerializer(DomainTeam.class, new TeamSerializer());
         module.addDeserializer(DomainTeam.class, new TeamDeserializer());
         module.addSerializer(EventHistoryItem.class, new EventHistoryItemSerializer());
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
-        module.addSerializer(DomainWorkItem.class, new WorkItemSerializer());
+//        module.addSerializer(DomainWorkItem.class, new WorkItemSerializer());
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
-        module.addSerializer(DomainAgent.class, new AgentSerializer());
         module.addSerializer(TroubleReportTemplate.class, new TroubleReportTemplateSerializer());
 //        module.addSerializer(TroubleReportSymptomDTO.class, new TroubleReportSymptomDTOSerializer());
         module.addSerializer(LineTestSummaryDTO.class, new LineTestSummaryDTOSerializer());
         module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
-        module.addSerializer(Queue.class, new QueueSerializer());
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
 
         module.addSerializer(SpmCodeAndMessage.class, new SpmCodeAndMessageSerializer());
@@ -113,7 +106,7 @@ public class BangoApplicationContext {
 
     @Bean
     public AgentApiService agentApiService() {
-        return new StubAgentApiService(springSecurityAuthorisedActorProvider(), serviceProblemRepository);
+        return new StubAgentApiService(springSecurityAuthorisedActorProvider(), serviceProblemRepository, agentRepository);
     }
 
     @Bean
