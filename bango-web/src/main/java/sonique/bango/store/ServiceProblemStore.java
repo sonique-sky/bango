@@ -74,6 +74,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                 serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(pickOneOf(EventDescription.class), Date.from(someInstantInTheLast24Hours()), someString(), allTheWords(), serviceProblem));
                 serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(Note, Date.from(someInstantInTheLast24Hours()), someString(), someWords(), serviceProblem));
                 serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(Note, Date.from(someInstantInTheLast24Hours()), someString(), someWords(), serviceProblem));
+
                 serviceProblems.add(serviceProblem);
             }
         }

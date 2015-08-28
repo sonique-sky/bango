@@ -8,9 +8,9 @@ import spm.domain.TroubleReportId;
 import java.util.Collection;
 
 public interface TroubleReportApiService {
-    DomainTroubleReport troubleReportFor(TroubleReportId troubleReportId);
+    DomainTroubleReport troubleReportWithId(TroubleReportId troubleReportId);
 
     Collection<DomainTroubleReport> troubleReportsFor(ServiceProblemId serviceProblemId);
 
-    TroubleReportTemplate troubleReportTemplateFor(ServiceProblemId serviceProblemId);
+    TroubleReportTemplate templateFor(ServiceProblemId serviceProblemId);
 }

@@ -29,8 +29,15 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
             store: {
                 fields: ['serviceType'],
                 data: [
-                    ['Fttc'],
-                    ['Wlr3'],
+                    ['FTTC'],
+                    ['WLR3'],
+                    ['NvnVoice'],
+                    ['NvnData'],
+                    ['OffnetBroadband'],
+                    ['OnnetBroadband'],
+                    ['RoiOffnetVoice'],
+                    ['RoiRuralOffnetBroadband'],
+                    ['RoiUrbanOffnetBroadband'],
                     ['RoiFttc']
                 ]
             },
@@ -61,32 +68,73 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReportTemplate.shortDescription}',
-                                hidden: '{isRoiFttc}'
+                                value: '{troubleReportTemplate.description}',
+                                hidden: '{isWlr3OrRoiService}'
                             },
                             fieldLabel: 'Short Description'
                         },
                         {
                             xtype: 'combobox',
                             bind: {
-                                value: '{troubleReportTemplate.symptom}',
-                                hidden: '{!isRoiFttc}'
+                                value: '{troubleReportTemplate.symptom.symptomCode}',
+                                hidden: '{!isWlr3OrRoiService}'
                             },
                             fieldLabel: 'Symptom'
                         },
                         {
+                            xtype: 'fieldcontainer',
+                            layout: {
+                                type: 'hbox',
+                                padding: '0 5 0 0'
+                            },
+                            margin: '0 0 5 155',
+                            bind: {
+                                hidden: '{!isRoiBroadband}'
+                            },
+                            align: 'right',
+                            items: [
+                                {
+                                    xtype: 'checkbox',
+                                    bind: {
+                                        value: '{troubleReportTemplate.broadbandFault}'
+                                    },
+                                    boxLabel: '242 - PSTN OK, Line Test Faulty',
+                                    labelAlign: 'right'
+                                }]
+                        },
+                        {
                             xtype: 'combobox',
                             bind: {
-                                value: '{troubleReportTemplate.diagnosticId}',
-                                hidden: '{isRoiFttc}'
+                                value: '{troubleReportTemplate.lineTestSummary.lineTestReference}',
+                                hidden: '{isRoi}'
                             },
                             fieldLabel: 'Diagnostic Id'
+                        },
+                        {
+                            xtype: 'fieldcontainer',
+                            layout: {
+                                type: 'hbox',
+                                padding: '0 5 0 0'
+                            },
+                            bind: {
+                                hidden: '{!isWlr3}'
+                            },
+                            align: 'right',
+                            fieldLabel: 'Problem',
+                            items: [{
+                                xtype: 'checkbox',
+                                bind: {
+                                    value: '{troubleReportTemplate.intermittentProblem}'
+                                },
+                                boxLabel: 'Intermittent',
+                                labelAlign: 'right'
+                            }]
                         },
                         {
                             xtype: 'combobox',
                             bind: {
                                 value: '{troubleReportTemplate.testProduct}',
-                                hidden: '{isRoiFttc}'
+                                hidden: '{isWlr3OrRoiService}'
                             },
                             fieldLabel: 'Test Product'
                         },
@@ -97,7 +145,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                 padding: '0 5 0 0'
                             },
                             bind: {
-                                hidden: '{isRoiFttc}'
+                                hidden: '{isRoi}'
                             },
                             fieldLabel: 'Engineer Options',
                             items: [
@@ -105,24 +153,27 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                     xtype: 'checkbox',
                                     boxLabel: 'Co-Op Call Requested',
                                     labelAlign: 'right',
-                                    flex: 1.0
+                                    bind: {
+                                        disabled: '{!isCoopEnabledProduct}'
+                                    }
                                 },
                                 {
                                     xtype: 'checkbox',
                                     boxLabel: 'DIS Requested',
                                     labelAlign: 'right',
-                                    flex: 1.0,
                                     bind: {
-                                        hidden: '{!canRequestDisEngineer}'
+                                        hidden: '{!canRequestDisEngineer}',
+                                        disabled: '{!isDisEnabledProduct}'
                                     }
                                 }
                             ]
                         },
                         {
                             xtype: 'combobox',
+                            flex: 1.0,
                             bind: {
-                                value: '{troubleReportTemplate.trcBand}',
-                                hidden: '{isRoiFttc}'
+                                value: '{troubleReportTemplate.upperTrcBand}',
+                                hidden: '{isRaiseOrRoi}'
                             },
                             fieldLabel: 'TRC Band'
                         },
@@ -130,7 +181,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                             xtype: 'combobox',
                             bind: {
                                 value: '{troubleReportTemplate.structuredQuestionCode}',
-                                hidden: '{isRoiFttc}'
+                                hidden: '{!isFttc}'
                             },
                             fieldLabel: 'Structured Question Code'
                         }
@@ -149,22 +200,23 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReportTemplate.primaryContactName}'
+                                value: '{troubleReportTemplate.contactName}'
                             },
                             fieldLabel: 'Contact Name'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReportTemplate.primaryContactNumber}'
+                                value: '{troubleReportTemplate.contactNumber}'
                             },
                             fieldLabel: 'Contact Number'
                         },
                         {
                             xtype: 'textfield',
+                            readOnly: true,
                             bind: {
                                 value: '{troubleReportTemplate.secondaryContactName}',
-                                hidden: '{isRoiFttc}'
+                                hidden: '{!isWlr3}'
                             },
                             fieldLabel: 'Secondary Contact Name'
                         },
@@ -172,15 +224,15 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                             xtype: 'textfield',
                             bind: {
                                 value: '{troubleReportTemplate.secondaryContactNumber}',
-                                hidden: '{isRoiFttc}'
+                                hidden: '{isRoi}'
                             },
                             fieldLabel: 'Secondary Contact Number'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReportTemplate.tcdNumber}',
-                                hidden: '{isRoiFttc}'
+                                value: '{troubleReportTemplate.temporaryCallDiversionNumber}',
+                                hidden: '{!isWlr3}'
                             },
                             fieldLabel: 'Temporary Call Diversion Number'
                         }
@@ -205,7 +257,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         anchor: '100%'
                     },
                     bind: {
-                        hidden: '{isRoiFttc}'
+                        hidden: '{isRoi}'
                     },
                     items: [
                         {
@@ -246,11 +298,11 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                     labelAlign: 'right',
                                     flex: 1.0,
                                     bind: {
-                                        disabled: '{hasAppointmentReference}',
-                                        value: '{twentyFourHourAccess}'
+                                        value: '{twentyFourHourAccess}',
+                                        disabled: '{hasAppointmentReference}'
                                     }
                                 }
-                           ]
+                            ]
                         },
                         {
                             xtype: 'fieldcontainer',
@@ -261,17 +313,17 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                             items: [
                                 {
                                     xtype: 'datefield',
-                                    flex: 1.0,
+                                    format: 'd/m/Y',
                                     bind: {
-                                        value: '{troubleReportTemplate.earliestAccessDate}',
+                                        value: '{earliestAccessDate}',
                                         disabled: '{!canEnterAccessTimes}'
                                     }
                                 },
                                 {
                                     xtype: 'timefield',
-                                    flex: 1.0,
+                                    format: 'H:i',
                                     bind: {
-                                        value: '{troubleReportTemplate.earliestAccessTime}',
+                                        value: '{earliestAccessTime}',
                                         disabled: '{!canEnterAccessTimes}'
                                     }
                                 }
@@ -286,17 +338,17 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                             items: [
                                 {
                                     xtype: 'datefield',
-                                    flex: 1.0,
+                                    format: 'd/m/Y',
                                     bind: {
-                                        value: '{troubleReportTemplate.latestAccessDate}',
+                                        value: '{latestAccessDate}',
                                         disabled: '{!canEnterAccessTimes}'
                                     }
                                 },
                                 {
                                     xtype: 'timefield',
-                                    flex: 1.0,
+                                    format: 'H:i',
                                     bind: {
-                                        value: '{troubleReportTemplate.latestAccessTime}',
+                                        value: '{latestAccessTime}',
                                         disabled: '{!canEnterAccessTimes}'
                                     }
                                 }
@@ -314,18 +366,24 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         anchor: '100%'
                     },
                     bind: {
-                        hidden: '{isRoiFttc}'
+                        hidden: '{isRoi}'
                     },
                     items: [
                         {
                             xtype: 'textarea',
                             anchor: '100% 100%',
-                            fieldLabel: 'Access Hazards'
+                            fieldLabel: 'Access Hazards',
+                            bind: {
+                                value: '{troubleReportTemplate.accessHazards}'
+                            }
                         },
                         {
                             xtype: 'textarea',
                             anchor: '100% 100%',
-                            fieldLabel: 'Access Notes'
+                            fieldLabel: 'Access Notes',
+                            bind: {
+                                value: '{troubleReportTemplate.accessNotes}'
+                            }
                         }
                     ]
                 }

@@ -24,7 +24,7 @@ public class TroubleReportApiController {
     @RequestMapping(value = "/troubleReportId/{troubleReportId}", method = RequestMethod.GET)
     @ResponseBody
     public DomainTroubleReport troubleReportFor(@PathVariable TroubleReportId troubleReportId) {
-        return troubleReportApiService.troubleReportFor(troubleReportId);
+        return troubleReportApiService.troubleReportWithId(troubleReportId);
     }
 
     @RequestMapping(value = "/serviceProblemId/{serviceProblemId}", method = RequestMethod.GET)
@@ -36,6 +36,7 @@ public class TroubleReportApiController {
     @RequestMapping(value = "/template/serviceProblemId/{serviceProblemId}", method = RequestMethod.GET)
     @ResponseBody
     public TroubleReportTemplate troubleReportTemplateFor(@PathVariable ServiceProblemId serviceProblemId) {
-        return troubleReportApiService.troubleReportTemplateFor(serviceProblemId);
+        return troubleReportApiService.templateFor(serviceProblemId);
     }
+
 }

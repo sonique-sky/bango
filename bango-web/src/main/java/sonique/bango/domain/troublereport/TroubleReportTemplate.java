@@ -46,7 +46,39 @@ public class TroubleReportTemplate {
     private final StructuredQuestionCode structuredQuestionCode;
     private final TroubleReportSymptomDTO symptom;
 
-    public TroubleReportTemplate(ServiceProblemId serviceProblemId, TroubleReportId troubleReportId, SnsServiceId serviceId, LineTestSummaryDTO lineTestSummary, String providerReference, String btReference, String description, TestProduct testProduct, String appointmentReference, String accessHazards, String accessNotes, String contactName, String contactNumber, String secondaryContactName, String secondaryContactNumber, boolean cancelRequested, boolean amendRequested, boolean confirmEquipmentDisconnectedRequested, boolean broadbandFault, Boolean twentyFourHourAccess, Boolean coopCallRequested, Boolean disRequested, Boolean isResponseRequired, Boolean intermittentProblem, String notes, TroubleReportStatus status, Integer upperTrcBand, String temporaryCallDiversionNumber, Date earliestAccessDate, Date latestAccessDate, StructuredQuestionCode structuredQuestionCode, TroubleReportSymptomDTO symptom) {
+    public TroubleReportTemplate(
+            ServiceProblemId serviceProblemId,
+            TroubleReportId troubleReportId,
+            SnsServiceId serviceId,
+            LineTestSummaryDTO lineTestSummary,
+            String providerReference,
+            String btReference,
+            String description,
+            TestProduct testProduct,
+            String appointmentReference,
+            String accessHazards,
+            String accessNotes,
+            String contactName,
+            String contactNumber,
+            String secondaryContactName,
+            String secondaryContactNumber,
+            boolean cancelRequested,
+            boolean amendRequested,
+            boolean confirmEquipmentDisconnectedRequested,
+            boolean broadbandFault,
+            Boolean twentyFourHourAccess,
+            Boolean coopCallRequested,
+            Boolean disRequested,
+            Boolean isResponseRequired,
+            Boolean intermittentProblem,
+            String notes,
+            TroubleReportStatus status,
+            Integer upperTrcBand,
+            String temporaryCallDiversionNumber,
+            Date earliestAccessDate,
+            Date latestAccessDate,
+            StructuredQuestionCode structuredQuestionCode,
+            TroubleReportSymptomDTO symptom) {
         this.serviceProblemId = serviceProblemId;
         this.troubleReportId = troubleReportId;
         this.serviceId = serviceId;

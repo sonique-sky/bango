@@ -22,12 +22,16 @@ import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
 import sky.sns.spm.infrastructure.repository.*;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.validation.SpmCodeAndMessage;
+import sky.sns.spm.web.spmapp.shared.dto.LineTestSummaryDTO;
+import sky.sns.spm.web.spmapp.shared.dto.TroubleReportSymptomDTO;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.domain.troublereport.TroubleReportTemplateFactory;
 import sonique.bango.json.*;
 import sonique.bango.service.*;
 import sonique.bango.service.stub.*;
 import sonique.bango.store.*;
+import sonique.types.NumberValue;
+import sonique.types.StringValue;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -68,6 +72,8 @@ public class BangoApplicationContext {
         objectMapper.setDateFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"));
 
         SimpleModule module = new SimpleModule("BangoModule");
+        module.addSerializer(NumberValue.class, new NumberValueSerializer());
+        module.addSerializer(StringValue.class, new StringValueSerializer());
         module.addSerializer(Role.class, new RoleSerializer());
         module.addSerializer(ServiceType.class, new ServiceTypeSerializer());
         module.addSerializer(DomainTeam.class, new TeamSerializer());
@@ -78,6 +84,8 @@ public class BangoApplicationContext {
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
         module.addSerializer(DomainAgent.class, new AgentSerializer());
         module.addSerializer(TroubleReportTemplate.class, new TroubleReportTemplateSerializer());
+//        module.addSerializer(TroubleReportSymptomDTO.class, new TroubleReportSymptomDTOSerializer());
+        module.addSerializer(LineTestSummaryDTO.class, new LineTestSummaryDTOSerializer());
         module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
         module.addSerializer(Queue.class, new QueueSerializer());
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());

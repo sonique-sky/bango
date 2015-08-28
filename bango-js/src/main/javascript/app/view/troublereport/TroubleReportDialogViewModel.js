@@ -26,10 +26,106 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
                 this.set('troubleReportTemplate.twentyFourHourAccess', twentyFourHourAccess);
                 if (twentyFourHourAccess) {
                     this.set('troubleReportTemplate.earliestAccessDate', null);
-                    this.set('troubleReportTemplate.earliestAccessTime', null);
                     this.set('troubleReportTemplate.latestAccessDate', null);
-                    this.set('troubleReportTemplate.latestAccessTime', null);
                 }
+            }
+        },
+        earliestAccessDate: {
+            bind: {
+                bindTo: '{troubleReportTemplate.earliestAccessDate}'
+            },
+            get: function (earliestAccessDate) {
+                return earliestAccessDate;
+            },
+            set: function (earliestAccessDate) {
+                var date = this.get('troubleReportTemplate.earliestAccessDate') || new Date();
+                date.setDate(earliestAccessDate.getDate());
+                date.setMonth(earliestAccessDate.getMonth());
+                date.setYear(earliestAccessDate.getYear());
+                this.set("troubleReportTemplate.earliestAccessDate", date);
+            }
+        },
+        earliestAccessTime: {
+            bind: {
+                bindTo: '{troubleReportTemplate.earliestAccessDate}'
+            },
+            get: function (earliestAccessDate) {
+                return earliestAccessDate;
+            },
+            set: function (earliestAccessDate) {
+                var date = this.get('troubleReportTemplate.earliestAccessDate') || new Date();
+                date.setHours(earliestAccessDate.getHours());
+                date.setMinutes(earliestAccessDate.getMinutes());
+                this.set("troubleReportTemplate.earliestAccessDate", date);
+            }
+        },
+        latestAccessDate: {
+            bind: {
+                bindTo: '{troubleReportTemplate.latestAccessDate}'
+            },
+            get: function (latestAccessDate) {
+                return latestAccessDate;
+            },
+            set: function (latestAccessDate) {
+                var date = this.get('troubleReportTemplate.latestAccessDate') || new Date();
+                date.setDate(latestAccessDate.getDate());
+                date.setMonth(latestAccessDate.getMonth());
+                date.setYear(latestAccessDate.getYear());
+                this.set("troubleReportTemplate.latestAccessDate", date);
+            }
+        },
+        latestAccessTime: {
+            bind: {
+                bindTo: '{troubleReportTemplate.latestAccessDate}'
+            },
+            get: function (latestAccessTime) {
+                return latestAccessTime;
+            },
+            set: function (latestAccessTime) {
+                var date = this.get('troubleReportTemplate.latestAccessDate') || new Date();
+                date.setHours(latestAccessTime.getHours());
+                date.setMinutes(latestAccessTime.getMinutes());
+                this.set("troubleReportTemplate.latestAccessDate", date);
+            }
+        },
+        canRequestDisEngineer: {
+            get: function (get) {
+                return this.get('authenticatedAgent').hasPrivilege('RequestDisEngineer');
+            }
+        }
+        ,
+        canEnterAccessTimes: {
+            bind: {
+                hasAppointmentReference: '{hasAppointmentReference}',
+                twentyFourHourAccess: '{twentyFourHourAccess}'
+            }
+            ,
+            get: function (data) {
+                return !data.hasAppointmentReference && !data.twentyFourHourAccess;
+            }
+        },
+        isFttc: {
+            bind: {
+                bindTo: '{troubleReportTemplate.serviceType}'
+            },
+            get: function (serviceType) {
+                return 'FTTC' === serviceType;
+            }
+        },
+        isNvnVoice: {
+            bind: {
+                bindTo: '{troubleReportTemplate.serviceType}'
+            },
+            get: function (serviceType) {
+                return 'NvnVoice' === serviceType;
+            }
+        },
+        isWlr3: {
+            bind: {
+                bindTo: '{troubleReportTemplate.serviceType}'
+            },
+            get: function (serviceType) {
+                return 'WLR3' === serviceType;
             }
         },
         isRoiFttc: {
@@ -40,18 +136,74 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
                 return 'RoiFttc' === serviceType;
             }
         },
-        canRequestDisEngineer: {
-            get: function (get) {
-                return this.get('authenticatedAgent').hasPrivilege('RequestDisEngineer');
+        isRoi: {
+            bind: {
+                bindTo: '{troubleReportTemplate.serviceType}'
+            },
+            get: function (serviceType) {
+                return 'RoiOffnetVoice' === serviceType
+                    || 'RoiRuralOffnetBroadband' === serviceType || 'RoiUrbanOffnetBroadband' === serviceType
+                    || 'RoiFttc' === serviceType;
             }
         },
-        canEnterAccessTimes: {
+        isRoiBroadband: {
             bind: {
-                hasAppointmentReference: '{hasAppointmentReference}',
-                twentyFourHourAccess: '{twentyFourHourAccess}'
+                bindTo: '{troubleReportTemplate.serviceType}'
             },
-            get: function (data) {
-                return !data.hasAppointmentReference && !data.twentyFourHourAccess;
+            get: function (serviceType) {
+                return 'RoiRuralOffnetBroadband' === serviceType || 'RoiUrbanOffnetBroadband' === serviceType;
+            }
+        },
+        isWlr3OrRoiService: {
+            bind: {
+                bindTo: '{troubleReportTemplate.serviceType}'
+            },
+            get: function (serviceType) {
+                return 'RoiOffnetVoice' === serviceType
+                    || 'RoiRuralOffnetBroadband' === serviceType || 'RoiUrbanOffnetBroadband' === serviceType
+                    || 'RoiFttc' === serviceType
+                    || 'WLR3' === serviceType;
+            }
+        },
+        isCoopEnabledProduct: {
+            bind: {
+                bindTo: '{troubleReportTemplate.testProduct}'
+            },
+            get: function (testProduct) {
+                return 'LL13' === testProduct || 'LL14' === testProduct;
+            }
+        },
+        isDisEnabledProduct: {
+            bind: {
+                bindTo: '{troubleReportTemplate.testProduct}'
+            },
+            get: function (testProduct) {
+                return 'LL1' === testProduct;
+            }
+        },
+        isRaise: {
+            bind: {
+                bindTo: '{troubleReportTemplate}',
+                deep: true
+            },
+            get: function (troubleReportTemplate) {
+                return !troubleReportTemplate.get('cancelRequested') && !troubleReportTemplate.get('amendRequested');
+            }
+        },
+        isRaiseOrRoi: {
+            bind: {
+                bindTo: '{troubleReportTemplate}',
+                deep: true
+            },
+            get: function (troubleReportTemplate) {
+                var serviceType = troubleReportTemplate.get('serviceType');
+                var isRoi = 'RoiOffnetVoice' === serviceType
+                    || 'RoiRuralOffnetBroadband' === serviceType || 'RoiUrbanOffnetBroadband' === serviceType
+                    || 'RoiFttc' === serviceType;
+
+                var isRaiseMode = !troubleReportTemplate.get('cancelRequested') && !troubleReportTemplate.get('amendRequested');
+
+                return isRaiseMode || isRoi;
             }
         }
     }

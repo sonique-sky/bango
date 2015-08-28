@@ -13,18 +13,22 @@ import spm.domain.TroubleReportId;
 import java.util.Collection;
 
 public class StubTroubleReportApiService implements TroubleReportApiService {
+
     private final DomainTroubleReportRepository troubleReportRepository;
     private final DomainServiceProblemRepository serviceProblemRepository;
     private final TroubleReportTemplateFactory troubleReportTemplateFactory;
 
-    public StubTroubleReportApiService(DomainTroubleReportRepository troubleReportRepository, DomainServiceProblemRepository serviceProblemRepository, TroubleReportTemplateFactory troubleReportTemplateFactory) {
+    public StubTroubleReportApiService(
+            DomainTroubleReportRepository troubleReportRepository,
+            DomainServiceProblemRepository serviceProblemRepository,
+            TroubleReportTemplateFactory troubleReportTemplateFactory) {
         this.troubleReportRepository = troubleReportRepository;
         this.serviceProblemRepository = serviceProblemRepository;
         this.troubleReportTemplateFactory = troubleReportTemplateFactory;
     }
 
     @Override
-    public DomainTroubleReport troubleReportFor(TroubleReportId troubleReportId) {
+    public DomainTroubleReport troubleReportWithId(TroubleReportId troubleReportId) {
         return troubleReportRepository.findByTroubleReportId(troubleReportId);
     }
 
@@ -34,7 +38,8 @@ public class StubTroubleReportApiService implements TroubleReportApiService {
     }
 
     @Override
-    public TroubleReportTemplate troubleReportTemplateFor(ServiceProblemId serviceProblemId) {
+    public TroubleReportTemplate templateFor(ServiceProblemId serviceProblemId) {
         return troubleReportTemplateFactory.createFrom(serviceProblemRepository.findByServiceProblemId(serviceProblemId));
     }
+
 }

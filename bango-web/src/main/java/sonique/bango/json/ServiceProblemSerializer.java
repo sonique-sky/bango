@@ -32,6 +32,9 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
         if (serviceProblem.hasWorkItem()) {
             jsonGenerator.writeNumberField("workItemId", serviceProblem.serviceProblemId().asLong());
             jsonGenerator.writeObjectField("workItem", serviceProblem.workItem());
+        } else {
+            jsonGenerator.writeNullField("workItemId");
+            jsonGenerator.writeNullField("workItem");
         }
 
         jsonGenerator.writeObjectField("queue", serviceProblem.getQueue());
