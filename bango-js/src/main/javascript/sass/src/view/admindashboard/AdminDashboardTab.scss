@@ -6,6 +6,10 @@
   background: url('images/user-group.png');
 }
 
+.icon-admin-agents {
+  background: url('images/user-group.png');
+}
+
 .icon-admin-teams-edit {
   background: url('images/page-edit.png')
 }
@@ -14,6 +18,26 @@
   background: url('images/page-add.png')
 }
 
+.icon-admin-teams-delete {
+  background: url('images/page-delete.png')
+}
+
 .icon-reload {
   background-image: url('images/reload.png');
+}
+
+.icon-admin-agent-reassign {
+  background-image: url('images/user-edit.png');
+}
+
+.icon-admin-agent-change-role {
+  background-image: url('images/user-edit.png');
+}
+
+.icon-admin-agent-create {
+  background-image: url('images/user-add.png');
+}
+
+.icon-admin-agent-delete {
+  background-image: url('images/user-delete.png');
 }

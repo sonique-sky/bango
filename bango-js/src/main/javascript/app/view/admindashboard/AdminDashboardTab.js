@@ -3,7 +3,8 @@ Ext.define('Spm.view.admindashboard.AdminDashboardTab', {
     alias: 'widget.adminDashboardTab',
 
     require: [
-        'Spm.view.admindashboard.teams.TeamAdminTab'
+        'Spm.view.admindashboard.teams.TeamAdminTab',
+        'Spm.view.admindashboard.agent.AgentAdminTab'
     ],
 
     title: 'Admin Dashboard',
@@ -13,14 +14,8 @@ Ext.define('Spm.view.admindashboard.AdminDashboardTab', {
     items: [{
         xtype: 'tabpanel',
         items: [
-            {
-                xtype: 'teamAdminTab'
-            },
-            {
-                xtype: 'panel',
-                iconCls: 'icon-admin-dashboard',
-                title: 'Agents'
-            },
+            {xtype: 'teamAdminTab'},
+            {xtype: 'agentAdminTab'},
             {
                 xtype: 'panel',
                 iconCls: 'icon-admin-dashboard',

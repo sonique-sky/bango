@@ -3,6 +3,7 @@ package sonique.bango.controller;
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.domain.model.refdata.Queue;
+import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.service.QueueApiService;
 import sonique.bango.service.TeamApiService;
 import spm.domain.TeamId;
@@ -26,8 +27,8 @@ public class TeamApiController {
     private QueueApiService queueApiService;
 
     @RequestMapping(method = {RequestMethod.GET})
-    public List<DomainTeam> allTeams() {
-        return teamApiService.teams();
+    public PagedSearchResults<DomainTeam> allTeams(@RequestParam Integer start, @RequestParam Integer limit) {
+        return teamApiService.teams(start, limit);
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/{teamId}/unassignedQueues")
@@ -53,4 +54,8 @@ public class TeamApiController {
         return teamApiService.updateTeam(team);
     }
 
+    @RequestMapping(method = {RequestMethod.DELETE}, consumes = {APPLICATION_JSON_VALUE})
+    public DomainTeam deleteTeam(@RequestBody DomainTeam team) {
+        return teamApiService.deleteTeam(team);
+    }
 }
