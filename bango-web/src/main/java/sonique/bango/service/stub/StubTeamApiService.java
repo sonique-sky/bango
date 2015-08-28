@@ -2,10 +2,15 @@ package sonique.bango.service.stub;
 
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.infrastructure.repository.DomainTeamRepository;
+import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sky.sns.spm.validation.SpmError;
+import sky.sns.spm.validation.SupermanException;
 import sonique.bango.service.TeamApiService;
 import spm.domain.TeamId;
 
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 public class StubTeamApiService implements TeamApiService {
 
@@ -16,8 +21,12 @@ public class StubTeamApiService implements TeamApiService {
     }
 
     @Override
-    public List<DomainTeam> teams() {
-        return domainTeamRepository.getTeams();
+    public PagedSearchResults<DomainTeam> teams(Integer start, Integer limit) {
+        List<DomainTeam> allTeams = domainTeamRepository.getTeams();
+        List<DomainTeam> pageOfTeams = allTeams.stream().skip(start).limit(limit)
+                .collect(toList());
+
+        return new PagedSearchResults<>(pageOfTeams, (long) allTeams.size());
     }
 
     @Override
@@ -35,5 +44,10 @@ public class StubTeamApiService implements TeamApiService {
     public DomainTeam updateTeam(DomainTeam team) {
         domainTeamRepository.insert(team);
         return team;
+    }
+
+    @Override
+    public DomainTeam deleteTeam(DomainTeam team) {
+        throw new SupermanException(SpmError.SystemBusy);
     }
 }

@@ -8,7 +8,7 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialog'
     modal: true,
     bodyPadding: 5,
 
-    viewModel: 'queueAssignmentDialog',
+    viewModel: {type: 'queueAssignmentDialog'},
     controller: 'queueAssignmentDialog',
 
     listeners: {

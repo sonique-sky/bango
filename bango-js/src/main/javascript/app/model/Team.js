@@ -26,6 +26,11 @@ Ext.define('Spm.model.Team', {
         type: 'rest',
         appendId: false,
         url: 'api/team',
+        reader: {
+            type: 'json',
+            rootProperty: 'onePageOfSearchResults',
+            totalProperty: 'totalRecordCount'
+        },
         writer: {
             type: 'json',
             writeAllFields: true

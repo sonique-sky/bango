@@ -2,6 +2,7 @@ package sonique.bango.store;
 
 import com.google.common.base.Throwables;
 import sky.sns.spm.domain.model.DomainTeam;
+import sky.sns.spm.domain.model.refdata.TeamBuilder;
 import sky.sns.spm.validation.SpmError;
 import sky.sns.spm.validation.SupermanException;
 import spm.domain.TeamId;
@@ -20,9 +21,13 @@ public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTe
     private long id = 0;
 
     public TeamStore() {
-        insert(new DomainTeam(new TeamName("My favorite Team")));
-        insert(new DomainTeam(new TeamName("My second favorite Team")));
-        insert(new DomainTeam(new TeamName("My least favorite Team")));
+        for (int i = 1; i < 56; i++) {
+            insert(new TeamBuilder()
+                            .with(new TeamName(String.format("Team #%02d", i)))
+                            .with(new TeamId(0L))
+                            .build()
+            );
+        }
     }
 
     @Override
@@ -37,12 +42,15 @@ public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTe
 
     @Override
     public void insert(DomainTeam domainTeam) {
-        Optional<DomainTeam> existingTeam = Optional.ofNullable(domainTeamMap.get(domainTeam.id()));
-
-        if (existingTeam.isPresent()) {
-            if (!existingTeam.get().equals(domainTeam) && isNameDuplicate(domainTeam.name())) {
-                throw new SupermanException(SpmError.TeamAlreadyExists);
+        if (domainTeam.id().asNumber() > 0) {
+            Optional<DomainTeam> existingTeam = Optional.ofNullable(domainTeamMap.get(domainTeam.id()));
+            if (existingTeam.isPresent()) {
+                if (!existingTeam.get().equals(domainTeam) && isNameDuplicate(domainTeam.name())) {
+                    throw new SupermanException(SpmError.TeamAlreadyExists);
+                }
             }
+        } else if (isNameDuplicate(domainTeam.name())) {
+            throw new SupermanException(SpmError.TeamAlreadyExists);
         } else {
             try {
                 Field idField = DomainTeam.class.getDeclaredField("id");
@@ -52,6 +60,7 @@ public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTe
                 Throwables.propagate(e);
             }
         }
+
         domainTeamMap.put(domainTeam.id(), domainTeam);
     }
 

@@ -13,7 +13,7 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTab', {
     iconCls: 'icon-admin-teams',
 
     listeners: {
-        activate: 'onActivated'
+        activate: 'loadStore'
     },
 
     dockedItems: [
@@ -34,6 +34,19 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTab', {
                     tooltip: 'Create a Team',
                     iconCls: 'icon-admin-teams-create',
                     handler: 'createNewTeam'
+                },
+                {
+                    tooltip: 'Delete a Team',
+                    iconCls: 'icon-admin-teams-delete',
+                    handler: 'deleteTeam'
+                },
+                {xtype: 'tbspacer'},
+                {
+                    xtype: 'pagingtoolbar',
+                    border: 0,
+                    bind: {
+                        store: '{teams}'
+                    }
                 }
             ]
         }

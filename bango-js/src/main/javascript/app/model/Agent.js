@@ -28,5 +28,15 @@ Ext.define('Spm.model.Agent', {
 
     hasPrivilege: function(privilege) {
         return Ext.Array.contains(this.get('privileges'), privilege);
+    },
+
+    proxy: {
+        type: 'rest',
+        appendId: false,
+        url: 'api/agent',
+        writer: {
+            type: 'json',
+            writeAllFields: true
+        }
     }
 });
