@@ -6,6 +6,12 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         troubleReportTemplate: null
     },
 
+    stores: {
+        structuredQuestionCodes: {
+            type: 'structuredQuestionCodes'
+        }
+    },
+
     formulas: {
         hasAppointmentReference: {
             bind: {

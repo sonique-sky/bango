@@ -179,11 +179,17 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         },
                         {
                             xtype: 'combobox',
+                            fieldLabel: 'Structured Question Code',
+                            valueField: 'code',
+                            displayField: 'code',
                             bind: {
+                                store: '{structuredQuestionCodes}',
                                 value: '{troubleReportTemplate.structuredQuestionCode}',
                                 hidden: '{!isFttc}'
                             },
-                            fieldLabel: 'Structured Question Code'
+                            typeAhead: true,
+                            queryMode: 'local',
+                            emptyText: 'Select a Structured Question Code...'
                         }
                     ]
                 },
