@@ -6,7 +6,7 @@ Ext.define('Spm.view.admindashboard.agents.AgentAdminTabViewModel', {
         teams: {
             type: 'agents',
             listeners: {
-                //load: 'onTeamStoreLoaded'
+                //load: 'onAgStoreLoaded'
             }
         }
     }

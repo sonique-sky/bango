@@ -34,9 +34,7 @@ Ext.define('Spm.model.WorkItem', {
         },
         {
             name: 'agent',
-            reference: {
-                type: 'Spm.model.Agent'
-            },
+            reference: 'Spm.model.Agent',
             unique: true
         }
     ],

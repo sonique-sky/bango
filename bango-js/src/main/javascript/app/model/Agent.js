@@ -7,33 +7,27 @@ Ext.define('Spm.model.Agent', {
             name: 'code'
         },
         {
-            mapping: 'details.firstName',
-            name: 'firstName'
+            name: 'displayName',
+            mapping: 'details.displayName'
         },
         {
-            mapping: 'details.lastName',
-            name: 'lastName'
-        },
-        {
-            convert: function (v, rec) {
-                return rec.get('firstName') + ' ' + rec.get('lastName');
-            },
-            name: 'displayName'
-        },
-        {
-            mapping: 'role.privileges',
-            name: 'privileges'
+            name: 'role'
         }
     ],
 
-    hasPrivilege: function(privilege) {
-        return Ext.Array.contains(this.get('privileges'), privilege);
+    hasPrivilege: function (privilege) {
+        return Ext.Array.contains(this.get('role').privileges, privilege);
     },
 
     proxy: {
         type: 'rest',
         appendId: false,
         url: 'api/agent',
+        reader: {
+            type: 'json',
+            rootProperty: 'onePageOfSearchResults',
+            totalProperty: 'totalRecordCount'
+        },
         writer: {
             type: 'json',
             writeAllFields: true

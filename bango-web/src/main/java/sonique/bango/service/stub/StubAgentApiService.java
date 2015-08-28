@@ -3,6 +3,7 @@ package sonique.bango.service.stub;
 import sky.sns.spm.domain.model.AgentAvailability;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
@@ -19,10 +20,15 @@ public class StubAgentApiService implements AgentApiService {
 
     private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
     private final DomainServiceProblemRepository serviceProblemRepository;
+    private final DomainAgentRepository agentRepository;
 
-    public StubAgentApiService(SpringSecurityAuthorisedActorProvider authorisedActorProvider, DomainServiceProblemRepository serviceProblemRepository) {
+    public StubAgentApiService(
+            SpringSecurityAuthorisedActorProvider authorisedActorProvider,
+            DomainServiceProblemRepository serviceProblemRepository,
+            DomainAgentRepository agentRepository) {
         this.authorisedActorProvider = authorisedActorProvider;
         this.serviceProblemRepository = serviceProblemRepository;
+        this.agentRepository = agentRepository;
     }
 
     @Override
@@ -52,6 +58,14 @@ public class StubAgentApiService implements AgentApiService {
                 .collect(toList());
 
         return new PagedSearchResults<>(pageOfServiceProblems, (long) serviceProblemsForAgent.size());
+    }
+
+    @Override
+    public PagedSearchResults<DomainAgent> allAgents(Integer start, Integer limit) {
+        List<DomainAgent> allAgents = agentRepository.getAllAgents();
+
+        List<DomainAgent> pageOfAgents = allAgents.stream().skip(start).limit(limit).collect(toList());
+        return new PagedSearchResults<>(pageOfAgents, (long) allAgents.size());
     }
 
     @Override

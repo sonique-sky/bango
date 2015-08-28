@@ -6,7 +6,8 @@ Ext.define('Spm.model.Queue', {
 
     fields: [
         {
-            name: 'id'
+            name: 'id',
+            mapping: 'queueId'
         },
         {
             name: 'name'
