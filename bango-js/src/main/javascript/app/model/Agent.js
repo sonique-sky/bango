@@ -15,6 +15,10 @@ Ext.define('Spm.model.Agent', {
             name: 'role'
         },
         {
+            name: 'team',
+            reference: 'Spm.model.Team'
+        },
+        {
             name: 'teamName',
             mapping: 'team.name'
         },
