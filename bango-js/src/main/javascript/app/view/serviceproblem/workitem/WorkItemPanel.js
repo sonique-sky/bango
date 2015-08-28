@@ -61,8 +61,7 @@ Ext.define('Spm.view.serviceproblem.workitem.WorkItemPanel', {
                                         value: '{workItem.createdDate}'
                                     },
                                     fieldLabel: 'Created Date',
-                                    altFormats: 'd/m/Y H:i:s',
-                                    format: 'd-m-Y H:i',
+                                    format: 'd/m/y H:i',
                                     hideTrigger: true
                                 },
                                 {
@@ -114,7 +113,7 @@ Ext.define('Spm.view.serviceproblem.workitem.WorkItemPanel', {
                                     },
                                     fieldLabel: 'Reminder',
                                     altFormats: 'd/m/Y H:i:s',
-                                    format: 'd-m-Y H:i',
+                                    format: 'd/m/y H:i',
                                     hideTrigger: true
                                 }
                             ]
