@@ -2,46 +2,33 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.bulkTransferDialog',
 
+    controller: 'bulkTransferDialog',
+    viewModel: {type: 'bulkTransferDialog'},
+
+    listeners: {
+        show: 'onShow'
+    },
+
     height: 250,
     width: 450,
     iconCls: 'icon-bulk-transfer',
     title: 'Bulk Transfer',
 
-    controller: 'bulkTransferDialog',
-    viewModel: {
-        type: 'bulkTransferDialog'
-    },
-
-    reference: 'bulkTransferDialog',
-
     items: [
         {
-            id: 'bulkTransferView',
-            xtype: 'dataview',
-            cls: 'bulk-transfer-view',
-            tpl: [
-                '<div id="transfer-queues-group">',
-                '   <tpl for=".">',
-                '      <div id="transfer-{name}" class="queue x-view-item">{name}</div>',
-                '   </tpl>',
-                '</div>'
-            ],
-            itemSelector: 'div.queue',
-            overItemCls: 'x-item-over',
+            xtype: 'grid',
             bind: {
                 store: '{allQueues}'
             },
-            trackOver: true,
-            autoScroll: true,
+            hideHeaders: true,
             margin: 5,
             border: 1,
-            style: {
-                borderColor: '#bcb1b0',
-                borderStyle: 'solid'
-            },
             listeners: {
                 select: 'onTransferQueueSelected'
-            }
+            },
+            columns: [
+                {dataIndex: 'name', flex: 1}
+            ]
         }
     ]
 });

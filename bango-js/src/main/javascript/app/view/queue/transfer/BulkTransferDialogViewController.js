@@ -2,12 +2,8 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialogViewController', {
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.bulkTransferDialog',
 
-    listen: {
-        component: {
-            'bulkTransferDialog': {
-                show: 'onShow'
-            }
-        }
+    onShow: function () {
+        this.getViewModel().getStore('allQueues').load();
     },
 
     onTransferQueueSelected: function (selectionModel, transferQueue) {
@@ -15,7 +11,7 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialogViewController', {
     },
 
     onAllQueuesLoaded: function () {
-        var queueId = this.getViewModel().get('queue').get('id');
+        var queueId = this.getViewModel().originalQueueId();
         var store = this.getViewModel().getStore('allQueues');
 
         store.clearFilter();
@@ -24,38 +20,16 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialogViewController', {
         ]);
     },
 
-    onShow: function () {
-        this.getViewModel().getStore('allQueues').load();
-    },
-
     onAccept: function () {
         var me = this;
-        var viewModel = this.getViewModel();
-        var serviceProblems = viewModel.get('serviceProblems');
-        var originalQueueId = viewModel.get('queue').get('id');
-        var destinationQueueId = viewModel.get('transferQueue').get('id');
 
-        var serviceProblemIds =
-            Ext.Array.map(
-                serviceProblems,
-                function (serviceProblem) {
-                    return serviceProblem.serviceProblemId();
-                }
-            );
-
-        Ext.Ajax.request(
-            {
-                url: 'api/queue/bulkTransfer',
-                jsonData: {
-                    'originalQueueId': originalQueueId,
-                    'destinationQueueId': destinationQueueId,
-                    'serviceProblemIds': serviceProblemIds
-                },
-                success: function (response) {
-                    me.fireEvent('bulkOperationCompleted', response);
-                    me.getView().close();
-                }
+        Ext.Ajax.request({
+            url: 'api/queue/bulkTransfer',
+            jsonData: me.getViewModel().transferData(),
+            success: function (response) {
+                me.fireEvent('bulkOperationCompleted', response);
+                me.getView().close();
             }
-        );
+        });
     }
 });
