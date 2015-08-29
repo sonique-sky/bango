@@ -42,5 +42,4 @@ public class TroubleReportApiController {
     public StructuredQuestionCode[] structuredQuestionCodes() {
         return StructuredQuestionCode.values();
     }
-
 }

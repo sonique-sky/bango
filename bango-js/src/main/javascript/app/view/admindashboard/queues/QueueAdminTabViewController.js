@@ -3,7 +3,7 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewController', {
     alias: 'controller.queueAdminTab',
 
     onActivated: function () {
-        this.getViewModel().getStore('allQueues').load();
+        this.getViewModel().getStore('queues').load();
     },
 
     onQueueStoreLoaded: function (store) {

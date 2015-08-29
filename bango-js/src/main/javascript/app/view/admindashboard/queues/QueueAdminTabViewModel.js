@@ -3,8 +3,8 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewModel', {
     alias: 'viewmodel.queueAdminTab',
 
     stores: {
-        allQueues: {
-            type: 'allQueues',
+        queues: {
+            type: 'queues',
             listeners: {
                 load: 'onQueueStoreLoaded'
             }

@@ -50,7 +50,7 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTab', {
             xtype: 'gridpanel',
             reference: 'queueGrid',
             bind: {
-                store: '{allQueues}'
+                store: '{queues}'
             },
 
             columns: [
