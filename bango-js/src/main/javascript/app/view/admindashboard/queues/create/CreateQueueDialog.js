@@ -32,7 +32,7 @@ Ext.define('Spm.view.admindashboard.queues.create.UpdateQueueDialog', {
                 width: 380,
                 labelWidth: 150,
                 itemId: 'queueSlaHours',
-                fieldLabel: 'SLA (Hours):',
+                fieldLabel: 'SLA (Hours):'
             },
             {
                 xtype: 'combobox',

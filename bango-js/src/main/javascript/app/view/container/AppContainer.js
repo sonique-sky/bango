@@ -4,14 +4,27 @@ Ext.define('Spm.view.container.AppContainer', {
 
     requires: [
         'Ext.tab.Panel',
-        'Ext.data.proxy.Rest',
         'Ext.layout.container.Border',
         'Spm.view.navigation.NavigationPanel',
         'Spm.view.header.AppHeader',
         'Spm.view.header.AppHeaderViewController',
-        'Spm.store.MyItems',
         'Spm.view.myitems.MyItemsTabViewModel',
-        'Spm.view.myitems.MyItemsTabViewController'
+        'Spm.view.myitems.MyItemsTabViewController',
+        'Spm.view.admindashboard.AdminDashboardTab',
+        'Spm.view.admindashboard.agents.AgentAdminTab',
+        'Spm.view.admindashboard.agents.AgentAdminTabViewController',
+        'Spm.view.admindashboard.queues.QueueAdminTab',
+        'Spm.view.admindashboard.queues.QueueAdminTabViewController',
+        'Spm.view.admindashboard.queues.QueueAdminTabViewModel',
+        'Spm.view.admindashboard.teams.TeamAdminTab',
+        'Spm.view.admindashboard.teams.TeamAdminTabViewController',
+        'Spm.view.admindashboard.teams.TeamAdminTabViewModel',
+
+        'Spm.store.MyItems',
+        'Spm.store.Teams',
+
+        'Spm.proxy.UnassignedQueuesProxy',
+        'Spm.proxy.AssignedQueuesProxy'
     ],
 
     controller: 'appContainer',

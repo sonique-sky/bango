@@ -2,10 +2,6 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTab', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.queueAdminTab',
 
-    require: [
-        'Spm.view.admindashboard.queues.QueueAdminTabViewModel'
-    ],
-
     viewModel: 'queueAdminTab',
     controller: 'queueAdminTab',
 
