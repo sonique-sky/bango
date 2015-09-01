@@ -48,9 +48,7 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialog', {
                 },
                 valueField: 'name',
                 displayField: 'name',
-                typeAhead: true,
-                forceSelection: true,
-                queryMode: 'local',
+                editable: false,
                 emptyText: 'Select a Domain...'
             },
             {
