@@ -28,8 +28,10 @@ Ext.define('Spm.view.navigation.state.AgentState', {
         {
             xtype: 'button',
             bind: {
-                text: '{availabilityButtonText}'
-            }
+                text: '{availabilityButtonText}',
+                disabled : '{availabilityButtonDisabled}'
+            },
+            handler: 'toggleAvailability'
         },
         {
             xtype: 'dataview',

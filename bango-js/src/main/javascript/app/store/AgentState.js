@@ -6,6 +6,8 @@ Ext.define('Spm.store.AgentState', {
         'Spm.model.AgentState'
     ],
 
+    model: 'Spm.model.AgentState',
+
     proxy: {
         type: 'ajax',
         url: 'api/agent/agentState',

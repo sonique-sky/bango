@@ -6,16 +6,12 @@ Ext.define('Spm.view.queuedashboard.QueueDashboardTabContent', {
     iconCls: 'icon-queue-dashboard',
     requires: [
         'Spm.view.queuedashboard.ActionToolbar',
-        'Spm.controller.action.queuedashboard.RefreshDashboardAction',
         'Spm.store.QueueDashboardEntries',
         'Ext.grid.Panel',
         'Ext.toolbar.Spacer',
         'Ext.toolbar.Paging'
     ],
 
-    mixins: {
-        isActionContext: 'Spm.controller.mixins.IsActionContext'
-    },
 
     config: {
         queue: undefined
