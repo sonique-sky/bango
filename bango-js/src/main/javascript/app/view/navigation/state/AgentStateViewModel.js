@@ -48,7 +48,7 @@ Ext.define('Spm.view.navigation.state.AgentStateViewModel', {
             availabilityButtonDisabled: {
                 bind: '{authenticatedAgent}',
                 get: function(agent) {
-                    return !agent.hasPrivilege('CanBecomeAvailable');
+                    return !agent || !agent.hasPrivilege('CanBecomeAvailable');
                 }
             }
         }

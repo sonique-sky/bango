@@ -3,7 +3,7 @@ Ext.define('Spm.view.SupermanViewModel', {
     alias: 'viewmodel.superman',
 
     stores: {
-        authenticatedAgent: {
+        authenticatedAgents: {
             type: 'authenticatedAgent',
             listeners: {
                 load: 'onAuthenticatedAgentLoaded'
