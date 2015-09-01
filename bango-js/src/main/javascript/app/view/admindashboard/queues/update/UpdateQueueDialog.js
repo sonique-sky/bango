@@ -43,8 +43,15 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialog', {
                 labelWidth: 150,
                 fieldLabel: 'Domain',
                 bind: {
+                    store: '{queueDomains}',
                     value: '{queue.domain}'
-                }
+                },
+                valueField: 'name',
+                displayField: 'name',
+                typeAhead: true,
+                forceSelection: true,
+                queryMode: 'local',
+                emptyText: 'Select a Domain...'
             },
             {
                 xtype: 'checkbox',
@@ -52,7 +59,7 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialog', {
                 fieldLabel: 'Manual Transfer Allowed:',
                 name: 'manualTransferAllowed',
                 bind: {
-                    value: '{queue.allowManualTransfer}'
+                    value: '{queue.manualTransferAllowed}'
                 }
             },
             {
