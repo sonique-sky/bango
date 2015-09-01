@@ -24,4 +24,5 @@ Ext.define('Spm.proxy.ServiceProblemSearchProxy', {
 
         return format;
     }
-})
+});
+

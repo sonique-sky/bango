@@ -10,7 +10,8 @@ Ext.define('Spm.model.Queue', {
             mapping: 'queueId'
         },
         {
-            name: 'name'
+            name: 'name',
+            critical: true
         }
     ],
 

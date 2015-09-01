@@ -14,20 +14,21 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
     onAccept: function () {
         var me = this;
         var team = this.getViewModel().get('team');
-        team.set('assignedQueues', this.transposedSelectedList());
 
         team.save({
             success: function () {
                 me.getView().close();
             },
             failure: function () {
-                team.reject();
+                me.fireEvent('teamUpdateFailed'); // hack to force update of team grid to remove changes to store
+                //me.destinationStore.rejectChanges();
+                //team.reject(); //doesn't work
             }
         });
     },
 
     onCancel: function () {
-        this.destinationStore.rejectChanges(); //doesn't work
+        //this.destinationStore.rejectChanges(); //doesn't work
         this.fireEvent('teamUpdateFailed'); // hack to force update of team grid to remove changes to store
         this.getView().close();
     },
@@ -59,16 +60,5 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
             }) == -1;
         });
         this.getViewModel().set('currentQueueIds', this.destinationStore.collect('id'));
-    },
-
-    transposedSelectedList: function() {
-          var assignedQueuesArray = [];
-          this.destinationStore.getData().each(function (q) {
-              assignedQueuesArray.push(Ext.create('Spm.model.Queue', {
-                  id: q.queueId(),
-                  name: q.queueName()
-              }));
-          });
-          return assignedQueuesArray;
-      }
+    }
 });

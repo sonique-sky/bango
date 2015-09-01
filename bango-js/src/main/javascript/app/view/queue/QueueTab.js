@@ -3,7 +3,6 @@ Ext.define('Spm.view.queue.QueueTab', {
     alias: 'widget.queueTab',
 
     requires: [
-        'Spm.store.ServiceProblems',
         'Ext.grid.Panel',
         'Ext.toolbar.Spacer',
         'Ext.toolbar.Paging'
