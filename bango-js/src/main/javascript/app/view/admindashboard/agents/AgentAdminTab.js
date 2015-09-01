@@ -2,7 +2,16 @@ Ext.define('Spm.view.admindashboard.agents.AgentAdminTab', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.agentAdminTab',
 
-    viewModel: {type: 'agentAdminTab'},
+    require: [
+        'Spm.view.admindashboard.agents.AgentAdminTabViewModel'
+    ],
+
+    viewModel: 'agentAdminTab',
+    controller: 'agentAdminTab',
+
+    listeners: {
+        activate: 'loadStore'
+    },
 
     title: 'Agents',
     iconCls: 'icon-admin-agents',
@@ -49,24 +58,37 @@ Ext.define('Spm.view.admindashboard.agents.AgentAdminTab', {
     items: [
         {
             xtype: 'gridpanel',
+            border: 0,
+            reference: 'agentGrid',
             bind: {
                 store: '{agents}'
             },
             columns: [
                 {
                     text: 'Agent',
-                    dataIndex: 'code'
+                    dataIndex: 'code',
+                    flex: 0.25
+                },
+                {
+                    text: 'Name',
+                    dataIndex: 'displayName',
+                    flex: 0.25
                 },
                 {
                     text: 'Team',
-                    dataIndex: 'team'
+                    dataIndex: 'teamName',
+                    hidden: true,
+                    flex: 0.25
                 },
                 {
                     text: 'Role',
-                    dataIndex: 'role'
+                    dataIndex: 'roleName',
+                    flex: 0.25
                 }
+            ],
+            features: [
+                {ftype: 'grouping', enableNoGroups: false, enableGroupingMenu: false}
             ]
         }
     ]
-
 });

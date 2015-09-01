@@ -8,7 +8,6 @@ Ext.define('Spm.view.navigation.queues.Queues', {
     maxHeight: 300,
     overflowY: 'auto',
 
-    viewModel: {type: 'myQueues'},
     controller: 'myQueues',
 
     reference: 'myQueues',

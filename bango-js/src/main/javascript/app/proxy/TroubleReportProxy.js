@@ -16,5 +16,4 @@ Ext.define('Spm.proxy.TroubleReportProxy', {
             return Ext.String.format('api/troubleReport/template/serviceProblemId/{0}', id);
         }
     }
-
 });

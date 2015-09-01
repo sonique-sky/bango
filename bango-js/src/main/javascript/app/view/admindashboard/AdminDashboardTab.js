@@ -4,6 +4,7 @@ Ext.define('Spm.view.admindashboard.AdminDashboardTab', {
 
     require: [
         'Spm.view.admindashboard.teams.TeamAdminTab',
+        'Spm.view.admindashboard.teams.QueueAdminTab',
         'Spm.view.admindashboard.agent.AgentAdminTab'
     ],
 
@@ -21,11 +22,7 @@ Ext.define('Spm.view.admindashboard.AdminDashboardTab', {
                 iconCls: 'icon-admin-dashboard',
                 title: 'Problem Categories'
             },
-            {
-                xtype: 'panel',
-                iconCls: 'icon-admin-dashboard',
-                title: 'Queues'
-            }
+            {xtype: 'queueAdminTab'}
         ]
     }]
 });

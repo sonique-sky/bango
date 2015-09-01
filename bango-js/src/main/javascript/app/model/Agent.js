@@ -4,7 +4,8 @@ Ext.define('Spm.model.Agent', {
 
     fields: [
         {
-            name: 'code'
+            name: 'code',
+            mapping: 'agentCode'
         },
         {
             name: 'displayName',
@@ -12,6 +13,18 @@ Ext.define('Spm.model.Agent', {
         },
         {
             name: 'role'
+        },
+        {
+            name: 'team',
+            reference: 'Spm.model.Team'
+        },
+        {
+            name: 'teamName',
+            mapping: 'team.name'
+        },
+        {
+            name: 'roleName',
+            mapping: 'role.description'
         }
     ],
 

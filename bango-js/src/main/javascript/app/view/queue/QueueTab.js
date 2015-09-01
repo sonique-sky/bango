@@ -3,19 +3,14 @@ Ext.define('Spm.view.queue.QueueTab', {
     alias: 'widget.queueTab',
 
     requires: [
-        'Spm.view.queue.QueueTabToolbar',
         'Spm.store.ServiceProblems',
         'Ext.grid.Panel',
         'Ext.toolbar.Spacer',
         'Ext.toolbar.Paging'
     ],
 
-    border: 0,
-
     controller: 'queueTab',
     viewModel: {type: 'queueTab'},
-    closable: true,
-    iconCls: 'icon-queue',
 
     listeners: {
         activate: 'onQueueTabActivated',
@@ -24,32 +19,54 @@ Ext.define('Spm.view.queue.QueueTab', {
         added: 'onQueueTabAdded'
     },
 
+    border: 0,
+    closable: true,
+    iconCls: 'icon-queue',
+
     bind: {
         title: '{queue.name}'
     },
 
-    dockedItems: [
-        {
-            xtype: 'container',
-            layout: {type: 'hbox', align: 'stretch'},
-            dock: 'top',
-            defaults: {
-                border: 0
+    dockedItems: [{
+        xtype: 'toolbar',
+        items: [
+            {
+                xtype: 'button',
+                text: 'Select All',
+                handler: 'onSelectAll'
             },
-            items: [
-                {
-                    xtype: 'queueTabToolbar'
-                },
-                {
-                    xtype: 'pagingtoolbar',
-                    flex: 1.0,
-                    bind: {
-                        store: '{queuedServiceProblems}'
-                    }
+            {
+                xtype: 'button',
+                text: 'Deselect All',
+                handler: 'onDeselectAll'
+            },
+            {
+                xtype: 'button',
+                text: 'Transfer',
+                handler: 'onBulkTransfer',
+                bind: {
+                    disabled: '{bulkTransferDisabled}'
                 }
-            ]
-        }
-    ],
+            },
+            {
+                xtype: 'button',
+                text: 'Clear',
+                handler: 'onBulkClear',
+                bind: {
+                    disabled: '{bulkClearDisabled}'
+                }
+            },
+            {xtype: 'tbspacer'},
+            {
+                xtype: 'pagingtoolbar',
+                flex: 1.0,
+                border: 0,
+                bind: {
+                    store: '{queuedServiceProblems}'
+                }
+            }
+        ]
+    }],
 
     items: [
         {
@@ -78,16 +95,8 @@ Ext.define('Spm.view.queue.QueueTab', {
                 {
                     text: 'Work Item',
                     columns: [
-                        {
-                            xtype: 'templatecolumn',
-                            tpl: '{workItem.status}',
-                            text: 'Work Item Status'
-                        },
-                        {
-                            xtype: 'templatecolumn',
-                            tpl: '{workItem.agent.displayName}',
-                            text: 'Agent'
-                        }
+                        {xtype: 'templatecolumn', tpl: '{workItem.status}', text: 'Work Item Status'},
+                        {xtype: 'templatecolumn', tpl: '{workItem.agent.displayName}', text: 'Agent'}
                     ]
                 }
             ]

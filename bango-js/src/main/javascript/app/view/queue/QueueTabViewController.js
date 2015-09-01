@@ -14,18 +14,10 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
                 serviceProblemPulled: 'onServiceProblemPulled',
                 serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
             },
-            'workReminderDialog':{
+            'workReminderDialog': {
                 workReminderCreated: 'onWorkReminderCreated'
             }
         }
-        //component: {
-        //    'queueTab': {
-        //        activate: 'onQueueTabActivated',
-        //        deactivate: 'onQueueTabDeactivated',
-        //        close: 'onQueueTabClosed',
-        //        added: 'onQueueTabAdded'
-        //    }
-        //}
     },
 
     onCellClicked: function (view, td, cellIndex, record) {
@@ -87,13 +79,11 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     },
 
     onBulkTransfer: function () {
-        var selectedServiceProblems = this.selectedServiceProblems();
-
         var dialog = this.getView().add({
             xtype: 'bulkTransferDialog',
             viewModel: {
                 data: {
-                    serviceProblems: selectedServiceProblems
+                    serviceProblemIds: this.selectedServiceProblemIds()
                 }
             }
         });
@@ -102,27 +92,34 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     },
 
     onBulkClear: function () {
+        var me = this;
         var selectedServiceProblems = this.selectedServiceProblems();
         var hasActiveTroubleReports = this.hasActiveTroubleReports(selectedServiceProblems);
-        var theMessage;
 
-        if (hasActiveTroubleReports) {
-            theMessage = 'One or more of the selected Service Problems has an active Trouble Report.<br/><br/>Are you sure you wish to continue?';
-        } else {
-            theMessage = 'Are you sure you wish to clear these Service Problems?';
-        }
+        var theMessage = (hasActiveTroubleReports)
+                ? 'One or more of the selected Service Problems has an active Trouble Report.<br/><br/>Are you sure you wish to continue?'
+                : 'Are you sure you wish to clear these Service Problems?';
 
-        var dialog = this.getView().add({
-            xtype: 'bulkClearDialog',
-            viewModel: {
-                data: {
-                    message: theMessage,
-                    acceptButtonDefaultDisabled: false,
-                    serviceProblems: selectedServiceProblems
+        Ext.Msg.show({
+            title: 'Bulk Clear',
+            msg: theMessage,
+            iconCls: 'icon-bulk-clear',
+            buttons: Ext.Msg.OKCANCEL,
+
+            fn: function (btn) {
+                if (btn === 'ok') {
+                    Ext.Ajax.request({
+                        url: 'api/queue/bulkClear',
+                        jsonData: {
+                            originalQueueId: me.queueId(),
+                            serviceProblemIds: me.selectedServiceProblemIds()
+                        },
+                        success: me.onBulkOperationCompleted,
+                        scope: me
+                    });
                 }
             }
         });
-        dialog.show();
     },
 
     queueId: function () {
@@ -137,15 +134,23 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         return this.gridSelectionModel().getSelection();
     },
 
-    hasActiveTroubleReports: function (selectedServiceProblems) {
-        var serviceProblemsWithTroubleReports = Ext.Array.each(selectedServiceProblems, function (serviceProblem) {
-            return serviceProblem.get('hasActiveTroubleReport');
-        });
-
-        return serviceProblemsWithTroubleReports.length > 0;
+    selectedServiceProblemIds: function () {
+        return Ext.Array.map(this.selectedServiceProblems(),
+                function (serviceProblem) {
+                    return serviceProblem.serviceProblemId();
+                }
+        );
     },
 
-    loadQueuedServiceProblems: function(){
+    hasActiveTroubleReports: function (selectedServiceProblems) {
+        return Ext.Array.some(selectedServiceProblems,
+                function (serviceProblem) {
+                    return serviceProblem.get('hasActiveTroubleReport');
+                }
+        );
+    },
+
+    loadQueuedServiceProblems: function () {
         this.getViewModel().getStore('queuedServiceProblems').load();
     }
 });

@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toList;
 
 public class TeamStore implements sky.sns.spm.infrastructure.repository.DomainTeamRepository {
     private Map<TeamId, DomainTeam> domainTeamMap = new HashMap<>();
-    private long id = 0;
+    private long id = 1;
 
     public TeamStore() {
         for (int i = 1; i < 56; i++) {

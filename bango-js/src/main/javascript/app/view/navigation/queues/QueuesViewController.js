@@ -24,14 +24,14 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
         this.getView().setVisible(hasAssignedQueues);
 
         if (hasAssignedQueues) {
-            var queueStore = this.getStore('agentQueues');
-            queueStore.loadRawData(authenticatedAgent.getData());
+            var agentQueues = authenticatedAgent.getTeam().assignedQueues();
+            this.getViewModel().set('agentQueues', agentQueues);
         }
     },
 
     onQueueTabSelected: function (queueId) {
         var dataView = this.lookupReference('myQueuesDataView');
-        var agentQueues = this.getViewModel().getStore('agentQueues');
+        var agentQueues = this.getViewModel().get('agentQueues');
         var index = agentQueues.indexOfId(queueId);
 
         dataView.getSelectionModel().select(index, false, true);
@@ -39,7 +39,7 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
 
     onQueueTabClosed: function (queueId) {
         var dataView = this.lookupReference('myQueuesDataView');
-        var agentQueues = this.getViewModel().getStore('agentQueues');
+        var agentQueues = this.getViewModel().get('agentQueues');
         var index = agentQueues.indexOfId(queueId);
 
         dataView.getSelectionModel().deselect(index, true);
@@ -47,7 +47,7 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
 
     onQueueTabDeselected: function () {
         var dataView = this.lookupReference('myQueuesDataView');
-        var agentQueues = this.getViewModel().getStore('agentQueues');
+        var agentQueues = this.getViewModel().get('agentQueues');
 
         dataView.getSelectionModel().deselectAll(true);
     }

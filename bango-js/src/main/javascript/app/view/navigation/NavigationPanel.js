@@ -6,9 +6,7 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
         'Spm.view.navigation.state.AgentState',
         'Spm.view.navigation.state.AgentStateViewModel',
         'Spm.view.navigation.state.AgentStateViewController',
-        'Spm.store.AgentQueues',
         'Spm.view.navigation.queues.Queues',
-        'Spm.view.navigation.queues.QueuesViewModel',
         'Spm.view.navigation.queues.QueuesViewController',
         'Spm.view.navigation.search.Search',
         'Spm.view.navigation.search.SearchViewModel',
@@ -37,5 +35,4 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
             collapsible: true
         }
     ]
-
 });

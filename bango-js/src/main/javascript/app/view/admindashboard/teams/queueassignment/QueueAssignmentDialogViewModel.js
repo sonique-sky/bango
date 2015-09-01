@@ -1,23 +1,30 @@
 Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialogViewModel', {
     extend: 'Spm.component.StandardDialogViewModel',
-    alias: 'viewmodel.queueAssignmentDialog',
+    alias: 'viewmodel.queueAssignment',
 
     stores: {
-        unassignedQueues: Ext.create("Ext.data.Store", {
-            model: 'Spm.model.Queue',
-            proxy: 'unassignedQueuesProxy',
-            autoLoad: false,
-            autoSync: false
-
-        }),
-        assignedQueues: Ext.create("Ext.data.Store", {
-            model: 'Spm.model.Queue',
-            proxy: 'assignedQueuesProxy',
-            autoLoad: false,
-            autoSync: false
-        })
+        sourceStore: {
+            type: 'queues',
+            autoLoad: true
+        }
     },
+
     data: {
-        team: null
+        team: null,
+        initialQueueIds: [],
+        currentQueueIds: [],
+        acceptButtonDisabled: false
+    },
+
+    formulas: {
+        acceptButtonDefaultDisabled: {
+            bind: {
+                initial: '{initialQueueIds}',
+                current: '{currentQueueIds}'
+            },
+            get: function (ids) {
+                return Ext.Array.equals(ids.initial, ids.current)
+            }
+        }
     }
 });
