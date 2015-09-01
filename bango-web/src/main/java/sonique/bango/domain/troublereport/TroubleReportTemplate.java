@@ -1,6 +1,7 @@
 package sonique.bango.domain.troublereport;
 
 import sky.sns.spm.domain.model.diagnostic.sqc.StructuredQuestionCode;
+import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.TestProduct;
 import sky.sns.spm.domain.model.troublereport.TroubleReportStatus;
 import sky.sns.spm.web.spmapp.shared.dto.LineTestSummaryDTO;
@@ -14,6 +15,7 @@ import java.util.Date;
 public class TroubleReportTemplate {
 
     private final ServiceProblemId serviceProblemId;
+    private final ServiceType serviceType;
     private final TroubleReportId troubleReportId;
     private final SnsServiceId serviceId;
     private final LineTestSummaryDTO lineTestSummary;
@@ -48,6 +50,7 @@ public class TroubleReportTemplate {
 
     public TroubleReportTemplate(
             ServiceProblemId serviceProblemId,
+            ServiceType serviceType,
             TroubleReportId troubleReportId,
             SnsServiceId serviceId,
             LineTestSummaryDTO lineTestSummary,
@@ -80,6 +83,7 @@ public class TroubleReportTemplate {
             StructuredQuestionCode structuredQuestionCode,
             TroubleReportSymptomDTO symptom) {
         this.serviceProblemId = serviceProblemId;
+        this.serviceType = serviceType;
         this.troubleReportId = troubleReportId;
         this.serviceId = serviceId;
         this.lineTestSummary = lineTestSummary;
@@ -239,5 +243,9 @@ public class TroubleReportTemplate {
 
     public TroubleReportSymptomDTO symptom() {
         return symptom;
+    }
+
+    public ServiceType serviceType() {
+        return serviceType;
     }
 }

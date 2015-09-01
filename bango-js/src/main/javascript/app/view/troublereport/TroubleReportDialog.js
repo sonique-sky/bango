@@ -20,10 +20,15 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
     width: 1000,
     minHeight: 200,
 
+    listeners: {
+        show: 'onShow'
+    },
+
     items: [
         // +++++= Remove when layout done
         {
             xtype: 'combobox',
+            reference: 'serviceType',
             displayField: 'serviceType',
             valueField: 'serviceType',
             store: {
@@ -42,10 +47,13 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                 ]
             },
             bind: {
-                value: '{troubleReportTemplate.serviceType}'
+                value: '{troubleReportTemplate.serviceType.code}'
             },
-            dock: 'top'
-
+            dock: 'top',
+            forceSelection: true,
+            listeners: {
+                'select': 'onShow'
+            }
         },
         // +++++=
         {
@@ -130,13 +138,21 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                 labelAlign: 'right'
                             }]
                         },
+
                         {
                             xtype: 'combobox',
                             bind: {
+                                store: '{testProducts}',
                                 value: '{troubleReportTemplate.testProduct}',
                                 hidden: '{isWlr3OrRoiService}'
                             },
-                            fieldLabel: 'Test Product'
+                            fieldLabel: 'Test Product',
+                            valueField: 'code',
+                            displayField: 'code',
+                            typeAhead: true,
+                            forceSelection: true,
+                            queryMode: 'local',
+                            emptyText: 'Select a Test Product...'
                         },
                         {
                             xtype: 'fieldcontainer',
@@ -155,7 +171,8 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                     labelAlign: 'right',
                                     bind: {
                                         disabled: '{!isCoopEnabledProduct}'
-                                    }
+                                    },
+                                    padding: '0 10 0 0'
                                 },
                                 {
                                     xtype: 'checkbox',
@@ -188,6 +205,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                 hidden: '{!isFttc}'
                             },
                             typeAhead: true,
+                            forceSelection: true,
                             queryMode: 'local',
                             emptyText: 'Select a Structured Question Code...'
                         }

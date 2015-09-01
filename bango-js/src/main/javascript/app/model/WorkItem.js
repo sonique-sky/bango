@@ -52,6 +52,6 @@ Ext.define('Spm.model.WorkItem', {
     },
 
     isAssignedTo: function (agent) {
-        return this.getAgent() && this.getAgent().get('code') === agent.get('code');
+        return this.getAgent() && this.getAgent().get('agentCode') === agent.get('agentCode');
     }
 });

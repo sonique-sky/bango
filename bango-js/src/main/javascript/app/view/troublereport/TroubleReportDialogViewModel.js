@@ -9,6 +9,9 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
     stores: {
         structuredQuestionCodes: {
             type: 'structuredQuestionCodes'
+        },
+        testProducts: {
+            type: 'testProducts'
         }
     },
 
@@ -112,7 +115,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         },
         isFttc: {
             bind: {
-                bindTo: '{troubleReportTemplate.serviceType}'
+                bindTo: '{troubleReportTemplate.serviceType.code}'
             },
             get: function (serviceType) {
                 return 'FTTC' === serviceType;
@@ -120,7 +123,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         },
         isNvnVoice: {
             bind: {
-                bindTo: '{troubleReportTemplate.serviceType}'
+                bindTo: '{troubleReportTemplate.serviceType.code}'
             },
             get: function (serviceType) {
                 return 'NvnVoice' === serviceType;
@@ -128,7 +131,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         },
         isWlr3: {
             bind: {
-                bindTo: '{troubleReportTemplate.serviceType}'
+                bindTo: '{troubleReportTemplate.serviceType.code}'
             },
             get: function (serviceType) {
                 return 'WLR3' === serviceType;
@@ -136,7 +139,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         },
         isRoiFttc: {
             bind: {
-                bindTo: '{troubleReportTemplate.serviceType}'
+                bindTo: '{troubleReportTemplate.serviceType.code}'
             },
             get: function (serviceType) {
                 return 'RoiFttc' === serviceType;
@@ -144,7 +147,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         },
         isRoi: {
             bind: {
-                bindTo: '{troubleReportTemplate.serviceType}'
+                bindTo: '{troubleReportTemplate.serviceType.code}'
             },
             get: function (serviceType) {
                 return 'RoiOffnetVoice' === serviceType
@@ -154,7 +157,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         },
         isRoiBroadband: {
             bind: {
-                bindTo: '{troubleReportTemplate.serviceType}'
+                bindTo: '{troubleReportTemplate.serviceType.code}'
             },
             get: function (serviceType) {
                 return 'RoiRuralOffnetBroadband' === serviceType || 'RoiUrbanOffnetBroadband' === serviceType;
@@ -162,7 +165,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         },
         isWlr3OrRoiService: {
             bind: {
-                bindTo: '{troubleReportTemplate.serviceType}'
+                bindTo: '{troubleReportTemplate.serviceType.code}'
             },
             get: function (serviceType) {
                 return 'RoiOffnetVoice' === serviceType
@@ -176,15 +179,19 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
                 bindTo: '{troubleReportTemplate.testProduct}'
             },
             get: function (testProduct) {
-                return 'LL13' === testProduct || 'LL14' === testProduct;
+                 return 'LL13' === testProduct || 'LL14' === testProduct;
             }
         },
         isDisEnabledProduct: {
             bind: {
-                bindTo: '{troubleReportTemplate.testProduct}'
+                bindTo: '{troubleReportTemplate}',
+                deep: true
             },
-            get: function (testProduct) {
-                return 'LL1' === testProduct;
+            get: function (troubleReportTemplate) {
+                var serviceType = troubleReportTemplate.get('serviceType');
+                var testProduct = troubleReportTemplate.get('testProduct');
+
+                return 'LL1' === testProduct && 'NvnVoice' === serviceType.code;
             }
         },
         isRaise: {
@@ -203,9 +210,9 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
             },
             get: function (troubleReportTemplate) {
                 var serviceType = troubleReportTemplate.get('serviceType');
-                var isRoi = 'RoiOffnetVoice' === serviceType
-                    || 'RoiRuralOffnetBroadband' === serviceType || 'RoiUrbanOffnetBroadband' === serviceType
-                    || 'RoiFttc' === serviceType;
+                var isRoi = 'RoiOffnetVoice' === serviceType.code
+                    || 'RoiRuralOffnetBroadband' === serviceType.code || 'RoiUrbanOffnetBroadband' === serviceType.code
+                    || 'RoiFttc' === serviceType.code;
 
                 var isRaiseMode = !troubleReportTemplate.get('cancelRequested') && !troubleReportTemplate.get('amendRequested');
 

@@ -1,6 +1,7 @@
 package sonique.bango.domain.troublereport;
 
 import sky.sns.spm.domain.model.diagnostic.sqc.StructuredQuestionCode;
+import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.TestProduct;
 import sky.sns.spm.domain.model.troublereport.TroubleReportAttributes;
 import sky.sns.spm.domain.model.troublereport.TroubleReportStatus;
@@ -48,9 +49,44 @@ public class TroubleReportTemplateBuilder {
     private Date latestAccessDate;
     private StructuredQuestionCode structuredQuestionCode;
     private TroubleReportSymptomDTO symptom;
+    private ServiceType serviceType;
 
     public TroubleReportTemplate build() {
-        return new TroubleReportTemplate(serviceProblemId, troubleReportId, serviceId, lineTestSummary, providerReference, btReference, description, testProduct, appointmentReference, accessHazards, accessNotes, contactName, contactNumber, secondaryContactName, secondaryContactNumber, cancelRequested, amendRequested, confirmEquipmentDisconnectedRequested, broadbandFault, twentyFourHourAccess, coopCallRequested, disRequested, isResponseRequired, intermittentProblem, notes, status, upperTrcBand, temporaryCallDiversionNumber, earliestAccessDate, latestAccessDate, structuredQuestionCode, symptom);
+        return new TroubleReportTemplate(
+                serviceProblemId,
+                serviceType,
+                troubleReportId,
+                serviceId,
+                lineTestSummary,
+                providerReference,
+                btReference,
+                description,
+                testProduct,
+                appointmentReference,
+                accessHazards,
+                accessNotes,
+                contactName,
+                contactNumber,
+                secondaryContactName,
+                secondaryContactNumber,
+                cancelRequested,
+                amendRequested,
+                confirmEquipmentDisconnectedRequested,
+                broadbandFault,
+                twentyFourHourAccess,
+                coopCallRequested,
+                disRequested,
+                isResponseRequired,
+                intermittentProblem,
+                notes,
+                status,
+                upperTrcBand,
+                temporaryCallDiversionNumber,
+                earliestAccessDate,
+                latestAccessDate,
+                structuredQuestionCode,
+                symptom
+        );
     }
 
     public TroubleReportTemplateBuilder with(ServiceProblemId serviceProblemId) {
@@ -230,6 +266,11 @@ public class TroubleReportTemplateBuilder {
 
         withTemporaryCallDiversionNumber(attributes.valueAsString(TemporaryCallDiversionNumber));
 
+        return this;
+    }
+
+    public TroubleReportTemplateBuilder withServiceType(ServiceType serviceType) {
+        this.serviceType = serviceType;
         return this;
     }
 }

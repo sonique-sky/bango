@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import sky.sns.spm.domain.model.diagnostic.sqc.StructuredQuestionCode;
+import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
+import sky.sns.spm.domain.model.troublereport.TestProduct;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.service.TroubleReportApiService;
 import spm.domain.ServiceProblemId;
@@ -41,6 +43,11 @@ public class TroubleReportApiController {
     @RequestMapping(value = "/template/structuredQuestionCodes", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public StructuredQuestionCode[] structuredQuestionCodes() {
         return StructuredQuestionCode.values();
+    }
+
+    @RequestMapping(value = "/template/testProducts/{serviceType}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public Collection<TestProduct> testProducts(@PathVariable ServiceType serviceType) {
+        return TestProduct.allValidFor(serviceType);
     }
 
 }

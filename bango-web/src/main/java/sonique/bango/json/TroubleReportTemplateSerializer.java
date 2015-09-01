@@ -15,6 +15,7 @@ public class TroubleReportTemplateSerializer extends JsonSerializer<TroubleRepor
         jsonGenerator.writeObjectField("serviceProblemId", troubleReportTemplate.serviceProblemId());
 
         jsonGenerator.writeObjectField("troubleReportId", troubleReportTemplate.troubleReportId());
+        jsonGenerator.writeObjectField("serviceType", troubleReportTemplate.serviceType());
         jsonGenerator.writeObjectField("serviceId", troubleReportTemplate.serviceId());
         jsonGenerator.writeStringField("providerReference", troubleReportTemplate.providerReference());
         jsonGenerator.writeStringField("btReference", troubleReportTemplate.btReference());

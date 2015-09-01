@@ -8,6 +8,7 @@ import java.util.Date;
 
 import static sonique.datafixtures.DateTimeDataFixtures.someDateTimeInTheNextYear;
 import static sonique.datafixtures.PrimitiveDataFixtures.*;
+import static util.SupermanDataFixtures.someValidTestProductFor;
 
 public class TroubleReportTemplateFactory {
 
@@ -21,6 +22,8 @@ public class TroubleReportTemplateFactory {
                 .withLineTestSummary(new LineTestSummaryDTO(someString(), someString(), someString(), someBoolean(), someBoolean(), someBoolean()))
                 .withEarliestAccessDate(Date.from(someDateTimeInTheNextYear().toInstant()))
                 .withLatestAccessDate(Date.from(someDateTimeInTheNextYear().toInstant()))
+                .withServiceType(serviceProblem.getServiceType())
+                .withTestProduct(someValidTestProductFor(serviceProblem.getServiceType()))
                 .build();
     }
 
