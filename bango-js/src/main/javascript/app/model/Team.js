@@ -36,5 +36,9 @@ Ext.define('Spm.model.Team', {
             type: 'json',
             writeAllFields: true
         }
+    },
+
+    teamId: function() {
+        return this.get('id');
     }
 });

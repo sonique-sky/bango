@@ -18,6 +18,9 @@ Ext.define('Spm.model.Queue', {
         type: 'rest',
         appendId: false,
         url: 'api/queue',
+        reader: {
+            type: 'json'
+        },
         writer: {
             type: 'json',
             writeAllFields: true

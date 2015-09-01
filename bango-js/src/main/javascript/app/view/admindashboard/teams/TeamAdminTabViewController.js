@@ -2,8 +2,20 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.teamAdminTab',
 
+    listen: {
+        controller: {
+            'queueAssignment' : {
+                teamUpdateFailed: 'reloadStore'
+            }
+        }
+    },
+
     loadStore: function () {
-        this.getViewModel().getStore('teams').load();
+        this.getStore('teams').load();
+    },
+
+    reloadStore: function () {
+        this.getStore('teams').reload();
     },
 
     onTeamStoreLoaded: function (store) {
@@ -24,8 +36,11 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
 
     assignQueuesToTeam: function () {
         var dialog = this.getView().add({
-            xtype: 'queueAssignmentDialog',
+            xtype: 'queueAssignment',
             viewModel: {
+                stores: {
+                    destinationStore: this.selectedTeam().assignedQueues()
+                },
                 data: {
                     team: this.selectedTeam()
                 }
@@ -48,10 +63,7 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
                 if ('yes' == buttonId) {
                     selectedTeam.drop();
                     selectedTeam.save({
-                        success: function (team){
-
-                        },
-                        failure: function (resp){
+                        failure: function () {
                             me.loadStore();
                         }
                     });

@@ -21,10 +21,7 @@ Ext.define('Spm.view.container.AppContainer', {
         'Spm.view.admindashboard.teams.TeamAdminTabViewModel',
 
         'Spm.store.MyItems',
-        'Spm.store.Teams',
-
-        'Spm.proxy.UnassignedQueuesProxy',
-        'Spm.proxy.AssignedQueuesProxy'
+        'Spm.store.Teams'
     ],
 
     controller: 'appContainer',
