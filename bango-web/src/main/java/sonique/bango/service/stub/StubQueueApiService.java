@@ -13,8 +13,10 @@ import sonique.bango.service.QueueApiService;
 import spm.domain.ServiceProblemId;
 
 import java.util.Collection;
+import java.util.List;
 
 import static com.google.common.collect.Collections2.transform;
+import static java.util.stream.Collectors.toList;
 import static util.SupermanDataFixtures.someServiceProblemResolution;
 
 public class StubQueueApiService implements QueueApiService {
@@ -30,8 +32,14 @@ public class StubQueueApiService implements QueueApiService {
     }
 
     @Override
-    public Collection<Queue> allQueues() {
-        return queueRepository.getAllQueues();
+    public PagedSearchResults<Queue> allQueues(Integer start, Integer limit) {
+        List<Queue> allQueues = queueRepository.getAllQueues();
+        List<Queue> pageOfQueues = allQueues.stream()
+                .skip(start)
+                .limit(limit)
+                .collect(toList());
+
+        return new PagedSearchResults<>(pageOfQueues, (long) allQueues.size());
     }
 
     @Override

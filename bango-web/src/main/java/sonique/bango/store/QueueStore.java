@@ -18,8 +18,12 @@ public class QueueStore implements QueueRepository {
 
     public QueueStore() {
         allQueues = newArrayList();
-        for (int i = 0; i < 10; i++) {
-            allQueues.add(new QueueBuilder().build());
+        for (int i = 0; i < 100; i++) {
+            if (i % 2 == 0) {
+                allQueues.add(new QueueBuilder().withCreateDefaultWorkItem().build());
+            } else {
+                allQueues.add(new QueueBuilder().withAllowsManualTransfers().build());
+            }
         }
     }
 

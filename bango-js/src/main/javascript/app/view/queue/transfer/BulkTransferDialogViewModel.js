@@ -3,8 +3,8 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialogViewModel', {
     alias: 'viewmodel.bulkTransferDialog',
 
     stores: {
-        allQueues: {
-            type: 'allQueues',
+        queues: {
+            type: 'queues',
             listeners: {
                 load: 'onAllQueuesLoaded'
             }

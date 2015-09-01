@@ -18,7 +18,7 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialog', {
         {
             xtype: 'grid',
             bind: {
-                store: '{allQueues}'
+                store: '{queues}'
             },
             hideHeaders: true,
             margin: 5,

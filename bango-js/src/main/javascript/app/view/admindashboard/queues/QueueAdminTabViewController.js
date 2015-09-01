@@ -10,15 +10,24 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewController', {
         this.lookupReference('queueGrid').setSelection(store.first());
     },
 
-    updateQueue: function() {
+    selectedQueue: function () {
+        return this.lookupReference('queueGrid').getSelectionModel().getSelection()[0];
+    },
+
+    updateQueue: function () {
         var dialog = this.getView().add({
-            xtype: 'updateQueueDialog'
+            xtype: 'updateQueueDialog',
+            viewModel: {
+                data: {
+                    queue: this.selectedQueue()
+                }
+            }
         });
 
         dialog.show();
     },
 
-    createNewQueue: function() {
+    createNewQueue: function () {
         var dialog = this.getView().add({
             xtype: 'createQueueDialog'
         });
@@ -26,11 +35,15 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewController', {
         dialog.show();
     },
 
-    deleteQueue: function() {
+    deleteQueue: function () {
         var dialog = this.getView().add({
             xtype: 'deleteQueueDialog'
         });
 
         dialog.show();
+    },
+
+    renderYesNoValue: function (value) {
+        return value === true ? 'Yes' : 'No';
     }
 });

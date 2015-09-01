@@ -9,7 +9,6 @@ import sonique.bango.domain.request.BulkTransferRequest;
 import sonique.bango.service.QueueApiService;
 
 import javax.annotation.Resource;
-import java.util.Collection;
 
 @RestController
 @RequestMapping("/api/queue")
@@ -19,8 +18,9 @@ public class QueueApiController {
     private QueueApiService queueApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Queue> allQueues() {
-        return queueApiService.allQueues();
+    @ResponseBody
+    public PagedSearchResults<Queue> queue(@RequestParam Integer page, @RequestParam Integer start, @RequestParam Integer limit) {
+        return queueApiService.allQueues(start, limit);
     }
 
     @RequestMapping(value = "/{queueId}/serviceProblems", method = RequestMethod.GET)

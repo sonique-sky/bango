@@ -35,6 +35,14 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTab', {
                     tooltip: 'Delete a Queue',
                     iconCls: 'icon-admin-queues-delete',
                     handler: 'deleteQueue'
+                },
+                {xtype: 'tbspacer'},
+                {
+                    xtype: 'pagingtoolbar',
+                    border: 0,
+                    bind: {
+                        store: '{queues}'
+                    }
                 }
             ]
         }
@@ -63,12 +71,14 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTab', {
                 {
                     text: 'Allow Manual Transfer',
                     width: '15%',
-                    dataIndex: 'allowManualTransfer'
+                    dataIndex: 'manualTransferAllowed',
+                    renderer: 'renderYesNoValue'
                 },
                 {
                     text: 'Create Default Work Item',
                     width: '15%',
-                    dataIndex: 'createDefaultWorkItem'
+                    dataIndex: 'defaultWorkItemCreated',
+                    renderer: 'renderYesNoValue'
                 },
                 {
                     text: 'Domain',

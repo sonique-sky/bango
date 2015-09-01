@@ -23,7 +23,9 @@ public class StubTeamApiService implements TeamApiService {
     @Override
     public PagedSearchResults<DomainTeam> teams(Integer start, Integer limit) {
         List<DomainTeam> allTeams = domainTeamRepository.getTeams();
-        List<DomainTeam> pageOfTeams = allTeams.stream().skip(start).limit(limit)
+        List<DomainTeam> pageOfTeams = allTeams.stream()
+                .skip(start)
+                .limit(limit)
                 .collect(toList());
 
         return new PagedSearchResults<>(pageOfTeams, (long) allTeams.size());

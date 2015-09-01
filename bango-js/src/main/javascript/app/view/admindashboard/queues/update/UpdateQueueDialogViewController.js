@@ -7,6 +7,7 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialogViewControlle
     ],
 
     onShow: function () {
+        //populate selected queue in name field
     },
 
     onAccept: function () {
