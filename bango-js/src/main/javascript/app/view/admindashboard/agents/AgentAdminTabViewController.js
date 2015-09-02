@@ -7,7 +7,7 @@ Ext.define('Spm.view.admindashboard.agents.AgentAdminTabViewController', {
     },
 
     onAgentStoreLoaded: function (store) {
-        this.lookupReference('agentGrid').setSelection(store.first());
+        this.getView().setSelection(store.first());
     },
 
     foo: function() {

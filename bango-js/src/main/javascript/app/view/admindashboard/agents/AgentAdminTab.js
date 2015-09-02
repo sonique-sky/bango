@@ -1,5 +1,5 @@
 Ext.define('Spm.view.admindashboard.agents.AgentAdminTab', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.grid.Panel',
     alias: 'widget.agentAdminTab',
 
     require: [
@@ -13,8 +13,13 @@ Ext.define('Spm.view.admindashboard.agents.AgentAdminTab', {
         activate: 'loadStore'
     },
 
+    bind: {
+        store: '{agents}'
+    },
+
     title: 'Agents',
     iconCls: 'icon-admin-agents',
+    border: 0,
 
 
     dockedItems: [{
@@ -55,40 +60,31 @@ Ext.define('Spm.view.admindashboard.agents.AgentAdminTab', {
             }
         ]
     }],
-    items: [
+
+    columns: [
         {
-            xtype: 'gridpanel',
-            border: 0,
-            reference: 'agentGrid',
-            bind: {
-                store: '{agents}'
-            },
-            columns: [
-                {
-                    text: 'Agent',
-                    dataIndex: 'code',
-                    flex: 0.25
-                },
-                {
-                    text: 'Name',
-                    dataIndex: 'displayName',
-                    flex: 0.25
-                },
-                {
-                    text: 'Team',
-                    dataIndex: 'teamName',
-                    hidden: true,
-                    flex: 0.25
-                },
-                {
-                    text: 'Role',
-                    dataIndex: 'roleName',
-                    flex: 0.25
-                }
-            ],
-            features: [
-                {ftype: 'grouping', enableNoGroups: false, enableGroupingMenu: false}
-            ]
+            text: 'Agent',
+            dataIndex: 'code',
+            flex: 0.25
+        },
+        {
+            text: 'Name',
+            dataIndex: 'displayName',
+            flex: 0.25
+        },
+        {
+            text: 'Team',
+            dataIndex: 'teamName',
+            hidden: true,
+            flex: 0.25
+        },
+        {
+            text: 'Role',
+            dataIndex: 'roleName',
+            flex: 0.25
         }
+    ],
+    features: [
+        {ftype: 'grouping', enableNoGroups: false, enableGroupingMenu: false}
     ]
 });
