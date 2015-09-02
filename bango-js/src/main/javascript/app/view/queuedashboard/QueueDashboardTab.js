@@ -2,10 +2,12 @@ Ext.define('Spm.view.queuedashboard.QueueDashboardTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.queueDashboard',
 
+    controller: 'queueDashboard',
 
     title: 'Queue Dashboard',
     iconCls: 'icon-queue-dashboard',
     closable: false,
+    flex: 1,
 
     dockedItems: [
         {
@@ -19,12 +21,12 @@ Ext.define('Spm.view.queuedashboard.QueueDashboardTab', {
                     menu: {
                         xtype: 'menu',
                         items: [
-                            {text: 'Disabled', group: 'refresh', checked: true, handler: 'refreshPeriodChanged'},
-                            {text: '1 Minute', group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
-                            {text: '5 Minutes', group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
-                            {text: '10 Minutes', group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
-                            {text: '15 Minutes', group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
-                            {text: '30 Minutes', group: 'refresh', checked: false, handler: 'refreshPeriodChanged'}
+                            {text: 'Disabled', value: -1, group: 'refresh', checked: true, handler: 'refreshPeriodChanged'},
+                            {text: '1 Minute', value: 1, group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
+                            {text: '5 Minutes', value: 5, group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
+                            {text: '10 Minutes', value: 10, group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
+                            {text: '15 Minutes', value: 15, group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
+                            {text: '30 Minutes', value: 30, group: 'refresh', checked: false, handler: 'refreshPeriodChanged'}
                         ]
                     }
                 },
@@ -51,11 +53,11 @@ Ext.define('Spm.view.queuedashboard.QueueDashboardTab', {
         {
             text: 'Service Level Agreement',
             columns: [
-                {text: '< 12h'},
-                {text: '12-0h'},
-                {text: '0-24h'},
-                {text: '1-4d'},
-                {text: '> 4d'}
+                {text: '< 12h', width: 55},
+                {text: '12-0h', width: 55},
+                {text: '0-24h', width: 55},
+                {text: '1-4d', width: 55},
+                {text: '> 4d', width: 55}
             ]
         },
         {

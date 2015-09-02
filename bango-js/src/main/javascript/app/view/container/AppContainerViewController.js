@@ -71,6 +71,11 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             tabPanel.add(adminDashboardTab);
             tabPanel.setActiveTab(adminDashboardTab);
         }
+
+        if (authenticatedAgent.hasPrivilege('AccessQueueDashboard')) {
+            var queueDashboardTab = Ext.create('Spm.view.queuedashboard.QueueDashboardTab');
+            tabPanel.add(queueDashboardTab);
+        }
     },
 
     deriveSearchKey: function (params) {
