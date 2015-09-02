@@ -4,7 +4,7 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
 
     listen: {
         controller: {
-            'queueAssignment' : {
+            'queueAssignment': {
                 teamUpdateFailed: 'reloadStore'
             }
         }

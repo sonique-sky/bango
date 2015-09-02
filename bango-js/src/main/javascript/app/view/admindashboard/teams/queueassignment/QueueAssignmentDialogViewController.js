@@ -5,24 +5,39 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
     destinationStore: undefined,
 
     onShow: function () {
-        var initialQueues = this.getViewModel().get('team').assignedQueues();
         this.destinationStore = this.getStore('destinationStore');
-        this.destinationStore.addListener('datachanged', this.onDataChanged, this);
+        var team = this.getViewModel().get('team');
+        //this.destinationStore.setProxy(Ext.create('Ext.data.proxy.Memory', {
+        //    reader: {type: 'json'}
+        //}));
+        this.destinationStore.loadRawData(team.assignedQueues());
 
-        this.getViewModel().set('initialQueueIds', Ext.Array.pluck(initialQueues, 'id'));
-        this.destinationStore.add(initialQueues);
+        this.destinationStore.addListener('datachanged', this.onDataChanged, this);
+        this.getViewModel().set('initialQueueIds', this.destinationStore.getData().collect('id'));
+        this.onDataChanged(this.destinationStore);
     },
 
     onAccept: function () {
         var me = this;
         var team = this.getViewModel().get('team');
-        team.set('assignedQueues', this.transposedSelectedList());
 
-        this.getViewModel().get('teams').sync({
+        debugger;
+        team.save({
             success: function () {
                 me.getView().close();
+            },
+            failure: function () {
+                me.fireEvent('teamUpdateFailed'); // hack to force update of team grid to remove changes to store
+                //me.destinationStore.rejectChanges();
+                //team.reject(); //doesn't work
             }
         });
+    },
+
+    onCancel: function () {
+        //this.destinationStore.rejectChanges(); //doesn't work
+        this.fireEvent('teamUpdateFailed'); // hack to force update of team grid to remove changes to store
+        this.getView().close();
     },
 
     addAll: function () {
@@ -48,20 +63,9 @@ Ext.define('app.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
     onDataChanged: function (destinationStore) {
         this.getStore('sourceStore').filterBy(function (record) {
             return destinationStore.findBy(function (queue) {
-                    return queue.queueId() == record.queueId();
-                }) == -1;
+                return queue.queueId() == record.queueId();
+            }) == -1;
         });
         this.getViewModel().set('currentQueueIds', this.destinationStore.collect('id'));
-    },
-
-    transposedSelectedList: function () {
-        var assignedQueuesArray = [];
-        this.destinationStore.getData().each(function (q) {
-            assignedQueuesArray.push(Ext.create('Spm.model.Queue', {
-                id: q.queueId(),
-                name: q.queueName()
-            }));
-        });
-        return assignedQueuesArray;
     }
 });

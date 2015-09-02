@@ -8,7 +8,8 @@ Ext.define('Spm.view.admindashboard.teams.queueassignment.QueueAssignmentDialogV
             autoLoad: true
         },
         destinationStore: {
-            model: 'Spm.model.Queue'
+            model: 'Spm.model.Queue',
+            autoLoad: false
         }
     },
 

@@ -35,18 +35,6 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:8.1.8.v20121106" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-webapp:8.1.8.v20121106" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-xml:8.1.8.v20121106" level="project" />
-    <orderEntry type="library" name="Maven: sky.sns:superman-core:1189" level="project" />
-    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.1.2" level="project" />
-    <orderEntry type="library" name="Maven: sky.sns:superman-bt-messages:1189" level="project" />
-    <orderEntry type="library" name="Maven: sky.sns:superman-casemanagement-messages:1189" level="project" />
-    <orderEntry type="library" name="Maven: sky.sns:superman-common-types:1189" level="project" />
-    <orderEntry type="library" name="Maven: sky.sns:superman-core:test-jar:tests:1189" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:14.0.1" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.2.3" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.2.3" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.2.3" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:8.0.23" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.23" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-core:1197" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-bt-messages:1197" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-casemanagement-messages:1197" level="project" />
@@ -57,6 +45,17 @@
     <orderEntry type="library" name="Maven: sky.sns:superman-casemanagement-messages:1197" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-common-types:1197" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-core:test-jar:tests:1197" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-core:1197" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-bt-messages:1197" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-casemanagement-messages:1197" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-common-types:1197" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-core:test-jar:tests:1197" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:8.0.24" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.24" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-core:1197" level="project" />
     <orderEntry type="library" name="Maven: sonique:sonique-bti-messages:61" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-access:1.1.2" level="project" />
