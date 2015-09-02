@@ -1,20 +1,23 @@
 Ext.define('Spm.view.search.SearchResultTab', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.grid.Panel',
     alias: 'widget.searchResult',
-
-    border: 0,
-
-    closable: true,
-    iconCls: 'icon-search',
 
     controller: 'searchResult',
     viewModel: {type: 'searchResult'},
 
     listeners: {
         added: 'onTabAdded',
-        close: 'onTabClosed'
+        close: 'onTabClosed',
+        cellclick: 'onCellClicked'
     },
 
+    bind: {
+        store: '{serviceProblems}'
+    },
+
+    border: 0,
+    closable: true,
+    iconCls: 'icon-search',
     title: 'Search Results',
 
     dockedItems: [
@@ -26,38 +29,27 @@ Ext.define('Spm.view.search.SearchResultTab', {
             }
         }
     ],
-    items: [
+
+    columns: [
         {
-            xtype: 'gridpanel',
-            bind: {
-                store: '{serviceProblems}'
-            },
-            border: 0,
-            listeners: {
-                cellclick: 'onCellClicked'
-            },
+            text: 'Service Problem',
+            columns: [
+                {text: 'Service Problem Id', dataIndex: 'serviceProblemId'},
+                {text: 'Status', dataIndex: 'status'}
+            ]
+        },
+        {
+            text: 'Work Item',
             columns: [
                 {
-                    text: 'Service Problem',
-                    columns: [
-                        {text: 'Service Problem Id', dataIndex: 'serviceProblemId'},
-                        {text: 'Status', dataIndex: 'status'}
-                    ]
+                    xtype: 'templatecolumn',
+                    tpl: '{workItem.status}',
+                    text: 'Work Item Status'
                 },
                 {
-                    text: 'Work Item',
-                    columns: [
-                        {
-                            xtype: 'templatecolumn',
-                            tpl: '{workItem.status}',
-                            text: 'Work Item Status'
-                        },
-                        {
-                            xtype: 'templatecolumn',
-                            tpl: '{workItem.agent.displayName}',
-                            text: 'Agent'
-                        }
-                    ]
+                    xtype: 'templatecolumn',
+                    tpl: '{workItem.agent.displayName}',
+                    text: 'Agent'
                 }
             ]
         }

@@ -97,8 +97,8 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         var hasActiveTroubleReports = this.hasActiveTroubleReports(selectedServiceProblems);
 
         var theMessage = (hasActiveTroubleReports)
-                ? 'One or more of the selected Service Problems has an active Trouble Report.<br/><br/>Are you sure you wish to continue?'
-                : 'Are you sure you wish to clear these Service Problems?';
+            ? 'One or more of the selected Service Problems has an active Trouble Report.<br/><br/>Are you sure you wish to continue?'
+            : 'Are you sure you wish to clear these Service Problems?';
 
         Ext.Msg.show({
             title: 'Bulk Clear',
@@ -127,7 +127,7 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     },
 
     gridSelectionModel: function () {
-        return this.lookupReference('queueTabGrid').getSelectionModel();
+        return this.getView().getSelectionModel();
     },
 
     selectedServiceProblems: function () {
@@ -136,17 +136,17 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
 
     selectedServiceProblemIds: function () {
         return Ext.Array.map(this.selectedServiceProblems(),
-                function (serviceProblem) {
-                    return serviceProblem.serviceProblemId();
-                }
+            function (serviceProblem) {
+                return serviceProblem.serviceProblemId();
+            }
         );
     },
 
     hasActiveTroubleReports: function (selectedServiceProblems) {
         return Ext.Array.some(selectedServiceProblems,
-                function (serviceProblem) {
-                    return serviceProblem.get('hasActiveTroubleReport');
-                }
+            function (serviceProblem) {
+                return serviceProblem.get('hasActiveTroubleReport');
+            }
         );
     },
 

@@ -1,5 +1,5 @@
 Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.grid.Panel',
     alias: 'widget.eventHistoryPanel',
 
     requires: [
@@ -15,12 +15,18 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
         serviceProblemLoaded: 'onServiceProblemLoaded'
     },
 
+    bind: {
+        store: '{eventHistory}'
+    },
+
     title: 'Event History',
     iconCls: 'icon-event-history',
     layout: 'fit',
     flex: 1,
 
     ui: 'custom-tool',
+    overflowY: 'auto',
+    disableSelection: true,
 
     tools: [
         {
@@ -58,60 +64,46 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
         }
     ],
 
-    items: [
+    columns: [
         {
-            xtype: 'grid',
-            overflowY: 'auto',
-            disableSelection: true,
-            viewConfig: {
-                enableTextSelection: true,
-                trackOver: false
-            },
-            bind: {
-                store: '{eventHistory}'
-            },
-            columns: [
-                {
-                    text: 'Event Type',
-                    dataIndex: 'eventType',
-                    tdCls: 'event-type',
-                    flex: 1,
-                    resizable: false
-                },
-                {
-                    text: 'Created Date',
-                    dataIndex: 'createdDate',
-                    tdCls: 'event-created-date',
-                    renderer: Ext.util.Format.dateRenderer('d/m/Y H:i'),
-                    resizable: false,
-                    align: 'center',
-                    width: 140
-                },
-                {
-                    text: 'Created By',
-                    dataIndex: 'createdBy',
-                    tdCls: 'event-created-by',
-                    resizable: false,
-                    align: 'center',
-                    width: 130
-                }
-            ]
-            ,
-            features: [
-                {
-                    ftype: 'rowbody',
-                    getAdditionalData: function (data, rowIndex, record) {
-                        var headerCt = this.view.headerCt;
-                        var colspan = headerCt.getColumnCount();
-                        var rowBodyCls = ((rowIndex + 1) % 2 == 0 ? 'row-body-alt' : 'row-body');
-                        return {
-                            rowBody: Ext.String.format('<div class="event-note {0}">{1}</div>', rowBodyCls, record.get('note')),
-                            rowBodyCls: rowBodyCls,
-                            rowBodyColspan: colspan
-                        };
-                    }
-                }
-            ]
+            text: 'Event Type',
+            dataIndex: 'eventType',
+            tdCls: 'event-type',
+            flex: 1,
+            resizable: false
+        },
+        {
+            text: 'Created Date',
+            dataIndex: 'createdDate',
+            tdCls: 'event-created-date',
+            renderer: Ext.util.Format.dateRenderer('d/m/Y H:i'),
+            resizable: false,
+            align: 'center',
+            width: 140
+        },
+        {
+            text: 'Created By',
+            dataIndex: 'createdBy',
+            tdCls: 'event-created-by',
+            resizable: false,
+            align: 'center',
+            width: 130
+        }
+    ],
+
+    features: [
+        {
+            ftype: 'rowbody',
+            getAdditionalData: function (data, rowIndex, record) {
+                var headerCt = this.view.headerCt;
+                var colspan = headerCt.getColumnCount();
+                var rowBodyCls = ((rowIndex + 1) % 2 == 0 ? 'row-body-alt' : 'row-body');
+                return {
+                    rowBody: Ext.String.format('<div class="event-note {0}">{1}</div>', rowBodyCls, record.get('note')),
+                    rowBodyCls: rowBodyCls,
+                    rowBodyColspan: colspan
+                };
+            }
         }
     ]
 });

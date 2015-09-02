@@ -1,5 +1,5 @@
 Ext.define('Spm.view.queue.QueueTab', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.grid.Panel',
     alias: 'widget.queueTab',
 
     requires: [
@@ -15,7 +15,9 @@ Ext.define('Spm.view.queue.QueueTab', {
         activate: 'onQueueTabActivated',
         deactivate: 'onQueueTabDeactivated',
         close: 'onQueueTabClosed',
-        added: 'onQueueTabAdded'
+        added: 'onQueueTabAdded',
+        cellclick: 'onCellClicked',
+        selectionchange: 'onSelectionChanged'
     },
 
     border: 0,
@@ -23,7 +25,8 @@ Ext.define('Spm.view.queue.QueueTab', {
     iconCls: 'icon-queue',
 
     bind: {
-        title: '{queue.name}'
+        title: '{queue.name}',
+        store: '{queuedServiceProblems}'
     },
 
     dockedItems: [{
@@ -67,37 +70,23 @@ Ext.define('Spm.view.queue.QueueTab', {
         ]
     }],
 
-    items: [
+    selModel: {
+        selType: 'checkboxmodel',
+        checkOnly: true
+    },
+    columns: [
         {
-            xtype: 'gridpanel',
-            reference: 'queueTabGrid',
-            bind: {
-                store: '{queuedServiceProblems}'
-            },
-            selModel: {
-                selType: 'checkboxmodel',
-                checkOnly: true
-            },
-            border: 0,
-            listeners: {
-                cellclick: 'onCellClicked',
-                selectionchange: 'onSelectionChanged'
-            },
+            text: 'Service Problem',
             columns: [
-                {
-                    text: 'Service Problem',
-                    columns: [
-                        {text: 'Service Problem Id', dataIndex: 'serviceProblemId'},
-                        {text: 'Status', dataIndex: 'status'}
-                    ]
-                },
-                {
-                    text: 'Work Item',
-                    columns: [
-                        {xtype: 'templatecolumn', tpl: '{workItem.status}', text: 'Work Item Status'},
-                        {xtype: 'templatecolumn', tpl: '{workItem.agent.displayName}', text: 'Agent'}
-                    ]
-                }
+                {text: 'Service Problem Id', dataIndex: 'serviceProblemId'},
+                {text: 'Status', dataIndex: 'status'}
+            ]
+        },
+        {
+            text: 'Work Item',
+            columns: [
+                {xtype: 'templatecolumn', tpl: '{workItem.status}', text: 'Work Item Status'},
+                {xtype: 'templatecolumn', tpl: '{workItem.agent.displayName}', text: 'Agent'}
             ]
         }
     ]
