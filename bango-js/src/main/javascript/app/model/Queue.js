@@ -3,6 +3,7 @@ Ext.define('Spm.model.Queue', {
     alias: 'model.queue',
 
     idProperty: 'id',
+    identifier: 'negative',
 
     fields: [
         {

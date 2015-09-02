@@ -10,6 +10,7 @@ import spm.domain.model.refdata.QueueBuilder;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.newArrayList;
@@ -18,14 +19,23 @@ import static sky.sns.spm.validation.SpmError.QueueAlreadyExists;
 public class QueueStore implements QueueRepository {
 
     private final List<Queue> allQueues;
+    private final AtomicLong id = new AtomicLong(0);
 
     public QueueStore() {
         allQueues = newArrayList();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5; i++) {
             if (i % 2 == 0) {
-                allQueues.add(new QueueBuilder().withCreateDefaultWorkItem().build());
+                allQueues.add(new QueueBuilder()
+                                .with(new QueueId(id.incrementAndGet()))
+                                .withCreateDefaultWorkItem()
+                                .build()
+                );
             } else {
-                allQueues.add(new QueueBuilder().withAllowsManualTransfers().build());
+                allQueues.add(new QueueBuilder()
+                                .with(new QueueId(id.incrementAndGet()))
+                                .withAllowsManualTransfers()
+                                .build()
+                );
             }
         }
     }
@@ -68,7 +78,12 @@ public class QueueStore implements QueueRepository {
 
     @Override
     public Queue insert(Queue queue) {
-        throw new UnsupportedOperationException("Method QueueStore insert() not yet implemented");
+        if (queueWithSameNameExists(queue)) {
+            throw new SupermanException(QueueAlreadyExists);
+        }
+        queue.setQueueId(new QueueId(id.incrementAndGet()));
+        allQueues.add(queue);
+        return queue;
     }
 
     @Override
@@ -83,9 +98,13 @@ public class QueueStore implements QueueRepository {
 
     @Override
     public void update(Queue updatedQueue) {
-        if (allQueues.stream().anyMatch(queue -> queue.name().equals(updatedQueue.name()) && !queue.id().equals(updatedQueue.id()))) {
+        if (queueWithSameNameExists(updatedQueue)) {
             throw new SupermanException(QueueAlreadyExists);
         }
         Collections.replaceAll(allQueues, findQueueBy(updatedQueue.id()), updatedQueue);
+    }
+
+    private boolean queueWithSameNameExists(Queue queue) {
+        return allQueues.stream().anyMatch(q -> q.name().equals(queue.name()) && !q.id().equals(queue.id()));
     }
 }

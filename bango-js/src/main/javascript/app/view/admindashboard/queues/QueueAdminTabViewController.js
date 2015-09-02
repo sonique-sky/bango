@@ -7,11 +7,11 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewController', {
     },
 
     onQueueStoreLoaded: function (store) {
-        this.lookupReference('queueGrid').setSelection(store.first());
+        this.getView().setSelection(store.first());
     },
 
     selectedQueue: function () {
-        return this.lookupReference('queueGrid').getSelectionModel().getSelection()[0];
+        return this.getView().getSelectionModel().getSelection()[0];
     },
 
     updateQueue: function () {

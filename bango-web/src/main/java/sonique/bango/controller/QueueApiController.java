@@ -34,6 +34,11 @@ public class QueueApiController {
         return queueApiService.updateQueue(queue);
     }
 
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Queue createQueue(@RequestBody Queue queue) {
+        return queueApiService.createQueue(queue);
+    }
+
     @RequestMapping(value = "/{queueId}/serviceProblems", method = RequestMethod.GET)
     public PagedSearchResults<DomainServiceProblem> serviceProblems(@PathVariable int queueId, @RequestParam Integer page, @RequestParam Integer start, @RequestParam Integer limit) {
         return queueApiService.serviceProblemsFor(queueId, page, start, limit);

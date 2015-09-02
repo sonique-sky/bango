@@ -12,4 +12,5 @@ public interface QueueApiService {
     PagedSearchResults<DomainServiceProblem> bulkTransfer(BulkTransferRequest request);
     PagedSearchResults<DomainServiceProblem> bulkClear(BulkClearRequest request);
     Queue updateQueue(Queue queue);
+    Queue createQueue(Queue queue);
 }

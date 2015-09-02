@@ -23,10 +23,13 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialogViewModel', {
     formulas: {
         acceptButtonDefaultDisabled: {
             bind: {
-                bindTo: '{queue.name}'
+                bindTo: '{queue}',
+                deep: true
             },
-            get: function (name) {
-                return !name;
+            get: function (queue) {
+                return !queue.get('name')
+                    || !queue.get('pullSla')
+                    || !queue.get('domain');
             }
         }
     },

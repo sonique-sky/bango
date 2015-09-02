@@ -68,6 +68,11 @@ public class StubQueueApiService implements QueueApiService {
     }
 
     @Override
+    public Queue createQueue(Queue queue) {
+        return queueRepository.insert(queue);
+    }
+
+    @Override
     public PagedSearchResults<DomainServiceProblem> bulkClear(BulkClearRequest request) {
         Collection<ServiceProblemId> serviceProblemIds = transformServiceProblemIds(request.serviceProblemIds());
 

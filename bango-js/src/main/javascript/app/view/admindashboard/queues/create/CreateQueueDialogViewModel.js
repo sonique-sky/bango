@@ -6,14 +6,36 @@ Ext.define('Spm.view.admindashboard.queues.create.CreateQueueDialogViewModel', {
         queue: null
     },
 
+    stores: {
+        queueDomains: {
+            fields: ['name'],
+            data: [
+                ['SNS'],
+                ['ThirdParty'],
+                ['CST'],
+                ['Project'],
+                ['ROI'],
+                ['BTIreland']
+            ]
+        }
+    },
+
     formulas: {
         acceptButtonDefaultDisabled: {
             bind: {
-                bindTo: '{queue.name}'
+                bindTo: '{queue}',
+                deep: true
             },
-            get: function (name) {
-                return !name;
+            get: function (queue) {
+                return !queue.get('name')
+                    || !queue.get('pullSla')
+                    || !queue.get('domain');
             }
         }
+    },
+
+    queue: function () {
+        return this.get('queue');
     }
+
 });

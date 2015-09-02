@@ -1,16 +1,21 @@
 Ext.define('Spm.view.admindashboard.queues.QueueAdminTab', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.grid.Panel',
     alias: 'widget.queueAdminTab',
 
     viewModel: 'queueAdminTab',
     controller: 'queueAdminTab',
 
-    title: 'Queues',
-    iconCls: 'icon-admin-dashboard',
-
     listeners: {
         activate: 'onActivated'
     },
+
+    bind: {
+        store: '{queues}'
+    },
+
+    title: 'Queues',
+    iconCls: 'icon-admin-dashboard',
+    border: 0,
 
     dockedItems: [
         {
@@ -50,44 +55,33 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTab', {
         }
     ],
 
-    items: [
+    columns: [
         {
-            border: 0,
-            xtype: 'gridpanel',
-            reference: 'queueGrid',
-            bind: {
-                store: '{queues}'
-            },
-
-            columns: [
-                {
-                    text: 'Queue',
-                    width: '20%',
-                    dataIndex: 'name'
-                },
-                {
-                    text: 'Pull SLA (Hours)',
-                    width: '10%',
-                    dataIndex: 'pullSla'
-                },
-                {
-                    text: 'Allow Manual Transfer',
-                    width: '15%',
-                    dataIndex: 'manualTransferAllowed',
-                    renderer: 'renderYesNoValue'
-                },
-                {
-                    text: 'Create Default Work Item',
-                    width: '15%',
-                    dataIndex: 'defaultWorkItemCreated',
-                    renderer: 'renderYesNoValue'
-                },
-                {
-                    text: 'Domain',
-                    width: '15%',
-                    dataIndex: 'domain'
-                }
-            ]
+            text: 'Queue',
+            width: '20%',
+            dataIndex: 'name'
+        },
+        {
+            text: 'Pull SLA (Hours)',
+            width: '10%',
+            dataIndex: 'pullSla'
+        },
+        {
+            text: 'Allow Manual Transfer',
+            width: '15%',
+            dataIndex: 'manualTransferAllowed',
+            renderer: 'renderYesNoValue'
+        },
+        {
+            text: 'Create Default Work Item',
+            width: '15%',
+            dataIndex: 'defaultWorkItemCreated',
+            renderer: 'renderYesNoValue'
+        },
+        {
+            text: 'Domain',
+            width: '15%',
+            dataIndex: 'domain'
         }
     ]
 });

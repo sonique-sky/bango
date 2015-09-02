@@ -18,13 +18,13 @@ public class QueueDeserializer extends JsonDeserializer<Queue> {
     public Queue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
-        long queueId = node.get("queueId").asLong();
-        String name = node.get("name").asText();
-        long pullSla = node.get("pullSla").asLong();
-        boolean manualTransferAllowed = node.get("manualTransferAllowed").asBoolean();
-        boolean createServiceProblemAllowed = node.get("createServiceProblemAllowed").asBoolean();
-        boolean defaultWorkItemCreated = node.get("defaultWorkItemCreated").asBoolean();
-        String domain = node.get("domain").asText();
+        Long queueId = longValue(node, "queueId");
+        long pullSla = longValue(node, "pullSla");
+        String name = stringValue(node, "name");
+        String domain = stringValue(node, "domain");
+        boolean manualTransferAllowed = booleanValue(node, "manualTransferAllowed", false);
+        boolean createServiceProblemAllowed = booleanValue(node, "createServiceProblemAllowed", false);
+        boolean defaultWorkItemCreated = booleanValue(node, "defaultWorkItemCreated", false);
 
         return new QueueBuilder()
                 .withId(queueId)
@@ -36,4 +36,20 @@ public class QueueDeserializer extends JsonDeserializer<Queue> {
                 .with(QueueDomain.valueOf(domain))
                 .build();
     }
+
+    private boolean booleanValue(JsonNode node, String propertyName, boolean defaultValue) {
+        JsonNode propertyNode = node.get(propertyName);
+        return propertyNode == null || propertyNode.isNull() ? defaultValue : propertyNode.asBoolean();
+    }
+
+    private Long longValue(JsonNode node, String propertyName) {
+        JsonNode propertyNode = node.get(propertyName);
+        return propertyNode == null || propertyNode.isNull() ? null : propertyNode.asLong();
+    }
+
+    private String stringValue(JsonNode node, String propertyName) {
+        JsonNode propertyNode = node.get(propertyName);
+        return propertyNode == null || propertyNode.isNull() ? null : propertyNode.asText();
+    }
+
 }
