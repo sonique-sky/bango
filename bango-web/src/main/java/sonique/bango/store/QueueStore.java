@@ -83,7 +83,7 @@ public class QueueStore implements QueueRepository {
 
     @Override
     public void update(Queue updatedQueue) {
-        if (allQueues.stream().anyMatch(queue -> queue.name().equals(updatedQueue.name()))) {
+        if (allQueues.stream().anyMatch(queue -> queue.name().equals(updatedQueue.name()) && !queue.id().equals(updatedQueue.id()))) {
             throw new SupermanException(QueueAlreadyExists);
         }
         Collections.replaceAll(allQueues, findQueueBy(updatedQueue.id()), updatedQueue);

@@ -2,11 +2,12 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialogViewControlle
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.updateQueueDialog',
 
-    requires: [
-        'Ext.window.MessageBox'
-    ],
-
-    onShow: function () {
+    onSpecialKey: function (field, e) {
+        if (e.getKey() === e.ENTER) {
+            this.onAccept();
+        } else if (e.getKey() === e.ESC) {
+            this.onCancel();
+        }
     },
 
     onAccept: function () {
