@@ -136,7 +136,17 @@ public class BangoApplicationContext {
 
     @Bean
     public TroubleReportApiService troubleReportApiService() {
-        return new StubTroubleReportApiService(troubleReportRepository, serviceProblemRepository, new TroubleReportTemplateFactory(symptomRepository));
+        return new StubTroubleReportApiService(
+                troubleReportRepository,
+                serviceProblemRepository,
+                new TroubleReportTemplateFactory(symptomRepository),
+                springSecurityAuthorisedActorProvider()
+        );
+    }
+
+    @Bean
+    public LineTestApiService lineTestApiService() {
+        return new StubLineTestApiService();
     }
 
 }
