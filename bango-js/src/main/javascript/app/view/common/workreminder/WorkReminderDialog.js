@@ -10,6 +10,7 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialog', {
     },
 
     title: 'Create Work Reminder',
+    iconCls: 'icon-work-reminder',
 
     height: 135,
     width: 300,

@@ -1,9 +1,6 @@
 package sonique.bango.controller;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.diagnostic.sqc.StructuredQuestionCode;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
@@ -56,5 +53,12 @@ public class TroubleReportApiController {
     public List<DomainTroubleReportSymptom> symptomsFor(@PathVariable ServiceType serviceType) {
         return troubleReportApiService.symptomsFor(serviceType);
     }
+
+    @RequestMapping(value = "/raise", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
+    public void raiseTroubleReport(@RequestBody TroubleReportTemplate troubleReportTemplate) {
+        troubleReportApiService.raiseTroubleReport(troubleReportTemplate);
+    }
+
+
 
 }

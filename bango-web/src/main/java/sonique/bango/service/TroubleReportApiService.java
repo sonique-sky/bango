@@ -18,4 +18,6 @@ public interface TroubleReportApiService {
     TroubleReportTemplate templateFor(ServiceProblemId serviceProblemId);
 
     List<DomainTroubleReportSymptom> symptomsFor(ServiceType serviceType);
+
+    void raiseTroubleReport(TroubleReportTemplate troubleReportTemplate);
 }

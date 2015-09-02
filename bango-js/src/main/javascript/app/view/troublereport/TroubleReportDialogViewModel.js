@@ -15,6 +15,9 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         },
         symptoms: {
             type: 'symptoms'
+        },
+        lineTest: {
+            type: 'lineTest'
         }
     },
 
@@ -182,7 +185,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
                 bindTo: '{troubleReportTemplate.testProduct}'
             },
             get: function (testProduct) {
-                 return 'LL13' === testProduct || 'LL14' === testProduct;
+                return 'LL13' === testProduct || 'LL14' === testProduct;
             }
         },
         isDisEnabledProduct: {
