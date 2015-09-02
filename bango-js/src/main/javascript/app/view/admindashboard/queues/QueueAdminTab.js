@@ -36,7 +36,9 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTab', {
                     iconCls: 'icon-admin-queues-delete',
                     handler: 'deleteQueue'
                 },
-                {xtype: 'tbspacer'},
+                {
+                    xtype: 'tbspacer'
+                },
                 {
                     xtype: 'pagingtoolbar',
                     border: 0,

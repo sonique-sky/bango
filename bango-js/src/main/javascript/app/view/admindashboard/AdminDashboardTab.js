@@ -4,7 +4,7 @@ Ext.define('Spm.view.admindashboard.AdminDashboardTab', {
 
     require: [
         'Spm.view.admindashboard.teams.TeamAdminTab',
-        'Spm.view.admindashboard.teams.QueueAdminTab',
+        'Spm.view.admindashboard.queues.QueueAdminTab',
         'Spm.view.admindashboard.agent.AgentAdminTab'
     ],
 

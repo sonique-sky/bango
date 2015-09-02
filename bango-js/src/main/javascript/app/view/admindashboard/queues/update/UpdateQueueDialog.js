@@ -9,13 +9,14 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialog', {
     height: 215,
     width: 430,
 
-    listeners: {
-        show: 'onShow'
-    },
-
     items: [{
         xtype: 'fieldcontainer',
         padding: 10,
+        defaults: {
+            listeners: {
+                specialkey: 'onSpecialKey'
+            }
+        },
         items: [
             {
                 xtype: 'textfield',
@@ -48,9 +49,7 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialog', {
                 },
                 valueField: 'name',
                 displayField: 'name',
-                typeAhead: true,
-                forceSelection: true,
-                queryMode: 'local',
+                editable: false,
                 emptyText: 'Select a Domain...'
             },
             {

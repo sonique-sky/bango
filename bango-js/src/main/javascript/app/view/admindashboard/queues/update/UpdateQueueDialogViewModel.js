@@ -1,4 +1,4 @@
-Ext.define('Spm.view.admindashboard.teams.update.UpdateQueueDialogViewModel', {
+Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialogViewModel', {
     extend: 'Spm.component.StandardDialogViewModel',
     alias: 'viewmodel.updateQueueDialog',
 
@@ -29,6 +29,10 @@ Ext.define('Spm.view.admindashboard.teams.update.UpdateQueueDialogViewModel', {
                 return !name;
             }
         }
+    },
+
+    queue: function () {
+        return this.get('queue');
     }
 
 });

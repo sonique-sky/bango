@@ -4,13 +4,16 @@ import sky.sns.spm.domain.model.QueueDashboardEntry;
 import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
+import sky.sns.spm.validation.SupermanException;
 import spm.domain.QueueId;
 import spm.domain.model.refdata.QueueBuilder;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.newArrayList;
+import static sky.sns.spm.validation.SpmError.QueueAlreadyExists;
 
 public class QueueStore implements QueueRepository {
 
@@ -80,6 +83,9 @@ public class QueueStore implements QueueRepository {
 
     @Override
     public void update(Queue updatedQueue) {
-        throw new UnsupportedOperationException("Method QueueStore update() not yet implemented");
+        if (allQueues.stream().anyMatch(queue -> queue.name().equals(updatedQueue.name()) && !queue.id().equals(updatedQueue.id()))) {
+            throw new SupermanException(QueueAlreadyExists);
+        }
+        Collections.replaceAll(allQueues, findQueueBy(updatedQueue.id()), updatedQueue);
     }
 }
