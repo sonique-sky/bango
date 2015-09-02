@@ -7,5 +7,21 @@ Ext.define('Spm.store.Teams', {
     ],
     model: 'Spm.model.Team',
 
-    sorters: 'name'
+    sorters: 'name',
+
+    proxy: {
+        type: 'rest',
+        appendId: false,
+        url: 'api/team',
+        reader: {
+            type: 'json',
+            rootProperty: 'onePageOfSearchResults',
+            totalProperty: 'totalRecordCount',
+            implicitIncludes: false
+        },
+        writer: {
+            type: 'json',
+            writeAllFields: true
+        }
+    }
 });

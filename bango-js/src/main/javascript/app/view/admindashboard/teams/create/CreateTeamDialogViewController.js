@@ -12,13 +12,17 @@ Ext.define('Spm.view.admindashboard.teams.create.CreateTeamDialogViewController'
 
     onAccept: function () {
         var me = this;
+        var newTeam = this.getViewModel().get('team');
+        var teamsStore = this.getViewModel().get('teams');
 
-        this.getViewModel().get('team').save({
-            success: function (team) {
-                me.getViewModel().get('teams').loadRecords([team], {addRecords: true});
+        teamsStore.add(newTeam);
+        teamsStore.sync({
+            success: function () {
                 me.getView().close();
+            },
+            failure: function () {
+                teamsStore.rejectChanges();
             }
         });
     }
-
 });

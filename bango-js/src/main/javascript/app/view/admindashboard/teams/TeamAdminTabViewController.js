@@ -38,9 +38,6 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
         var dialog = this.getView().add({
             xtype: 'queueAssignment',
             viewModel: {
-                stores: {
-                    destinationStore: this.selectedTeam().assignedQueues()
-                },
                 data: {
                     team: this.selectedTeam()
                 }
@@ -53,6 +50,7 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
     deleteTeam: function () {
         var me = this;
         var selectedTeam = this.selectedTeam();
+        var teamStore = this.getStore('teams');
         Ext.Msg.show({
             title: 'Delete Team',
             msg: 'Do you want to delete this team?',
@@ -61,8 +59,8 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
 
             callback: function (buttonId) {
                 if ('yes' == buttonId) {
-                    selectedTeam.drop();
-                    selectedTeam.save({
+                    teamStore.remove(selectedTeam);
+                    teamStore.sync({
                         failure: function () {
                             me.loadStore();
                         }

@@ -24,7 +24,9 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
         this.getView().setVisible(hasAssignedQueues);
 
         if (hasAssignedQueues) {
-            var agentQueues = authenticatedAgent.getTeam().assignedQueues();
+            var agentQueues = Ext.create('Ext.data.ArrayStore', {model: 'Spm.model.Queue'});
+            agentQueues.loadData(authenticatedAgent.getTeam().assignedQueues());
+
             this.getViewModel().set('agentQueues', agentQueues);
         }
     },

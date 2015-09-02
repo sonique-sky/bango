@@ -7,5 +7,20 @@ Ext.define('Spm.store.Queues', {
     ],
     model: 'Spm.model.Queue',
 
-    sorters: 'name'
+    sorters: 'name',
+
+    proxy: {
+        type: 'rest',
+        appendId: false,
+        url: 'api/queue',
+        reader: {
+            type: 'json',
+            rootProperty: 'onePageOfSearchResults',
+            totalProperty: 'totalRecordCount'
+        },
+        writer: {
+            type: 'json',
+            writeAllFields: true
+        }
+    }
 });
