@@ -3,7 +3,7 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialog', {
     alias: 'widget.updateQueueDialog',
 
     controller: 'updateQueueDialog',
-    viewModel: 'updateQueueDialog',
+    viewModel: {type: 'updateQueueDialog'},
     title: 'Edit Queue',
 
     height: 215,
@@ -21,33 +21,55 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialog', {
                 xtype: 'textfield',
                 width: 380,
                 labelWidth: 150,
-                itemId: 'queueNameField',
-                fieldLabel: 'Queue Name:'
+                itemId: 'queueName',
+                fieldLabel: 'Queue Name:',
+                bind: {
+                    value: '{queue.name}'
+                }
             },
             {
                 xtype: 'textfield',
                 width: 380,
                 labelWidth: 150,
                 itemId: 'queueSlaHours',
-                fieldLabel: 'SLA (Hours):'
+                fieldLabel: 'SLA (Hours):',
+                bind: {
+                    value: '{queue.pullSla}'
+                }
             },
             {
                 xtype: 'combobox',
                 width: 380,
                 labelWidth: 150,
-                fieldLabel: 'Domain'
+                fieldLabel: 'Domain',
+                bind: {
+                    store: '{queueDomains}',
+                    value: '{queue.domain}'
+                },
+                valueField: 'name',
+                displayField: 'name',
+                typeAhead: true,
+                forceSelection: true,
+                queryMode: 'local',
+                emptyText: 'Select a Domain...'
             },
             {
                 xtype: 'checkbox',
                 labelWidth: 250,
                 fieldLabel: 'Manual Transfer Allowed:',
-                name: 'manualTransferAllowed'
+                name: 'manualTransferAllowed',
+                bind: {
+                    value: '{queue.manualTransferAllowed}'
+                }
             },
             {
                 xtype: 'checkbox',
                 labelWidth: 250,
                 fieldLabel: 'Default Work Item Created:',
-                name: 'defaultWorkItemCreated'
+                name: 'defaultWorkItemCreated',
+                bind: {
+                    value: '{queue.defaultWorkItemCreated}'
+                }
             }
         ]
     }]

@@ -10,7 +10,8 @@ Ext.define('Spm.model.Queue', {
             mapping: 'queueId'
         },
         {
-            name: 'name'
+            name: 'name',
+            critical: true
         }
     ],
 
@@ -19,7 +20,9 @@ Ext.define('Spm.model.Queue', {
         appendId: false,
         url: 'api/queue',
         reader: {
-            type: 'json'
+            type: 'json',
+            rootProperty: 'onePageOfSearchResults',
+            totalProperty: 'totalRecordCount'
         },
         writer: {
             type: 'json',

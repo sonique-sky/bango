@@ -18,9 +18,14 @@ public class QueueApiController {
     @Resource
     private QueueApiService queueApiService;
 
+    @RequestMapping(method = RequestMethod.GET, params = {"start", "limit"})
+    public PagedSearchResults<Queue> queue(@RequestParam Integer start, @RequestParam Integer limit) {
+        return queueApiService.allQueues(start, limit);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Queue> allQueues() {
-        return queueApiService.allQueues();
+        return queueApiService.allQueues(0, Integer.MAX_VALUE).getOnePageOfSearchResults();
     }
 
     @RequestMapping(value = "/{queueId}/serviceProblems", method = RequestMethod.GET)

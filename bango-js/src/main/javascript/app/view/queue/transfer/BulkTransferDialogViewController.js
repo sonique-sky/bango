@@ -3,7 +3,7 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialogViewController', {
     alias: 'controller.bulkTransferDialog',
 
     onShow: function () {
-        this.getViewModel().getStore('allQueues').load();
+        this.getViewModel().getStore('queues').load();
     },
 
     onTransferQueueSelected: function (selectionModel, transferQueue) {
@@ -12,7 +12,7 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialogViewController', {
 
     onAllQueuesLoaded: function () {
         var queueId = this.getViewModel().originalQueueId();
-        var store = this.getViewModel().getStore('allQueues');
+        var store = this.getViewModel().getStore('queues');
 
         store.clearFilter();
         store.filter([

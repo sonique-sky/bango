@@ -7,10 +7,12 @@ Ext.define('Spm.model.Team', {
 
     fields: [
         {
-            name: 'id'
+            name: 'id',
+            critical: true
         },
         {
-            name: 'name'
+            name: 'name',
+            critical: true
         },
         {
             name: 'description'
@@ -34,11 +36,14 @@ Ext.define('Spm.model.Team', {
         },
         writer: {
             type: 'json',
-            writeAllFields: true
+            writeAllFields: false,
+            partialDataOptions: {
+                associated: true
+            }
         }
     },
 
-    teamId: function() {
+    teamId: function () {
         return this.get('id');
     }
 });

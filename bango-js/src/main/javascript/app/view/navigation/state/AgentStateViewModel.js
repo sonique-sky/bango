@@ -10,7 +10,8 @@ Ext.define('Spm.view.navigation.state.AgentStateViewModel', {
             agentState: {
                 type: 'agentState',
                 listeners: {
-                    load: 'onAgentStateLoaded'
+                    load: 'onAgentStateLoaded',
+                    refresh: 'onAgentStateLoaded'
                 }
             }
         },
@@ -42,6 +43,12 @@ Ext.define('Spm.view.navigation.state.AgentStateViewModel', {
                     }
 
                     return 'Unavailable'
+                }
+            },
+            availabilityButtonDisabled: {
+                bind: '{authenticatedAgent}',
+                get: function(agent) {
+                    return !agent || !agent.hasPrivilege('CanBecomeAvailable');
                 }
             }
         }

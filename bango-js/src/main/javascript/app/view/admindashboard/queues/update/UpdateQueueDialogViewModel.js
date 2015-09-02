@@ -6,6 +6,20 @@ Ext.define('Spm.view.admindashboard.teams.update.UpdateQueueDialogViewModel', {
         queue: null
     },
 
+    stores: {
+        queueDomains: {
+            fields: ['name'],
+            data: [
+                ['SNS'],
+                ['ThirdParty'],
+                ['CST'],
+                ['Project'],
+                ['ROI'],
+                ['BTIreland']
+            ]
+        }
+    },
+
     formulas: {
         acceptButtonDefaultDisabled: {
             bind: {
@@ -16,4 +30,5 @@ Ext.define('Spm.view.admindashboard.teams.update.UpdateQueueDialogViewModel', {
             }
         }
     }
+
 });

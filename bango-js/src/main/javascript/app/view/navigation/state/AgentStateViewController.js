@@ -7,17 +7,17 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
             authenticated: 'onAuthenticated'
         },
         controller: {
-            'superman' : {
+            'superman': {
                 authenticated: 'onAuthenticated'
             },
-            'serviceProblemTab' : {
+            'serviceProblemTab': {
                 serviceProblemPulled: 'refreshAgentState',
                 serviceProblemHoldToggled: 'refreshAgentState'
             },
             'myItems': {
                 serviceProblemHoldToggled: 'refreshAgentState'
             },
-            'workReminderDialog':{
+            'workReminderDialog': {
                 workReminderCreated: 'refreshAgentState'
             }
         }
@@ -34,7 +34,7 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
     onAgentStateLoaded: function (agentStateStore) {
         var agentStateModel = agentStateStore.first();
         this.getViewModel().set('currentAgentState', agentStateModel);
-        this.updateState(agentStateModel.get('isAvailable'));
+        this.updateState(agentStateModel.isAvailable());
     },
 
     updateState: function (isAvailable) {
@@ -46,5 +46,17 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
             statusLabel.removeCls('availability-indicator-on');
             statusLabel.addCls('availability-indicator-off');
         }
+    },
+
+    toggleAvailability: function () {
+        var me = this;
+        Ext.Ajax.request({
+            url: 'api/agent/toggleAvailability',
+            method: 'POST',
+            success: function (agentState) {
+                me.getStore('agentState').loadRawData(agentState);
+            },
+            scope: this
+        });
     }
 });
