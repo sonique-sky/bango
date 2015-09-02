@@ -19,7 +19,7 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
     },
 
     onTeamStoreLoaded: function (store) {
-        this.lookupReference('teamGrid').setSelection(store.first());
+        this.getView().setSelection(store.first());
     },
 
     createNewTeam: function () {
@@ -31,7 +31,7 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTabViewController', {
     },
 
     selectedTeam: function () {
-        return this.lookupReference('teamGrid').getSelectionModel().getSelection()[0];
+        return this.getView().getSelectionModel().getSelection()[0];
     },
 
     assignQueuesToTeam: function () {

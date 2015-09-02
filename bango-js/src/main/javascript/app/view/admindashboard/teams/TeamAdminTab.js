@@ -1,5 +1,5 @@
 Ext.define('Spm.view.admindashboard.teams.TeamAdminTab', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.grid.Panel',
     alias: 'widget.teamAdminTab',
 
     viewModel: 'teamAdminTab',
@@ -9,8 +9,13 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTab', {
         activate: 'loadStore'
     },
 
+    bind: {
+        store: '{teams}'
+    },
+
     title: 'Teams',
     iconCls: 'icon-admin-teams',
+    border: 0,
 
     dockedItems: [
         {
@@ -48,22 +53,11 @@ Ext.define('Spm.view.admindashboard.teams.TeamAdminTab', {
         }
     ],
 
-    items: [
+    columns: [
         {
-            border: 0,
-            xtype: 'gridpanel',
-            reference: 'teamGrid',
-            bind: {
-                store: '{teams}'
-            },
-
-            columns: [
-                {
-                    text: 'Name',
-                    width: '100%',
-                    dataIndex: 'name'
-                }
-            ]
+            text: 'Name',
+            width: '100%',
+            dataIndex: 'name'
         }
     ]
 });
