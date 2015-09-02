@@ -19,28 +19,34 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
+import static sky.sns.spm.domain.model.troublereport.DomainTroubleReportSymptom.nullTroubleReportSymptom;
 import static sky.sns.spm.domain.model.troublereport.TestProduct.allValidFor;
 import static sonique.datafixtures.PrimitiveDataFixtures.pickOneOf;
-import static util.SupermanDataFixtures.*;
+import static util.SupermanDataFixtures.someAppointmentReference;
+import static util.SupermanDataFixtures.someFaultCode;
 
 public class TroubleReportStore implements DomainTroubleReportRepository {
 
     private final Map<TroubleReportId, DomainTroubleReport> troubleReports;
+    private final SymptomStore symptomRepository;
 
-    public TroubleReportStore(final List<DomainAgent> agents, final DomainServiceProblemRepository serviceProblemRepository) {
+    public TroubleReportStore(final List<DomainAgent> agents, final DomainServiceProblemRepository serviceProblemRepository, SymptomStore symptomRepository) {
+        this.symptomRepository = symptomRepository;
         troubleReports = agents
                 .stream()
                 .map(serviceProblemRepository::getServiceProblemsForAgent)
                 .flatMap(domainServiceProblems -> domainServiceProblems
                         .stream()
                         .map(serviceProblem -> new DomainTroubleReportBuilder().withStatus(pickOneOf(TroubleReportStatus.class))
-                                .withSymptom(someTroubleReportSymptom())
+                                .withSymptom(symptomRepository.findSymptomsBy(serviceProblem.getServiceType()).isEmpty()
+                                                ? nullTroubleReportSymptom()
+                                                : symptomRepository.findSymptomsBy(serviceProblem.getServiceType()).get(0)
+                                )
                                 .withFaultCode(someFaultCode().asString())
                                 .withAppointmentReference(someAppointmentReference().asString())
                                 .withTestProduct(pickOneOf(allValidFor(serviceProblem.getServiceType())))
                                 .withServiceProblem(serviceProblem).build()))
                 .collect(toMap(DomainTroubleReport::getTroubleReportId, troubleReport -> troubleReport));
-
     }
 
     @Override
@@ -73,11 +79,7 @@ public class TroubleReportStore implements DomainTroubleReportRepository {
 
     @Override
     public List<DomainTroubleReportSymptom> getTroubleReportSymptomsFor(ServiceType serviceType) {
-        return troubleReports.values()
-                .stream()
-                .filter(troubleReport -> troubleReport.getServiceProblem().getServiceType() == serviceType)
-                .map((troubleReport) -> (DomainTroubleReportSymptom) troubleReport.getSymptom())
-                .collect(toList());
+        return symptomRepository.findSymptomsBy(serviceType);
     }
 
     @Override

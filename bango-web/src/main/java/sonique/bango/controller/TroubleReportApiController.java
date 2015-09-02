@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sky.sns.spm.domain.model.diagnostic.sqc.StructuredQuestionCode;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
+import sky.sns.spm.domain.model.troublereport.DomainTroubleReportSymptom;
 import sky.sns.spm.domain.model.troublereport.TestProduct;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.service.TroubleReportApiService;
@@ -15,6 +16,7 @@ import spm.domain.TroubleReportId;
 
 import javax.annotation.Resource;
 import java.util.Collection;
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -48,6 +50,11 @@ public class TroubleReportApiController {
     @RequestMapping(value = "/template/testProducts/{serviceType}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public Collection<TestProduct> testProducts(@PathVariable ServiceType serviceType) {
         return TestProduct.allValidFor(serviceType);
+    }
+
+    @RequestMapping(value = "/template/symptoms/{serviceType}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public List<DomainTroubleReportSymptom> symptomsFor(@PathVariable ServiceType serviceType) {
+        return troubleReportApiService.symptomsFor(serviceType);
     }
 
 }

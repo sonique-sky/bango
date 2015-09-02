@@ -12,6 +12,9 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         },
         testProducts: {
             type: 'testProducts'
+        },
+        symptoms: {
+            type: 'symptoms'
         }
     },
 

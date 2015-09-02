@@ -84,10 +84,16 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                         {
                             xtype: 'combobox',
                             bind: {
+                                store: '{symptoms}',
                                 value: '{troubleReportTemplate.symptom.symptomCode}',
                                 hidden: '{!isWlr3OrRoiService}'
                             },
-                            fieldLabel: 'Symptom'
+                            fieldLabel: 'Symptom',
+                            valueField: 'symptomCode',
+                            displayField: 'description',
+                            typeAhead: true,
+                            forceSelection: true,
+                            queryMode: 'local'
                         },
                         {
                             xtype: 'fieldcontainer',

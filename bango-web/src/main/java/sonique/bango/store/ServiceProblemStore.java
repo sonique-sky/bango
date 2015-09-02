@@ -32,8 +32,10 @@ import static util.SupermanDataFixtures.*;
 public class ServiceProblemStore implements DomainServiceProblemRepository {
 
     private final List<DomainServiceProblem> serviceProblems;
+    private final SymptomStore symptomRepository;
 
-    public ServiceProblemStore(QueueRepository queueStore) {
+    public ServiceProblemStore(QueueRepository queueStore, SymptomStore symptomRepository) {
+        this.symptomRepository = symptomRepository;
         serviceProblems = newArrayList();
 
         List<Queue> queues = queueStore.getAllQueues();
@@ -83,9 +85,16 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
     private TroubleReportAttributes troubleReportAttributesFor(PresentedServiceType serviceTypeCode) {
         TroubleReportAttributesBuilder builder = new TroubleReportAttributesBuilder();
 
-        switch(serviceTypeCode) {
-            case FTTC:
-                /* shrug */
+        switch (serviceTypeCode) {
+            case WLR3:
+            case WLR3_Pro:
+            case RoiOffnetVoice:
+            case RoiRuralOffnetBroadband:
+            case RoiUrbanOffnetBroadband:
+            case RoiFttc:
+                builder.withSymptomCode(symptomRepository.findSymptomsBy(serviceTypeCode.actualServiceType()).get(0).getSymptomCode());
+                break;
+            default:
                 break;
         }
 

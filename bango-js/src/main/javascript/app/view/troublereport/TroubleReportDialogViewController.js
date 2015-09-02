@@ -9,6 +9,11 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
                 serviceType: serviceType.code
             }
         });
+        this.getViewModel().getStore('symptoms').load({
+            params: {
+                serviceType: serviceType.code
+            }
+        });
     }
 
 });

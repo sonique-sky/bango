@@ -44,12 +44,14 @@ public class BangoApplicationContext {
     private final QueueRepository queueRepository;
     private final DomainTroubleReportRepository troubleReportRepository;
     private final DomainTeamRepository teamRepository;
+    private final SymptomStore symptomRepository;
 
     public BangoApplicationContext() {
         agentRepository = new AgentStore();
         queueRepository = new QueueStore();
-        serviceProblemRepository = new ServiceProblemStore(queueRepository);
-        troubleReportRepository = new TroubleReportStore(agentRepository.getAllAgents(), serviceProblemRepository);
+        symptomRepository = new SymptomStore();
+        serviceProblemRepository = new ServiceProblemStore(queueRepository, symptomRepository);
+        troubleReportRepository = new TroubleReportStore(agentRepository.getAllAgents(), serviceProblemRepository, symptomRepository);
         teamRepository = new TeamStore();
     }
 
@@ -132,7 +134,7 @@ public class BangoApplicationContext {
 
     @Bean
     public TroubleReportApiService troubleReportApiService() {
-        return new StubTroubleReportApiService(troubleReportRepository, serviceProblemRepository, new TroubleReportTemplateFactory());
+        return new StubTroubleReportApiService(troubleReportRepository, serviceProblemRepository, new TroubleReportTemplateFactory(symptomRepository));
     }
 
 }

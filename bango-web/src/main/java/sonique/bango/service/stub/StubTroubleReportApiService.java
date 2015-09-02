@@ -1,7 +1,9 @@
 package sonique.bango.service.stub;
 
 import com.google.common.collect.ImmutableList;
+import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
+import sky.sns.spm.domain.model.troublereport.DomainTroubleReportSymptom;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.DomainTroubleReportRepository;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
@@ -11,6 +13,7 @@ import spm.domain.ServiceProblemId;
 import spm.domain.TroubleReportId;
 
 import java.util.Collection;
+import java.util.List;
 
 public class StubTroubleReportApiService implements TroubleReportApiService {
 
@@ -42,4 +45,8 @@ public class StubTroubleReportApiService implements TroubleReportApiService {
         return troubleReportTemplateFactory.createFrom(serviceProblemRepository.findByServiceProblemId(serviceProblemId));
     }
 
+    @Override
+    public List<DomainTroubleReportSymptom> symptomsFor(ServiceType serviceType) {
+        return troubleReportRepository.getTroubleReportSymptomsFor(serviceType);
+    }
 }
