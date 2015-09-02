@@ -7,11 +7,20 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialogViewControlle
     ],
 
     onShow: function () {
-        //populate selected queue in name field
     },
 
     onAccept: function () {
+        var me = this;
+        this.getViewModel().queue().save({
+            success: function (record, operation) {
+                me.getView().close();
+            }
+        });
+    },
 
+    onCancel: function () {
+        this.getViewModel().queue().reject();
+        this.callParent();
     }
 
 });

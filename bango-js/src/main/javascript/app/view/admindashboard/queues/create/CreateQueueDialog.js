@@ -1,4 +1,4 @@
-Ext.define('Spm.view.admindashboard.queues.create.UpdateQueueDialog', {
+Ext.define('Spm.view.admindashboard.queues.create.CreateQueueDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.createQueueDialog',
 

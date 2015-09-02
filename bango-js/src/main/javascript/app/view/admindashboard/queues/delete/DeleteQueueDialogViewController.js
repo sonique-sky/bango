@@ -7,11 +7,9 @@ Ext.define('Spm.view.admindashboard.queues.delete.DeleteQueueDialogViewControlle
     ],
 
     onShow: function () {
-
     },
 
     onAccept: function () {
-
     }
 
 });

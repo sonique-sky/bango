@@ -1,4 +1,4 @@
-Ext.define('Spm.view.admindashboard.teams.delete.DeleteQueueDialogViewModel', {
+Ext.define('Spm.view.admindashboard.queues.delete.DeleteQueueDialogViewModel', {
     extend: 'Spm.component.StandardDialogViewModel',
     alias: 'viewmodel.deleteQueueDialog',
 
