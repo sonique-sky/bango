@@ -16,11 +16,17 @@ Ext.define('Spm.view.admindashboard.queues.create.CreateQueueDialog', {
     items: [{
         xtype: 'fieldcontainer',
         padding: 10,
+
+        fieldDefaults: {
+            msgTarget: 'side'
+        },
+
         defaults: {
             listeners: {
                 specialkey: 'onSpecialKey'
             }
         },
+
         items: [
             {
                 xtype: 'textfield',
@@ -28,6 +34,7 @@ Ext.define('Spm.view.admindashboard.queues.create.CreateQueueDialog', {
                 labelWidth: 150,
                 itemId: 'queueName',
                 fieldLabel: 'Queue Name:',
+                allowBlank: false,
                 bind: {
                     value: '{queue.name}'
                 }
@@ -38,6 +45,8 @@ Ext.define('Spm.view.admindashboard.queues.create.CreateQueueDialog', {
                 labelWidth: 150,
                 itemId: 'queueSlaHours',
                 fieldLabel: 'SLA (Hours):',
+                vtype: 'numeric',
+                allowBlank: false,
                 bind: {
                     value: '{queue.pullSla}'
                 }
@@ -47,6 +56,7 @@ Ext.define('Spm.view.admindashboard.queues.create.CreateQueueDialog', {
                 width: 380,
                 labelWidth: 150,
                 fieldLabel: 'Domain',
+                allowBlank: false,
                 bind: {
                     store: '{queueDomains}',
                     value: '{queue.domain}'
