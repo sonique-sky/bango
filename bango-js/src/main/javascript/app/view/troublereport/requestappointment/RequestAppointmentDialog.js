@@ -54,7 +54,7 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                     },
                                     allowBlank: false,
                                     typeAhead: true,
-                                    forceSelection: true,
+                                    forceSelection: true
                                 },
                                 {
                                     xtype: 'datefield',
