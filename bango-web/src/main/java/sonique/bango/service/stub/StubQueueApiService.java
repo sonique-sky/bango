@@ -73,6 +73,13 @@ public class StubQueueApiService implements QueueApiService {
     }
 
     @Override
+    public Queue deleteQueue(Queue queue) {
+        //TODO Update SPM repo to return updated queue
+        queueRepository.deleteQueue(queue);
+        return queue;
+    }
+
+    @Override
     public PagedSearchResults<DomainServiceProblem> bulkClear(BulkClearRequest request) {
         Collection<ServiceProblemId> serviceProblemIds = transformServiceProblemIds(request.serviceProblemIds());
 

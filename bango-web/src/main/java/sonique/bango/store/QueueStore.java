@@ -4,6 +4,7 @@ import sky.sns.spm.domain.model.QueueDashboardEntry;
 import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
+import sky.sns.spm.validation.SpmError;
 import sky.sns.spm.validation.SupermanException;
 import spm.domain.QueueId;
 import spm.domain.model.refdata.QueueBuilder;
@@ -23,7 +24,7 @@ public class QueueStore implements QueueRepository {
 
     public QueueStore() {
         allQueues = newArrayList();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             if (i % 2 == 0) {
                 allQueues.add(new QueueBuilder()
                                 .with(new QueueId(id.incrementAndGet()))
@@ -63,7 +64,10 @@ public class QueueStore implements QueueRepository {
 
     @Override
     public void deleteQueue(Queue queue) {
-        throw new UnsupportedOperationException("Method QueueStore deleteQueue() not yet implemented");
+        if (!allQueues.contains(queue)) {
+            throw new SupermanException(SpmError.DataNotFound);
+        }
+        allQueues.remove(queue);
     }
 
     @Override

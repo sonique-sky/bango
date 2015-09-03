@@ -36,11 +36,25 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewController', {
     },
 
     deleteQueue: function () {
-        var dialog = this.getView().add({
-            xtype: 'deleteQueueDialog'
+        var me = this;
+        var selectedQueue = this.selectedQueue();
+        var queueStore = this.getStore('queues');
+        Ext.Msg.show({
+            title: 'Delete Queue',
+            msg: Ext.String.format('Are you sure you wish to delete queue [{0}]?', selectedQueue.get('name')),
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            callback: function (buttonId) {
+                if ('yes' == buttonId) {
+                    queueStore.remove(selectedQueue);
+                    queueStore.sync({
+                        failure: function () {
+                            me.loadStore();
+                        }
+                    });
+                }
+            }
         });
-
-        dialog.show();
     },
 
     renderYesNoValue: function (value) {

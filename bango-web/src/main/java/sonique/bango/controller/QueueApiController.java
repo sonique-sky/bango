@@ -34,6 +34,11 @@ public class QueueApiController {
         return queueApiService.updateQueue(queue);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Queue deleteQueue(@RequestBody Queue queue) {
+        return queueApiService.deleteQueue(queue);
+    }
+
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Queue createQueue(@RequestBody Queue queue) {
         return queueApiService.createQueue(queue);
