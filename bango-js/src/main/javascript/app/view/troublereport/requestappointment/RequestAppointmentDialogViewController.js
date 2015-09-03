@@ -3,8 +3,11 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
     alias: 'controller.requestAppointmentDialog',
 
     onAccept: function () {
-        this.fireEvent('updateAppointmentReference', this.getViewModel().get('appointment.reference'));
-        this.getView().close();
+        var appointmentReference = this.getViewModel().appointmentReference();
+        if (appointmentReference !== null) {
+            this.fireEvent('updateAppointmentReference', this.getViewModel().get('appointment.reference'));
+            this.getView().close();
+        }
     },
 
     onFetchAppointments: function () {

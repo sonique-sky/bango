@@ -15,6 +15,10 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
 
     serviceProblemId: function() {
         return this.get('serviceProblemId');
+    },
+
+    appointmentReference: function() {
+        return this.get('appointment.reference');
     }
 
 });
