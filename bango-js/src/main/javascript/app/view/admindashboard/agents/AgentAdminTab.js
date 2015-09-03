@@ -43,7 +43,7 @@ Ext.define('Spm.view.admindashboard.agents.AgentAdminTab', {
             {
                 tooltip: 'Create new agent',
                 iconCls: 'icon-admin-agent-create',
-                handler: 'foo'
+                handler: 'createAgent'
             },
             {
                 tooltip: 'Delete Agent',
