@@ -3,6 +3,7 @@ package sonique.bango.controller;
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sonique.bango.domain.ResponseData;
 import sonique.bango.service.TeamApiService;
 
 import javax.annotation.Resource;
@@ -22,17 +23,17 @@ public class TeamApiController {
     }
 
     @RequestMapping(method = {RequestMethod.POST}, consumes = {APPLICATION_JSON_VALUE})
-    public DomainTeam addTeam(@RequestBody DomainTeam team) {
-        return teamApiService.addTeam(team);
+    public ResponseData<DomainTeam> addTeam(@RequestBody DomainTeam team) {
+        return new ResponseData<>(teamApiService.addTeam(team));
     }
 
     @RequestMapping(method = {RequestMethod.PUT}, consumes = {APPLICATION_JSON_VALUE})
-    public DomainTeam updateTeam(@RequestBody DomainTeam team) {
-        return teamApiService.updateTeam(team);
+    public ResponseData<DomainTeam> updateTeam(@RequestBody DomainTeam team) {
+        return new ResponseData<>(teamApiService.updateTeam(team));
     }
 
     @RequestMapping(method = {RequestMethod.DELETE}, consumes = {APPLICATION_JSON_VALUE})
-    public DomainTeam deleteTeam(@RequestBody DomainTeam team) {
-        return teamApiService.deleteTeam(team);
+    public ResponseData<DomainTeam> deleteTeam(@RequestBody DomainTeam team) {
+        return new ResponseData<>(teamApiService.deleteTeam(team));
     }
 }

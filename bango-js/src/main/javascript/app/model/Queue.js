@@ -16,21 +16,6 @@ Ext.define('Spm.model.Queue', {
         }
     ],
 
-    proxy: {
-        type: 'rest',
-        appendId: false,
-        url: 'api/queue',
-        reader: {
-            type: 'json',
-            rootProperty: 'onePageOfSearchResults',
-            totalProperty: 'totalRecordCount'
-        },
-        writer: {
-            type: 'json',
-            writeAllFields: true
-        }
-    },
-
     queueId: function () {
         return this.get('id');
     },
