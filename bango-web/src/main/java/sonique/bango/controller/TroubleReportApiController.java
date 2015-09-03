@@ -13,8 +13,8 @@ import spm.domain.TroubleReportId;
 
 import javax.annotation.Resource;
 import java.util.Collection;
-import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -40,8 +40,8 @@ public class TroubleReportApiController {
     }
 
     @RequestMapping(value = "/template/structuredQuestionCodes", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public StructuredQuestionCode[] structuredQuestionCodes() {
-        return StructuredQuestionCode.values();
+    public Collection<StructuredQuestionCode> structuredQuestionCodes() {
+        return asList(StructuredQuestionCode.values());
     }
 
     @RequestMapping(value = "/template/testProducts/{serviceType}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
@@ -50,7 +50,7 @@ public class TroubleReportApiController {
     }
 
     @RequestMapping(value = "/template/symptoms/{serviceType}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public List<DomainTroubleReportSymptom> symptomsFor(@PathVariable ServiceType serviceType) {
+    public Collection<DomainTroubleReportSymptom> symptomsFor(@PathVariable ServiceType serviceType) {
         return troubleReportApiService.symptomsFor(serviceType);
     }
 
@@ -58,7 +58,6 @@ public class TroubleReportApiController {
     public void raiseTroubleReport(@RequestBody TroubleReportTemplate troubleReportTemplate) {
         troubleReportApiService.raiseTroubleReport(troubleReportTemplate);
     }
-
 
 
 }

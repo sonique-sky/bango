@@ -11,6 +11,7 @@ import sonique.bango.store.SymptomStore;
 import java.util.Date;
 import java.util.List;
 
+import static sky.sns.spm.domain.model.troublereport.TestProduct.allValidFor;
 import static sonique.datafixtures.DateTimeDataFixtures.someDateTimeInTheNextYear;
 import static sonique.datafixtures.PrimitiveDataFixtures.someBoolean;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
@@ -34,7 +35,7 @@ public class TroubleReportTemplateFactory {
                 .withEarliestAccessDate(Date.from(someDateTimeInTheNextYear().toInstant()))
                 .withLatestAccessDate(Date.from(someDateTimeInTheNextYear().toInstant()))
                 .withServiceType(serviceProblem.getServiceType())
-                .withTestProduct(someValidTestProductFor(serviceProblem.getServiceType()))
+                .withTestProduct(allValidFor(serviceProblem.getServiceType()).isEmpty() ? null : someValidTestProductFor(serviceProblem.getServiceType()))
                 .build();
     }
 
@@ -42,7 +43,7 @@ public class TroubleReportTemplateFactory {
         String symptomCode = serviceProblem.troubleReportAttributes().valueAsString(TroubleReportAttributeName.SymptomCode);
         List<DomainTroubleReportSymptom> symptoms = symptomRepository.findSymptomsBy(serviceProblem.getServiceType());
 
-        if (symptoms == null) {
+        if (symptoms.isEmpty()) {
             TroubleReportSymptom nullSymptom = DomainTroubleReportSymptom.nullTroubleReportSymptom();
             return new TroubleReportSymptomDTO(
                     nullSymptom.getSymptomCode(),

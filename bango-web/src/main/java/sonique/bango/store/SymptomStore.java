@@ -3,6 +3,7 @@ package sonique.bango.store;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReportSymptom;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class SymptomStore {
     }
 
     public List<DomainTroubleReportSymptom> findSymptomsBy(final ServiceType serviceType) {
-        return symptoms.get(serviceType);
+        return symptoms.getOrDefault(serviceType, new ArrayList<>());
     }
 
 }
