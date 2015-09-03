@@ -2,40 +2,21 @@ Ext.define('Spm.view.queuedashboard.QueueDashboardTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.queueDashboard',
 
+    require: [
+        'Spm.view.component.AutoRefreshToolbar'
+    ],
+
     controller: 'queueDashboard',
+    viewModel: {type: 'queueDashboard'},
 
     title: 'Queue Dashboard',
     iconCls: 'icon-queue-dashboard',
     closable: false,
-    flex: 1,
 
     dockedItems: [
         {
-            xtype: 'toolbar',
-            dock: 'top',
-            items: [
-                {
-                    xtype: 'button',
-                    text: 'Refresh',
-                    iconCls: 'icon-refresh',
-                    menu: {
-                        xtype: 'menu',
-                        items: [
-                            {text: 'Disabled', value: -1, group: 'refresh', checked: true, handler: 'refreshPeriodChanged'},
-                            {text: '1 Minute', value: 1, group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
-                            {text: '5 Minutes', value: 5, group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
-                            {text: '10 Minutes', value: 10, group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
-                            {text: '15 Minutes', value: 15, group: 'refresh', checked: false, handler: 'refreshPeriodChanged'},
-                            {text: '30 Minutes', value: 30, group: 'refresh', checked: false, handler: 'refreshPeriodChanged'}
-                        ]
-                    }
-                },
-                "-",
-                {
-                    xtype: 'tbtext',
-                    text: 'Auto Refresh :'
-                }
-            ]
+            xtype: 'autorefreshtoolbar',
+            border: 0
         }
     ],
 
