@@ -2,6 +2,38 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.requestAppointmentDialog',
 
+    requestRepairTypes: function () {
+        this.getStore('repairTypes').load(
+            {
+                scope: this,
+                params: {
+                    serviceType: this.getViewModel().get('serviceType')
+                }
+            })
+    },
+
+    onFetchAppointments: function () {
+        var serviceProblemId = this.getViewModel().serviceProblemId();
+        var repairType = this.getViewModel().repairType();
+        var appointmentStartDate = this.getViewModel().appointmentStartDate();
+
+        if (this.lookupReference('requestAppointmentForm').isValid()) {
+            this.getStore('availableAppointments').load({
+                scope: this,
+                params: {
+                    serviceProblemId: serviceProblemId,
+                    repairType: repairType,
+                    appointmentStartDate: appointmentStartDate.getTime()
+                },
+                callback: function (records, operation, success) {
+                    if (success) {
+                        this.getView().lookupReference('appointment').setActiveItem('available-appointment-grid');
+                    }
+                }
+            });
+        }
+    },
+
     onAccept: function () {
         var me = this;
         var serviceProblemId = this.getViewModel().serviceProblemId();
@@ -25,28 +57,6 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
                     }
                 }
             );
-        }
-    },
-
-    onFetchAppointments: function () {
-        var serviceProblemId = this.getViewModel().serviceProblemId();
-        var repairType = this.getViewModel().repairType();
-        var appointmentStartDate = this.getViewModel().appointmentStartDate();
-
-        if (this.lookupReference('requestAppointmentForm').isValid()) {
-            this.getStore('availableAppointments').load({
-                scope: this,
-                params: {
-                    serviceProblemId: serviceProblemId,
-                    repairType: repairType,
-                    appointmentStartDate: appointmentStartDate.getTime()
-                },
-                callback: function (records, operation, success) {
-                    if (success) {
-                        this.getView().lookupReference('appointment').setActiveItem('available-appointment-grid');
-                    }
-                }
-            });
         }
     },
 
