@@ -16,8 +16,10 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
             type: 'Standard Repair',
             date: new Date()
         },
-        reservedAppointment: null,
-        appointmentReference: null
+        reservedAppointment: {
+            date: null,
+            timeSlot: null
+        }
     },
 
     serviceProblemId: function () {

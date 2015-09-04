@@ -8,6 +8,7 @@ import sky.sns.spm.web.spmapp.shared.dto.AvailableAppointmentDTO;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import spm.domain.ServiceProblemId;
 import spm.domain.TroubleReportId;
+import spm.pacman.domain.AppointmentTimeslot;
 
 import java.util.Collection;
 import java.util.Date;
@@ -25,4 +26,6 @@ public interface TroubleReportApiService {
     void raiseTroubleReport(TroubleReportTemplate troubleReportTemplate);
 
     Collection<AvailableAppointmentDTO> availableAppointmentsFor(ServiceProblemId serviceProblemId, RepairType repairType, Date appointmentStartDate);
+
+    String reserveAppointmentFor(ServiceProblemId serviceProblemId, RepairType repairType, Date date, AppointmentTimeslot appointmentTimeslot);
 }

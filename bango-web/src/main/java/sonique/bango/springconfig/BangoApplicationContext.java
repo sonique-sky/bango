@@ -21,6 +21,7 @@ import sky.sns.spm.infrastructure.repository.*;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.validation.SpmCodeAndMessage;
 import sky.sns.spm.web.spmapp.shared.dto.LineTestSummaryDTO;
+import sonique.bango.domain.troublereport.ReserveAppointment;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.domain.troublereport.TroubleReportTemplateFactory;
 import sonique.bango.json.*;
@@ -83,12 +84,12 @@ public class BangoApplicationContext {
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
         module.addSerializer(TroubleReportTemplate.class, new TroubleReportTemplateSerializer());
-//        module.addSerializer(TroubleReportSymptomDTO.class, new TroubleReportSymptomDTOSerializer());
         module.addSerializer(LineTestSummaryDTO.class, new LineTestSummaryDTOSerializer());
 
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         module.addDeserializer(DomainTeam.class, new TeamDeserializer());
         module.addDeserializer(Queue.class, new QueueDeserializer());
+        module.addDeserializer(ReserveAppointment.class, new ReservedAppointmentDeserializer());
         objectMapper.registerModule(module);
 
         return objectMapper;

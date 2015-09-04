@@ -111,7 +111,7 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                 },
                                 {
                                     xtype: 'gridpanel',
-                                    reference: 'available-appointment-grid',
+                                    itemId: 'available-appointment-grid',
                                     disableSelection: true,
                                     bind: {
                                         store: '{availableAppointments}'
@@ -131,9 +131,7 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                             widget: {
                                                 xtype: 'radio',
                                                 listeners: {
-                                                    change: function (rb, nv, ov) {
-                                                        console.log(rb);
-                                                    }
+                                                    change: 'amAppointmentSelected'
                                                 }
                                             },
                                             onWidgetAttach: function (column, widget, record) {
@@ -144,12 +142,11 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                             text: 'PM',
                                             flex: 0.2,
                                             xtype: 'widgetcolumn',
+
                                             widget: {
-                                                xtype: 'radio'
-                                            },
-                                            listeners: {
-                                                change: function (rb, nv, ov) {
-                                                    console.log(rb);
+                                                xtype: 'radio',
+                                                listeners: {
+                                                    change: 'pmAppointmentSelected'
                                                 }
                                             },
                                             onWidgetAttach: function (column, widget, record) {

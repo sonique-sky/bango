@@ -17,6 +17,7 @@ import sonique.bango.service.TroubleReportApiService;
 import spm.domain.ExceptionThrowingErrorReporter;
 import spm.domain.ServiceProblemId;
 import spm.domain.TroubleReportId;
+import spm.pacman.domain.AppointmentTimeslot;
 import spm.troublereport.ManualTroubleReportRaiser;
 
 import java.util.Collection;
@@ -28,6 +29,7 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.toList;
 import static sky.sns.commons.datetime.utils.DateUtils.someDateAfter;
 import static sonique.datafixtures.PrimitiveDataFixtures.someBoolean;
+import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 
 public class StubTroubleReportApiService implements TroubleReportApiService {
 
@@ -77,6 +79,11 @@ public class StubTroubleReportApiService implements TroubleReportApiService {
 
         return IntStream.range(0, 5).mapToObj(i ->
                 new AvailableAppointmentDTO(someDateAfter(appointmentStartDate), someBoolean(), someBoolean())).collect(toList());
+    }
+
+    @Override
+    public String reserveAppointmentFor(ServiceProblemId serviceProblemId, RepairType repairType, Date date, AppointmentTimeslot appointmentTimeslot) {
+        return someString();
     }
 
     @Override
