@@ -1,13 +1,16 @@
 package sonique.bango.service;
 
+import sky.sns.spm.domain.model.RepairType;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReportSymptom;
+import sky.sns.spm.web.spmapp.shared.dto.AvailableAppointmentDTO;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import spm.domain.ServiceProblemId;
 import spm.domain.TroubleReportId;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 public interface TroubleReportApiService {
@@ -20,4 +23,6 @@ public interface TroubleReportApiService {
     List<DomainTroubleReportSymptom> symptomsFor(ServiceType serviceType);
 
     void raiseTroubleReport(TroubleReportTemplate troubleReportTemplate);
+
+    Collection<AvailableAppointmentDTO> availableAppointmentsFor(ServiceProblemId serviceProblemId, RepairType repairType, Date appointmentStartDate);
 }

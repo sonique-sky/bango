@@ -59,7 +59,9 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
     onRequestAppointment: function () {
         Ext.create('Spm.view.troublereport.requestappointment.RequestAppointmentDialog', {
             viewModel: {
-                data: {}
+                data: {
+                    serviceProblemId: this.getViewModel().get('troubleReportTemplate.serviceProblemId')
+                }
             }
         }).show();
     }

@@ -1,24 +1,42 @@
 Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogViewModel', {
     extend: 'Spm.component.StandardDialogViewModel',
     alias: 'viewmodel.requestAppointmentDialog',
-
+    stores: {
+        availableAppointments: {
+            proxy: 'availableAppointmentsProxy',
+            model: 'Spm.model.AvailableAppointment',
+            autoLoad: false,
+            listeners: {
+                load: 'updateGrid'
+            }
+        }
+    },
     data: {
         acceptButtonText: 'Reserve',
 
         serviceProblemId: null,
-        appointment: {
+        requestAppointment: {
             type: 'Standard Repair',
-            date: new Date(),
-            reference: null
-        }
+            date: new Date()
+        },
+        reservedAppointment: null,
+        appointmentReference: null
     },
 
-    serviceProblemId: function() {
+    serviceProblemId: function () {
         return this.get('serviceProblemId');
     },
 
-    appointmentReference: function() {
-        return this.get('appointment.reference');
+    appointmentReference: function () {
+        return this.get('appointmentReference');
+    },
+
+    repairType: function () {
+        return this.get('requestAppointment.type');
+    },
+
+    appointmentStartDate: function () {
+        return this.get('requestAppointment.date');
     }
 
 });
