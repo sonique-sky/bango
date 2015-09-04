@@ -1,6 +1,6 @@
-Ext.define('Spm.view.admindashboard.queues.create.CreateQueueDialogViewModel', {
+Ext.define('Spm.view.admindashboard.queues.createorupdate.CreateOrUpdateQueueDialogViewModel', {
     extend: 'Spm.component.StandardDialogViewModel',
-    alias: 'viewmodel.createQueueDialog',
+    alias: 'viewmodel.createOrUpdateQueueDialog',
 
     data: {
         queue: null

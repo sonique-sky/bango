@@ -7,7 +7,7 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewModel', {
             type: 'queues',
             autoSync: false,
             listeners: {
-                load: 'onQueueStoreLoaded'
+                load: 'selectFirstRow'
             }
         }
     }

@@ -24,7 +24,7 @@ public class QueueStore implements QueueRepository {
 
     public QueueStore() {
         allQueues = newArrayList();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             if (i % 2 == 0) {
                 allQueues.add(new QueueBuilder()
                                 .with(new QueueId(id.incrementAndGet()))

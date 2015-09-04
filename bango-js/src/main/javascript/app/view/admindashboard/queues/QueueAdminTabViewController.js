@@ -2,12 +2,23 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.queueAdminTab',
 
+    listen: {
+        controller: {
+            'createOrUpdateQueueDialog': {
+                queueAdded: 'selectFirstRow'
+            }
+        }
+    },
+
     onActivated: function () {
         this.getViewModel().getStore('queues').load();
     },
 
-    onQueueStoreLoaded: function (store) {
-        this.getView().setSelection(store.first());
+    selectFirstRow: function (store) {
+        var first = store.first();
+        if (first) {
+            this.getView().setSelection(first);
+        }
     },
 
     selectedQueue: function () {
@@ -16,7 +27,8 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewController', {
 
     updateQueue: function () {
         var dialog = this.getView().add({
-            xtype: 'updateQueueDialog',
+            xtype: 'createOrUpdateQueueDialog',
+            title: 'Edit Queue',
             viewModel: {
                 data: {
                     queue: this.selectedQueue()
@@ -29,7 +41,13 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewController', {
 
     createNewQueue: function () {
         var dialog = this.getView().add({
-            xtype: 'createQueueDialog'
+            xtype: 'createOrUpdateQueueDialog',
+            title: 'Create Queue',
+            viewModel: {
+                data: {
+                    queue: Ext.create('Spm.model.Queue')
+                }
+            }
         });
 
         dialog.show();
@@ -38,23 +56,27 @@ Ext.define('Spm.view.admindashboard.queues.QueueAdminTabViewController', {
     deleteQueue: function () {
         var me = this;
         var selectedQueue = this.selectedQueue();
-        var queueStore = this.getStore('queues');
-        Ext.Msg.show({
-            title: 'Delete Queue',
-            msg: Ext.String.format('Are you sure you wish to delete queue [{0}]?', selectedQueue.get('name')),
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            callback: function (buttonId) {
-                if ('yes' == buttonId) {
-                    queueStore.remove(selectedQueue);
-                    queueStore.sync({
-                        failure: function () {
-                            me.loadStore();
-                        }
-                    });
+
+        if (selectedQueue) {
+            var queueStore = this.getStore('queues');
+            Ext.Msg.show({
+                title: 'Delete Queue',
+                msg: Ext.String.format('Are you sure you wish to delete queue [{0}]?', selectedQueue.get('name')),
+                buttons: Ext.Msg.YESNO,
+                icon: Ext.Msg.QUESTION,
+                callback: function (buttonId) {
+                    if ('yes' == buttonId) {
+                        queueStore.remove(selectedQueue);
+                        queueStore.sync({
+                            failure: function () {
+                                me.loadStore();
+                            }
+                        });
+                        me.selectFirstRow(queueStore);
+                    }
                 }
-            }
-        });
+            });
+        }
     },
 
     renderYesNoValue: function (value) {

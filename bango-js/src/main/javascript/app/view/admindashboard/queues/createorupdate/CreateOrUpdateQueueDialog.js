@@ -1,10 +1,9 @@
-Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialog', {
+Ext.define('Spm.view.admindashboard.queues.createorupdate.CreateOrUpdateQueueDialog', {
     extend: 'Spm.component.StandardDialog',
-    alias: 'widget.updateQueueDialog',
+    alias: 'widget.createOrUpdateQueueDialog',
 
-    controller: 'updateQueueDialog',
-    viewModel: {type: 'updateQueueDialog'},
-    title: 'Edit Queue',
+    controller: 'createOrUpdateQueueDialog',
+    viewModel: {type: 'createOrUpdateQueueDialog'},
 
     height: 215,
     width: 430,
@@ -19,7 +18,7 @@ Ext.define('Spm.view.admindashboard.queues.update.UpdateQueueDialog', {
 
         defaults: {
             listeners: {
-                specialkey: 'onSpecialKey'
+                specialkey: 'submitOnEnter'
             }
         },
 

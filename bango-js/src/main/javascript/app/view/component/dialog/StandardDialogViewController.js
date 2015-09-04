@@ -6,6 +6,8 @@ Ext.define('Spm.view.component.dialog.StandardDialogViewController', {
     submitOnEnter: function (field, e) {
         if (e.getKey() === e.ENTER && this.getViewModel().acceptEnabled()) {
             this.onAccept();
+        } else if (e.getKey() === e.ESC) {
+            this.onCancel();
         }
     },
 
