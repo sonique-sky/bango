@@ -5,10 +5,7 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
         availableAppointments: {
             proxy: 'availableAppointmentsProxy',
             model: 'Spm.model.AvailableAppointment',
-            autoLoad: false,
-            listeners: {
-                load: 'updateGrid'
-            }
+            autoLoad: false
         }
     },
     data: {

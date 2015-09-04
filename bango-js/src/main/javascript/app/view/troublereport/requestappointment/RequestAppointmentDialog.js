@@ -116,17 +116,6 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                     bind: {
                                         store: '{availableAppointments}'
                                     },
-                                    viewConfig: {
-                                        listeners: {
-                                            itemupdate: function (record, index, node) {
-                                                console.log(record);
-                                                console.log(node);
-                                            },
-                                            click: function(){
-                                                console.log('click..');
-                                            }
-                                        }
-                                    },
                                     height: 220,
                                     columns: [
                                         {
@@ -139,43 +128,32 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                             text: 'AM',
                                             xtype: 'widgetcolumn',
                                             flex: 0.2,
-                                            dataIndex: 'amTimeslotAvailable',
                                             widget: {
                                                 xtype: 'radio',
-                                                //listeners: {
-                                                //    change: function (rb, nv, ov) {
-                                                ////        console.log('am ' + 'new ' + nv + ' old ' + ov);
-                                                ////        //console.log(rb);
-                                                //        //debugger;
-                                                //        if (rb.getWidgetRecord()) {
-                                                //            console.log('am');
-                                                //        //    console.log(rb.getWidgetRecord());
-                                                //            rb.setDisabled(!rb.getWidgetRecord().get('amTimeslotAvailable'));
-                                                //        }
-                                                ////        //rb.setDisabled(!rb.getData().get('pmTimeslotAvailable'));
-                                                //    }
-                                                //}
+                                                listeners: {
+                                                    change: function (rb, nv, ov) {
+                                                        console.log(rb);
+                                                    }
+                                                }
+                                            },
+                                            onWidgetAttach: function (column, widget, record) {
+                                                widget.setDisabled(!record.get('amTimeslotAvailable'))
                                             }
                                         },
                                         {
                                             text: 'PM',
                                             flex: 0.2,
                                             xtype: 'widgetcolumn',
-                                            dataIndex: 'pmTimeslotAvailable',
                                             widget: {
-                                                xtype: 'radio',
-                                                //listeners: {
-                                                //    change: function (rb, nv, ov) {
-                                                ////        console.log('pm ' + 'new ' + nv + ' old ' + ov);
-                                                ////        //        //console.log(rb);
-                                                //        if (rb.getWidgetRecord()) {
-                                                //            console.log('pm');
-                                                //        //    console.log(rb.getWidgetRecord());
-                                                //            rb.setDisabled(!rb.getWidgetRecord().get('pmTimeslotAvailable'));
-                                                //        }
-                                                ////        //        //rb.setDisabled(!nv);
-                                                //    }
-                                                //}
+                                                xtype: 'radio'
+                                            },
+                                            listeners: {
+                                                change: function (rb, nv, ov) {
+                                                    console.log(rb);
+                                                }
+                                            },
+                                            onWidgetAttach: function (column, widget, record) {
+                                                widget.setDisabled(!record.get('pmTimeslotAvailable'))
                                             }
                                         }
                                     ]
