@@ -2,6 +2,9 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
     extend: 'Spm.component.StandardDialogViewModel',
     alias: 'viewmodel.requestAppointmentDialog',
     stores: {
+        repairTypes: {
+            proxy:  'repairTypesProxy'
+        },
         availableAppointments: {
             proxy: 'availableAppointmentsProxy',
             model: 'Spm.model.AvailableAppointment',
@@ -12,8 +15,9 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
     },
     data: {
         acceptButtonText: 'Reserve',
-
         serviceProblemId: null,
+        serviceType: null,
+
         requestAppointment: {
             type: 'Standard Repair',
             date: new Date()

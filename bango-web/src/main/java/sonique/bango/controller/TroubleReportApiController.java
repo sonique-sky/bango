@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -57,6 +58,11 @@ public class TroubleReportApiController {
     @RequestMapping(value = "/template/testProducts/{serviceType}", method = GET, produces = APPLICATION_JSON_VALUE)
     public Collection<TestProduct> testProducts(@PathVariable ServiceType serviceType) {
         return TestProduct.allValidFor(serviceType);
+    }
+
+    @RequestMapping(value = "/repairTypes/{serviceType}", method = GET, produces = APPLICATION_JSON_VALUE)
+    public Collection<String> repairTypesFor(@PathVariable ServiceType serviceType) {
+        return RepairType.forServiceType(serviceType).stream().map(RepairType::getDescription).collect(toList());
     }
 
     @RequestMapping(value = "/template/symptoms/{serviceType}", method = GET, produces = APPLICATION_JSON_VALUE)

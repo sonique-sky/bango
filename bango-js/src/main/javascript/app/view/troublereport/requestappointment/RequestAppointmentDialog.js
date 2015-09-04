@@ -10,7 +10,9 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
 
     height: 422,
     width: 396,
-
+    listeners: {
+        show: 'requestRepairTypes'
+    },
     items: [
         {
             xtype: 'form',
@@ -38,23 +40,18 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                     xtype: 'combobox',
                                     fieldLabel: 'Repair Type',
                                     bind: {
-                                        value: '{requestAppointment.type}'
+                                        value: '{requestAppointment.type}',
+                                        store: '{repairTypes}'
                                     },
                                     margin: '5 0 0 0',
                                     labelWidth: 160,
                                     reference: 'repairType',
                                     displayField: 'repairType',
                                     valueField: 'repairType',
-                                    store: {
-                                        fields: ['repairType'],
-                                        data: [
-                                            ['Standard Repair'],
-                                            ['SFI Repair']
-                                        ]
-                                    },
                                     allowBlank: false,
                                     typeAhead: true,
-                                    forceSelection: true
+                                    forceSelection: true,
+                                    queryMode: 'local'
                                 },
                                 {
                                     xtype: 'datefield',
