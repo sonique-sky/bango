@@ -32,25 +32,31 @@ Ext.define('Spm.view.navigation.queues.QueuesViewController', {
     },
 
     onQueueTabSelected: function (queueId) {
-        var dataView = this.lookupReference('myQueuesDataView');
-        var agentQueues = this.getViewModel().get('agentQueues');
-        var index = agentQueues.indexOfId(queueId);
+        if (this.getView().isVisible()) {
+            var dataView = this.lookupReference('myQueuesDataView');
+            var agentQueues = this.getViewModel().get('agentQueues');
+            var index = agentQueues.indexOfId(queueId);
 
-        dataView.getSelectionModel().select(index, false, true);
+            dataView.getSelectionModel().select(index, false, true);
+        }
     },
 
     onQueueTabClosed: function (queueId) {
-        var dataView = this.lookupReference('myQueuesDataView');
-        var agentQueues = this.getViewModel().get('agentQueues');
-        var index = agentQueues.indexOfId(queueId);
+        if (this.getView().isVisible()) {
+            var dataView = this.lookupReference('myQueuesDataView');
+            var agentQueues = this.getViewModel().get('agentQueues');
+            var index = agentQueues.indexOfId(queueId);
 
-        dataView.getSelectionModel().deselect(index, true);
+            dataView.getSelectionModel().deselect(index, true);
+        }
     },
 
     onQueueTabDeselected: function () {
-        var dataView = this.lookupReference('myQueuesDataView');
-        var agentQueues = this.getViewModel().get('agentQueues');
+        if (this.getView().isVisible()) {
+            var dataView = this.lookupReference('myQueuesDataView');
+            var agentQueues = this.getViewModel().get('agentQueues');
 
-        dataView.getSelectionModel().deselectAll(true);
+            dataView.getSelectionModel().deselectAll(true);
+        }
     }
 });

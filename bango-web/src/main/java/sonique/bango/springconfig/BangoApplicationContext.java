@@ -150,4 +150,8 @@ public class BangoApplicationContext {
         return new StubLineTestApiService();
     }
 
+    @Bean
+    public QueueDashboardApiService queueDashboardApiService() {
+        return new StubQueueDashboardApiService(queueRepository, serviceProblemRepository);
+    }
 }

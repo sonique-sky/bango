@@ -16,8 +16,11 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
     prependButtons: true,
     disabledText: 'Disabled',
 
+    defaultRefresh: undefined,
+
     refreshOptions: [
-     //   {text: '5 Second', value: 5000},
+        {text: 'Disabled', value: -1},
+        //{text: '5 Second', value: 5000},
         {text: '1 Minute', value: 60000},
         {text: '5 Minutes', value: 300000},
         {text: '10 Minutes', value: 600000},
@@ -32,6 +35,9 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
             userItems = me.items || me.buttons || []
             ;
 
+        me.defaultRefresh = me.refreshOptions[0];
+        me.defaultRefresh.checked = true;
+
         var autoRefreshItems = me.getAutoRefreshItems();
 
         if (me.prependButtons) {
@@ -45,18 +51,15 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
 
         me.myTask = Ext.TaskManager.newTask({
             run: function () {
-                me.getStore().reload();
+                if (!me.up('[hidden=true]')) {
+                    me.getStore().reload();
+                }
             },
             fireOnStart: true,
             scope: me
         });
 
         me.callParent();
-    },
-
-    onAdded: function (parent) {
-        this.mon(parent, 'activate', this.restartMyTask, this);
-        this.mon(parent, 'deactivate', this.stopMyTask, this);
     },
 
     getAutoRefreshItems: function () {
@@ -67,21 +70,20 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
                 iconCls: Ext.baseCSSPrefix + 'tbar-loading',
                 menu: {
                     xtype: 'menu',
-                    reference: 'refreshMenu',
                     defaults: {
                         handler: 'refreshPeriodChanged',
                         scope: this,
                         group: 'refresh',
                         checked: false
                     },
-                    items: Ext.Array.insert(this.refreshOptions, 0, [{text: this.disabledText, value: -1, checked: true}])
+                    items: this.refreshOptions
                 }
             },
             "-",
             {
                 xtype: 'tbtext',
                 itemId: 'refreshText',
-                text: this.textPrefix + this.disabledText
+                text: this.textPrefix + this.defaultRefresh.text
             }
         ]
     },
@@ -118,5 +120,4 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
         this.bindStore(null);
         this.callParent();
     }
-})
-;
+});

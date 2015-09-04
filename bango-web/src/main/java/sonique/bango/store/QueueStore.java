@@ -1,20 +1,26 @@
 package sonique.bango.store;
 
+import com.google.common.base.Throwables;
 import sky.sns.spm.domain.model.QueueDashboardEntry;
 import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.Queue;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.validation.SpmError;
 import sky.sns.spm.validation.SupermanException;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import spm.domain.QueueId;
 import spm.domain.model.refdata.QueueBuilder;
 
+import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
 
 import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.util.stream.Collectors.toList;
 import static sky.sns.spm.validation.SpmError.QueueAlreadyExists;
 
 public class QueueStore implements QueueRepository {

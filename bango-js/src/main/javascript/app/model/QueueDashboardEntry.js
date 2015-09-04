@@ -4,13 +4,22 @@ Ext.define('Spm.model.QueueDashboardEntry', {
 
     fields: [
         {
+            name: 'queueId'
+        },
+        {
+            name: 'queueName'
+        },
+        {
+            name: 'oldestServiceProblemDate'
+        },
+        {
             name: 'serviceProblemCount'
         },
         {
             name: 'slaExpiresInMoreThan12Hours'
         },
         {
-            name: 'slaExpiryLtTwelveHours'
+            name: 'slaExpiresInLessThan12Hours'
         },
         {
             name: 'slaExpiredLessThanADayAgo'
@@ -27,7 +36,7 @@ Ext.define('Spm.model.QueueDashboardEntry', {
             dateFormat: 'd/m/Y H:i:s'
         },
         {
-            name: 'noWorkItemCount'
+            name: 'noWorkItem'
         },
         {
             name: 'assignedPull'
@@ -43,7 +52,7 @@ Ext.define('Spm.model.QueueDashboardEntry', {
         }
     ],
 
-    hasOne: [
-        'queue', {model: 'Spm.model.Queue', name: 'queue', associationKey: 'queue', getterName: 'queue'}
-    ]
+    queue: function() {
+        return new Spm.model.Queue({id: this.get('queueId'), name: this.get('queueName')});
+    }
 });

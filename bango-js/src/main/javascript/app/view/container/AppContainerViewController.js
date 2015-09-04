@@ -10,6 +10,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             'myQueues': {
                 agentQueueSelected: 'onAgentQueueSelected'
             },
+            'queueDashboard': {
+                queueSelected: 'onAgentQueueSelected'
+            },
             'queueTab': {
                 queueTabClosed: 'onQueueTabClosed',
                 serviceProblemSelected: 'onServiceProblemSelected'
@@ -66,15 +69,15 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         tabPanel.add(myItems);
         tabPanel.setActiveTab(myItems);
 
+        if (authenticatedAgent.hasPrivilege('AccessQueueDashboard')) {
+            var queueDashboardTab = Ext.create('Spm.view.queuedashboard.QueueDashboardTab');
+            tabPanel.add(queueDashboardTab);
+        }
+
         if (authenticatedAgent.hasPrivilege('AccessAdminDashboard')) {
             var adminDashboardTab = Ext.create('widget.adminDashboardTab');
             tabPanel.add(adminDashboardTab);
             tabPanel.setActiveTab(adminDashboardTab);
-        }
-
-        if (authenticatedAgent.hasPrivilege('AccessQueueDashboard')) {
-            var queueDashboardTab = Ext.create('Spm.view.queuedashboard.QueueDashboardTab');
-            tabPanel.add(queueDashboardTab);
         }
     },
 

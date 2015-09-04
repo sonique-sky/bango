@@ -2,12 +2,6 @@ Ext.define('Spm.view.queue.QueueTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.queueTab',
 
-    requires: [
-        'Ext.grid.Panel',
-        'Ext.toolbar.Spacer',
-        'Ext.toolbar.Paging'
-    ],
-
     controller: 'queueTab',
     viewModel: {type: 'queueTab'},
 
@@ -61,7 +55,6 @@ Ext.define('Spm.view.queue.QueueTab', {
             {xtype: 'tbspacer'},
             {
                 xtype: 'pagingtoolbar',
-                flex: 1.0,
                 border: 0,
                 bind: {
                     store: '{queuedServiceProblems}'

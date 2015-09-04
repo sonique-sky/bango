@@ -25,6 +25,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 import static sky.sns.spm.domain.model.serviceproblem.EventDescription.Note;
+import static sonique.datafixtures.DateTimeDataFixtures.someDateTimeInTheLastYear;
 import static sonique.datafixtures.DateTimeDataFixtures.someInstantInTheLast24Hours;
 import static sonique.datafixtures.PrimitiveDataFixtures.*;
 import static util.SupermanDataFixtures.*;
@@ -64,6 +65,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                         .withServiceId(new SnsServiceId(100L))
                         .withDirectoryNumber(new DirectoryNumber("directoryNumber-" + (serviceProblemId % 4)))
                         .withQueue(queue)
+                        .withOpenDate(Date.from(someDateTimeInTheLastYear().toInstant()))
                         .withWorkItem(workItem)
                         .withPreferredContactName(someContactName().asString())
                         .withPreferredContactNumber(someTelephoneNumber().asString())
