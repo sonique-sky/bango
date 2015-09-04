@@ -113,6 +113,7 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                     xtype: 'gridpanel',
                                     itemId: 'available-appointment-grid',
                                     disableSelection: true,
+                                    focusable: false,
                                     bind: {
                                         store: '{availableAppointments}'
                                     },
@@ -121,6 +122,7 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                         {
                                             text: 'Appointment Date',
                                             xtype: 'datecolumn',
+                                            format: 'd/m/Y',
                                             flex: 0.6,
                                             dataIndex: 'appointmentDate'
                                         },

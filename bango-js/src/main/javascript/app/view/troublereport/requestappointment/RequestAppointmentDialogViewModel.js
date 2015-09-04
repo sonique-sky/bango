@@ -5,7 +5,9 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
         availableAppointments: {
             proxy: 'availableAppointmentsProxy',
             model: 'Spm.model.AvailableAppointment',
-            autoLoad: false
+            autoLoad: false,
+            sorters: 'appointmentDate',
+            sortOnLoad: true
         }
     },
     data: {
