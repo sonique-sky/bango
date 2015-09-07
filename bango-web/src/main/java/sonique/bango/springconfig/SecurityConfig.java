@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import sky.sns.spm.domain.model.DomainAgent;
@@ -23,7 +24,10 @@ import sky.sns.spm.infrastructure.security.AuthenticatedUserDetails;
 
 import javax.annotation.Resource;
 import javax.servlet.Filter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 
 @Configuration
@@ -76,7 +80,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private Filter aLogoutFilter() {
         LogoutFilter logoutFilter = new LogoutFilter(
-                (request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK),
+                (request, response, authentication) -> {
+                    DomainAgent agent = agentRepository.findByAuthorisedUid(authentication.getName());
+                    agent.logoff(new Date());
+                    response.setStatus(HttpServletResponse.SC_OK);
+                },
                 new SecurityContextLogoutHandler());
         logoutFilter.setLogoutRequestMatcher(new AntPathRequestMatcher("/j_spring_security_logout"));
         return logoutFilter;

@@ -52,7 +52,7 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
         me.myTask = Ext.TaskManager.newTask({
             run: function () {
                 if (!me.up('[hidden=true]')) {
-                    me.getStore().reload();
+                    me.doRefresh();
                 }
             },
             fireOnStart: true,
@@ -65,7 +65,7 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
     getAutoRefreshItems: function () {
         return [
             {
-                xtype: 'button',
+                xtype: 'splitbutton',
                 text: 'Refresh',
                 iconCls: Ext.baseCSSPrefix + 'tbar-loading',
                 menu: {
@@ -77,7 +77,9 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
                         checked: false
                     },
                     items: this.refreshOptions
-                }
+                },
+                handler: 'doRefresh',
+                scope: this
             },
             "-",
             {
@@ -86,6 +88,10 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
                 text: this.textPrefix + this.defaultRefresh.text
             }
         ]
+    },
+
+    doRefresh: function () {
+        this.getStore().reload();
     },
 
     updateRefreshText: function (currentRefresh) {

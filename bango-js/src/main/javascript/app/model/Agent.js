@@ -25,6 +25,14 @@ Ext.define('Spm.model.Agent', {
         {
             name: 'roleName',
             mapping: 'role.description'
+        },
+        {
+            name: 'agentAvailability'
+        },
+        {
+            name: 'availabilityChangeTime',
+            format: 'd/m/Y H:i:s'
+
         }
     ],
 

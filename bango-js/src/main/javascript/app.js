@@ -3,11 +3,16 @@
  needed for your application, but these edits will have to be merged by
  Sencha Cmd when upgrading.
  */
-//@require @packageOverrides
 Ext.Loader.setConfig({
     enabled: true,
     disableCaching: true
 });
+
+/*
+ Prevents Ext from complaining about failure to conform to Aria standards when
+ correct behaviour is being replicated from SPM.
+ */
+Ext.enableAriaButtons = false;
 
 Ext.application({
     name: 'Spm',
