@@ -16,7 +16,7 @@ Ext.define('Spm.view.container.AppContainer', {
         'Spm.view.admindashboard.teams.TeamAdminTab',
         'Spm.view.admindashboard.teams.TeamAdminTabViewController',
         'Spm.view.admindashboard.teams.TeamAdminTabViewModel',
-        'Spm.view.queuedashboard.QueueDashboardTab',
+        'Spm.view.dashboard.queue.QueueDashboardTab',
         'Spm.store.MyItems',
         'Spm.store.Teams',
 

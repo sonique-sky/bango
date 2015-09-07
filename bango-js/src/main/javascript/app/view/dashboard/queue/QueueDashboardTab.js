@@ -1,4 +1,4 @@
-Ext.define('Spm.view.queuedashboard.QueueDashboardTab', {
+Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.queueDashboard',
 

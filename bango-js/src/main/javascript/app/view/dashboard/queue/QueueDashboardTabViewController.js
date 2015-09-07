@@ -1,4 +1,4 @@
-Ext.define('Spm.view.queuedashboard.QueueDashboardTabViewController', {
+Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.queueDashboard',
 

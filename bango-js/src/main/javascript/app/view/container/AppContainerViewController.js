@@ -70,7 +70,7 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         tabPanel.setActiveTab(myItems);
 
         if (authenticatedAgent.hasPrivilege('AccessQueueDashboard')) {
-            var queueDashboardTab = Ext.create('Spm.view.queuedashboard.QueueDashboardTab');
+            var queueDashboardTab = Ext.create('Spm.view.dashboard.queue.QueueDashboardTab');
             tabPanel.add(queueDashboardTab);
         }
 

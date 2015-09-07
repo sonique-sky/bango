@@ -1,4 +1,4 @@
-Ext.define('Spm.view.queuedashboard.QueueDashboardTabViewModel', {
+Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.queueDashboard',
 
