@@ -43,13 +43,16 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
     },
 
     onAccept: function () {
-        var me = this;
         if (this.lookupReference('troubleReportForm').isValid()) {
-            this.getViewModel().get('troubleReport').save({
+            var troubleReportTemplate = this.getViewModel().get('troubleReportTemplate');
+
+            troubleReportTemplate.copy(null).save({
+                    scope: this,
                     failure: function () {
+                        console.log('fail');
                     },
                     success: function () {
-                        me.getView().close();
+                        this.getView().close();
                     }
                 }
             );

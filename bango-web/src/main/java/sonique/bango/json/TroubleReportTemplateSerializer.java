@@ -4,8 +4,11 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
+import sonique.types.date.format.LocalDateTimeFormatter;
 
 import java.io.IOException;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 public class TroubleReportTemplateSerializer extends JsonSerializer<TroubleReportTemplate> {
     @Override
@@ -70,8 +73,10 @@ public class TroubleReportTemplateSerializer extends JsonSerializer<TroubleRepor
         jsonGenerator.writeNumberField("upperTrcBand", troubleReportTemplate.upperTrcBand());
         jsonGenerator.writeObjectField("testProduct", troubleReportTemplate.testProduct());
 
-        jsonGenerator.writeObjectField("earliestAccessDate", troubleReportTemplate.earliestAccessDate());
-        jsonGenerator.writeObjectField("latestAccessDate", troubleReportTemplate.latestAccessDate());
+        ZonedDateTime earliestDateTime = ZonedDateTime.ofInstant(troubleReportTemplate.earliestAccessDate().toInstant(), ZoneOffset.UTC);
+        jsonGenerator.writeStringField("earliestAccessDate", LocalDateTimeFormatter.localDateTimeFormatter().print(earliestDateTime));
+        ZonedDateTime latestDateTime = ZonedDateTime.ofInstant(troubleReportTemplate.latestAccessDate().toInstant(), ZoneOffset.UTC);
+        jsonGenerator.writeStringField("latestAccessDate", LocalDateTimeFormatter.localDateTimeFormatter().print(latestDateTime));
 
         jsonGenerator.writeObjectField("structuredQuestionCode", troubleReportTemplate.structuredQuestionCode());
         jsonGenerator.writeObjectField("status", troubleReportTemplate.status());

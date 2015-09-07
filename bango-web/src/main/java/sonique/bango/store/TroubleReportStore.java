@@ -21,7 +21,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import static sky.sns.spm.domain.model.troublereport.DomainTroubleReportSymptom.nullTroubleReportSymptom;
 import static sky.sns.spm.domain.model.troublereport.TestProduct.allValidFor;
-import static sonique.datafixtures.PrimitiveDataFixtures.pickOneOf;
+import static sonique.datafixtures.PrimitiveDataFixtures.*;
 import static util.SupermanDataFixtures.someAppointmentReference;
 import static util.SupermanDataFixtures.someFaultCode;
 
@@ -84,6 +84,6 @@ public class TroubleReportStore implements DomainTroubleReportRepository {
 
     @Override
     public TroubleReportId nextTroubleReportId() {
-        throw new UnsupportedOperationException("Method TroubleReportStore nextTroubleReportId() not yet implemented");
+        return new TroubleReportId(someLongBetween(Long.MIN_VALUE, Long.MAX_VALUE));
     }
 }

@@ -52,6 +52,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                             items: [
                                 {
                                     xtype: 'textfield',
+                                    allowBlank: '{isWlr3OrRoiService}',
                                     bind: {
                                         value: '{troubleReportTemplate.description}',
                                         hidden: '{isWlr3OrRoiService}'
@@ -60,6 +61,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                 },
                                 {
                                     xtype: 'combobox',
+                                    allowBlank: '{!isWlr3OrRoiService}',
                                     bind: {
                                         store: '{symptoms}',
                                         value: '{troubleReportTemplate.symptom.symptomCode}',
@@ -133,6 +135,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
 
                                 {
                                     xtype: 'combobox',
+                                    allowBlank: '{isWlr3OrRoiService}',
                                     bind: {
                                         store: '{testProducts}',
                                         value: '{troubleReportTemplate.testProduct}',
@@ -196,6 +199,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         value: '{troubleReportTemplate.structuredQuestionCode}',
                                         hidden: '{!isFttc}'
                                     },
+                                    allowBlank: '{!isFttc}',
                                     typeAhead: true,
                                     forceSelection: true,
                                     queryMode: 'local',
@@ -331,6 +335,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         {
                                             xtype: 'datefield',
                                             format: 'd/m/Y',
+                                            altFormats: 'c',
                                             bind: {
                                                 value: '{earliestAccessDate}',
                                                 disabled: '{!canEnterAccessTimes}'
@@ -356,6 +361,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         {
                                             xtype: 'datefield',
                                             format: 'd/m/Y',
+                                            altFormats: 'c',
                                             bind: {
                                                 value: '{latestAccessDate}',
                                                 disabled: '{!canEnterAccessTimes}'

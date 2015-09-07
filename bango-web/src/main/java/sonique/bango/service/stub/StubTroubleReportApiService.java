@@ -14,7 +14,6 @@ import sky.sns.spm.web.spmapp.shared.dto.TroubleReportDto;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.domain.troublereport.TroubleReportTemplateFactory;
 import sonique.bango.service.TroubleReportApiService;
-import spm.domain.ExceptionThrowingErrorReporter;
 import spm.domain.ServiceProblemId;
 import spm.domain.TroubleReportId;
 import spm.pacman.domain.AppointmentTimeslot;
@@ -43,12 +42,13 @@ public class StubTroubleReportApiService implements TroubleReportApiService {
             DomainTroubleReportRepository troubleReportRepository,
             DomainServiceProblemRepository serviceProblemRepository,
             TroubleReportTemplateFactory troubleReportTemplateFactory,
-            SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
+            SpringSecurityAuthorisedActorProvider authorisedActorProvider,
+            ManualTroubleReportRaiser troubleReportRaiser) {
         this.troubleReportRepository = troubleReportRepository;
         this.serviceProblemRepository = serviceProblemRepository;
         this.troubleReportTemplateFactory = troubleReportTemplateFactory;
         this.authorisedActorProvider = authorisedActorProvider;
-        this.troubleReportRaiser = new ManualTroubleReportRaiser(serviceProblemRepository, null, new ExceptionThrowingErrorReporter());
+        this.troubleReportRaiser = troubleReportRaiser;
     }
 
     @Override

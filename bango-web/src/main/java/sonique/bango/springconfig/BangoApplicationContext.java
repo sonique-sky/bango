@@ -30,6 +30,8 @@ import sonique.bango.service.stub.*;
 import sonique.bango.store.*;
 import sonique.types.NumberValue;
 import sonique.types.StringValue;
+import spm.domain.ExceptionThrowingErrorReporter;
+import spm.troublereport.ManualTroubleReportRaiser;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -92,6 +94,7 @@ public class BangoApplicationContext {
         module.addDeserializer(DomainTeam.class, new TeamDeserializer());
         module.addDeserializer(Queue.class, new QueueDeserializer());
         module.addDeserializer(ReserveAppointment.class, new ReservedAppointmentDeserializer());
+        module.addDeserializer(TroubleReportTemplate.class, new TroubleReportTemplateDeserializer());
         objectMapper.registerModule(module);
 
         return objectMapper;
@@ -153,7 +156,17 @@ public class BangoApplicationContext {
                 troubleReportRepository,
                 serviceProblemRepository,
                 new TroubleReportTemplateFactory(symptomRepository),
-                springSecurityAuthorisedActorProvider()
+                springSecurityAuthorisedActorProvider(),
+                troubleReportRaiser()
+        );
+    }
+
+    @Bean
+    public ManualTroubleReportRaiser troubleReportRaiser() {
+        return new ManualTroubleReportRaiser(
+                serviceProblemRepository,
+                new StubTroubleReportRaiser(queueRepository, troubleReportRepository),
+                new ExceptionThrowingErrorReporter()
         );
     }
 
