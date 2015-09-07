@@ -7,8 +7,6 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
 
     listeners: {
         staleData: 'onStaleData',
-        //activate: 'onQueueTabActivated',
-        //deactivate: 'onQueueTabDeactivated',
         close: 'onServiceProblemTabClosed',
         added: 'onServiceProblemTabAdded'
     },
@@ -24,216 +22,185 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
 
     dockedItems: [
         {
-            xtype: 'container',
-            layout: {
-                type: 'hbox',
-                align: 'stretch'
-            },
+            xtype: 'toolbar',
             dock: 'top',
-            defaults: {
-                border: 0
-            },
             items: [
                 {
-                    xtype: 'toolbar',
+                    xtype: 'buttongroup',
+                    title: 'View',
+                    defaults: {
+                        xtype: 'button',
+                        toggleGroup: 'panelToggle',
+                        allowDepress: false,
+                        padding: '5,5,5,5'
+                        //handler: me.switchView,
+                    },
                     items: [
                         {
-                            xtype: 'buttongroup',
-                            title: 'View',
-                            defaults: {
-                                xtype: 'button',
-                                toggleGroup: 'panelToggle',
-                                allowDepress: false,
-                                padding: '5,5,5,5'
-                                //handler: me.switchView,
-                            },
-                            items: [
-                                {
-                                    text: 'Service Problem',
-                                    itemId: 'serviceProblem',
-                                    pressed: true
-                                },
-                                {
-                                    text: 'Trouble Report',
-                                    itemId: 'troubleReport'
-                                }
-                            ]
+                            text: 'Service Problem',
+                            itemId: 'serviceProblem',
+                            pressed: true
+                        },
+                        {
+                            text: 'Trouble Report',
+                            itemId: 'troubleReport'
                         }
                     ]
                 },
                 {
-                    xtype: 'toolbar',
+                    xtype: 'buttongroup',
+                    title: 'Service Problem',
+                    defaults: {
+                        xtype: 'button',
+                        padding: '5,5,5,5'
+                    },
                     items: [
                         {
-                            xtype: 'buttongroup',
-                            title: 'Service Problem',
-                            defaults: {
-                                xtype: 'button',
-                                padding: '5,5,5,5'
-                            },
-                            items: [
-                                {
-                                    iconCls: 'icon-refresh',
-                                    tooltip: 'Refresh',
-                                    handler: 'onRefreshServiceProblem'
-                                },
-                                {
-                                    reference: 'serviceProblemPullButton',
-                                    iconCls: 'icon-pull',
-                                    tooltip: 'Pull this item',
-                                    handler: 'onPullServiceProblem',
-                                    bind: {
-                                        disabled: '{pullServiceProblemButtonDisabled}'
-                                    }
-                                },
-                                {
-                                    handler: 'onToggleHoldServiceProblem',
-                                    bind: {
-                                        tooltip: '{toggleHoldData.tooltip}',
-                                        iconCls: '{toggleHoldData.iconCls}',
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                },
-                                {
-                                    iconCls: 'icon-reassign',
-                                    tooltip: 'Reassign service problem to another agent',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                },
-                                {
-                                    iconCls: 'icon-transfer',
-                                    tooltip: 'Transfer to another queue',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                },
-                                {
-                                    iconCls: 'icon-clear',
-                                    tooltip: 'Clear this service problem',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                },
-                                {
-                                    iconCls: 'icon-line-test',
-                                    tooltip: 'Request a managed line test',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                },
-                                {
-                                    iconCls: 'icon-feature-check',
-                                    tooltip: 'Request a feature check for this service',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                },
-                                {
-                                    iconCls: 'icon-work-reminder',
-                                    tooltip: 'Set a work reminder',
-                                    handler: 'onSetWorkReminder',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                },
-                                {
-                                    iconCls: 'icon-associate-msp',
-                                    tooltip: 'Associate this service problem to a MSP',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                }
-                            ]
+                            iconCls: 'icon-refresh',
+                            tooltip: 'Refresh',
+                            handler: 'onRefreshServiceProblem'
+                        },
+                        {
+                            reference: 'serviceProblemPullButton',
+                            iconCls: 'icon-pull',
+                            tooltip: 'Pull this item',
+                            handler: 'onPullServiceProblem',
+                            bind: {
+                                disabled: '{pullServiceProblemButtonDisabled}'
+                            }
+                        },
+                        {
+                            handler: 'onToggleHoldServiceProblem',
+                            bind: {
+                                tooltip: '{toggleHoldData.tooltip}',
+                                iconCls: '{toggleHoldData.iconCls}',
+                                disabled: '{!serviceProblemOwned}'
+                            }
+                        },
+                        {
+                            iconCls: 'icon-reassign',
+                            tooltip: 'Reassign service problem to another agent',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
+                        },
+                        {
+                            iconCls: 'icon-transfer',
+                            tooltip: 'Transfer to another queue',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
+                        },
+                        {
+                            iconCls: 'icon-clear',
+                            tooltip: 'Clear this service problem',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
+                        },
+                        {
+                            iconCls: 'icon-line-test',
+                            tooltip: 'Request a managed line test',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
+                        },
+                        {
+                            iconCls: 'icon-feature-check',
+                            tooltip: 'Request a feature check for this service',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
+                        },
+                        {
+                            iconCls: 'icon-work-reminder',
+                            tooltip: 'Set a work reminder',
+                            handler: 'onSetWorkReminder',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
+                        },
+                        {
+                            iconCls: 'icon-associate-msp',
+                            tooltip: 'Associate this service problem to a MSP',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
                         }
                     ]
                 },
                 {
-                    xtype: 'toolbar',
+                    xtype: 'buttongroup',
+                    title: 'Trouble Report',
+                    defaults: {
+                        xtype: 'button',
+                        padding: '5,5,5,5'
+                    },
                     items: [
                         {
-                            xtype: 'buttongroup',
-                            title: 'Trouble Report',
-                            defaults: {
-                                xtype: 'button',
-                                padding: '5,5,5,5'
-                            },
-                            items: [
-                                {
-                                    iconCls: 'icon-create-trouble-report',
-                                    tooltip: 'Create Trouble Report',
-                                    handler: 'onCreateTroubleReport',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                },
-                                {
-                                    iconCls: 'icon-amend-trouble-report',
-                                    tooltip: 'Amend Trouble Report',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                },
-                                {
-                                    iconCls: 'icon-cancel-trouble-report',
-                                    tooltip: 'Cancel Trouble Report',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                },
-                                {
-                                    iconCls: 'icon-confirm-equipment-disconnect',
-                                    tooltip: 'Confirm Equipment is Disconnected',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                }
-                            ]
+                            iconCls: 'icon-create-trouble-report',
+                            tooltip: 'Create Trouble Report',
+                            handler: 'onCreateTroubleReport',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
+                        },
+                        {
+                            iconCls: 'icon-amend-trouble-report',
+                            tooltip: 'Amend Trouble Report',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
+                        },
+                        {
+                            iconCls: 'icon-cancel-trouble-report',
+                            tooltip: 'Cancel Trouble Report',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
+                        },
+                        {
+                            iconCls: 'icon-confirm-equipment-disconnect',
+                            tooltip: 'Confirm Equipment is Disconnected',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
                         }
                     ]
                 },
                 {
-                    xtype: 'toolbar',
+                    xtype: 'buttongroup',
+                    title: 'Work Item',
+                    width: 75,
+                    defaults: {
+                        xtype: 'button',
+                        padding: '5,5,5,5'
+                    },
                     items: [
                         {
-                            xtype: 'buttongroup',
-                            title: 'Work Item',
-                            defaults: {
-                                xtype: 'button',
-                                padding: '5,5,5,5'
-                            },
-                            items: [
-                                {
-                                    iconCls: 'icon-next-work-item',
-                                    tooltip: 'Select Next Work Item',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                }
-                            ]
+                            iconCls: 'icon-next-work-item',
+                            tooltip: 'Select Next Work Item',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
                         }
-
                     ]
                 },
                 {
-                    xtype: 'toolbar',
+                    xtype: 'buttongroup',
+                    title: 'External Links',
+                    width: 75,
+                    defaults: {
+                        xtype: 'button',
+                        padding: '5,5,5,5'
+                    },
                     items: [
                         {
-                            xtype: 'buttongroup',
-                            title: 'External Links',
-                            defaults: {
-                                xtype: 'button',
-                                padding: '5,5,5,5'
-                            },
-                            items: [
-                                {
-                                    iconCls: 'icon-av',
-                                    tooltip: 'Do AV awesomeness!',
-                                    bind: {
-                                        disabled: '{!serviceProblemOwned}'
-                                    }
-                                }
-                            ]
+                            iconCls: 'icon-av',
+                            tooltip: 'Do AV awesomeness!',
+                            bind: {
+                                disabled: '{!serviceProblemOwned}'
+                            }
                         }
                     ]
                 }

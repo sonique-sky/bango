@@ -16,10 +16,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     onSetWorkReminder: function () {
         var serviceProblem = this.getViewModel().serviceProblem();
-        this.doSetWorkReminder(
-            serviceProblem,
-            Ext.emptyFn
-        )
+        this.doSetWorkReminder(serviceProblem, Ext.emptyFn);
     },
 
     onServiceProblemTabAdded: function () {
