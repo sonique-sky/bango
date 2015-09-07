@@ -23,5 +23,4 @@ Ext.define('Spm.view.common.BaseServiceProblemViewController', {
             }
         }).show();
     }
-
 });

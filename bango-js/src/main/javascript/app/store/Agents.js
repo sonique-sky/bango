@@ -6,6 +6,7 @@ Ext.define('Spm.store.Agents', {
         'Spm.model.Agent'
     ],
     model: 'Spm.model.Agent',
+
     groupField: 'teamName'
 
 });

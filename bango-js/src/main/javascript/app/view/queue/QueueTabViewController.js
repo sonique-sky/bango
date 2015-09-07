@@ -11,11 +11,11 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
                 bulkOperationCompleted: 'onBulkOperationCompleted'
             },
             'serviceProblemTab': {
-                serviceProblemPulled: 'onServiceProblemPulled',
-                serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
+                serviceProblemPulled: 'loadQueuedServiceProblems',
+                serviceProblemHoldToggled: 'loadQueuedServiceProblems'
             },
             'workReminderDialog': {
-                workReminderCreated: 'onWorkReminderCreated'
+                workReminderCreated: 'loadQueuedServiceProblems'
             }
         }
     },
@@ -36,22 +36,6 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
 
     onBulkOperationCompleted: function (rawJsonResponse) {
         this.getStore('queuedServiceProblems').loadRawData(rawJsonResponse);
-    },
-
-    onServiceProblemPulled: function () {
-        this.loadQueuedServiceProblems()
-    },
-
-    onWorkReminderCreated: function () {
-        this.loadQueuedServiceProblems()
-    },
-
-    onServiceProblemHoldToggled: function () {
-        this.loadQueuedServiceProblems()
-    },
-
-    onQueueTabAdded: function () {
-        this.loadQueuedServiceProblems()
     },
 
     onBeforeLoad: function (store, operation) {
@@ -151,6 +135,6 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     },
 
     loadQueuedServiceProblems: function () {
-        this.getViewModel().getStore('queuedServiceProblems').load();
+        this.getStore('queuedServiceProblems').load();
     }
 });

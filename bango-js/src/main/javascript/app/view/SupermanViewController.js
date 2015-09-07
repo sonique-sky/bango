@@ -91,11 +91,7 @@ Ext.define('Spm.view.SupermanViewController', {
         this.getStore('authenticatedAgents').load();
     },
 
-    startAuthentication: function () {
-        this.loadAuthenticatedAgent();
-    },
-
     beforeRender: function () {
-        this.startAuthentication();
+        this.loadAuthenticatedAgent();
     }
 });

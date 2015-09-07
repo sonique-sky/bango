@@ -6,7 +6,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     controller: 'serviceProblemTab',
 
     listeners: {
-        staleData: 'onStaleData',
+        staleData: 'loadServiceProblem',
         close: 'onServiceProblemTabClosed',
         added: 'onServiceProblemTabAdded'
     },
@@ -58,7 +58,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-refresh',
                             tooltip: 'Refresh',
-                            handler: 'onRefreshServiceProblem'
+                            handler: 'loadServiceProblem'
                         },
                         {
                             reference: 'serviceProblemPullButton',

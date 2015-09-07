@@ -37,4 +37,3 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialogViewModel', {
         }
     }
 });
-

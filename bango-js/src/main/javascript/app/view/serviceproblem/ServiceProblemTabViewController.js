@@ -6,17 +6,12 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         'Spm.reader.ServiceProblemReader'
     ],
 
-    onStaleData: function () {
-        this.loadServiceProblem();
-    },
-
     onServiceProblemTabClosed: function () {
         this.fireEvent('serviceProblemTabClosed', this.getViewModel().serviceProblemId());
     },
 
     onSetWorkReminder: function () {
-        var serviceProblem = this.getViewModel().serviceProblem();
-        this.doSetWorkReminder(serviceProblem, Ext.emptyFn);
+        this.doSetWorkReminder(this.getViewModel().serviceProblem(), Ext.emptyFn);
     },
 
     onServiceProblemTabAdded: function () {
@@ -26,10 +21,6 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         } else {
             this.displayServiceProblem(serviceProblem);
         }
-    },
-
-    onRefreshServiceProblem: function () {
-        this.loadServiceProblem();
     },
 
     loadServiceProblem: function () {
@@ -62,10 +53,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
             callback: function (buttonId) {
                 if ('yes' == buttonId) {
-                    var serviceProblem = me.getViewModel().serviceProblem();
-
                     Ext.Ajax.request({
-                        url: Ext.String.format('api/serviceProblem/{0}/pull', serviceProblem.serviceProblemId()),
+                        url: Ext.String.format('api/serviceProblem/{0}/pull', me.getViewModel().serviceProblemId()),
                         method: 'POST',
                         success: function (response) {
                             var serviceProblem = ServiceProblemReader.fromJsonString(response.responseText);
@@ -88,7 +77,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
         var troubleReportTemplate = Ext.create('Spm.model.TroubleReportTemplate');
         troubleReportTemplate.load({
-            params: {serviceProblemId: this.getViewModel().serviceProblemId()},
+            params: {serviceProblemId: me.getViewModel().serviceProblemId()},
             success: function () {
                 var dialog = me.getView().add({
                     xtype: 'troubleReportDialog',
@@ -106,10 +95,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     onToggleHoldServiceProblem: function () {
         var me = this;
-        var viewModel = this.getViewModel();
 
         this.doToggleHoldServiceProblem(
-                viewModel.serviceProblem(),
+                me.getViewModel().serviceProblem(),
                 function (response) {
                     var serviceProblem = ServiceProblemReader.fromJsonString(response.responseText);
                     me.displayServiceProblem(serviceProblem);

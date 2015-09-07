@@ -15,7 +15,7 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
 
     listeners: {
         cellclick: 'onCellClicked',
-        added: 'onTabAdded'
+        added: 'loadMyItems'
     },
 
     dockedItems: [

@@ -34,5 +34,4 @@ Ext.define('Spm.view.dashboard.admin.teams.create.CreateTeamDialog', {
             }
         }
     ]
-
 });

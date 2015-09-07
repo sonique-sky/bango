@@ -7,5 +7,4 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardViewModel', {
             type: 'agents'
         }
     }
-
 });

@@ -47,5 +47,4 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialog', {
                 }
             ]
         }]
-
 });

@@ -37,5 +37,4 @@ Ext.define('Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDi
     queue: function () {
         return this.get('queue');
     }
-
 });

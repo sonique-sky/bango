@@ -11,4 +11,5 @@ Ext.define('Spm.view.dashboard.admin.queues.QueueAdminTabViewModel', {
             }
         }
     }
+
 });

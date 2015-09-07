@@ -5,14 +5,14 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
     listen: {
         controller: {
             'serviceProblemTab': {
-                serviceProblemPulled: 'onServiceProblemPulled',
-                serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
+                serviceProblemPulled: 'loadMyItems',
+                serviceProblemHoldToggled: 'loadMyItems'
             },
             'myItems': {
-                serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
+                serviceProblemHoldToggled: 'loadMyItems'
             },
             'workReminderDialog': {
-                workReminderCreated: 'onWorkReminderCreated'
+                workReminderCreated: 'loadMyItems'
             }
         }
     },
@@ -28,29 +28,11 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
     },
 
     onToggleHoldServiceProblem: function (btn) {
-        this.doToggleHoldServiceProblem(
-            btn.getWidgetRecord(),
-            Ext.emptyFn
-        );
+        this.doToggleHoldServiceProblem(btn.getWidgetRecord(), Ext.emptyFn);
     },
 
     onSetWorkReminder: function (btn) {
-        this.doSetWorkReminder(
-            btn.getWidgetRecord(),
-            Ext.emptyFn
-        )
-    },
-
-    onServiceProblemHoldToggled: function () {
-        this.loadMyItems();
-    },
-
-    onWorkReminderCreated: function () {
-        this.loadMyItems();
-    },
-
-    onTabAdded: function () {
-        this.loadMyItems();
+        this.doSetWorkReminder(btn.getWidgetRecord(), Ext.emptyFn);
     },
 
     onCellClicked: function (view, td, cellIndex, record) {
@@ -59,17 +41,11 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
         }
     },
 
-    onServiceProblemPulled: function () {
-        this.loadMyItems();
-    },
-
-
     loadMyItems: function () {
-        this.getViewModel().load()
+        this.getStore('myItems').load()
     },
 
     formattedWorkItemCreatedDate: function (val, meta, record) {
         return Ext.util.Format.date(record.getWorkItem().get('createdDate'), 'd/m/y H:i');
     }
-
 });
