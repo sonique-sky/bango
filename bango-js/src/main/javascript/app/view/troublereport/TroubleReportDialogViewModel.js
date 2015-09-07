@@ -224,6 +224,17 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
 
                 return isRaiseMode || isRoi;
             }
+        },
+        maximumNotesLength: {
+            bind: {
+                bindTo: '{troubleReportTemplate.serviceType.code}'
+            },
+            get: function (serviceType) {
+                debugger;
+                return ('RoiOffnetVoice' === serviceType
+                || 'RoiRuralOffnetBroadband' === serviceType || 'RoiUrbanOffnetBroadband' === serviceType
+                || 'RoiFttc' === serviceType) ? 150 : 2000;
+            }
         }
     }
 });

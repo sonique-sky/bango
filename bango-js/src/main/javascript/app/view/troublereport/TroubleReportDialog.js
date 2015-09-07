@@ -57,7 +57,8 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         value: '{troubleReportTemplate.description}',
                                         hidden: '{isWlr3OrRoiService}'
                                     },
-                                    fieldLabel: 'Short Description'
+                                    fieldLabel: 'Short Description',
+                                    itemId: 'shortDescriptionField'
                                 },
                                 {
                                     xtype: 'combobox',
@@ -187,6 +188,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         value: '{troubleReportTemplate.upperTrcBand}',
                                         hidden: '{isRaiseOrRoi}'
                                     },
+                                    allowBlank: '{isRaiseOrRoi}',
                                     fieldLabel: 'TRC Band'
                                 },
                                 {
@@ -222,23 +224,26 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                     bind: {
                                         value: '{troubleReportTemplate.contactName}'
                                     },
-                                    fieldLabel: 'Contact Name'
+                                    fieldLabel: 'Contact Name',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
                                     bind: {
                                         value: '{troubleReportTemplate.contactNumber}'
                                     },
-                                    fieldLabel: 'Contact Number'
+                                    fieldLabel: 'Contact Number',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
-                                    readOnly: true,
+                                    readOnly: '{!isWlr3}',
                                     bind: {
                                         value: '{troubleReportTemplate.secondaryContactName}',
-                                        hidden: '{!isWlr3}'
+                                        hidden: '{isRoi}'
                                     },
-                                    fieldLabel: 'Secondary Contact Name'
+                                    fieldLabel: 'Secondary Contact Name',
+                                    allowBlank: '{!isWlr3}'
                                 },
                                 {
                                     xtype: 'textfield',
@@ -246,7 +251,8 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         value: '{troubleReportTemplate.secondaryContactNumber}',
                                         hidden: '{isRoi}'
                                     },
-                                    fieldLabel: 'Secondary Contact Number'
+                                    fieldLabel: 'Secondary Contact Number',
+                                    allowBlank: '{isRoi}'
                                 },
                                 {
                                     xtype: 'textfield',
@@ -254,7 +260,8 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         value: '{troubleReportTemplate.temporaryCallDiversionNumber}',
                                         hidden: '{!isWlr3}'
                                     },
-                                    fieldLabel: 'Temporary Call Diversion Number'
+                                    fieldLabel: 'Temporary Call Diversion Number',
+                                    allowBlank: '{!isWlr3}'
                                 }
                             ]
                         }
@@ -420,7 +427,11 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                     items: [
                         {
                             xtype: 'textarea',
-                            anchor: '100% 100%'
+                            anchor: '100% 100%',
+                            enforceMaxLength: true,
+                            bind: {
+                                value: '{troubleReportTemplate.notes}'
+                            }
                         }
                     ]
                 }

@@ -58,7 +58,8 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                     }
                 }
 
-                PresentedServiceType serviceTypeCode = somePresentedServiceType();
+//                PresentedServiceType serviceTypeCode = somePresentedServiceType();
+                PresentedServiceType serviceTypeCode = PresentedServiceType.RoiFttc;
 
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
                         .withServiceProblemId(new ServiceProblemId(serviceProblemId))
