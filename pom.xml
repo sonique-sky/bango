@@ -32,7 +32,7 @@
 
     <properties>
         <skip.bango.javascript>false</skip.bango.javascript>
-        <superman.version>1197</superman.version>
+        <superman.version>1201</superman.version>
         <sonique.workshop.version>1149</sonique.workshop.version>
 
         <ext.cmd.version>6.0.0.202</ext.cmd.version>

@@ -15,11 +15,7 @@ Ext.define('Spm.view.admindashboard.AdminDashboardTab', {
     items: [
         {xtype: 'teamAdminTab'},
         {xtype: 'agentAdminTab'},
-        {
-            xtype: 'panel',
-            iconCls: 'icon-admin-dashboard',
-            title: 'Problem Categories'
-        },
+        {xtype: 'problemCategoryAdminTab'},
         {xtype: 'queueAdminTab'}
     ]
 });

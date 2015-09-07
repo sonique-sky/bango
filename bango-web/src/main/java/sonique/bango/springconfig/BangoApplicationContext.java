@@ -47,10 +47,12 @@ public class BangoApplicationContext {
     private final DomainTroubleReportRepository troubleReportRepository;
     private final DomainTeamRepository teamRepository;
     private final SymptomStore symptomRepository;
+    private final DomainProblemCategoryRepository problemCategoryRepository;
 
     public BangoApplicationContext() {
         agentRepository = new AgentStore();
         queueRepository = new QueueStore();
+        problemCategoryRepository = new ProblemCategoryStore();
         symptomRepository = new SymptomStore();
         serviceProblemRepository = new ServiceProblemStore(queueRepository, symptomRepository);
         troubleReportRepository = new TroubleReportStore(agentRepository.getAllAgents(), serviceProblemRepository, symptomRepository);
@@ -106,6 +108,11 @@ public class BangoApplicationContext {
     }
 
     @Bean
+    public DomainProblemCategoryRepository problemCategoryRepository() {
+        return problemCategoryRepository;
+    }
+
+    @Bean
     public SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider() {
         return new SpringSecurityAuthorisedActorProvider(agentRepository);
     }
@@ -118,6 +125,11 @@ public class BangoApplicationContext {
     @Bean
     public QueueApiService queueApiService() {
         return new StubQueueApiService(queueRepository(), serviceProblemRepository, springSecurityAuthorisedActorProvider());
+    }
+
+    @Bean
+    public ProblemCategoryApiService problemCategoryApiService() {
+        return new StubProblemCategoryApiService(problemCategoryRepository());
     }
 
     @Bean
