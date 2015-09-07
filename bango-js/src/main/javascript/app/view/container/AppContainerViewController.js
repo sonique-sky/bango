@@ -33,34 +33,34 @@ Ext.define('Spm.view.container.AppContainerViewController', {
                 searchResultTabClosed: 'onSearchResultTabClosed',
                 serviceProblemSelected: 'onServiceProblemSelected'
             },
-            'workReminderDialog' : {
+            'workReminderDialog': {
                 workReminderCreated: 'onWorkReminderCreated'
             }
         }
     },
 
-    onServiceProblemHoldToggled: function(serviceProblemId) {
+    onServiceProblemHoldToggled: function (serviceProblemId) {
         var viewModel = this.getViewModel();
         var tabPanel = this.lookupReference('tabPanel');
         var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
-        if(serviceProblemTab) {
+        if (serviceProblemTab) {
             serviceProblemTab.fireEvent('staleData');
         }
         tabPanel.setActiveTab('myItems');
     },
 
-    onWorkReminderCreated: function(serviceProblemId) {
+    onWorkReminderCreated: function (serviceProblemId) {
         var tabPanel = this.lookupReference('tabPanel');
         var viewModel = this.getViewModel();
         var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
-        if(serviceProblemTab) {
+        if (serviceProblemTab) {
             tabPanel.remove(serviceProblemTab);
             viewModel.removeServiceProblemTabForId(serviceProblemId);
         }
         tabPanel.setActiveTab('myItems');
     },
 
-    onAuthenticated: function (authenticatedAgent) {
+    onAuthenticated: function (agent) {
         var tabPanel = this.lookupReference('tabPanel');
         tabPanel.removeAll(true);
         this.getViewModel().clearActiveTabs();
@@ -69,15 +69,16 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         tabPanel.add(myItems);
         tabPanel.setActiveTab(myItems);
 
-        if (authenticatedAgent.hasPrivilege('AccessQueueDashboard')) {
-            var queueDashboardTab = Ext.create('Spm.view.dashboard.queue.QueueDashboardTab');
-            tabPanel.add(queueDashboardTab);
-        }
+        this.addTabIfPermitted(agent, 'AccessQueueDashboard', 'Spm.view.dashboard.queue.QueueDashboardTab');
+        this.addTabIfPermitted(agent, 'AccessUserDashboard', 'Spm.view.dashboard.agent.AgentDashboardTab');
+        this.addTabIfPermitted(agent, 'AccessMspDashboard', 'Spm.view.dashboard.msp.MspDashboardTab');
+        this.addTabIfPermitted(agent, 'AccessAdminDashboard', 'Spm.view.dashboard.admin.AdminDashboardTab');
+    },
 
-        if (authenticatedAgent.hasPrivilege('AccessAdminDashboard')) {
-            var adminDashboardTab = Ext.create('widget.adminDashboardTab');
-            tabPanel.add(adminDashboardTab);
-            tabPanel.setActiveTab(adminDashboardTab);
+
+    addTabIfPermitted: function (agent, requiredPrivilege, tabClass) {
+        if (agent.hasPrivilege(requiredPrivilege)) {
+            this.lookupReference('tabPanel').add(Ext.create(tabClass));
         }
     },
 
@@ -85,7 +86,7 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         return Ext.String.format('{0}-{1}', params.searchTerm, params.searchParameter);
     },
 
-    onDisplaySearchResults: function(store, params) {
+    onDisplaySearchResults: function (store, params) {
         var searchKey = this.deriveSearchKey(params);
         var tabPanel = this.lookupReference('tabPanel');
         var viewModel = this.getViewModel();
@@ -110,11 +111,11 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         tabPanel.setActiveTab(searchResultTab);
     },
 
-    onSearchResultTabClosed: function(params) {
+    onSearchResultTabClosed: function (params) {
         this.getViewModel().removeSearchResultTabForId(this.deriveSearchKey(params));
     },
 
-    onDisplayServiceProblem: function(serviceProblem) {
+    onDisplayServiceProblem: function (serviceProblem) {
         var serviceProblemId = serviceProblem.serviceProblemId();
         var tabPanel = this.lookupReference('tabPanel');
         var viewModel = this.getViewModel();
