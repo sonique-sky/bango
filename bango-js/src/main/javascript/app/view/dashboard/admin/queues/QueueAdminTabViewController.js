@@ -10,8 +10,11 @@ Ext.define('Spm.view.dashboard.admin.queues.QueueAdminTabViewController', {
         }
     },
 
-    onActivated: function () {
-        this.getViewModel().getStore('queues').load();
+    loadStore: function () {
+        var store = this.getView().getStore();
+        if (store && !store.isLoaded()) {
+            store.load();
+        }
     },
 
     selectFirstRow: function (store) {

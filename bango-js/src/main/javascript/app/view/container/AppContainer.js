@@ -5,6 +5,8 @@ Ext.define('Spm.view.container.AppContainer', {
     requires: [
         'Ext.tab.Panel',
         'Ext.layout.container.Border',
+        'Spm.view.component.AutoRefreshToolbar',
+
         'Spm.view.navigation.NavigationPanel',
         'Spm.view.header.AppHeader',
         'Spm.view.header.AppHeaderViewController',
@@ -13,13 +15,28 @@ Ext.define('Spm.view.container.AppContainer', {
         'Spm.view.dashboard.admin.AdminDashboardTab',
         'Spm.view.dashboard.admin.agents.AgentAdminTab',
         'Spm.view.dashboard.admin.agents.AgentAdminTabViewController',
+        'Spm.view.dashboard.admin.agents.AgentAdminTabViewModel',
+        'Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTab',
+        'Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabViewController',
+        'Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabViewModel',
+        'Spm.view.dashboard.admin.queues.QueueAdminTab',
+        'Spm.view.dashboard.admin.queues.QueueAdminTabViewController',
+        'Spm.view.dashboard.admin.queues.QueueAdminTabViewModel',
         'Spm.view.dashboard.admin.teams.TeamAdminTab',
         'Spm.view.dashboard.admin.teams.TeamAdminTabViewController',
         'Spm.view.dashboard.admin.teams.TeamAdminTabViewModel',
+        'Spm.view.dashboard.agent.AgentDashboardTab',
+        'Spm.view.dashboard.agent.AgentDashboardViewModel',
+        'Spm.view.dashboard.agent.AgentDashboardViewController',
         'Spm.view.dashboard.queue.QueueDashboardTab',
+        'Spm.view.dashboard.queue.QueueDashboardTabViewController',
+        'Spm.view.dashboard.queue.QueueDashboardTabViewModel',
         'Spm.view.dashboard.msp.MspDashboardTab',
+
         'Spm.store.MyItems',
         'Spm.store.Teams',
+        'Spm.store.Agents',
+        'Spm.store.ProblemCategories',
 
         'Spm.proxy.TroubleReportProxy'
     ],

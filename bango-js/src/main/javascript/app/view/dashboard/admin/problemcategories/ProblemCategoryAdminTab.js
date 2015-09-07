@@ -6,7 +6,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTab',
     controller: 'problemCategoryAdminTab',
 
     listeners: {
-        activate: 'onActivated'
+        activate: 'loadStore'
     },
 
     bind: {

@@ -3,7 +3,10 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewController', {
     alias: 'controller.queueDashboard',
 
     loadStore: function () {
-        this.getStore('queueDashboardEntries').load();
+        var store = this.getView().getStore();
+        if (store && !store.isLoaded()) {
+            store.load();
+        }
     },
 
     onCellClicked: function (view, td, cellIndex, record) {

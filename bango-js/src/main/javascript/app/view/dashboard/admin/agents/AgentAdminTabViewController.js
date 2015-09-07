@@ -6,7 +6,10 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
     ],
 
     loadStore: function () {
-        this.getViewModel().getStore('agents').load();
+        var store = this.getView().getStore();
+        if (store && !store.isLoaded()) {
+            store.load();
+        }
     },
 
     onAgentStoreLoaded: function (store) {

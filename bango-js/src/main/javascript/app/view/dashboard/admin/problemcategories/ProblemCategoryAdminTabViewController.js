@@ -10,8 +10,11 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabVi
         }
     },
 
-    onActivated: function () {
-        this.getViewModel().getStore('problemCategories').load();
+    loadStore: function () {
+        var store = this.getView().getStore();
+        if (store && !store.isLoaded()) {
+            store.load();
+        }
     },
 
     selectFirstRow: function (store) {

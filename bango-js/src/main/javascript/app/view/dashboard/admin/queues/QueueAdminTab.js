@@ -6,7 +6,7 @@ Ext.define('Spm.view.dashboard.admin.queues.QueueAdminTab', {
     controller: 'queueAdminTab',
 
     listeners: {
-        activate: 'onActivated'
+        activate: 'loadStore'
     },
 
     bind: {
