@@ -33,7 +33,6 @@ Ext.define('Spm.view.container.AppContainer', {
         'Spm.view.dashboard.queue.QueueDashboardTabViewModel',
         'Spm.view.dashboard.msp.MspDashboardTab',
 
-        'Spm.store.MyItems',
         'Spm.store.Teams',
         'Spm.store.Agents',
         'Spm.store.ProblemCategories',

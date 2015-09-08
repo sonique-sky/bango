@@ -249,5 +249,4 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
             ]
         }
     ]
-})
-;
+});
