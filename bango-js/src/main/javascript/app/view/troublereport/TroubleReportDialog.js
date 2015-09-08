@@ -429,6 +429,8 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                             xtype: 'textarea',
                             anchor: '100% 100%',
                             enforceMaxLength: true,
+                            reference: 'additionalNotes',
+                            vtype: 'alpha',
                             bind: {
                                 value: '{troubleReportTemplate.notes}'
                             }

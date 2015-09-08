@@ -28,6 +28,23 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
                 serviceId: serviceId
             }
         });
+
+        var additionalNotesField = this.getView().lookupReference('additionalNotes');
+        var maxInputLength = ('RoiOffnetVoice' === serviceType.code
+                             || 'RoiRuralOffnetBroadband' === serviceType.code
+                             || 'RoiUrbanOffnetBroadband' === serviceType.code
+                             || 'RoiFttc' === serviceType.code) ? 150 : 2000;
+
+        additionalNotesField.validator = Ext.bind(this.maxNotesLengthValidator, this, [additionalNotesField, maxInputLength]);
+        this.forceAdditionalNotesMaxLength(additionalNotesField, maxInputLength);
+    },
+
+    forceAdditionalNotesMaxLength: function(additionalNotesField, maxInputLength) {
+        additionalNotesField.inputEl.set({ maxLength: maxInputLength });
+    },
+
+    maxNotesLengthValidator: function(additionalNotesField, maxInputLength) {
+        return additionalNotesField.getValue() && additionalNotesField.getValue().length >= maxInputLength ? "The max length for notes is "+maxInputLength : true;
     },
 
     onUpdateAppointmentReference: function (appointmentReference) {
