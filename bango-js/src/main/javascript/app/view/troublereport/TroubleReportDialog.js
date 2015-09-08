@@ -58,11 +58,11 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         hidden: '{isWlr3OrRoiService}'
                                     },
                                     fieldLabel: 'Short Description',
-                                    itemId: 'shortDescriptionField'
+                                    itemId: 'shortDescriptionField',
+                                    reference: 'shortDescription'
                                 },
                                 {
                                     xtype: 'combobox',
-                                    allowBlank: '{!isWlr3OrRoiService}',
                                     bind: {
                                         store: '{symptoms}',
                                         value: '{troubleReportTemplate.symptom.symptomCode}',
@@ -72,8 +72,8 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                     valueField: 'symptomCode',
                                     displayField: 'description',
                                     typeAhead: true,
-                                    forceSelection: true,
-                                    queryMode: 'local'
+                                    queryMode: 'local',
+                                    reference: 'symptomCode'
                                 },
                                 {
                                     xtype: 'fieldcontainer',
@@ -109,6 +109,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                     displayField: 'lineTestReference',
                                     typeAhead: true,
                                     queryMode: 'local',
+                                    emptyText: 'No Line Test Selected...',
                                     listeners: {
                                         expand: 'onExpand'
                                     }
@@ -136,7 +137,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
 
                                 {
                                     xtype: 'combobox',
-                                    allowBlank: '{isWlr3OrRoiService}',
+                                    reference: 'testProduct',
                                     bind: {
                                         store: '{testProducts}',
                                         value: '{troubleReportTemplate.testProduct}',
@@ -146,7 +147,6 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                     valueField: 'code',
                                     displayField: 'code',
                                     typeAhead: true,
-                                    forceSelection: true,
                                     queryMode: 'local',
                                     emptyText: 'Select a Test Product...'
                                 },
@@ -193,6 +193,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                 },
                                 {
                                     xtype: 'combobox',
+                                    reference: 'structuredQuestionCode',
                                     fieldLabel: 'Structured Question Code',
                                     valueField: 'code',
                                     displayField: 'code',
@@ -201,9 +202,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         value: '{troubleReportTemplate.structuredQuestionCode}',
                                         hidden: '{!isFttc}'
                                     },
-                                    allowBlank: '{!isFttc}',
                                     typeAhead: true,
-                                    forceSelection: true,
                                     queryMode: 'local',
                                     emptyText: 'Select a Structured Question Code...'
                                 }
@@ -229,39 +228,39 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                 },
                                 {
                                     xtype: 'textfield',
+                                    reference: 'contactNumber',
                                     bind: {
                                         value: '{troubleReportTemplate.contactNumber}'
                                     },
-                                    fieldLabel: 'Contact Number',
-                                    allowBlank: false
+                                    fieldLabel: 'Contact Number'
                                 },
                                 {
                                     xtype: 'textfield',
-                                    readOnly: '{!isWlr3}',
+                                    reference: 'secondaryContactName',
                                     bind: {
                                         value: '{troubleReportTemplate.secondaryContactName}',
-                                        hidden: '{isRoi}'
+                                        hidden: '{!isWlr3}'
                                     },
-                                    fieldLabel: 'Secondary Contact Name',
-                                    allowBlank: '{!isWlr3}'
+                                    fieldLabel: 'Secondary Contact Name'
                                 },
                                 {
                                     xtype: 'textfield',
+                                    reference: 'secondaryContactNumber',
                                     bind: {
                                         value: '{troubleReportTemplate.secondaryContactNumber}',
                                         hidden: '{isRoi}'
                                     },
                                     fieldLabel: 'Secondary Contact Number',
-                                    allowBlank: '{isRoi}'
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
+                                    reference: 'temporaryCallDiversionNumber',
                                     bind: {
                                         value: '{troubleReportTemplate.temporaryCallDiversionNumber}',
                                         hidden: '{!isWlr3}'
                                     },
-                                    fieldLabel: 'Temporary Call Diversion Number',
-                                    allowBlank: '{!isWlr3}'
+                                    fieldLabel: 'Temporary Call Diversion Number'
                                 }
                             ]
                         }

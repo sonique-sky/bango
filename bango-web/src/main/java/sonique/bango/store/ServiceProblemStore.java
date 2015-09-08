@@ -58,7 +58,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                     }
                 }
 
-                PresentedServiceType serviceTypeCode = somePresentedServiceType();
+                PresentedServiceType serviceTypeCode = pickOneOfExcluding(PresentedServiceType.WLR, PresentedServiceType.WifiDataService);
 
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
                         .withServiceProblemId(new ServiceProblemId(serviceProblemId))

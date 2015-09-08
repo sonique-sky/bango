@@ -29,17 +29,95 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
             }
         });
 
-        var additionalNotesField = this.getView().lookupReference('additionalNotes');
-        var maxInputLength = ('RoiOffnetVoice' === serviceType.code
-                             || 'RoiRuralOffnetBroadband' === serviceType.code
-                             || 'RoiUrbanOffnetBroadband' === serviceType.code
-                             || 'RoiFttc' === serviceType.code) ? 150 : 2000;
+        var troubleReportForm = this.lookupReference('troubleReportForm');
+        var shortDescriptionField = this.lookupReference('shortDescription');
+        var symptomCodeField = this.lookupReference('symptomCode');
+        var contactNumberField = this.lookupReference('contactNumber');
+        var secondaryContactNameField = this.lookupReference('secondaryContactName');
+        var secondaryContactNumberField = this.lookupReference('secondaryContactNumber');
+        var temporaryCallDiversionNumberField = this.lookupReference('temporaryCallDiversionNumber');
+        var testProductField = this.lookupReference('testProduct');
+        var additionalNotesField = this.lookupReference('additionalNotes');
+        var structuredQuestionCodeField = this.lookupReference('structuredQuestionCode');
 
+        var maxInputLength = ('RoiOffnetVoice' === serviceType.code
+        || 'RoiRuralOffnetBroadband' === serviceType.code
+        || 'RoiUrbanOffnetBroadband' === serviceType.code
+        || 'RoiFttc' === serviceType.code) ? 150 : 2000;
+
+        shortDescriptionField.validator = Ext.bind(this.requiredValueValidator, this, [
+            shortDescriptionField,
+            serviceType,
+            ['NvnVoice', 'NvnData', 'OffnetBroadband', 'OnnetBroadband', 'WLR', 'FTTC', 'WifiDataService']
+        ]);
+
+        symptomCodeField.validator = Ext.bind(this.requiredValueValidator, this, [
+            symptomCodeField,
+            serviceType,
+            ['WLR3', 'RoiOffnetVoice', 'RoiRuralOffnetBroadband', 'RoiUrbanOffnetBroadband', 'RoiFttc']
+        ]);
+
+        testProductField.validator = Ext.bind(this.requiredValueValidator, this, [
+            testProductField,
+            serviceType,
+            ['NvnVoice', 'NvnData', 'OffnetBroadband', 'OnnetBroadband', 'WLR', 'FTTC', 'WifiDataService']
+        ]);
+
+        secondaryContactNameField.validator = Ext.bind(this.requiredValueValidator, this, [
+            secondaryContactNameField,
+            serviceType,
+            ['WLR3']
+        ]);
+
+        contactNumberField.validator = Ext.bind(
+            this.telephoneNumberValidator,
+            this,
+            [contactNumberField, serviceType]
+        );
+
+        secondaryContactNumberField.validator = Ext.bind(
+            this.telephoneNumberValidator,
+            this,
+            [secondaryContactNumberField, serviceType]
+        );
+
+        temporaryCallDiversionNumberField.validator = Ext.bind(
+            this.telephoneNumberValidator,
+            this,
+            [temporaryCallDiversionNumberField, serviceType]
+        );
+
+        structuredQuestionCodeField.validator = Ext.bind(this.requiredValueValidator, this, [structuredQuestionCodeField, serviceType, ['FTTC']]);
         additionalNotesField.validator = Ext.bind(this.maxNotesLengthValidator, this, [additionalNotesField, maxInputLength]);
+
+        troubleReportForm.isValid();
     },
 
     maxNotesLengthValidator: function (additionalNotesField, maxInputLength) {
         return additionalNotesField.getValue() && additionalNotesField.getValue().length >= maxInputLength ? "The max length for notes is " + maxInputLength : true;
+    },
+
+    requiredValueValidator: function (field, serviceType, requiredForServiceTypes) {
+        if (requiredForServiceTypes.indexOf(serviceType.code) > -1) {
+            if (field.getValue() === null || field.getValue() === "") {
+                return "This field is required"
+            }
+        }
+        return true;
+    },
+
+    telephoneNumberValidator: function (field, serviceType) {
+        var btiRegex = new RegExp("0[0-9]{1,3}-?[0-9]{5,8}$");
+        var btRegex = new RegExp("0[0-9]{9,10}$");
+
+        debugger;
+        if ('RoiOffnetVoice' === serviceType.code
+            || 'RoiRuralOffnetBroadband' === serviceType.code
+            || 'RoiUrbanOffnetBroadband' === serviceType.code
+            || 'RoiFttc' === serviceType.code) {
+            return btiRegex.test(field.getValue()) ? true : 'Invalid phone number - must be numeric, start with 0 and be up to 12 digits';
+        }
+        return btRegex.test(field.getValue()) ? true : 'Invalid phone number - must be numeric, start with 0 and be either 10 or 11 digits';
     },
 
     onUpdateAppointmentReference: function (appointmentReference) {
