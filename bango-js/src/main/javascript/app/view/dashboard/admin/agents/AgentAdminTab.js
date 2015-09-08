@@ -73,14 +73,18 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
             flex: 0.25
         },
         {
+            xtype: 'templatecolumn',
             text: 'Team',
-            dataIndex: 'teamName',
+            dataIndex: 'team',
+            tpl: '{team.name}',
             hidden: true,
             flex: 0.25
         },
         {
+            xtype:'templatecolumn',
             text: 'Role',
-            dataIndex: 'roleName',
+            dataIndex: 'role',
+            tpl: '{role.description}',
             flex: 0.25
         }
     ],

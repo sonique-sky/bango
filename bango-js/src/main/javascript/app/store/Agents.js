@@ -5,8 +5,23 @@ Ext.define('Spm.store.Agents', {
     requires: [
         'Spm.model.Agent'
     ],
+
     model: 'Spm.model.Agent',
 
-    groupField: 'teamName'
+    groupField: 'team',
 
+    proxy: {
+        type: 'rest',
+        appendId: false,
+        url: 'api/agent',
+        reader: {
+            type: 'json',
+            rootProperty: 'onePageOfSearchResults',
+            totalProperty: 'totalRecordCount'
+        },
+        writer: {
+            type: 'json',
+            writeAllFields: true
+        }
+    }
 });

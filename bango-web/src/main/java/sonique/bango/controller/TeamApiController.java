@@ -18,7 +18,12 @@ public class TeamApiController {
     private TeamApiService teamApiService;
 
     @RequestMapping(method = {RequestMethod.GET})
-    public PagedSearchResults<DomainTeam> allTeams(@RequestParam Integer start, @RequestParam Integer limit) {
+    public PagedSearchResults<DomainTeam> allTeams() {
+        return pagedTeams(0, Integer.MAX_VALUE);
+    }
+
+    @RequestMapping(method = {RequestMethod.GET}, params = {"start", "limit"})
+    public PagedSearchResults<DomainTeam> pagedTeams(@RequestParam Integer start, @RequestParam Integer limit) {
         return teamApiService.teams(start, limit);
     }
 

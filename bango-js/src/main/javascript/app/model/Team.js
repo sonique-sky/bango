@@ -21,13 +21,17 @@ Ext.define('Spm.model.Team', {
         {
             name: 'assignedQueues',
             convert: function (rawQueues) {
-                return QueueReader.arrayFromJson(rawQueues);
+                return Spm.reader.QueueReader.arrayFromJson(rawQueues);
             }
         }
     ],
 
     teamId: function () {
         return this.get('id');
+    },
+
+    teamName: function () {
+        return this.get('name');
     },
 
     assignedQueues: function() {

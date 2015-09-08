@@ -12,27 +12,19 @@ Ext.define('Spm.model.Agent', {
             mapping: 'details.displayName'
         },
         {
-            name: 'role'
+            name: 'role',
+            sortType: function (role) {
+                return role.description;
+            }
         },
         {
             name: 'team',
-            reference: 'Spm.model.Team'
-        },
-        {
-            name: 'teamName',
-            mapping: 'team.name'
-        },
-        {
-            name: 'roleName',
-            mapping: 'role.description'
+            sortType: function (team) {
+                return Ext.Object.isEmpty(team) ? '' : team.name;
+            }
         },
         {
             name: 'agentAvailability'
-        },
-        {
-            name: 'availabilityChangeTime',
-            format: 'd/m/Y H:i:s'
-
         }
     ],
 
@@ -40,18 +32,7 @@ Ext.define('Spm.model.Agent', {
         return Ext.Array.contains(this.get('role').privileges, privilege);
     },
 
-    proxy: {
-        type: 'rest',
-        appendId: false,
-        url: 'api/agent',
-        reader: {
-            type: 'json',
-            rootProperty: 'onePageOfSearchResults',
-            totalProperty: 'totalRecordCount'
-        },
-        writer: {
-            type: 'json',
-            writeAllFields: true
-        }
+    getTeam: function() {
+        return new Spm.model.Team(this.get('team'));
     }
 });

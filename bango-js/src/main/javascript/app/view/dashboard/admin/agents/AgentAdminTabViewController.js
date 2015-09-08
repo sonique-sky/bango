@@ -21,8 +21,10 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
     },
 
     createAgent: function () {
-        var dialog = Ext.create('Spm.view.dashboard.admin.agents.create.CreateAgentDialog', {
+        var dialog = Ext.create('Spm.view.dashboard.admin.agents.create.CreateAgentDialog');
 
-        }).show()
+        this.getView().add(dialog);
+
+        dialog.show();
     }
 });
