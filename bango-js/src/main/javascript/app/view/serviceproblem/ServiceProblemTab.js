@@ -33,17 +33,18 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         toggleGroup: 'panelToggle',
                         allowDepress: false,
                         padding: '5,5,5,5'
-                        //handler: me.switchView,
                     },
                     items: [
                         {
                             text: 'Service Problem',
                             itemId: 'serviceProblem',
+                            handler: 'showServiceProblemPanel',
                             pressed: true
                         },
                         {
                             text: 'Trouble Report',
-                            itemId: 'troubleReport'
+                            itemId: 'troubleReport',
+                            handler: 'showTroubleReportPanel'
                         }
                     ]
                 },
@@ -209,28 +210,41 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     ],
     items: [
         {
-            xtype: 'container',
-            layout: {type: 'vbox', align: 'stretch'},
-            itemId: 'serviceProblemPanel',
+            layout: 'card',
+            reference: 'servicePanel',
+            frame: true,
             items: [
                 {
-                    xtype: 'workItemPanel'
+                    xtype: 'container',
+                    layout: {type: 'vbox', align: 'stretch'},
+                    itemId: 'serviceProblemPanel',
+                    items: [
+                        {
+                            xtype: 'workItemPanel'
+                        },
+                        {
+                            xtype: 'serviceProblemPanel'
+                        },
+                        {
+                            xtype: 'eventHistoryPanel'
+                        }
+                    ]
                 },
                 {
-                    xtype: 'serviceProblemPanel'
-                },
-                {
-                    xtype: 'eventHistoryPanel'
-                }
-            ]
-        },
-        {
-            xtype: 'form',
-            itemId: 'troubleReportPanel',
-            items: [
-                {
-                    xtype: 'label',
-                    text: 'Trouble Report'
+                    xtype: 'container',
+                    layout: {type: 'vbox', align: 'stretch'},
+                    itemId: 'troubleReportPanel',
+                    items: [
+                        {
+                            xtype: 'troubleReportsPanel'
+                        },
+                        {
+                            xtype: 'troubleReportDetailsTab'
+                        },
+                        {
+                            xtype: 'eventHistoryPanel'
+                        }
+                    ]
                 }
             ]
         }

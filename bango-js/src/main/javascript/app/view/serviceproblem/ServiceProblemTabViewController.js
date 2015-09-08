@@ -43,6 +43,16 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         eventHistoryPanel.fireEvent('serviceProblemLoaded', serviceProblem.serviceProblemId());
     },
 
+    showTroubleReportPanel: function () {
+        var servicePanel = this.lookupReference('servicePanel');
+        servicePanel.setActiveItem('troubleReportPanel');
+    },
+
+    showServiceProblemPanel: function () {
+        var servicePanel = this.lookupReference('servicePanel');
+        servicePanel.setActiveItem('serviceProblemPanel');
+    },
+
     onPullServiceProblem: function () {
         var me = this;
         Ext.Msg.show({
@@ -97,11 +107,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         var me = this;
 
         this.doToggleHoldServiceProblem(
-                me.getViewModel().serviceProblem(),
-                function (response) {
-                    var serviceProblem = ServiceProblemReader.fromJsonString(response.responseText);
-                    me.displayServiceProblem(serviceProblem);
-                }
+            me.getViewModel().serviceProblem(),
+            function (response) {
+                var serviceProblem = ServiceProblemReader.fromJsonString(response.responseText);
+                me.displayServiceProblem(serviceProblem);
+            }
         );
     }
 });
