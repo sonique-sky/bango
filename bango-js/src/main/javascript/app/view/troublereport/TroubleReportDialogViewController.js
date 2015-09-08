@@ -36,15 +36,10 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
                              || 'RoiFttc' === serviceType.code) ? 150 : 2000;
 
         additionalNotesField.validator = Ext.bind(this.maxNotesLengthValidator, this, [additionalNotesField, maxInputLength]);
-        this.forceAdditionalNotesMaxLength(additionalNotesField, maxInputLength);
     },
 
-    forceAdditionalNotesMaxLength: function(additionalNotesField, maxInputLength) {
-        additionalNotesField.inputEl.set({ maxLength: maxInputLength });
-    },
-
-    maxNotesLengthValidator: function(additionalNotesField, maxInputLength) {
-        return additionalNotesField.getValue() && additionalNotesField.getValue().length >= maxInputLength ? "The max length for notes is "+maxInputLength : true;
+    maxNotesLengthValidator: function (additionalNotesField, maxInputLength) {
+        return additionalNotesField.getValue() && additionalNotesField.getValue().length >= maxInputLength ? "The max length for notes is " + maxInputLength : true;
     },
 
     onUpdateAppointmentReference: function (appointmentReference) {
