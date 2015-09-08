@@ -5,53 +5,21 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewModel', {
     stores: {
         queueDashboardEntries: {
             fields: [
-                {
-                    name: 'queueId'
-                },
-                {
-                    name: 'queueName'
-                },
-                {
-                    name: 'oldestServiceProblemDate'
-                },
-                {
-                    name: 'serviceProblemCount'
-                },
-                {
-                    name: 'slaExpiresInMoreThan12Hours'
-                },
-                {
-                    name: 'slaExpiresInLessThan12Hours'
-                },
-                {
-                    name: 'slaExpiredLessThanADayAgo'
-                },
-                {
-                    name: 'slaExpiredBetween1And4DaysAgo'
-                },
-                {
-                    name: 'slaExpiredMoreThan4DaysAgo'
-                },
-                {
-                    name: 'oldestServiceProblemDate',
-                    type: 'date',
-                    dateFormat: 'd/m/Y H:i:s'
-                },
-                {
-                    name: 'noWorkItem'
-                },
-                {
-                    name: 'assignedPull'
-                },
-                {
-                    name: 'assignedPush'
-                },
-                {
-                    name: 'unassignedPull'
-                },
-                {
-                    name: 'unassignedPush'
-                }
+                'queueId',
+                'queueName',
+                'oldestServiceProblemDate',
+                'serviceProblemCount',
+                'slaExpiresInMoreThan12Hours',
+                'slaExpiresInLessThan12Hours',
+                'slaExpiredLessThanADayAgo',
+                'slaExpiredBetween1And4DaysAgo',
+                'slaExpiredMoreThan4DaysAgo',
+                {name: 'oldestServiceProblemDate', type: 'date', dateFormat: 'd/m/Y H:i:s'},
+                'noWorkItem',
+                'assignedPull',
+                'assignedPush',
+                'unassignedPull',
+                'unassignedPush'
             ],
 
             proxy: {
@@ -65,3 +33,4 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewModel', {
         }
     }
 });
+
