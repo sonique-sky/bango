@@ -110,7 +110,6 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
         var btiRegex = new RegExp("0[0-9]{1,3}-?[0-9]{5,8}$");
         var btRegex = new RegExp("0[0-9]{9,10}$");
 
-        debugger;
         if ('RoiOffnetVoice' === serviceType.code
             || 'RoiRuralOffnetBroadband' === serviceType.code
             || 'RoiUrbanOffnetBroadband' === serviceType.code
