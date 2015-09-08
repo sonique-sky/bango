@@ -21,10 +21,6 @@ Ext.application({
         'Spm.view.Superman'
     ],
 
-    controllers: [
-        'Errors'
-    ],
-
     launch: function () {
         Ext.create('Spm.view.Superman');
     }

@@ -17,9 +17,5 @@ Ext.define('Spm.model.EventHistoryItem', {
         {
             name: 'createdBy'
         }
-    ],
-
-    proxy: {
-        type: 'serviceProblemEventHistoryProxy'
-    }
+    ]
 });

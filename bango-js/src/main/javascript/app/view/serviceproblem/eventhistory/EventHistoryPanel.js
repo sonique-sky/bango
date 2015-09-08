@@ -3,7 +3,6 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
     alias: 'widget.eventHistoryPanel',
 
     requires: [
-        'Spm.store.EventHistory',
         'Ext.grid.feature.RowBody'
     ],
 

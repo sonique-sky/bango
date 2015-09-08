@@ -4,7 +4,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewModel', {
 
     stores: {
         eventHistory: {
-            type: 'eventHistory',
+            model: 'Spm.model.EventHistoryItem',
+            proxy: 'serviceProblemEventHistoryProxy',
             listeners: {
                 load: 'onEventHistoryLoaded'
             }

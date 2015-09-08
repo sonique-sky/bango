@@ -164,7 +164,8 @@ public class AddNoteTest extends BangoYatspecTest {
         serviceProblem = ServiceProblemScenario.serviceProblemBuilder().build();
         expectedEventHistoryItems = someEventHistoryItemsFor(serviceProblem);
         ServiceProblemScenario supermanScenario = new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem)
-                .returnsWhenNoteAdded(expectedEventHistoryItems);
+//                .returnsWhenNoteAdded(expectedEventHistoryItems);
+        ;
         return new ScenarioGivensBuilder(supermanScenario);
     }
 }

@@ -1,7 +1,10 @@
 package sonique.bango.service.stub;
 
+import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.EventDescription;
+import sky.sns.spm.domain.model.serviceproblem.ServiceProblemEventHistoryItem;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sonique.bango.service.ServiceProblemApiService;
@@ -25,10 +28,11 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     }
 
     @Override
-    public List<EventHistoryItem> addNote(ServiceProblemId serviceProblemId, String note) {
+    public EventHistoryItem addNote(ServiceProblemId serviceProblemId, String note) {
         DomainServiceProblem serviceProblem = serviceProblemWithId(serviceProblemId);
-        serviceProblem.addNote(authorisedActorProvider.getLoggedInAgent(), note);
-        return serviceProblem.historyItems();
+        DomainAgent agent = authorisedActorProvider.getLoggedInAgent();
+        serviceProblem.addNote(agent, note);
+        return ServiceProblemEventHistoryItem.createEvent(EventDescription.Note, new Date(), agent.getAgentCode(), note, serviceProblem);
     }
 
     @Override

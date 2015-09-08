@@ -2,12 +2,20 @@ Ext.define('Spm.view.SupermanViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.superman',
 
-    requires: ['Ext.window.Toast'],
+    requires: [
+        'Ext.window.Toast',
+        'Spm.domain.ProxyEventDomain'
+    ],
 
     listen: {
         global: {
             authenticationRequired: 'onAuthenticationRequired',
             displayNotification: 'onDisplayNotification'
+        },
+        proxy: {
+            '*': {
+                exception: 'onProxyException'
+            }
         },
         controller: {
             'loginDialog': {
@@ -16,6 +24,16 @@ Ext.define('Spm.view.SupermanViewController', {
             'appHeader': {
                 logout: 'onLogout'
             }
+        }
+    },
+
+    onProxyException: function (proxy, response) {
+        if (response.status == 403) {
+            Ext.GlobalEvents.fireEvent('authenticationRequired', response);
+        }
+
+        if (response.status == 400) {
+            Ext.Msg.alert("Error", Ext.JSON.decode(response.responseText).message);
         }
     },
 

@@ -37,7 +37,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     onServiceProblemLoaded: function (serviceProblemId) {
         var viewModel = this.getViewModel();
         viewModel.clearSelectedEvents();
-        viewModel.getStore('eventHistory').load({params: {serviceProblemId: serviceProblemId}});
+        this.getStore('eventHistory').load({params: {serviceProblemId: serviceProblemId}});
     },
 
     onEventHistoryNoteAdded: function (response) {

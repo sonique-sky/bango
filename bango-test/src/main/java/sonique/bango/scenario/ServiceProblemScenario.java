@@ -56,8 +56,8 @@ public class ServiceProblemScenario extends SupermanScenario {
         return addStep(() -> when(services.serviceProblemApiService().pull(any(ServiceProblemId.class))).thenReturn(returnedServiceProblem));
     }
 
-    public ServiceProblemScenario returnsWhenNoteAdded(final List<EventHistoryItem> expectedEventHistoryItems) {
-        return addStep(() -> when(services.serviceProblemApiService().addNote(any(ServiceProblemId.class), any(String.class))).thenReturn(expectedEventHistoryItems));
+    public ServiceProblemScenario returnsWhenNoteAdded(final EventHistoryItem expectedEventHistoryItem) {
+        return addStep(() -> when(services.serviceProblemApiService().addNote(any(ServiceProblemId.class), any(String.class))).thenReturn(expectedEventHistoryItem));
     }
 
     public ServiceProblemScenario returnsEventHistoryRefreshed(final List<EventHistoryItem> expectedEventHistoryItems) {

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ServiceProblemApiService {
     DomainServiceProblem serviceProblemWithId(ServiceProblemId serviceProblemId);
-    List<EventHistoryItem> addNote(ServiceProblemId serviceProblemId, String note);
+    EventHistoryItem addNote(ServiceProblemId serviceProblemId, String note);
     DomainServiceProblem pull(ServiceProblemId serviceProblemId);
     DomainServiceProblem hold(ServiceProblemId serviceProblemId);
     DomainServiceProblem release(ServiceProblemId serviceProblemId);
