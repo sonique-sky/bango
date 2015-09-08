@@ -8,8 +8,6 @@ Ext.define('Spm.store.Agents', {
 
     model: 'Spm.model.Agent',
 
-    groupField: 'team',
-
     proxy: {
         type: 'rest',
         appendId: false,

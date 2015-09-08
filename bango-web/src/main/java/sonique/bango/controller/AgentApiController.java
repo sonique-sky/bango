@@ -41,7 +41,12 @@ public class AgentApiController {
     }
 
     @RequestMapping(method = {RequestMethod.GET})
-    public PagedSearchResults<DomainAgent> allAgents(@RequestParam Integer start, @RequestParam Integer limit) {
+    public PagedSearchResults<DomainAgent> allAgents() {
+        return pagedAgents(0, Integer.MAX_VALUE);
+    }
+
+    @RequestMapping(method = {RequestMethod.GET}, params = {"start", "limit"})
+    public PagedSearchResults<DomainAgent> pagedAgents(@RequestParam Integer start, @RequestParam Integer limit) {
         return agentApiService.allAgents(start, limit);
     }
 }

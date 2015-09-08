@@ -50,14 +50,14 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
                 iconCls: 'icon-admin-agent-delete',
                 handler: 'foo'
             },
-            {xtype: 'tbspacer'},
-            {
-                xtype: 'pagingtoolbar',
-                border: 0,
-                bind: {
-                    store: '{agents}'
-                }
-            }
+            {xtype: 'tbspacer'}
+            //{
+            //    xtype: 'pagingtoolbar',
+            //    border: 0,
+            //    bind: {
+            //        store: '{agents}'
+            //    }
+            //}
         ]
     }],
 
@@ -74,14 +74,6 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
         },
         {
             xtype: 'templatecolumn',
-            text: 'Team',
-            dataIndex: 'team',
-            tpl: '{team.name}',
-            hidden: true,
-            flex: 0.25
-        },
-        {
-            xtype:'templatecolumn',
             text: 'Role',
             dataIndex: 'role',
             tpl: '{role.description}',
@@ -89,6 +81,11 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
         }
     ],
     features: [
-        {ftype: 'grouping', enableNoGroups: false, enableGroupingMenu: false}
+        {
+            ftype: 'grouping',
+            enableNoGroups: false,
+            enableGroupingMenu: false,
+            groupHeaderTpl: 'Team: {name} ({children.length:plural("Agent")})'
+        }
     ]
 });
