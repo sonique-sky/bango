@@ -58,7 +58,7 @@ public class StubDashboardApiService implements DashboardApiService {
             AgentDashboardEntry entry = new AgentDashboardEntry();
 
             setField(entry, "agentCode", agent.getAgentCode());
-            setField(entry, "teamName", asString(agent.team().name()));
+            setField(entry, "teamName", (agent.team() == null) ? null : asString(agent.team().name()));
             setField(entry, "agentAvailability", agent.availability());
             setField(entry, "availabilityChangeDate", agent.availabilityChangeTime());
             setField(entry, "assignedWorkItemCount", (int) serviceProblemRepository.getServiceProblemsForAgent(agent).stream()

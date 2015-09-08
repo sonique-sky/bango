@@ -4,8 +4,15 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardViewModel', {
 
     stores: {
         agents: {
-            fields: ['agentCode', 'teamName', 'agentAvailability', 'availabilityChangeDate', 'assignedWorkItemCount'],
-
+            fields: ['agentCode', 'agentAvailability', 'availabilityChangeDate', 'assignedWorkItemCount',
+                {
+                    name: 'teamName',
+                    convert: function (val) {
+                        return Ext.Object.isEmpty(val) ? 'No Team': val;
+                    }
+                }],
+            groupField: 'teamName',
+            pageSize: 0,
             proxy: {
                 type: 'ajax',
                 url: 'api/dashboard/agent',

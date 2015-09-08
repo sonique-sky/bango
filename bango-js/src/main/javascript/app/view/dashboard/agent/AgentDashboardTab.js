@@ -31,10 +31,25 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardTab', {
         }
     ],
 
-    columns: [
-        {text: 'Username', dataIndex: 'agentCode'},
-        {text: 'Status', dataIndex: 'agentAvailability', align: 'center', renderer: 'agentStatusRenderer'},
-        {text: '# Assigned Items', dataIndex: 'assignedWorkItemCount'},
-        {text: 'Duration (Minutes)', dataIndex: 'availabilityChangeDate', renderer: 'availabilityDurationRenderer'}
-    ]
+    columns: {
+        defaults: {
+            menuDisabled: true
+        },
+        items: [
+            {text: 'Username', dataIndex: 'agentCode', width: 250},
+            {text: 'Status', dataIndex: 'agentAvailability', align: 'center', renderer: 'agentStatusRenderer'},
+            {text: '# Assigned Items', dataIndex: 'assignedWorkItemCount', align: 'right'},
+            {
+                text: 'Duration (Minutes)',
+                dataIndex: 'availabilityChangeDate',
+                align: 'right',
+                renderer: 'availabilityDurationRenderer'
+            }
+        ]
+    },
+    features: [{
+        ftype: 'grouping',
+        enableGroupingMenu: false,
+        groupHeaderTpl: 'Team: {name} ({children.length:plural("Agent")})'
+    }]
 });

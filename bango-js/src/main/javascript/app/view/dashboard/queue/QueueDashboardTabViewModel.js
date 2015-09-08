@@ -21,7 +21,7 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewModel', {
                 'unassignedPull',
                 'unassignedPush'
             ],
-
+            pageSize: 0,
             proxy: {
                 type: 'ajax',
                 url: 'api/dashboard/queue',
