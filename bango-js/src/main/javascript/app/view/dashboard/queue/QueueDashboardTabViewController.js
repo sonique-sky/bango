@@ -10,6 +10,11 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewController', {
     },
 
     onCellClicked: function (view, td, cellIndex, record) {
-        this.fireEvent('queueSelected', record.queue());
+        this.fireEvent('queueSelected',
+            new Spm.model.Queue({
+                id: record.get('queueId'),
+                name: record.get('queueName')
+            })
+        );
     }
 });

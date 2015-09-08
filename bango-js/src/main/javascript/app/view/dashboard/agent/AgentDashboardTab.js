@@ -32,13 +32,9 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardTab', {
     ],
 
     columns: [
-        {text: 'Username', dataIndex: 'displayName'},
-        {text: 'Status', dataIndex: 'agentAvailability'},
-        {text: '# Assigned Items'},
-        {
-            text: 'Duration (Minutes)',
-            dataIndex: 'availabilityChangeTime',
-            renderer: 'calculateAvailabilityDuration'
-        }
+        {text: 'Username', dataIndex: 'agentCode'},
+        {text: 'Status', dataIndex: 'agentAvailability', align: 'center', renderer: 'agentStatusRenderer'},
+        {text: '# Assigned Items', dataIndex: 'assignedWorkItemCount'},
+        {text: 'Duration (Minutes)', dataIndex: 'availabilityChangeDate', renderer: 'availabilityDurationRenderer'}
     ]
 });

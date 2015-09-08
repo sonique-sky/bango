@@ -4,11 +4,27 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewModel', {
 
     stores: {
         queueDashboardEntries: {
-            model: 'Spm.model.QueueDashboardEntry',
+            fields: [
+                'queueId',
+                'queueName',
+                'oldestServiceProblemDate',
+                'serviceProblemCount',
+                'slaExpiresInMoreThan12Hours',
+                'slaExpiresInLessThan12Hours',
+                'slaExpiredLessThanADayAgo',
+                'slaExpiredBetween1And4DaysAgo',
+                'slaExpiredMoreThan4DaysAgo',
+                {name: 'oldestServiceProblemDate', type: 'date', dateFormat: 'd/m/Y H:i:s'},
+                'noWorkItem',
+                'assignedPull',
+                'assignedPush',
+                'unassignedPull',
+                'unassignedPush'
+            ],
 
             proxy: {
                 type: 'ajax',
-                url: 'api/queueDashboard',
+                url: 'api/dashboard/queue',
                 reader: {
                     type: 'json',
                     rootProperty: 'onePageOfSearchResults'
@@ -17,3 +33,4 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewModel', {
         }
     }
 });
+

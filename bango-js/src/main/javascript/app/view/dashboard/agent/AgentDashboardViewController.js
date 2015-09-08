@@ -9,7 +9,7 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardViewController', {
         }
     },
 
-    calculateAvailabilityDuration: function (timeChange) {
+    availabilityDurationRenderer: function (timeChange) {
         if (Ext.Object.isEmpty(timeChange)) {
             return 'N/A';
         } else {
@@ -20,5 +20,10 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardViewController', {
             }
             return Ext.Date.diff(date, now, Ext.Date.MINUTE);
         }
+    },
+
+    agentStatusRenderer: function (status, meta) {
+        meta.tdCls =  Ext.String.format('user-status-{0}', Ext.util.Format.lowercase(status));
+        return status;
     }
 });
