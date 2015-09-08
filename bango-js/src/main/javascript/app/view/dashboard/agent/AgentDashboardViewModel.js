@@ -4,7 +4,16 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardViewModel', {
 
     stores: {
         agents: {
-            type: 'agents'
+            fields: ['agentCode', 'teamName', 'agentAvailability', 'availabilityChangeDate', 'assignedWorkItemCount'],
+
+            proxy: {
+                type: 'ajax',
+                url: 'api/dashboard/agent',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'onePageOfSearchResults'
+                }
+            }
         }
     }
 });

@@ -176,7 +176,7 @@ public class BangoApplicationContext {
     }
 
     @Bean
-    public QueueDashboardApiService queueDashboardApiService() {
-        return new StubQueueDashboardApiService(queueRepository, serviceProblemRepository);
+    public DashboardApiService dashboardApiService() {
+        return new StubDashboardApiService(queueRepository, serviceProblemRepository, agentRepository);
     }
 }

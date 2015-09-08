@@ -1,3 +1,28 @@
 .icon-agent-dashboard {
   background: url('images/user-group.png');
 }
+
+.user-status {
+  color: white;
+  display: table-cell;
+  text-align: center;
+  font-size: 12px;
+  height: 25px;
+  vertical-align: middle;
+  width: 100px;
+}
+
+.user-status-offline {
+  @extend .user-status;
+  background: #777777;
+}
+
+.user-status-unavailable {
+  @extend .user-status;
+  background: #cc0000;
+}
+
+.user-status-available {
+  @extend .user-status;
+  background: #008d00;
+}
