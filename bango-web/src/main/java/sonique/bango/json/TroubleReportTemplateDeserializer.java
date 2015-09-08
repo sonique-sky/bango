@@ -80,6 +80,11 @@ public class TroubleReportTemplateDeserializer extends JsonDeserializer<TroubleR
             troubleReportStatus = TroubleReportStatus.valueOf(troubleReportTemplate.get("status").asText());
         }
 
+        TestProduct testProduct = null;
+        if (troubleReportTemplate.hasNonNull("testProduct")) {
+            testProduct = TestProduct.valueOf(troubleReportTemplate.get("testProduct").asText());
+        }
+
         return new TroubleReportTemplateBuilder()
                 .with(serviceProblemId)
                 .withTwentyFourHourAccess(twentyFourHourAccess)
@@ -111,7 +116,7 @@ public class TroubleReportTemplateDeserializer extends JsonDeserializer<TroubleR
                 .withSymptom(symptom)
                 .withLineTestSummary(lineTestSummary)
                 .withUpperTrcBand(troubleReportTemplate.get("upperTrcBand").asInt())
-                .withTestProduct(TestProduct.valueOf(troubleReportTemplate.get("testProduct").asText()))
+                .withTestProduct(testProduct)
                 .withStructuredQuestionCode(structuredQuestionCode)
                 .withStatus(troubleReportStatus)
                 .build();

@@ -13,6 +13,9 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
             },
             'workReminderDialog': {
                 workReminderCreated: 'loadMyItems'
+            },
+            'troubleReportDialog': {
+                troubleReportCreated: 'loadMyItems'
             }
         }
     },

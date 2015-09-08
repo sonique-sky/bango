@@ -35,6 +35,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             },
             'workReminderDialog': {
                 workReminderCreated: 'onWorkReminderCreated'
+            },
+            'troubleReportDialog': {
+                troubleReportCreated: 'onTroubleReportCreated'
             }
         }
     },
@@ -65,14 +68,11 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     },
 
     onWorkReminderCreated: function (serviceProblemId) {
-        var tabPanel = this.lookupReference('tabPanel');
-        var viewModel = this.getViewModel();
-        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
-        if (serviceProblemTab) {
-            tabPanel.remove(serviceProblemTab);
-            viewModel.removeServiceProblemTabForId(serviceProblemId);
-        }
-        tabPanel.setActiveTab('myItems');
+        this.closeServiceProblemAndSetMyItemsActive(serviceProblemId);
+    },
+
+    onTroubleReportCreated: function (serviceProblemId) {
+        this.closeServiceProblemAndSetMyItemsActive(serviceProblemId);
     },
 
     addTabIfPermitted: function (agent, requiredPrivilege, tabClass) {
@@ -187,5 +187,16 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         tabPanel.setActiveTab(queueTab);
 
         this.fireEvent('queueTabSelected', queueId);
+    },
+
+    closeServiceProblemAndSetMyItemsActive: function (serviceProblemId) {
+        var tabPanel = this.lookupReference('tabPanel');
+        var viewModel = this.getViewModel();
+        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+        if (serviceProblemTab) {
+            tabPanel.remove(serviceProblemTab);
+            viewModel.removeServiceProblemTabForId(serviceProblemId);
+        }
+        tabPanel.setActiveTab('myItems');
     }
 });
