@@ -88,8 +88,8 @@ public final class BangoRunner {
 
         DomainTeam aTeam = new TeamBuilder().with(someTeamId()).with(new TeamName("A Team")).withAssignedQueues(queueStore.getAllQueues()).build();
         DomainTeam bTeam = new TeamBuilder().with(someTeamId()).with(new TeamName("B Team")).withAssignedQueues(queueStore.getAllQueues()).build();
-        agentStore.registerAgent(new DomainAgent("q.q", "Q.Q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, bTeam));
-        agentStore.registerAgent(new DomainAgent("q", "Q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, aTeam));
+        agentStore.registerAgent(new DomainAgent("q.q", "Q.Q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null));
+        agentStore.registerAgent(new DomainAgent("q", "Q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null));
         agentStore.registerAgent(new DomainAgent("a", "A", new AgentDetails("a", "a", 1, 1), Role.ROLE_USER, aTeam));
         agentStore.registerAgent(new DomainAgent("b.b", "B.B", new AgentDetails("b", "b", 1, 1), Role.ROLE_USER, bTeam));
     }
