@@ -1,6 +1,6 @@
-Ext.define('Spm.proxy.TroubleReportProxy', {
+Ext.define('Spm.proxy.TroubleReportTemplateProxy', {
     extend: 'Ext.data.proxy.Ajax',
-    alias: 'proxy.troubleReportProxy',
+    alias: 'proxy.troubleReportTemplateProxy',
 
     idParam: 'troubleReportId',
 

@@ -1,6 +1,6 @@
-Ext.define('Spm.model.TroubleReportTemplate', {
+Ext.define('Spm.model.TroubleReport', {
     extend: 'Ext.data.Model',
-    alias: 'model.troubleReportTemplate',
+    alias: 'model.troubleReport',
 
     idProperty: 'troubleReportId',
 
@@ -36,7 +36,7 @@ Ext.define('Spm.model.TroubleReportTemplate', {
     ],
 
     proxy: {
-        type: 'troubleReportTemplateProxy'
+        type: 'troubleReportProxy'
     }
 
 });
