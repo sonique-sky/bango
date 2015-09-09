@@ -29,7 +29,7 @@ Ext.define('Spm.view.container.AppContainerViewController', {
                 displayServiceProblem: 'onDisplayServiceProblem',
                 displaySearchResults: 'onDisplaySearchResults'
             },
-            'searchResultTab': {
+            'searchResult': {
                 searchResultTabClosed: 'onSearchResultTabClosed',
                 serviceProblemSelected: 'onServiceProblemSelected'
             },
@@ -133,6 +133,7 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     },
 
     onServiceProblemSelected: function (serviceProblemId) {
+        debugger;
         var tabPanel = this.lookupReference('tabPanel');
         var viewModel = this.getViewModel();
         var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
