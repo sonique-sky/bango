@@ -22,6 +22,7 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
         writeEndUserInformation(jsonGenerator, serviceProblem.getEndUserInformation());
         jsonGenerator.writeStringField("operatorReference", serviceProblem.operatorReference().asString());
         jsonGenerator.writeStringField("problem", serviceProblem.problem().description());
+        jsonGenerator.writeStringField("assuranceViewUri", serviceProblem.assuranceViewUri().asString());
         writeResolution(jsonGenerator, serviceProblem.getResolution());
 
         jsonGenerator.writeBooleanField("hasActiveTroubleReport", serviceProblem.hasActiveTroubleReport());

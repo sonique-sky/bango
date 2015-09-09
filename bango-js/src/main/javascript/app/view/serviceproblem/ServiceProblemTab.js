@@ -198,9 +198,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                     items: [
                         {
                             iconCls: 'icon-av',
-                            tooltip: 'Do AV awesomeness!',
-                            bind: {
-                                disabled: '{!serviceProblemOwned}'
+                            tooltip: 'Assurance View',
+                            bind:{
+                                href: "{serviceProblem.assuranceViewUri}"
                             }
                         }
                     ]
