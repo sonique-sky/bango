@@ -212,7 +212,6 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
         {
             layout: 'card',
             reference: 'servicePanel',
-            frame: true,
             items: [
                 {
                     xtype: 'container',
@@ -231,22 +230,50 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                     ]
                 },
                 {
-                    xtype: 'container',
-                    layout: {type: 'vbox', align: 'stretch'},
+                    layout: 'card',
+                    reference: 'troublePanel',
                     itemId: 'troubleReportPanel',
                     items: [
                         {
-                            xtype: 'troubleReportsPanel'
+                            xtype: 'form',
+                            itemId: 'hasNoTroubleReports',
+                            cls: 'trouble-report-panel',
+                            layout: {
+                                align: 'stretch',
+                                type: 'vbox'
+                            },
+                            defaults: {
+                                layout: 'form',
+                                defaults: {
+                                    readOnly: true
+                                }
+                            },
+                            items: [
+                                {
+                                    xtype: 'label',
+                                    cls: 'no-work-item-text',
+                                    text: 'No Trouble Reports exist for this Service Problem'
+                                }
+                            ]
                         },
                         {
-                            xtype: 'troubleReportDetailsTab'
-                        },
-                        {
-                            xtype: 'panel'
+                            xtype: 'container',
+                            layout: {type: 'vbox', align: 'stretch'},
+                            itemId: 'hasTroubleReports',
+                            items: [
+                                {
+                                    xtype: 'troubleReportsPanel'
+                                },
+                                {
+                                    xtype: 'troubleReportDetailsTab'
+                                },
+                                {
+                                    xtype: 'panel'
+                                }
+                            ]
                         }
                     ]
                 }
             ]
-        }
-    ]
+        }]
 });

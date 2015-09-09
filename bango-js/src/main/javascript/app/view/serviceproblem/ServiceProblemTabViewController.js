@@ -45,6 +45,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     showTroubleReportPanel: function () {
         var servicePanel = this.lookupReference('servicePanel');
+        var troublePanel = this.lookupReference('troublePanel');
+        var serviceProblem = this.getViewModel().serviceProblem();
+
+        (!serviceProblem.getData().hasActiveTroubleReport) ? troublePanel.setActiveItem('hasNoTroubleReports') : troublePanel.setActiveItem('hasTroubleReports');
+
         servicePanel.setActiveItem('troubleReportPanel');
     },
 
