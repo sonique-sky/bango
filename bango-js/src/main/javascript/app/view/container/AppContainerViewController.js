@@ -133,7 +133,6 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     },
 
     onServiceProblemSelected: function (serviceProblemId) {
-        debugger;
         var tabPanel = this.lookupReference('tabPanel');
         var viewModel = this.getViewModel();
         var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
