@@ -14,6 +14,20 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         this.doSetWorkReminder(this.getViewModel().serviceProblem(), Ext.emptyFn);
     },
 
+    onTransferServiceProblem: function () {
+        var serviceProblem = this.getViewModel().serviceProblem();
+        var dialog = this.getView().add({
+            xtype: 'transferServiceProblemDialog',
+            viewModel: {
+                type: 'transferServiceProblemDialog',
+                data: {
+                    serviceProblem: serviceProblem
+                }
+            }
+        });
+        dialog.show();
+    },
+
     onServiceProblemTabAdded: function () {
         var serviceProblem = this.getViewModel().serviceProblem();
         if (!serviceProblem) {

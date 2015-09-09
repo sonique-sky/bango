@@ -88,6 +88,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-transfer',
                             tooltip: 'Transfer to another queue',
+                            handler: 'onTransferServiceProblem',
                             bind: {
                                 disabled: '{!serviceProblemOwned}'
                             }
