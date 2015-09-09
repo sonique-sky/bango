@@ -10,8 +10,7 @@ Ext.define('Spm.proxy.ServiceProblemSearchProxy', {
 
     reader: {
         type: 'json',
-        rootProperty: 'onePageOfSearchResults',
-        totalProperty: 'totalRecordCount'
+        rootProperty: 'data'
     },
 
     buildUrl: function(request) {

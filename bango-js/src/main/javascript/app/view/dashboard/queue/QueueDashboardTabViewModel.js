@@ -27,7 +27,7 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewModel', {
                 url: 'api/dashboard/queue',
                 reader: {
                     type: 'json',
-                    rootProperty: 'onePageOfSearchResults'
+                    rootProperty: 'data'
                 }
             }
         }

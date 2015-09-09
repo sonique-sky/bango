@@ -14,8 +14,7 @@ Ext.define('Spm.store.Agents', {
         url: 'api/agent',
         reader: {
             type: 'json',
-            rootProperty: 'onePageOfSearchResults',
-            totalProperty: 'totalRecordCount'
+            rootProperty: 'data'
         },
         writer: {
             type: 'json',

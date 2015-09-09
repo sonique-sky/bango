@@ -15,8 +15,7 @@ Ext.define('Spm.store.Teams', {
         url: 'api/team',
         reader: {
             type: 'json',
-            rootProperty: 'onePageOfSearchResults',
-            totalProperty: 'totalRecordCount',
+            rootProperty: 'data',
             implicitIncludes: false
         },
         writer: {

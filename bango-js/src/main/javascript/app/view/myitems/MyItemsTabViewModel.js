@@ -14,8 +14,7 @@ Ext.define('Spm.view.myitems.MyItemsTabViewModel', {
                 url: 'api/agent/myItems',
                 reader: {
                     type: 'json',
-                    rootProperty: 'onePageOfSearchResults',
-                    totalProperty: 'totalRecordCount'
+                    rootProperty: 'data'
                 }
             }
         }

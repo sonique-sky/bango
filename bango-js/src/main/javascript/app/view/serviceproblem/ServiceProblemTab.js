@@ -268,7 +268,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                                     xtype: 'troubleReportDetailsTab'
                                 },
                                 {
-                                    xtype: 'eventHistoryPanel'
+                                    xtype: 'panel'
                                 }
                             ]
                         }

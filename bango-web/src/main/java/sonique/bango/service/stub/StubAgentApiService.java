@@ -70,7 +70,7 @@ public class StubAgentApiService implements AgentApiService {
 
     @Override
     public AgentStateDTO agentState() {
-        return statisticsFor(myItems(SearchParametersDTO.withNoSearchProperties(Integer.MAX_VALUE, 0)).getOnePageOfSearchResults());
+        return statisticsFor(myItems(SearchParametersDTO.withNoSearchProperties(Integer.MAX_VALUE, 0)).getData());
     }
 
     private AgentStateDTO statisticsFor(List<DomainServiceProblem> serviceProblemsForAgent) {

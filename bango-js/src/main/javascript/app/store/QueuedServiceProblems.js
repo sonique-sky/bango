@@ -11,8 +11,7 @@ Ext.define('Spm.store.QueuedServiceProblems', {
         type: 'queuedServiceProblemsProxy',
         reader: {
             type: 'json',
-            rootProperty: 'onePageOfSearchResults',
-            totalProperty: 'totalRecordCount'
+            rootProperty: 'data'
         }
     }
 

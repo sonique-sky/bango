@@ -15,8 +15,7 @@ Ext.define('Spm.store.ProblemCategories', {
         url: 'api/problemCategory',
         reader: {
             type: 'json',
-            rootProperty: 'onePageOfSearchResults',
-            totalProperty: 'totalRecordCount'
+            rootProperty: 'data'
         },
         writer: {
             type: 'json',

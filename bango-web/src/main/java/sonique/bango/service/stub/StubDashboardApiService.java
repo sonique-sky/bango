@@ -73,7 +73,7 @@ public class StubDashboardApiService implements DashboardApiService {
             setField(entry, "queueId", queue.id());
             setField(entry, "queueName", queue.name().asString());
 
-            List<DomainServiceProblem> serviceProblems = serviceProblemRepository.searchForServiceProblemsInQueue(SearchParametersDTO.withSearchProperties("queueId", queue.id().asLong(), Integer.MAX_VALUE, 0)).getOnePageOfSearchResults();
+            List<DomainServiceProblem> serviceProblems = serviceProblemRepository.searchForServiceProblemsInQueue(SearchParametersDTO.withSearchProperties("queueId", queue.id().asLong(), Integer.MAX_VALUE, 0)).getData();
 
             setField(entry, "serviceProblemCount", serviceProblems.size());
             setField(entry, "oldestServiceProblemDate", serviceProblems.stream().map(DomainServiceProblem::openedDate).min(Comparator.<Date>naturalOrder()).orElse(null));

@@ -15,8 +15,7 @@ Ext.define('Spm.store.Queues', {
         url: 'api/queue',
         reader: {
             type: 'json',
-            rootProperty: 'onePageOfSearchResults',
-            totalProperty: 'totalRecordCount'
+            rootProperty: 'data'
         },
         writer: {
             type: 'json',

@@ -1,9 +1,9 @@
 package sonique.bango.store;
 
 import com.google.common.collect.Maps;
-import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.ProblemCategory;
 import sky.sns.spm.domain.model.refdata.Queue;
+import sky.sns.spm.domain.model.refdata.QueueRoutingKey;
 import sky.sns.spm.infrastructure.repository.DomainProblemCategoryRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
@@ -13,23 +13,27 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.stream.Collectors.toList;
+import static sky.sns.spm.domain.model.refdata.AssignmentCode.standard;
+import static sky.sns.spm.domain.model.refdata.QueueRoutingKey.routingKeyOf;
 import static sonique.datafixtures.PrimitiveDataFixtures.*;
-import static util.SupermanDataFixtures.somePresentedServiceType;
-import static util.SupermanDataFixtures.someQueue;
+import static util.SupermanDataFixtures.*;
 
 public class ProblemCategoryStore implements DomainProblemCategoryRepository {
 
     private final Map<Long, ProblemCategory> store;
-    private final AtomicLong id = new AtomicLong(0);
 
     public ProblemCategoryStore() {
         store = Maps.newHashMap();
+        AtomicLong id = new AtomicLong(0);
+
         for (int i = 0; i < 100; i++) {
             ProblemCategory problemCategory = new ProblemCategory(id.getAndIncrement(), someString(), someWords(), someBoolean());
-            Map<PresentedServiceType, Queue> presentedServiceTypeQueueMap = Maps.newHashMap();
-            presentedServiceTypeQueueMap.put(somePresentedServiceType(), someQueue());
-            presentedServiceTypeQueueMap.put(somePresentedServiceType(), someQueue());
-            presentedServiceTypeQueueMap.put(somePresentedServiceType(), someQueue());
+            Map<QueueRoutingKey, Queue> presentedServiceTypeQueueMap = Maps.newHashMap();
+            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), someQueue());
+            presentedServiceTypeQueueMap.put(routingKeyOf(someAssignmentCode(), somePresentedServiceType()), someQueue());
+            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), someQueue());
+            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), someQueue());
+            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), someQueue());
             problemCategory.setQueueRouting(presentedServiceTypeQueueMap);
             store.put(problemCategory.problemId(), problemCategory);
         }

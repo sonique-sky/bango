@@ -22,7 +22,7 @@ public class QueueApiController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Queue> allQueues() {
-        return queueApiService.allQueues(0, Integer.MAX_VALUE).getOnePageOfSearchResults();
+        return queueApiService.allQueues(0, Integer.MAX_VALUE).getData();
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"start", "limit"})

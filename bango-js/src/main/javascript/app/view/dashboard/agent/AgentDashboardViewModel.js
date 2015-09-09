@@ -18,7 +18,7 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardViewModel', {
                 url: 'api/dashboard/agent',
                 reader: {
                     type: 'json',
-                    rootProperty: 'onePageOfSearchResults'
+                    rootProperty: 'data'
                 }
             }
         }
