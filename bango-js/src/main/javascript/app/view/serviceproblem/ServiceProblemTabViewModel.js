@@ -26,6 +26,30 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                 return workItem !== null && workItem.isAssignedTo(this.authenticatedAgent());
             }
         },
+        canRaiseTroubleReport: {
+            bind: {
+                bindTo: '{serviceProblem}',
+                deep: true
+            },
+            get: function (serviceProblem) {
+                var applicableServiceTypes = [
+                    'NvnData',
+                    'NvnVoice',
+                    'OnnetBroadband',
+                    'WLR3',
+                    'FTTC',
+                    'RoiOffnetVoice',
+                    'RoiRuralOffnetBroadband',
+                    'RoiUrbanOffnetBroadband',
+                    'RoiFttc'
+                ];
+                workItem = serviceProblem.getWorkItem();
+                return workItem !== null
+                    && workItem.isAssignedTo(this.authenticatedAgent())
+                    && serviceProblem.getData().hasActiveTroubleReport === false
+                    && applicableServiceTypes.indexOf(serviceProblem.getData().serviceType.code) > -1;
+            }
+        },
         pullServiceProblemButtonDisabled: {
             bind: {
                 bindTo: '{workItem}',

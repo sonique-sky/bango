@@ -143,7 +143,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                             tooltip: 'Create Trouble Report',
                             handler: 'onCreateTroubleReport',
                             bind: {
-                                disabled: '{!serviceProblemOwned}'
+                                disabled: '{!canRaiseTroubleReport}'
                             }
                         },
                         {
