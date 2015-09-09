@@ -39,6 +39,11 @@
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:8.0.23" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.23" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-core:1203" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-bt-messages:1203" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-casemanagement-messages:1203" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-common-types:1203" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-core:test-jar:tests:1203" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-core:1203" level="project" />
     <orderEntry type="library" name="Maven: sonique:sonique-bti-messages:61" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-access:1.1.2" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-bt-messages:1203" level="project" />

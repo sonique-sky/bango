@@ -57,6 +57,6 @@ public class TroubleReportStore implements DomainTroubleReportRepository {
 
     @Override
     public TroubleReportId nextTroubleReportId() {
-        return new TroubleReportId(someLongBetween(0, Long.MAX_VALUE));
+        return new TroubleReportId(someLongBetween(0, 1000));
     }
 }

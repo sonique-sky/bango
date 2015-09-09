@@ -6,6 +6,7 @@ import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
 import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.serviceproblem.*;
+import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
 import sky.sns.spm.domain.model.troublereport.TroubleReportAttributes;
 import sky.sns.spm.domain.model.troublereport.TroubleReportAttributesBuilder;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
@@ -122,7 +123,14 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
     @Override
     public DomainServiceProblem findByTroubleReportId(TroubleReportId troubleReportId) {
-        throw new UnsupportedOperationException("Method ServiceProblemStore findByTroubleReportId() not yet implemented");
+        for (DomainServiceProblem serviceProblem : serviceProblems) {
+            for (DomainTroubleReport domainTroubleReport : serviceProblem.getTroubleReports()) {
+                if (domainTroubleReport.getTroubleReportId().equals(troubleReportId)) {
+                    return serviceProblem;
+                }
+            }
+        }
+        return null;
     }
 
     @Override

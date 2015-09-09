@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.util.stream.Collectors.toList;
 import static sky.sns.spm.validation.SpmError.QueueAlreadyExists;
 
 public class QueueStore implements QueueRepository {
@@ -60,7 +61,7 @@ public class QueueStore implements QueueRepository {
 
     @Override
     public Queue findOpenreachQueueForServiceType(PresentedServiceType presentedServiceType) {
-        return PrimitiveDataFixtures.pickOneOf(allQueues);
+        return PrimitiveDataFixtures.pickOneOf(allQueues.stream().filter(Queue::isDefaultWorkItemCreated).collect(toList()));
     }
 
     @Override

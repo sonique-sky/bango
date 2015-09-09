@@ -1,9 +1,7 @@
 package sonique.bango.controller;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.RepairType;
 import sky.sns.spm.domain.model.diagnostic.sqc.StructuredQuestionCode;
 import sky.sns.spm.domain.model.refdata.ServiceType;
@@ -20,6 +18,7 @@ import spm.domain.TroubleReportId;
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
@@ -48,6 +47,12 @@ public class TroubleReportApiController {
     @RequestMapping(value = "/template/serviceProblemId/{serviceProblemId}", method = GET)
     public TroubleReportTemplate troubleReportTemplateFor(@PathVariable ServiceProblemId serviceProblemId) {
         return troubleReportApiService.templateFor(serviceProblemId);
+    }
+
+    @RequestMapping(value = "/{troubleReportId}/eventHistory", method = RequestMethod.GET)
+    @ResponseBody
+    public List<EventHistoryItem> eventHistory(@PathVariable Long troubleReportId) {
+        return troubleReportApiService.eventHistory(new TroubleReportId(troubleReportId));
     }
 
     @RequestMapping(value = "/template/structuredQuestionCodes", method = GET, produces = APPLICATION_JSON_VALUE)

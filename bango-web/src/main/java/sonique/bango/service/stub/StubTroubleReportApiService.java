@@ -1,6 +1,7 @@
 package sonique.bango.service.stub;
 
 import com.google.common.collect.ImmutableList;
+import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.RepairType;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
@@ -84,6 +85,11 @@ public class StubTroubleReportApiService implements TroubleReportApiService {
     @Override
     public String reserveAppointmentFor(ServiceProblemId serviceProblemId, RepairType repairType, Date date, AppointmentTimeslot appointmentTimeslot) {
         return someString();
+    }
+
+    @Override
+    public List<EventHistoryItem> eventHistory(TroubleReportId troubleReportId) {
+        return troubleReportRepository.findByTroubleReportId(troubleReportId).historyItems();
     }
 
     @Override

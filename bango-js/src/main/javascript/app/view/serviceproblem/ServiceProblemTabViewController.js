@@ -50,12 +50,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
         Spm.model.TroubleReport.load(serviceProblem.serviceProblemId(), {
             scope: this,
-            success: this.setTroubleReports
+            success: this.setTroubleReport
         });
     },
 
-    setTroubleReports: function (troubleReport) {
+    setTroubleReport: function (troubleReport) {
         this.getViewModel().set('troubleReport', troubleReport);
+        this.fireEvent('troubleReportLoaded', troubleReport);
     },
 
     showTroubleReportPanel: function () {
@@ -136,6 +137,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     onSelectTroubleReport: function (view, td, cellIndex, record) {
-        this.getViewModel().set('troubleReport', record);
+        this.setTroubleReport(record);
     }
+
 });

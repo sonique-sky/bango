@@ -1,5 +1,6 @@
 package sonique.bango.service;
 
+import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.RepairType;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
@@ -28,4 +29,6 @@ public interface TroubleReportApiService {
     Collection<AvailableAppointmentDTO> availableAppointmentsFor(ServiceProblemId serviceProblemId, RepairType repairType, Date appointmentStartDate);
 
     String reserveAppointmentFor(ServiceProblemId serviceProblemId, RepairType repairType, Date date, AppointmentTimeslot appointmentTimeslot);
+
+    List<EventHistoryItem> eventHistory(TroubleReportId troubleReportId);
 }
