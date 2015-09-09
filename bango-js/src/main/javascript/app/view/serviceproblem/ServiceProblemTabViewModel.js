@@ -2,7 +2,11 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.serviceProblemTab',
 
-    stores: {},
+    stores: {
+        troubleReports: {
+            type: 'troubleReports'
+        }
+    },
 
     data: {
         serviceProblemId: null,

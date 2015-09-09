@@ -42,6 +42,12 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         var eventHistoryPanel = this.lookupReference('eventHistoryPanel');
         eventHistoryPanel.fireEvent('serviceProblemLoaded', serviceProblem.serviceProblemId());
 
+        this.getStore('troubleReports').load({
+            params: {
+                serviceProblemId: serviceProblem.serviceProblemId()
+            }
+        });
+
         Spm.model.TroubleReport.load(serviceProblem.serviceProblemId(), {
             scope: this,
             success: this.setTroubleReports
@@ -127,5 +133,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                 me.displayServiceProblem(serviceProblem);
             }
         );
+    },
+
+    onSelectTroubleReport: function (view, td, cellIndex, record) {
+        this.getViewModel().set('troubleReport', record);
     }
 });

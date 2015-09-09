@@ -13,6 +13,9 @@ public class TroubleReportSerializer extends JsonSerializer<DomainTroubleReport>
         jsonGenerator.writeStartObject();
         jsonGenerator.writeNumberField("troubleReportId", troubleReport.getTroubleReportId().asInteger());
         jsonGenerator.writeNumberField("serviceId", troubleReport.getServiceId().asLong());
+        jsonGenerator.writeStringField("btRef", troubleReport.getBtReference());
+        jsonGenerator.writeStringField("providerRef", troubleReport.providerReference().asString());
+
         jsonGenerator.writeStringField("status", troubleReport.getStatus().name());
         jsonGenerator.writeStringField("contactName", troubleReport.getContactName().asString());
         jsonGenerator.writeStringField("contactNumber", troubleReport.getContactNumber().asString());

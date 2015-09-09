@@ -4,6 +4,12 @@ Ext.define('Spm.proxy.TroubleReportProxy', {
 
     idParam: 'serviceProblemId',
 
+    model: 'Spm.model.TroubleReport',
+
+    requires: [
+        'Spm.model.TroubleReport'
+    ],
+
     buildUrl: function (request) {
         var params = request.getParams();
 

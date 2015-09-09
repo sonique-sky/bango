@@ -38,17 +38,15 @@ Ext.define('Spm.view.troublereport.TroubleReportsPanel', {
                                 height: 100,
                                 border: false,
                                 bind: {
-                                    store: {
-                                        fields: ['operatorActionRef', 'providerRef', 'btRef', 'description', 'status'],
-                                        data: [
-                                            ['5', '23_FNC', '23_FNC', 'Pedr', 'Pending']
-                                        ]
-                                    }
+                                    store: '{troubleReports}'
+                                },
+                                listeners: {
+                                    cellclick: 'onSelectTroubleReport'
                                 },
                                 columns: [
                                     {
                                         text: 'Operator Action Ref',
-                                        dataIndex: 'operatorActionRef',
+                                        dataIndex: 'troubleReportId',
                                         width: 140,
                                         resizable: true
                                     },
@@ -66,7 +64,7 @@ Ext.define('Spm.view.troublereport.TroubleReportsPanel', {
                                     },
                                     {
                                         text: 'Description',
-                                        dataIndex: 'description',
+                                        dataIndex: 'shortDescription',
                                         width: 300,
                                         resizable: true
                                     },
