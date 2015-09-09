@@ -1,12 +1,9 @@
 package sonique.bango.store;
 
-import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.refdata.ProviderClearTroubleReportResolution;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
-import sky.sns.spm.domain.model.troublereport.DomainTroubleReportBuilder;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReportSymptom;
-import sky.sns.spm.domain.model.troublereport.TroubleReportStatus;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.DomainTroubleReportRepository;
 import spm.domain.ProviderReference;
@@ -15,38 +12,17 @@ import spm.domain.TroubleReportId;
 import spm.messages.bt.types.Code;
 
 import java.util.List;
-import java.util.Map;
 
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
-import static sky.sns.spm.domain.model.troublereport.DomainTroubleReportSymptom.nullTroubleReportSymptom;
-import static sky.sns.spm.domain.model.troublereport.TestProduct.allValidFor;
-import static sonique.datafixtures.PrimitiveDataFixtures.*;
-import static util.SupermanDataFixtures.someAppointmentReference;
-import static util.SupermanDataFixtures.someFaultCode;
+import static sonique.datafixtures.PrimitiveDataFixtures.someLongBetween;
 
 public class TroubleReportStore implements DomainTroubleReportRepository {
 
-    private final Map<TroubleReportId, DomainTroubleReport> troubleReports;
+    private final DomainServiceProblemRepository serviceProblemRepository;
     private final SymptomStore symptomRepository;
 
-    public TroubleReportStore(final List<DomainAgent> agents, final DomainServiceProblemRepository serviceProblemRepository, SymptomStore symptomRepository) {
+    public TroubleReportStore(final DomainServiceProblemRepository serviceProblemRepository, SymptomStore symptomRepository) {
+        this.serviceProblemRepository = serviceProblemRepository;
         this.symptomRepository = symptomRepository;
-        troubleReports = agents
-                .stream()
-                .map(serviceProblemRepository::getServiceProblemsForAgent)
-                .flatMap(domainServiceProblems -> domainServiceProblems
-                        .stream()
-                        .map(serviceProblem -> new DomainTroubleReportBuilder().withStatus(pickOneOf(TroubleReportStatus.class))
-                                .withSymptom(symptomRepository.findSymptomsBy(serviceProblem.getServiceType()).isEmpty()
-                                                ? nullTroubleReportSymptom()
-                                                : symptomRepository.findSymptomsBy(serviceProblem.getServiceType()).get(0)
-                                )
-                                .withFaultCode(someFaultCode().asString())
-                                .withAppointmentReference(someAppointmentReference().asString())
-                                .withTestProduct(pickOneOf(allValidFor(serviceProblem.getServiceType())))
-                                .withServiceProblem(serviceProblem).build()))
-                .collect(toMap(DomainTroubleReport::getTroubleReportId, troubleReport -> troubleReport));
     }
 
     @Override
@@ -56,15 +32,12 @@ public class TroubleReportStore implements DomainTroubleReportRepository {
 
     @Override
     public DomainTroubleReport findByTroubleReportId(TroubleReportId troubleReportId) {
-        return troubleReports.get(troubleReportId);
+        return serviceProblemRepository.findByTroubleReportId(troubleReportId).getTroubleReports().get(0);
     }
 
     @Override
     public List<DomainTroubleReport> findByServiceProblemId(ServiceProblemId serviceProblemId) {
-        return troubleReports.values()
-                .stream()
-                .filter(troubleReport -> troubleReport.getServiceProblemId().equals(serviceProblemId))
-                .collect(toList());
+        return serviceProblemRepository.findByServiceProblemId(serviceProblemId).getTroubleReports();
     }
 
     @Override
@@ -84,6 +57,6 @@ public class TroubleReportStore implements DomainTroubleReportRepository {
 
     @Override
     public TroubleReportId nextTroubleReportId() {
-        return new TroubleReportId(someLongBetween(Long.MIN_VALUE, Long.MAX_VALUE));
+        return new TroubleReportId(someLongBetween(0, Long.MAX_VALUE));
     }
 }

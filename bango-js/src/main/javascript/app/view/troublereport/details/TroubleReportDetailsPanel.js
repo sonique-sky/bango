@@ -34,14 +34,14 @@ Ext.define('Spm.view.troublereport.details.TroubleReportDetailsPanel', {
                             {
                                 xtype: 'textfield',
                                 bind: {
-                                    value: '{serviceProblem.snsServiceId}'
+                                    value: '{troubleReport.serviceId}'
                                 },
                                 fieldLabel: 'Service Id'
                             },
                             {
                                 xtype: 'textfield',
                                 bind: {
-                                    value: '{serviceProblem.status}'
+                                    value: '{troubleReport.status}'
                                 },
                                 fieldLabel: 'Status'
                             },
@@ -49,35 +49,35 @@ Ext.define('Spm.view.troublereport.details.TroubleReportDetailsPanel', {
                                 xtype: 'textfield',
                                 fieldLabel: 'Short Description',
                                 bind: {
-                                    value: '{serviceProblem.chordiantAccountNumber}'
+                                    value: '{troubleReport.shortDescription}'
                                 }
                             },
                             {
                                 xtype: 'textfield',
                                 fieldLabel: 'Diagnostic Id',
                                 bind: {
-                                    value: '{serviceProblem.chordiantAccountNumber}'
+                                    value: '{troubleReport.diagnosticId}'
                                 }
                             },
                             {
                                 xtype: 'textfield',
                                 fieldLabel: 'Test Product',
                                 bind: {
-                                    value: '{serviceProblem.chordiantAccountNumber}'
+                                    value: '{troubleReport.testProduct}'
                                 }
                             },
                             {
                                 xtype: 'textfield',
                                 fieldLabel: 'TRC Band',
                                 bind: {
-                                    value: '{serviceProblem.chordiantAccountNumber}'
+                                    value: '{troubleReport.trcBand}'
                                 }
                             },
                             {
                                 xtype: 'textarea',
                                 fieldLabel: 'Notes',
                                 bind: {
-                                    value: '{serviceProblem.chordiantAccountNumber}'
+                                    value: '{troubleReport.notes}'
                                 }
                             }
                         ]

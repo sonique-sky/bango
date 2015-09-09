@@ -34,7 +34,7 @@ Ext.define('Spm.view.troublereport.details.CustomerContactDetailsPanel', {
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.appointmentRef}'
+                                value: '{troubleReport.appointmentReference}'
                             },
                             fieldLabel: 'Appointment Ref'
                         },
@@ -91,28 +91,28 @@ Ext.define('Spm.view.troublereport.details.CustomerContactDetailsPanel', {
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.contactNo}'
+                                value: '{troubleReport.contactNumber}'
                             },
                             fieldLabel: 'Contact No.'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.secContactName}'
+                                value: '{troubleReport.secondaryContactName}'
                             },
                             fieldLabel: 'Sec. Contact Name'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.secContactNo}'
+                                value: '{troubleReport.secondaryContactNumber}'
                             },
                             fieldLabel: 'Sec. Contact No.'
                         },
                         {
                             xtype: 'textfield',
                             bind: {
-                                value: '{troubleReport.tempCallDiversionNo}'
+                                value: '{troubleReport.tempCallDiversionNumber}'
                             },
                             fieldLabel: 'Temp Call Diversion No.'
                         }

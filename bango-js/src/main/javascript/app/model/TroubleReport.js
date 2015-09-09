@@ -2,7 +2,7 @@ Ext.define('Spm.model.TroubleReport', {
     extend: 'Ext.data.Model',
     alias: 'model.troubleReport',
 
-    idProperty: 'troubleReportId',
+    idProperty: 'serviceProblemId',
 
     fields: [
         {

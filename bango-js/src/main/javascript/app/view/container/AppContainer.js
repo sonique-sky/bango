@@ -37,6 +37,7 @@ Ext.define('Spm.view.container.AppContainer', {
         'Spm.store.Agents',
         'Spm.store.ProblemCategories',
 
+        'Spm.proxy.TroubleReportProxy',
         'Spm.proxy.TroubleReportTemplateProxy'
     ],
 

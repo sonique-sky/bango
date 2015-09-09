@@ -43,11 +43,14 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                     'RoiUrbanOffnetBroadband',
                     'RoiFttc'
                 ];
-                workItem = serviceProblem.getWorkItem();
-                return workItem !== null
-                    && workItem.isAssignedTo(this.authenticatedAgent())
-                    && serviceProblem.getData().hasActiveTroubleReport === false
-                    && applicableServiceTypes.indexOf(serviceProblem.getData().serviceType.code) > -1;
+                if(serviceProblem !== null) {
+                    workItem = serviceProblem.getWorkItem();
+                    return workItem !== null
+                        && workItem.isAssignedTo(this.authenticatedAgent())
+                        && serviceProblem.getData().hasActiveTroubleReport === false
+                        && applicableServiceTypes.indexOf(serviceProblem.getData().serviceType.code) > -1;
+                }
+                return false;
             }
         },
         pullServiceProblemButtonDisabled: {

@@ -57,7 +57,7 @@ public class BangoApplicationContext {
         problemCategoryRepository = new ProblemCategoryStore();
         symptomRepository = new SymptomStore();
         serviceProblemRepository = new ServiceProblemStore(queueRepository, symptomRepository);
-        troubleReportRepository = new TroubleReportStore(agentRepository.getAllAgents(), serviceProblemRepository, symptomRepository);
+        troubleReportRepository = new TroubleReportStore(serviceProblemRepository, symptomRepository);
         teamRepository = new TeamStore();
     }
 
