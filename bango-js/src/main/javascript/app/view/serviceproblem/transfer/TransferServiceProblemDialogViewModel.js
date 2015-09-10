@@ -4,13 +4,39 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialogViewMod
 
     data: {
         transferType: null,
-        newQueue: null
+        queueId: null
     },
 
     stores: {
         queues: {
             type: 'queues',
-            autoLoad: 'true'
+            proxy: {
+                type: 'rest',
+                appendId: true,
+                url: 'api/queue/transferable',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data'
+                }
+            },
+            autoLoad: false,
+            listeners: {
+                load: 'selectFirstRow'
+            }
         }
+    },
+
+
+    serviceProblemId: function () {
+        return this.get('serviceProblemId');
+    },
+
+    transferType: function () {
+        return this.get('transferType');
+    },
+
+    queueId: function () {
+        return this.get('queueId');
     }
+
 });

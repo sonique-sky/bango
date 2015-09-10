@@ -2,6 +2,8 @@ package sonique.bango.service;
 
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.TransferType;
+import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
 
 import java.util.Date;
@@ -15,4 +17,5 @@ public interface ServiceProblemApiService {
     DomainServiceProblem release(ServiceProblemId serviceProblemId);
     List<EventHistoryItem> eventHistory(ServiceProblemId serviceProblemId);
     DomainServiceProblem createWorkReminder(ServiceProblemId serviceProblemId, Date dateTime);
+    DomainServiceProblem transferToQueue(ServiceProblemId serviceProblemId, TransferType transferType, QueueId queueId);
 }

@@ -20,6 +20,9 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
             'workReminderDialog': {
                 workReminderCreated: 'refreshAgentState'
             },
+            'transferServiceProblemDialog': {
+                serviceProblemTransferred: 'refreshAgentState'
+            },
             'troubleReportDialog': {
                 troubleReportCreated: 'refreshAgentState'
             }

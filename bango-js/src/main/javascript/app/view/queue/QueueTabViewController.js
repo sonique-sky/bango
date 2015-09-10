@@ -16,6 +16,9 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
             },
             'workReminderDialog': {
                 workReminderCreated: 'loadQueuedServiceProblems'
+            },
+            'transferServiceProblemDialog': {
+                serviceProblemTransferred: 'loadQueuedServiceProblems'
             }
         }
     },

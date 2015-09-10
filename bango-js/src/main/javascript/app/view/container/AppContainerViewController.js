@@ -38,6 +38,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             },
             'troubleReportDialog': {
                 troubleReportCreated: 'onTroubleReportCreated'
+            },
+            'transferServiceProblemDialog': {
+                serviceProblemTransferred: 'onServiceProblemTransferred'
             }
         }
     },
@@ -68,6 +71,10 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     },
 
     onWorkReminderCreated: function (serviceProblemId) {
+        this.closeServiceProblemAndSetMyItemsActive(serviceProblemId);
+    },
+
+    onServiceProblemTransferred: function (serviceProblemId) {
         this.closeServiceProblemAndSetMyItemsActive(serviceProblemId);
     },
 

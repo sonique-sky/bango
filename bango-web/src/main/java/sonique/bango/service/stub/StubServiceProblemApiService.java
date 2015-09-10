@@ -2,24 +2,35 @@ package sonique.bango.service.stub;
 
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.EventHistoryItem;
-import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
-import sky.sns.spm.domain.model.serviceproblem.EventDescription;
-import sky.sns.spm.domain.model.serviceproblem.ServiceProblemEventHistoryItem;
+import sky.sns.spm.domain.model.refdata.Queue;
+import sky.sns.spm.domain.model.serviceproblem.*;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
+import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sonique.bango.service.ServiceProblemApiService;
+import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
+import spm.domain.event.TransferHistoryEvent;
+import spm.domain.event.UnassignHistoryEvent;
 
 import java.util.Date;
 import java.util.List;
 
+import static sky.sns.spm.domain.model.serviceproblem.EventDescription.ServiceProblemTransferred;
+import static sky.sns.spm.interfaces.shared.SystemActor.Spm;
+
 public class StubServiceProblemApiService implements ServiceProblemApiService {
     private final DomainServiceProblemRepository serviceProblemRepository;
     private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
+    private final QueueRepository queueRepository;
 
-    public StubServiceProblemApiService(DomainServiceProblemRepository serviceProblemRepository, SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
+    public StubServiceProblemApiService(
+            DomainServiceProblemRepository serviceProblemRepository,
+            SpringSecurityAuthorisedActorProvider authorisedActorProvider,
+            QueueRepository queueRepository) {
         this.serviceProblemRepository = serviceProblemRepository;
         this.authorisedActorProvider = authorisedActorProvider;
+        this.queueRepository = queueRepository;
     }
 
     @Override
@@ -72,5 +83,24 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
         );
 
         return serviceProblem;
+    }
+
+    @Override
+    public DomainServiceProblem transferToQueue(ServiceProblemId serviceProblemId, TransferType transferType, QueueId queueId) {
+        Date date = new Date();
+        DomainAgent loggedInAgent = authorisedActorProvider.getLoggedInAgent();
+        DomainServiceProblem domainServiceProblem = serviceProblemWithId(serviceProblemId);
+        Queue sourceQueue = domainServiceProblem.getQueue();
+        Queue destinationQueue = queueRepository.getAllQueues().stream().filter(q -> q.id().equals(queueId)).findFirst().get();
+
+        domainServiceProblem.transfer(destinationQueue);
+
+        domainServiceProblem.writeHistoryFor(new TransferHistoryEvent(date, loggedInAgent, ServiceProblemTransferred, sourceQueue, destinationQueue));
+
+        DomainWorkItem workItem = domainServiceProblem.workItem();
+        workItem.setUnassigned();
+        workItem.setAssignmentType(transferType.getAssignmentType());
+        domainServiceProblem.writeHistoryFor(new UnassignHistoryEvent(date, Spm, loggedInAgent, ServiceProblemTransferred));
+        return domainServiceProblem;
     }
 }

@@ -4,16 +4,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.TransferType;
 import sonique.bango.service.ServiceProblemApiService;
+import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Arrays.asList;
 
 @Controller
 @RequestMapping("/api/serviceProblem")
@@ -53,6 +56,19 @@ public class ServiceProblemApiController {
         return serviceProblemApiService.createWorkReminder(
                 new ServiceProblemId(serviceProblemId),
                 date
+        );
+    }
+
+    @RequestMapping(value = "/{serviceProblemId}/transfer", method = RequestMethod.POST)
+    @ResponseBody
+    public DomainServiceProblem transferServiceProblem(@PathVariable Long serviceProblemId, @RequestBody Map<String, String> payloadMap) {
+        QueueId queueId = new QueueId(payloadMap.get("queueId"));
+        TransferType transferType = asList(TransferType.values()).stream().filter(tType -> tType.getDescription().equals(payloadMap.get("transferType"))).findFirst().get();
+
+        return serviceProblemApiService.transferToQueue(
+                new ServiceProblemId(serviceProblemId),
+                transferType,
+                queueId
         );
     }
 

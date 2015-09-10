@@ -11,6 +11,10 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialog', {
     height: 250,
     width: 450,
 
+    listeners: {
+        show: 'onShow'
+    },
+
     items: [
         {
             xtype: 'form',
@@ -47,6 +51,7 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialog', {
                         },
                         {
                             xtype: 'gridpanel',
+                            rowLines: false,
                             reference: 'queuesGrid',
                             height: 135,
                             border: false,
@@ -54,9 +59,9 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialog', {
                             bind: {
                                 store: '{queues}'
                             },
-                            //listeners: {
-                            //    cellclick: 'onSelectTroubleReport'
-                            //},
+                            listeners: {
+                                cellclick: 'onSelectQueue'
+                            },
                             columns: [
                                 {
                                     text: 'Queue',

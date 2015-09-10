@@ -9,6 +9,7 @@ import sonique.bango.domain.ResponseData;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
 import sonique.bango.service.QueueApiService;
+import spm.domain.ServiceProblemId;
 
 import javax.annotation.Resource;
 import java.util.Collection;
@@ -23,6 +24,11 @@ public class QueueApiController {
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Queue> allQueues() {
         return queueApiService.allQueues(0, Integer.MAX_VALUE).getData();
+    }
+
+    @RequestMapping(value = "/transferable/{serviceProblemId}", method = RequestMethod.GET)
+    public Collection<Queue> getTransferableQueuesFor(@PathVariable Long serviceProblemId) {
+        return queueApiService.getTransferableQueuesFor(new ServiceProblemId(serviceProblemId));
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"start", "limit"})

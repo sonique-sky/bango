@@ -91,6 +91,15 @@ public class StubQueueApiService implements QueueApiService {
         return serviceProblemsFor(request.originalQueueId().asInteger(), null, 0, 20);
     }
 
+    @Override
+    public Collection<Queue> getTransferableQueuesFor(ServiceProblemId serviceProblemId) {
+        DomainServiceProblem serviceProblem = serviceProblemRepository.findByServiceProblemId(serviceProblemId);
+        Queue currentQueue = serviceProblem.getQueue();
+        List<Queue> allQueues = queueRepository.getAllQueues();
+
+        return allQueues.stream().filter(Queue::isManualTransferAllowed).filter(queue -> !queue.id().equals(currentQueue.id())).collect(toList());
+    }
+
     private Collection<ServiceProblemId> transformServiceProblemIds(Collection<Long> serviceProblemIds) {
         return transform(serviceProblemIds, ServiceProblemId::new);
     }
