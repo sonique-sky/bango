@@ -185,7 +185,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                             tooltip: 'Select Next Work Item',
                             bind: {
                                 disabled: '{!serviceProblemOwned}'
-                            }
+                            },
+                            handler: 'onSelectNextWorkItem'
                         }
                     ]
                 },

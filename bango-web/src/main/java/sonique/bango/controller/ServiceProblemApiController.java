@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.TransferType;
+import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
@@ -12,6 +13,7 @@ import spm.domain.ServiceProblemId;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +85,15 @@ public class ServiceProblemApiController {
         );
     }
 
+    @RequestMapping(value = "/{serviceProblemId}/nextWorkItem", method = RequestMethod.POST)
+    @ResponseBody
+    public DomainServiceProblem selectNextWorkItem(@PathVariable Long serviceProblemId, @RequestBody Map<String, String> payloadMap) {
+        return serviceProblemApiService.selectNextWorkItem(
+                new ServiceProblemId(serviceProblemId),
+                payloadMap.get("nextWorkItem")
+        );
+    }
+
     @RequestMapping(value = "/{serviceProblemId}/hold", method = RequestMethod.PUT)
     @ResponseBody
     public DomainServiceProblem hold(@PathVariable Long serviceProblemId) {
@@ -94,4 +105,11 @@ public class ServiceProblemApiController {
     public DomainServiceProblem release(@PathVariable Long serviceProblemId) {
         return serviceProblemApiService.release(new ServiceProblemId(serviceProblemId));
     }
+
+    @RequestMapping(value = "/workItemActions", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<WorkItemAction> worksItemActions() {
+        return asList(WorkItemAction.values());
+    }
+
 }

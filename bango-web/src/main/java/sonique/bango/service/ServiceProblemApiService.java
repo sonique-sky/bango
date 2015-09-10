@@ -19,4 +19,5 @@ public interface ServiceProblemApiService {
     DomainServiceProblem createWorkReminder(ServiceProblemId serviceProblemId, Date dateTime);
     DomainServiceProblem transferToQueue(ServiceProblemId serviceProblemId, TransferType transferType, QueueId queueId);
     DomainServiceProblem clearServiceProblem(ServiceProblemId serviceProblemId, String fault, String cause, String resolution);
+    DomainServiceProblem selectNextWorkItem(ServiceProblemId serviceProblemId, String nextWorkItem);
 }

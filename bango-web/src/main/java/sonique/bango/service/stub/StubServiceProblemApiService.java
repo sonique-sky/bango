@@ -116,4 +116,11 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
         );
         return serviceProblem;
     }
+
+    @Override
+    public DomainServiceProblem selectNextWorkItem(ServiceProblemId serviceProblemId, String nextWorkItem) {
+        DomainServiceProblem serviceProblem = serviceProblemRepository.findByServiceProblemId(serviceProblemId);
+        serviceProblem.selectNextWorkItem(WorkItemAction.valueOf(nextWorkItem), authorisedActorProvider.getLoggedInAgent());
+        return serviceProblem;
+    }
 }

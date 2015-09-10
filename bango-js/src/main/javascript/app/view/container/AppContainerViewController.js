@@ -39,6 +39,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             'troubleReportDialog': {
                 troubleReportCreated: 'closeServiceProblemAndSetMyItemsActive'
             },
+            'nextWorkItemDialog': {
+                workItemUpdated: 'onWorkItemActionUpdated'
+            },
             'transferServiceProblemDialog': {
                 serviceProblemTransferred: 'closeServiceProblemAndSetMyItemsActive'
             },
@@ -71,6 +74,14 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             serviceProblemTab.fireEvent('staleData');
         }
         tabPanel.setActiveTab('myItems');
+    },
+
+    onWorkItemActionUpdated: function (serviceProblemId) {
+        var viewModel = this.getViewModel();
+        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+        if (serviceProblemTab) {
+            serviceProblemTab.fireEvent('staleData');
+        }
     },
 
     addTabIfPermitted: function (agent, requiredPrivilege, tabClass) {

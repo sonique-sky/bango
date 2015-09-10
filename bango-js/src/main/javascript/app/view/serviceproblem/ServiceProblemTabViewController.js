@@ -55,6 +55,23 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         }
     },
 
+    onSelectNextWorkItem: function () {
+        var workItem = this.getViewModel().serviceProblem().getWorkItem();
+        var serviceProblemId = this.getViewModel().serviceProblemId();
+
+        var dialog = this.getView().add({
+            xtype: 'nextWorkItemDialog',
+            viewModel: {
+                type: 'nextWorkItemDialog',
+                data: {
+                    workItem: workItem,
+                    serviceProblemId: serviceProblemId
+                }
+            }
+        });
+        dialog.show();
+    },
+
     onServiceProblemTabAdded: function () {
         var serviceProblem = this.getViewModel().serviceProblem();
         if (!serviceProblem) {

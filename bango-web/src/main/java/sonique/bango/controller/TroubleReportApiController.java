@@ -111,5 +111,4 @@ public class TroubleReportApiController {
                 .orElseGet(() -> RepairType.REPAIR);
     }
 
-
 }
