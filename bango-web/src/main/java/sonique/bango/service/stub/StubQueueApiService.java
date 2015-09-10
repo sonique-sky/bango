@@ -9,11 +9,12 @@ import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
+import sonique.bango.domain.sorter.ComparatorRegister;
+import sonique.bango.domain.sorter.Sort;
 import sonique.bango.service.QueueApiService;
 import spm.domain.ServiceProblemId;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static com.google.common.collect.Collections2.transform;
 import static java.util.stream.Collectors.toList;
@@ -24,17 +25,22 @@ public class StubQueueApiService implements QueueApiService {
     private final QueueRepository queueRepository;
     private final DomainServiceProblemRepository serviceProblemRepository;
     private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
+    private final QueueComparator queueComparator;
 
     public StubQueueApiService(QueueRepository queueRepository, DomainServiceProblemRepository serviceProblemRepository, SpringSecurityAuthorisedActorProvider authorisedActorProvider) {
         this.queueRepository = queueRepository;
         this.serviceProblemRepository = serviceProblemRepository;
         this.authorisedActorProvider = authorisedActorProvider;
+        this.queueComparator = new QueueComparator();
     }
 
     @Override
-    public PagedSearchResults<Queue> allQueues(Integer start, Integer limit) {
+    public PagedSearchResults<Queue> allQueues(Integer start, Integer limit, List<Sort> sorters) {
+
         List<Queue> allQueues = queueRepository.getAllQueues();
+        Comparator<Queue> comparator = queueComparator.comparatorFor(sorters.get(0));
         List<Queue> pageOfQueues = allQueues.stream()
+                .sorted(comparator)
                 .skip(start)
                 .limit(limit)
                 .collect(toList());
@@ -93,5 +99,24 @@ public class StubQueueApiService implements QueueApiService {
 
     private Collection<ServiceProblemId> transformServiceProblemIds(Collection<Long> serviceProblemIds) {
         return transform(serviceProblemIds, ServiceProblemId::new);
+    }
+
+    private static class QueueComparator implements ComparatorRegister<Queue> {
+        private Map<String, Comparator<Queue>> comparatorMap = new HashMap<>();
+
+        public QueueComparator() {
+            comparatorMap.put("name", (o1, o2) -> o1.getName().compareTo(o2.getName()));
+            comparatorMap.put("pullSla", (o1, o2) -> o1.getPullSla().compareTo(o2.getPullSla()));
+            comparatorMap.put("manualTransferAllowed", (o1, o2) -> o1.isManualTransferAllowed() == o2.isManualTransferAllowed() ? 0 : (o1.isManualTransferAllowed() ? 1 : -1));
+            comparatorMap.put("createServiceProblemAllowed", (o1, o2) -> o1.isCreateServiceProblemAllowed() == o2.isCreateServiceProblemAllowed() ? 0 : (o1.isCreateServiceProblemAllowed() ? 1 : -1));
+            comparatorMap.put("defaultWorkItemCreated", (o1, o2) -> o1.isDefaultWorkItemCreated() == o2.isDefaultWorkItemCreated() ? 0 : (o1.isDefaultWorkItemCreated() ? 1 : -1));
+            comparatorMap.put("createSLAWorkItem", (o1, o2) -> o1.isCreateSLAWorkItem() == o2.isCreateSLAWorkItem() ? 0 : (o1.isCreateSLAWorkItem() ? 1 : -1));
+            comparatorMap.put("domain", (o1, o2) -> o1.getDomain().compareTo(o2.getDomain()));
+        }
+
+        @Override
+        public Comparator<Queue> createComparator(Sort sortData) {
+            return comparatorMap.get(sortData.getProperty());
+        }
     }
 }

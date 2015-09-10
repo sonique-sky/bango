@@ -5,8 +5,7 @@ Ext.define('Spm.domain.ProxyEventDomain', {
     type: 'proxy',
     idProperty: 'type',
     constructor: function() {
-        var me = this;
-        me.callParent();
-        me.monitor(Ext.data.proxy.Server);
+        this.callParent();
+        this.monitor(Ext.data.proxy.Server);
     }
 });

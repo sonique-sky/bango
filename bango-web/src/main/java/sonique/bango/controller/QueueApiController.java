@@ -1,5 +1,6 @@
 package sonique.bango.controller;
 
+import com.google.common.collect.Lists;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.refdata.Queue;
@@ -8,10 +9,14 @@ import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.domain.ResponseData;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
+import sonique.bango.domain.sorter.Sort;
 import sonique.bango.service.QueueApiService;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collection;
+
+import static java.util.Arrays.asList;
 
 @RestController
 @RequestMapping("/api/queue")
@@ -21,13 +26,14 @@ public class QueueApiController {
     private QueueApiService queueApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Queue> allQueues() {
-        return queueApiService.allQueues(0, Integer.MAX_VALUE).getData();
+    public Collection<Queue> allQueues() { //TODO : everything returns PagedSearchResults or ResponseData
+        ArrayList<Sort> sorts = Lists.newArrayList(new Sort("name", Sort.Direction.Ascending));
+        return queueApiService.allQueues(0, Integer.MAX_VALUE, sorts).getData();
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = {"start", "limit"})
-    public PagedSearchResults<Queue> queue(@RequestParam Integer start, @RequestParam Integer limit) {
-        return queueApiService.allQueues(start, limit);
+    @RequestMapping(method = RequestMethod.GET, params = {"start", "limit", "sort"})
+    public PagedSearchResults<Queue> sortedPagedQueues(@RequestParam Integer start, @RequestParam Integer limit, @RequestParam Sort[] sort) {
+        return queueApiService.allQueues(start, limit, asList(sort));
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -59,4 +65,5 @@ public class QueueApiController {
     public PagedSearchResults<DomainServiceProblem> bulkClear(@RequestBody BulkClearRequest request) {
         return queueApiService.bulkClear(request);
     }
+
 }
