@@ -2,7 +2,7 @@ package sonique.bango.domain.sorter;
 
 import java.io.Serializable;
 
-public class Sort implements Serializable {
+public class Sorter implements Serializable {
     public enum Direction {
         Ascending,
         Descending;
@@ -15,19 +15,13 @@ public class Sort implements Serializable {
         }
     }
 
-    private static final Sort NULL_SORT = new Sort(null, null);
-
-    public static Sort nullSort() {
-        return NULL_SORT;
-    }
-
     private String property;
     private Direction direction;
 
-    public Sort() {
+    public Sorter() {
     }
 
-    public Sort(String property, Direction direction) {
+    public Sorter(String property, Direction direction) {
         this.property = property;
         this.direction = direction;
     }

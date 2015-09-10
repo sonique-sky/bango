@@ -23,19 +23,19 @@ public final class JsonSortDataParameterParser extends PropertyEditorSupport {
             int nodesCount = root.size();
             Iterator<JsonNode> nodesIterator = root.iterator();
 
-            Sort[] sortDataArray = new Sort[nodesCount];
+            Sorter[] sorterArray = new Sorter[nodesCount];
             for (int i = 0; nodesIterator.hasNext(); i++) {
                 JsonNode sortNode = nodesIterator.next();
-                sortDataArray[i] = new Sort(sortNode.get("property").asText(), asDirection(sortNode.get("direction").asText()));
+                sorterArray[i] = new Sorter(sortNode.get("property").asText(), asDirection(sortNode.get("direction").asText()));
             }
 
-            this.setValue(sortDataArray);
+            this.setValue(sorterArray);
         } catch (IOException e) {
             Throwables.propagate(e);
         }
     }
 
-    private static Sort.Direction asDirection(String direction) {
-        return Sort.Direction.from(direction);
+    private static Sorter.Direction asDirection(String direction) {
+        return Sorter.Direction.from(direction);
     }
 }

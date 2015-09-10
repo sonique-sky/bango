@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import sonique.bango.domain.sorter.JsonSortDataParameterParser;
-import sonique.bango.domain.sorter.Sort;
+import sonique.bango.domain.sorter.Sorter;
 
 @ControllerAdvice
 @EnableWebMvc
@@ -16,11 +16,11 @@ public class WebDataInitBinderSupport {
 
     @Autowired
     public void setObjectMapper(ObjectMapper objectMapper) {
-        sortDataParameterParser = new JsonSortDataParameterParser(objectMapper);
+        this.sortDataParameterParser = new JsonSortDataParameterParser(objectMapper);
     }
 
     @InitBinder({"sort"})
     public void initBinder(final WebDataBinder webDataBinder) {
-        webDataBinder.registerCustomEditor(Sort[].class, sortDataParameterParser);
+        webDataBinder.registerCustomEditor(Sorter[].class, sortDataParameterParser);
     }
 }

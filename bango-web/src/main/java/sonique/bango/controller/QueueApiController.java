@@ -9,11 +9,10 @@ import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.domain.ResponseData;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
-import sonique.bango.domain.sorter.Sort;
+import sonique.bango.domain.sorter.Sorter;
 import sonique.bango.service.QueueApiService;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import static java.util.Arrays.asList;
@@ -27,12 +26,11 @@ public class QueueApiController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Queue> allQueues() { //TODO : everything returns PagedSearchResults or ResponseData
-        ArrayList<Sort> sorts = Lists.newArrayList(new Sort("name", Sort.Direction.Ascending));
-        return queueApiService.allQueues(0, Integer.MAX_VALUE, sorts).getData();
+        return queueApiService.allQueues(0, Integer.MAX_VALUE, Lists.newArrayList(new Sorter("name", Sorter.Direction.Ascending))).getOnePageOfSearchResults();
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"start", "limit", "sort"})
-    public PagedSearchResults<Queue> sortedPagedQueues(@RequestParam Integer start, @RequestParam Integer limit, @RequestParam Sort[] sort) {
+    public PagedSearchResults<Queue> sortedPagedQueues(@RequestParam Integer start, @RequestParam Integer limit, @RequestParam Sorter[] sort) {
         return queueApiService.allQueues(start, limit, asList(sort));
     }
 
