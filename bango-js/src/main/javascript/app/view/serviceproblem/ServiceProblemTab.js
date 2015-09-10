@@ -96,6 +96,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-clear',
                             tooltip: 'Clear this service problem',
+                            handler: 'clearServiceProblem',
                             bind: {
                                 disabled: '{!serviceProblemOwned}'
                             }

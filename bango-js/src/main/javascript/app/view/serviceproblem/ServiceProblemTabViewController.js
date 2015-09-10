@@ -16,16 +16,43 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     onTransferServiceProblem: function () {
         var serviceProblem = this.getViewModel().serviceProblem();
+        var currentQueueId = this.getViewModel().serviceProblem().getData().queue.queueId;
         var dialog = this.getView().add({
             xtype: 'transferServiceProblemDialog',
             viewModel: {
                 type: 'transferServiceProblemDialog',
                 data: {
-                    serviceProblem: serviceProblem
+                    serviceProblem: serviceProblem,
+                    currentQueueId: currentQueueId
                 }
             }
         });
         dialog.show();
+    },
+
+    clearServiceProblem: function () {
+        var me = this;
+        var serviceProblem = this.getViewModel().serviceProblem();
+
+        if (serviceProblem.getData().hasActiveTroubleReport) {
+            Ext.Msg.show({
+                title: 'Confirm Clear',
+                msg: Ext.String.format('There is an Outstanding Trouble Report for this Service Problem - Are you sure you wish to clear this Service Problem?'),
+                height: 125,
+                width: 320,
+                buttons: Ext.Msg.YESNO,
+                icon: Ext.Msg.QUESTION,
+                callback: function (buttonId) {
+                    if ('yes' == buttonId) {
+                        me.showClearServiceProblemDialog(serviceProblem);
+                    } else {
+                        me.close();
+                    }
+                }
+            });
+        } else {
+            me.showClearServiceProblemDialog(serviceProblem);
+        }
     },
 
     onServiceProblemTabAdded: function () {
@@ -152,6 +179,19 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     onSelectTroubleReport: function (view, td, cellIndex, record) {
         this.setTroubleReport(record);
+    },
+
+    showClearServiceProblemDialog: function (serviceProblem) {
+        var dialog = this.getView().add({
+            xtype: 'transferServiceProblemDialog',
+            viewModel: {
+                type: 'transferServiceProblemDialog',
+                data: {
+                    serviceProblem: serviceProblem
+                }
+            }
+        });
+        dialog.show();
     }
 
 });
