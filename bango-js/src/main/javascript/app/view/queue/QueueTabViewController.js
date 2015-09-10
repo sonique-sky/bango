@@ -19,6 +19,9 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
             },
             'transferServiceProblemDialog': {
                 serviceProblemTransferred: 'loadQueuedServiceProblems'
+            },
+            'clearServiceProblemDialog': {
+                serviceProblemCleared: 'loadQueuedServiceProblems'
             }
         }
     },

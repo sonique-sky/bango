@@ -17,6 +17,9 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
             'transferServiceProblemDialog': {
                 serviceProblemTransferred: 'loadMyItems'
             },
+            'clearServiceProblemDialog': {
+                serviceProblemCleared: 'loadMyItems'
+            },
             'troubleReportDialog': {
                 troubleReportCreated: 'loadMyItems'
             }

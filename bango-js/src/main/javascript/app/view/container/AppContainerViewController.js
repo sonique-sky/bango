@@ -34,13 +34,16 @@ Ext.define('Spm.view.container.AppContainerViewController', {
                 serviceProblemSelected: 'onServiceProblemSelected'
             },
             'workReminderDialog': {
-                workReminderCreated: 'onWorkReminderCreated'
+                workReminderCreated: 'closeServiceProblemAndSetMyItemsActive'
             },
             'troubleReportDialog': {
-                troubleReportCreated: 'onTroubleReportCreated'
+                troubleReportCreated: 'closeServiceProblemAndSetMyItemsActive'
             },
             'transferServiceProblemDialog': {
-                serviceProblemTransferred: 'onServiceProblemTransferred'
+                serviceProblemTransferred: 'closeServiceProblemAndSetMyItemsActive'
+            },
+            'clearServiceProblemDialog': {
+                serviceProblemCleared: 'closeServiceProblemAndSetMyItemsActive'
             }
         }
     },
@@ -68,18 +71,6 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             serviceProblemTab.fireEvent('staleData');
         }
         tabPanel.setActiveTab('myItems');
-    },
-
-    onWorkReminderCreated: function (serviceProblemId) {
-        this.closeServiceProblemAndSetMyItemsActive(serviceProblemId);
-    },
-
-    onServiceProblemTransferred: function (serviceProblemId) {
-        this.closeServiceProblemAndSetMyItemsActive(serviceProblemId);
-    },
-
-    onTroubleReportCreated: function (serviceProblemId) {
-        this.closeServiceProblemAndSetMyItemsActive(serviceProblemId);
     },
 
     addTabIfPermitted: function (agent, requiredPrivilege, tabClass) {

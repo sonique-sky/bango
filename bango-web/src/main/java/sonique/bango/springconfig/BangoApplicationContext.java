@@ -151,6 +151,11 @@ public class BangoApplicationContext {
     }
 
     @Bean
+    public FaultCauseResolutionApiService faultCauseResolutionApiService() {
+        return new StubFaultCauseResolutionApiService();
+    }
+
+    @Bean
     public TroubleReportApiService troubleReportApiService() {
         return new StubTroubleReportApiService(
                 troubleReportRepository,

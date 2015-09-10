@@ -183,9 +183,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     showClearServiceProblemDialog: function (serviceProblem) {
         var dialog = this.getView().add({
-            xtype: 'transferServiceProblemDialog',
+            xtype: 'clearServiceProblemDialog',
             viewModel: {
-                type: 'transferServiceProblemDialog',
+                type: 'clearServiceProblemDialog',
                 data: {
                     serviceProblem: serviceProblem
                 }

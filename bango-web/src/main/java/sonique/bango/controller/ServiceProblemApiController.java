@@ -72,6 +72,17 @@ public class ServiceProblemApiController {
         );
     }
 
+    @RequestMapping(value = "/{serviceProblemId}/clear", method = RequestMethod.POST)
+    @ResponseBody
+    public DomainServiceProblem clearServiceProblem(@PathVariable Long serviceProblemId, @RequestBody Map<String, String> payloadMap) {
+        return serviceProblemApiService.clearServiceProblem(
+                new ServiceProblemId(serviceProblemId),
+                payloadMap.get("fault"),
+                payloadMap.get("cause"),
+                payloadMap.get("resolution")
+        );
+    }
+
     @RequestMapping(value = "/{serviceProblemId}/hold", method = RequestMethod.PUT)
     @ResponseBody
     public DomainServiceProblem hold(@PathVariable Long serviceProblemId) {

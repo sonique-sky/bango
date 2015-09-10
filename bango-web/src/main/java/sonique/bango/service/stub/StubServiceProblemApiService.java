@@ -2,7 +2,10 @@ package sonique.bango.service.stub;
 
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.EventHistoryItem;
+import sky.sns.spm.domain.model.refdata.Cause;
+import sky.sns.spm.domain.model.refdata.Fault;
 import sky.sns.spm.domain.model.refdata.Queue;
+import sky.sns.spm.domain.model.refdata.ResolutionReason;
 import sky.sns.spm.domain.model.serviceproblem.*;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
@@ -102,5 +105,15 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
         workItem.setAssignmentType(transferType.getAssignmentType());
         domainServiceProblem.writeHistoryFor(new UnassignHistoryEvent(date, Spm, loggedInAgent, ServiceProblemTransferred));
         return domainServiceProblem;
+    }
+
+    @Override
+    public DomainServiceProblem clearServiceProblem(ServiceProblemId serviceProblemId, String fault, String cause, String resolution) {
+        DomainServiceProblem serviceProblem = serviceProblemRepository.findByServiceProblemId(serviceProblemId);
+        serviceProblem.clearByActor(
+                new ServiceProblemResolution(new Fault(fault, fault), new Cause(cause, cause), new ResolutionReason(resolution, resolution)),
+                authorisedActorProvider.getLoggedInAgent()
+        );
+        return serviceProblem;
     }
 }

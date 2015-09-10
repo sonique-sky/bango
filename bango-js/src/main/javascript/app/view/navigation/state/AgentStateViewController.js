@@ -23,6 +23,9 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
             'transferServiceProblemDialog': {
                 serviceProblemTransferred: 'refreshAgentState'
             },
+            'clearServiceProblemDialog': {
+                serviceProblemCleared: 'refreshAgentState'
+            },
             'troubleReportDialog': {
                 troubleReportCreated: 'refreshAgentState'
             }
