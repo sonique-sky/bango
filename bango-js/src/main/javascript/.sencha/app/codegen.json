@@ -25,7 +25,7 @@
       "5c35fa135e5c429faf9348c096b567a3079ad83b": "eJyr5lIAAqW8xNxUJSsFpWoQo1ZJhwsiXJRaWJpZlFoMlIoGi8TCZDJTwMpL8zILS1M9U2qVuGoByK4TZA\u003d\u003d"
     },
     "sencha.cfg.tpl.merge": {
-      "25537de4dceb37505fd4c3dc911cb211baa46a4b": "eJytkDFuwzAMRXed4gPu2jRbpyztBXKALopMxwRkUSDpGA7Qu1dK0J6gXDi8/z/4OcBnNlSVSuo7rFLiickQkWRZIoxq1Og0IrM5ZEKNPlujxSMXLtcwQMlk1dRsLo3UvW+fCZeV84iRlZKL7iHWevgVHx5Bp5ev9Xh8/+ik6b7f/rJCGE7/Ou3Qz9VcFpyffXvPV5xzTIT0IHyPzlIMF8qyPZ+TuVDvE2/CIxbSK7Wk1n/KnNywsc8otJHiRmrdHn4AfIZyzQ\u003d\u003d"
+      "37e77998d0cc69cbe4c0c2d4481f2e6c43b55a8f": "eJytkMENwkAMBP9XxUp5Qwe8aIAWzMUhli7nk+0Qheq5gOgAf/xY72rHA2IWRzNtbLHDG2eZhB2ErMtCcG5kFDyiiAd0QqOYvas1SKrURxpg7Lpa7rbQrrT92DEz7quUEaMY51DbE7V2/h2fP0GXlIbLX6f3ua4euuD2xTpwTrgVyoz8UeRFIVoddy66fX9QpPJRm54qIxa2B/ekjjkVyeHYJGZU3tjwZPPDnt66VmnK"
     },
     "{controllerFileName}.js.tpl.merge": {
       "b092f4aad11d2f7eaab5ce3e2dcc2fc3134f3188": "eJxzrSjRS0lNy8xL1VCvTs7PKynKz8lJLfJLzE0tLkhMTq3VQxOtVddRqOZSAILUipLUvBQrBXVXoBmJBQV6znCF6ly1mtZcACwSIF0\u003d"
@@ -85,7 +85,7 @@
         "modelNamespace": "Spm.model",
         "modern": false,
         "name": "Spm",
-        "packagesRelPath": "ext/packages/,/Users/laksithar/office/bango/bango-js/src/main/javascript/ext/classic",
+        "packagesRelPath": "ext/packages/,/Users/dev/projects/bango/bango-js/src/main/javascript/ext/classic",
         "senchadir": ".sencha",
         "themeName": "default",
         "toolkit": "",
@@ -140,7 +140,7 @@
         "modelNamespace": "Spm.model",
         "modern": false,
         "name": "Spm",
-        "packagesRelPath": "ext/packages/,/Users/laksithar/office/bango/bango-js/src/main/javascript/ext/classic",
+        "packagesRelPath": "ext/packages/,/Users/dev/projects/bango/bango-js/src/main/javascript/ext/classic",
         "senchadir": ".sencha",
         "themeName": "default",
         "toolkit": "",
@@ -169,7 +169,7 @@
         "modelNamespace": "Spm.model",
         "modern": false,
         "name": "Spm",
-        "packagesRelPath": "ext/packages/,/Users/laksithar/office/bango/bango-js/src/main/javascript/ext/classic",
+        "packagesRelPath": "ext/packages/,/Users/dev/projects/bango/bango-js/src/main/javascript/ext/classic",
         "senchadir": ".sencha",
         "themeName": "default",
         "toolkit": "",
@@ -250,7 +250,7 @@
         "modelNamespace": "Spm.model",
         "modern": false,
         "name": "Spm",
-        "packagesRelPath": "ext/packages/,/Users/laksithar/office/bango/bango-js/src/main/javascript/ext/classic",
+        "packagesRelPath": "ext/packages/,/Users/dev/projects/bango/bango-js/src/main/javascript/ext/classic",
         "senchadir": ".sencha",
         "themeName": "default",
         "toolkit": "",
@@ -263,7 +263,7 @@
     },
     ".sencha/app/sencha.cfg": {
       "source": "sencha.cfg.tpl.merge",
-      "version": "25537de4dceb37505fd4c3dc911cb211baa46a4b",
+      "version": "37e77998d0cc69cbe4c0c2d4481f2e6c43b55a8f",
       "parameters": {
         "appControllers": "",
         "appModels": "",
@@ -279,7 +279,7 @@
         "modelNamespace": "Spm.model",
         "modern": false,
         "name": "Spm",
-        "packagesRelPath": "ext/packages/,/Users/laksithar/office/bango/bango-js/src/main/javascript/ext/classic",
+        "packagesRelPath": "ext/packages/,/Users/dev/projects/bango/bango-js/src/main/javascript/ext/classic",
         "senchadir": ".sencha",
         "themeName": "default",
         "toolkit": "",
@@ -320,7 +320,7 @@
         "modelNamespace": "Spm.model",
         "modern": false,
         "name": "Spm",
-        "packagesRelPath": "ext/packages/,/Users/laksithar/office/bango/bango-js/src/main/javascript/ext/classic",
+        "packagesRelPath": "ext/packages/,/Users/dev/projects/bango/bango-js/src/main/javascript/ext/classic",
         "senchadir": ".sencha",
         "themeName": "default",
         "toolkit": "",
@@ -349,7 +349,7 @@
         "modelNamespace": "Spm.model",
         "modern": false,
         "name": "Spm",
-        "packagesRelPath": "ext/packages/,/Users/laksithar/office/bango/bango-js/src/main/javascript/ext/classic",
+        "packagesRelPath": "ext/packages/,/Users/dev/projects/bango/bango-js/src/main/javascript/ext/classic",
         "senchadir": ".sencha",
         "themeName": "default",
         "toolkit": "",
@@ -378,7 +378,7 @@
         "modelNamespace": "Spm.model",
         "modern": false,
         "name": "Spm",
-        "packagesRelPath": "ext/packages/,/Users/laksithar/office/bango/bango-js/src/main/javascript/ext/classic",
+        "packagesRelPath": "ext/packages/,/Users/dev/projects/bango/bango-js/src/main/javascript/ext/classic",
         "senchadir": ".sencha",
         "themeName": "default",
         "toolkit": "",
