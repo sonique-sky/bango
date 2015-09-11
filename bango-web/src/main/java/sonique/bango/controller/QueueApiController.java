@@ -26,7 +26,7 @@ public class QueueApiController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Queue> allQueues() { //TODO : everything returns PagedSearchResults or ResponseData
-        return queueApiService.allQueues(0, Integer.MAX_VALUE, Lists.newArrayList(new Sorter("name", Sorter.Direction.Ascending))).getOnePageOfSearchResults();
+        return queueApiService.allQueues(0, Integer.MAX_VALUE, Lists.newArrayList(new Sorter("name", Sorter.Direction.Ascending))).getData();
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"start", "limit", "sort"})
