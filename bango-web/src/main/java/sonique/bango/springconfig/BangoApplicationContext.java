@@ -116,13 +116,18 @@ public class BangoApplicationContext {
     }
 
     @Bean
+    public DomainTeamRepository teamRepository() {
+        return teamRepository;
+    }
+
+    @Bean
     public SpringSecurityAuthorisedActorProvider springSecurityAuthorisedActorProvider() {
         return new SpringSecurityAuthorisedActorProvider(agentRepository);
     }
 
     @Bean
     public AgentApiService agentApiService() {
-        return new StubAgentApiService(springSecurityAuthorisedActorProvider(), serviceProblemRepository, agentRepository);
+        return new StubAgentApiService(springSecurityAuthorisedActorProvider(), serviceProblemRepository, agentRepository, teamRepository);
     }
 
     @Bean

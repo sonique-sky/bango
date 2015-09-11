@@ -10,7 +10,8 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
     controller: 'agentAdminTab',
 
     listeners: {
-        activate: 'loadStore'
+        activate: 'loadStore',
+        cellclick: 'onSelectAgent'
     },
 
     bind: {
@@ -21,24 +22,30 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
     iconCls: 'icon-admin-agents',
     border: 0,
 
-
     dockedItems: [{
         xtype: 'toolbar',
         dock: 'top',
         defaults: {
             xtype: 'button',
-            padding: '5,5,5,5'
+            padding: '5,5,5,5',
+            border: 0
         },
         items: [
             {
                 tooltip: 'Reassign agent to another team',
                 iconCls: 'icon-admin-agent-reassign',
-                handler: 'foo'
+                handler: 'reassignAgent',
+                bind: {
+                    disabled: '{isLoggedInAgent}'
+                }
             },
             {
                 tooltip: 'Change agent\'s role',
                 iconCls: 'icon-admin-agent-change-role',
-                handler: 'foo'
+                handler: 'foo',
+                bind: {
+                    disabled: '{isLoggedInAgent}'
+                }
             },
             {
                 tooltip: 'Create new agent',
@@ -48,18 +55,14 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
             {
                 tooltip: 'Delete Agent',
                 iconCls: 'icon-admin-agent-delete',
-                handler: 'foo'
-            },
-            {xtype: 'tbspacer'}
-            //{
-            //    xtype: 'pagingtoolbar',
-            //    border: 0,
-            //    bind: {
-            //        store: '{agents}'
-            //    }
-            //}
+                handler: 'foo',
+                bind: {
+                    disabled: '{isLoggedInAgent}'
+                }
+            }
         ]
-    }],
+    }
+    ],
 
     columns: [
         {
@@ -88,4 +91,5 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
             groupHeaderTpl: 'Team: {name} ({children.length:plural("Agent")})'
         }
     ]
-});
+})
+;

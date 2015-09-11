@@ -2,6 +2,10 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.agentAdminTab',
 
+    data: {
+        agent: null
+    },
+
     stores: {
         agents: {
             type: 'agents',
@@ -9,6 +13,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewModel', {
             listeners: {
                 load: 'onAgentStoreLoaded'
             },
+            autoLoad: true,
             grouper: {
                 groupFn: function (item) {
                     var team = item.get('team');
@@ -17,5 +22,22 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewModel', {
                 }
             }
         }
+    },
+
+    formulas: {
+        isLoggedInAgent: {
+            bind: '{agent}',
+            get: function (agent) {
+                return agent !== null && agent.authorisedUid === this.authenticatedAgent().authorisedUid;
+            }
+        }
+    },
+
+    authenticatedAgent: function () {
+        return this.get('authenticatedAgent').getData();
+    },
+
+    agent: function () {
+        return this.get('agent');
     }
 });

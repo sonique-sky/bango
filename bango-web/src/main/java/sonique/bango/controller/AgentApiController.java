@@ -1,9 +1,6 @@
 package sonique.bango.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
@@ -12,6 +9,7 @@ import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.AgentApiService;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/agent")
@@ -28,6 +26,14 @@ public class AgentApiController {
     @RequestMapping(method = {RequestMethod.POST}, value = "/toggleAvailability")
     public AgentStateDTO toggleAvailability() {
         return agentApiService.toggleAvailability();
+    }
+
+    @RequestMapping(method = {RequestMethod.POST}, value = "/reassign")
+    public DomainAgent reassignAgent(@RequestBody Map<String, String> payloadMap) {
+        String agentCode = payloadMap.get("agent");
+        String currentTeam = payloadMap.get("currentTeam");
+        String newTeam = payloadMap.get("newTeam");
+        return agentApiService.reassignAgent(agentCode, currentTeam, newTeam);
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/agentState")
