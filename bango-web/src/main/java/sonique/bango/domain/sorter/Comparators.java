@@ -13,7 +13,7 @@ public abstract class Comparators<T> {
     protected abstract Comparator<T> getComparator(final Sorter sorter);
 
     public static <C> Comparator<C> aggregatedComparator(Collection<Comparator<C>> comparatorChain) {
-        return comparatorChain.stream().reduce((c1, c2) -> c1.thenComparing(c2)).get();
+        return comparatorChain.stream().reduce(Comparator::thenComparing).get();
     }
 
     public static int compareBoolean(boolean v1, boolean v2) {
