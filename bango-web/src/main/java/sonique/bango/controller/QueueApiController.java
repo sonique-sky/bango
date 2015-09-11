@@ -1,6 +1,5 @@
 package sonique.bango.controller;
 
-import com.google.common.collect.Lists;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.refdata.Queue;
@@ -9,13 +8,9 @@ import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.domain.ResponseData;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
-import sonique.bango.domain.sorter.Sorter;
 import sonique.bango.service.QueueApiService;
 
 import javax.annotation.Resource;
-import java.util.Collection;
-
-import static java.util.Arrays.asList;
 
 @RestController
 @RequestMapping("/api/queue")
@@ -25,13 +20,8 @@ public class QueueApiController {
     private QueueApiService queueApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Queue> allQueues() { //TODO : everything returns PagedSearchResults or ResponseData
-        return queueApiService.allQueues(0, Integer.MAX_VALUE, Lists.newArrayList(new Sorter("name", Sorter.Direction.Ascending))).getData();
-    }
-
-    @RequestMapping(method = RequestMethod.GET, params = {"start", "limit", "sort"})
-    public PagedSearchResults<Queue> sortedPagedQueues(@RequestParam Integer start, @RequestParam Integer limit, @RequestParam Sorter[] sort) {
-        return queueApiService.allQueues(start, limit, asList(sort));
+    public PagedSearchResults<Queue> sortedPagedQueues(RequestParams requestParams) {
+        return queueApiService.allQueues(requestParams.getStart(), requestParams.getLimit(), requestParams.getSort());
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
