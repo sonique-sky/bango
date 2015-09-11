@@ -13,11 +13,13 @@ import sky.sns.spm.domain.model.refdata.AgentDetails;
 import sky.sns.spm.domain.model.refdata.Role;
 import sky.sns.spm.domain.model.refdata.TeamBuilder;
 import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
+import sky.sns.spm.infrastructure.repository.DomainTeamRepository;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sonique.bango.springconfig.SecurityConfigInitializer;
 import sonique.bango.springconfig.WebConfigInitializer;
 import sonique.bango.store.AgentStore;
 import sonique.bango.store.QueueStore;
+import sonique.bango.store.TeamStore;
 import spm.domain.TeamName;
 
 import javax.servlet.ServletContext;
@@ -84,10 +86,15 @@ public final class BangoRunner {
         }
 
         AgentStore agentStore = (AgentStore) springContext.getBean(DomainAgentRepository.class);
+        TeamStore teamStore = (TeamStore) springContext.getBean(DomainTeamRepository.class);
         QueueStore queueStore = (QueueStore) springContext.getBean(QueueRepository.class);
 
         DomainTeam aTeam = new TeamBuilder().with(someTeamId()).with(new TeamName("A Team")).withAssignedQueues(queueStore.getAllQueues()).build();
         DomainTeam bTeam = new TeamBuilder().with(someTeamId()).with(new TeamName("B Team")).withAssignedQueues(queueStore.getAllQueues()).build();
+
+        teamStore.insert(aTeam);
+        teamStore.insert(bTeam);
+
         agentStore.registerAgent(new DomainAgent("q.q", "Q.Q", new AgentDetails("Quentin", "Quinn", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null));
         agentStore.registerAgent(new DomainAgent("q", "Q", new AgentDetails("Queenie", "Quaffins", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null));
         agentStore.registerAgent(new DomainAgent("a", "A", new AgentDetails("Arnie", "Adams", 1, 1), Role.ROLE_USER, aTeam));
