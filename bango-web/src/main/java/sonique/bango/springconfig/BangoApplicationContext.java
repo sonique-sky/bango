@@ -50,6 +50,7 @@ public class BangoApplicationContext {
     private final DomainTeamRepository teamRepository;
     private final SymptomStore symptomRepository;
     private final DomainProblemCategoryRepository problemCategoryRepository;
+    private final DomainMajorServiceProblemRepository mspRepository;
 
     public BangoApplicationContext() {
         agentRepository = new AgentStore();
@@ -59,6 +60,7 @@ public class BangoApplicationContext {
         serviceProblemRepository = new ServiceProblemStore(queueRepository, symptomRepository);
         troubleReportRepository = new TroubleReportStore(serviceProblemRepository, symptomRepository);
         teamRepository = new TeamStore();
+        mspRepository = new MspStore();
     }
 
     @Bean
@@ -188,5 +190,10 @@ public class BangoApplicationContext {
     @Bean
     public DashboardApiService dashboardApiService() {
         return new StubDashboardApiService(queueRepository, serviceProblemRepository, agentRepository);
+    }
+
+    @Bean
+    public MspApiService mspApiService() {
+        return new StubMspApiService(mspRepository);
     }
 }
