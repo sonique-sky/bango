@@ -67,14 +67,12 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
         {
             text: 'Event Type',
             dataIndex: 'eventType',
-            tdCls: 'event-type',
             flex: 1,
             resizable: false
         },
         {
             text: 'Created Date',
             dataIndex: 'createdDate',
-            tdCls: 'event-created-date',
             renderer: Ext.util.Format.dateRenderer('d/m/Y H:i'),
             resizable: false,
             align: 'center',
@@ -83,7 +81,6 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
         {
             text: 'Created By',
             dataIndex: 'createdBy',
-            tdCls: 'event-created-by',
             resizable: false,
             align: 'center',
             width: 130

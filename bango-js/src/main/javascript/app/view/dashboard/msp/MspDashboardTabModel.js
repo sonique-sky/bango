@@ -4,7 +4,7 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabModel', {
 
     stores: {
         mspDashboardEntries: {
-            fields: ['id', 'description', 'startDate', 'expectedResolutionDate', 'serviceProblemCount','serviceCount'],
+            fields: ['id', 'description', 'startDate', 'outageId', 'expectedResolutionDate', 'serviceProblemCount', 'serviceCount'],
             pageSize: 0,
             proxy: {
                 type: 'ajax',

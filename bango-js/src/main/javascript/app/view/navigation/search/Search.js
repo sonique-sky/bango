@@ -15,6 +15,7 @@ Ext.define('Spm.view.navigation.search.Search', {
     title: 'Search',
     layout: 'vbox',
     itemId: 'searchPanel',
+    collapsible: true,
 
     items: [
         {

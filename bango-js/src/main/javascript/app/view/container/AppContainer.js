@@ -58,7 +58,7 @@ Ext.define('Spm.view.container.AppContainer', {
             reference: 'tabPanel',
             region: 'center',
             id: 'tab-panel',
-            padding: '0 5 0 5'
+            padding: '0 5 5 5'
         },
         {
             xtype: 'navigationPanel',

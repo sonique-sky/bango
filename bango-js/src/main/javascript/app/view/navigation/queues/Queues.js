@@ -2,15 +2,15 @@ Ext.define('Spm.view.navigation.queues.Queues', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.myQueues',
 
+    controller: 'myQueues',
+    reference: 'myQueues',
+
     cls: 'queues-panel',
     iconCls: 'icon-queue',
     title: 'My Queues',
     maxHeight: 300,
     overflowY: 'auto',
-
-    controller: 'myQueues',
-
-    reference: 'myQueues',
+    collapsible: true,
 
     items: [
         {

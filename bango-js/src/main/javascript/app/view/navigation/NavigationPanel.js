@@ -20,19 +20,19 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
         type: 'vbox'
     },
 
+    defaults: {
+        padding: '0 0 5 0'
+    },
+
     items: [
         {
-            xtype: 'agentState',
-            padding: '0 0 5 0'
+            xtype: 'agentState'
         },
         {
-            xtype: 'myQueues',
-            collapsible: true,
-            padding: '0 0 5 0'
+            xtype: 'myQueues'
         },
         {
-            xtype: 'search',
-            collapsible: true
+            xtype: 'search'
         }
     ]
 });
