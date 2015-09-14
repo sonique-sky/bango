@@ -2,6 +2,10 @@ Ext.define('Spm.model.ProblemCategory', {
     extend: 'Ext.data.Model',
     alias: 'model.problemCategory',
 
+    requires: [
+        'Ext.data.identifier.Negative'
+    ],
+
     idProperty: 'id',
     identifier: 'negative',
 
