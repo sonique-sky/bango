@@ -2,6 +2,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabVi
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.problemCategoryAdminTab',
 
+    requires: [
+        'Spm.store.ProblemCategories'
+    ],
+
     stores: {
         problemCategories: {
             type: 'problemCategories',

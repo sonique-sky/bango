@@ -2,6 +2,10 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.agentAdminTab',
 
+    requires: [
+        'Spm.store.Agents'
+    ],
+
     data: {
         agent: null
     },
