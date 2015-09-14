@@ -1,4 +1,4 @@
-Ext.define('Spm.view.component.StandardDialogViewModel', {
+Ext.define('Spm.view.component.dialog.StandardDialogViewModel', {
     alternateClassName: 'Spm.component.StandardDialogViewModel',
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.standardDialog',

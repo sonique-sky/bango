@@ -4,11 +4,11 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
 
     listen: {
         global: {
-            authenticated: 'onAuthenticated'
+            authenticated: 'refreshAgentState'
         },
         controller: {
             'superman': {
-                authenticated: 'onAuthenticated'
+                authenticated: 'refreshAgentState'
             },
             'serviceProblemTab': {
                 serviceProblemPulled: 'refreshAgentState',
@@ -32,10 +32,6 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
         }
     },
 
-    onAuthenticated: function () {
-        this.refreshAgentState();
-    },
-
     refreshAgentState: function () {
         this.getViewModel().getStore('agentState').load();
     },
@@ -48,13 +44,8 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
 
     updateState: function (isAvailable) {
         var statusLabel = this.lookupReference('statusLabel');
-        if (isAvailable) {
-            statusLabel.removeCls('availability-indicator-off');
-            statusLabel.addCls('availability-indicator-on');
-        } else {
-            statusLabel.removeCls('availability-indicator-on');
-            statusLabel.addCls('availability-indicator-off');
-        }
+        statusLabel.removeCls(Ext.String.format('availability-indicator-{0}', isAvailable ? 'off' : 'on'));
+        statusLabel.addCls(Ext.String.format('availability-indicator-{0}', isAvailable ? 'on' : 'off'));
     },
 
     toggleAvailability: function () {

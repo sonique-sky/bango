@@ -2,6 +2,11 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.workReminderDialog',
 
+    requires: [
+        'Spm.view.common.workreminder.WorkReminderDialogViewController',
+        'Spm.view.common.workreminder.WorkReminderDialogViewModel'
+    ],
+
     viewModel: {type: 'workReminderDialog'},
     controller: 'workReminderDialog',
 

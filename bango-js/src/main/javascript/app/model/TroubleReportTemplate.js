@@ -2,6 +2,10 @@ Ext.define('Spm.model.TroubleReportTemplate', {
     extend: 'Ext.data.Model',
     alias: 'model.troubleReportTemplate',
 
+    requires: [
+        'Spm.proxy.TroubleReportTemplateProxy'
+    ],
+
     idProperty: 'troubleReportId',
 
     fields: [

@@ -2,9 +2,9 @@ Ext.define('Spm.model.ServiceProblem', {
     extend: 'Ext.data.Model',
     alias: 'model.serviceProblem',
 
-    uses: [
+    requires: [
         'Spm.model.WorkItem',
-        'Spm.model.ServiceType'
+        'Spm.proxy.ServiceProblemProxy'
     ],
 
     fields: [

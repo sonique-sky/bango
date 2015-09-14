@@ -4,7 +4,6 @@ Ext.define('Spm.view.SupermanViewController', {
 
     requires: [
         'Ext.window.Toast',
-        'Spm.domain.ProxyEventDomain',
         'Spm.view.container.AppContainer',
         'Spm.view.login.LoginDialog'
     ],

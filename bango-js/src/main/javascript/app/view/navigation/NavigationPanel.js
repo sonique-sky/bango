@@ -26,11 +26,7 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
     },
 
     items: [
-        {
-            xtype: 'agentState'
-        },
-        {
-            xtype: 'search'
-        }
+        {xtype: 'agentState'},
+        {xtype: 'search'}
     ]
 });

@@ -77,6 +77,12 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         this.addTabIfPermitted(agent, 'AccessAdminDashboard', 'Spm.view.dashboard.admin.AdminDashboardTab');
     },
 
+    addTabIfPermitted: function (agent, requiredPrivilege, tabClass) {
+        if (agent.hasPrivilege(requiredPrivilege)) {
+            this.lookupReference('tabPanel').add(Ext.create(tabClass));
+        }
+    },
+
     onServiceProblemHoldToggled: function (serviceProblemId) {
         var viewModel = this.getViewModel();
         var tabPanel = this.lookupReference('tabPanel');
@@ -92,12 +98,6 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
         if (serviceProblemTab) {
             serviceProblemTab.fireEvent('staleData');
-        }
-    },
-
-    addTabIfPermitted: function (agent, requiredPrivilege, tabClass) {
-        if (agent.hasPrivilege(requiredPrivilege)) {
-            this.lookupReference('tabPanel').add(Ext.create(tabClass));
         }
     },
 
