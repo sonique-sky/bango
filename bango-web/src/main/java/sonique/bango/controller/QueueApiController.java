@@ -20,8 +20,8 @@ public class QueueApiController {
     private QueueApiService queueApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public PagedSearchResults<Queue> sortedPagedQueues(RequestParameters requestParameters) {
-        return queueApiService.allQueues(requestParameters.getStart(), requestParameters.getLimit(), requestParameters.getSort());
+    public PagedSearchResults<Queue> readQueues(RequestParameters requestParameters) {
+        return queueApiService.readQueues(requestParameters);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -29,14 +29,14 @@ public class QueueApiController {
         return new ResponseData<>(queueApiService.createQueue(queue));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseData<Queue> updateQueue(@RequestBody Queue queue) {
-        return new ResponseData<>(queueApiService.updateQueue(queue));
-    }
-
     @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseData<Queue> deleteQueue(@RequestBody Queue queue) {
         return new ResponseData<>(queueApiService.deleteQueue(queue));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseData<Queue> updateQueue(@RequestBody Queue queue) {
+        return new ResponseData<>(queueApiService.updateQueue(queue));
     }
 
     @RequestMapping(value = "/{queueId}/serviceProblems", method = RequestMethod.GET)

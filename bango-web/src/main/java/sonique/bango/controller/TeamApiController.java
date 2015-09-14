@@ -1,6 +1,9 @@
 package sonique.bango.controller;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.domain.ResponseData;
@@ -18,18 +21,13 @@ public class TeamApiController {
     private TeamApiService teamApiService;
 
     @RequestMapping(method = {RequestMethod.GET})
-    public PagedSearchResults<DomainTeam> allTeams() {
-        return pagedTeams(0, Integer.MAX_VALUE);
-    }
-
-    @RequestMapping(method = {RequestMethod.GET}, params = {"start", "limit"})
-    public PagedSearchResults<DomainTeam> pagedTeams(@RequestParam Integer start, @RequestParam Integer limit) {
-        return teamApiService.teams(start, limit);
+    public PagedSearchResults<DomainTeam> readTeams(RequestParameters requestParameters) {
+        return teamApiService.readTeams(requestParameters);
     }
 
     @RequestMapping(method = {RequestMethod.POST}, consumes = {APPLICATION_JSON_VALUE})
-    public ResponseData<DomainTeam> addTeam(@RequestBody DomainTeam team) {
-        return new ResponseData<>(teamApiService.addTeam(team));
+    public ResponseData<DomainTeam> createTeam(@RequestBody DomainTeam team) {
+        return new ResponseData<>(teamApiService.createTeam(team));
     }
 
     @RequestMapping(method = {RequestMethod.PUT}, consumes = {APPLICATION_JSON_VALUE})

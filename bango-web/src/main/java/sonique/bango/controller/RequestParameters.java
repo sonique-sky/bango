@@ -4,12 +4,14 @@ import sonique.bango.domain.sorter.Sorter;
 
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 public class RequestParameters {
     private int page;
-    private int start;
-    private int limit;
+    private int start = 0;
+    private int limit = Integer.MAX_VALUE;
     //TODO: property name should match request parameter name
-    private List<Sorter> sort;
+    private List<Sorter> sort = newArrayList();
 
     public RequestParameters() {
     }

@@ -97,6 +97,7 @@ public final class BangoRunner {
 
         agentStore.registerAgent(new DomainAgent("q.q", "Q.Q", new AgentDetails("Quentin", "Quinn", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null));
         agentStore.registerAgent(new DomainAgent("q", "Q", new AgentDetails("Queenie", "Quaffins", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null));
+
         agentStore.registerAgent(new DomainAgent("a", "A", new AgentDetails("Arnie", "Adams", 1, 1), Role.ROLE_USER, aTeam));
         agentStore.registerAgent(new DomainAgent("b.b", "B.B", new AgentDetails("Barry", "Brown", 1, 1), Role.ROLE_USER, bTeam));
         agentStore.registerAgent(new DomainAgent("c", "C", new AgentDetails("Colin", "Carp", 1, 1), Role.ROLE_USER, bTeam));

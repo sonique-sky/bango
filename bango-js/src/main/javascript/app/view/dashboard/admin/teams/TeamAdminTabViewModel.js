@@ -5,6 +5,7 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTabViewModel', {
     stores: {
         teams: {
             type: 'teams',
+            remoteSort: true,
             listeners: {
                 load: 'onTeamStoreLoaded'
             }

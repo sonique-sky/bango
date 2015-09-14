@@ -7,6 +7,7 @@ import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
+import sonique.bango.controller.RequestParameters;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
 import sonique.bango.domain.sorter.Comparators;
@@ -14,11 +15,13 @@ import sonique.bango.domain.sorter.Sorter;
 import sonique.bango.service.QueueApiService;
 import spm.domain.ServiceProblemId;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.common.collect.Collections2.transform;
-import static java.util.stream.Collectors.toList;
-import static sonique.bango.domain.sorter.Comparators.aggregatedComparator;
+import static sonique.bango.util.PagedSearchResultsCreator.createPageFor;
 import static util.SupermanDataFixtures.someServiceProblemResolution;
 
 public class StubQueueApiService implements QueueApiService {
@@ -38,17 +41,8 @@ public class StubQueueApiService implements QueueApiService {
     }
 
     @Override
-    public PagedSearchResults<Queue> allQueues(Integer start, Integer limit, List<Sorter> sorters) {
-
-        List<Queue> allQueues = queueRepository.getAllQueues();
-
-        List<Queue> pageOfQueues = allQueues.stream()
-                .sorted(aggregatedComparator(sorters.stream().map(queueComparatorProviderProvider::comparatorFor).collect(toList())))
-                .skip(start)
-                .limit(limit)
-                .collect(toList());
-
-        return new PagedSearchResults<>(pageOfQueues, (long) allQueues.size());
+    public PagedSearchResults<Queue> readQueues(RequestParameters requestParameters) {
+        return createPageFor(requestParameters, queueRepository.getAllQueues(), queueComparatorProviderProvider);
     }
 
     @Override

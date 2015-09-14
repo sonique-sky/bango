@@ -2,6 +2,7 @@ package sonique.bango.domain.sorter;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Optional;
 
 public abstract class Comparators<T> {
 
@@ -12,8 +13,8 @@ public abstract class Comparators<T> {
 
     protected abstract Comparator<T> getComparator(final Sorter sorter);
 
-    public static <C> Comparator<C> aggregatedComparator(Collection<Comparator<C>> comparatorChain) {
-        return comparatorChain.stream().reduce(Comparator::thenComparing).get();
+    public static <C> Optional<Comparator<C>> aggregatedComparator(Collection<Comparator<C>> comparatorChain) {
+        return comparatorChain.stream().reduce(Comparator::thenComparing);
     }
 
     public static int compareBoolean(boolean v1, boolean v2) {
