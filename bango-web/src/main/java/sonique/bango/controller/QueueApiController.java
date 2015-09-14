@@ -20,8 +20,8 @@ public class QueueApiController {
     private QueueApiService queueApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public PagedSearchResults<Queue> sortedPagedQueues(RequestParams requestParams) {
-        return queueApiService.allQueues(requestParams.getStart(), requestParams.getLimit(), requestParams.getSort());
+    public PagedSearchResults<Queue> sortedPagedQueues(RequestParameters requestParameters) {
+        return queueApiService.allQueues(requestParameters.getStart(), requestParameters.getLimit(), requestParameters.getSort());
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -40,8 +40,8 @@ public class QueueApiController {
     }
 
     @RequestMapping(value = "/{queueId}/serviceProblems", method = RequestMethod.GET)
-    public PagedSearchResults<DomainServiceProblem> serviceProblems(@PathVariable int queueId, @RequestParam Integer page, @RequestParam Integer start, @RequestParam Integer limit) {
-        return queueApiService.serviceProblemsFor(queueId, page, start, limit);
+    public PagedSearchResults<DomainServiceProblem> serviceProblems(@PathVariable int queueId, RequestParameters requestParameters) {
+        return queueApiService.serviceProblemsFor(queueId, requestParameters.getPage(), requestParameters.getStart(), requestParameters.getLimit());
     }
 
     @RequestMapping(value = "/bulkTransfer", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -53,5 +53,4 @@ public class QueueApiController {
     public PagedSearchResults<DomainServiceProblem> bulkClear(@RequestBody BulkClearRequest request) {
         return queueApiService.bulkClear(request);
     }
-
 }

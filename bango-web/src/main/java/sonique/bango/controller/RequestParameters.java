@@ -4,12 +4,20 @@ import sonique.bango.domain.sorter.Sorter;
 
 import java.util.List;
 
-public class RequestParams {
+public class RequestParameters {
     private int page;
     private int start;
     private int limit;
     //TODO: property name should match request parameter name
     private List<Sorter> sort;
+
+    public RequestParameters() {
+    }
+
+    public RequestParameters(int start, int limit) {
+        this.start = start;
+        this.limit = limit;
+    }
 
     public int getPage() {
         return page;
