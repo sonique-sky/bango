@@ -8,15 +8,7 @@ Ext.define('Spm.view.dashboard.admin.agents.CreateAgentDialogViewModel', {
 
     stores: {
         teams: {type: 'teams', pageSize: 0},
-        roles: {
-            fields: ['name', 'description'],
-            data: [
-                {name: 'ROLE_USER', description: 'Team Member'},
-                {name: 'ROLE_TEAM_LEAD', description: 'Team Leader'},
-                {name: 'ROLE_QUEUE_CONTROLLER', description: 'Queue Controller'},
-                {name: 'ROLE_MSP_ADMINISTRATOR', description: 'Msp Administrator'}
-            ]
-        }
+        roles: {type: 'roles', pageSize: 0}
     },
 
     formulas: {
