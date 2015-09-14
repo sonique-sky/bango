@@ -41,11 +41,7 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     },
 
     onBulkOperationCompleted: function (rawJsonResponse) {
-        this.getStore('queuedServiceProblems').loadRawData(rawJsonResponse);
-    },
-
-    onBeforeLoad: function (store, operation) {
-        operation.setParams({queueId: this.queueId()});
+        this.getStore('queuedServiceProblems').reload();
     },
 
     onQueueTabActivated: function () {
@@ -141,6 +137,10 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     },
 
     loadQueuedServiceProblems: function () {
-        this.getStore('queuedServiceProblems').load();
+        var store = this.getStore('queuedServiceProblems');
+        store.filter([
+            {property: 'queueId', value: this.queueId()}
+        ]);
+        store.load();
     }
 });

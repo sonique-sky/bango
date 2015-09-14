@@ -9,7 +9,6 @@ import sonique.bango.domain.request.BulkTransferRequest;
 
 public interface QueueApiService {
     PagedSearchResults<Queue> readQueues(RequestParameters requestParameters);
-    PagedSearchResults<DomainServiceProblem> serviceProblemsFor(int queueId, Integer page, Integer start, Integer limit);
     PagedSearchResults<DomainServiceProblem> bulkTransfer(BulkTransferRequest request);
     PagedSearchResults<DomainServiceProblem> bulkClear(BulkClearRequest request);
     Queue updateQueue(Queue queue);

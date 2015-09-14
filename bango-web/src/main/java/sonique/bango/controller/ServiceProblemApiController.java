@@ -1,11 +1,11 @@
 package sonique.bango.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.TransferType;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
+import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
@@ -20,12 +20,17 @@ import java.util.Map;
 
 import static java.util.Arrays.asList;
 
-@Controller
+@RestController
 @RequestMapping("/api/serviceProblem")
 public class ServiceProblemApiController {
 
     @Resource
     private ServiceProblemApiService serviceProblemApiService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public PagedSearchResults<DomainServiceProblem> serviceProblems(RequestParameters requestParameters) {
+        return serviceProblemApiService.serviceProblems(requestParameters);
+    }
 
     @RequestMapping(value = "/{serviceProblemId}", method = RequestMethod.GET)
     @ResponseBody

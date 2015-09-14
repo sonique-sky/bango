@@ -2,6 +2,11 @@ Ext.define('Spm.view.search.SearchResultTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.searchResult',
 
+    requires: [
+        'Spm.view.search.SearchResultTabViewController',
+        'Spm.view.search.SearchResultTabViewModel'
+    ],
+
     controller: 'searchResult',
     viewModel: {type: 'searchResult'},
 

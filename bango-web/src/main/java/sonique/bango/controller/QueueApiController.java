@@ -1,7 +1,10 @@
 package sonique.bango.controller;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
@@ -37,11 +40,6 @@ public class QueueApiController {
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseData<Queue> updateQueue(@RequestBody Queue queue) {
         return new ResponseData<>(queueApiService.updateQueue(queue));
-    }
-
-    @RequestMapping(value = "/{queueId}/serviceProblems", method = RequestMethod.GET)
-    public PagedSearchResults<DomainServiceProblem> serviceProblems(@PathVariable int queueId, RequestParameters requestParameters) {
-        return queueApiService.serviceProblemsFor(queueId, requestParameters.getPage(), requestParameters.getStart(), requestParameters.getLimit());
     }
 
     @RequestMapping(value = "/bulkTransfer", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

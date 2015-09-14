@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import sonique.bango.domain.filter.JsonFilterParameterParser;
 import sonique.bango.domain.sorter.JsonSortParameterParser;
 
 import javax.annotation.Resource;
@@ -46,5 +47,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new JsonSortParameterParser(objectMapper));
+        registry.addConverter(new JsonFilterParameterParser(objectMapper));
     }
 }

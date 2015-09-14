@@ -2,6 +2,11 @@ Ext.define('Spm.view.queue.QueueTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.queueTab',
 
+    requires: [
+        'Spm.view.queue.QueueTabViewController',
+        'Spm.view.queue.QueueTabViewModel'
+    ],
+
     controller: 'queueTab',
     viewModel: {type: 'queueTab'},
 

@@ -2,12 +2,12 @@ Ext.define('Spm.view.queue.QueueTabViewModel', {
         extend: 'Ext.app.ViewModel',
         alias: 'viewmodel.queueTab',
 
+    requires: [
+        'Spm.store.ServiceProblems'
+    ],
     stores: {
         queuedServiceProblems: {
-            type: 'queuedServiceProblems',
-            listeners: {
-                beforeload: 'onBeforeLoad'
-            }
+            type: 'serviceProblems'
         }
     },
 

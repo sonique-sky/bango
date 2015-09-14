@@ -1,5 +1,6 @@
 package sonique.bango.controller;
 
+import sonique.bango.domain.filter.Filter;
 import sonique.bango.domain.sorter.Sorter;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class RequestParameters {
     private int limit = Integer.MAX_VALUE;
     //TODO: property name should match request parameter name
     private List<Sorter> sort = newArrayList();
+    private List<Filter> filter = newArrayList();
 
     public RequestParameters() {
     }
@@ -51,5 +53,13 @@ public class RequestParameters {
 
     public void setSort(List<Sorter> sort) {
         this.sort = sort;
+    }
+
+    public List<Filter> getFilter() {
+        return filter;
+    }
+
+    public void setFilter(List<Filter> filter) {
+        this.filter = filter;
     }
 }

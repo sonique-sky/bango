@@ -2,7 +2,9 @@ Ext.define('Spm.view.navigation.search.SearchViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.search',
 
-    requires: ['Spm.store.ServiceProblemSearchResults'],
+    requires: [
+        'Spm.store.ServiceProblems'
+    ],
 
     onSpecialKey: function (field, e) {
         if (e.getKey() === e.ENTER) {
@@ -13,10 +15,10 @@ Ext.define('Spm.view.navigation.search.SearchViewController', {
     onSearch: function () {
         var me = this;
 
-        var store = Ext.create('Spm.store.ServiceProblemSearchResults');
+        var store = Ext.create('Spm.store.ServiceProblems');
         var params = this.getViewModel().searchParams();
+        store.filter(this.getViewModel().filter())
         store.load({
-            params: params,
             callback: function (records) {
                 if (records.length == 0) {
                     Ext.Msg.show({

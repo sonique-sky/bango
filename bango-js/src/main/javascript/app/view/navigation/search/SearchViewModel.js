@@ -19,5 +19,9 @@ Ext.define('Spm.view.navigation.search.SearchViewModel', {
 
     searchParams: function () {
         return {searchTerm: this.get('radioValue.searchTerm'), searchParameter: this.get('searchParameter')};
+    },
+
+    filter: function () {
+        return {property: this.get('radioValue.searchTerm'), value: this.get('searchParameter')};
     }
 });
