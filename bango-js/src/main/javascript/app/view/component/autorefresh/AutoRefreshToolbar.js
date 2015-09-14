@@ -54,7 +54,7 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
                     defaults: {
                         handler: 'refreshPeriodChanged',
                         scope: this,
-                        group: 'refresh' + Ext.id(),
+                        group: Ext.id('refresh'),
                         checked: false
                     },
                     items: [

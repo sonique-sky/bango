@@ -3,13 +3,7 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
     alias: 'controller.agentState',
 
     listen: {
-        global: {
-            authenticated: 'refreshAgentState'
-        },
         controller: {
-            'superman': {
-                authenticated: 'refreshAgentState'
-            },
             'serviceProblemTab': {
                 serviceProblemPulled: 'refreshAgentState',
                 serviceProblemHoldToggled: 'refreshAgentState'
@@ -30,6 +24,10 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
                 troubleReportCreated: 'refreshAgentState'
             }
         }
+    },
+
+    init: function () {
+        this.refreshAgentState();
     },
 
     refreshAgentState: function () {
@@ -56,7 +54,7 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
             success: function (agentState) {
                 me.getStore('agentState').loadRawData(agentState);
             },
-            scope: this
+            scope: me
         });
     }
 });

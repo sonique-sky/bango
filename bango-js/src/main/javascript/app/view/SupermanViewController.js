@@ -10,7 +10,6 @@ Ext.define('Spm.view.SupermanViewController', {
 
     listen: {
         global: {
-            authenticationRequired: 'onAuthenticationRequired',
             displayNotification: 'onDisplayNotification'
         },
         proxy: {
@@ -29,12 +28,12 @@ Ext.define('Spm.view.SupermanViewController', {
     },
 
     onProxyException: function (proxy, response) {
-        if (response.status == 403) {
-            Ext.GlobalEvents.fireEvent('authenticationRequired', response);
-        }
-
-        if (response.status == 400) {
+        if (response.status == 403 || response.status == 401) {
+            this.onAuthenticationRequired(response);
+        } else if (response.status == 400) {
             Ext.Msg.alert("Error", Ext.JSON.decode(response.responseText).message);
+        } else if (response.status == 500) {
+            Ext.Msg.alert("Error", response.responseText);
         }
     },
 
@@ -42,10 +41,8 @@ Ext.define('Spm.view.SupermanViewController', {
         var me = this;
         Ext.Ajax.request({
             url: 'j_spring_security_logout',
-            success: function () {
-                me.onAuthenticationRequired();
-            },
-            scope: this
+            success: me.onAuthenticationRequired,
+            scope: me
         });
     },
 
@@ -55,27 +52,21 @@ Ext.define('Spm.view.SupermanViewController', {
         Ext.Ajax.request({
             url: 'j_spring_security_check',
             params: credentials,
-            success: function () {
-                me.onAuthenticated(false);
-            },
+            success: me.loadAuthenticatedAgent,
+            scope: me,
             failure: function (response) {
+                debugger;
                 Ext.Msg.show({
                     title: 'Error',
                     msg: response.statusText,
                     buttons: Ext.Msg.OK,
                     icon: Ext.Msg.WARNING,
                     closable: false,
-                    callback: me.onAuthenticationRequired, scope: me
+                    callback: me.onAuthenticationRequired,
+                    scope: me
                 });
-            },
-            scope: this
+            }
         });
-    },
-
-    onAuthenticated: function (alreadyAuthenticated) {
-        if (!alreadyAuthenticated) {
-            this.loadAuthenticatedAgent();
-        }
     },
 
     onDisplayNotification: function (params) {
@@ -98,12 +89,11 @@ Ext.define('Spm.view.SupermanViewController', {
 
     onAuthenticatedAgentLoaded: function (store, records, success) {
         if (success) {
-            var record = records[0];
-            this.getViewModel().set('authenticatedAgent', record);
+            var authenticatedAgent = records[0];
+            this.getViewModel().set('authenticatedAgent', authenticatedAgent);
 
-            var appContainer = Ext.create('Spm.view.container.AppContainer');
+            var appContainer = Spm.view.container.AppContainer.create({authenticatedAgent: authenticatedAgent});
             this.getView().add(appContainer);
-            this.fireEvent('authenticated', record);
         }
     },
 

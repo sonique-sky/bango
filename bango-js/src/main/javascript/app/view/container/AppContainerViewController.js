@@ -15,9 +15,6 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
     listen: {
         controller: {
-            'superman': {
-                authenticated: 'onAuthenticated'
-            },
             'myQueues': {
                 agentQueueSelected: 'onAgentQueueSelected'
             },
@@ -62,10 +59,12 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         }
     },
 
-    onAuthenticated: function (agent) {
+    initViewModel: function (viewModel) {
+        var agent = this.getView().authenticatedAgent;
+        viewModel.clearActiveTabs();
+
         var tabPanel = this.lookupReference('tabPanel');
         tabPanel.removeAll(true);
-        this.getViewModel().clearActiveTabs();
 
         var myItems = Ext.create('widget.myItems');
         tabPanel.add(myItems);
@@ -131,8 +130,8 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     },
 
     onDisplayServiceProblem: function (serviceProblem) {
-        var serviceProblemId = serviceProblem.serviceProblemId();
         var tabPanel = this.lookupReference('tabPanel');
+        var serviceProblemId = serviceProblem.serviceProblemId();
         var viewModel = this.getViewModel();
         var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
 

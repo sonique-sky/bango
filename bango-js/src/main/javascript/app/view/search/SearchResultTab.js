@@ -46,16 +46,8 @@ Ext.define('Spm.view.search.SearchResultTab', {
         {
             text: 'Work Item',
             columns: [
-                {
-                    xtype: 'templatecolumn',
-                    tpl: '{workItem.status}',
-                    text: 'Work Item Status'
-                },
-                {
-                    xtype: 'templatecolumn',
-                    tpl: '{workItem.agent.displayName}',
-                    text: 'Agent'
-                }
+                {xtype: 'templatecolumn', tpl: '{[values.workItem ? values.workItem.status : ""]}', text: 'Work Item Status'},
+                {xtype: 'templatecolumn', tpl: '{[values.workItem ? values.workItem.agent.displayName: ""]}', text: 'Agent'}
             ]
         }
     ]

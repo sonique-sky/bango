@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import sky.sns.spm.domain.model.DomainAgent;
@@ -24,10 +23,7 @@ import sky.sns.spm.infrastructure.security.AuthenticatedUserDetails;
 
 import javax.annotation.Resource;
 import javax.servlet.Filter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Date;
 
 @Configuration
@@ -95,8 +91,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authFilter.setUsernameParameter("username");
         authFilter.setPasswordParameter("password");
         authFilter.setAuthenticationManager(authenticationManagerBean());
-        authFilter.setAuthenticationFailureHandler((request, response, exception) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Bad Credentials"));
-        authFilter.setAuthenticationSuccessHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK));
+//        authFilter.setAuthenticationFailureHandler((request, response, exception) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Bad Credentials"));
+//        authFilter.setAuthenticationSuccessHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK));
         authFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/j_spring_security_check", HttpMethod.POST.name()));
         return authFilter;
     }
