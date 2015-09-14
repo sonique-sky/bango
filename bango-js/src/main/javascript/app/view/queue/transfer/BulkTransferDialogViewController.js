@@ -14,10 +14,9 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialogViewController', {
         var queueId = this.getViewModel().originalQueueId();
         var store = this.getViewModel().getStore('queues');
 
-        store.clearFilter();
-        store.filter([
-            {property: 'id', operator: '!=', value: queueId}
-        ]);
+        store.filterBy(function (queue) {
+            return queue.id != queueId;
+        });
     },
 
     onAccept: function () {

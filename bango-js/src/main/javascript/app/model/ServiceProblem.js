@@ -3,9 +3,10 @@ Ext.define('Spm.model.ServiceProblem', {
     alias: 'model.serviceProblem',
 
     requires: [
-        'Spm.model.WorkItem',
-        'Spm.proxy.ServiceProblemProxy'
+        'Spm.model.WorkItem'
     ],
+
+    idProperty: 'serviceProblemId',
 
     fields: [
         {
@@ -71,7 +72,10 @@ Ext.define('Spm.model.ServiceProblem', {
         }
     ],
 
-    proxy: 'serviceProblemProxy',
+    proxy: {
+        type: 'rest',
+        url: 'api/serviceProblem'
+    },
 
     serviceProblemId: function () {
         return this.get('serviceProblemId');

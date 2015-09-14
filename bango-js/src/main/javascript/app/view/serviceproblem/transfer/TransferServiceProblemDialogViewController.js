@@ -3,19 +3,15 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialogViewCon
     alias: 'controller.transferServiceProblemDialog',
 
     onShow: function () {
-        var serviceProblemId = this.getViewModel().serviceProblemId();
         var currentQueueId = this.getViewModel().get('currentQueueId');
         var queueStore = this.getViewModel().getStore('queues');
-
-        queueStore.load({
-            id: serviceProblemId,
-            limit: 0
-        });
 
         queueStore.filterBy(function (queue) {
             return queue.getData().manualTransferAllowed
                 && queue.getData().id !== currentQueueId;
         });
+
+        queueStore.load();
 
         var form = this.lookupReference('transferServiceProblemForm');
         form.isValid();

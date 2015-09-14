@@ -2,6 +2,10 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.queueTab',
 
+    requires: [
+        'Spm.view.queue.transfer.BulkTransferDialog'
+    ],
+
     listen: {
         controller: {
             'bulkClearDialog': {
@@ -138,9 +142,7 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
 
     loadQueuedServiceProblems: function () {
         var store = this.getStore('queuedServiceProblems');
-        store.filter([
-            {property: 'queueId', value: this.queueId()}
-        ]);
+        store.filter('queueId', this.queueId());
         store.load();
     }
 });

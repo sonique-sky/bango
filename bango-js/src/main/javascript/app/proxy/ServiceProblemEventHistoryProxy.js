@@ -6,8 +6,11 @@ Ext.define('Spm.proxy.ServiceProblemEventHistoryProxy', {
         var operation = request.getOperation();
 
         var params = operation.getParams();
+        var serviceProblemId = params.serviceProblemId;
 
-        return Ext.String.format('api/serviceProblem/{0}/eventHistory', params.serviceProblemId);
+        delete params.serviceProblemId;
+
+        return Ext.String.format('api/serviceProblem/{0}/eventHistory', serviceProblemId);
     }
 
 });

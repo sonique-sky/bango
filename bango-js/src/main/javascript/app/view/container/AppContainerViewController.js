@@ -102,7 +102,7 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     },
 
     deriveSearchKey: function (params) {
-        return Ext.String.format('{0}-{1}', params.searchTerm, params.searchParameter);
+        return Ext.String.format('{0}-{1}', params.property, params.value);
     },
 
     onDisplaySearchResults: function (store, params) {

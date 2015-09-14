@@ -11,6 +11,7 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialogViewMod
         queues: {
             type: 'queues',
             autoLoad: false,
+            pageSize: 0,
             listeners: {
                 load: 'selectFirstRow'
             }

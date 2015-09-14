@@ -14,10 +14,9 @@ Ext.define('Spm.view.navigation.search.SearchViewController', {
 
     onSearch: function () {
         var me = this;
-
         var store = Ext.create('Spm.store.ServiceProblems');
-        var params = this.getViewModel().searchParams();
-        store.filter(this.getViewModel().filter())
+        var filters = me.getViewModel().filter();
+        store.filter(filters);
         store.load({
             callback: function (records) {
                 if (records.length == 0) {
@@ -30,7 +29,7 @@ Ext.define('Spm.view.navigation.search.SearchViewController', {
                 } else if (records.length == 1) {
                     me.fireEvent('displayServiceProblem', records[0]);
                 } else {
-                    me.fireEvent('displaySearchResults', store, params);
+                    me.fireEvent('displaySearchResults', store, filters);
                 }
             }
         });

@@ -2,6 +2,11 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.bulkTransferDialog',
 
+    requires: [
+        'Spm.view.queue.transfer.BulkTransferDialogViewController',
+        'Spm.view.queue.transfer.BulkTransferDialogViewModel'
+    ],
+
     controller: 'bulkTransferDialog',
     viewModel: {type: 'bulkTransferDialog'},
 
