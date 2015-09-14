@@ -83,6 +83,6 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
         {
             xtype: 'gridpanel',
             title: 'Event History',
-            flex: 1,
+            flex: 1
         }]
 });
