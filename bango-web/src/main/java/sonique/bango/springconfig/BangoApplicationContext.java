@@ -78,22 +78,22 @@ public class BangoApplicationContext {
         objectMapper.setDateFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"));
 
         SimpleModule module = new SimpleModule("BangoModule");
+
         module.addSerializer(NumberValue.class, new NumberValueSerializer());
         module.addSerializer(StringValue.class, new StringValueSerializer());
 
-        module.addSerializer(SpmCodeAndMessage.class, new SpmCodeAndMessageSerializer());
-        module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
-        module.addSerializer(Role.class, new RoleSerializer());
-        module.addSerializer(ServiceType.class, new ServiceTypeSerializer());
-
-        module.addSerializer(EventHistoryItem.class, new EventHistoryItemSerializer());
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
-        module.addSerializer(TroubleReportTemplate.class, new TroubleReportTemplateSerializer());
+        module.addSerializer(EventHistoryItem.class, new EventHistoryItemSerializer());
         module.addSerializer(LineTestSummaryDTO.class, new LineTestSummaryDTOSerializer());
+        module.addSerializer(Role.class, new RoleSerializer());
+        module.addSerializer(ServiceType.class, new ServiceTypeSerializer());
+        module.addSerializer(SpmCodeAndMessage.class, new SpmCodeAndMessageSerializer());
+        module.addSerializer(TroubleReportTemplate.class, new TroubleReportTemplateSerializer());
+        module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
 
-        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         module.addDeserializer(DomainTeam.class, new TeamDeserializer());
+        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         module.addDeserializer(Queue.class, new QueueDeserializer());
         module.addDeserializer(ReserveAppointment.class, new ReservedAppointmentDeserializer());
         module.addDeserializer(TroubleReportTemplate.class, new TroubleReportTemplateDeserializer());

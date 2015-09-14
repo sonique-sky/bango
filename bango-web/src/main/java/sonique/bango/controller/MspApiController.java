@@ -17,7 +17,7 @@ public class MspApiController {
     private MspApiService mspApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public PagedSearchResults<DomainMajorServiceProblemDashboardEntry> dashboardEntry(RequestParams params) {
+    public PagedSearchResults<DomainMajorServiceProblemDashboardEntry> dashboardEntry(RequestParameters params) {
         return mspApiService.serviceProblems(params);
     }
 }
