@@ -2,8 +2,10 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.queueDashboard',
 
-    require: [
-        'Spm.view.component.AutoRefreshToolbar'
+    requires: [
+        'Spm.view.component.AutoRefreshToolbar',
+        'Spm.view.dashboard.queue.QueueDashboardTabViewController',
+        'Spm.view.dashboard.queue.QueueDashboardTabViewModel'
     ],
 
     controller: 'queueDashboard',

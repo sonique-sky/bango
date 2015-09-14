@@ -2,6 +2,12 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.myItems',
 
+    requires: [
+        'Ext.toolbar.Paging',
+        'Spm.view.myitems.MyItemsTabViewController',
+        'Spm.view.myitems.MyItemsTabViewModel'
+    ],
+
     controller: 'myItems',
     viewModel: {type: 'myItems'},
 

@@ -2,12 +2,14 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.agentDashboard',
 
+    requires: [
+        'Spm.view.component.AutoRefreshToolbar',
+        'Spm.view.dashboard.agent.AgentDashboardViewController',
+        'Spm.view.dashboard.agent.AgentDashboardViewModel'
+    ],
+
     viewModel: 'agentDashboard',
     controller: 'agentDashboard',
-
-    require: [
-        'Spm.view.component.AutoRefreshToolbar'
-    ],
 
     listeners: {
         activate: 'loadStore'

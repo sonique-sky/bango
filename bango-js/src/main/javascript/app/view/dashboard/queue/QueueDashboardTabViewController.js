@@ -2,6 +2,10 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.queueDashboard',
 
+    requires: [
+        'Spm.model.Queue'
+    ],
+
     loadStore: function () {
         var store = this.getView().getStore();
         if (store && !store.isLoaded()) {

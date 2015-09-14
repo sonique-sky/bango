@@ -2,6 +2,11 @@ Ext.define('Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDi
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.createOrUpdateQueueDialog',
 
+    requires: [
+        'Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDialogViewController',
+        'Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDialogViewModel'
+    ],
+
     controller: 'createOrUpdateQueueDialog',
     viewModel: {type: 'createOrUpdateQueueDialog'},
 

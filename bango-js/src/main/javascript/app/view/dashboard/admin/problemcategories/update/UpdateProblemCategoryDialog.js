@@ -2,6 +2,11 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.updateProblemCategoryDialog',
 
+    requires: [
+        'Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCategoryDialogViewController',
+        'Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCategoryDialogViewModel'
+    ],
+
     controller: 'updateProblemCategoryDialog',
     viewModel: {type: 'updateProblemCategoryDialog'},
 

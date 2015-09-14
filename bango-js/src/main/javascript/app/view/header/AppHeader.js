@@ -2,6 +2,10 @@ Ext.define('Spm.view.header.AppHeader', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.appHeader',
 
+    requires: [
+        'Spm.view.header.AppHeaderViewController'
+    ],
+
     controller: 'appHeader',
     reference: 'appHeader',
 

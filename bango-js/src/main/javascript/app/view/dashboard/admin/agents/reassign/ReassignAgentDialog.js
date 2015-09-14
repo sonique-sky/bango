@@ -2,6 +2,11 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.reassignAgentDialog',
 
+    requires: [
+        'Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewController',
+        'Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewModel'
+    ],
+
     viewModel: 'reassignAgentDialog',
     controller: 'reassignAgentDialog',
 

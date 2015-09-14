@@ -2,6 +2,12 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.teamAdminTab',
 
+    requires: [
+        'Ext.toolbar.Paging',
+        'Spm.view.dashboard.admin.teams.TeamAdminTabViewController',
+        'Spm.view.dashboard.admin.teams.TeamAdminTabViewModel'
+    ],
+
     viewModel: 'teamAdminTab',
     controller: 'teamAdminTab',
 

@@ -2,7 +2,7 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
     extend: 'Ext.toolbar.Toolbar',
     alias: ['widget.autorefreshtoolbar', 'widget.autorefresh'],
 
-    require: [
+    requires: [
         'Ext.toolbar.TextItem',
         'Ext.toolbar.Spacer',
         'Ext.util.TaskManager'

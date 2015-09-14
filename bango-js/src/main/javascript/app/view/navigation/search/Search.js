@@ -3,7 +3,8 @@ Ext.define('Spm.view.navigation.search.Search', {
     alias: 'widget.search',
     requires: [
         'Ext.form.RadioGroup',
-        'Spm.view.search.SearchResultTab'
+        'Spm.view.navigation.search.SearchViewModel',
+        'Spm.view.navigation.search.SearchViewController'
     ],
 
     viewModel: {type: 'search'},
@@ -75,35 +76,5 @@ Ext.define('Spm.view.navigation.search.Search', {
                 }
             ]
         }
-    ],
-
-    //initComponent: function () {
-    //    var me = this;
-    //
-    //    this.registeredActions = this.actionContextManager.registerActionsFor(this, [
-    //        'Spm.action.SearchAction'
-    //    ]);
-    //    var searchButton = Ext.widget('button', this.registeredActions.actionNamed('search'));
-    //
-    //    Ext.applyIf(me, {
-    //        listeners: {
-    //            validitychange: me.onValidityChange
-    //        },
-    //
-    //    me.callParent(arguments);
-    //},
-
-    onValidityChange: function () {
-        this.actionContextManager.updateActionStates(this)
-    },
-
-    onSpecialKey: function (field, e) {
-        if (e.getKey() === e.ENTER) {
-            this.registeredActions.actionNamed('search').handleAction(field);
-        }
-    },
-
-    reset: function () {
-        this.getForm().reset();
-    }
+    ]
 });

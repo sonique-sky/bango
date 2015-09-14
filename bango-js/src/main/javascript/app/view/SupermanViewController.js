@@ -4,7 +4,9 @@ Ext.define('Spm.view.SupermanViewController', {
 
     requires: [
         'Ext.window.Toast',
-        'Spm.domain.ProxyEventDomain'
+        'Spm.domain.ProxyEventDomain',
+        'Spm.view.container.AppContainer',
+        'Spm.view.login.LoginDialog'
     ],
 
     listen: {
@@ -90,7 +92,7 @@ Ext.define('Spm.view.SupermanViewController', {
     onAuthenticationRequired: function () {
         var appContainer = this.lookupReference('appContainer');
         if (appContainer !== null) {
-            appContainer.hide();
+            appContainer.destroy();
         }
         Ext.create('Spm.view.login.LoginDialog').show();
     },
@@ -98,10 +100,11 @@ Ext.define('Spm.view.SupermanViewController', {
     onAuthenticatedAgentLoaded: function (store, records, success) {
         if (success) {
             var record = records[0];
-
             this.getViewModel().set('authenticatedAgent', record);
+
+            var appContainer = Ext.create('Spm.view.container.AppContainer');
+            this.getView().add(appContainer);
             this.fireEvent('authenticated', record);
-            this.lookupReference('appContainer').show();
         }
     },
 

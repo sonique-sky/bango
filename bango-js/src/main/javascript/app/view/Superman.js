@@ -3,12 +3,8 @@ Ext.define('Spm.view.Superman', {
     alias: 'widget.superman',
 
     requires: [
-        'Spm.store.AuthenticatedAgent',
         'Spm.view.SupermanViewController',
-        'Spm.view.SupermanViewModel',
-        'Spm.view.container.AppContainer',
-        'Spm.view.container.AppContainerViewModel',
-        'Spm.view.container.AppContainerViewController'
+        'Spm.view.SupermanViewModel'
     ],
 
     controller: 'superman',
@@ -18,11 +14,5 @@ Ext.define('Spm.view.Superman', {
     itemId: 'spmViewport',
     layout: {
         type: 'fit'
-    },
-
-    items: [
-        {
-            xtype: 'appContainer'
-        }
-    ]
+    }
 });

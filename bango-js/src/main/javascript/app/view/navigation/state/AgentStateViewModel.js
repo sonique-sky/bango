@@ -3,12 +3,18 @@ Ext.define('Spm.view.navigation.state.AgentStateViewModel', {
         alias: 'viewmodel.agentState',
 
         requires: [
-            'Spm.store.AgentState'
+            'Spm.model.AgentState'
         ],
 
         stores: {
             agentState: {
-                type: 'agentState',
+                model: 'Spm.model.AgentState',
+
+                proxy: {
+                    type: 'ajax',
+                    url: 'api/agent/agentState'
+                },
+
                 listeners: {
                     load: 'onAgentStateLoaded',
                     refresh: 'onAgentStateLoaded'
@@ -25,8 +31,8 @@ Ext.define('Spm.view.navigation.state.AgentStateViewModel', {
                 bind: {
                     bindTo: '{currentAgentState.availability}'
                 },
-                get: function(availability) {
-                    if('Available' === availability) {
+                get: function (availability) {
+                    if ('Available' === availability) {
                         return 'Make Me Unavailable';
                     }
 
@@ -37,8 +43,8 @@ Ext.define('Spm.view.navigation.state.AgentStateViewModel', {
                 bind: {
                     bindTo: '{currentAgentState.availability}'
                 },
-                get: function(availability) {
-                    if('Available' === availability) {
+                get: function (availability) {
+                    if ('Available' === availability) {
                         return 'Available';
                     }
 
@@ -47,7 +53,7 @@ Ext.define('Spm.view.navigation.state.AgentStateViewModel', {
             },
             availabilityButtonDisabled: {
                 bind: '{authenticatedAgent}',
-                get: function(agent) {
+                get: function (agent) {
                     return !agent || !agent.hasPrivilege('CanBecomeAvailable');
                 }
             }

@@ -2,6 +2,11 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTab',
     extend: 'Ext.grid.Panel',
     alias: 'widget.problemCategoryAdminTab',
 
+    requires: [
+        'Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabViewController',
+        'Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabViewModel'
+    ],
+
     viewModel: 'problemCategoryAdminTab',
     controller: 'problemCategoryAdminTab',
 

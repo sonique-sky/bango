@@ -2,10 +2,11 @@ Ext.define('Spm.view.dashboard.admin.AdminDashboardTab', {
     extend: 'Ext.tab.Panel',
     alias: 'widget.adminDashboardTab',
 
-    require: [
-        'Spm.view.dashboard.admin.teams.TeamAdminTab',
+    requires: [
+        'Spm.view.dashboard.admin.agents.AgentAdminTab',
+        'Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTab',
         'Spm.view.dashboard.admin.queues.QueueAdminTab',
-        'Spm.view.dashboard.admin.agent.AgentAdminTab'
+        'Spm.view.dashboard.admin.teams.TeamAdminTab'
     ],
 
     title: 'Admin Dashboard',

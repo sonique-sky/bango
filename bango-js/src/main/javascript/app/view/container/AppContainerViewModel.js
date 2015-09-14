@@ -2,6 +2,10 @@ Ext.define('Spm.view.container.AppContainerViewModel', {
         extend: 'Ext.app.ViewModel',
         alias: 'viewmodel.appContainer',
 
+        requires: [
+            'Ext.util.MixedCollection'
+        ],
+
         data: {
             activeQueueTabs: Ext.create('Ext.util.MixedCollection'),
             activeServiceProblemTabs: Ext.create('Ext.util.MixedCollection'),

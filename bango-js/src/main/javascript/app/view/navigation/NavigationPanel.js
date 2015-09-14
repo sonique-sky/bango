@@ -3,15 +3,16 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
     alias: 'widget.navigationPanel',
 
     requires: [
+        'Spm.view.navigation.NavigationPanelViewController',
         'Spm.view.navigation.state.AgentState',
-        'Spm.view.navigation.state.AgentStateViewModel',
-        'Spm.view.navigation.state.AgentStateViewController',
-        'Spm.view.navigation.queues.Queues',
-        'Spm.view.navigation.queues.QueuesViewController',
-        'Spm.view.navigation.search.Search',
-        'Spm.view.navigation.search.SearchViewModel',
-        'Spm.view.navigation.search.SearchViewController'
+        'Spm.view.navigation.search.Search'
     ],
+
+    controller: 'navigationPanel',
+
+    listeners: {
+        added: 'insertMyQueuesPanelIfRequired'
+    },
 
     height: 730,
     width: 230,
@@ -27,9 +28,6 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
     items: [
         {
             xtype: 'agentState'
-        },
-        {
-            xtype: 'myQueues'
         },
         {
             xtype: 'search'

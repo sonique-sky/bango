@@ -2,6 +2,17 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.appContainer',
 
+    requires: [
+        'Spm.view.dashboard.admin.AdminDashboardTab',
+        'Spm.view.dashboard.agent.AgentDashboardTab',
+        'Spm.view.dashboard.msp.MspDashboardTab',
+        'Spm.view.dashboard.queue.QueueDashboardTab',
+        'Spm.view.myitems.MyItemsTab',
+        'Spm.view.queue.QueueTab',
+        'Spm.view.search.SearchResultTab',
+        'Spm.view.serviceproblem.ServiceProblemTab'
+    ],
+
     listen: {
         controller: {
             'superman': {

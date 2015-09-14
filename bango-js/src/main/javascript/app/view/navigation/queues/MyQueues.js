@@ -1,9 +1,18 @@
-Ext.define('Spm.view.navigation.queues.Queues', {
+Ext.define('Spm.view.navigation.queues.MyQueues', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.myQueues',
 
+    requires: [
+        'Spm.view.navigation.queues.MyQueuesViewController',
+        'Spm.view.navigation.queues.MyQueuesViewModel'
+    ],
+
     controller: 'myQueues',
-    reference: 'myQueues',
+    viewModel: 'myQueues',
+
+    listeners: {
+        added: 'loadQueues'
+    },
 
     cls: 'queues-panel',
     iconCls: 'icon-queue',

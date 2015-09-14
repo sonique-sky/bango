@@ -2,8 +2,13 @@ Ext.define('Spm.view.navigation.state.AgentState', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.agentState',
 
+    requires: [
+        'Spm.view.navigation.state.AgentStateViewModel',
+        'Spm.view.navigation.state.AgentStateViewController'
+    ],
+
     controller: 'agentState',
-    viewModel: {type: 'agentState'},
+    viewModel: 'agentState',
     reference: 'agentState',
 
     cls: 'status-panel',
@@ -29,7 +34,7 @@ Ext.define('Spm.view.navigation.state.AgentState', {
             xtype: 'button',
             bind: {
                 text: '{availabilityButtonText}',
-                disabled : '{availabilityButtonDisabled}'
+                disabled: '{availabilityButtonDisabled}'
             },
             handler: 'toggleAvailability'
         },

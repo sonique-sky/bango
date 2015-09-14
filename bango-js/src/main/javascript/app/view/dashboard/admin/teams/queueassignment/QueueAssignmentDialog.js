@@ -2,6 +2,22 @@ Ext.define('Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialog
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.queueAssignment',
 
+    requires: [
+        'Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialogViewModel'
+    ],
+
+    requires: [
+        'Ext.button.Button',
+        'Ext.container.Container',
+        'Ext.form.Label',
+        'Ext.grid.Panel',
+        'Ext.layout.container.HBox',
+        'Ext.layout.container.VBox',
+        'Ext.panel.Panel',
+        'Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialogViewModel',
+        'app.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialogViewController'
+    ],
+
     viewModel: {type: 'queueAssignment'},
     controller: 'queueAssignment',
 

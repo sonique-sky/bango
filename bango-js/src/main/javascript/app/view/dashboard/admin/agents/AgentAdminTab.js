@@ -2,7 +2,8 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.agentAdminTab',
 
-    require: [
+    requires: [
+        'Spm.view.dashboard.admin.agents.AgentAdminTabViewController',
         'Spm.view.dashboard.admin.agents.AgentAdminTabViewModel'
     ],
 
