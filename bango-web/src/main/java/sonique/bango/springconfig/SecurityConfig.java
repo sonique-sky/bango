@@ -77,11 +77,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Filter aLogoutFilter() {
         LogoutFilter logoutFilter = new LogoutFilter(
                 (request, response, authentication) -> {
+                    if (authentication == null) {
+                        response.setStatus(HttpServletResponse.SC_OK);
+                        return;
+                    }
+
                     DomainAgent agent = agentRepository.findByAuthorisedUid(authentication.getName());
                     agent.logoff(new Date());
                     response.setStatus(HttpServletResponse.SC_OK);
                 },
                 new SecurityContextLogoutHandler());
+
         logoutFilter.setLogoutRequestMatcher(new AntPathRequestMatcher("/j_spring_security_logout"));
         return logoutFilter;
     }
