@@ -9,13 +9,17 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
                 serviceProblemHoldToggled: 'refreshAgentState'
             },
             'myItems': {
-                serviceProblemHoldToggled: 'refreshAgentState'
+                serviceProblemHoldToggled: 'refreshAgentState',
+                refreshed: 'refreshAgentState'
             },
             'workReminderDialog': {
                 workReminderCreated: 'refreshAgentState'
             },
             'transferServiceProblemDialog': {
                 serviceProblemTransferred: 'refreshAgentState'
+            },
+            'reassignServiceProblemDialog': {
+                serviceProblemReassigned: 'refreshAgentState'
             },
             'clearServiceProblemDialog': {
                 serviceProblemCleared: 'refreshAgentState'

@@ -81,6 +81,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-reassign',
                             tooltip: 'Reassign service problem to another agent',
+                            handler: 'onReassignServiceProblem',
                             bind: {
                                 disabled: '{!serviceProblemOwned}'
                             }

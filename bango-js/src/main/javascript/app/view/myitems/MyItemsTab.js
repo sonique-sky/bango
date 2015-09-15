@@ -38,6 +38,9 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
                     flex: 1.0,
                     bind: {
                         store: '{myItems}'
+                    },
+                    listeners: {
+                        change : 'refreshMyItems'
                     }
                 },
                 {
