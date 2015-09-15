@@ -1,27 +1,29 @@
-Ext.define('app.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialogViewController', {
+Ext.define('Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialogViewController', {
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.queueAssignment',
 
     destinationStore: undefined,
 
-    onShow: function () {
-        var initialQueues = this.getViewModel().get('team').assignedQueues();
-        this.destinationStore = this.getStore('destinationStore');
-        this.destinationStore.addListener('datachanged', this.onDataChanged, this);
+    initViewModel: function (viewModel) {
+        var me = this,
+            team = me.getView().team,
+            initialQueues = team.assignedQueues();
 
-        this.getViewModel().set('initialQueueIds', Ext.Array.pluck(initialQueues, 'id'));
-        this.destinationStore.add(initialQueues);
+        viewModel.set('team', team);
+        me.destinationStore = me.getStore('destinationStore');
+        me.destinationStore.addListener('datachanged', me.onDataChanged, me);
+
+        me.getViewModel().set('initialQueueIds', Ext.Array.pluck(initialQueues, 'id'));
+        me.destinationStore.add(initialQueues);
     },
 
     onAccept: function () {
         var me = this;
-        var team = this.getViewModel().get('team');
-        team.set('assignedQueues', this.transposedSelectedList());
+        var team = me.getViewModel().get('team');
+        team.set('assignedQueues', me.transposedSelectedList());
 
         this.getViewModel().get('teams').sync({
-            success: function () {
-                me.getView().close();
-            }
+            success: me.closeView, scope: me
         });
     },
 
@@ -48,8 +50,8 @@ Ext.define('app.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialog
     onDataChanged: function (destinationStore) {
         this.getStore('sourceStore').filterBy(function (record) {
             return destinationStore.findBy(function (queue) {
-                    return queue.queueId() == record.queueId();
-                }) == -1;
+                        return queue.queueId() == record.queueId();
+                    }) == -1;
         });
         this.getViewModel().set('currentQueueIds', this.destinationStore.collect('id'));
     },

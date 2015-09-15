@@ -17,10 +17,6 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialog', {
     width: 350,
     height: 220,
 
-    listeners: {
-        show: 'onShow'
-    },
-
     items: [
         {
             xtype: 'gridpanel',

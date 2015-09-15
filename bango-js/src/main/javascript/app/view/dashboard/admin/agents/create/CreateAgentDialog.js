@@ -1,5 +1,6 @@
 Ext.define('Spm.view.dashboard.admin.agents.create.CreateAgentDialog', {
     extend: 'Spm.component.StandardDialog',
+    alias: 'widget.createAgent',
 
     requires: [
         'Spm.view.dashboard.admin.agents.CreateAgentDialogViewModel'
@@ -64,5 +65,7 @@ Ext.define('Spm.view.dashboard.admin.agents.create.CreateAgentDialog', {
                     }
                 }
             ]
-        }]
+        }
+    ]
+
 });

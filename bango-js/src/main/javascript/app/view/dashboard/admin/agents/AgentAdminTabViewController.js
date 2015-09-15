@@ -24,8 +24,8 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
         this.getView().setSelection(store.first());
     },
 
-    onSelectAgent: function (component, record) {
-        this.getViewModel().set('isLoggedInAgent', record.agentCode() === this.getViewModel().authenticatedAgent().agentCode());
+    onSelectAgent: function (component, agent) {
+        this.getViewModel().set('isLoggedInAgent', agent.agentCode() === this.getViewModel().authenticatedAgent().agentCode());
     },
 
     selectedAgent: function () {
@@ -33,17 +33,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
     },
 
     reassignAgent: function () {
-        var agent = this.selectedAgent();
-        var dialog = this.getView().add({
-            xtype: 'reassignAgentDialog',
-            viewModel: {
-                type: 'reassignAgentDialog',
-                data: {
-                    agent: agent
-                }
-            }
-        });
-        dialog.show();
+        this.getView().add({xtype: 'reassignAgentDialog', agent: this.selectedAgent()}).show();
     },
 
     changeAgentRole: function () {
@@ -51,7 +41,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
     },
 
     createAgent: function () {
-        this.getView().add(Ext.create('Spm.view.dashboard.admin.agents.create.CreateAgentDialog')).show();
+        this.getView().add({xtype: 'createAgent'}).show();
     },
 
     deleteAgent: function () {

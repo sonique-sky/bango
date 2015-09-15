@@ -13,11 +13,9 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewModel', {
             listeners: {
                 load: 'onAgentStoreLoaded'
             },
-            autoLoad: true,
             grouper: {
                 groupFn: function (item) {
                     var team = item.get('team');
-
                     return Ext.Object.isEmpty(team) ? 'No Team' : team.name;
                 }
             }

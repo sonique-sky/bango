@@ -2,9 +2,11 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewCont
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.reassignAgentDialog',
 
-    onShow: function () {
-        var agent = this.getViewModel().agent();
-        var teamsStore = this.getStore('teams');
+    initViewModel: function(viewModel) {
+        var agent = this.getView().agent,
+            teamsStore = this.getStore('teams');
+
+        viewModel.set('agent', agent);
         teamsStore.filterBy(function (team) {
             return team.teamId() !== agent.getTeam().teamId();
         });

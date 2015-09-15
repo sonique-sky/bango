@@ -60,10 +60,6 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTab', {
     ],
 
     columns: [
-        {
-            text: 'Name',
-            width: '100%',
-            dataIndex: 'name'
-        }
+        {text: 'Name', width: '100%', dataIndex: 'name'}
     ]
 });

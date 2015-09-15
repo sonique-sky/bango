@@ -4,7 +4,7 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTabViewController', {
 
     listen: {
         controller: {
-            'queueAssignment' : {
+            'queueAssignment': {
                 teamUpdateFailed: 'reloadStore'
             }
         }
@@ -26,34 +26,22 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTabViewController', {
     },
 
     createNewTeam: function () {
-        var dialog = this.getView().add({
-            xtype: 'createTeamDialog'
-        });
+        this.getView().add({xtype: 'createTeamDialog'}).show();
+    },
 
-        dialog.show();
+    assignQueuesToTeam: function () {
+        this.getView().add({xtype: 'queueAssignment', team: this.selectedTeam()}).show();
     },
 
     selectedTeam: function () {
         return this.getView().getSelectionModel().getSelection()[0];
     },
 
-    assignQueuesToTeam: function () {
-        var dialog = this.getView().add({
-            xtype: 'queueAssignment',
-            viewModel: {
-                data: {
-                    team: this.selectedTeam()
-                }
-            }
-        });
-
-        dialog.show();
-    },
-
     deleteTeam: function () {
-        var me = this;
-        var selectedTeam = this.selectedTeam();
-        var teamStore = this.getStore('teams');
+        var me = this,
+            selectedTeam = me.selectedTeam(),
+            teamStore = me.getStore('teams');
+
         Ext.Msg.show({
             title: 'Delete Team',
             msg: 'Do you want to delete this team?',
@@ -64,9 +52,7 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTabViewController', {
                 if ('yes' == buttonId) {
                     teamStore.remove(selectedTeam);
                     teamStore.sync({
-                        failure: function () {
-                            me.loadStore();
-                        }
+                        failure: me.loadStore
                     });
                 }
             }

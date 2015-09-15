@@ -3,10 +3,6 @@ Ext.define('Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialog
     alias: 'widget.queueAssignment',
 
     requires: [
-        'Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialogViewModel'
-    ],
-
-    requires: [
         'Ext.button.Button',
         'Ext.container.Container',
         'Ext.form.Label',
@@ -14,16 +10,12 @@ Ext.define('Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialog
         'Ext.layout.container.HBox',
         'Ext.layout.container.VBox',
         'Ext.panel.Panel',
-        'Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialogViewModel',
-        'app.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialogViewController'
+        'Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialogViewController',
+        'Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialogViewModel'
     ],
 
     viewModel: {type: 'queueAssignment'},
     controller: 'queueAssignment',
-
-    listeners: {
-        show: 'onShow'
-    },
 
     title: 'Assign Team Queues',
     width: 610,
@@ -75,43 +67,33 @@ Ext.define('Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialog
                 xtype: 'panel',
                 layout: {type: 'vbox', vertical: true, align: 'middle'},
                 border: false,
+                defaults: {
+                    xtype: 'button',
+                    border: false
+                },
                 items: [
+                    {xtype: 'container', flex: 1},
                     {
-                        xtype: 'container',
-                        flex: 1
-                    },
-                    {
-                        xtype: 'button',
                         iconCls: 'icon-admin-assign-add-all',
                         tooltip: 'Add all',
-                        border: false,
                         handler: 'addAll'
                     },
                     {
-                        xtype: 'button',
                         iconCls: 'icon-admin-assign-add',
                         tooltip: 'Add selected',
-                        border: false,
                         handler: 'addSelected'
                     },
                     {
-                        xtype: 'button',
                         iconCls: 'icon-admin-assign-remove',
                         tooltip: 'Remove selected',
-                        border: false,
                         handler: 'removeSelected'
                     },
                     {
-                        xtype: 'button',
                         iconCls: 'icon-admin-assign-remove-all',
                         tooltip: 'Remove all',
-                        border: false,
                         handler: 'removeAll'
                     },
-                    {
-                        xtype: 'container',
-                        flex: 1
-                    }
+                    {xtype: 'container', flex: 1}
                 ]
             },
             {
@@ -136,11 +118,7 @@ Ext.define('Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialog
                             store: '{destinationStore}'
                         },
                         columns: [
-                            {
-                                dataIndex: 'name',
-                                scrollable: true,
-                                flex: 1
-                            }
+                            {dataIndex: 'name', scrollable: true, flex: 1}
                         ],
                         selModel: {
                             selType: 'rowmodel',

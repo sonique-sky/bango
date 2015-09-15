@@ -13,12 +13,9 @@ Ext.define('Spm.view.dashboard.admin.teams.create.CreateTeamDialogViewController
 
         teamsStore.add(newTeam);
         teamsStore.sync({
-            success: function () {
-                me.getView().close();
-            },
-            failure: function () {
-                teamsStore.rejectChanges();
-            }
+            success: me.closeView,
+            failure: teamsStore.rejectChanges
         });
     }
+
 });

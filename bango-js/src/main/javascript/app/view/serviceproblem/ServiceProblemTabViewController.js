@@ -199,7 +199,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     showClearServiceProblemDialog: function () {
-        this.getView().add({ xtype: 'clearServiceProblemDialog'}).show();
+        this.getView().add({xtype: 'clearServiceProblemDialog'}).show();
     }
 
 });
