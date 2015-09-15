@@ -33,28 +33,29 @@ Ext.define('Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialog', {
                 xtype: 'combobox',
                 name: 'Role',
                 itemId: 'roleComboBox',
+                reference: 'roleComboBox',
                 labelWidth: 120,
                 fieldLabel: 'Role',
                 valueField: 'name',
                 displayField: 'description',
                 bind: {
-                    value: '{agentRole}',
                     store: '{roles}'
+                },
+                listeners: {
+                    select: 'onRoleSelected'
                 },
                 typeAhead: true
             },
             {
                 xtype: 'combobox',
                 name: 'Team',
-                itemId: 'teamComboBox',
+                reference: 'teamComboBox',
                 labelWidth: 120,
                 fieldLabel: 'Team',
                 valueField: 'id',
                 displayField: 'name',
                 bind: {
-                    value: '{agent.team.id}',
-                    store: '{teams}',
-                    disabled: '{mayBelongToATeam}'
+                    store: '{teams}'
                 },
                 typeAhead: true
             }

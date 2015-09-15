@@ -23,7 +23,7 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewMode
     },
 
     currentTeam: function () {
-        return this.agent().team();
+        return this.agent().getTeam();
     }
 
 });

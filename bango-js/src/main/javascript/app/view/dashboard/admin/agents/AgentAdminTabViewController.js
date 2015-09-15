@@ -5,9 +5,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
     requires: [
         'Spm.view.dashboard.admin.agents.create.CreateAgentDialog',
         'Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialog',
-        'Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewModel',
-        'Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialog',
-        'Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialogViewModel'
+        'Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialog'
     ],
 
     listen: {
@@ -26,6 +24,10 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
         this.getView().setSelection(store.first());
     },
 
+    onSelectAgent: function (component, record) {
+        this.getViewModel().set('isLoggedInAgent', record.agentCode() === this.getViewModel().authenticatedAgent().agentCode());
+    },
+
     selectedAgent: function () {
         return this.getView().getSelectionModel().getSelection()[0];
     },
@@ -42,6 +44,14 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
             }
         });
         dialog.show();
+    },
+
+    changeAgentRole: function () {
+        this.getView().add({xtype: 'changeAgentRoleDialog', agent: this.selectedAgent()}).show();
+    },
+
+    createAgent: function () {
+        this.getView().add(Ext.create('Spm.view.dashboard.admin.agents.create.CreateAgentDialog')).show();
     },
 
     deleteAgent: function () {
@@ -66,27 +76,6 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
                 }
             }
         });
-    },
-
-    changeAgentRole: function () {
-        var agent = this.selectedAgent();
-        var dialog = this.getView().add({
-            xtype: 'changeAgentRoleDialog',
-            viewModel: {
-                type: 'changeAgentRoleDialog',
-                data: {
-                    agent: agent
-                }
-            }
-        });
-        dialog.show();
-    },
-
-    createAgent: function () {
-        this.getView().add(Ext.create('Spm.view.dashboard.admin.agents.create.CreateAgentDialog')).show();
-    },
-
-    onSelectAgent: function (component, record) {
-        this.getViewModel().set('isLoggedInAgent', record.agentCode() === this.getViewModel().authenticatedAgent().agentCode());
     }
+
 });

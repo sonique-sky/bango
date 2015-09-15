@@ -19,6 +19,8 @@ Ext.define('Spm.view.component.dialog.StandardDialog', {
     resizable: false,
     closable: false,
 
+    defaultFocus: 'cancelButton',
+
     viewModel: {type: 'standardDialog'},
     controller: 'standardDialog',
 
@@ -54,6 +56,7 @@ Ext.define('Spm.view.component.dialog.StandardDialog', {
                 {
                     xtype: 'button',
                     reference: 'cancelButton',
+                    itemId: 'cancelButton',
                     width: 80,
                     bind: {
                         text: '{cancelButtonText}',

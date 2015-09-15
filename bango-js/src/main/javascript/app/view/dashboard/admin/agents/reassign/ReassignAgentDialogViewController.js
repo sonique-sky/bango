@@ -6,7 +6,7 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewCont
         var agent = this.getViewModel().agent();
         var teamsStore = this.getStore('teams');
         teamsStore.filterBy(function (team) {
-            return team.teamId() !== agent.team().teamId();
+            return team.teamId() !== agent.getTeam().teamId();
         });
         teamsStore.load();
     },

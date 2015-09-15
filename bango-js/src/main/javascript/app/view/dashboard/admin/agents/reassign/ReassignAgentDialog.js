@@ -11,7 +11,7 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialog', {
     controller: 'reassignAgentDialog',
 
     bind: {
-        title: 'Reassign Agent :: {agent.agentCode}'
+        title: 'Reassign Agent :: {agent.displayName}'
     },
     iconCls: 'icon-admin-agent-reassign',
     width: 350,
@@ -38,5 +38,4 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialog', {
         }
     ]
 
-})
-;
+});

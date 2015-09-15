@@ -3,8 +3,11 @@ Ext.define('Spm.model.Agent', {
     alias: 'model.agent',
 
     requires: [
+        'Spm.model.Role',
         'Spm.model.Team'
     ],
+
+    idProperty: 'code',
 
     fields: [
         {
@@ -40,7 +43,12 @@ Ext.define('Spm.model.Agent', {
         return Ext.Array.contains(this.get('role').privileges, privilege);
     },
 
-    team: function () {
+    getTeam: function () {
         return new Spm.model.Team(this.get('team'));
+    },
+
+    getRole: function () {
+        return new Spm.model.Role(this.get('role'));
     }
+
 });

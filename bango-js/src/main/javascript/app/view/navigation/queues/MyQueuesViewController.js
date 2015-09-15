@@ -14,7 +14,7 @@ Ext.define('Spm.view.navigation.queues.MyQueuesViewController', {
 
     loadQueues: function () {
         var agent = this.getViewModel().get('authenticatedAgent');
-        this.getStore('agentQueues').loadData(agent.team().assignedQueues());
+        this.getStore('agentQueues').loadData(agent.getTeam().assignedQueues());
     },
 
     onAgentQueueSelect: function (dataViewModel, selectedQueue) {
