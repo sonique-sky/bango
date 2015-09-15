@@ -12,7 +12,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
 
     listeners: {
         activate: 'loadStore',
-        cellclick: 'onSelectAgent'
+        select: 'onSelectAgent'
     },
 
     bind: {
@@ -56,7 +56,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
             {
                 tooltip: 'Delete Agent',
                 iconCls: 'icon-admin-agent-delete',
-                handler: 'foo',
+                handler: 'deleteAgent',
                 bind: {
                     disabled: '{isLoggedInAgent}'
                 }

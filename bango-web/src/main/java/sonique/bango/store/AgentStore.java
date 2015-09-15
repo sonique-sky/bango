@@ -16,17 +16,9 @@ public class AgentStore implements DomainAgentRepository {
 
     private final Map<String, DomainAgent> agentCodeToAgentMap = newHashMap();
 
-    public void registerAgent(DomainAgent agent) {
-        agentCodeToAgentMap.put(agentCode(agent), agent);
-    }
-
-    public void removeAgent(DomainAgent agent) {
-        agentCodeToAgentMap.remove(agentCode(agent));
-    }
-
     @Override
-    public void deleteAgent(DomainAgent domainAgent) {
-        throw new UnsupportedOperationException("Method AgentStore deleteAgent() not yet implemented");
+    public void deleteAgent(DomainAgent agent) {
+        agentCodeToAgentMap.remove(agentCode(agent));
     }
 
     @Override
@@ -51,7 +43,8 @@ public class AgentStore implements DomainAgentRepository {
 
     @Override
     public DomainAgent insert(DomainAgent agent) {
-        throw new UnsupportedOperationException("Method AgentStore insert() not yet implemented");
+        agentCodeToAgentMap.put(agentCode(agent), agent);
+        return agent;
     }
 
     @Override

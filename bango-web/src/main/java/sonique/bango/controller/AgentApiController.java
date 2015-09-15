@@ -1,11 +1,13 @@
 package sonique.bango.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
+import sonique.bango.domain.ResponseData;
 import sonique.bango.service.AgentApiService;
 
 import javax.annotation.Resource;
@@ -54,5 +56,10 @@ public class AgentApiController {
     @RequestMapping(method = {RequestMethod.GET}, params = {"start", "limit"})
     public PagedSearchResults<DomainAgent> pagedAgents(@RequestParam Integer start, @RequestParam Integer limit) {
         return agentApiService.allAgents(start, limit);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseData<DomainAgent> deleteAgent(@RequestBody DomainAgent agent) {
+        return new ResponseData<>(agentApiService.deleteAgent(agent));
     }
 }

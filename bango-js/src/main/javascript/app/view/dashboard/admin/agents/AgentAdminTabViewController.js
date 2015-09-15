@@ -2,34 +2,32 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.agentAdminTab',
 
+    requires: [
+        'Spm.view.dashboard.admin.agents.create.CreateAgentDialog',
+        'Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialog',
+        'Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewModel',
+        'Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialog',
+        'Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialogViewModel'
+    ],
+
     listen: {
         controller: {
             'reassignAgentDialog': {
-                agentReassigned: 'onAgentReassigned'
+                agentReassigned: 'loadStore'
             }
         }
     },
 
-    onAgentReassigned: function () {
-        this.getView().getStore().load();
-    },
-
     loadStore: function () {
-        var me = this;
-        var store = this.getView().getStore();
-        store.load(function (records, operation, success) {
-            var firstAgent = store.first();
-            me.getViewModel().set('agent', firstAgent.getData());
-        });
+        this.getView().getStore().load();
     },
 
     onAgentStoreLoaded: function (store) {
         this.getView().setSelection(store.first());
-        this.getViewModel().set('agent', store.first().getData());
     },
 
-    onSelectAgent: function (view, td, cellIndex, record) {
-        this.getViewModel().set('agent', record.getData());
+    selectedAgent: function () {
+        return this.getView().getSelectionModel().getSelection()[0];
     },
 
     reassignAgent: function () {
@@ -44,6 +42,30 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
             }
         });
         dialog.show();
+    },
+
+    deleteAgent: function () {
+        var me = this,
+            selectedAgent = me.selectedAgent(),
+            agentStore = me.getViewModel().getStore('agents');
+
+        Ext.Msg.show({
+            title: 'Delete Agent',
+            msg: Ext.String.format('Are you sure you wish to delete agent [{0}]?', selectedAgent.agentCode()),
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            callback: function (buttonId) {
+                if ('yes' == buttonId) {
+                    agentStore.remove(selectedAgent);
+                    agentStore.sync({
+                        failure: function () {
+                            me.loadStore();
+                        }
+                    });
+                    me.selectFirstRow(agentStore);
+                }
+            }
+        });
     },
 
     changeAgentRole: function () {
@@ -62,9 +84,11 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
 
     createAgent: function () {
         var dialog = Ext.create('Spm.view.dashboard.admin.agents.create.CreateAgentDialog');
-
         this.getView().add(dialog);
-
         dialog.show();
+    },
+
+    onSelectAgent: function (component, record) {
+        this.getViewModel().set('isLoggedInAgent', record.agentCode() === this.getViewModel().authenticatedAgent().agentCode());
     }
 });

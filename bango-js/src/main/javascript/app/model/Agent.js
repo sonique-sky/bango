@@ -28,6 +28,10 @@ Ext.define('Spm.model.Agent', {
         }
     ],
 
+    agentCode: function() {
+        return this.get('code');
+    },
+
     hasPrivilege: function (privilege) {
         return Ext.Array.contains(this.get('role').privileges, privilege);
     },

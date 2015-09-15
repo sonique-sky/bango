@@ -83,6 +83,12 @@ public class StubAgentApiService implements AgentApiService {
     }
 
     @Override
+    public DomainAgent deleteAgent(DomainAgent agent) {
+        agentRepository.deleteAgent(agent);
+        return agent;
+    }
+
+    @Override
     public AgentStateDTO agentState() {
         return statisticsFor(myItems(SearchParametersDTO.withNoSearchProperties(Integer.MAX_VALUE, 0)).getData());
     }
