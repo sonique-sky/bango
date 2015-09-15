@@ -19,8 +19,8 @@ Ext.define('Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialogViewContro
             agentStore = me.getViewModel().get('agents'),
             agent = me.getView().agent;
 
-        agent.set('team', team.getData());
         agent.set('role', role.getData());
+        agent.set('team', team ? team.getData() : {});
 
         agentStore.add(agent);
         agentStore.sync({
