@@ -4,7 +4,6 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewMode
 
     data: {
         agent: null,
-        newTeam: null,
         acceptButtonDefaultDisabled: false
     },
 
@@ -12,7 +11,10 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewMode
         teams: {
             type: 'teams',
             remoteSort: true,
-            pageSize: 0
+            pageSize: 0,
+            listeners: {
+                load: 'onTeamStoreLoaded'
+            }
         }
     },
 
@@ -21,10 +23,7 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewMode
     },
 
     currentTeam: function () {
-        return this.agent().team;
-    },
-
-    newTeam: function () {
-        return this.get('newTeam')
+        return this.agent().team();
     }
+
 });

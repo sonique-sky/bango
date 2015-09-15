@@ -18,8 +18,7 @@ Ext.application({
     name: 'Spm',
 
     requires: [
-        'Spm.view.Superman',
-        'Spm.domain.ProxyEventDomain'
+        'Spm.view.Superman'
     ],
 
     launch: function () {

@@ -84,6 +84,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
             flex: 0.25
         }
     ],
+
     features: [
         {
             ftype: 'grouping',

@@ -7,9 +7,9 @@ Ext.define('Spm.store.Roles', {
     sorters: 'description',
 
     data: [
-        {name: 'ROLE_USER', description: 'Team Member'},
-        {name: 'ROLE_TEAM_LEAD', description: 'Team Leader'},
+        {name: 'ROLE_USER', description: 'Team Member', canBeTeamMember: true},
+        {name: 'ROLE_TEAM_LEAD', description: 'Team Leader', canBeTeamMember: true},
         {name: 'ROLE_QUEUE_CONTROLLER', description: 'Queue Controller'},
-        {name: 'ROLE_MSP_ADMINISTRATOR', description: 'Msp Administrator'}
+        {name: 'ROLE_MSP_ADMINISTRATOR', description: 'Msp Administrator', canBeTeamMember: true}
     ]
 });

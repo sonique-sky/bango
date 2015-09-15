@@ -32,14 +32,8 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialog', {
             bind: {
                 store: '{teams}'
             },
-            listeners: {
-                cellclick: 'onSelectTeam'
-            },
             columns: [
-                {
-                    dataIndex: 'name',
-                    flex: 1
-                }
+                {dataIndex: 'name', flex: 1}
             ]
         }
     ]

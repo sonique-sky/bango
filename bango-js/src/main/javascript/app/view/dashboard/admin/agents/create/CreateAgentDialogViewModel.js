@@ -2,6 +2,10 @@ Ext.define('Spm.view.dashboard.admin.agents.CreateAgentDialogViewModel', {
     extend: 'Spm.component.StandardDialogViewModel',
     alias: 'viewmodel.createAgent',
 
+    requires: [
+        'Spm.model.Agent'
+    ],
+
     data: {
         agent: Ext.create('Spm.model.Agent')
     },

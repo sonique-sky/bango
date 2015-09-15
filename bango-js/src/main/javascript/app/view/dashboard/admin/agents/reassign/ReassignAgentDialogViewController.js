@@ -3,40 +3,25 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewCont
     alias: 'controller.reassignAgentDialog',
 
     onShow: function () {
-        var me = this;
         var agent = this.getViewModel().agent();
         var teamsStore = this.getStore('teams');
         teamsStore.filterBy(function (team) {
-            return team.teamId() !== agent.team.id;
+            return team.teamId() !== agent.team().teamId();
         });
-        teamsStore.load({
-            callback: function (records, operation, success) {
-                if (me.getViewModel().currentTeam().id !== records[0].id) {
-                    me.lookupReference('teamsGrid').setSelection(records[0]);
-                    me.getViewModel().set('newTeam', records[0]);
-                } else {
-                    me.lookupReference('teamsGrid').setSelection(records[1]);
-                    me.getViewModel().set('newTeam', records[1]);
-                }
-            }
-        });
-    },
-
-    onSelectTeam: function (view, td, cellIndex, record) {
-        this.getViewModel().set('newTeam', record.getData());
+        teamsStore.load();
     },
 
     onAccept: function () {
-        var viewModel = this.getViewModel();
         var me = this;
+        var viewModel = me.getViewModel();
         Ext.Ajax.request(
             {
                 url: Ext.String.format('api/agent/reassign'),
                 method: 'POST',
                 jsonData: {
-                    agent: viewModel.agent().agentCode,
-                    currentTeam: viewModel.currentTeam().id,
-                    newTeam: viewModel.newTeam().id
+                    agent: viewModel.agent().agentCode(),
+                    currentTeam: viewModel.currentTeam().teamId(),
+                    newTeam: me.selectedTeam().teamId()
                 },
                 success: function () {
                     me.fireEvent('agentReassigned');
@@ -44,7 +29,14 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewCont
                 }
             }
         );
+    },
+
+    selectedTeam: function () {
+        return this.lookupReference('teamsGrid').getSelectionModel().getSelection()[0];
+    },
+
+    onTeamStoreLoaded: function (store) {
+        this.lookupReference('teamsGrid').setSelection(store.first());
     }
 
-})
-;
+});

@@ -12,11 +12,6 @@ Ext.define('Spm.view.SupermanViewController', {
         global: {
             displayNotification: 'onDisplayNotification'
         },
-        proxy: {
-            '*': {
-                exception: 'onProxyException'
-            }
-        },
         controller: {
             'loginDialog': {
                 performAuthentication: 'onPerformAuthentication'
@@ -25,6 +20,11 @@ Ext.define('Spm.view.SupermanViewController', {
                 logout: 'onLogout'
             }
         }
+    },
+
+    init: function () {
+        Ext.Ajax.on('requestexception', this.onProxyException, this);
+        this.callParent();
     },
 
     onProxyException: function (proxy, response) {
