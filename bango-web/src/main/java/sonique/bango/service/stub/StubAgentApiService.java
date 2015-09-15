@@ -82,17 +82,16 @@ public class StubAgentApiService implements AgentApiService {
     public PagedSearchResults<DomainAgent> allAgents(RequestParameters requestParameters) {
         int start = requestParameters.getStart();
         int limit = requestParameters.getLimit() == 0 ? Integer.MAX_VALUE : requestParameters.getLimit();
+        AgentFilterSupplier agentFilterSupplier = new AgentFilterSupplier(queueRepository, agentRepository);
 
         List<DomainAgent> allAgents = agentRepository.getAllAgents();
         Stream<DomainAgent> allAgentsStream = allAgents.stream().skip(start);
+        Optional<Predicate<DomainAgent>> assignableAgentsFilter = Filters.andFilter(requestParameters.getFilter(), agentFilterSupplier::filterFor);
 
-        Optional<Predicate<DomainAgent>> assignableAgentFilter = Filters.andFilter(requestParameters.getFilter(), filter -> AgentFilter.forFilterTerm(filter, queueRepository, agentRepository));
+        List<DomainAgent> pageOfAgents = assignableAgentsFilter
+                .flatMap(f -> Optional.of(allAgentsStream.filter(f).limit(limit).collect(toList())))
+                .orElse(allAgentsStream.limit(limit).collect(toList()));
 
-        if (assignableAgentFilter.isPresent()) {
-            allAgentsStream = allAgentsStream.filter(assignableAgentFilter.get());
-        }
-
-        List<DomainAgent> pageOfAgents = allAgentsStream.limit(limit).collect(toList());
         return new PagedSearchResults<>(pageOfAgents, (long) allAgents.size());
     }
 
@@ -138,30 +137,37 @@ public class StubAgentApiService implements AgentApiService {
         return new AgentStateDTO(authenticatedAgent().availability(), "", serviceProblemsForAgent.size() - heldCount, heldCount, pullCount, pushCount);
     }
 
-    public static class AgentFilter {
-        public static Predicate<DomainAgent> forFilterTerm(Filter filter, QueueRepository queueRepository, DomainAgentRepository agentRepository) {
+    private static class AgentFilterSupplier {
+        private final QueueRepository queueRepository;
+        private final DomainAgentRepository agentRepository;
 
-            switch (filter.property()) {
+        private AgentFilterSupplier(final QueueRepository queueRepository, final DomainAgentRepository agentRepository) {
+            this.queueRepository = queueRepository;
+            this.agentRepository = agentRepository;
+        }
+
+        private Predicate<DomainAgent> filterFor(Filter term) {
+            switch (term.property()) {
                 case "watchingQueue":
-                    return isWatchingQueue(queueRepository.findQueueBy(new QueueId(filter.value())));
+                    return isWatchingQueue(queueRepository.findQueueBy(new QueueId(term.value())));
                 case "excludeAgent":
-                    return isNotTheSameAgent(agentRepository.findByAgentCode(filter.value()));
+                    return isNotTheSameAgent(agentRepository.findByAgentCode(term.value()));
                 case "notOffline":
                     return notOffline();
             }
 
-            throw new IllegalArgumentException(String.format("filter by %s is not supported", filter.property()));
+            throw new IllegalArgumentException(String.format("filter by %s is not supported", term.property()));
         }
 
-        public static Predicate<DomainAgent> isWatchingQueue(Queue expected) {
+        private Predicate<DomainAgent> isWatchingQueue(Queue expected) {
             return agent -> agent.isWatchingQueue(expected);
         }
 
-        public static Predicate<DomainAgent> notOffline() {
+        private Predicate<DomainAgent> notOffline() {
             return agent -> agent.availability() != AgentAvailability.Offline;
         }
 
-        public static Predicate<DomainAgent> isNotTheSameAgent(DomainAgent expected) {
+        private Predicate<DomainAgent> isNotTheSameAgent(DomainAgent expected) {
             return agent -> !agent.equals(expected);
         }
 
