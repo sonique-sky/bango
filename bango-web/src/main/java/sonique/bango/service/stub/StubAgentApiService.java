@@ -15,6 +15,7 @@ import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.controller.RequestParameters;
 import sonique.bango.domain.filter.Filter;
+import sonique.bango.domain.filter.Filters;
 import sonique.bango.service.AgentApiService;
 import spm.domain.QueueId;
 import spm.domain.TeamId;
@@ -85,14 +86,10 @@ public class StubAgentApiService implements AgentApiService {
         List<DomainAgent> allAgents = agentRepository.getAllAgents();
         Stream<DomainAgent> allAgentsStream = allAgents.stream().skip(start);
 
-        Optional<Predicate<DomainAgent>> agentFilter = requestParameters
-                .getFilter()
-                .stream()
-                .map(filterProperty -> AgentFilter.forProperty(filterProperty, queueRepository, agentRepository))
-                .reduce(Predicate::and);
+        Optional<Predicate<DomainAgent>> assignableAgentFilter = Filters.andFilter(requestParameters.getFilter(), filter -> AgentFilter.forFilterTerm(filter, queueRepository, agentRepository));
 
-        if (agentFilter.isPresent()) {
-            allAgentsStream = allAgentsStream.filter(agentFilter.get());
+        if (assignableAgentFilter.isPresent()) {
+            allAgentsStream = allAgentsStream.filter(assignableAgentFilter.get());
         }
 
         List<DomainAgent> pageOfAgents = allAgentsStream.limit(limit).collect(toList());
@@ -142,24 +139,25 @@ public class StubAgentApiService implements AgentApiService {
     }
 
     public static class AgentFilter {
-        public static Predicate<DomainAgent> forProperty(Filter filterProperty, QueueRepository queueRepository, DomainAgentRepository agentRepository) {
-            switch (filterProperty.property()) {
+        public static Predicate<DomainAgent> forFilterTerm(Filter filter, QueueRepository queueRepository, DomainAgentRepository agentRepository) {
+
+            switch (filter.property()) {
                 case "watchingQueue":
-                    return isWatchingQueue(queueRepository.findQueueBy(new QueueId(filterProperty.value())));
+                    return isWatchingQueue(queueRepository.findQueueBy(new QueueId(filter.value())));
                 case "excludeAgent":
-                    return isNotTheSameAgent(agentRepository.findByAgentCode(filterProperty.value()));
+                    return isNotTheSameAgent(agentRepository.findByAgentCode(filter.value()));
                 case "notOffline":
-                    return isOnline();
+                    return notOffline();
             }
 
-            throw new IllegalArgumentException(String.format("filter by %s is not supported", filterProperty.property()));
+            throw new IllegalArgumentException(String.format("filter by %s is not supported", filter.property()));
         }
 
         public static Predicate<DomainAgent> isWatchingQueue(Queue expected) {
             return agent -> agent.isWatchingQueue(expected);
         }
 
-        public static Predicate<DomainAgent> isOnline() {
+        public static Predicate<DomainAgent> notOffline() {
             return agent -> agent.availability() != AgentAvailability.Offline;
         }
 
