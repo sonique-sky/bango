@@ -23,6 +23,21 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewModel', {
         }
     },
 
+    formulas: {
+        causeComboDisabled: {
+            bind: '{fault}',
+            get: function(fault) {
+                return !fault;
+            }
+        },
+        resolutionReasonComboDisabled: {
+            bind: '{cause}',
+            get: function(cause) {
+                return !cause;
+            }
+        }
+    },
+
     serviceProblem: function () {
         return this.get('serviceProblem');
     },

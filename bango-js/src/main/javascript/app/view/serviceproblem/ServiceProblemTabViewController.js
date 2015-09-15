@@ -4,6 +4,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     requires: [
         'Spm.reader.ServiceProblemReader',
+        'Spm.view.serviceproblem.clear.ClearServiceProblemDialog',
         'Spm.view.serviceproblem.transfer.TransferServiceProblemDialog'
     ],
 
@@ -21,9 +22,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     clearServiceProblem: function () {
         var me = this;
-        var serviceProblem = this.getViewModel().serviceProblem();
-
-        if (serviceProblem.hasActiveTroubleReport()) {
+        if (me.getViewModel().serviceProblem().hasActiveTroubleReport()) {
             Ext.Msg.show({
                 title: 'Confirm Clear',
                 msg: Ext.String.format('There is an Outstanding Trouble Report for this Service Problem - Are you sure you wish to clear this Service Problem?'),
@@ -33,14 +32,12 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                 icon: Ext.Msg.QUESTION,
                 callback: function (buttonId) {
                     if ('yes' == buttonId) {
-                        me.showClearServiceProblemDialog(serviceProblem);
-                    } else {
-                        me.close();
+                        me.showClearServiceProblemDialog();
                     }
                 }
             });
         } else {
-            me.showClearServiceProblemDialog(serviceProblem);
+            me.showClearServiceProblemDialog();
         }
     },
 
@@ -187,17 +184,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         this.setTroubleReport(record);
     },
 
-    showClearServiceProblemDialog: function (serviceProblem) {
-        var dialog = this.getView().add({
-            xtype: 'clearServiceProblemDialog',
-            viewModel: {
-                type: 'clearServiceProblemDialog',
-                data: {
-                    serviceProblem: serviceProblem
-                }
-            }
-        });
-        dialog.show();
+    showClearServiceProblemDialog: function () {
+        this.getView().add({ xtype: 'clearServiceProblemDialog'}).show();
     }
 
 });

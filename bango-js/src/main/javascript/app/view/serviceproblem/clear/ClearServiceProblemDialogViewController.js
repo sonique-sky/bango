@@ -5,29 +5,28 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewControlle
     onShow: function () {
         var serviceType = this.getViewModel().serviceProblem().serviceType();
         this.getStore('faults').load({
-            params: {
-                serviceType: serviceType.code
-            }
+            params: {serviceType: serviceType.code}
         });
     },
 
     onAccept: function () {
         if (this.lookupReference('clearServiceProblemForm').isValid()) {
-            var viewModel = this.getViewModel();
-            var me = this.getView();
+            var me = this;
+            var viewModel = me.getViewModel();
+            var serviceProblemId = viewModel.serviceProblem().serviceProblemId();
             Ext.Ajax.request(
                 {
-                    url: Ext.String.format('api/serviceProblem/{0}/clear', viewModel.serviceProblem().serviceProblemId()),
+                    url: Ext.String.format('api/serviceProblem/{0}/clear', serviceProblemId),
                     method: 'POST',
                     jsonData: {
                         fault: viewModel.fault(),
                         cause: viewModel.cause(),
                         resolution: viewModel.resolution()
                     },
-                    scope: this,
+                    scope: me,
                     success: function () {
-                        this.fireEvent('serviceProblemCleared', viewModel.serviceProblem().serviceProblemId());
-                        me.close();
+                        me.fireEvent('serviceProblemCleared', serviceProblemId);
+                        me.closeView();
                     }
                 }
             );
@@ -43,9 +42,7 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewControlle
                 fault: fault
             }
         });
-        this.lookupReference('causeCombo').setDisabled(false);
         this.lookupReference('resolutionReasonCombo').reset();
-        this.lookupReference('resolutionReasonCombo').setDisabled(true);
     },
 
     onCauseSelected: function () {
@@ -57,11 +54,10 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewControlle
                 cause: cause
             }
         });
-        this.lookupReference('resolutionReasonCombo').setDisabled(false);
     },
 
     onValidityChange: function (form, isValid) {
-        this.lookupReference('acceptButton').setDisabled(!isValid);
+        this.getViewModel().set('acceptButtonDefaultDisabled', !isValid);
     }
 
 });

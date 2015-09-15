@@ -2,6 +2,11 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.clearServiceProblemDialog',
 
+    requires: [
+        'Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewController',
+        'Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewModel'
+    ],
+
     viewModel: {type: 'clearServiceProblemDialog'},
     controller: 'clearServiceProblemDialog',
 
@@ -30,83 +35,51 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialog', {
                         align: 'stretch'
                     },
                     defaults: {
-                        labelWidth: 130
+                        xtype: 'combobox',
+                        labelWidth: 130,
+                        typeAhead: true,
+                        forceSelection: true,
+                        allowBlank: false,
+                        queryMode: 'local',
+                        displayField: 'description'
                     },
                     items: [
                         {
-                            xtype: 'combobox',
                             fieldLabel: 'Fault',
-                            displayField: 'description',
                             valueField: 'faultCode',
                             bind: {
                                 value: '{fault}',
                                 store: '{faults}'
                             },
-                            typeAhead: true,
-                            forceSelection: true,
-                            allowBlank: false,
                             emptyText: 'Please select a Fault...',
-                            queryMode: 'local',
                             listeners: {
                                 select: 'onFaultSelected'
                             }
                         },
                         {
-                            xtype: 'fieldcontainer',
-                            layout: {
-                                type: 'hbox'
-                            },
-                            align: 'left',
                             fieldLabel: 'Cause',
-                            items: [
-                                {
-                                    xtype: 'combobox',
-                                    reference: 'causeCombo',
-                                    displayField: 'description',
-                                    valueField: 'causeCode',
-                                    bind: {
-                                        value: '{cause}',
-                                        store: '{causes}'
-                                    },
-                                    typeAhead: true,
-                                    forceSelection: true,
-                                    allowBlank: false,
-                                    emptyText: 'Please select a Cause...',
-                                    listeners: {
-                                        select: 'onCauseSelected'
-                                    },
-                                    disabled: true,
-                                    queryMode: 'local',
-                                    flex: 1
-                                }
-                            ]
+                            reference: 'causeCombo',
+                            valueField: 'causeCode',
+                            bind: {
+                                value: '{cause}',
+                                store: '{causes}',
+                                disabled: '{causeComboDisabled}'
+                            },
+                            emptyText: 'Please select a Cause...',
+                            listeners: {
+                                select: 'onCauseSelected'
+                            }
                         },
                         {
-                            xtype: 'fieldcontainer',
-                            layout: {
-                                type: 'hbox'
-                            },
-                            align: 'left',
                             fieldLabel: 'Resolution Reason',
-                            items: [
-                                {
-                                    xtype: 'combobox',
-                                    reference: 'resolutionReasonCombo',
-                                    displayField: 'description',
-                                    valueField: 'resolutionReasonCode',
-                                    bind: {
-                                        value: '{resolutionReason}',
-                                        store: '{resolutionReasons}'
-                                    },
-                                    typeAhead: true,
-                                    forceSelection: true,
-                                    allowBlank: false,
-                                    emptyText: 'Please select a Resolution Reason...',
-                                    disabled: true,
-                                    queryMode: 'local',
-                                    flex: 1
-                                }
-                            ]
+                            reference: 'resolutionReasonCombo',
+                            valueField: 'resolutionReasonCode',
+                            bind: {
+                                value: '{resolutionReason}',
+                                store: '{resolutionReasons}',
+                                disabled: '{resolutionReasonComboDisabled}'
+                            },
+                            emptyText: 'Please select a Resolution Reason...'
                         }
                     ]
                 }
