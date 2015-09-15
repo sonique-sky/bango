@@ -180,6 +180,20 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         );
     },
 
+    onReassignServiceProblem: function () {
+        var serviceProblem = this.getViewModel().serviceProblem();
+        var dialog = this.getView().add({
+            xtype: 'reassignServiceProblemDialog',
+            viewModel: {
+                type: 'reassignServiceProblemDialog',
+                data: {
+                    serviceProblem: serviceProblem
+                }
+            }
+        });
+        dialog.show();
+    },
+
     onSelectTroubleReport: function (view, td, cellIndex, record) {
         this.setTroubleReport(record);
     },

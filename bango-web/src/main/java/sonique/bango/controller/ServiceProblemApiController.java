@@ -79,6 +79,17 @@ public class ServiceProblemApiController {
         );
     }
 
+    @RequestMapping(value = "/{serviceProblemId}/reassign", method = RequestMethod.PUT)
+    @ResponseBody
+    public DomainServiceProblem reassignServiceProblem(@PathVariable Long serviceProblemId, @RequestBody Map<String, String> payloadMap) {
+        String agentCode = payloadMap.get("agentCode");
+
+        return serviceProblemApiService.reassignToAgent(
+                new ServiceProblemId(serviceProblemId),
+                agentCode
+        );
+    }
+
     @RequestMapping(value = "/{serviceProblemId}/clear", method = RequestMethod.POST)
     @ResponseBody
     public DomainServiceProblem clearServiceProblem(@PathVariable Long serviceProblemId, @RequestBody Map<String, String> payloadMap) {

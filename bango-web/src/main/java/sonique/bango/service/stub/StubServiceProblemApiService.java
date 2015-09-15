@@ -7,6 +7,7 @@ import sky.sns.spm.domain.model.refdata.Fault;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.ResolutionReason;
 import sky.sns.spm.domain.model.serviceproblem.*;
+import sky.sns.spm.infrastructure.repository.DomainAgentRepository;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
@@ -17,6 +18,7 @@ import sonique.bango.domain.filter.Filter;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
+import spm.domain.event.ReassignHistoryEvent;
 import spm.domain.event.TransferHistoryEvent;
 import spm.domain.event.UnassignHistoryEvent;
 
@@ -30,14 +32,17 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     private final DomainServiceProblemRepository serviceProblemRepository;
     private final SpringSecurityAuthorisedActorProvider authorisedActorProvider;
     private final QueueRepository queueRepository;
+    private final DomainAgentRepository agentRepository;
 
     public StubServiceProblemApiService(
             DomainServiceProblemRepository serviceProblemRepository,
             SpringSecurityAuthorisedActorProvider authorisedActorProvider,
-            QueueRepository queueRepository) {
+            QueueRepository queueRepository,
+            DomainAgentRepository agentRepository) {
         this.serviceProblemRepository = serviceProblemRepository;
         this.authorisedActorProvider = authorisedActorProvider;
         this.queueRepository = queueRepository;
+        this.agentRepository = agentRepository;
     }
 
     @Override
@@ -129,14 +134,23 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     }
 
     @Override
-    public PagedSearchResults<DomainServiceProblem> serviceProblems(RequestParameters requestParameters) {
-        PagedSearchResults<DomainServiceProblem> queues = serviceProblemRepository.searchForServiceProblems(searchFor(requestParameters));
+    public DomainServiceProblem reassignToAgent(ServiceProblemId serviceProblemId, String agentCode) {
+        DomainServiceProblem serviceProblem = serviceProblemRepository.findByServiceProblemId(serviceProblemId);
+        DomainAgent targetAgent = agentRepository.findByAgentCode(agentCode);
 
-        return queues;
+        serviceProblem.workItem().assignTo(targetAgent);
+        serviceProblem.writeHistoryFor(new ReassignHistoryEvent(new Date(), authorisedActorProvider.authorisedActor(), targetAgent));
+        return serviceProblem;
+    }
+
+    @Override
+    public PagedSearchResults<DomainServiceProblem> serviceProblems(RequestParameters requestParameters) {
+
+        return serviceProblemRepository.searchForServiceProblems(searchFor(requestParameters));
     }
 
     private SearchParametersDTO searchFor(RequestParameters params) {
         Filter filter = params.getFilter().get(0);
-        return SearchParametersDTO. withSearchProperties(filter.property(),filter.value(), params.getLimit(), params.getStart() );
+        return SearchParametersDTO.withSearchProperties(filter.property(), filter.value(), params.getLimit(), params.getStart());
     }
 }

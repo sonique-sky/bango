@@ -17,6 +17,9 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
             'transferServiceProblemDialog': {
                 serviceProblemTransferred: 'loadMyItems'
             },
+            'reassignServiceProblemDialog': {
+                serviceProblemReassigned: 'loadMyItems'
+            },
             'clearServiceProblemDialog': {
                 serviceProblemCleared: 'loadMyItems'
             },
@@ -56,5 +59,9 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
 
     formattedWorkItemCreatedDate: function (val, meta, record) {
         return Ext.util.Format.date(record.getWorkItem().get('createdDate'), 'd/m/y H:i');
+    },
+
+    refreshMyItems: function () {
+        this.fireEvent('refreshed');
     }
 });

@@ -129,7 +129,13 @@ public class BangoApplicationContext {
 
     @Bean
     public AgentApiService agentApiService() {
-        return new StubAgentApiService(springSecurityAuthorisedActorProvider(), serviceProblemRepository, agentRepository, teamRepository);
+        return new StubAgentApiService(
+                springSecurityAuthorisedActorProvider(),
+                serviceProblemRepository,
+                agentRepository,
+                teamRepository,
+                queueRepository
+        );
     }
 
     @Bean
@@ -154,7 +160,7 @@ public class BangoApplicationContext {
 
     @Bean
     public ServiceProblemApiService serviceProblemApiService() {
-        return new StubServiceProblemApiService(serviceProblemRepository, springSecurityAuthorisedActorProvider(), queueRepository);
+        return new StubServiceProblemApiService(serviceProblemRepository, springSecurityAuthorisedActorProvider(), queueRepository, agentRepository);
     }
 
     @Bean
