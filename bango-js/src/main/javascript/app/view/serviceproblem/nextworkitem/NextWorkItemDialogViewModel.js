@@ -20,12 +20,8 @@ Ext.define('Spm.view.serviceproblem.nextworkitem.NextWorkItemDialogViewModel', {
         }
     },
 
-    workItem: function () {
-        return this.get('workItem');
-    },
-
-    serviceProblemId: function () {
-        return this.get('serviceProblemId');
+    serviceProblem: function () {
+        return this.get('serviceProblem');
     },
 
     nextWorkItem: function () {

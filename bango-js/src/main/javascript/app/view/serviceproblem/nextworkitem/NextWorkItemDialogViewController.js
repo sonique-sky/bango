@@ -7,28 +7,27 @@ Ext.define('Spm.view.serviceproblem.nextworkitem.NextWorkItemDialogViewControlle
     },
 
     onAccept: function () {
-        if (this.lookupReference('nextWorkItemForm').isValid()) {
-            var viewModel = this.getViewModel();
-            var me = this.getView();
-            Ext.Ajax.request(
-                {
-                    url: Ext.String.format('api/serviceProblem/{0}/nextWorkItem', viewModel.serviceProblemId()),
-                    method: 'POST',
-                    jsonData: {
-                        nextWorkItem: viewModel.nextWorkItem()
-                    },
-                    scope: this,
-                    success: function () {
-                        this.fireEvent('workItemUpdated', viewModel.serviceProblemId());
-                        me.close();
-                    }
+        var me = this;
+        var viewModel = me.getViewModel();
+        var serviceProblemId = viewModel.serviceProblem().serviceProblemId();
+
+        Ext.Ajax.request(
+            {
+                url: Ext.String.format('api/serviceProblem/{0}/nextWorkItem', serviceProblemId),
+                method: 'POST',
+                jsonData: {
+                    nextWorkItem: viewModel.nextWorkItem()
+                },
+                scope: me,
+                success: function () {
+                    me.fireEvent('workItemUpdated', serviceProblemId);
+                    me.closeView();
                 }
-            );
-        }
+            }
+        );
     },
 
     onValidityChange: function (form, isValid) {
-        this.lookupReference('acceptButton').setDisabled(!isValid);
+        this.getViewModel().set('acceptButtonDefaultDisabled', !isValid);
     }
-
 });
