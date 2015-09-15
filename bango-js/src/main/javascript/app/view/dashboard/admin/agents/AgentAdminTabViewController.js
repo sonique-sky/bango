@@ -58,9 +58,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
                 if ('yes' == buttonId) {
                     agentStore.remove(selectedAgent);
                     agentStore.sync({
-                        failure: function () {
-                            me.loadStore();
-                        }
+                        failure: me.loadStore, scope: me
                     });
                     me.selectFirstRow(agentStore);
                 }

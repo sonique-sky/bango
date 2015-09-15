@@ -53,7 +53,7 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
                     },
                     success: function (response) {
                         me.fireEvent('updateAppointmentReference', Ext.decode(response.responseText));
-                        me.getView().close();
+                        me.closeView();
                     }
                 }
             );

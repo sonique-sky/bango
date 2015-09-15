@@ -23,7 +23,7 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialogViewController', {
                     jsonData: viewModel.reminderTime(),
                     success: function () {
                         me.fireEvent('workReminderCreated', viewModel.serviceProblemId());
-                        me.getView().close();
+                        me.closeView();
                     }
                 }
             );

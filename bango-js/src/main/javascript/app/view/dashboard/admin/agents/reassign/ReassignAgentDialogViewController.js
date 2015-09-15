@@ -27,7 +27,7 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewCont
                 },
                 success: function () {
                     me.fireEvent('agentReassigned');
-                    me.getView().close();
+                    me.closeView();
                 }
             }
         );

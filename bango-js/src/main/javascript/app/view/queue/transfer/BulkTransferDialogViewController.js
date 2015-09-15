@@ -27,7 +27,7 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialogViewController', {
             jsonData: me.getViewModel().transferData(),
             success: function (response) {
                 me.fireEvent('bulkOperationCompleted', response);
-                me.getView().close();
+                me.closeView();
             }
         });
     }

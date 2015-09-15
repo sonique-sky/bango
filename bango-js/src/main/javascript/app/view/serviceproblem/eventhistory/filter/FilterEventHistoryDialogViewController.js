@@ -8,7 +8,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialog
 
         viewModel.set('currentFilterState.selectedEventTypes', grid.getSelection());
 
-        this.getView().close();
+        this.closeView();
     },
 
     updateButtonText: function (selected) {

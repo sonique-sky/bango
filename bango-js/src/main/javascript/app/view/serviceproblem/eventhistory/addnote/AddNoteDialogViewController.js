@@ -3,17 +3,15 @@ Ext.define('Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialogViewContro
     alias: 'controller.addNoteDialog',
 
     onAccept: function () {
-        var me = this;
-        var viewModel = this.getViewModel();
-        var store = viewModel.get('eventHistory');
+        var me = this,
+            viewModel = me.getViewModel(),
+            store = viewModel.get('eventHistory');
 
         store.add(new Spm.model.EventHistoryItem({note: viewModel.get('noteContent')}));
 
         store.sync({
             params: {serviceProblemId: viewModel.get('serviceProblem').serviceProblemId()},
-            success: function () {
-                me.getView().close();
-            }
+            success: me.closeView
         });
     }
 });

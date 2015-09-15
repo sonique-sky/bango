@@ -3,7 +3,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
     alias: 'controller.updateProblemCategoryDialog',
 
     onAccept: function () {
-        this.getView().close();
+        this.closeView();
     },
 
     onCancel: function () {

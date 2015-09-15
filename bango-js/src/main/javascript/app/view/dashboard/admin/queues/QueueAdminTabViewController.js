@@ -29,39 +29,19 @@ Ext.define('Spm.view.dashboard.admin.queues.QueueAdminTabViewController', {
     },
 
     updateQueue: function () {
-        var dialog = this.getView().add({
-            xtype: 'createOrUpdateQueueDialog',
-            title: 'Edit Queue',
-            viewModel: {
-                data: {
-                    queue: this.selectedQueue()
-                }
-            }
-        });
-
-        dialog.show();
+        this.getView().add({xtype: 'createOrUpdateQueueDialog', title: 'Edit Queue', queue: this.selectedQueue()}).show();
     },
 
     createNewQueue: function () {
-        var dialog = this.getView().add({
-            xtype: 'createOrUpdateQueueDialog',
-            title: 'Create Queue',
-            viewModel: {
-                data: {
-                    queue: Ext.create('Spm.model.Queue')
-                }
-            }
-        });
-
-        dialog.show();
+        this.getView().add({xtype: 'createOrUpdateQueueDialog', title: 'Create Queue', queue: Ext.create('Spm.model.Queue')}).show();
     },
 
     deleteQueue: function () {
-        var me = this;
-        var selectedQueue = this.selectedQueue();
+        var me = this,
+           selectedQueue = me.selectedQueue();
 
         if (selectedQueue) {
-            var queueStore = this.getStore('queues');
+            var queueStore = me.getStore('queues');
             Ext.Msg.show({
                 title: 'Delete Queue',
                 msg: Ext.String.format('Are you sure you wish to delete queue [{0}]?', selectedQueue.get('name')),
@@ -71,9 +51,7 @@ Ext.define('Spm.view.dashboard.admin.queues.QueueAdminTabViewController', {
                     if ('yes' == buttonId) {
                         queueStore.remove(selectedQueue);
                         queueStore.sync({
-                            failure: function () {
-                                me.loadStore();
-                            }
+                            failure: me.loadStore, scope: me
                         });
                         me.selectFirstRow(queueStore);
                     }
@@ -85,4 +63,5 @@ Ext.define('Spm.view.dashboard.admin.queues.QueueAdminTabViewController', {
     renderYesNoValue: function (value) {
         return value === true ? 'Yes' : 'No';
     }
+
 });

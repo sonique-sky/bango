@@ -62,27 +62,12 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
                 }
             }
         ]
-    }
-    ],
+    }],
 
     columns: [
-        {
-            text: 'Agent',
-            dataIndex: 'code',
-            flex: 0.25
-        },
-        {
-            text: 'Name',
-            dataIndex: 'displayName',
-            flex: 0.25
-        },
-        {
-            xtype: 'templatecolumn',
-            text: 'Role',
-            dataIndex: 'role',
-            tpl: '{role.description}',
-            flex: 0.25
-        }
+        {text: 'Agent', dataIndex: 'code', flex: 1},
+        {text: 'Name', dataIndex: 'displayName', flex: 1},
+        {text: 'Role', dataIndex: 'role', xtype: 'templatecolumn', tpl: '{role.description}', flex: 1}
     ],
 
     features: [
@@ -93,5 +78,5 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
             groupHeaderTpl: 'Team: {name} ({children.length:plural("Agent")})'
         }
     ]
-})
-;
+
+});

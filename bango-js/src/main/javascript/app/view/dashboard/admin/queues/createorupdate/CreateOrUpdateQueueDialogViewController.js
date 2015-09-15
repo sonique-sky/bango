@@ -2,20 +2,22 @@ Ext.define('Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDi
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.createOrUpdateQueueDialog',
 
+    initViewModel: function (viewModel) {
+        viewModel.set('queue', this.getView().queue)
+    },
+
     onAccept: function () {
-        var me = this;
-        var newQueue = this.getViewModel().queue();
-        var queuesStore = this.getViewModel().get('queues');
+        var me = this,
+            newQueue = me.getViewModel().queue(),
+            queuesStore = me.getViewModel().get('queues');
 
         queuesStore.add(newQueue);
         queuesStore.sync({
             success: function () {
                 me.fireEvent('queueAdded', queuesStore);
-                me.getView().close();
+                me.closeView();
             },
-            failure: function () {
-                queuesStore.rejectChanges();
-            }
+            failure: queuesStore.rejectChanges
         });
     },
 

@@ -2,7 +2,6 @@ Ext.define('Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialogViewContro
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.changeAgentRoleDialog',
 
-
     initViewModel: function (viewModel) {
         var me = this,
             agent = me.getView().agent;

@@ -46,8 +46,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     },
 
     onEventHistoryAddNote: function () {
-        var dialog = this.getView().add({xtype: 'addNoteDialog'});
-        dialog.show();
+        this.getView().add({xtype: 'addNoteDialog'}).show();
     },
 
     onEventHistoryRefresh: function () {
@@ -83,10 +82,6 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     },
 
     onEventHistoryFilter: function () {
-        var dialog = this.getView().add({
-            xtype: 'filterEventHistoryDialog'
-        });
-
-        dialog.show();
+        this.getView().add({ xtype: 'filterEventHistoryDialog'}).show();
     }
 });

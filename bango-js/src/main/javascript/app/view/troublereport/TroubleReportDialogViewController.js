@@ -133,15 +133,15 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
 
     onAccept: function () {
         if (this.lookupReference('troubleReportForm').isValid()) {
-            var me = this.getView();
-            var troubleReportTemplate = this.getViewModel().get('troubleReportTemplate');
-            var serviceProblemId = this.getViewModel().get('serviceProblemId');
+            var me = this,
+                troubleReportTemplate = me.getViewModel().get('troubleReportTemplate'),
+                serviceProblemId = me.getViewModel().get('serviceProblemId');
 
             troubleReportTemplate.copy(null).save({
-                    scope: this,
+                    scope: me,
                     success: function () {
-                        this.fireEvent('troubleReportCreated', serviceProblemId);
-                        me.close();
+                        me.fireEvent('troubleReportCreated', serviceProblemId);
+                        me.closeView();
                     }
                 }
             );
