@@ -135,7 +135,7 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     hasActiveTroubleReports: function (selectedServiceProblems) {
         return Ext.Array.some(selectedServiceProblems,
             function (serviceProblem) {
-                return serviceProblem.get('hasActiveTroubleReport');
+                return serviceProblem.hasActiveTroubleReport();
             }
         );
     },

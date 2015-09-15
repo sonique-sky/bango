@@ -3,7 +3,8 @@ Ext.define('Spm.model.ServiceProblem', {
     alias: 'model.serviceProblem',
 
     requires: [
-        'Spm.model.WorkItem'
+        'Spm.model.WorkItem',
+        'Spm.reader.QueueReader'
     ],
 
     idProperty: 'serviceProblemId',
@@ -69,6 +70,12 @@ Ext.define('Spm.model.ServiceProblem', {
             name: 'workItemId',
             reference: 'Spm.model.WorkItem',
             unique: true
+        },
+        {
+            name: 'queue',
+            convert: function (rawQueue) {
+                return Spm.reader.QueueReader.fromJson(rawQueue);
+            }
         }
     ],
 
@@ -81,7 +88,20 @@ Ext.define('Spm.model.ServiceProblem', {
         return this.get('serviceProblemId');
     },
 
+    queue: function () {
+        return this.get('queue');
+    },
+
     hasWorkItem: function () {
         return this.getWorkItem() !== null;
+    },
+
+    hasActiveTroubleReport: function () {
+        return this.get('hasActiveTroubleReport');
+    },
+
+    serviceType: function () {
+        return this.getData().serviceType;
     }
+
 });

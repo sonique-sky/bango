@@ -27,14 +27,6 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewModel', {
         return this.get('serviceProblem');
     },
 
-    serviceProblemId: function () {
-        return this.serviceProblem().getData().serviceProblemId
-    },
-
-    serviceType: function () {
-        return this.serviceProblem().getData().serviceType.code;
-    },
-
     fault: function () {
         return this.get('fault');
     },
@@ -46,4 +38,5 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewModel', {
     resolution: function () {
         return this.get('resolution');
     }
+
 });

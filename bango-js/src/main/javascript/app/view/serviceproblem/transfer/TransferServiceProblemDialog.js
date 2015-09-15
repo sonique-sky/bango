@@ -59,15 +59,8 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialog', {
                             bind: {
                                 store: '{queues}'
                             },
-                            listeners: {
-                                cellclick: 'onSelectQueue'
-                            },
                             columns: [
-                                {
-                                    text: 'Queue',
-                                    dataIndex: 'name',
-                                    flex: 1
-                                }
+                                { text: 'Queue', dataIndex: 'name', flex: 1}
                             ]
                         }
                     ]

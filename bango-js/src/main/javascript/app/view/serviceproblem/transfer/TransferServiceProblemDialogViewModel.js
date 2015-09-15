@@ -3,8 +3,7 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialogViewMod
     alias: 'viewmodel.transferServiceProblemDialog',
 
     data: {
-        transferType: null,
-        queueId: null
+        transferType: null
     },
 
     stores: {
@@ -19,15 +18,15 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialogViewMod
     },
 
     serviceProblemId: function () {
-        return this.get('serviceProblemId');
+        return this.get('serviceProblem').serviceProblemId();
+    },
+
+    currentQueueId: function () {
+        return this.get('serviceProblem').queue().queueId();
     },
 
     transferType: function () {
         return this.get('transferType');
-    },
-
-    queueId: function () {
-        return this.get('queueId');
     }
 
 });

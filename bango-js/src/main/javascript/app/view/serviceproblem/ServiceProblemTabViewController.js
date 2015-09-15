@@ -3,7 +3,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     alias: 'controller.serviceProblemTab',
 
     requires: [
-        'Spm.reader.ServiceProblemReader'
+        'Spm.reader.ServiceProblemReader',
+        'Spm.view.serviceproblem.transfer.TransferServiceProblemDialog'
     ],
 
     onServiceProblemTabClosed: function () {
@@ -15,26 +16,14 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     onTransferServiceProblem: function () {
-        var serviceProblem = this.getViewModel().serviceProblem();
-        var currentQueueId = this.getViewModel().serviceProblem().getData().queue.queueId;
-        var dialog = this.getView().add({
-            xtype: 'transferServiceProblemDialog',
-            viewModel: {
-                type: 'transferServiceProblemDialog',
-                data: {
-                    serviceProblem: serviceProblem,
-                    currentQueueId: currentQueueId
-                }
-            }
-        });
-        dialog.show();
+        this.getView().add({xtype: 'transferServiceProblemDialog'}).show();
     },
 
     clearServiceProblem: function () {
         var me = this;
         var serviceProblem = this.getViewModel().serviceProblem();
 
-        if (serviceProblem.getData().hasActiveTroubleReport) {
+        if (serviceProblem.hasActiveTroubleReport()) {
             Ext.Msg.show({
                 title: 'Confirm Clear',
                 msg: Ext.String.format('There is an Outstanding Trouble Report for this Service Problem - Are you sure you wish to clear this Service Problem?'),
@@ -122,7 +111,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         var troublePanel = this.lookupReference('troublePanel');
         var serviceProblem = this.getViewModel().serviceProblem();
 
-        (!serviceProblem.getData().hasActiveTroubleReport) ? troublePanel.setActiveItem('hasNoTroubleReports') : troublePanel.setActiveItem('hasTroubleReports');
+        (!serviceProblem.hasActiveTroubleReport()) ? troublePanel.setActiveItem('hasNoTroubleReports') : troublePanel.setActiveItem('hasTroubleReports');
 
         servicePanel.setActiveItem('troubleReportPanel');
     },

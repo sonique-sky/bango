@@ -10,7 +10,15 @@ Ext.define('Spm.reader.QueueReader', {
 
     model: 'Spm.model.Queue',
 
-    arrayFromJson: function(json) {
+    arrayFromJson: function (json) {
         return this.read(json).getRecords();
+    },
+
+    fromJsonString: function (jsonString) {
+        return this.fromJson(Ext.JSON.decode(jsonString));
+    },
+
+    fromJson: function (json) {
+        return this.read(json).getRecords()[0];
     }
 });

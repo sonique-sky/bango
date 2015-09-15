@@ -3,10 +3,10 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewControlle
     alias: 'controller.clearServiceProblemDialog',
 
     onShow: function () {
-        var serviceType = this.getViewModel().serviceType();
+        var serviceType = this.getViewModel().serviceProblem().serviceType();
         this.getStore('faults').load({
             params: {
-                serviceType: serviceType
+                serviceType: serviceType.code
             }
         });
     },
@@ -17,7 +17,7 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewControlle
             var me = this.getView();
             Ext.Ajax.request(
                 {
-                    url: Ext.String.format('api/serviceProblem/{0}/clear', viewModel.serviceProblemId()),
+                    url: Ext.String.format('api/serviceProblem/{0}/clear', viewModel.serviceProblem().serviceProblemId()),
                     method: 'POST',
                     jsonData: {
                         fault: viewModel.fault(),
@@ -26,7 +26,7 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewControlle
                     },
                     scope: this,
                     success: function () {
-                        this.fireEvent('serviceProblemCleared', viewModel.serviceProblemId());
+                        this.fireEvent('serviceProblemCleared', viewModel.serviceProblem().serviceProblemId());
                         me.close();
                     }
                 }
@@ -36,10 +36,10 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewControlle
 
     onFaultSelected: function () {
         var fault = this.getViewModel().fault();
-        var serviceType = this.getViewModel().serviceType();
+        var serviceType = this.getViewModel().serviceProblem().serviceType();
         this.getStore('causes').load({
             params: {
-                serviceType: serviceType,
+                serviceType: serviceType.code,
                 fault: fault
             }
         });
@@ -50,10 +50,10 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewControlle
 
     onCauseSelected: function () {
         var cause = this.getViewModel().cause();
-        var serviceType = this.getViewModel().serviceType();
+        var serviceType = this.getViewModel().serviceProblem().serviceType();
         this.getStore('resolutionReasons').load({
             params: {
-                serviceType: serviceType,
+                serviceType: serviceType.code,
                 cause: cause
             }
         });

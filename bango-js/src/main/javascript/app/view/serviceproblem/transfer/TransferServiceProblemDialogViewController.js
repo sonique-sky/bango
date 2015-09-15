@@ -3,36 +3,33 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialogViewCon
     alias: 'controller.transferServiceProblemDialog',
 
     onShow: function () {
-        var currentQueueId = this.getViewModel().get('currentQueueId');
+        var currentQueueId = this.getViewModel().currentQueueId();
         var queueStore = this.getViewModel().getStore('queues');
 
         queueStore.filterBy(function (queue) {
-            return queue.getData().manualTransferAllowed
-                && queue.getData().id !== currentQueueId;
+            return queue.manualTransferAllowed()
+                && queue.queueId() !== currentQueueId;
         });
 
         queueStore.load();
-
-        var form = this.lookupReference('transferServiceProblemForm');
-        form.isValid();
     },
 
     onAccept: function () {
         if (this.lookupReference('transferServiceProblemForm').isValid()) {
-            var viewModel = this.getViewModel();
-            var me = this.getView();
+            var me = this;
+            var viewModel = me.getViewModel();
             Ext.Ajax.request(
                 {
                     url: Ext.String.format('api/serviceProblem/{0}/transfer', viewModel.serviceProblemId()),
                     method: 'POST',
                     jsonData: {
                         transferType: viewModel.transferType(),
-                        queueId: viewModel.queueId()
+                        queueId: me.selectedQueue().queueId()
                     },
-                    scope: this,
+                    scope: me,
                     success: function () {
-                        this.fireEvent('serviceProblemTransferred', viewModel.serviceProblemId());
-                        me.close();
+                        me.fireEvent('serviceProblemTransferred', viewModel.serviceProblemId());
+                        me.closeView();
                     }
                 }
             );
@@ -47,10 +44,10 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialogViewCon
     },
 
     onValidityChange: function (form, isValid) {
-        this.lookupReference('acceptButton').setDisabled(!isValid);
+        this.getViewModel().set('acceptButtonDefaultDisabled', !isValid);
     },
 
-    onSelectQueue: function (view, td, cellIndex, record) {
-        this.getViewModel().set('queueId', record.getData().id);
+    selectedQueue: function () {
+        return this.lookupReference('queuesGrid').getSelectionModel().getSelection()[0];
     }
 });

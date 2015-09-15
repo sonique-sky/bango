@@ -26,5 +26,9 @@ Ext.define('Spm.model.Queue', {
 
     queueName: function () {
         return this.get('name');
+    },
+
+    manualTransferAllowed: function() {
+        return this.getData().manualTransferAllowed;
     }
 });

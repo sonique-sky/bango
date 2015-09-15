@@ -51,8 +51,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                     workItem = serviceProblem.getWorkItem();
                     return workItem !== null
                         && workItem.isAssignedTo(this.authenticatedAgent())
-                        && serviceProblem.getData().hasActiveTroubleReport === false
-                        && applicableServiceTypes.indexOf(serviceProblem.getData().serviceType.code) > -1;
+                        && serviceProblem.hasActiveTroubleReport() === false
+                        && applicableServiceTypes.indexOf(serviceProblem.serviceType().code) > -1;
                 }
                 return false;
             }

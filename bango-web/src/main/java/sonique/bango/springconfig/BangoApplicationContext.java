@@ -92,8 +92,8 @@ public class BangoApplicationContext {
         module.addSerializer(TroubleReportTemplate.class, new TroubleReportTemplateSerializer());
         module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
 
-        module.addDeserializer(DomainTeam.class, new TeamDeserializer());
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+        module.addDeserializer(DomainTeam.class, new TeamDeserializer());
         module.addDeserializer(Queue.class, new QueueDeserializer());
         module.addDeserializer(ReserveAppointment.class, new ReservedAppointmentDeserializer());
         module.addDeserializer(TroubleReportTemplate.class, new TroubleReportTemplateDeserializer());
