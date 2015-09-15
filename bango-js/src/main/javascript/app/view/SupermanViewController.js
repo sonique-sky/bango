@@ -55,7 +55,6 @@ Ext.define('Spm.view.SupermanViewController', {
             success: me.loadAuthenticatedAgent,
             scope: me,
             failure: function (response) {
-                debugger;
                 Ext.Msg.show({
                     title: 'Error',
                     msg: response.statusText,
