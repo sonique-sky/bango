@@ -130,7 +130,6 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
 
     @Override
     public PagedSearchResults<DomainServiceProblem> serviceProblems(RequestParameters requestParameters) {
-
         PagedSearchResults<DomainServiceProblem> queues = serviceProblemRepository.searchForServiceProblems(searchFor(requestParameters));
 
         return queues;

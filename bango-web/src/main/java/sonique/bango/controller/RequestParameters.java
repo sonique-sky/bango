@@ -8,10 +8,10 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 
 public class RequestParameters {
+    //NB: property name should match request parameter name
     private int page;
     private int start = 0;
     private int limit = Integer.MAX_VALUE;
-    //TODO: property name should match request parameter name
     private List<Sorter> sort = newArrayList();
     private List<Filter> filter = newArrayList();
 

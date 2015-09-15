@@ -1,8 +1,8 @@
 Ext.define('Spm.model.Team', {
     extend: 'Ext.data.Model',
     alias: 'model.team',
+
     requires: [
-        'Spm.model.Queue',
         'Spm.reader.QueueReader'
     ],
 
@@ -34,7 +34,7 @@ Ext.define('Spm.model.Team', {
         return this.get('name');
     },
 
-    assignedQueues: function() {
+    assignedQueues: function () {
         return this.get('assignedQueues');
     }
 

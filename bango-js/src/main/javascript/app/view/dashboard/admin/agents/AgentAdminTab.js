@@ -43,7 +43,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
             {
                 tooltip: 'Change agent\'s role',
                 iconCls: 'icon-admin-agent-change-role',
-                handler: 'foo',
+                handler: 'changeAgentRole',
                 bind: {
                     disabled: '{isLoggedInAgent}'
                 }

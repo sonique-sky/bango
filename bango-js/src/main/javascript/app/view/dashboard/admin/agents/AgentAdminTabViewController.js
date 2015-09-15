@@ -15,12 +15,12 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
     },
 
     loadStore: function () {
+        var me = this;
         var store = this.getView().getStore();
-        if (store && !store.isLoaded()) {
-            store.load();
-        }
-        var firstAgent = store.first();
-        this.getViewModel().set('agent', firstAgent.getData());
+        store.load(function (records, operation, success) {
+            var firstAgent = store.first();
+            me.getViewModel().set('agent', firstAgent.getData());
+        });
     },
 
     onAgentStoreLoaded: function (store) {
@@ -38,6 +38,20 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
             xtype: 'reassignAgentDialog',
             viewModel: {
                 type: 'reassignAgentDialog',
+                data: {
+                    agent: agent
+                }
+            }
+        });
+        dialog.show();
+    },
+
+    changeAgentRole: function () {
+        var agent = this.getViewModel().agent();
+        var dialog = this.getView().add({
+            xtype: 'changeAgentRoleDialog',
+            viewModel: {
+                type: 'changeAgentRoleDialog',
                 data: {
                     agent: agent
                 }

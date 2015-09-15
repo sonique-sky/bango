@@ -5,6 +5,7 @@ Ext.define('Spm.store.Teams', {
     requires: [
         'Spm.model.Team'
     ],
+
     model: 'Spm.model.Team',
 
     sorters: 'name',
