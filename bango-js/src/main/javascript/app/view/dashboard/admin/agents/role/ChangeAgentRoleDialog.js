@@ -23,18 +23,20 @@ Ext.define('Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialog', {
         padding: 10,
 
         defaults: {
+            xtype: 'combobox',
+            labelWidth: 120,
+            typeAhead: true,
+            queryMode: 'local',
             listeners: {
                 specialkey: 'submitOnEnter'
             }
         },
-
         items: [
             {
                 xtype: 'combobox',
                 name: 'Role',
                 itemId: 'roleComboBox',
                 reference: 'roleComboBox',
-                labelWidth: 120,
                 fieldLabel: 'Role',
                 valueField: 'name',
                 displayField: 'description',
@@ -43,21 +45,18 @@ Ext.define('Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialog', {
                 },
                 listeners: {
                     select: 'onRoleSelected'
-                },
-                typeAhead: true
+                }
             },
             {
                 xtype: 'combobox',
                 name: 'Team',
                 reference: 'teamComboBox',
-                labelWidth: 120,
                 fieldLabel: 'Team',
                 valueField: 'id',
                 displayField: 'name',
                 bind: {
                     store: '{teams}'
-                },
-                typeAhead: true
+                }
             }
         ]
     }]
