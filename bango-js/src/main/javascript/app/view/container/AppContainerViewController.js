@@ -62,42 +62,43 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         }
     },
 
+    tabPanel: undefined,
+
     initViewModel: function (viewModel) {
-        var agent = this.getView().authenticatedAgent;
+        var me = this,
+            agent = me.getView().authenticatedAgent;
+
+        me.tabPanel = me.lookupReference('tabPanel');
+        me.tabPanel.removeAll(true);
         viewModel.clearActiveTabs();
 
-        var tabPanel = this.lookupReference('tabPanel');
-        tabPanel.removeAll(true);
+        me.addTabIfPermitted(agent, 'PullServiceProblem', 'Spm.view.myitems.MyItemsTab');
+        me.addTabIfPermitted(agent, 'AccessQueueDashboard', 'Spm.view.dashboard.queue.QueueDashboardTab');
+        me.addTabIfPermitted(agent, 'AccessUserDashboard', 'Spm.view.dashboard.agent.AgentDashboardTab');
+        me.addTabIfPermitted(agent, 'AccessMspDashboard', 'Spm.view.dashboard.msp.MspDashboardTab');
+        me.addTabIfPermitted(agent, 'AccessAdminDashboard', 'Spm.view.dashboard.admin.AdminDashboardTab');
 
-        var myItems = Ext.create('widget.myItems');
-        tabPanel.add(myItems);
-        tabPanel.setActiveTab(myItems);
-
-        this.addTabIfPermitted(agent, 'AccessQueueDashboard', 'Spm.view.dashboard.queue.QueueDashboardTab');
-        this.addTabIfPermitted(agent, 'AccessUserDashboard', 'Spm.view.dashboard.agent.AgentDashboardTab');
-        this.addTabIfPermitted(agent, 'AccessMspDashboard', 'Spm.view.dashboard.msp.MspDashboardTab');
-        this.addTabIfPermitted(agent, 'AccessAdminDashboard', 'Spm.view.dashboard.admin.AdminDashboardTab');
+        me.tabPanel.setActive(0);
     },
 
     addTabIfPermitted: function (agent, requiredPrivilege, tabClass) {
         if (agent.hasPrivilege(requiredPrivilege)) {
-            this.lookupReference('tabPanel').add(Ext.create(tabClass));
+            this.tabPanel.add(Ext.create(tabClass));
         }
     },
 
     onServiceProblemHoldToggled: function (serviceProblemId) {
-        var viewModel = this.getViewModel();
-        var tabPanel = this.lookupReference('tabPanel');
-        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+        var serviceProblemTab = this.getViewModel().serviceProblemTabForId(serviceProblemId);
+
         if (serviceProblemTab) {
             serviceProblemTab.fireEvent('staleData');
         }
-        tabPanel.setActiveTab('myItems');
+        this.tabPanel.setActiveTab('myItems');
     },
 
     onWorkItemActionUpdated: function (serviceProblemId) {
-        var viewModel = this.getViewModel();
-        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+        var serviceProblemTab = this.getViewModel().serviceProblemTabForId(serviceProblemId);
+
         if (serviceProblemTab) {
             serviceProblemTab.fireEvent('staleData');
         }
@@ -108,10 +109,10 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     },
 
     onDisplaySearchResults: function (store, params) {
-        var searchKey = this.deriveSearchKey(params);
-        var tabPanel = this.lookupReference('tabPanel');
-        var viewModel = this.getViewModel();
-        var searchResultTab = viewModel.searchResultTabForId(searchKey);
+        var me = this,
+            searchKey = me.deriveSearchKey(params),
+            viewModel = me.getViewModel(),
+            searchResultTab = viewModel.searchResultTabForId(searchKey);
 
         if (searchResultTab === null) {
             searchResultTab = Ext.create('widget.searchResult', {
@@ -126,20 +127,20 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             });
 
             viewModel.addSearchResultTab(searchKey, searchResultTab);
-            tabPanel.add(searchResultTab);
+            me.tabPanel.add(searchResultTab);
         }
 
-        tabPanel.setActiveTab(searchResultTab);
+        me.tabPanel.setActiveTab(searchResultTab);
     },
 
     onDisplayServiceProblem: function (serviceProblem) {
-        var tabPanel = this.lookupReference('tabPanel');
-        var serviceProblemId = serviceProblem.serviceProblemId();
-        var viewModel = this.getViewModel();
-        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+        var me = this,
+            serviceProblemId = serviceProblem.serviceProblemId(),
+            viewModel = me.getViewModel(),
+            serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
 
         if (serviceProblemTab === null) {
-            serviceProblemTab = Ext.create('widget.serviceProblemTab', {
+            serviceProblemTab = Ext.create('Spm.view.serviceproblem.ServiceProblemTab', {
                 viewModel: {
                     data: {
                         serviceProblem: serviceProblem
@@ -148,19 +149,19 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             });
 
             viewModel.addServiceProblemTab(serviceProblemId, serviceProblemTab);
-            tabPanel.add(serviceProblemTab);
+            me.tabPanel.add(serviceProblemTab);
         }
 
-        tabPanel.setActiveTab(serviceProblemTab);
+        me.tabPanel.setActiveTab(serviceProblemTab);
     },
 
     onServiceProblemSelected: function (serviceProblemId) {
-        var tabPanel = this.lookupReference('tabPanel');
-        var viewModel = this.getViewModel();
-        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+        var me = this,
+            viewModel = me.getViewModel(),
+            serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
 
         if (serviceProblemTab === null) {
-            serviceProblemTab = Ext.create('widget.serviceProblemTab', {
+            serviceProblemTab = Ext.create('Spm.view.serviceproblem.ServiceProblemTab', {
                 viewModel: {
                     data: {
                         serviceProblemId: serviceProblemId
@@ -169,10 +170,10 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             });
 
             viewModel.addServiceProblemTab(serviceProblemId, serviceProblemTab);
-            tabPanel.add(serviceProblemTab);
+            me.tabPanel.add(serviceProblemTab);
         }
 
-        tabPanel.setActiveTab(serviceProblemTab);
+        me.tabPanel.setActiveTab(serviceProblemTab);
     },
 
     onQueueTabClosed: function (queueId) {
@@ -188,10 +189,10 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     },
 
     onAgentQueueSelected: function (selectedQueue) {
-        var tabPanel = this.lookupReference('tabPanel');
-        var viewModel = this.getViewModel();
-        var queueId = selectedQueue.queueId();
-        var queueTab = viewModel.queueTabForId(queueId);
+        var me = this,
+            viewModel = me.getViewModel(),
+            queueId = selectedQueue.queueId(),
+            queueTab = viewModel.queueTabForId(queueId);
 
         if (queueTab === null) {
             queueTab = Ext.create('widget.queueTab', {
@@ -203,22 +204,24 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             });
 
             viewModel.addQueueTab(queueId, queueTab);
-            tabPanel.add(queueTab);
+            me.tabPanel.add(queueTab);
         }
 
-        tabPanel.setActiveTab(queueTab);
+        me.tabPanel.setActiveTab(queueTab);
 
-        this.fireEvent('queueTabSelected', queueId);
+        me.fireEvent('queueTabSelected', queueId);
     },
 
     closeServiceProblemAndSetMyItemsActive: function (serviceProblemId) {
-        var tabPanel = this.lookupReference('tabPanel');
-        var viewModel = this.getViewModel();
-        var serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+        var me = this,
+            viewModel = me.getViewModel(),
+            serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+
         if (serviceProblemTab) {
-            tabPanel.remove(serviceProblemTab);
+            me.tabPanel.remove(serviceProblemTab);
             viewModel.removeServiceProblemTabForId(serviceProblemId);
         }
-        tabPanel.setActiveTab('myItems');
+        me.tabPanel.setActiveTab('myItems');
     }
+
 });
