@@ -37,6 +37,10 @@ Ext.define('Spm.model.TroubleReport', {
 
     proxy: {
         type: 'troubleReportProxy'
+    },
+
+    troubleReportId: function() {
+        return this.get('troubleReportId');
     }
 
 });

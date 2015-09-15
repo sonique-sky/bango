@@ -13,7 +13,7 @@ Ext.define('Spm.view.troublereport.eventhistory.TroubleReportEventHistoryPanelVi
     onTroubleReportLoaded: function (troubleReport) {
         this.getStore('troubleReportEventHistory').load({
             params: {
-                troubleReportId: troubleReport.getData().troubleReportId
+                troubleReportId: troubleReport.troubleReportId()
             }
         });
     }
