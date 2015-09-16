@@ -51,6 +51,9 @@ Ext.define('Spm.view.navigation.state.AgentState', {
             ),
             bind: {
                 store: '{agentState}'
+            },
+            listeners: {
+                show: 'refreshAgentState'
             }
         }
     ]
