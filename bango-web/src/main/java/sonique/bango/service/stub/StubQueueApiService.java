@@ -15,10 +15,7 @@ import sonique.bango.domain.sorter.Sorter;
 import sonique.bango.service.QueueApiService;
 import spm.domain.ServiceProblemId;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.google.common.collect.Collections2.transform;
 import static sonique.bango.util.PagedSearchResultsCreator.createPageFor;
@@ -42,7 +39,7 @@ public class StubQueueApiService implements QueueApiService {
 
     @Override
     public PagedSearchResults<Queue> readQueues(RequestParameters requestParameters) {
-        return createPageFor(requestParameters, queueRepository.getAllQueues(), queueComparatorProviderProvider);
+        return createPageFor(requestParameters, queueRepository.getAllQueues(), queueComparatorProviderProvider, Optional.empty());
     }
 
     @Override

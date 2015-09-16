@@ -86,11 +86,8 @@ public class StubAgentApiService implements AgentApiService {
         AgentFilterSupplier agentFilterSupplier = new AgentFilterSupplier(queueRepository, agentRepository);
         Optional<Predicate<DomainAgent>> assignableAgentsFilter = Filters.andFilter(requestParameters.getFilter(), agentFilterSupplier::filterFor);
         List<DomainAgent> allAgents = agentRepository.getAllAgents();
-        List<DomainAgent> filteredAgents = assignableAgentsFilter
-                .flatMap(f -> Optional.of(allAgents.stream().filter(f).collect(toList())))
-                .orElseGet(() -> allAgents);
 
-        return PagedSearchResultsCreator.createPageFor(requestParameters, filteredAgents, agentComparators);
+        return PagedSearchResultsCreator.createPageFor(requestParameters, allAgents, agentComparators, assignableAgentsFilter);
     }
 
     @Override
