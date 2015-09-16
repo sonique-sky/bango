@@ -25,7 +25,10 @@ import spm.domain.TeamName;
 import javax.servlet.ServletContext;
 
 import static java.util.Objects.isNull;
+import static sonique.datafixtures.PrimitiveDataFixtures.pickOneOfExcluding;
+import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 import static util.SupermanDataFixtures.someTeamId;
+import static util.SupermanDataFixtures.someTeamName;
 
 public final class BangoRunner {
 
@@ -91,9 +94,13 @@ public final class BangoRunner {
 
         DomainTeam aTeam = new TeamBuilder().with(someTeamId()).with(new TeamName("A Team")).withAssignedQueues(queueStore.getAllQueues()).build();
         DomainTeam bTeam = new TeamBuilder().with(someTeamId()).with(new TeamName("B Team")).withAssignedQueues(queueStore.getAllQueues()).build();
+        DomainTeam someTeam = new TeamBuilder().with(someTeamId()).with(someTeamName()).build();
+        DomainTeam anotherTeam = new TeamBuilder().with(someTeamId()).with(someTeamName()).build();
 
         teamStore.insert(aTeam);
         teamStore.insert(bTeam);
+        teamStore.insert(someTeam);
+        teamStore.insert(anotherTeam);
 
         agentStore.insert(new DomainAgent("q.q", "Q.Q", new AgentDetails("Quentin", "Quinn", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null));
         agentStore.insert(new DomainAgent("q", "Q", new AgentDetails("Queenie", "Quaffins", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null));
@@ -103,5 +110,10 @@ public final class BangoRunner {
         agentStore.insert(new DomainAgent("c", "C", new AgentDetails("Colin", "Carp", 1, 1), Role.ROLE_USER, bTeam));
         agentStore.insert(new DomainAgent("r", "R", new AgentDetails("Randy", "Russel", 1, 1), Role.ROLE_USER, bTeam));
         agentStore.insert(new DomainAgent("z", "Z", new AgentDetails("Zebedee", "Zulu", 1, 1), Role.ROLE_USER, bTeam));
+
+        for (int i = 0; i < 100; i++) {
+            String username = someString();
+            agentStore.insert(new DomainAgent(username, username.toUpperCase(), new AgentDetails(someString(), someString(), 1, 1), pickOneOfExcluding(Role.ROLE_QUEUE_CONTROLLER), i % 2 == 0 ? someTeam : anotherTeam));
+        }
     }
 }

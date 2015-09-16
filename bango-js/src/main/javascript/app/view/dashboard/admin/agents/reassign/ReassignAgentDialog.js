@@ -3,7 +3,6 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialog', {
     alias: 'widget.reassignAgentDialog',
 
     requires: [
-        'Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewController',
         'Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewModel'
     ],
 

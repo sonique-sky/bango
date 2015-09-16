@@ -2,18 +2,15 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.agentAdminTab',
 
-    requires: [
-        'Spm.store.Agents'
-    ],
-
     stores: {
         agents: {
             type: 'agents',
-            pageSize: 0,
+            remoteSort: true,
             listeners: {
                 load: 'onAgentStoreLoaded'
             },
             grouper: {
+                property: 'teamName',
                 groupFn: function (item) {
                     var team = item.get('team');
                     return Ext.Object.isEmpty(team) ? 'No Team' : team.name;
@@ -26,4 +23,5 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewModel', {
         return this.get('authenticatedAgent');
     }
 
-});
+})
+;

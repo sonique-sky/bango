@@ -16,17 +16,18 @@ import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.controller.RequestParameters;
 import sonique.bango.domain.filter.Filter;
 import sonique.bango.domain.filter.Filters;
+import sonique.bango.domain.sorter.Comparators;
+import sonique.bango.domain.sorter.Sorter;
 import sonique.bango.service.AgentApiService;
+import sonique.bango.util.PagedSearchResultsCreator;
 import spm.domain.QueueId;
 import spm.domain.TeamId;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
+import static sonique.bango.domain.sorter.NestedFieldComparator.nestedFieldComparator;
 
 public class StubAgentApiService implements AgentApiService {
 
@@ -35,6 +36,8 @@ public class StubAgentApiService implements AgentApiService {
     private final DomainAgentRepository agentRepository;
     private final DomainTeamRepository teamRepository;
     private final QueueRepository queueRepository;
+
+    private AgentComparators agentComparators = new AgentComparators();
 
     public StubAgentApiService(
             SpringSecurityAuthorisedActorProvider authorisedActorProvider,
@@ -80,19 +83,14 @@ public class StubAgentApiService implements AgentApiService {
 
     @Override
     public PagedSearchResults<DomainAgent> allAgents(RequestParameters requestParameters) {
-        int start = requestParameters.getStart();
-        int limit = requestParameters.getLimit() == 0 ? Integer.MAX_VALUE : requestParameters.getLimit();
         AgentFilterSupplier agentFilterSupplier = new AgentFilterSupplier(queueRepository, agentRepository);
-
-        List<DomainAgent> allAgents = agentRepository.getAllAgents();
-        Stream<DomainAgent> allAgentsStream = allAgents.stream().skip(start);
         Optional<Predicate<DomainAgent>> assignableAgentsFilter = Filters.andFilter(requestParameters.getFilter(), agentFilterSupplier::filterFor);
+        List<DomainAgent> allAgents = agentRepository.getAllAgents();
+        List<DomainAgent> filteredAgents = assignableAgentsFilter
+                .flatMap(f -> Optional.of(allAgents.stream().filter(f).collect(toList())))
+                .orElse(allAgents);
 
-        List<DomainAgent> pageOfAgents = assignableAgentsFilter
-                .flatMap(f -> Optional.of(allAgentsStream.filter(f).limit(limit).collect(toList())))
-                .orElse(allAgentsStream.limit(limit).collect(toList()));
-
-        return new PagedSearchResults<>(pageOfAgents, (long) allAgents.size());
+        return PagedSearchResultsCreator.createPageFor(requestParameters, filteredAgents, agentComparators);
     }
 
     @Override
@@ -172,4 +170,24 @@ public class StubAgentApiService implements AgentApiService {
         }
 
     }
+
+    private static class AgentComparators extends Comparators<DomainAgent> {
+        private Map<String, Comparator<DomainAgent>> comparators = new HashMap<>();
+
+        public AgentComparators() {
+            comparators.put("code", (o1, o2) -> o1.getAgentCode().compareTo(o2.getAgentCode()));
+            comparators.put("agentAvailability", (o1, o2) -> o1.availability().compareTo(o2.availability()));
+            comparators.put("authorisedUid", (o1, o2) -> o1.getAuthorisedUid().compareTo(o2.getAuthorisedUid()));
+            comparators.put("displayName", (o1, o2) -> nestedFieldComparator((DomainAgent agent) -> agent.details().getDisplayName()).compare(o1, o2));
+            comparators.put("teamName", (o1, o2) -> nestedFieldComparator((DomainAgent agent) -> agent.team().name().asString()).compare(o1, o2));
+            comparators.put("role", (o1, o2) -> nestedFieldComparator((DomainAgent agent) -> agent.getRole().name()).compare(o1, o2));
+        }
+
+        @Override
+        protected Comparator<DomainAgent> getComparator(Sorter sorter) {
+            return comparators.get(sorter.getProperty());
+        }
+
+    }
+
 }

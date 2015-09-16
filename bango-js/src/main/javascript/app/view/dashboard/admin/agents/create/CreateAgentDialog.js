@@ -1,12 +1,14 @@
 Ext.define('Spm.view.dashboard.admin.agents.create.CreateAgentDialog', {
     extend: 'Spm.component.StandardDialog',
-    alias: 'widget.createAgent',
+    alias: 'widget.createAgentDialog',
 
     requires: [
-        'Spm.view.dashboard.admin.agents.CreateAgentDialogViewModel'
+        'Spm.view.dashboard.admin.agents.create.CreateAgentDialogViewController',
+        'Spm.view.dashboard.admin.agents.create.CreateAgentDialogViewModel'
     ],
 
-    viewModel: 'createAgent',
+    viewModel: 'createAgentDialog',
+    controller: 'createAgentDialog',
 
     title: 'Create Agent',
     width: 350,
@@ -24,42 +26,47 @@ Ext.define('Spm.view.dashboard.admin.agents.create.CreateAgentDialog', {
             items: [
                 {
                     itemId: 'agentCode',
+                    reference: 'userNameTextField',
                     fieldLabel: 'CAUTH Username',
                     bind: {
-                        value: '{agent.agent}'
+                        value: '{agentCode}'
                     }
                 },
                 {
                     itemId: 'firstName',
+                    reference: 'firstNameTextField',
                     fieldLabel: 'FirstName',
                     bind: {
-                        value: '{agent.details.firstName}'
+                        value: '{firstName}'
                     }
                 },
                 {
                     itemId: 'lastName',
+                    reference: 'lastNameTextField',
                     fieldLabel: 'LastName',
                     bind: {
-                        value: '{agent.details.lastName}'
+                        value: '{lastName}'
                     }
                 },
                 {
                     xtype: 'combobox',
+                    reference: 'roleComboBox',
                     fieldLabel: 'Role',
                     valueField: 'name',
                     displayField: 'description',
                     bind: {
-                        value: '{agent.role}',
+                        value: '{role}',
                         store: '{roles}'
                     }
                 },
                 {
                     xtype: 'combobox',
+                    reference: 'teamComboBox',
                     fieldLabel: 'Team',
                     valueField: 'id',
                     displayField: 'name',
                     bind: {
-                        value: '{agent.team}',
+                        value: '{team}',
                         store: '{teams}',
                         disabled: '{!teamRequired}'
                     }

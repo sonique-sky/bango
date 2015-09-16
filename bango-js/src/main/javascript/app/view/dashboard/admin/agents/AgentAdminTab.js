@@ -60,23 +60,34 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
                 bind: {
                     disabled: '{isLoggedInAgent}'
                 }
+            },
+            {xtype: 'tbspacer'},
+            {
+                xtype: 'pagingtoolbar',
+                border: 0,
+                bind: {
+                    store: '{agents}'
+                }
             }
         ]
     }],
 
-    columns: [
-        {text: 'Agent', dataIndex: 'code', flex: 1},
-        {text: 'Name', dataIndex: 'displayName', flex: 1},
-        {text: 'Role', dataIndex: 'role', xtype: 'templatecolumn', tpl: '{role.description}', flex: 1}
-    ],
+    columns: {
+        defaults: {
+            flex: 1
+        },
+        items: [
+            {text: 'Agent', dataIndex: 'code'},
+            {text: 'Name', dataIndex: 'displayName'},
+            {text: 'Role', dataIndex: 'role', xtype: 'templatecolumn', tpl: '{role.description}'}
+        ]
+    },
 
-    features: [
-        {
-            ftype: 'grouping',
-            enableNoGroups: false,
-            enableGroupingMenu: false,
-            groupHeaderTpl: 'Team: {name} ({children.length:plural("Agent")})'
-        }
-    ]
+    features: [{
+        ftype: 'grouping',
+        enableNoGroups: false,
+        enableGroupingMenu: false,
+        groupHeaderTpl: 'Team: {name} ({children.length:plural("Agent")})'
+    }]
 
 });

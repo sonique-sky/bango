@@ -9,6 +9,8 @@ Ext.define('Spm.store.Agents', {
     model: 'Spm.model.Agent',
     remoteFilter: true,
 
+    sorters: 'code',
+
     proxy: {
         type: 'rest',
         appendId: false,

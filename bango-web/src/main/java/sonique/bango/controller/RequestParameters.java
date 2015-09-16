@@ -12,6 +12,7 @@ public class RequestParameters {
     private int page;
     private int start = 0;
     private int limit = Integer.MAX_VALUE;
+    private Sorter group;
     private List<Sorter> sort = newArrayList();
     private List<Filter> filter = newArrayList();
 
@@ -61,5 +62,13 @@ public class RequestParameters {
 
     public void setFilter(List<Filter> filter) {
         this.filter = filter;
+    }
+
+    public Sorter getGroup() {
+        return group;
+    }
+
+    public void setGroup(Sorter group) {
+        this.group = group;
     }
 }

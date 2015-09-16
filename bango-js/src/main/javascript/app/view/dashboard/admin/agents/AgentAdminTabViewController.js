@@ -3,6 +3,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
     alias: 'controller.agentAdminTab',
 
     requires: [
+        'Spm.model.Agent',
         'Spm.view.dashboard.admin.agents.create.CreateAgentDialog',
         'Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialog',
         'Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialog'
@@ -41,7 +42,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
     },
 
     createAgent: function () {
-        this.getView().add({xtype: 'createAgent'}).show();
+        this.getView().add({xtype: 'createAgentDialog', agent: Ext.create('Spm.model.Agent')}).show();
     },
 
     deleteAgent: function () {
@@ -58,7 +59,8 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
                 if ('yes' == buttonId) {
                     agentStore.remove(selectedAgent);
                     agentStore.sync({
-                        failure: me.loadStore, scope: me
+                        failure: me.loadStore,
+                        scope: me
                     });
                     me.selectFirstRow(agentStore);
                 }
