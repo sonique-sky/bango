@@ -81,24 +81,6 @@ public class StubAgentApiService implements AgentApiService {
         return new PagedSearchResults<>(pageOfServiceProblems, (long) serviceProblemsForAgent.size());
     }
 
-    /*
-        @Override
-    public PagedSearchResults<DomainAgent> allAgents(RequestParameters requestParameters) {
-        int start = requestParameters.getStart();
-        int limit = requestParameters.getLimit() == 0 ? Integer.MAX_VALUE : requestParameters.getLimit();
-        AgentFilterSupplier agentFilterSupplier = new AgentFilterSupplier(queueRepository, agentRepository);
-
-        List<DomainAgent> allAgents = agentRepository.getAllAgents();
-        Stream<DomainAgent> allAgentsStream = allAgents.stream().skip(start);
-        Optional<Predicate<DomainAgent>> assignableAgentsFilter = Filters.andFilter(requestParameters.getFilter(), agentFilterSupplier::filterFor);
-
-        List<DomainAgent> pageOfAgents = assignableAgentsFilter
-                .flatMap(f -> Optional.of(allAgentsStream.filter(f).limit(limit).collect(toList())))
-                .orElseGet(() -> allAgentsStream.limit(limit).collect(toList()));
-
-        return new PagedSearchResults<>(pageOfAgents, (long) allAgents.size());
-    }
-     */
     @Override
     public PagedSearchResults<DomainAgent> allAgents(RequestParameters requestParameters) {
         AgentFilterSupplier agentFilterSupplier = new AgentFilterSupplier(queueRepository, agentRepository);
@@ -106,7 +88,7 @@ public class StubAgentApiService implements AgentApiService {
         List<DomainAgent> allAgents = agentRepository.getAllAgents();
         List<DomainAgent> filteredAgents = assignableAgentsFilter
                 .flatMap(f -> Optional.of(allAgents.stream().filter(f).collect(toList())))
-                .orElse(allAgents);
+                .orElseGet(() -> allAgents);
 
         return PagedSearchResultsCreator.createPageFor(requestParameters, filteredAgents, agentComparators);
     }
