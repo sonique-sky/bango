@@ -30,10 +30,6 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
         }
     },
 
-    init: function () {
-        this.refreshAgentState();
-    },
-
     refreshAgentState: function () {
         this.getViewModel().getStore('agentState').load();
     },
