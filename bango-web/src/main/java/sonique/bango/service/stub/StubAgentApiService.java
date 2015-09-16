@@ -90,7 +90,7 @@ public class StubAgentApiService implements AgentApiService {
 
         List<DomainAgent> pageOfAgents = assignableAgentsFilter
                 .flatMap(f -> Optional.of(allAgentsStream.filter(f).limit(limit).collect(toList())))
-                .orElse(allAgentsStream.limit(limit).collect(toList()));
+                .orElseGet(() -> allAgentsStream.limit(limit).collect(toList()));
 
         return new PagedSearchResults<>(pageOfAgents, (long) allAgents.size());
     }
@@ -170,6 +170,5 @@ public class StubAgentApiService implements AgentApiService {
         private Predicate<DomainAgent> isNotTheSameAgent(DomainAgent expected) {
             return agent -> !agent.equals(expected);
         }
-
     }
 }
