@@ -153,21 +153,23 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                             iconCls: 'icon-amend-trouble-report',
                             tooltip: 'Amend Trouble Report',
                             bind: {
-                                disabled: '{!serviceProblemOwned}'
+                                disabled: '{!canAmendTroubleReport}'
                             }
                         },
                         {
                             iconCls: 'icon-cancel-trouble-report',
                             tooltip: 'Cancel Trouble Report',
+                            handler: 'onCancelTroubleReport',
                             bind: {
-                                disabled: '{!serviceProblemOwned}'
+                                disabled: '{!canCancelTroubleReport}'
                             }
                         },
                         {
                             iconCls: 'icon-confirm-equipment-disconnect',
                             tooltip: 'Confirm Equipment is Disconnected',
+                            handler: 'onConfirmEquipmentIsDisconnected',
                             bind: {
-                                disabled: '{!serviceProblemOwned}'
+                                disabled: '{!canConfirmEquipmentIsDisconnected}'
                             }
                         }
                     ]
@@ -203,7 +205,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-av',
                             tooltip: 'Assurance View',
-                            bind:{
+                            bind: {
                                 href: "{serviceProblem.assuranceViewUri}"
                             }
                         }
@@ -221,6 +223,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                     xtype: 'container',
                     layout: {type: 'vbox', align: 'stretch'},
                     itemId: 'serviceProblemPanel',
+                    reference: 'serviceProblemPanel',
                     items: [
                         {
                             xtype: 'workItemPanel'

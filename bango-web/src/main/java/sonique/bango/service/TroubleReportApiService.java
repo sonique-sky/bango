@@ -31,4 +31,8 @@ public interface TroubleReportApiService {
     String reserveAppointmentFor(ServiceProblemId serviceProblemId, RepairType repairType, Date date, AppointmentTimeslot appointmentTimeslot);
 
     List<EventHistoryItem> eventHistory(TroubleReportId troubleReportId);
+
+    void confirmEquipmentDisconnected(TroubleReportId troubleReportId);
+
+    DomainTroubleReport cancelTroubleReport(TroubleReportId troubleReportId, String cancellationReason);
 }

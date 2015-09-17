@@ -4,21 +4,27 @@ import com.google.common.collect.ImmutableList;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.RepairType;
 import sky.sns.spm.domain.model.refdata.ServiceType;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.EventDescription;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReportSymptom;
+import sky.sns.spm.domain.model.troublereport.TroubleReportStatus;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.DomainTroubleReportRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
+import sky.sns.spm.interfaces.shared.SystemActor;
 import sky.sns.spm.web.spmapp.shared.dto.AvailableAppointmentDTO;
 import sky.sns.spm.web.spmapp.shared.dto.EventHistoryDto;
 import sky.sns.spm.web.spmapp.shared.dto.TroubleReportDto;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.domain.troublereport.TroubleReportTemplateFactory;
 import sonique.bango.service.TroubleReportApiService;
+import spm.domain.Note;
 import spm.domain.ServiceProblemId;
 import spm.domain.TroubleReportId;
 import spm.pacman.domain.AppointmentTimeslot;
 import spm.troublereport.ManualTroubleReportRaiser;
+import spm.util.NoteBuilder;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -28,6 +34,8 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 import static sky.sns.commons.datetime.utils.DateUtils.someDateAfter;
+import static sky.sns.spm.domain.model.serviceproblem.EventDescription.TroubleReportCancelRequested;
+import static sky.sns.spm.domain.model.serviceproblem.EventDescription.TroubleReportConfirmEquipmentDisconnectedRequested;
 import static sonique.datafixtures.PrimitiveDataFixtures.someBoolean;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 
@@ -130,5 +138,43 @@ public class StubTroubleReportApiService implements TroubleReportApiService {
                 troubleReportTemplate.broadbandFault()
         );
         troubleReportRaiser.raiseFor(troubleReportDto, authorisedActorProvider.getLoggedInAgent());
+    }
+
+    @Override
+    public DomainTroubleReport cancelTroubleReport(TroubleReportId troubleReportId, String cancellationReason) {
+        DomainTroubleReport troubleReport = troubleReportRepository.findByTroubleReportId(troubleReportId);
+
+        DomainServiceProblem serviceProblem = troubleReport.getServiceProblem();
+
+        serviceProblem.writeHistoryItem(
+                TroubleReportCancelRequested,
+                authorisedActorProvider.authorisedActor(),
+                new Date()
+        );
+
+        troubleReport.writeHistoryItem(
+                TroubleReportCancelRequested,
+                authorisedActorProvider.authorisedActor(),
+                new Date(),
+                new Note(new NoteBuilder.NameValueNote("Cancellation reason", cancellationReason).asString())
+        );
+
+        troubleReport.cancelRequested();
+
+        troubleReport.writeHistoryItem(EventDescription.TroubleReportCancelPending, SystemActor.Openreach, new Date());
+        troubleReport.writeHistoryItem(EventDescription.TroubleReportCancelled, SystemActor.Openreach, new Date());
+        serviceProblem.writeHistoryItem(EventDescription.TroubleReportCancelled, SystemActor.Openreach, new Date());
+        troubleReport.updateStatusTo(TroubleReportStatus.Cancelled);
+
+        return troubleReport;
+    }
+
+    @Override
+    public void confirmEquipmentDisconnected(TroubleReportId troubleReportId) {
+        DomainTroubleReport troubleReport = troubleReportRepository.findByTroubleReportId(troubleReportId);
+
+        troubleReport.confirmEquipmentDisconnectedRequested();
+        troubleReport.writeHistoryItem(TroubleReportConfirmEquipmentDisconnectedRequested, authorisedActorProvider.authorisedActor(), new Date());
+        troubleReport.getServiceProblem().writeHistoryItem(TroubleReportConfirmEquipmentDisconnectedRequested, authorisedActorProvider.authorisedActor(), new Date());
     }
 }

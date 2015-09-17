@@ -91,14 +91,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                 serviceProblemId: serviceProblem.serviceProblemId()
             }
         });
-
-        Spm.model.TroubleReport.load(serviceProblem.serviceProblemId(), {
-            scope: this,
-            success: this.setTroubleReport
-        });
     },
 
     setTroubleReport: function (troubleReport) {
+        this.lookupReference('troubleReportsGrid').setSelection(troubleReport);
         this.getViewModel().set('troubleReport', troubleReport);
         this.fireEvent('troubleReportLoaded', troubleReport);
     },
@@ -106,16 +102,25 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     showTroubleReportPanel: function () {
         var servicePanel = this.lookupReference('servicePanel');
         var troublePanel = this.lookupReference('troublePanel');
-        var serviceProblem = this.getViewModel().serviceProblem();
+        var troubleReports = this.getStore('troubleReports');
 
-        (!serviceProblem.hasActiveTroubleReport()) ? troublePanel.setActiveItem('hasNoTroubleReports') : troublePanel.setActiveItem('hasTroubleReports');
+        troubleReports.totalCount === 0 ? troublePanel.setActiveItem('hasNoTroubleReports') : troublePanel.setActiveItem('hasTroubleReports');
 
         servicePanel.setActiveItem('troubleReportPanel');
+        this.loadServiceProblem();
+    },
+
+    onTroubleReportsLoaded: function (store) {
+        var first = store.first();
+        if (first !== null) {
+            this.setTroubleReport(first);
+        }
     },
 
     showServiceProblemPanel: function () {
         var servicePanel = this.lookupReference('servicePanel');
         servicePanel.setActiveItem('serviceProblemPanel');
+        this.loadServiceProblem();
     },
 
     onPullServiceProblem: function () {
@@ -164,6 +169,33 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                     }
                 });
                 dialog.show();
+            }
+        });
+    },
+
+    onCancelTroubleReport: function () {
+        var me = this;
+        var dialog = me.getView().add({
+            xtype: 'cancelTroubleReportDialog',
+            viewModel: {
+                type: 'cancelTroubleReportDialog',
+                data: {
+                    troubleReport: me.getViewModel().troubleReport()
+                }
+            }
+        });
+
+        dialog.show();
+    },
+
+    onConfirmEquipmentIsDisconnected: function () {
+        var me = this;
+
+        Ext.Ajax.request({
+            url: Ext.String.format('api/troubleReport/{0}/confirmEquipmentDisconnected', me.getViewModel().troubleReport().troubleReportId()),
+            method: 'POST',
+            success: function (response) {
+                me.loadServiceProblem();
             }
         });
     },

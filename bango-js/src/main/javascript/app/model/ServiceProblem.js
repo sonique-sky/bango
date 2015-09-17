@@ -102,6 +102,10 @@ Ext.define('Spm.model.ServiceProblem', {
 
     serviceType: function () {
         return this.getData().serviceType;
+    },
+
+    status: function () {
+        return this.get('status');
     }
 
 });

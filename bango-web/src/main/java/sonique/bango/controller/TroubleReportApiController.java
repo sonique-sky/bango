@@ -19,6 +19,7 @@ import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
@@ -101,6 +102,18 @@ public class TroubleReportApiController {
     @RequestMapping(value = "/raise", method = POST, produces = APPLICATION_JSON_VALUE)
     public void raiseTroubleReport(@RequestBody TroubleReportTemplate troubleReportTemplate) {
         troubleReportApiService.raiseTroubleReport(troubleReportTemplate);
+    }
+
+    @RequestMapping(value = "/{troubleReportId}/cancel", method = POST, produces = APPLICATION_JSON_VALUE)
+    public DomainTroubleReport cancelTroubleReport(@PathVariable Long troubleReportId, @RequestBody Map<String, String> payloadMap) {
+        String cancellationReason = payloadMap.get("cancellationReason");
+        return troubleReportApiService.cancelTroubleReport(new TroubleReportId(troubleReportId), cancellationReason);
+    }
+
+    @RequestMapping(value = "/{troubleReportId}/confirmEquipmentDisconnected", method = RequestMethod.POST)
+    @ResponseBody
+    public void confirmEquipmentDisconnected(@PathVariable Long troubleReportId) {
+        troubleReportApiService.confirmEquipmentDisconnected(new TroubleReportId(troubleReportId));
     }
 
     private static RepairType getRepairType(String stringRepairType) {

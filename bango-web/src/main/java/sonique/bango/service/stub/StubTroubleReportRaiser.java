@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.EventDescription;
 import sky.sns.spm.domain.model.serviceproblem.TransferType;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
 import sky.sns.spm.domain.model.troublereport.*;
@@ -24,6 +25,7 @@ import java.util.UUID;
 
 import static com.google.common.collect.Sets.newHashSet;
 import static sky.sns.spm.domain.model.refdata.ServiceType.*;
+import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 
 public class StubTroubleReportRaiser implements TroubleReportRaiser {
 
@@ -51,6 +53,11 @@ public class StubTroubleReportRaiser implements TroubleReportRaiser {
         serviceProblem.addTroubleReport(troubleReport);
         serviceProblem.writeHistoryFor(new TroubleReportRequestedHistoryEvent(actor, new Date()));
         serviceProblem.transferToQueue(TransferType.Hot, openreachQueue, SystemActor.Spm, WorkItemAction.InvestigateOpenreachTroubleReportProgress);
+
+        troubleReport.writeHistoryItem(EventDescription.TroubleReportPending, SystemActor.Openreach, new Date());
+        troubleReport.writeHistoryItem(EventDescription.TroubleReportRaised, SystemActor.Openreach, new Date());
+        troubleReport.setBtReference(someString());
+        troubleReport.updateStatusTo(TroubleReportStatus.Open);
     }
 
 }

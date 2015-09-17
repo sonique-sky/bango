@@ -4,14 +4,18 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
 
     stores: {
         troubleReports: {
-            type: 'troubleReports'
+            type: 'troubleReports',
+            listeners: {
+                load: 'onTroubleReportsLoaded'
+            }
         }
     },
 
     data: {
         serviceProblemId: null,
         serviceProblem: null,
-        workItem: null
+        workItem: null,
+        troubleReport: null
     },
 
     formulas: {
@@ -32,10 +36,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
         },
         canRaiseTroubleReport: {
             bind: {
-                bindTo: '{serviceProblem}',
+                serviceProblem: '{serviceProblem}',
+                troubleReport: '{troubleReport}',
                 deep: true
             },
-            get: function (serviceProblem) {
+            get: function (data) {
+                var serviceProblem = data.serviceProblem;
+                var troubleReport = data.troubleReport;
                 var applicableServiceTypes = [
                     'NvnData',
                     'NvnVoice',
@@ -47,12 +54,109 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                     'RoiUrbanOffnetBroadband',
                     'RoiFttc'
                 ];
-                if(serviceProblem !== null) {
+                if (serviceProblem !== null) {
                     workItem = serviceProblem.getWorkItem();
                     return workItem !== null
                         && workItem.isAssignedTo(this.authenticatedAgent())
                         && serviceProblem.hasActiveTroubleReport() === false
                         && applicableServiceTypes.indexOf(serviceProblem.serviceType().code) > -1;
+                }
+                return false;
+            }
+        },
+        canAmendTroubleReport: {
+            bind: {
+                serviceProblem: '{serviceProblem}',
+                troubleReport: '{troubleReport}',
+                deep: true
+            },
+            get: function (data) {
+                var serviceProblem = data.serviceProblem;
+                var troubleReport = data.troubleReport;
+                if (this.getView().getLayout().getActiveItem().getLayout().getActiveItem().reference === 'serviceProblemPanel') {
+                    return false;
+                }
+                var applicableServiceTypes = [
+                    'NvnData',
+                    'NvnVoice',
+                    'OnnetBroadband',
+                    'WLR3',
+                    'FTTC'
+                ];
+                if (serviceProblem !== null) {
+                    workItem = serviceProblem.getWorkItem();
+                    return workItem !== null
+                        && workItem.isAssignedTo(this.authenticatedAgent())
+                        && troubleReport.status() === 'Open'
+                        && troubleReport.isCancelRequested() === false
+                        && troubleReport.isAmendRequested() === false
+                        && troubleReport.hasConfirmEquipmentDisconnectRequested() === false
+                        && applicableServiceTypes.indexOf(serviceProblem.serviceType().code) > -1;
+                }
+                return false;
+            }
+        },
+        canCancelTroubleReport: {
+            bind: {
+                serviceProblem: '{serviceProblem}',
+                troubleReport: '{troubleReport}',
+                deep: true
+            },
+            get: function (data) {
+                var serviceProblem = data.serviceProblem;
+                var troubleReport = data.troubleReport;
+                if (this.getView().getLayout().getActiveItem().getLayout().getActiveItem().reference === 'serviceProblemPanel') {
+                    return false;
+                }
+                var applicableServiceTypes = [
+                    'NvnData',
+                    'NvnVoice',
+                    'OnnetBroadband',
+                    'WLR3',
+                    'FTTC'
+                ];
+                if (serviceProblem !== null) {
+                    workItem = serviceProblem.getWorkItem();
+                    return workItem !== null
+                        && workItem.isAssignedTo(this.authenticatedAgent())
+                        && troubleReport.status() === 'Open'
+                        && troubleReport.isCancelRequested() === false
+                        && troubleReport.isAmendRequested() === false
+                        && applicableServiceTypes.indexOf(serviceProblem.serviceType().code) > -1;
+                }
+                return false;
+            }
+        },
+        canConfirmEquipmentIsDisconnected: {
+            bind: {
+                serviceProblem: '{serviceProblem}',
+                troubleReport: '{troubleReport}',
+                deep: true
+            },
+            get: function (data) {
+                var serviceProblem = data.serviceProblem;
+                var troubleReport = data.troubleReport;
+
+                if (this.getView().getLayout().getActiveItem().getLayout().getActiveItem().reference === 'serviceProblemPanel') {
+                    return false;
+                }
+                var applicableServiceTypes = [
+                    'NvnData',
+                    'NvnVoice',
+                    'OnnetBroadband',
+                    'WLR3',
+                    'FTTC'
+                ];
+                if (serviceProblem !== null) {
+                    workItem = serviceProblem.getWorkItem();
+                    return workItem !== null
+                        && workItem.isAssignedTo(this.authenticatedAgent())
+                        && serviceProblem.status() === 'Open'
+                        && applicableServiceTypes.indexOf(serviceProblem.serviceType().code) > -1
+                        && troubleReport.status() === 'Open'
+                        && troubleReport.isCancelRequested() === false
+                        && troubleReport.isAmendRequested() === false
+                        && troubleReport.hasConfirmEquipmentDisconnectRequested() === false;
                 }
                 return false;
             }
@@ -95,11 +199,15 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
         return this.get('serviceProblem');
     },
 
+    troubleReport: function () {
+        return this.get('troubleReport');
+    },
+
     serviceProblemId: function () {
         return this.get('serviceProblemId');
     },
 
-    authenticatedAgent: function() {
+    authenticatedAgent: function () {
         return this.get('authenticatedAgent');
     }
 });

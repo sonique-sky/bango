@@ -98,6 +98,11 @@ public class TroubleReportSerializer extends JsonSerializer<DomainTroubleReport>
             jsonGenerator.writeNullField("notes");
         }
 
+        jsonGenerator.writeBooleanField("disRequested", troubleReport.getDisRequested());
+        jsonGenerator.writeBooleanField("confirmEquipmentDisconnectRequested", troubleReport.isConfirmEquipmentDisconnectedRequested());
+        jsonGenerator.writeBooleanField("cancelRequested", troubleReport.isCancelRequested());
+        jsonGenerator.writeBooleanField("amendRequested", troubleReport.isAmendRequested());
+
         jsonGenerator.writeEndObject();
 
     }

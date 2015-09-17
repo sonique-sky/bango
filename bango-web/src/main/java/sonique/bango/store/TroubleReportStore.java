@@ -32,7 +32,11 @@ public class TroubleReportStore implements DomainTroubleReportRepository {
 
     @Override
     public DomainTroubleReport findByTroubleReportId(TroubleReportId troubleReportId) {
-        return serviceProblemRepository.findByTroubleReportId(troubleReportId).getTroubleReports().get(0);
+        return serviceProblemRepository.findByTroubleReportId(troubleReportId).getTroubleReports()
+                .stream()
+                .filter(troubleReport -> troubleReport.getTroubleReportId().equals(troubleReportId))
+                .findFirst()
+                .get();
     }
 
     @Override
