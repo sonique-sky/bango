@@ -16,60 +16,67 @@ Ext.define('Spm.view.dashboard.admin.agents.create.CreateAgentDialog', {
 
     items: [
         {
-            xtype: 'fieldcontainer',
-            padding: 10,
-            defaults: {
-                xtype: 'textfield',
-                labelWidth: 150,
-                allowBlank: false
+            xtype: 'form',
+            //bodyPadding: 10,
+            reference: 'createAgentForm',
+            listeners: {
+                validitychange: 'onValidityChange'
             },
             items: [
+
                 {
-                    itemId: 'agentCode',
-                    reference: 'userNameTextField',
-                    fieldLabel: 'CAUTH Username',
-                    bind: {
-                        value: '{agentCode}'
-                    }
-                },
-                {
-                    itemId: 'firstName',
-                    reference: 'firstNameTextField',
-                    fieldLabel: 'FirstName',
-                    bind: {
-                        value: '{firstName}'
-                    }
-                },
-                {
-                    itemId: 'lastName',
-                    reference: 'lastNameTextField',
-                    fieldLabel: 'LastName',
-                    bind: {
-                        value: '{lastName}'
-                    }
-                },
-                {
-                    xtype: 'combobox',
-                    reference: 'roleComboBox',
-                    fieldLabel: 'Role',
-                    valueField: 'name',
-                    displayField: 'description',
-                    bind: {
-                        value: '{role}',
-                        store: '{roles}'
-                    }
-                },
-                {
-                    xtype: 'combobox',
-                    reference: 'teamComboBox',
-                    fieldLabel: 'Team',
-                    valueField: 'id',
-                    displayField: 'name',
-                    bind: {
-                        value: '{team}',
-                        store: '{teams}',
-                        disabled: '{!teamRequired}'
-                    }
+                    xtype: 'fieldcontainer',
+                    padding: 10,
+                    defaults: {
+                        xtype: 'textfield',
+                        labelWidth: 150,
+                        allowBlank: false
+                    },
+                    items: [
+                        {
+                            itemId: 'agentCode',
+                            reference: 'userNameTextField',
+                            fieldLabel: 'CAUTH Username'
+                        },
+                        {
+                            itemId: 'firstName',
+                            reference: 'firstNameTextField',
+                            fieldLabel: 'FirstName'
+                        },
+                        {
+                            itemId: 'lastName',
+                            reference: 'lastNameTextField',
+                            fieldLabel: 'LastName'
+                        },
+                        {
+                            xtype: 'combobox',
+                            reference: 'roleComboBox',
+                            fieldLabel: 'Role',
+                            valueField: 'name',
+                            displayField: 'description',
+                            bind: {
+                                store: '{roles}'
+                            },
+                            listeners: {
+                                select: 'onRoleSelected'
+                            },
+                            emptyText: 'Please select a Role...',
+                            queryMode: 'local',
+                            forceSelection: true,
+                            editable: false
+                        },
+                        {
+                            xtype: 'combobox',
+                            reference: 'teamComboBox',
+                            fieldLabel: 'Team',
+                            valueField: 'id',
+                            displayField: 'name',
+                            bind: {
+                                store: '{teams}'
+                            },
+                            emptyText: 'Please select a Team...'
+                        }
+                    ]
                 }
             ]
         }

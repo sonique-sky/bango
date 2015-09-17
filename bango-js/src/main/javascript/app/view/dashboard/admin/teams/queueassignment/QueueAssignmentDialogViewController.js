@@ -23,7 +23,8 @@ Ext.define('Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialog
         team.set('assignedQueues', me.transposedSelectedList());
 
         this.getViewModel().get('teams').sync({
-            success: me.closeView, scope: me
+            success: me.closeView,
+            scope: me
         });
     },
 
@@ -50,8 +51,8 @@ Ext.define('Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialog
     onDataChanged: function (destinationStore) {
         this.getStore('sourceStore').filterBy(function (record) {
             return destinationStore.findBy(function (queue) {
-                        return queue.queueId() == record.queueId();
-                    }) == -1;
+                    return queue.queueId() == record.queueId();
+                }) == -1;
         });
         this.getViewModel().set('currentQueueIds', this.destinationStore.collect('id'));
     },

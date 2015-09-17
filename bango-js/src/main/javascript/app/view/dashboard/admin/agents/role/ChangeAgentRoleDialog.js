@@ -45,7 +45,8 @@ Ext.define('Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialog', {
                 },
                 listeners: {
                     select: 'onRoleSelected'
-                }
+                },
+                forceSelection: true
             },
             {
                 xtype: 'combobox',

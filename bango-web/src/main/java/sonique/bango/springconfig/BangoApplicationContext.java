@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.refdata.Queue;
@@ -94,6 +95,7 @@ public class BangoApplicationContext {
 
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         module.addDeserializer(DomainTeam.class, new TeamDeserializer());
+        module.addDeserializer(DomainAgent.class, new AgentDeserializer());
         module.addDeserializer(Queue.class, new QueueDeserializer());
         module.addDeserializer(ReserveAppointment.class, new ReservedAppointmentDeserializer());
         module.addDeserializer(TroubleReportTemplate.class, new TroubleReportTemplateDeserializer());

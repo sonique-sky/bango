@@ -105,6 +105,16 @@ public class StubAgentApiService implements AgentApiService {
     }
 
     @Override
+    public DomainAgent createAgent(DomainAgent agent) {
+        return agentRepository.insert(agent);
+    }
+
+    @Override
+    public DomainAgent updateAgent(DomainAgent agent) {
+        return agentRepository.update(agent);
+    }
+
+    @Override
     public AgentStateDTO agentState() {
         return statisticsFor(myItems(SearchParametersDTO.withNoSearchProperties(Integer.MAX_VALUE, 0)).getData());
     }

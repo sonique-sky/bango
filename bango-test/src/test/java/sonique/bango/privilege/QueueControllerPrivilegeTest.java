@@ -48,7 +48,7 @@ public class QueueControllerPrivilegeTest extends BangoYatspecTest {
 
     @Override
     protected DomainAgent agentForTest() {
-        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null);
+        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q"), Role.ROLE_QUEUE_CONTROLLER, null);
     }
 
     private ActionUnderTest theQueueControllerLogsOn() {

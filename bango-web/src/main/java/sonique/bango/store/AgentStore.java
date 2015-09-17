@@ -48,6 +48,12 @@ public class AgentStore implements DomainAgentRepository {
     }
 
     @Override
+    public DomainAgent update(DomainAgent agent) {
+        agentCodeToAgentMap.put(agentCode(agent), agent);
+        return agent;
+    }
+
+    @Override
     public List<AgentDashboardEntry> getAgentDashboardEntries() {
         throw new UnsupportedOperationException("Method AgentStore getAgentDashboardEntries() not yet implemented");
     }

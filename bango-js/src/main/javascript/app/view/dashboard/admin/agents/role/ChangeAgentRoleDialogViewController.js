@@ -21,17 +21,10 @@ Ext.define('Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialogViewContro
         agent.set('role', role.getData());
         agent.set('team', team ? team.getData() : {});
 
-        agentStore.add(agent);
         agentStore.sync({
             callback: function () {
-                debugger;
-            },
-            success: function () {
-                debugger;
+                me.getViewModel().get('agents').reload();
                 me.closeView();
-            },
-            failure: function () {
-                debugger;
             }
         });
     },

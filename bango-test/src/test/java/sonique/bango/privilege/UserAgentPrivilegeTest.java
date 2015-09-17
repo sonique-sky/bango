@@ -43,7 +43,7 @@ public class UserAgentPrivilegeTest extends BangoYatspecTest {
 
     @Override
     protected DomainAgent agentForTest() {
-        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q", 1, 1), Role.ROLE_USER, null);
+        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q"), Role.ROLE_USER, null);
     }
 
     private Matcher<AgentStatusPanel> isDisplayedAndTheAvailabilityButtonIsEnabled() {

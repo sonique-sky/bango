@@ -24,8 +24,8 @@ public class TeamDeserializer extends JsonDeserializer<DomainTeam> {
 
         long id = node.get("id").asLong();
         String name = node.get("name").asText();
-        List<Queue> assignedQueuesList = Lists.newArrayList();
 
+        List<Queue> assignedQueuesList = Lists.newArrayList();
         JsonNode assignedQueues = node.get("assignedQueues");
         if (assignedQueues != null) {
             assignedQueues.iterator().forEachRemaining(queue -> {

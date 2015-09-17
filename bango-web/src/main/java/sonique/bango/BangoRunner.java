@@ -102,18 +102,18 @@ public final class BangoRunner {
         teamStore.insert(someTeam);
         teamStore.insert(anotherTeam);
 
-        agentStore.insert(new DomainAgent("q.q", "Q.Q", new AgentDetails("Quentin", "Quinn", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null));
-        agentStore.insert(new DomainAgent("q", "Q", new AgentDetails("Queenie", "Quaffins", 1, 1), Role.ROLE_QUEUE_CONTROLLER, null));
+        agentStore.insert(new DomainAgent("q.q", "Q.Q", new AgentDetails("Quentin", "Quinn"), Role.ROLE_QUEUE_CONTROLLER, null));
+        agentStore.insert(new DomainAgent("q", "Q", new AgentDetails("Queenie", "Quaffins"), Role.ROLE_QUEUE_CONTROLLER, null));
 
-        agentStore.insert(new DomainAgent("a", "A", new AgentDetails("Arnie", "Adams", 1, 1), Role.ROLE_USER, aTeam));
-        agentStore.insert(new DomainAgent("b.b", "B.B", new AgentDetails("Barry", "Brown", 1, 1), Role.ROLE_USER, bTeam));
-        agentStore.insert(new DomainAgent("c", "C", new AgentDetails("Colin", "Carp", 1, 1), Role.ROLE_USER, bTeam));
-        agentStore.insert(new DomainAgent("r", "R", new AgentDetails("Randy", "Russel", 1, 1), Role.ROLE_USER, bTeam));
-        agentStore.insert(new DomainAgent("z", "Z", new AgentDetails("Zebedee", "Zulu", 1, 1), Role.ROLE_USER, bTeam));
+        agentStore.insert(new DomainAgent("a", "A", new AgentDetails("Arnie", "Adams"), Role.ROLE_USER, aTeam));
+        agentStore.insert(new DomainAgent("b.b", "B.B", new AgentDetails("Barry", "Brown"), Role.ROLE_USER, bTeam));
+        agentStore.insert(new DomainAgent("c", "C", new AgentDetails("Colin", "Carp"), Role.ROLE_USER, bTeam));
+        agentStore.insert(new DomainAgent("r", "R", new AgentDetails("Randy", "Russel"), Role.ROLE_USER, bTeam));
+        agentStore.insert(new DomainAgent("z", "Z", new AgentDetails("Zebedee", "Zulu"), Role.ROLE_USER, bTeam));
 
         for (int i = 0; i < 100; i++) {
             String username = someString();
-            agentStore.insert(new DomainAgent(username, username.toUpperCase(), new AgentDetails(someString(), someString(), 1, 1), pickOneOfExcluding(Role.ROLE_QUEUE_CONTROLLER), i % 2 == 0 ? someTeam : anotherTeam));
+            agentStore.insert(new DomainAgent(username, username.toUpperCase(), new AgentDetails(someString(), someString()), pickOneOfExcluding(Role.ROLE_QUEUE_CONTROLLER), i % 2 == 0 ? someTeam : anotherTeam));
         }
     }
 }

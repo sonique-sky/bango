@@ -14,5 +14,8 @@ public interface AgentApiService {
     PagedSearchResults<DomainServiceProblem> myItems(SearchParametersDTO searchParameters);
     PagedSearchResults<DomainAgent> allAgents(RequestParameters requestParameters);
     DomainAgent reassignAgent(String agentCode, String currentTeam, String newTeam);
+
+    DomainAgent createAgent(DomainAgent agent);
+    DomainAgent updateAgent(DomainAgent agent);
     DomainAgent deleteAgent(DomainAgent agent);
 }

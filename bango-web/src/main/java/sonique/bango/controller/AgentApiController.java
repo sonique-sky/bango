@@ -20,6 +20,27 @@ public class AgentApiController {
     @Resource
     private AgentApiService agentApiService;
 
+
+    @RequestMapping(method = {RequestMethod.GET})
+    public PagedSearchResults<DomainAgent> allAgents(RequestParameters requestParameters) {
+        return agentApiService.allAgents(requestParameters);
+    }
+
+    @RequestMapping(method = {RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public DomainAgent create(@RequestBody DomainAgent agent) {
+        return agentApiService.createAgent(agent);
+    }
+
+    @RequestMapping(method = {RequestMethod.PUT}, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public DomainAgent update(@RequestBody DomainAgent agent) {
+        return agentApiService.updateAgent(agent);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseData<DomainAgent> deleteAgent(@RequestBody DomainAgent agent) {
+        return new ResponseData<>(agentApiService.deleteAgent(agent));
+    }
+
     @RequestMapping(method = {RequestMethod.GET}, value = "/authenticatedAgent")
     public DomainAgent authenticatedAgent() {
         return agentApiService.authenticatedAgent();
@@ -48,13 +69,4 @@ public class AgentApiController {
         return agentApiService.myItems(SearchParametersDTO.withNoSearchProperties(limit, start));
     }
 
-    @RequestMapping(method = {RequestMethod.GET})
-    public PagedSearchResults<DomainAgent> allAgents(RequestParameters requestParameters) {
-        return agentApiService.allAgents(requestParameters);
-    }
-
-    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseData<DomainAgent> deleteAgent(@RequestBody DomainAgent agent) {
-        return new ResponseData<>(agentApiService.deleteAgent(agent));
-    }
 }

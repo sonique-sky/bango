@@ -12,6 +12,7 @@ Ext.define('Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDi
             queuesStore = me.getViewModel().get('queues');
 
         queuesStore.add(newQueue);
+
         queuesStore.sync({
             success: function () {
                 me.fireEvent('queueAdded', queuesStore);

@@ -21,7 +21,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
         this.getView().getStore().load();
     },
 
-    onAgentStoreLoaded: function (store) {
+    selectFirstAgentStoreRow: function (store) {
         this.getView().setSelection(store.first());
     },
 
@@ -62,7 +62,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
                         failure: me.loadStore,
                         scope: me
                     });
-                    me.selectFirstRow(agentStore);
+                    me.selectFirstAgentStoreRow(agentStore);
                 }
             }
         });
