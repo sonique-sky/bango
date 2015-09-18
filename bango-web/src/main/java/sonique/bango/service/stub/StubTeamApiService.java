@@ -5,9 +5,9 @@ import sky.sns.spm.infrastructure.repository.DomainTeamRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.validation.SpmError;
 import sky.sns.spm.validation.SupermanException;
+import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
 import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.sorter.Comparators;
-import sonique.bango.domain.sorter.Sorter;
 import sonique.bango.service.TeamApiService;
 import spm.domain.TeamId;
 
@@ -63,8 +63,8 @@ public class StubTeamApiService implements TeamApiService {
         }
 
         @Override
-        protected Comparator<DomainTeam> getComparator(Sorter sorter) {
-            return comparators.get(sorter.getProperty());
+        protected Comparator<DomainTeam> getComparator(SortDescriptor sorter) {
+            return comparators.get(sorter.getSortProperty());
         }
     }
 }

@@ -183,7 +183,7 @@ public class BangoApplicationContext {
 
     @Bean
     public ApplicationConfigurationApiService configurationApiService() {
-        return new StubApplicationConfigurationApiService(null);
+        return new StubApplicationConfigurationApiService(problemCategoryRepository);
     }
 
     @Bean

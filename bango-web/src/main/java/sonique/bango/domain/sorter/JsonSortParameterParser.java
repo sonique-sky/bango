@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
 import org.springframework.core.convert.converter.Converter;
+import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
 
 import java.io.IOException;
 
-public final class JsonSortParameterParser implements Converter<String, Sorter> {
+import static sky.sns.spm.web.spmapp.shared.dto.SortDirection.fromAttributeValue;
+
+public final class JsonSortParameterParser implements Converter<String, SortDescriptor> {
     private final ObjectMapper objectMapper;
 
     public JsonSortParameterParser(ObjectMapper jsonObjectMapper) {
@@ -15,16 +18,13 @@ public final class JsonSortParameterParser implements Converter<String, Sorter> 
     }
 
     @Override
-    public Sorter convert(String source) {
+    public SortDescriptor convert(String source) {
         try {
             JsonNode jsonNode = objectMapper.readTree(source);
-            return new Sorter(jsonNode.get("property").asText(), asDirection(jsonNode.get("direction").asText()));
+            return new SortDescriptor(jsonNode.get("property").asText(), fromAttributeValue(jsonNode.get("direction").asText()));
         } catch (IOException e) {
             throw Throwables.propagate(e);
         }
     }
 
-    private static Sorter.Direction asDirection(String direction) {
-        return Sorter.Direction.from(direction);
-    }
 }

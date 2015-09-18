@@ -1,17 +1,19 @@
 package sonique.bango.domain.sorter;
 
+import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
+
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Optional;
 
 public abstract class Comparators<T> {
 
-    public Comparator<T> comparatorFor(final Sorter sorter) {
+    public Comparator<T> comparatorFor(final SortDescriptor sorter) {
         Comparator<T> comparator = getComparator(sorter);
-        return sorter.getDirection() == Sorter.Direction.Descending ? comparator.reversed() : comparator;
+        return sorter.getSortDirection().isAscending() ? comparator : comparator.reversed();
     }
 
-    protected abstract Comparator<T> getComparator(final Sorter sorter);
+    protected abstract Comparator<T> getComparator(final SortDescriptor sorter);
 
     public static <C> Optional<Comparator<C>> aggregatedComparator(Collection<Comparator<C>> comparatorChain) {
         return comparatorChain.stream().reduce(Comparator::thenComparing);

@@ -1,7 +1,7 @@
 package sonique.bango.domain;
 
+import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
 import sonique.bango.domain.filter.Filter;
-import sonique.bango.domain.sorter.Sorter;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import static com.google.common.collect.Lists.newArrayList;
 public class RequestParameters {
     private final int start;
     private final int limit;
-    private final Sorter group;
-    private final List<Sorter> sorters;
+    private final SortDescriptor group;
+    private final List<SortDescriptor> sorters;
     private final List<Filter> filters;
 
-    public RequestParameters(Integer start, Integer limit, List<Sorter> sorters, List<Filter> filters, Sorter group) {
+    public RequestParameters(Integer start, Integer limit, List<SortDescriptor> sorters, List<Filter> filters, SortDescriptor group) {
         this.start = start == null ? 0 : start;
         this.limit = limit == null ? Integer.MAX_VALUE : limit;
         this.group = group;
@@ -30,7 +30,7 @@ public class RequestParameters {
         return limit;
     }
 
-    public List<Sorter> getSorters() {
+    public List<SortDescriptor> getSorters() {
         return sorters;
     }
 
@@ -38,7 +38,7 @@ public class RequestParameters {
         return filters;
     }
 
-    public Sorter getGroup() {
+    public SortDescriptor getGroup() {
         return group;
     }
 }
