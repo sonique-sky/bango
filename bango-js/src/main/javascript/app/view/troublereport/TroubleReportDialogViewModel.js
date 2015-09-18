@@ -202,27 +202,45 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
         },
         isRaise: {
             bind: {
-                bindTo: '{troubleReportTemplate}',
+                bindTo: '{mode}',
                 deep: true
             },
-            get: function (troubleReportTemplate) {
-                return !troubleReportTemplate.get('cancelRequested') && !troubleReportTemplate.get('amendRequested');
+            get: function (mode) {
+                return mode === 'Raise';
             }
         },
         isRaiseOrRoi: {
             bind: {
-                bindTo: '{troubleReportTemplate}',
+                troubleReportTemplate: '{troubleReportTemplate}',
+                mode: '{mode}',
                 deep: true
             },
-            get: function (troubleReportTemplate) {
+            get: function (data) {
+                var troubleReportTemplate = data.troubleReportTemplate;
+                var mode = data.mode;
+
                 var serviceType = troubleReportTemplate.get('serviceType');
                 var isRoi = 'RoiOffnetVoice' === serviceType.code
                     || 'RoiRuralOffnetBroadband' === serviceType.code || 'RoiUrbanOffnetBroadband' === serviceType.code
                     || 'RoiFttc' === serviceType.code;
 
-                var isRaiseMode = !troubleReportTemplate.get('cancelRequested') && !troubleReportTemplate.get('amendRequested');
-
-                return isRaiseMode || isRoi;
+                return (mode === 'Raise') || isRoi;
+            }
+        },
+        titleForMode: {
+            bind: {
+                bindTo: '{mode}'
+            },
+            get: function (mode) {
+                return mode === 'Raise' ? 'Create Trouble Report' : 'Amend Trouble Report';
+            }
+        },
+        iconForMode: {
+            bind: {
+                bindTo: '{mode}'
+            },
+            get: function (mode) {
+                return mode === 'Raise' ? 'icon-create-trouble-report' : 'icon-amend-trouble-report';
             }
         }
     }

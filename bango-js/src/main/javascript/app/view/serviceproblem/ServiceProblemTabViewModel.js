@@ -153,6 +153,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                     workItem = serviceProblem.getWorkItem();
                     return workItem !== null
                         && workItem.isAssignedTo(this.authenticatedAgent())
+                        && troubleReport != null
                         && serviceProblem.status() === 'Open'
                         && applicableServiceTypes.indexOf(serviceProblem.serviceType().code) > -1
                         && troubleReport.status() === 'Open'

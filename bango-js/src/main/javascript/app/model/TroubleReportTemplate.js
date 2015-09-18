@@ -6,8 +6,6 @@ Ext.define('Spm.model.TroubleReportTemplate', {
         'Spm.proxy.TroubleReportTemplateProxy'
     ],
 
-    idProperty: 'troubleReportId',
-
     fields: [
         {
             name: 'troubleReportId',

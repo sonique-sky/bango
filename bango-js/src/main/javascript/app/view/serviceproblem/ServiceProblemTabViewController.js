@@ -172,7 +172,30 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                     viewModel: {
                         type: 'troubleReportDialog',
                         data: {
-                            troubleReportTemplate: troubleReportTemplate
+                            troubleReportTemplate: troubleReportTemplate,
+                            mode: 'Raise'
+                        }
+                    }
+                });
+                dialog.show();
+            }
+        });
+    },
+
+    onAmendTroubleReport: function () {
+        var me = this;
+
+        var troubleReportTemplate = Ext.create('Spm.model.TroubleReportTemplate');
+        troubleReportTemplate.load({
+            params: {serviceProblemId: me.getViewModel().serviceProblemId()},
+            success: function () {
+                var dialog = me.getView().add({
+                    xtype: 'troubleReportDialog',
+                    viewModel: {
+                        type: 'troubleReportDialog',
+                        data: {
+                            troubleReportTemplate: troubleReportTemplate,
+                            mode: 'Amend'
                         }
                     }
                 });

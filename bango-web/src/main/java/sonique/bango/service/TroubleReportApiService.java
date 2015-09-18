@@ -35,4 +35,6 @@ public interface TroubleReportApiService {
     void confirmEquipmentDisconnected(TroubleReportId troubleReportId);
 
     DomainTroubleReport cancelTroubleReport(TroubleReportId troubleReportId, String cancellationReason);
+
+    void amendTroubleReport(TroubleReportTemplate troubleReportTemplate);
 }

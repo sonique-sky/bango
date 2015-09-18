@@ -16,10 +16,20 @@ Ext.define('Spm.proxy.TroubleReportTemplateProxy', {
             return Ext.String.format('api/troubleReport/template/serviceProblemId/{0}', id);
         }
         if ('create' === request.getAction()) {
-            delete params.serviceProblemId;
-            delete params.troubleReportId;
+            if ('Raise' === params.mode) {
+                delete params.serviceProblemId;
+                delete params.troubleReportId;
+                delete params.mode;
 
-            return Ext.String.format('api/troubleReport/raise');
+                return Ext.String.format('api/troubleReport/raise');
+            }
+            if ('Amend' === params.mode) {
+                delete params.serviceProblemId;
+                delete params.troubleReportId;
+                delete params.mode;
+
+                return Ext.String.format('api/troubleReport/amend');
+            }
         }
     },
 

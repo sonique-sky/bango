@@ -14,6 +14,7 @@ import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.domain.troublereport.TroubleReportTemplateBuilder;
 import spm.domain.ServiceProblemId;
 import spm.domain.SnsServiceId;
+import spm.domain.TroubleReportId;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -26,10 +27,11 @@ public class TroubleReportTemplateDeserializer extends JsonDeserializer<TroubleR
         JsonNode troubleReportTemplate = jsonNode.get("troubleReportTemplate");
 
         ServiceProblemId serviceProblemId = new ServiceProblemId(troubleReportTemplate.get("serviceProblemId").asLong());
+        String troubleReportId = troubleReportTemplate.get("troubleReportId").asText();
         String appointmentReference = troubleReportTemplate.get("appointmentReference").asText();
         boolean twentyFourHourAccess = troubleReportTemplate.get("twentyFourHourAccess").asBoolean();
-        String earliestAccessDate = troubleReportTemplate.get("earliestAccessDate").asText();
-        String latestAccessDate = troubleReportTemplate.get("latestAccessDate").asText();
+        String earliestAccessDate = troubleReportTemplate.get("earliestAccessDate").asText().equals("null") ? null : troubleReportTemplate.get("earliestAccessDate").asText();
+        String latestAccessDate = troubleReportTemplate.get("latestAccessDate").asText().equals("null") ? null : troubleReportTemplate.get("latestAccessDate").asText();
         String serviceTypeCode = troubleReportTemplate.get("serviceType").get("code").asText();
         SnsServiceId serviceId = new SnsServiceId(troubleReportTemplate.get("serviceId").asLong());
         String providerReference = troubleReportTemplate.get("providerReference").asText();
@@ -43,6 +45,7 @@ public class TroubleReportTemplateDeserializer extends JsonDeserializer<TroubleR
         String secondaryContactNumber = troubleReportTemplate.get("secondaryContactNumber").asText();
         String notes = troubleReportTemplate.get("notes").asText();
         String temporaryCallDiversionNumber = troubleReportTemplate.get("temporaryCallDiversionNumber").asText();
+        int upperTrcBand = troubleReportTemplate.get("upperTrcBand").asInt();
         boolean cancelRequested = troubleReportTemplate.get("cancelRequested").asBoolean();
         boolean amendRequested = troubleReportTemplate.get("amendRequested").asBoolean();
         boolean confirmEquipmentDisconnectedRequested = troubleReportTemplate.get("confirmEquipmentDisconnectedRequested").asBoolean();
@@ -90,8 +93,8 @@ public class TroubleReportTemplateDeserializer extends JsonDeserializer<TroubleR
                 .withTwentyFourHourAccess(twentyFourHourAccess)
                 .withEarliestAccessDate(new Date())
                 .withAppointmentReference(appointmentReference)
-                .withEarliestAccessDate(Date.from(ZonedDateTime.parse(earliestAccessDate).toInstant()))
-                .withLatestAccessDate(Date.from(ZonedDateTime.parse(latestAccessDate).toInstant()))
+                .withEarliestAccessDate(earliestAccessDate != null ? Date.from(ZonedDateTime.parse(earliestAccessDate).toInstant()) : null)
+                .withLatestAccessDate(latestAccessDate != null ? Date.from(ZonedDateTime.parse(latestAccessDate).toInstant()) : null)
                 .withServiceType(ServiceType.valueOf(serviceTypeCode))
                 .with(serviceId)
                 .withProviderReference(providerReference)
@@ -119,6 +122,8 @@ public class TroubleReportTemplateDeserializer extends JsonDeserializer<TroubleR
                 .withTestProduct(testProduct)
                 .withStructuredQuestionCode(structuredQuestionCode)
                 .withStatus(troubleReportStatus)
+                .withTroubleReportId(new TroubleReportId(troubleReportId))
+                .withUpperTrcBand(upperTrcBand)
                 .build();
     }
 }

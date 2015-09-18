@@ -5,8 +5,11 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
     cls: 'trouble-report-panel',
     controller: 'troubleReportDialog',
     viewModel: 'troubleReportDialog',
-    title: 'Create Trouble Report',
-    iconCls: 'icon-create-trouble-report',
+
+    bind: {
+        title: '{titleForMode}',
+        iconCls: '{iconForMode}'
+    },
 
     defaultFocus: 'shortDescriptionField',
 
@@ -51,29 +54,52 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                             },
                             items: [
                                 {
-                                    xtype: 'textfield',
-                                    allowBlank: '{isWlr3OrRoiService}',
+                                    xtype: 'fieldcontainer',
+                                    layout: {
+                                        type: 'hbox'
+                                    },
                                     bind: {
-                                        value: '{troubleReportTemplate.description}',
                                         hidden: '{isWlr3OrRoiService}'
                                     },
                                     fieldLabel: 'Short Description',
-                                    itemId: 'shortDescriptionField',
-                                    reference: 'shortDescription'
+                                    items: [
+                                        {
+                                            xtype: 'textfield',
+                                            flex: 1,
+                                            allowBlank: '{isWlr3OrRoiService}',
+                                            bind: {
+                                                value: '{troubleReportTemplate.description}',
+                                                disabled: '{!isRaise}'
+                                            },
+                                            itemId: 'shortDescriptionField',
+                                            reference: 'shortDescription'
+                                        }
+                                    ]
                                 },
                                 {
-                                    xtype: 'combobox',
+                                    xtype: 'fieldcontainer',
+                                    layout: {
+                                        type: 'hbox'
+                                    },
                                     bind: {
-                                        store: '{symptoms}',
-                                        value: '{troubleReportTemplate.symptom.symptomCode}',
                                         hidden: '{!isWlr3OrRoiService}'
                                     },
                                     fieldLabel: 'Symptom',
-                                    valueField: 'symptomCode',
-                                    displayField: 'description',
-                                    typeAhead: true,
-                                    queryMode: 'local',
-                                    reference: 'symptomCode'
+                                    items: [
+                                        {
+                                            xtype: 'combobox',
+                                            flex: 1,
+                                            bind: {
+                                                store: '{symptoms}',
+                                                value: '{troubleReportTemplate.symptom.symptomCode}',
+                                                disabled: '{!isRaise}'
+                                            },
+                                            valueField: 'symptomCode',
+                                            displayField: 'description',
+                                            typeAhead: true,
+                                            queryMode: 'local',
+                                            reference: 'symptomCode'
+                                        }]
                                 },
                                 {
                                     xtype: 'fieldcontainer',
@@ -97,22 +123,33 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                         }]
                                 },
                                 {
-                                    xtype: 'combobox',
-                                    reference: 'diagnosticId',
+                                    xtype: 'fieldcontainer',
+                                    layout: {
+                                        type: 'hbox'
+                                    },
                                     bind: {
-                                        value: '{troubleReportTemplate.lineTestSummary.lineTestReference}',
-                                        hidden: '{isRoi}',
-                                        store: '{lineTest}'
+                                        hidden: '{isRoi}'
                                     },
                                     fieldLabel: 'Diagnostic Id',
-                                    valueField: 'lineTestReference',
-                                    displayField: 'lineTestReference',
-                                    typeAhead: true,
-                                    queryMode: 'local',
-                                    emptyText: 'No Line Test Selected...',
-                                    listeners: {
-                                        expand: 'onExpand'
-                                    }
+                                    items: [
+                                        {
+                                            xtype: 'combobox',
+                                            flex: 1,
+                                            reference: 'diagnosticId',
+                                            bind: {
+                                                value: '{troubleReportTemplate.lineTestSummary.lineTestReference}',
+                                                store: '{lineTest}',
+                                                disabled: '{!isRaise}'
+                                            },
+                                            valueField: 'lineTestReference',
+                                            displayField: 'lineTestReference',
+                                            typeAhead: true,
+                                            queryMode: 'local',
+                                            emptyText: 'No Line Test Selected...',
+                                            listeners: {
+                                                expand: 'onExpand'
+                                            }
+                                        }]
                                 },
                                 {
                                     xtype: 'fieldcontainer',
@@ -128,27 +165,38 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                     items: [{
                                         xtype: 'checkbox',
                                         bind: {
-                                            value: '{troubleReportTemplate.intermittentProblem}'
+                                            value: '{troubleReportTemplate.intermittentProblem}',
+                                            disabled: '{!isRaise}'
                                         },
                                         boxLabel: 'Intermittent',
                                         labelAlign: 'right'
                                     }]
                                 },
-
                                 {
-                                    xtype: 'combobox',
-                                    reference: 'testProduct',
+                                    xtype: 'fieldcontainer',
+                                    layout: {
+                                        type: 'hbox'
+                                    },
                                     bind: {
-                                        store: '{testProducts}',
-                                        value: '{troubleReportTemplate.testProduct}',
                                         hidden: '{isWlr3OrRoiService}'
                                     },
                                     fieldLabel: 'Test Product',
-                                    valueField: 'code',
-                                    displayField: 'code',
-                                    typeAhead: true,
-                                    queryMode: 'local',
-                                    emptyText: 'Select a Test Product...'
+                                    items: [
+                                        {
+                                            xtype: 'combobox',
+                                            flex: 1,
+                                            reference: 'testProduct',
+                                            bind: {
+                                                store: '{testProducts}',
+                                                value: '{troubleReportTemplate.testProduct}',
+                                                disabled: '{!isRaise}'
+                                            },
+                                            valueField: 'code',
+                                            displayField: 'code',
+                                            typeAhead: true,
+                                            queryMode: 'local',
+                                            emptyText: 'Select a Test Product...'
+                                        }]
                                 },
                                 {
                                     xtype: 'fieldcontainer',
@@ -184,27 +232,52 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                 {
                                     xtype: 'combobox',
                                     flex: 1.0,
+                                    displayField: 'upperTrcBand',
+                                    valueField: 'upperTrcBand',
+                                    store: {
+                                        fields: ['upperTrcBand'],
+                                        data: [
+                                            ['0'],
+                                            ['1'],
+                                            ['2'],
+                                            ['3'],
+                                            ['4']
+                                        ]
+                                    },
                                     bind: {
                                         value: '{troubleReportTemplate.upperTrcBand}',
                                         hidden: '{isRaiseOrRoi}'
                                     },
+                                    typeAhead: true,
+                                    forceSelection: true,
                                     allowBlank: '{isRaiseOrRoi}',
                                     fieldLabel: 'TRC Band'
                                 },
                                 {
-                                    xtype: 'combobox',
-                                    reference: 'structuredQuestionCode',
-                                    fieldLabel: 'Structured Question Code',
-                                    valueField: 'code',
-                                    displayField: 'code',
+                                    xtype: 'fieldcontainer',
+                                    layout: {
+                                        type: 'hbox'
+                                    },
                                     bind: {
-                                        store: '{structuredQuestionCodes}',
-                                        value: '{troubleReportTemplate.structuredQuestionCode}',
                                         hidden: '{!isFttc}'
                                     },
-                                    typeAhead: true,
-                                    queryMode: 'local',
-                                    emptyText: 'Select a Structured Question Code...'
+                                    fieldLabel: 'Structured Question Code',
+                                    items: [
+                                        {
+                                            xtype: 'combobox',
+                                            flex: 1,
+                                            reference: 'structuredQuestionCode',
+                                            valueField: 'code',
+                                            displayField: 'code',
+                                            bind: {
+                                                store: '{structuredQuestionCodes}',
+                                                value: '{troubleReportTemplate.structuredQuestionCode}',
+                                                disabled: '{!isRaise}'
+                                            },
+                                            typeAhead: true,
+                                            queryMode: 'local',
+                                            emptyText: 'Select a Structured Question Code...'
+                                        }]
                                 }
                             ]
                         },

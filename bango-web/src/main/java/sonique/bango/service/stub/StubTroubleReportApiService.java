@@ -13,12 +13,15 @@ import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.DomainTroubleReportRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.interfaces.shared.SystemActor;
+import sky.sns.spm.web.spmapp.client.dto.TroubleReportAmendmentDTOBuilder;
 import sky.sns.spm.web.spmapp.shared.dto.AvailableAppointmentDTO;
 import sky.sns.spm.web.spmapp.shared.dto.EventHistoryDto;
+import sky.sns.spm.web.spmapp.shared.dto.TroubleReportAmendmentDTO;
 import sky.sns.spm.web.spmapp.shared.dto.TroubleReportDto;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.domain.troublereport.TroubleReportTemplateFactory;
 import sonique.bango.service.TroubleReportApiService;
+import spm.domain.AmendmentNoteBuilder;
 import spm.domain.Note;
 import spm.domain.ServiceProblemId;
 import spm.domain.TroubleReportId;
@@ -34,8 +37,7 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 import static sky.sns.commons.datetime.utils.DateUtils.someDateAfter;
-import static sky.sns.spm.domain.model.serviceproblem.EventDescription.TroubleReportCancelRequested;
-import static sky.sns.spm.domain.model.serviceproblem.EventDescription.TroubleReportConfirmEquipmentDisconnectedRequested;
+import static sky.sns.spm.domain.model.serviceproblem.EventDescription.*;
 import static sonique.datafixtures.PrimitiveDataFixtures.someBoolean;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 
@@ -138,6 +140,31 @@ public class StubTroubleReportApiService implements TroubleReportApiService {
                 troubleReportTemplate.broadbandFault()
         );
         troubleReportRaiser.raiseFor(troubleReportDto, authorisedActorProvider.getLoggedInAgent());
+    }
+
+    @Override
+    public void amendTroubleReport(TroubleReportTemplate troubleReportTemplate) {
+        AmendmentNoteBuilder amendmentNoteBuilder = new AmendmentNoteBuilder();
+        DomainTroubleReport troubleReport = troubleReportRepository.findByTroubleReportId(troubleReportTemplate.troubleReportId());
+
+        TroubleReportAmendmentDTO amendmentDto = new TroubleReportAmendmentDTOBuilder()
+                .withAccessHazards(troubleReportTemplate.accessHazards())
+                .withAccessNotes(troubleReportTemplate.accessNotes())
+                .withAppointmentReference(troubleReportTemplate.appointmentReference())
+                .withContactName(troubleReportTemplate.contactName())
+                .withContactNumber(troubleReportTemplate.contactNumber())
+                .withSecondaryContactName(troubleReportTemplate.secondaryContactName())
+                .withSecondaryContactNumber(troubleReportTemplate.secondaryContactNumber())
+                .withTemporaryCallDiversionNumber(troubleReportTemplate.temporaryCallDiversionNumber())
+                .withTroubleReportId(troubleReportTemplate.troubleReportId())
+                .withUpperTrcBand(troubleReportTemplate.upperTrcBand())
+                .withNotes(troubleReportTemplate.notes())
+                .build();
+
+        troubleReport.writeHistoryItem(TroubleReportAmendRequested, authorisedActorProvider.authorisedActor(), new Date(), amendmentNoteBuilder.buildNoteFrom(troubleReport, amendmentDto));
+        troubleReport.applyAmendment(amendmentDto);
+
+        troubleReport.getServiceProblem().writeHistoryItem(TroubleReportAmendRequested, authorisedActorProvider.authorisedActor(), new Date());
     }
 
     @Override

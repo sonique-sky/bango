@@ -152,6 +152,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-amend-trouble-report',
                             tooltip: 'Amend Trouble Report',
+                            handler: 'onAmendTroubleReport',
                             bind: {
                                 disabled: '{!canAmendTroubleReport}'
                             }

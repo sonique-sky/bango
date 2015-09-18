@@ -142,16 +142,32 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
         if (this.lookupReference('troubleReportForm').isValid()) {
             var me = this,
                 troubleReportTemplate = me.getViewModel().get('troubleReportTemplate'),
-                serviceProblemId = me.getViewModel().get('serviceProblemId');
+                serviceProblemId = me.getViewModel().get('serviceProblemId'),
+                mode = me.getViewModel().get('mode');
 
-            troubleReportTemplate.copy(null).save({
-                    scope: me,
-                    success: function () {
-                        me.fireEvent('troubleReportCreated', serviceProblemId);
-                        me.closeView();
+            //TODO: Need to check if the form is dirty as well...
+            if (mode === 'Amend') {
+                Ext.Msg.show({
+                    title: 'Error',
+                    msg: 'You must amend at least one of the fields',
+                    buttons: Ext.Msg.OK,
+                    icon: Ext.Msg.WARNING,
+                    closable: false,
+                    scope: me
+                });
+            } else {
+                troubleReportTemplate.copy(null).save({
+                        scope: me,
+                        params: {
+                            mode: mode
+                        },
+                        success: function () {
+                            me.fireEvent('troubleReportCreated', serviceProblemId);
+                            me.closeView();
+                        }
                     }
-                }
-            );
+                );
+            }
         }
     },
 

@@ -104,6 +104,11 @@ public class TroubleReportApiController {
         troubleReportApiService.raiseTroubleReport(troubleReportTemplate);
     }
 
+    @RequestMapping(value = "/amend", method = POST, produces = APPLICATION_JSON_VALUE)
+    public void amendTroubleReport(@RequestBody TroubleReportTemplate troubleReportTemplate) {
+        troubleReportApiService.amendTroubleReport(troubleReportTemplate);
+    }
+
     @RequestMapping(value = "/{troubleReportId}/cancel", method = POST, produces = APPLICATION_JSON_VALUE)
     public DomainTroubleReport cancelTroubleReport(@PathVariable Long troubleReportId, @RequestBody Map<String, String> payloadMap) {
         String cancellationReason = payloadMap.get("cancellationReason");

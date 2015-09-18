@@ -73,10 +73,14 @@ public class TroubleReportTemplateSerializer extends JsonSerializer<TroubleRepor
         jsonGenerator.writeNumberField("upperTrcBand", troubleReportTemplate.upperTrcBand());
         jsonGenerator.writeObjectField("testProduct", troubleReportTemplate.testProduct());
 
-        ZonedDateTime earliestDateTime = ZonedDateTime.ofInstant(troubleReportTemplate.earliestAccessDate().toInstant(), ZoneOffset.UTC);
-        jsonGenerator.writeStringField("earliestAccessDate", LocalDateTimeFormatter.localDateTimeFormatter().print(earliestDateTime));
-        ZonedDateTime latestDateTime = ZonedDateTime.ofInstant(troubleReportTemplate.latestAccessDate().toInstant(), ZoneOffset.UTC);
-        jsonGenerator.writeStringField("latestAccessDate", LocalDateTimeFormatter.localDateTimeFormatter().print(latestDateTime));
+        if (troubleReportTemplate.earliestAccessDate() != null) {
+            ZonedDateTime earliestDateTime = ZonedDateTime.ofInstant(troubleReportTemplate.earliestAccessDate().toInstant(), ZoneOffset.UTC);
+            jsonGenerator.writeStringField("earliestAccessDate", LocalDateTimeFormatter.localDateTimeFormatter().print(earliestDateTime));
+        }
+        if (troubleReportTemplate.latestAccessDate() != null) {
+            ZonedDateTime latestDateTime = ZonedDateTime.ofInstant(troubleReportTemplate.latestAccessDate().toInstant(), ZoneOffset.UTC);
+            jsonGenerator.writeStringField("latestAccessDate", LocalDateTimeFormatter.localDateTimeFormatter().print(latestDateTime));
+        }
 
         jsonGenerator.writeObjectField("structuredQuestionCode", troubleReportTemplate.structuredQuestionCode());
         jsonGenerator.writeObjectField("status", troubleReportTemplate.status());
