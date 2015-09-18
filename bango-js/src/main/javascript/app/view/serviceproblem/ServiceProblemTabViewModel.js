@@ -87,6 +87,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                     workItem = serviceProblem.getWorkItem();
                     return workItem !== null
                         && workItem.isAssignedTo(this.authenticatedAgent())
+                        && troubleReport != null
                         && troubleReport.status() === 'Open'
                         && troubleReport.isCancelRequested() === false
                         && troubleReport.isAmendRequested() === false
@@ -119,6 +120,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                     workItem = serviceProblem.getWorkItem();
                     return workItem !== null
                         && workItem.isAssignedTo(this.authenticatedAgent())
+                        && troubleReport != null
                         && troubleReport.status() === 'Open'
                         && troubleReport.isCancelRequested() === false
                         && troubleReport.isAmendRequested() === false

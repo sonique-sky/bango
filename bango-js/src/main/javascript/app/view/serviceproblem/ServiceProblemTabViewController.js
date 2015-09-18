@@ -8,6 +8,14 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         'Spm.view.serviceproblem.transfer.TransferServiceProblemDialog'
     ],
 
+    listen: {
+        controller: {
+            'cancelTroubleReportDialog': {
+                troubleReportCancelled: 'loadServiceProblem'
+            }
+        }
+    },
+
     onServiceProblemTabClosed: function () {
         this.fireEvent('serviceProblemTabClosed', this.getViewModel().serviceProblemId());
     },
@@ -180,7 +188,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
             viewModel: {
                 type: 'cancelTroubleReportDialog',
                 data: {
-                    troubleReport: me.getViewModel().troubleReport()
+                    troubleReport: me.getViewModel().troubleReport(),
+                    serviceType: me.getViewModel().serviceProblem().serviceType()
                 }
             }
         });

@@ -37,6 +37,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
         var secondaryContactNumberField = this.lookupReference('secondaryContactNumber');
         var temporaryCallDiversionNumberField = this.lookupReference('temporaryCallDiversionNumber');
         var testProductField = this.lookupReference('testProduct');
+        var diagnosticIdField = this.lookupReference('diagnosticId');
         var additionalNotesField = this.lookupReference('additionalNotes');
         var structuredQuestionCodeField = this.lookupReference('structuredQuestionCode');
 
@@ -61,6 +62,12 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
             testProductField,
             serviceType,
             ['NvnVoice', 'NvnData', 'OffnetBroadband', 'OnnetBroadband', 'WLR', 'FTTC', 'WifiDataService']
+        ]);
+
+        diagnosticIdField.validator = Ext.bind(this.requiredValueValidator, this, [
+            diagnosticIdField,
+            serviceType,
+            ['NvnVoice', 'NvnData', 'OnnetBroadband']
         ]);
 
         secondaryContactNameField.validator = Ext.bind(this.requiredValueValidator, this, [
