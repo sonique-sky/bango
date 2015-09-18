@@ -98,11 +98,11 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
                                 },
                                 {
                                     xtype: 'combobox',
+                                    reference: 'diagnosticId',
                                     bind: {
                                         value: '{troubleReportTemplate.lineTestSummary.lineTestReference}',
                                         hidden: '{isRoi}',
                                         store: '{lineTest}'
-
                                     },
                                     fieldLabel: 'Diagnostic Id',
                                     valueField: 'lineTestReference',
