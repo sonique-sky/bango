@@ -26,7 +26,7 @@ Ext.define('Spm.view.troublereport.cancel.CancelTroubleReportDialogViewControlle
                 },
                 scope: me,
                 success: function () {
-                    //me.fireEvent('serviceProblemCleared', serviceProblemId);
+                    me.fireEvent('troubleReportCancelled');
                     me.closeView();
                 }
             }
