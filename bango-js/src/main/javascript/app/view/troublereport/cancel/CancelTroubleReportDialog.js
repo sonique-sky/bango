@@ -14,6 +14,9 @@ Ext.define('Spm.view.troublereport.cancel.CancelTroubleReportDialog', {
     height: 110,
     width: 400,
 
+    listeners: {
+        show: 'onShow'
+    },
     items: [
         {
             xtype: 'form',
@@ -24,14 +27,24 @@ Ext.define('Spm.view.troublereport.cancel.CancelTroubleReportDialog', {
             },
             items: [
                 {
-                    xtype: 'textfield',
-                    flex: 1,
-                    width: 350,
-                    bind: {
-                        value: '{cancellationReason}'
+                    xtype: 'fieldcontainer',
+                    layout: {
+                        type: 'hbox',
+                        padding: '0 5 0 0'
                     },
                     fieldLabel: 'Cancellation Reason',
-                    reference: 'cancellationReason'
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            flex: 1,
+                            width: 350,
+                            bind: {
+                                value: '{cancellationReason}',
+                                disabled: '{isWlr3OrFttc}'
+                            },
+                            reference: 'cancellationReason'
+                        }
+                    ]
                 }
             ]
         }

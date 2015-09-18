@@ -7,12 +7,23 @@ Ext.define('Spm.view.troublereport.cancel.CancelTroubleReportDialogViewModel', {
         cancellationReason: null
     },
 
-    stores: {},
-
-    formulas: {},
+    formulas: {
+        isWlr3OrFttc: {
+            bind: {
+                bindTo: '{serviceType}'
+            },
+            get: function (serviceType) {
+                return serviceType.code === 'FTTC' || serviceType.code === 'WLR3';
+            }
+        }
+    },
 
     cancellationReason: function () {
-        this.get('cancellationReason');
+        return this.get('cancellationReason');
+    },
+
+    troubleReport: function () {
+        return this.get('troubleReport');
     }
 
 });

@@ -180,7 +180,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
             viewModel: {
                 type: 'cancelTroubleReportDialog',
                 data: {
-                    troubleReport: me.getViewModel().troubleReport()
+                    troubleReport: me.getViewModel().troubleReport(),
+                    serviceType: me.getViewModel().serviceProblem().serviceType()
                 }
             }
         });
