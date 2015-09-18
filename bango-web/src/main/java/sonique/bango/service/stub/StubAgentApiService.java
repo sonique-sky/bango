@@ -13,7 +13,7 @@ import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
-import sonique.bango.controller.RequestParameters;
+import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.filter.Filter;
 import sonique.bango.domain.filter.Filters;
 import sonique.bango.domain.sorter.Comparators;
@@ -84,7 +84,7 @@ public class StubAgentApiService implements AgentApiService {
     @Override
     public PagedSearchResults<DomainAgent> allAgents(RequestParameters requestParameters) {
         AgentFilterSupplier agentFilterSupplier = new AgentFilterSupplier(queueRepository, agentRepository);
-        Optional<Predicate<DomainAgent>> assignableAgentsFilter = Filters.andFilter(requestParameters.getFilter(), agentFilterSupplier::filterFor);
+        Optional<Predicate<DomainAgent>> assignableAgentsFilter = Filters.andFilter(requestParameters.getFilters(), agentFilterSupplier::filterFor);
         List<DomainAgent> allAgents = agentRepository.getAllAgents();
 
         return PagedSearchResultsCreator.createPageFor(requestParameters, allAgents, agentComparators, assignableAgentsFilter);

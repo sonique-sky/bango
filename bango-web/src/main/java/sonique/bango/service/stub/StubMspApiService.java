@@ -3,7 +3,7 @@ package sonique.bango.service.stub;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblemDashboardEntry;
 import sky.sns.spm.infrastructure.repository.DomainMajorServiceProblemRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.controller.RequestParameters;
+import sonique.bango.domain.RequestParameters;
 import sonique.bango.service.MspApiService;
 
 import java.util.List;

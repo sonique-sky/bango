@@ -3,7 +3,7 @@ package sonique.bango.service;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.controller.RequestParameters;
+import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
 

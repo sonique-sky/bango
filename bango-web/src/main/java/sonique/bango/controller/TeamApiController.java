@@ -1,11 +1,9 @@
 package sonique.bango.controller;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.ResponseData;
 import sonique.bango.service.TeamApiService;
 
@@ -21,7 +19,7 @@ public class TeamApiController {
     private TeamApiService teamApiService;
 
     @RequestMapping(method = {RequestMethod.GET})
-    public PagedSearchResults<DomainTeam> readTeams(RequestParameters requestParameters) {
+    public PagedSearchResults<DomainTeam> readTeams(@ModelAttribute RequestParameters requestParameters) {
         return teamApiService.readTeams(requestParameters);
     }
 

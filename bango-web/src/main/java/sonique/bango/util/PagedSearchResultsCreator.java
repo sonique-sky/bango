@@ -1,7 +1,7 @@
 package sonique.bango.util;
 
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.controller.RequestParameters;
+import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.sorter.Comparators;
 import sonique.bango.domain.sorter.Sorter;
 
@@ -23,7 +23,7 @@ public class PagedSearchResultsCreator {
             Optional<Predicate<T>> filter) {
 
         List<T> page;
-        List<Sorter> sorters = requestParameters.getSort();
+        List<Sorter> sorters = requestParameters.getSorters();
         sorters.add(0, requestParameters.getGroup());
 
         Optional<Comparator<T>> comparator = aggregatedComparator(

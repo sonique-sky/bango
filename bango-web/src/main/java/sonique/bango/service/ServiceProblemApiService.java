@@ -4,7 +4,7 @@ import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.TransferType;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.controller.RequestParameters;
+import sonique.bango.domain.RequestParameters;
 import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
 

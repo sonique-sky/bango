@@ -182,6 +182,11 @@ public class BangoApplicationContext {
     }
 
     @Bean
+    public ApplicationConfigurationApiService configurationApiService() {
+        return new StubApplicationConfigurationApiService(null);
+    }
+
+    @Bean
     public ManualTroubleReportRaiser troubleReportRaiser() {
         return new ManualTroubleReportRaiser(
                 serviceProblemRepository,

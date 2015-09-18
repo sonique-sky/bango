@@ -13,7 +13,7 @@ import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
-import sonique.bango.controller.RequestParameters;
+import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.filter.Filter;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.QueueId;
@@ -150,7 +150,7 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     }
 
     private SearchParametersDTO searchFor(RequestParameters params) {
-        Filter filter = params.getFilter().get(0);
+        Filter filter = params.getFilters().get(0);
         return SearchParametersDTO.withSearchProperties(filter.property(), filter.value(), params.getLimit(), params.getStart());
     }
 }

@@ -1,13 +1,11 @@
 package sonique.bango.controller;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.ResponseData;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
@@ -23,7 +21,7 @@ public class QueueApiController {
     private QueueApiService queueApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public PagedSearchResults<Queue> readQueues(RequestParameters requestParameters) {
+    public PagedSearchResults<Queue> readQueues(@ModelAttribute RequestParameters requestParameters) {
         return queueApiService.readQueues(requestParameters);
     }
 

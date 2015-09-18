@@ -5,7 +5,7 @@ import sky.sns.spm.infrastructure.repository.DomainTeamRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.validation.SpmError;
 import sky.sns.spm.validation.SupermanException;
-import sonique.bango.controller.RequestParameters;
+import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.sorter.Comparators;
 import sonique.bango.domain.sorter.Sorter;
 import sonique.bango.service.TeamApiService;
