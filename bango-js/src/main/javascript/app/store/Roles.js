@@ -8,13 +8,16 @@ Ext.define('Spm.store.Roles', {
 
     model: 'Spm.model.Role',
 
-    sorters: 'description',
+    sorters: {
+        property: 'description',
+        direction: 'DESC'
+    },
 
     data: [
-        {name: 'ROLE_USER', description: 'Team Member', privileges: []},
-        {name: 'ROLE_TEAM_LEAD', description: 'Team Leader', privileges: []},
-        {name: 'ROLE_QUEUE_CONTROLLER', description: 'Queue Controller', privileges: []},
-        {name: 'ROLE_MSP_ADMINISTRATOR', description: 'Msp Administrator', privileges: []}
+        {name: 'ROLE_USER', rank: 1, description: 'Team Member', privileges: [], mayBeTeamMember: true},
+        {name: 'ROLE_TEAM_LEAD', rank: 2, description: 'Team Leader', privileges: [], mayBeTeamMember: true},
+        {name: 'ROLE_QUEUE_CONTROLLER', rank: 3, description: 'Queue Controller', privileges: [], mayBeTeamMember: false},
+        {name: 'ROLE_MSP_ADMINISTRATOR', rank: 4, description: 'Msp Administrator', privileges: [], mayBeTeamMember: true}
     ]
 
 });

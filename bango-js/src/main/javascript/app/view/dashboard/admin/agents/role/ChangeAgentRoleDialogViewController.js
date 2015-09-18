@@ -31,7 +31,7 @@ Ext.define('Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialogViewContro
 
     onRoleSelected: function (combo, record) {
         var teamComboBox = this.lookupReference('teamComboBox');
-        if (record.get('name') === 'ROLE_QUEUE_CONTROLLER') {
+        if (!record.mayBeTeamMember()) {
             teamComboBox.clearValue();
             teamComboBox.disable();
         } else {

@@ -14,6 +14,7 @@ public class RoleSerializer extends JsonSerializer<Role> {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeStringField("name", role.name());
         jsonGenerator.writeStringField("description", role.toString());
+        jsonGenerator.writeBooleanField("mayBeTeamMember", role.mayBeTeamMember());
 
         jsonGenerator.writeArrayFieldStart("privileges");
 
