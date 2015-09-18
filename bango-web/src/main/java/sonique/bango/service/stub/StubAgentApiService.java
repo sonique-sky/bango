@@ -13,11 +13,11 @@ import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
+import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
 import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.filter.Filter;
 import sonique.bango.domain.filter.Filters;
 import sonique.bango.domain.sorter.Comparators;
-import sonique.bango.domain.sorter.Sorter;
 import sonique.bango.service.AgentApiService;
 import sonique.bango.util.PagedSearchResultsCreator;
 import spm.domain.QueueId;
@@ -190,8 +190,8 @@ public class StubAgentApiService implements AgentApiService {
         }
 
         @Override
-        protected Comparator<DomainAgent> getComparator(Sorter sorter) {
-            return comparators.get(sorter.getProperty());
+        protected Comparator<DomainAgent> getComparator(SortDescriptor sorter) {
+            return comparators.get(sorter.getSortProperty());
         }
 
     }

@@ -7,11 +7,11 @@ import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
+import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
 import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
 import sonique.bango.domain.sorter.Comparators;
-import sonique.bango.domain.sorter.Sorter;
 import sonique.bango.service.QueueApiService;
 import spm.domain.ServiceProblemId;
 
@@ -103,8 +103,8 @@ public class StubQueueApiService implements QueueApiService {
         }
 
         @Override
-        protected Comparator<Queue> getComparator(Sorter sorter) {
-            return comparators.get(sorter.getProperty());
+        protected Comparator<Queue> getComparator(SortDescriptor sorter) {
+            return comparators.get(sorter.getSortProperty());
         }
     }
 }

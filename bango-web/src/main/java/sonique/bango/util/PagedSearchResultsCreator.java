@@ -1,9 +1,9 @@
 package sonique.bango.util;
 
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
 import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.sorter.Comparators;
-import sonique.bango.domain.sorter.Sorter;
 
 import java.util.Comparator;
 import java.util.List;
@@ -23,12 +23,12 @@ public class PagedSearchResultsCreator {
             Optional<Predicate<T>> filter) {
 
         List<T> page;
-        List<Sorter> sorters = requestParameters.getSorters();
+        List<SortDescriptor> sorters = requestParameters.getSorters();
         sorters.add(0, requestParameters.getGroup());
 
         Optional<Comparator<T>> comparator = aggregatedComparator(
                 sorters.stream()
-                        .filter(sorter -> sorter != null && !isEmpty(sorter.getProperty()) && !sorter.getProperty().equals("null"))
+                        .filter(sorter -> sorter != null && !isEmpty(sorter.getSortProperty()) && !sorter.getSortProperty().equals("null"))
                         .map(comparators::comparatorFor)
                         .collect(toList())
         );
