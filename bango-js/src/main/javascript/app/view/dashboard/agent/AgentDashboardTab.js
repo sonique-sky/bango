@@ -8,7 +8,7 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardTab', {
         'Spm.view.dashboard.agent.AgentDashboardViewModel'
     ],
 
-    viewModel: 'agentDashboard',
+    viewModel: {type: 'agentDashboard'},
     controller: 'agentDashboard',
 
     listeners: {

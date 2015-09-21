@@ -3,14 +3,12 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
 
     requires: [
         'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewModel',
-		'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewController'
+        'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewController'
     ],
 
     xtype: 'assignmentMapping',
 
-    viewModel: {
-        type: 'assignmentMapping'
-    },
+    viewModel: {type: 'assignmentMapping'},
 
     controller: 'assignmentMapping',
 

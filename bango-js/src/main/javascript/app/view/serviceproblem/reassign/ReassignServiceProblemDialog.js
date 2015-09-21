@@ -2,7 +2,7 @@ Ext.define('Spm.view.serviceproblem.reassign.ReassignServiceProblemDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.reassignServiceProblemDialog',
 
-    viewModel: 'reassignServiceProblemDialog',
+    viewModel: {type: 'reassignServiceProblemDialog'},
     controller: 'reassignServiceProblemDialog',
 
     title: 'Reassign Service Problem',

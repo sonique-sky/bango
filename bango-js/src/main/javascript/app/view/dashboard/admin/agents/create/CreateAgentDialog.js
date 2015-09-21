@@ -7,7 +7,7 @@ Ext.define('Spm.view.dashboard.admin.agents.create.CreateAgentDialog', {
         'Spm.view.dashboard.admin.agents.create.CreateAgentDialogViewModel'
     ],
 
-    viewModel: 'createAgentDialog',
+    viewModel: {type: 'createAgentDialog'},
     controller: 'createAgentDialog',
 
     title: 'Create Agent',

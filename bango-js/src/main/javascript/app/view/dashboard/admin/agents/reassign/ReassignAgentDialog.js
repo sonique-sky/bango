@@ -6,7 +6,7 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialog', {
         'Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewModel'
     ],
 
-    viewModel: 'reassignAgentDialog',
+    viewModel: {type: 'reassignAgentDialog'},
     controller: 'reassignAgentDialog',
 
     bind: {

@@ -8,7 +8,7 @@ Ext.define('Spm.view.navigation.queues.MyQueues', {
     ],
 
     controller: 'myQueues',
-    viewModel: 'myQueues',
+    viewModel: {type: 'myQueues'},
 
     listeners: {
         added: 'loadQueues'

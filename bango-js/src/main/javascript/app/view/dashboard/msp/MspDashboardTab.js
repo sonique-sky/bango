@@ -9,7 +9,7 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
     ],
 
     controller: 'mspDashboard',
-    viewModel: 'mspDashboard',
+    viewModel: {type: 'mspDashboard'},
 
     listeners: {
         activate: 'loadStore'

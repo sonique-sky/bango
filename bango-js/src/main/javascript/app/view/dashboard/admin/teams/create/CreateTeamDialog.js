@@ -8,7 +8,7 @@ Ext.define('Spm.view.dashboard.admin.teams.create.CreateTeamDialog', {
     ],
 
     controller: 'createTeamDialog',
-    viewModel: 'createTeamDialog',
+    viewModel: {type: 'createTeamDialog'},
     title: 'Create Team',
 
     height: 110,

@@ -11,7 +11,7 @@ Ext.define('Spm.view.login.LoginDialog', {
     width: 372,
 
     controller: 'loginDialog',
-    viewModel: 'loginDialog',
+    viewModel: {type: 'loginDialog'},
 
     closable: false,
     draggable: false,

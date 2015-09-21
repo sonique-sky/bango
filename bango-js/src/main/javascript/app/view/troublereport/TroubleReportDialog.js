@@ -4,7 +4,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
 
     cls: 'trouble-report-panel',
     controller: 'troubleReportDialog',
-    viewModel: 'troubleReportDialog',
+    viewModel: {type: 'troubleReportDialog'},
 
     bind: {
         title: '{titleForMode}',

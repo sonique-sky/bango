@@ -8,7 +8,7 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTab', {
         'Spm.view.dashboard.admin.teams.TeamAdminTabViewModel'
     ],
 
-    viewModel: 'teamAdminTab',
+    viewModel: {type:'teamAdminTab'},
     controller: 'teamAdminTab',
 
     listeners: {

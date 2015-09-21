@@ -8,7 +8,7 @@ Ext.define('Spm.view.navigation.state.AgentState', {
     ],
 
     controller: 'agentState',
-    viewModel: 'agentState',
+    viewModel: {type: 'agentState'},
     reference: 'agentState',
 
     cls: 'status-panel',

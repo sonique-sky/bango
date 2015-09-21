@@ -7,7 +7,7 @@ Ext.define('Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDi
         'Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDialogViewModel'
     ],
 
-    controller: 'createOrUpdateQueueDialog',
+    controller: {type: 'createOrUpdateQueueDialog'},
     viewModel: {type: 'createOrUpdateQueueDialog'},
 
     height: 215,

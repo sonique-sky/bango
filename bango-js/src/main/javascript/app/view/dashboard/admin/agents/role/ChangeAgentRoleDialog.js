@@ -7,7 +7,7 @@ Ext.define('Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialog', {
         'Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialogViewModel'
     ],
 
-    viewModel: 'changeAgentRoleDialog',
+    viewModel: {type: 'changeAgentRoleDialog'},
     controller: 'changeAgentRoleDialog',
 
     bind: {

@@ -7,7 +7,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTab',
         'Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabViewModel'
     ],
 
-    viewModel: 'problemCategoryAdminTab',
+    viewModel: {type: 'problemCategoryAdminTab'},
     controller: 'problemCategoryAdminTab',
 
     listeners: {
