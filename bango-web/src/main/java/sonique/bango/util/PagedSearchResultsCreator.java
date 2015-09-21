@@ -1,13 +1,16 @@
 package sonique.bango.util;
 
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sky.sns.spm.web.spmapp.shared.dto.Filter;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
+import sonique.bango.domain.filter.Filters;
 import sonique.bango.domain.sorter.Comparators;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
@@ -19,12 +22,21 @@ public class PagedSearchResultsCreator {
     public static <T> PagedSearchResults<T> createPageFor(
             SearchParametersDTO searchParameters,
             List<T> list,
+            Comparators<T> comparators) {
+        return createPageFor(searchParameters, list, comparators, filter -> (t) -> false);
+    }
+
+    public static <T> PagedSearchResults<T> createPageFor(
+            SearchParametersDTO searchParameters,
+            List<T> list,
             Comparators<T> comparators,
-            Optional<Predicate<T>> filter) {
+            Function<Filter, Predicate<T>> filterFunction) {
 
         List<T> page;
         List<SortDescriptor> sorters = searchParameters.sorters();
         sorters.add(0, searchParameters.group());
+
+        Optional<Predicate<T>> filter = Filters.andFilter(searchParameters.filters(), filterFunction::apply);
 
         Optional<Comparator<T>> comparator = aggregatedComparator(
                 sorters.stream()

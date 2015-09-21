@@ -14,7 +14,6 @@ import spm.domain.TeamId;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import static sonique.bango.util.PagedSearchResultsCreator.createPageFor;
 
@@ -29,7 +28,7 @@ public class StubTeamApiService implements TeamApiService {
 
     @Override
     public PagedSearchResults<DomainTeam> readTeams(SearchParametersDTO searchParameters) {
-        return createPageFor(searchParameters, domainTeamRepository.getTeams(), teamComparatorProviderProvider, Optional.empty());
+        return createPageFor(searchParameters, domainTeamRepository.getTeams(), teamComparatorProviderProvider);
     }
 
     @Override

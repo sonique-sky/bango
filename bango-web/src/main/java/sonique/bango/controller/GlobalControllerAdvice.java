@@ -7,8 +7,9 @@ import sky.sns.spm.validation.SupermanException;
 import sky.sns.spm.web.spmapp.shared.dto.Filter;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
+import sky.sns.spm.web.spmapp.shared.dto.SortDirection;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @ControllerAdvice
@@ -31,9 +32,9 @@ public class GlobalControllerAdvice {
         return new SearchParametersDTO(
                 start == null ? 0 : start,
                 limit == null ? Integer.MAX_VALUE : limit,
-                sorters == null ? Collections.<SortDescriptor>emptyList() : sorters,
-                filters == null ? Collections.<Filter>emptyList() : filters,
-                group
+                sorters == null ? new ArrayList<>() : sorters,
+                filters == null ? new ArrayList<>() : filters,
+                group == null ? new SortDescriptor("", SortDirection.NoSorting) : group
         );
     }
 }

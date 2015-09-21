@@ -14,7 +14,10 @@ import sonique.bango.domain.sorter.Comparators;
 import sonique.bango.service.QueueApiService;
 import spm.domain.ServiceProblemId;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.common.collect.Collections2.transform;
 import static sonique.bango.util.PagedSearchResultsCreator.createPageFor;
@@ -38,19 +41,7 @@ public class StubQueueApiService implements QueueApiService {
 
     @Override
     public PagedSearchResults<Queue> readQueues(SearchParametersDTO searchParameters) {
-        return createPageFor(searchParameters, queueRepository.getAllQueues(), queueComparatorProviderProvider, Optional.empty());
-    }
-
-    @Override
-    public PagedSearchResults<DomainServiceProblem> bulkTransfer(BulkTransferRequest request) {
-        Collection<ServiceProblemId> serviceProblemIds = transformServiceProblemIds(request.serviceProblemIds());
-
-        Queue destinationQueue = queueRepository.findQueueBy(request.destinationQueueId());
-        for (ServiceProblemId serviceProblemId : serviceProblemIds) {
-            DomainServiceProblem serviceProblem = serviceProblemRepository.findByServiceProblemId(serviceProblemId);
-            serviceProblem.transfer(destinationQueue);
-        }
-        return serviceProblemRepository.searchForServiceProblems(SearchParametersDTO.withSearchProperties("queueId", request.originalQueueId().asLong(), 20, 0));
+        return createPageFor(searchParameters, queueRepository.getAllQueues(), queueComparatorProviderProvider);
     }
 
     @Override
@@ -73,15 +64,24 @@ public class StubQueueApiService implements QueueApiService {
     }
 
     @Override
-    public PagedSearchResults<DomainServiceProblem> bulkClear(BulkClearRequest request) {
+    public void bulkTransfer(BulkTransferRequest request) {
+        Collection<ServiceProblemId> serviceProblemIds = transformServiceProblemIds(request.serviceProblemIds());
+
+        Queue destinationQueue = queueRepository.findQueueBy(request.destinationQueueId());
+        for (ServiceProblemId serviceProblemId : serviceProblemIds) {
+            DomainServiceProblem serviceProblem = serviceProblemRepository.findByServiceProblemId(serviceProblemId);
+            serviceProblem.transfer(destinationQueue);
+        }
+    }
+
+    @Override
+    public void bulkClear(BulkClearRequest request) {
         Collection<ServiceProblemId> serviceProblemIds = transformServiceProblemIds(request.serviceProblemIds());
 
         for (ServiceProblemId serviceProblemId : serviceProblemIds) {
             DomainServiceProblem serviceProblem = serviceProblemRepository.findByServiceProblemId(serviceProblemId);
             serviceProblem.bulkClear(someServiceProblemResolution(), authorisedActorProvider.authorisedActor());
         }
-
-        return serviceProblemRepository.searchForServiceProblems(SearchParametersDTO.withSearchProperties("queueId", request.originalQueueId().asLong(), 20, 0));
     }
 
     private Collection<ServiceProblemId> transformServiceProblemIds(Collection<Long> serviceProblemIds) {

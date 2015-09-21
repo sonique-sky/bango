@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sonique.bango.app.ScenarioDriver;
-import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;
 import sonique.bango.springconfig.BangoApplicationContext;
 import sonique.bango.store.AgentStore;
@@ -18,15 +17,6 @@ import static net.sf.cglib.proxy.Proxy.newProxyInstance;
 
 @Configuration
 public class TestContext extends BangoApplicationContext {
-
-    @Override
-    public SearchApiService searchApiService() {
-        return (SearchApiService) newProxyInstance(
-                getClass().getClassLoader(),
-                new Class[]{SearchApiService.class},
-                new ServiceByAgentInvocationHandler<>(springSecurityAuthorisedActorProvider(), scenarioDriver().searchApiServices())
-        );
-    }
 
     @Override
     public ServiceProblemApiService serviceProblemApiService() {

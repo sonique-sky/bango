@@ -15,18 +15,18 @@ import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sky.sns.spm.web.spmapp.shared.dto.Filter;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
-import sonique.bango.domain.filter.Filters;
 import sonique.bango.domain.sorter.Comparators;
 import sonique.bango.service.AgentApiService;
-import sonique.bango.util.PagedSearchResultsCreator;
 import spm.domain.QueueId;
 import spm.domain.TeamId;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 import static sonique.bango.domain.sorter.NestedFieldComparator.nestedFieldComparator;
+import static sonique.bango.util.PagedSearchResultsCreator.createPageFor;
 
 public class StubAgentApiService implements AgentApiService {
 
@@ -34,9 +34,9 @@ public class StubAgentApiService implements AgentApiService {
     private final DomainServiceProblemRepository serviceProblemRepository;
     private final DomainAgentRepository agentRepository;
     private final DomainTeamRepository teamRepository;
-    private final QueueRepository queueRepository;
 
     private AgentComparators agentComparators = new AgentComparators();
+    private final AgentFilterSupplier agentFilterFunction;
 
     public StubAgentApiService(
             SpringSecurityAuthorisedActorProvider authorisedActorProvider,
@@ -48,7 +48,7 @@ public class StubAgentApiService implements AgentApiService {
         this.serviceProblemRepository = serviceProblemRepository;
         this.agentRepository = agentRepository;
         this.teamRepository = teamRepository;
-        this.queueRepository = queueRepository;
+        this.agentFilterFunction = new AgentFilterSupplier(queueRepository, agentRepository);
     }
 
     @Override
@@ -82,11 +82,12 @@ public class StubAgentApiService implements AgentApiService {
 
     @Override
     public PagedSearchResults<DomainAgent> allAgents(SearchParametersDTO searchParameters) {
-        AgentFilterSupplier agentFilterSupplier = new AgentFilterSupplier(queueRepository, agentRepository);
-        Optional<Predicate<DomainAgent>> assignableAgentsFilter = Filters.andFilter(searchParameters.filters(), agentFilterSupplier::filterFor);
-        List<DomainAgent> allAgents = agentRepository.getAllAgents();
-
-        return PagedSearchResultsCreator.createPageFor(searchParameters, allAgents, agentComparators, assignableAgentsFilter);
+        return createPageFor(
+                searchParameters,
+                agentRepository.getAllAgents(),
+                agentComparators,
+                agentFilterFunction
+        );
     }
 
     @Override
@@ -141,16 +142,17 @@ public class StubAgentApiService implements AgentApiService {
         return new AgentStateDTO(authenticatedAgent().availability(), "", serviceProblemsForAgent.size() - heldCount, heldCount, pullCount, pushCount);
     }
 
-    private static class AgentFilterSupplier {
+    private static class AgentFilterSupplier implements Function<Filter, Predicate<DomainAgent>> {
         private final QueueRepository queueRepository;
         private final DomainAgentRepository agentRepository;
 
-        private AgentFilterSupplier(final QueueRepository queueRepository, final DomainAgentRepository agentRepository) {
+        private AgentFilterSupplier(QueueRepository queueRepository, DomainAgentRepository agentRepository) {
             this.queueRepository = queueRepository;
             this.agentRepository = agentRepository;
         }
 
-        private Predicate<DomainAgent> filterFor(Filter term) {
+        @Override
+        public Predicate<DomainAgent> apply(Filter term) {
             switch (term.property()) {
                 case "watchingQueue":
                     return isWatchingQueue(queueRepository.findQueueBy(new QueueId(term.value())));

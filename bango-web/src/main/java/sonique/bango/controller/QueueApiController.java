@@ -3,7 +3,6 @@ package sonique.bango.controller;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.refdata.Queue;
-import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.domain.ResponseData;
@@ -41,12 +40,12 @@ public class QueueApiController {
     }
 
     @RequestMapping(value = "/bulkTransfer", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PagedSearchResults<DomainServiceProblem> bulkTransfer(@RequestBody BulkTransferRequest request) {
-        return queueApiService.bulkTransfer(request);
+    public void bulkTransfer(@RequestBody BulkTransferRequest request) {
+        queueApiService.bulkTransfer(request);
     }
 
     @RequestMapping(value = "/bulkClear", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PagedSearchResults<DomainServiceProblem> bulkClear(@RequestBody BulkClearRequest request) {
-        return queueApiService.bulkClear(request);
+    public void bulkClear(@RequestBody BulkClearRequest request) {
+        queueApiService.bulkClear(request);
     }
 }
