@@ -7,6 +7,7 @@ Ext.define('Spm.store.Agents', {
     ],
 
     model: 'Spm.model.Agent',
+    remoteSort: true,
     remoteFilter: true,
 
     sorters: 'code',

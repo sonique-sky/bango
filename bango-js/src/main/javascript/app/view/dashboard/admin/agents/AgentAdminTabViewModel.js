@@ -5,10 +5,10 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewModel', {
     stores: {
         agents: {
             type: 'agents',
-            remoteSort: true,
             listeners: {
                 load: 'selectFirstAgentStoreRow'
             },
+            filterOnLoad: false,
             grouper: {
                 property: 'teamName',
                 groupFn: function (item) {

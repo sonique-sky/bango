@@ -9,6 +9,8 @@ Ext.define('Spm.store.Teams', {
     model: 'Spm.model.Team',
 
     sorters: 'name',
+    remoteSort: true,
+    remoteFilter: true,
 
     proxy: {
         type: 'rest',

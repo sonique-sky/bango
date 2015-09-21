@@ -10,7 +10,7 @@ Ext.define('Spm.view.dashboard.admin.agents.reassign.ReassignAgentDialogViewMode
     stores: {
         teams: {
             type: 'teams',
-            remoteSort: true,
+            remoteFilter: false,
             pageSize: 0,
             listeners: {
                 load: 'onTeamStoreLoaded'
