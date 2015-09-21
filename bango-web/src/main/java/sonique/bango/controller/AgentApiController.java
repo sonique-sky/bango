@@ -3,7 +3,6 @@ package sonique.bango.controller;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.DomainAgent;
-import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
@@ -23,7 +22,7 @@ public class AgentApiController {
 
     @RequestMapping(method = {RequestMethod.GET})
     public PagedSearchResults<DomainAgent> allAgents(@ModelAttribute SearchParametersDTO searchParameters) {
-        return agentApiService.allAgents(searchParameters);
+        return agentApiService.readAgents(searchParameters);
     }
 
     @RequestMapping(method = {RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -63,10 +62,4 @@ public class AgentApiController {
     public AgentStateDTO agentState() {
         return agentApiService.agentState();
     }
-
-    @RequestMapping(method = {RequestMethod.GET}, value = "/myItems")
-    public PagedSearchResults<DomainServiceProblem> myItems(@RequestParam Integer start, @RequestParam Integer limit) {
-        return agentApiService.myItems(SearchParametersDTO.withNoSearchProperties(limit, start));
-    }
-
 }

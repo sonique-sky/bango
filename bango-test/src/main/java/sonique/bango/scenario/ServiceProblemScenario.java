@@ -8,7 +8,6 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblemBuilder;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sonique.bango.app.ScenarioDriver;
-import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.QueueName;
 import spm.domain.ServiceProblemId;
@@ -72,12 +71,6 @@ public class ServiceProblemScenario extends SupermanScenario {
     @Override
     public void bindScenario() {
         PagedSearchResults<DomainServiceProblem> serviceProblems = new PagedSearchResults<>(newArrayList(serviceProblem), 1L);
-
-        SearchApiService searchApiService = services.searchApiService();
-
-        when(searchApiService.serviceProblemById(serviceProblem.serviceProblemId())).thenReturn(serviceProblems);
-        when(searchApiService.serviceProblemByDirectoryNumber(serviceProblem.getDirectoryNumber())).thenReturn(serviceProblems);
-        when(searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId(), 0, 20)).thenReturn(serviceProblems);
 
         ServiceProblemApiService serviceProblemApiService = services.serviceProblemApiService();
         when(serviceProblemApiService.serviceProblemWithId(serviceProblem.serviceProblemId())).thenReturn(serviceProblem);

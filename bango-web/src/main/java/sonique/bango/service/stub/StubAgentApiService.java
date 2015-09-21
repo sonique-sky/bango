@@ -14,18 +14,17 @@ import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sky.sns.spm.web.spmapp.shared.dto.Filter;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
-import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
 import sonique.bango.domain.sorter.Comparators;
 import sonique.bango.service.AgentApiService;
 import spm.domain.QueueId;
 import spm.domain.TeamId;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import static java.util.stream.Collectors.toList;
-import static sonique.bango.domain.sorter.NestedFieldComparator.nestedFieldComparator;
+import static sonique.bango.domain.sorter.NestedFieldComparator.nestedStringFieldComparator;
 import static sonique.bango.util.PagedSearchResultsCreator.createPageFor;
 
 public class StubAgentApiService implements AgentApiService {
@@ -69,19 +68,7 @@ public class StubAgentApiService implements AgentApiService {
     }
 
     @Override
-    public PagedSearchResults<DomainServiceProblem> myItems(SearchParametersDTO searchParameters) {
-        List<DomainServiceProblem> serviceProblemsForAgent = serviceProblemRepository.getServiceProblemsForAgent(authorisedActorProvider.getLoggedInAgent());
-
-        List<DomainServiceProblem> pageOfServiceProblems = serviceProblemsForAgent.stream()
-                .skip(searchParameters.getStart())
-                .limit(searchParameters.getLimit())
-                .collect(toList());
-
-        return new PagedSearchResults<>(pageOfServiceProblems, (long) serviceProblemsForAgent.size());
-    }
-
-    @Override
-    public PagedSearchResults<DomainAgent> allAgents(SearchParametersDTO searchParameters) {
+    public PagedSearchResults<DomainAgent> readAgents(SearchParametersDTO searchParameters) {
         return createPageFor(
                 searchParameters,
                 agentRepository.getAllAgents(),
@@ -116,7 +103,7 @@ public class StubAgentApiService implements AgentApiService {
 
     @Override
     public AgentStateDTO agentState() {
-        return statisticsFor(myItems(SearchParametersDTO.withNoSearchProperties(Integer.MAX_VALUE, 0)).getData());
+        return statisticsFor(serviceProblemRepository.getServiceProblemsForAgent(authorisedActorProvider.getLoggedInAgent()));
     }
 
     private AgentStateDTO statisticsFor(List<DomainServiceProblem> serviceProblemsForAgent) {
@@ -179,22 +166,14 @@ public class StubAgentApiService implements AgentApiService {
     }
 
     private static class AgentComparators extends Comparators<DomainAgent> {
-        private Map<String, Comparator<DomainAgent>> comparators = new HashMap<>();
-
         public AgentComparators() {
-            comparators.put("code", (o1, o2) -> o1.getAgentCode().compareTo(o2.getAgentCode()));
-            comparators.put("agentAvailability", (o1, o2) -> o1.availability().compareTo(o2.availability()));
-            comparators.put("authorisedUid", (o1, o2) -> o1.getAuthorisedUid().compareTo(o2.getAuthorisedUid()));
-            comparators.put("displayName", (o1, o2) -> nestedFieldComparator((DomainAgent agent) -> agent.details().getDisplayName()).compare(o1, o2));
-            comparators.put("teamName", (o1, o2) -> nestedFieldComparator((DomainAgent agent) -> agent.team().name().asString()).compare(o1, o2));
-            comparators.put("role", (o1, o2) -> nestedFieldComparator((DomainAgent agent) -> agent.getRole().name()).compare(o1, o2));
+            add("code", (o1, o2) -> o1.getAgentCode().compareTo(o2.getAgentCode()));
+            add("agentAvailability", (o1, o2) -> o1.availability().compareTo(o2.availability()));
+            add("authorisedUid", (o1, o2) -> o1.getAuthorisedUid().compareTo(o2.getAuthorisedUid()));
+            add("displayName", (o1, o2) -> nestedStringFieldComparator((DomainAgent agent) -> agent.details().getDisplayName()).compare(o1, o2));
+            add("teamName", (o1, o2) -> nestedStringFieldComparator((DomainAgent agent) -> agent.team().name().asString()).compare(o1, o2));
+            add("role", (o1, o2) -> nestedStringFieldComparator((DomainAgent agent) -> agent.getRole().name()).compare(o1, o2));
         }
-
-        @Override
-        protected Comparator<DomainAgent> getComparator(SortDescriptor sorter) {
-            return comparators.get(sorter.getSortProperty());
-        }
-
     }
 
 }

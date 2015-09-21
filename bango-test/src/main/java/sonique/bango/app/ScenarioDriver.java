@@ -1,7 +1,6 @@
 package sonique.bango.app;
 
 import sky.sns.spm.domain.model.DomainAgent;
-import sonique.bango.service.SearchApiService;
 import sonique.bango.service.ServiceProblemApiService;
 import sonique.bango.store.AgentStore;
 
@@ -27,10 +26,6 @@ public class ScenarioDriver {
     public void deRegisterAgent(DomainAgent agent) {
         agentStore.deleteAgent(agent);
         agentServices.remove(agent);
-    }
-
-    public Map<DomainAgent, SearchApiService> searchApiServices() {
-        return transformEntries(agentServices, (domainAgent, serviceWrapper) -> serviceWrapper.searchApiService());
     }
 
     public Map<DomainAgent, ServiceProblemApiService> serviceProblemApiServices() {

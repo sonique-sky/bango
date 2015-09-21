@@ -14,6 +14,8 @@ import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.Filter;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
+import sonique.bango.domain.sorter.Comparators;
+import sonique.bango.util.PagedSearchResultsCreator;
 import spm.domain.*;
 import spm.domain.model.refdata.DomainAgentBuilder;
 import spm.messages.bt.types.DirectoryNumber;
@@ -25,9 +27,10 @@ import java.util.function.Predicate;
 
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.newArrayList;
-import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 import static sky.sns.spm.domain.model.serviceproblem.EventDescription.Note;
+import static sonique.bango.domain.sorter.NestedFieldComparator.nestedDateFieldComparator;
+import static sonique.bango.domain.sorter.NestedFieldComparator.nestedStringFieldComparator;
 import static sonique.datafixtures.DateTimeDataFixtures.someDateTimeInTheLastYear;
 import static sonique.datafixtures.DateTimeDataFixtures.someInstantInTheLast24Hours;
 import static sonique.datafixtures.PrimitiveDataFixtures.*;
@@ -48,10 +51,10 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
             for (int i = 0; i < 40; i++, serviceProblemId++) {
                 DomainWorkItem workItem = null;
                 if (serviceProblemId % 2 == 0) {
-                    workItem = DomainWorkItemBuilder.withAllDefaults().withCreatedDate(new Date()).build();
+                    workItem = DomainWorkItemBuilder.withAllDefaults().withAction(someWorkItemAction()).withCreatedDate(Date.from(someInstantInTheLast24Hours())).build();
                 } else if (serviceProblemId % 3 == 0) {
                     DomainAgent agent = new DomainAgentBuilder().build();
-                    workItem = DomainWorkItemBuilder.anAssignedPushWorkItem().withAgent(agent).withCreatedDate(new Date()).build();
+                    workItem = DomainWorkItemBuilder.anAssignedPushWorkItem().withAgent(agent).withCreatedDate(Date.from(someInstantInTheLast24Hours())).build();
                 }
                 if (workItem != null) {
                     try {
@@ -167,28 +170,18 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
     @Override
     public PagedSearchResults<DomainServiceProblem> searchForServiceProblems(SearchParametersDTO searchParameters) {
-
-        Predicate<DomainServiceProblem> filterPredicate = searchParameters.filters().stream().map(filter -> SearchProperty.fromString(filter.property()).forSearching(filter)).reduce(Predicate::and).get();
-        List<DomainServiceProblem> filteredServiceProblems = serviceProblems.stream()
-                .filter(filterPredicate)
-                .collect(toList());
-
-        List<DomainServiceProblem> pageOfServiceProblems = filteredServiceProblems.stream()
-                .skip(searchParameters.getStart())
-                .limit(searchParameters.getLimit())
-                .collect(toList());
-
-        return new PagedSearchResults<>(pageOfServiceProblems, (long) filteredServiceProblems.size());
+        return PagedSearchResultsCreator.createPageFor(searchParameters, serviceProblems, new ServiceProblemComparators(), SearchProperty.filterPredicate());
     }
 
 
-    private enum SearchProperty {
+    private enum SearchProperty implements Function<Filter, Predicate<DomainServiceProblem>> {
         serviceProblemId(searchParameters -> serviceProblem -> serviceProblem.serviceProblemId().asString().equals(searchParameters.value())),
         serviceId(searchParameters -> serviceProblem -> serviceProblem.serviceId().asString().equals(searchParameters.value())),
         directoryNumber(searchParameters -> serviceProblem -> serviceProblem.getDirectoryNumber().asString().equals(searchParameters.value())),
         mspId(searchParameters -> serviceProblem -> false),
         queueId(searchParameters -> serviceProblem -> serviceProblem.getQueue().id().asString().equals(searchParameters.value()) && serviceProblem.getStatus() == ServiceProblemStatus.Open),
-        status(searchParameters -> serviceProblem -> serviceProblem.getStatus() == ServiceProblemStatus.valueOf(searchParameters.value()));
+        status(searchParameters -> serviceProblem -> serviceProblem.getStatus() == ServiceProblemStatus.valueOf(searchParameters.value())),
+        agent(searchParameters -> serviceProblem -> serviceProblem.isAssigned() && serviceProblem.workItem().agent().getAgentCode().equals(searchParameters.value()));
 
         private final Function<Filter, Predicate<DomainServiceProblem>> toPredicate;
 
@@ -196,8 +189,13 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
             this.toPredicate = toPredicate;
         }
 
-        Predicate<DomainServiceProblem> forSearching(Filter filter) {
+        @Override
+        public Predicate<DomainServiceProblem> apply(Filter filter) {
             return toPredicate.apply(filter);
+        }
+
+        public static Function<Filter, Predicate<DomainServiceProblem>> filterPredicate() {
+            return filter -> SearchProperty.fromString(filter.property()).apply(filter);
         }
 
         public static SearchProperty fromString(String searchPropertyAsString) {
@@ -206,6 +204,21 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                     return searchProperty;
             }
             throw new IllegalArgumentException(String.format("No SearchProperty for %s", searchPropertyAsString));
+        }
+    }
+
+    private class ServiceProblemComparators extends Comparators<DomainServiceProblem> {
+        public ServiceProblemComparators() {
+            add("serviceProblemId", (o1,o2) -> o1.serviceProblemId().compareTo(o2.serviceProblemId()));
+            add("openedDate", (o1, o2) -> o1.openedDate().compareTo(o2.openedDate()));
+            add("status", (o1,o2) -> o1.getStatus().compareTo(o2.getStatus()));
+            add("queue", nestedStringFieldComparator((DomainServiceProblem sp) -> sp.queue().name().asString()));
+            add("problem", nestedStringFieldComparator((DomainServiceProblem sp) -> sp.problem().description()));
+            add("workItem.agent", nestedStringFieldComparator((DomainServiceProblem sp) -> sp.workItem().agent().details().getDisplayName()));
+            add("workItem.action", nestedStringFieldComparator((DomainServiceProblem sp) -> sp.workItem().action().getDescription()));
+            add("workItem.status", nestedStringFieldComparator((DomainServiceProblem sp) -> sp.workItem().status().name()));
+            add("workItem.type", nestedStringFieldComparator((DomainServiceProblem sp) -> sp.workItem().assignmentType().description()));
+            add("workItem.createdDate", nestedDateFieldComparator((DomainServiceProblem sp) -> sp.workItem().createdDate()));
         }
     }
 

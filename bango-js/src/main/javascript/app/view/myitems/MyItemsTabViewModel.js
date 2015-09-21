@@ -8,19 +8,8 @@ Ext.define('Spm.view.myitems.MyItemsTabViewModel', {
 
     stores: {
         myItems: {
-            filterOnLoad: false,
-            model: 'Spm.model.ServiceProblem',
-            sortOnLoad: false,
-            groupField: 'status',
-
-            proxy: {
-                type: 'ajax',
-                url: 'api/agent/myItems',
-                reader: {
-                    type: 'json',
-                    rootProperty: 'data'
-                }
-            }
+            type: 'serviceProblems',
+            groupField: 'status'
         }
     }
 });

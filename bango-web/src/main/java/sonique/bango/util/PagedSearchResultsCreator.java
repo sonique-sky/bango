@@ -4,7 +4,6 @@ import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.Filter;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
-import sonique.bango.domain.filter.Filters;
 import sonique.bango.domain.sorter.Comparators;
 
 import java.util.Comparator;
@@ -15,6 +14,7 @@ import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static sonique.bango.domain.filter.Filters.andFilter;
 import static sonique.bango.domain.sorter.Comparators.aggregatedComparator;
 
 public class PagedSearchResultsCreator {
@@ -32,11 +32,13 @@ public class PagedSearchResultsCreator {
             Comparators<T> comparators,
             Function<Filter, Predicate<T>> filterFunction) {
 
-        List<T> page;
         List<SortDescriptor> sorters = searchParameters.sorters();
         sorters.add(0, searchParameters.group());
 
-        Optional<Predicate<T>> filter = Filters.andFilter(searchParameters.filters(), filterFunction::apply);
+        List<T> filteredList = andFilter(searchParameters.filters(), filterFunction::apply)
+                .flatMap(f -> Optional.of(list.stream().filter(f)))
+                .orElseGet(list::stream)
+                .collect(toList());
 
         Optional<Comparator<T>> comparator = aggregatedComparator(
                 sorters.stream()
@@ -45,19 +47,20 @@ public class PagedSearchResultsCreator {
                         .collect(toList())
         );
 
+        List<T> page;
         if (comparator.isPresent()) {
-            page = filter.flatMap(f -> Optional.of(list.stream().filter(f))).orElseGet(list::stream)
+            page = filteredList.stream()
                     .sorted(comparator.get())
                     .skip(searchParameters.getStart())
                     .limit(searchParameters.getLimit())
                     .collect(toList());
         } else {
-            page = filter.flatMap(f -> Optional.of(list.stream().filter(f))).orElseGet(list::stream)
+            page = filteredList.stream()
                     .skip(searchParameters.getStart())
                     .limit(searchParameters.getLimit())
                     .collect(toList());
         }
 
-        return new PagedSearchResults<>(page, (long) list.size());
+        return new PagedSearchResults<>(page, (long) filteredList.size());
     }
 }

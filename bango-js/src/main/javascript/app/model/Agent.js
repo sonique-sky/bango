@@ -35,6 +35,10 @@ Ext.define('Spm.model.Agent', {
         }
     ],
 
+    getName: function() {
+        return this.get('displayName');
+    },
+
     agentCode: function () {
         return this.get('code');
     },

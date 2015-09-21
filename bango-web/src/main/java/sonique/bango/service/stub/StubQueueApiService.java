@@ -7,7 +7,6 @@ import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
-import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
 import sonique.bango.domain.sorter.Comparators;
@@ -15,9 +14,6 @@ import sonique.bango.service.QueueApiService;
 import spm.domain.ServiceProblemId;
 
 import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.google.common.collect.Collections2.transform;
 import static sonique.bango.util.PagedSearchResultsCreator.createPageFor;
@@ -89,21 +85,14 @@ public class StubQueueApiService implements QueueApiService {
     }
 
     private static class QueueComparators extends Comparators<Queue> {
-        private Map<String, Comparator<Queue>> comparators = new HashMap<>();
-
         public QueueComparators() {
-            comparators.put("name", (o1, o2) -> o1.getName().compareTo(o2.getName()));
-            comparators.put("pullSla", (o1, o2) -> compareLong(o1.getPullSla(), o2.getPullSla()));
-            comparators.put("manualTransferAllowed", (o1, o2) -> compareBoolean(o1.isManualTransferAllowed(), o2.isManualTransferAllowed()));
-            comparators.put("createServiceProblemAllowed", (o1, o2) -> compareBoolean(o1.isCreateServiceProblemAllowed(), o2.isCreateServiceProblemAllowed()));
-            comparators.put("defaultWorkItemCreated", (o1, o2) -> compareBoolean(o1.isDefaultWorkItemCreated(), o2.isDefaultWorkItemCreated()));
-            comparators.put("createSLAWorkItem", (o1, o2) -> compareBoolean(o1.isCreateSLAWorkItem(), o2.isCreateSLAWorkItem()));
-            comparators.put("domain", (o1, o2) -> o1.getDomain().compareTo(o2.getDomain()));
-        }
-
-        @Override
-        protected Comparator<Queue> getComparator(SortDescriptor sorter) {
-            return comparators.get(sorter.getSortProperty());
+            add("name", (o1, o2) -> o1.getName().compareTo(o2.getName()));
+            add("pullSla", (o1, o2) -> compareLong(o1.getPullSla(), o2.getPullSla()));
+            add("manualTransferAllowed", (o1, o2) -> compareBoolean(o1.isManualTransferAllowed(), o2.isManualTransferAllowed()));
+            add("createServiceProblemAllowed", (o1, o2) -> compareBoolean(o1.isCreateServiceProblemAllowed(), o2.isCreateServiceProblemAllowed()));
+            add("defaultWorkItemCreated", (o1, o2) -> compareBoolean(o1.isDefaultWorkItemCreated(), o2.isDefaultWorkItemCreated()));
+            add("createSLAWorkItem", (o1, o2) -> compareBoolean(o1.isCreateSLAWorkItem(), o2.isCreateSLAWorkItem()));
+            add("domain", (o1, o2) -> o1.getDomain().compareTo(o2.getDomain()));
         }
     }
 }

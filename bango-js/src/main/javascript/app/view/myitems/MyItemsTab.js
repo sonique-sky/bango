@@ -84,18 +84,18 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
                     {text: 'Service Problem Id', dataIndex: 'serviceProblemId', groupable: false},
                     {text: 'Status', dataIndex: 'status', hidden: true, groupable: true},
                     {text: 'Opened Date', xtype: 'datecolumn', dataIndex: 'openedDate', format: 'd/m/y H:i', groupable: false},
-                    {text: 'Queue', xtype: 'templatecolumn', tpl: '{queue.name}'},
-                    {text: 'Problem Description', dataIndex: 'problem', groupable: false}
+                    {text: 'Queue', dataIndex: 'queue', renderer: 'queueNameRenderer', width: 150},
+                    {text: 'Problem Description', dataIndex: 'problem', groupable: false, width: 250}
                 ]
             },
             {
                 text: 'Work Item',
                 columns: [
-                    {text: 'Agent', xtype: 'templatecolumn', tpl: '{workItem.agent.details.displayName}'},
-                    {text: 'Action', xtype: 'templatecolumn', tpl: '{workItem.action.description}'},
-                    {text: 'Created', renderer: 'formattedWorkItemCreatedDate'},
-                    {text: 'Type', xtype: 'templatecolumn', tpl: '{workItem.assignmentType}'},
-                    {text: 'Status', xtype: 'templatecolumn', tpl: '{workItem.status}'}
+                    {text: 'Agent', dataIndex: 'workItem.agent', renderer: 'agentNameRenderer'},
+                    {text: 'Action', dataIndex: 'workItem.action', renderer: 'workItemActionRenderer', width: 250},
+                    {text: 'Created', dataIndex: 'workItem.createdDate', renderer: 'formattedWorkItemCreatedDate'},
+                    {text: 'Type', dataIndex: 'workItem.type', renderer: 'workItemTypeRenderer'},
+                    {text: 'Status', dataIndex: 'workItem.status', renderer: 'workItemStatusRenderer'}
                 ]
             }
         ]

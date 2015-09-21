@@ -6,14 +6,9 @@ import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.validation.SpmError;
 import sky.sns.spm.validation.SupermanException;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
-import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
 import sonique.bango.domain.sorter.Comparators;
 import sonique.bango.service.TeamApiService;
 import spm.domain.TeamId;
-
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 
 import static sonique.bango.util.PagedSearchResultsCreator.createPageFor;
 
@@ -54,16 +49,9 @@ public class StubTeamApiService implements TeamApiService {
     }
 
     private static class TeamComparators extends Comparators<DomainTeam> {
-        private Map<String, Comparator<DomainTeam>> comparators = new HashMap<>();
-
         public TeamComparators() {
-            comparators.put("name", (o1, o2) -> o1.name().compareTo(o2.name()));
-            comparators.put("id", (o1, o2) -> o1.id().compareTo(o2.id()));
-        }
-
-        @Override
-        protected Comparator<DomainTeam> getComparator(SortDescriptor sorter) {
-            return comparators.get(sorter.getSortProperty());
+            add("name", (o1, o2) -> o1.name().compareTo(o2.name()));
+            add("id", (o1, o2) -> o1.id().compareTo(o2.id()));
         }
     }
 }

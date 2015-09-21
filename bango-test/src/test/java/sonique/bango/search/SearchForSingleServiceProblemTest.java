@@ -7,13 +7,14 @@ import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.action.BangoActionUnderTest;
 import sonique.bango.action.ViewServiceProblemAction;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemTab;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.matcher.MockieMatcher;
-import sonique.bango.service.SearchApiService;
+import sonique.bango.service.ServiceProblemApiService;
 import sonique.testsupport.matchers.AppendableAllOf;
 
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
@@ -37,7 +38,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         when(theAgentSearchesForTheServiceProblemUsingDirectoryNumber());
 
         then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
-        and(theSearchApiService(), searchedUsingTheDirectoryNumber());
+        and(theServiceProblemApiService(), searchedUsingTheDirectoryNumber());
     }
 
     @Test
@@ -47,7 +48,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         when(theAgentSearchesForTheServiceProblemUsingServiceProblemId());
 
         then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
-        and(theSearchApiService(), searchedUsingTheServiceProblemId());
+        and(theServiceProblemApiService(), searchedUsingTheServiceProblemId());
     }
 
     @Test
@@ -57,7 +58,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         when(theAgentSearchesForTheServiceProblemUsingAServiceId());
 
         then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
-        and(theSearchApiService(), searchedUsingTheServiceId());
+        and(theServiceProblemApiService(), searchedUsingTheServiceId());
     }
 
     private GivensBuilder aServiceProblem() {
@@ -84,8 +85,8 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         };
     }
 
-    private StateExtractor<SearchApiService> theSearchApiService() {
-        return capturedInputAndOutputs -> scenarioDriver().servicesFor(agentForTest).searchApiService();
+    private StateExtractor<ServiceProblemApiService> theServiceProblemApiService() {
+        return capturedInputAndOutputs -> scenarioDriver().servicesFor(agentForTest).serviceProblemApiService();
     }
 
     private StateExtractor<ServiceProblemTab> aServiceProblemTab() {
@@ -102,29 +103,29 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return isDisplayed().with(aTitleOf(expectedTabTitle));
     }
 
-    private Matcher<SearchApiService> searchedUsingTheDirectoryNumber() {
-        return new MockieMatcher<SearchApiService>() {
+    private Matcher<ServiceProblemApiService> searchedUsingTheDirectoryNumber() {
+        return new MockieMatcher<ServiceProblemApiService>() {
             @Override
-            protected void doTheMock(SearchApiService searchApiService) {
-                searchApiService.serviceProblemByDirectoryNumber(serviceProblem.getDirectoryNumber());
+            protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
+                serviceProblemApiService.serviceProblems(SearchParametersDTO.withSearchProperties("directoryNumber", serviceProblem.getDirectoryNumber().asString(), 25, 0));
             }
         };
     }
 
-    private Matcher<SearchApiService> searchedUsingTheServiceProblemId() {
-        return new MockieMatcher<SearchApiService>() {
+    private Matcher<ServiceProblemApiService> searchedUsingTheServiceProblemId() {
+        return new MockieMatcher<ServiceProblemApiService>() {
             @Override
-            protected void doTheMock(SearchApiService searchApiService) {
-                searchApiService.serviceProblemById(serviceProblem.serviceProblemId());
+            protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
+                serviceProblemApiService.serviceProblems(SearchParametersDTO.withSearchProperties("serviceProblemId", serviceProblem.serviceProblemId().asString(), 25, 0));
             }
         };
     }
 
-    private Matcher<SearchApiService> searchedUsingTheServiceId() {
-        return new MockieMatcher<SearchApiService>() {
+    private Matcher<ServiceProblemApiService> searchedUsingTheServiceId() {
+        return new MockieMatcher<ServiceProblemApiService>() {
             @Override
-            protected void doTheMock(SearchApiService searchApiService) {
-                searchApiService.serviceProblemsByServiceId(serviceProblem.serviceId(), 0, 20);
+            protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
+                serviceProblemApiService.serviceProblems(SearchParametersDTO.withSearchProperties("serviceId", serviceProblem.serviceId().asString(), 25, 0));
             }
         };
     }
