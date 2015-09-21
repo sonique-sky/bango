@@ -3,11 +3,8 @@ package sonique.bango.service.stub;
 import sky.sns.spm.domain.model.refdata.ProblemCategory;
 import sky.sns.spm.infrastructure.repository.DomainProblemCategoryRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.ProblemCategoryApiService;
-
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 public class StubProblemCategoryApiService implements ProblemCategoryApiService {
 
@@ -18,19 +15,13 @@ public class StubProblemCategoryApiService implements ProblemCategoryApiService 
     }
 
     @Override
-    public PagedSearchResults<ProblemCategory> problemCategories(Integer start, Integer limit) {
-        List<ProblemCategory> allProblemCategories = problemCategoryRepository.getAll();
-        List<ProblemCategory> page = allProblemCategories.stream()
-                .skip(start)
-                .limit(limit)
-                .collect(toList());
-
-        return new PagedSearchResults<>(page, (long) allProblemCategories.size());
+    public ProblemCategory create(ProblemCategory problemCategory) {
+        throw new UnsupportedOperationException("Method StubProblemCategoryApiService create() not yet implemented");
     }
 
     @Override
-    public ProblemCategory create(ProblemCategory problemCategory) {
-        throw new UnsupportedOperationException("Method StubProblemCategoryApiService create() not yet implemented");
+    public PagedSearchResults<ProblemCategory> read(SearchParametersDTO searchParameters) {
+        return problemCategoryRepository.findProblemCategoriesSubSet(searchParameters);
     }
 
     @Override

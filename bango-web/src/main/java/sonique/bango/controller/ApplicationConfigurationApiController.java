@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import sky.sns.spm.domain.model.refdata.ProblemCategory;
+import sky.sns.spm.domain.model.refdata.AssignmentCode;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.ApplicationConfigurationApiService;
@@ -19,8 +19,8 @@ public class ApplicationConfigurationApiController {
     public ApplicationConfigurationApiService configurationApiService;
 
     @RequestMapping(method = {RequestMethod.GET})
-    public PagedSearchResults<ProblemCategory> problemCategory(@ModelAttribute SearchParametersDTO searchParameters) {
-        return configurationApiService.problemCategory(searchParameters);
+    public PagedSearchResults<AssignmentCode> problemCategory(@ModelAttribute SearchParametersDTO searchParameters) {
+        return null;
     }
 
 }

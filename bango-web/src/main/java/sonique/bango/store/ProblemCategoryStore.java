@@ -7,6 +7,8 @@ import sky.sns.spm.domain.model.refdata.QueueRoutingKey;
 import sky.sns.spm.infrastructure.repository.DomainProblemCategoryRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
+import sonique.bango.domain.sorter.Comparators;
+import sonique.bango.util.PagedSearchResultsCreator;
 
 import java.util.List;
 import java.util.Map;
@@ -42,7 +44,12 @@ public class ProblemCategoryStore implements DomainProblemCategoryRepository {
 
     @Override
     public PagedSearchResults<ProblemCategory> findProblemCategoriesSubSet(SearchParametersDTO searchParameters) {
-        throw new UnsupportedOperationException("Method ProblemCategoryStore findProblemCategoriesSubSet() not yet implemented");
+        return PagedSearchResultsCreator.createPageFor(
+                        searchParameters,
+                        getAll(),
+                        new Comparators<ProblemCategory>() {
+                        }
+                );
     }
 
     @Override
