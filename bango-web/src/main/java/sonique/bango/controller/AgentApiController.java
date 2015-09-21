@@ -7,7 +7,6 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
-import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.ResponseData;
 import sonique.bango.service.AgentApiService;
 
@@ -23,8 +22,8 @@ public class AgentApiController {
 
 
     @RequestMapping(method = {RequestMethod.GET})
-    public PagedSearchResults<DomainAgent> allAgents(@ModelAttribute RequestParameters requestParameters) {
-        return agentApiService.allAgents(requestParameters);
+    public PagedSearchResults<DomainAgent> allAgents(@ModelAttribute SearchParametersDTO searchParameters) {
+        return agentApiService.allAgents(searchParameters);
     }
 
     @RequestMapping(method = {RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)

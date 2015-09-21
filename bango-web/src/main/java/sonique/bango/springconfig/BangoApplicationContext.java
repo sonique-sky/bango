@@ -151,11 +151,6 @@ public class BangoApplicationContext {
     }
 
     @Bean
-    public SearchApiService searchApiService() {
-        return new StubSearchApiService(serviceProblemRepository);
-    }
-
-    @Bean
     public TeamApiService teamApiService() {
         return new StubTeamApiService(teamRepository);
     }

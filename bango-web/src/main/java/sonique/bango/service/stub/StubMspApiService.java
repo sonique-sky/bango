@@ -3,7 +3,7 @@ package sonique.bango.service.stub;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblemDashboardEntry;
 import sky.sns.spm.infrastructure.repository.DomainMajorServiceProblemRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.domain.RequestParameters;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.MspApiService;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class StubMspApiService implements MspApiService {
     }
 
     @Override
-    public PagedSearchResults<DomainMajorServiceProblemDashboardEntry> serviceProblems(RequestParameters params) {
+    public PagedSearchResults<DomainMajorServiceProblemDashboardEntry> serviceProblems(SearchParametersDTO searchParameters) {
         List<DomainMajorServiceProblemDashboardEntry> entries = repository.findOpenDashBoardEntries();
         return new PagedSearchResults<>(entries, (long) entries.size());
     }

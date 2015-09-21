@@ -3,7 +3,7 @@ package sonique.bango.service.stub;
 import sky.sns.spm.domain.model.refdata.ProblemCategory;
 import sky.sns.spm.infrastructure.repository.DomainProblemCategoryRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.domain.RequestParameters;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.ApplicationConfigurationApiService;
 import sonique.bango.util.PagedSearchResultsCreator;
 
@@ -18,10 +18,9 @@ public class StubApplicationConfigurationApiService implements ApplicationConfig
     }
 
     @Override
-    public PagedSearchResults<ProblemCategory> problemCategory(RequestParameters requestParameters) {
+    public PagedSearchResults<ProblemCategory> problemCategory(SearchParametersDTO searchParameters) {
         List<ProblemCategory> all = problemCategoryRepository.getAll();
-        return PagedSearchResultsCreator.createPageFor(requestParameters, all, null, null);
+        return PagedSearchResultsCreator.createPageFor(searchParameters, all, null, null);
     }
-
 
 }

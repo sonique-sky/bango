@@ -1,5 +1,7 @@
 package sonique.bango.domain.filter;
 
+import sky.sns.spm.web.spmapp.shared.dto.Filter;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.domain.RequestParameters;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.domain.ResponseData;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
@@ -21,8 +21,8 @@ public class QueueApiController {
     private QueueApiService queueApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public PagedSearchResults<Queue> readQueues(@ModelAttribute RequestParameters requestParameters) {
-        return queueApiService.readQueues(requestParameters);
+    public PagedSearchResults<Queue> readQueues(@ModelAttribute SearchParametersDTO searchParameters) {
+        return queueApiService.readQueues(searchParameters);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

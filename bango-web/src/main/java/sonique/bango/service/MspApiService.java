@@ -2,8 +2,8 @@ package sonique.bango.service;
 
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblemDashboardEntry;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.domain.RequestParameters;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 
 public interface MspApiService {
-    PagedSearchResults<DomainMajorServiceProblemDashboardEntry> serviceProblems(RequestParameters params);
+    PagedSearchResults<DomainMajorServiceProblemDashboardEntry> serviceProblems(SearchParametersDTO searchParameters);
 }

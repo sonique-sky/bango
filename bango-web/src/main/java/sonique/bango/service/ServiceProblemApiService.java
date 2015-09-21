@@ -4,7 +4,7 @@ import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.TransferType;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.domain.RequestParameters;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
 
@@ -24,5 +24,5 @@ public interface ServiceProblemApiService {
     DomainServiceProblem selectNextWorkItem(ServiceProblemId serviceProblemId, String nextWorkItem);
     DomainServiceProblem reassignToAgent(ServiceProblemId serviceProblemId, String agentCode);
 
-    PagedSearchResults<DomainServiceProblem> serviceProblems(RequestParameters requestParameters);
+    PagedSearchResults<DomainServiceProblem> serviceProblems(SearchParametersDTO searchParameters);
 }

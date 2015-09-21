@@ -12,10 +12,9 @@ import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.AgentStateDTO;
+import sky.sns.spm.web.spmapp.shared.dto.Filter;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
-import sonique.bango.domain.RequestParameters;
-import sonique.bango.domain.filter.Filter;
 import sonique.bango.domain.filter.Filters;
 import sonique.bango.domain.sorter.Comparators;
 import sonique.bango.service.AgentApiService;
@@ -74,20 +73,20 @@ public class StubAgentApiService implements AgentApiService {
         List<DomainServiceProblem> serviceProblemsForAgent = serviceProblemRepository.getServiceProblemsForAgent(authorisedActorProvider.getLoggedInAgent());
 
         List<DomainServiceProblem> pageOfServiceProblems = serviceProblemsForAgent.stream()
-                .skip(searchParameters.getStartRow())
-                .limit(searchParameters.getPageSize())
+                .skip(searchParameters.getStart())
+                .limit(searchParameters.getLimit())
                 .collect(toList());
 
         return new PagedSearchResults<>(pageOfServiceProblems, (long) serviceProblemsForAgent.size());
     }
 
     @Override
-    public PagedSearchResults<DomainAgent> allAgents(RequestParameters requestParameters) {
+    public PagedSearchResults<DomainAgent> allAgents(SearchParametersDTO searchParameters) {
         AgentFilterSupplier agentFilterSupplier = new AgentFilterSupplier(queueRepository, agentRepository);
-        Optional<Predicate<DomainAgent>> assignableAgentsFilter = Filters.andFilter(requestParameters.getFilters(), agentFilterSupplier::filterFor);
+        Optional<Predicate<DomainAgent>> assignableAgentsFilter = Filters.andFilter(searchParameters.filters(), agentFilterSupplier::filterFor);
         List<DomainAgent> allAgents = agentRepository.getAllAgents();
 
-        return PagedSearchResultsCreator.createPageFor(requestParameters, allAgents, agentComparators, assignableAgentsFilter);
+        return PagedSearchResultsCreator.createPageFor(searchParameters, allAgents, agentComparators, assignableAgentsFilter);
     }
 
     @Override

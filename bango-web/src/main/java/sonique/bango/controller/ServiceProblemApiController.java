@@ -6,7 +6,7 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.TransferType;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.domain.RequestParameters;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
@@ -29,8 +29,8 @@ public class ServiceProblemApiController {
     private ServiceProblemApiService serviceProblemApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public PagedSearchResults<DomainServiceProblem> serviceProblems(@ModelAttribute RequestParameters requestParameters) {
-        return serviceProblemApiService.serviceProblems(requestParameters);
+    public PagedSearchResults<DomainServiceProblem> serviceProblems(@ModelAttribute SearchParametersDTO searchParameters) {
+        return serviceProblemApiService.serviceProblems(searchParameters);
     }
 
     @RequestMapping(value = "/{serviceProblemId}", method = RequestMethod.GET)

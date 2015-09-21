@@ -3,6 +3,7 @@ package sonique.bango.domain.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
 import org.springframework.core.convert.converter.Converter;
+import sky.sns.spm.web.spmapp.shared.dto.Filter;
 
 import java.io.IOException;
 import java.util.ArrayList;

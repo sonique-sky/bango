@@ -12,6 +12,7 @@ import sky.sns.spm.domain.model.troublereport.TroubleReportAttributesBuilder;
 import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sky.sns.spm.web.spmapp.shared.dto.Filter;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import spm.domain.*;
 import spm.domain.model.refdata.DomainAgentBuilder;
@@ -165,16 +166,16 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
     }
 
     @Override
-    public PagedSearchResults<DomainServiceProblem> searchForServiceProblems(final SearchParametersDTO searchParameters) {
-        SearchProperty searchProperty = SearchProperty.fromString(searchParameters.getSearchProperty());
+    public PagedSearchResults<DomainServiceProblem> searchForServiceProblems(SearchParametersDTO searchParameters) {
 
+        Predicate<DomainServiceProblem> filterPredicate = searchParameters.filters().stream().map(filter -> SearchProperty.fromString(filter.property()).forSearching(filter)).reduce(Predicate::and).get();
         List<DomainServiceProblem> filteredServiceProblems = serviceProblems.stream()
-                .filter(searchProperty.forSearching(searchParameters))
+                .filter(filterPredicate)
                 .collect(toList());
 
         List<DomainServiceProblem> pageOfServiceProblems = filteredServiceProblems.stream()
-                .skip(searchParameters.getStartRow())
-                .limit(searchParameters.getPageSize())
+                .skip(searchParameters.getStart())
+                .limit(searchParameters.getLimit())
                 .collect(toList());
 
         return new PagedSearchResults<>(pageOfServiceProblems, (long) filteredServiceProblems.size());
@@ -182,21 +183,21 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
 
     private enum SearchProperty {
-        serviceProblemId(searchParameters -> serviceProblem -> serviceProblem.serviceProblemId().asString().equals(searchParameters.getSearchValue())),
-        serviceId(searchParameters -> serviceProblem -> serviceProblem.serviceId().asString().equals(searchParameters.getSearchValue())),
-        directoryNumber(searchParameters -> serviceProblem -> serviceProblem.getDirectoryNumber().asString().equals(searchParameters.getSearchValue())),
+        serviceProblemId(searchParameters -> serviceProblem -> serviceProblem.serviceProblemId().asString().equals(searchParameters.value())),
+        serviceId(searchParameters -> serviceProblem -> serviceProblem.serviceId().asString().equals(searchParameters.value())),
+        directoryNumber(searchParameters -> serviceProblem -> serviceProblem.getDirectoryNumber().asString().equals(searchParameters.value())),
         mspId(searchParameters -> serviceProblem -> false),
-        queueId(searchParameters -> serviceProblem -> serviceProblem.getQueue().id().asString().equals(searchParameters.getSearchValue()) && serviceProblem.getStatus() == ServiceProblemStatus.Open),
-        status(searchParameters -> serviceProblem -> serviceProblem.getStatus() == ServiceProblemStatus.valueOf(searchParameters.getSearchValue()));
+        queueId(searchParameters -> serviceProblem -> serviceProblem.getQueue().id().asString().equals(searchParameters.value()) && serviceProblem.getStatus() == ServiceProblemStatus.Open),
+        status(searchParameters -> serviceProblem -> serviceProblem.getStatus() == ServiceProblemStatus.valueOf(searchParameters.value()));
 
-        private final Function<SearchParametersDTO, Predicate<DomainServiceProblem>> toPredicate;
+        private final Function<Filter, Predicate<DomainServiceProblem>> toPredicate;
 
-        SearchProperty(Function<SearchParametersDTO, Predicate<DomainServiceProblem>> toPredicate) {
+        SearchProperty(Function<Filter, Predicate<DomainServiceProblem>> toPredicate) {
             this.toPredicate = toPredicate;
         }
 
-        Predicate<DomainServiceProblem> forSearching(SearchParametersDTO searchParameters) {
-            return toPredicate.apply(searchParameters);
+        Predicate<DomainServiceProblem> forSearching(Filter filter) {
+            return toPredicate.apply(filter);
         }
 
         public static SearchProperty fromString(String searchPropertyAsString) {

@@ -8,7 +8,6 @@ import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
-import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.request.BulkClearRequest;
 import sonique.bango.domain.request.BulkTransferRequest;
 import sonique.bango.domain.sorter.Comparators;
@@ -38,8 +37,8 @@ public class StubQueueApiService implements QueueApiService {
     }
 
     @Override
-    public PagedSearchResults<Queue> readQueues(RequestParameters requestParameters) {
-        return createPageFor(requestParameters, queueRepository.getAllQueues(), queueComparatorProviderProvider, Optional.empty());
+    public PagedSearchResults<Queue> readQueues(SearchParametersDTO searchParameters) {
+        return createPageFor(searchParameters, queueRepository.getAllQueues(), queueComparatorProviderProvider, Optional.empty());
     }
 
     @Override

@@ -5,8 +5,8 @@ import sky.sns.spm.infrastructure.repository.DomainTeamRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.validation.SpmError;
 import sky.sns.spm.validation.SupermanException;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
-import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.sorter.Comparators;
 import sonique.bango.service.TeamApiService;
 import spm.domain.TeamId;
@@ -28,8 +28,8 @@ public class StubTeamApiService implements TeamApiService {
     }
 
     @Override
-    public PagedSearchResults<DomainTeam> readTeams(RequestParameters requestParameters) {
-        return createPageFor(requestParameters, domainTeamRepository.getTeams(), teamComparatorProviderProvider, Optional.empty());
+    public PagedSearchResults<DomainTeam> readTeams(SearchParametersDTO searchParameters) {
+        return createPageFor(searchParameters, domainTeamRepository.getTeams(), teamComparatorProviderProvider, Optional.empty());
     }
 
     @Override

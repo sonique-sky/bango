@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblemDashboardEntry;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
-import sonique.bango.domain.RequestParameters;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.MspApiService;
 
 import javax.annotation.Resource;
@@ -19,7 +19,7 @@ public class MspApiController {
     private MspApiService mspApiService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public PagedSearchResults<DomainMajorServiceProblemDashboardEntry> dashboardEntry(@ModelAttribute RequestParameters params) {
-        return mspApiService.serviceProblems(params);
+    public PagedSearchResults<DomainMajorServiceProblemDashboardEntry> dashboardEntry(@ModelAttribute SearchParametersDTO searchParameters) {
+        return mspApiService.serviceProblems(searchParameters);
     }
 }

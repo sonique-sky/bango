@@ -1,8 +1,8 @@
 package sonique.bango.util;
 
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sky.sns.spm.web.spmapp.shared.dto.SortDescriptor;
-import sonique.bango.domain.RequestParameters;
 import sonique.bango.domain.sorter.Comparators;
 
 import java.util.Comparator;
@@ -17,14 +17,14 @@ import static sonique.bango.domain.sorter.Comparators.aggregatedComparator;
 public class PagedSearchResultsCreator {
 
     public static <T> PagedSearchResults<T> createPageFor(
-            RequestParameters requestParameters,
+            SearchParametersDTO searchParameters,
             List<T> list,
             Comparators<T> comparators,
             Optional<Predicate<T>> filter) {
 
         List<T> page;
-        List<SortDescriptor> sorters = requestParameters.getSorters();
-        sorters.add(0, requestParameters.getGroup());
+        List<SortDescriptor> sorters = searchParameters.sorters();
+        sorters.add(0, searchParameters.group());
 
         Optional<Comparator<T>> comparator = aggregatedComparator(
                 sorters.stream()
@@ -36,13 +36,13 @@ public class PagedSearchResultsCreator {
         if (comparator.isPresent()) {
             page = filter.flatMap(f -> Optional.of(list.stream().filter(f))).orElseGet(list::stream)
                     .sorted(comparator.get())
-                    .skip(requestParameters.getStart())
-                    .limit(requestParameters.getLimit())
+                    .skip(searchParameters.getStart())
+                    .limit(searchParameters.getLimit())
                     .collect(toList());
         } else {
             page = filter.flatMap(f -> Optional.of(list.stream().filter(f))).orElseGet(list::stream)
-                    .skip(requestParameters.getStart())
-                    .limit(requestParameters.getLimit())
+                    .skip(searchParameters.getStart())
+                    .limit(searchParameters.getLimit())
                     .collect(toList());
         }
 
