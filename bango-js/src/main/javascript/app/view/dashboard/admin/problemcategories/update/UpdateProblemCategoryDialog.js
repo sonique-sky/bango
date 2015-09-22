@@ -10,6 +10,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
     controller: 'updateProblemCategoryDialog',
     viewModel: {type: 'updateProblemCategoryDialog'},
 
+    listeners: {
+        show: 'loadAssignmentCodeTabs'
+    },
+
     items: [{
         xtype: 'fieldcontainer',
         padding: 10,

@@ -3,8 +3,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
     alias: 'controller.updateProblemCategoryDialog',
 
 
-
-    initViewModel: function (viewModel) {
+    loadAssignmentCodeTabs: function () {
         var me = this;
         Ext.Ajax.request({
             url: 'api/assignmentCode',
@@ -12,8 +11,8 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
                 var tabPanel = me.lookupReference('assignmentCodeTabPanel');
 
                 var payload = Ext.JSON.decode(response.responseText);
-                Ext.Array.each(payload.data, function (assignementCode) {
-                    tabPanel.add({xtype: 'assignmentMapping', title: assignementCode});
+                Ext.Array.each(payload.data, function (assignmentCode) {
+                    tabPanel.add({xtype: 'assignmentMapping', title: assignmentCode});
                 });
 
                 tabPanel.add({xtype: 'panel', title: '+'});
