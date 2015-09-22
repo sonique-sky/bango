@@ -9,11 +9,9 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     xtype: 'assignmentMapping',
 
     viewModel: {type: 'assignmentMapping'},
-
     controller: 'assignmentMapping',
 
     border: 0,
-    height: 250,
 
     bind: {
         store: 'assignmentMapping'
@@ -22,8 +20,8 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     columns: {
         defaults: {sortable: false, menuDisabled: true},
         items: [
-            {text: 'ServiceType', flex: 1},
-            {text: 'Routing', flex: 1}
+            {text: 'ServiceType', dataIndex: 'serviceType', flex: 0.6},
+            {text: 'Routing', dataIndex: 'queue', flex: 1}
         ]
     }
 

@@ -2,6 +2,8 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.updateProblemCategoryDialog',
 
+    reference: 'updateProblemCategory',
+
     requires: [
         'Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCategoryDialogViewController',
         'Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCategoryDialogViewModel'
@@ -25,6 +27,8 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
         },
 
         width: 480,
+        height: 400,
+        layout: 'vbox',
 
         items: [
             {
@@ -58,8 +62,11 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
             },
             {
                 xtype: 'tabpanel',
-                reference: 'assignmentCodeTabPanel'
+                reference: 'assignmentCodeTabPanel',
+                width: '100%',
+                flex: 1
             }
         ]
     }]
+
 });

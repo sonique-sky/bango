@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.domain.model.EventHistoryItem;
+import sky.sns.spm.domain.model.refdata.ProblemCategory;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.Role;
 import sky.sns.spm.domain.model.refdata.ServiceType;
@@ -92,6 +93,7 @@ public class BangoApplicationContext {
         module.addSerializer(SpmCodeAndMessage.class, new SpmCodeAndMessageSerializer());
         module.addSerializer(TroubleReportTemplate.class, new TroubleReportTemplateSerializer());
         module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
+        module.addSerializer(ProblemCategory.class, new ProblemCategorySerializer());
 
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         module.addDeserializer(DomainTeam.class, new TeamDeserializer());

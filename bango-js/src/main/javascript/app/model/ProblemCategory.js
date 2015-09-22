@@ -18,6 +18,9 @@ Ext.define('Spm.model.ProblemCategory', {
             name: 'description'
         },
         {
+            name: 'queueRouting'
+        },
+        {
             name: 'forceAutoTroubleReport'
         }
     ],

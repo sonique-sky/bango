@@ -3,8 +3,12 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     alias: 'viewmodel.assignmentMapping',
 
     stores: {
-        assignmentMapping: {
-
+        assignmentMappings: {
+            fields: ['serviceType', 'queue'],
+            reader: {
+                type: 'json'
+            }
         }
     }
+
 });

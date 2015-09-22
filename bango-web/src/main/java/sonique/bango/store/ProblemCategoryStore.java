@@ -1,6 +1,7 @@
 package sonique.bango.store;
 
 import com.google.common.collect.Maps;
+import sky.sns.spm.domain.model.refdata.AssignmentCode;
 import sky.sns.spm.domain.model.refdata.ProblemCategory;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.QueueRoutingKey;
@@ -50,6 +51,10 @@ public class ProblemCategoryStore implements DomainProblemCategoryRepository {
                         new Comparators<ProblemCategory>() {
                         }
                 );
+    }
+
+    private AssignmentCode someAssignmentCode() {
+        return new AssignmentCode(pickOneOf("Standard", "Ethan", "Pro", "Roi"));
     }
 
     @Override
