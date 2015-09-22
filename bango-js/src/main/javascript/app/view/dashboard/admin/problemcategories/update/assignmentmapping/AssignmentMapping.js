@@ -17,9 +17,27 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         store: '{assignmentMappings}'
     },
 
-    columns: [
-        {text: 'ServiceType', dataIndex: 'serviceType', flex: 0.6},
-        {text: 'Routing', dataIndex: 'queue.name', flex: 1}
-    ]
+    columns: {
+        defaults: {sortable: false, menuDisabled: true},
+        items: [
+            {text: 'ServiceType', dataIndex: 'serviceType', flex: 0.6},
+            {
+                text: 'Routing',
+                xtype: 'widgetcolumn',
+                dataIndex: 'queue.name',
+                flex: 1,
+                onWidgetAttach: 'queueComboAttach',
+                widget: {
+                    xtype: 'combo',
+                    displayField: 'name',
+                    valueField: 'queueId',
+                    bind: {
+                        store: '{queues}'
+                    }
+                }
+            }
+        ]
+    }
 
-});
+})
+;

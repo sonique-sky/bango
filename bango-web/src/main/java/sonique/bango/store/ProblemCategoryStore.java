@@ -6,6 +6,7 @@ import sky.sns.spm.domain.model.refdata.ProblemCategory;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.QueueRoutingKey;
 import sky.sns.spm.infrastructure.repository.DomainProblemCategoryRepository;
+import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.domain.sorter.Comparators;
@@ -25,18 +26,18 @@ public class ProblemCategoryStore implements DomainProblemCategoryRepository {
 
     private final Map<Long, ProblemCategory> store;
 
-    public ProblemCategoryStore() {
+    public ProblemCategoryStore(QueueRepository queueRepository) {
         store = Maps.newHashMap();
         AtomicLong id = new AtomicLong(0);
 
         for (int i = 0; i < 100; i++) {
             ProblemCategory problemCategory = new ProblemCategory(id.getAndIncrement(), someString(), someWords(), someBoolean());
             Map<QueueRoutingKey, Queue> presentedServiceTypeQueueMap = Maps.newHashMap();
-            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), someQueue());
-            presentedServiceTypeQueueMap.put(routingKeyOf(someAssignmentCode(), somePresentedServiceType()), someQueue());
-            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), someQueue());
-            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), someQueue());
-            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), someQueue());
+            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), pickOneOf(queueRepository.getAllQueues()));
+            presentedServiceTypeQueueMap.put(routingKeyOf(someAssignmentCode(), somePresentedServiceType()), pickOneOf(queueRepository.getAllQueues()));
+            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), pickOneOf(queueRepository.getAllQueues()));
+            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), pickOneOf(queueRepository.getAllQueues()));
+            presentedServiceTypeQueueMap.put(routingKeyOf(standard(), somePresentedServiceType()), pickOneOf(queueRepository.getAllQueues()));
             problemCategory.setQueueRouting(presentedServiceTypeQueueMap);
             store.put(problemCategory.problemId(), problemCategory);
         }

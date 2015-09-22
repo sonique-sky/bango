@@ -11,8 +11,9 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         }
     },
 
-    thing: function(val, meta, rec) {
+    queueComboAttach: function (col, combo, rec) {
         debugger;
+        combo.setValue(rec.get('queue').queueId);
     }
 
 });
