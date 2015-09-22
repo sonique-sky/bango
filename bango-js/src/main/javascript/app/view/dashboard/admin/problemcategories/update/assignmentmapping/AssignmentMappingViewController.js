@@ -4,17 +4,15 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
 
     initViewModel: function (viewModel) {
         var title = this.getView().getTitle();
-        var problemCategory = viewModel.get('problemCategory');
-        console.log(problemCategory);
+        var routing = viewModel.get('problemCategory').get('queueRouting')[title];
 
-        var foo = problemCategory.get('queueRouting')[title];
-
-        if (foo) {
-            console.log(foo);
-            var store = viewModel.getStore('assignmentMappings');
-            store.loadData(foo);
-            console.log(store);
+        if (routing) {
+            viewModel.getStore('assignmentMappings').loadData(routing);
         }
+    },
+
+    thing: function(val, meta, rec) {
+        debugger;
     }
 
 });

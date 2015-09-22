@@ -14,15 +14,12 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     border: 0,
 
     bind: {
-        store: 'assignmentMapping'
+        store: '{assignmentMappings}'
     },
 
-    columns: {
-        defaults: {sortable: false, menuDisabled: true},
-        items: [
-            {text: 'ServiceType', dataIndex: 'serviceType', flex: 0.6},
-            {text: 'Routing', dataIndex: 'queue', flex: 1}
-        ]
-    }
+    columns: [
+        {text: 'ServiceType', dataIndex: 'serviceType', flex: 0.6},
+        {text: 'Routing', dataIndex: 'queue.name', flex: 1}
+    ]
 
 });

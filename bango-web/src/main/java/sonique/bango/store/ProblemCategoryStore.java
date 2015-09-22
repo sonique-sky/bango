@@ -54,7 +54,7 @@ public class ProblemCategoryStore implements DomainProblemCategoryRepository {
     }
 
     private AssignmentCode someAssignmentCode() {
-        return new AssignmentCode(pickOneOf("Standard", "Ethan", "Pro", "Roi"));
+        return new AssignmentCode(pickOneOf("Standard", "Ethan", "Pro", "ROI"));
     }
 
     @Override

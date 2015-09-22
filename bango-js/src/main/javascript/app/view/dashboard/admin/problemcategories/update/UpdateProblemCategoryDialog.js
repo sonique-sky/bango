@@ -19,43 +19,38 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
     items: [{
         xtype: 'fieldcontainer',
         padding: 10,
+        width: 480,
+        height: 400,
+        layout: {type: 'vbox', align: 'stretch'},
 
         defaults: {
+            xtype: 'textfield',
+            allowBlank: false,
+            labelWidth: 150,
             listeners: {
                 specialkey: 'submitOnEnter'
             }
         },
-
-        width: 480,
-        height: 400,
-        layout: 'vbox',
-
         items: [
             {
-                xtype: 'textfield',
-                labelWidth: 150,
                 itemId: 'problemCode',
                 fieldLabel: 'Problem Code:',
-                allowBlank: false,
                 bind: {
                     value: '{problemCategory.problemCode}'
                 }
             },
             {
-                xtype: 'textfield',
-                labelWidth: 150,
                 itemId: 'description',
                 fieldLabel: 'Description:',
-                allowBlank: false,
                 bind: {
                     value: '{problemCategory.description}'
                 }
             },
             {
                 xtype: 'checkbox',
-                labelWidth: 250,
                 fieldLabel: 'Force Auto Trouble Report:',
                 name: 'forceAutoTroubleReport',
+                labelWidth: 200,
                 bind: {
                     value: '{problemCategory.forceAutoTroubleReport}'
                 }
