@@ -19,4 +19,5 @@ Ext.define('Spm.view.dashboard.admin.AdminDashboardTab', {
         {xtype: 'problemCategoryAdminTab'},
         {xtype: 'queueAdminTab'}
     ]
+
 });

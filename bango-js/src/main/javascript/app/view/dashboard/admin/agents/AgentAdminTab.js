@@ -11,7 +11,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
     controller: 'agentAdminTab',
 
     listeners: {
-        activate: 'loadStore',
+        activate: 'loadAgentsStore',
         select: 'onSelectAgent'
     },
 

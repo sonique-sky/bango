@@ -8,7 +8,8 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewModel', {
             listeners: {
                 load: 'selectFirstAgentStoreRow'
             },
-            filterOnLoad: false,
+            autoLoad: false,
+            sortOnLoad: false,
             grouper: {
                 property: 'teamName',
                 groupFn: function (item) {
@@ -23,5 +24,4 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewModel', {
         return this.get('authenticatedAgent');
     }
 
-})
-;
+});

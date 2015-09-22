@@ -2,14 +2,14 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialogViewController', {
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.workReminderDialog',
 
-    initValues: function () {
+    initViewModel: function (viewModel) {
         var now = new Date();
         var nextHour = Ext.Date.add(now, Ext.Date.HOUR, 1);
         nextHour.setMinutes(0);
         nextHour.setSeconds(0);
 
-        this.getViewModel().set('reminder.time', nextHour);
-        this.getViewModel().set('reminder.date', now);
+        viewModel.set('reminder.time', nextHour);
+        viewModel.set('reminder.date', now);
     },
 
     onAccept: function () {
@@ -33,4 +33,5 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialogViewController', {
     onValidityChange: function (form, isValid) {
         this.lookupReference('acceptButton').setDisabled(!isValid);
     }
+
 });

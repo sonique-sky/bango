@@ -12,12 +12,12 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
     listen: {
         controller: {
             'reassignAgentDialog': {
-                agentReassigned: 'loadStore'
+                agentReassigned: 'loadAgentsStore'
             }
         }
     },
 
-    loadStore: function () {
+    loadAgentsStore: function () {
         this.getView().getStore().load();
     },
 
@@ -59,7 +59,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTabViewController', {
                 if ('yes' == buttonId) {
                     agentStore.remove(selectedAgent);
                     agentStore.sync({
-                        failure: me.loadStore,
+                        failure: me.loadAgentsStore,
                         scope: me
                     });
                     me.selectFirstAgentStoreRow(agentStore);

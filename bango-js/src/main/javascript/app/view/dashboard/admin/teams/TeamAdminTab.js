@@ -12,7 +12,7 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTab', {
     controller: 'teamAdminTab',
 
     listeners: {
-        activate: 'loadStore'
+        activate: 'loadTeamsStore'
     },
 
     bind: {

@@ -10,7 +10,7 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTabViewController', {
         }
     },
 
-    loadStore: function () {
+    loadTeamsStore: function () {
         var store = this.getStore('teams');
         if (store && !store.isLoaded()) {
             store.load();

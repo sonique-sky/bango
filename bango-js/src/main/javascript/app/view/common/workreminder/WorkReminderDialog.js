@@ -10,10 +10,6 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialog', {
     viewModel: {type: 'workReminderDialog'},
     controller: 'workReminderDialog',
 
-    listeners: {
-        show: 'initValues'
-    },
-
     title: 'Create Work Reminder',
     iconCls: 'icon-work-reminder',
 
