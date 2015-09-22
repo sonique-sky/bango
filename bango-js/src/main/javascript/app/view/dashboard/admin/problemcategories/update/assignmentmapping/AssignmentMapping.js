@@ -17,4 +17,5 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     bind: {
         store: 'assignmentMapping'
     }
+
 });
