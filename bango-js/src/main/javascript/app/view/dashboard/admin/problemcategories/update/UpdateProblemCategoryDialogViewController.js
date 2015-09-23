@@ -18,7 +18,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
                 tabPanel.add({xtype: 'panel', title: '+'});
                 tabPanel.setActiveTab(0);
             }
-        })
+        });
     },
 
     onAccept: function () {

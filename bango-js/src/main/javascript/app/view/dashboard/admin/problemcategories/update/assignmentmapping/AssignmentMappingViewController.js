@@ -4,10 +4,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
 
     initViewModel: function (viewModel) {
         var title = this.getView().getTitle();
-        var routing = viewModel.get('problemCategory').get('queueRouting')[title];
+        var queueRouting = viewModel.get('problemCategory').get('queueRouting')[title];
 
-        if (routing) {
-            viewModel.getStore('assignmentMappings').loadData(routing);
+        if (queueRouting) {
+            viewModel.getStore('assignmentMappings').loadData(queueRouting);
         }
     },
 

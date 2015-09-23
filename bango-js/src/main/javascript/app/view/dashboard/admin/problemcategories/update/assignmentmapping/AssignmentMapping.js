@@ -2,8 +2,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     extend: 'Ext.grid.Panel',
 
     requires: [
-        'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewModel',
-        'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewController'
+        'Ext.form.field.ComboBox',
+        'Ext.grid.column.Widget',
+        'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewController',
+        'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewModel'
     ],
 
     xtype: 'assignmentMapping',
@@ -24,9 +26,9 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
             {
                 text: 'Routing',
                 xtype: 'widgetcolumn',
-                dataIndex: 'queue.name',
+                dataIndex: 'queue.queueId',
                 flex: 1,
-                onWidgetAttach: 'queueComboAttach',
+                //onWidgetAttach: 'queueComboAttach',
                 widget: {
                     xtype: 'combo',
                     displayField: 'name',
