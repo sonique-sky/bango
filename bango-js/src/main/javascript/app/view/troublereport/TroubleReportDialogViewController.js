@@ -10,6 +10,10 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
         }
     },
 
+    afterRender: function () {
+        this.getViewModel().notify();
+    },
+
     onShow: function () {
         var serviceType = this.getViewModel().get('troubleReportTemplate.serviceType');
         var serviceId = this.getViewModel().get('troubleReportTemplate.serviceId');

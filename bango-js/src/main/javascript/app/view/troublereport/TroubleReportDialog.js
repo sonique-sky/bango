@@ -25,9 +25,13 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
     width: 1000,
     minHeight: 200,
 
+    autoRender: false,
+
     listeners: {
+        afterrender: 'afterRender',
         show: 'onShow'
     },
+
     items: [
         {
             xtype: 'form',

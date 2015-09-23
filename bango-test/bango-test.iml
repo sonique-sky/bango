@@ -42,6 +42,11 @@
     <orderEntry type="library" name="Maven: sky.sns:superman-casemanagement-messages:1208" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-common-types:1208" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-core:test-jar:tests:1208" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-core:1213" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-bt-messages:1213" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-casemanagement-messages:1213" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-common-types:1213" level="project" />
+    <orderEntry type="library" name="Maven: sky.sns:superman-core:test-jar:tests:1213" level="project" />
     <orderEntry type="module" module-name="bango-web" />
     <orderEntry type="library" name="Maven: sky.sns:superman-core:1213" level="project" />
     <orderEntry type="library" name="Maven: sonique:sonique-bti-messages:61" level="project" />
