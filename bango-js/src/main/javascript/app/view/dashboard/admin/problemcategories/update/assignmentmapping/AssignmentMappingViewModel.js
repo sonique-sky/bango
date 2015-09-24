@@ -4,8 +4,11 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
 
     stores: {
         assignmentMappings: {
-            type: 'array',
-            fields: ['serviceType', 'queue']
+            data: '{problemCategory.queueRouting}',
+            filters: [{
+                property: 'assignmentCode',
+                value: '{assignmentCodeFilter}'
+            }]
         }
     }
 

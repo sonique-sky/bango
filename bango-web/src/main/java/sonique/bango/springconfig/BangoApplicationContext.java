@@ -88,16 +88,17 @@ public class BangoApplicationContext {
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
         module.addSerializer(EventHistoryItem.class, new EventHistoryItemSerializer());
         module.addSerializer(LineTestSummaryDTO.class, new LineTestSummaryDTOSerializer());
+        module.addSerializer(ProblemCategory.class, new ProblemCategorySerializer());
         module.addSerializer(Role.class, new RoleSerializer());
         module.addSerializer(ServiceType.class, new ServiceTypeSerializer());
         module.addSerializer(SpmCodeAndMessage.class, new SpmCodeAndMessageSerializer());
         module.addSerializer(TroubleReportTemplate.class, new TroubleReportTemplateSerializer());
         module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
-        module.addSerializer(ProblemCategory.class, new ProblemCategorySerializer());
 
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         module.addDeserializer(DomainTeam.class, new TeamDeserializer());
         module.addDeserializer(DomainAgent.class, new AgentDeserializer());
+        module.addDeserializer(ProblemCategory.class, new ProblemCategoryDeserializer());
         module.addDeserializer(Queue.class, new QueueDeserializer());
         module.addDeserializer(ReserveAppointment.class, new ReservedAppointmentDeserializer());
         module.addDeserializer(TroubleReportTemplate.class, new TroubleReportTemplateDeserializer());

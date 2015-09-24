@@ -2,26 +2,18 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     extend: 'Ext.app.ViewController',
     alias: 'controller.assignmentMapping',
 
-    requires: [
-        'Ext.data.ChainedStore'
-    ],
-
     initViewModel: function (viewModel) {
-        var title = this.getView().getTitle();
-        var queueRouting = viewModel.get('problemCategory').get('queueRouting')[title];
-
-        if (queueRouting) {
-            viewModel.getStore('assignmentMappings').loadData(queueRouting);
-        }
+        viewModel.set('assignmentCodeFilter', this.getView().getTitle());
     },
 
-    queueComboAttach: function (col, combo, rec) {
-        var store = this.getViewModel().get('queues');
-        combo.setStore(Ext.create('Ext.data.ChainedStore', {source: store}));
-        if (!store.isLoaded()) {
-            store.load();
-        }
-        combo.setValue(rec.get('queue').queueId);
+    queueNameRenderer: function (val, row, record) {
+        return record.get('queueName');
+    },
+
+    onRowEditorEdit: function (editor, ctx) {
+        ctx.record.set('queueId', ctx.newValues.queueId);
+        ctx.record.set('queueName', this.getViewModel().get('queues').getById(ctx.newValues.queueId).queueName());
+        this.getViewModel().get('problemCategory').set('veryDirtyFlag', true);
     }
 
 });

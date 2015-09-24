@@ -2,6 +2,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.updateProblemCategoryDialog',
 
+    requires: [
+        'Ext.panel.Panel',
+        'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMapping'
+    ],
 
     loadAssignmentCodeTabs: function () {
         var me = this;
@@ -22,7 +26,17 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
     },
 
     onAccept: function () {
-        this.closeView();
+        var me = this,
+            problemCategoryStore = me.getViewModel().get('problemCategories');
+
+        problemCategoryStore.sync({
+            scope: me,
+            success: me.closeView,
+            failure: function () {
+                problemCategoryStore.reload();
+                me.closeView();
+            }
+        });
     }
 
 });

@@ -3,12 +3,13 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
 
     requires: [
         'Ext.form.field.ComboBox',
-        'Ext.grid.column.Widget',
+        'Ext.grid.plugin.RowEditing',
         'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewController',
         'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewModel'
     ],
 
     xtype: 'assignmentMapping',
+    reference: 'assignmentMappingTab',
 
     viewModel: {type: 'assignmentMapping'},
     controller: 'assignmentMapping',
@@ -22,23 +23,30 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     columns: {
         defaults: {sortable: false, menuDisabled: true},
         items: [
-            {text: 'ServiceType', dataIndex: 'serviceType', flex: 0.6},
+            {text: 'ServiceType', dataIndex: 'serviceType', flex: 0.4},
             {
                 text: 'Routing',
-                xtype: 'widgetcolumn',
-                dataIndex: 'queue.queueId',
+                dataIndex: 'queueId',
+                renderer: 'queueNameRenderer',
                 flex: 1,
-                onWidgetAttach: 'queueComboAttach',
-                widget: {
+                editor: {
                     xtype: 'combobox',
                     displayField: 'name',
-                    valueField: 'queueId',
-                    queryMode: 'local',
-                    forceSelection: true
+                    valueField: 'id',
+                    bind: {
+                        store: '{queues}'
+                    }
                 }
             }
         ]
-    }
+    },
+    selType: 'rowmodel',
+    plugins: [{
+        ptype: 'rowediting',
+        clicksToEdit: 1,
+        listeners: {
+            edit: 'onRowEditorEdit'
+        }
+    }]
 
-})
-;
+});

@@ -26,7 +26,7 @@ public class StubProblemCategoryApiService implements ProblemCategoryApiService 
 
     @Override
     public ProblemCategory update(ProblemCategory problemCategory) {
-        throw new UnsupportedOperationException("Method StubProblemCategoryApiService update() not yet implemented");
+        return problemCategoryRepository.persist(problemCategory);
     }
 
     @Override

@@ -3,19 +3,16 @@ package sonique.bango.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import sky.sns.spm.domain.model.refdata.PresentedServiceType;
-import sky.sns.spm.domain.model.refdata.ProblemCategory;
-import sky.sns.spm.domain.model.refdata.Queue;
-import sky.sns.spm.domain.model.refdata.QueueRoutingKey;
+import sky.sns.spm.domain.model.refdata.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
+
+import static java.util.stream.Collectors.toList;
 
 public class ProblemCategorySerializer extends JsonSerializer<ProblemCategory> {
+
     @Override
     public void serialize(ProblemCategory value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeStartObject();
@@ -27,21 +24,9 @@ public class ProblemCategorySerializer extends JsonSerializer<ProblemCategory> {
 
         Map<QueueRoutingKey, Queue> queueRouting = value.getQueueRouting();
 
-        Map<String, List<JsonFriendlyEntry>> collect = queueRouting.entrySet().stream()
-                .collect(
-                HashMap::new,
-                new BiConsumer<Map<String, List<JsonFriendlyEntry>>, Map.Entry<QueueRoutingKey, Queue>>() {
-                    @Override
-                    public void accept(Map<String, List<JsonFriendlyEntry>> assignmentCodeMap, Map.Entry<QueueRoutingKey, Queue> queueRoutingKeyEntry) {
-                        String assignmentCode = queueRoutingKeyEntry.getKey().assignmentCode().asString();
-                        if (!assignmentCodeMap.containsKey(assignmentCode)) {
-                            assignmentCodeMap.put(assignmentCode, new ArrayList<>());
-                        }
-                        assignmentCodeMap.get(assignmentCode).add(new JsonFriendlyEntry(queueRoutingKeyEntry));
-                    }
-                },
-                Map::putAll
-        );
+        List<JsonFriendlyEntry> collect = queueRouting.entrySet().stream()
+                .map(JsonFriendlyEntry::new)
+                .collect(toList());
 
         gen.writeObjectField("queueRouting", collect);
 
@@ -49,12 +34,17 @@ public class ProblemCategorySerializer extends JsonSerializer<ProblemCategory> {
     }
 
     private static class JsonFriendlyEntry {
+        public final AssignmentCode assignmentCode;
         public final PresentedServiceType serviceType;
-        public final Queue queue;
+        public final Integer queueId;
+        public final String queueName;
 
         public JsonFriendlyEntry(Map.Entry<QueueRoutingKey, Queue> entry) {
+            this.assignmentCode = entry.getKey().assignmentCode();
             this.serviceType = entry.getKey().serviceType();
-            this.queue = entry.getValue();
+            this.queueId = entry.getValue().id().asInteger();
+            this.queueName = entry.getValue().name().asString();
         }
     }
+
 }

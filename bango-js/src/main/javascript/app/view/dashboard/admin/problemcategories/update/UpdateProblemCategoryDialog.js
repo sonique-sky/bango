@@ -5,6 +5,11 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
     reference: 'updateProblemCategory',
 
     requires: [
+        'Ext.form.FieldContainer',
+        'Ext.form.field.Checkbox',
+        'Ext.form.field.Text',
+        'Ext.layout.container.VBox',
+        'Ext.tab.Panel',
         'Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCategoryDialogViewController',
         'Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCategoryDialogViewModel'
     ],

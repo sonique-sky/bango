@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toList;
 import static sky.sns.spm.domain.model.refdata.AssignmentCode.standard;
 import static sky.sns.spm.domain.model.refdata.QueueRoutingKey.routingKeyOf;
 import static sonique.datafixtures.PrimitiveDataFixtures.*;
-import static util.SupermanDataFixtures.*;
+import static util.SupermanDataFixtures.somePresentedServiceType;
 
 public class ProblemCategoryStore implements DomainProblemCategoryRepository {
 
@@ -47,11 +47,11 @@ public class ProblemCategoryStore implements DomainProblemCategoryRepository {
     @Override
     public PagedSearchResults<ProblemCategory> findProblemCategoriesSubSet(SearchParametersDTO searchParameters) {
         return PagedSearchResultsCreator.createPageFor(
-                        searchParameters,
-                        getAll(),
-                        new Comparators<ProblemCategory>() {
-                        }
-                );
+                searchParameters,
+                getAll(),
+                new Comparators<ProblemCategory>() {
+                }
+        );
     }
 
     private AssignmentCode someAssignmentCode() {
@@ -60,7 +60,8 @@ public class ProblemCategoryStore implements DomainProblemCategoryRepository {
 
     @Override
     public ProblemCategory persist(ProblemCategory problemCategory) {
-        throw new UnsupportedOperationException("Method ProblemCategoryStore persist() not yet implemented");
+        store.put(problemCategory.problemId(), problemCategory);
+        return problemCategory;
     }
 
     @Override

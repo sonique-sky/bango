@@ -9,7 +9,8 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
     stores: {
         queues: {
             type: 'queues',
-            pageSize: 0
+            pageSize: 0,
+            autoLoad: true
         }
     },
 
@@ -20,7 +21,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
                 deep: true
             },
             get: function (problemCategory) {
-                return false;
+                return !problemCategory.dirty;
             }
         }
     },
