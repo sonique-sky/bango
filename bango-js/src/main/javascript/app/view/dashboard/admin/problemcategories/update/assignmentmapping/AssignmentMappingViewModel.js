@@ -6,10 +6,6 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         assignmentMappings: {
             type: 'array',
             fields: ['serviceType', 'queue']
-        },
-        queues: {
-            type: 'queues',
-            pageSize: 0
         }
     }
 

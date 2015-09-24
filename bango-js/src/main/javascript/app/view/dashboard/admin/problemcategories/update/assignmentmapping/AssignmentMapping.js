@@ -28,14 +28,13 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
                 xtype: 'widgetcolumn',
                 dataIndex: 'queue.queueId',
                 flex: 1,
-                //onWidgetAttach: 'queueComboAttach',
+                onWidgetAttach: 'queueComboAttach',
                 widget: {
-                    xtype: 'combo',
+                    xtype: 'combobox',
                     displayField: 'name',
                     valueField: 'queueId',
-                    bind: {
-                        store: '{queues}'
-                    }
+                    queryMode: 'local',
+                    forceSelection: true
                 }
             }
         ]
