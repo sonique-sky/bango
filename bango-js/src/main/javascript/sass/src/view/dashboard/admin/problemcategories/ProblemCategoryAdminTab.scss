@@ -9,3 +9,9 @@
 .icon-admin-problem-category-delete {
   background: url('images/page-delete.png')
 }
+
+.cell-editing-delete-row:before {
+  font: 16px/1 FontAwesome;
+  color: #ae0000;
+  content: "\f056";
+}

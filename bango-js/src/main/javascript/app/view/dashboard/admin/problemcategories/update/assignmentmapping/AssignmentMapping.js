@@ -3,6 +3,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
 
     requires: [
         'Ext.form.field.ComboBox',
+        'Ext.grid.column.Action',
         'Ext.grid.plugin.RowEditing',
         'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewController',
         'Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.AssignmentMappingViewModel'
@@ -37,15 +38,27 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
                         store: '{queues}'
                     }
                 }
+            },
+            {
+                xtype: 'actioncolumn',
+                width: 20,
+                sortable: false,
+                menuDisabled: true,
+                items: [{
+                    iconCls: 'cell-editing-delete-row',
+                    tooltip: 'Delete Routing',
+                    handler: 'deleteRouting'
+                }]
             }
         ]
     },
-    selType: 'rowmodel',
+    selType: 'cellmodel',
     plugins: [{
         ptype: 'rowediting',
         clicksToEdit: 1,
         listeners: {
-            edit: 'onRowEditorEdit'
+            beforeedit: 'onBeforeEdit',
+            edit: 'updateRouting'
         }
     }]
 
