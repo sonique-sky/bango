@@ -35,7 +35,7 @@
         <superman.version>1213</superman.version>
         <sonique.workshop.version>1149</sonique.workshop.version>
 
-        <ext.cmd.version>6.0.0.202</ext.cmd.version>
+        <ext.cmd.version>6.0.1.76</ext.cmd.version>
         <jetty.version>9.3.2.v20150730</jetty.version>
         <spring.version>4.1.6.RELEASE</spring.version>
         <spring.security.version>3.2.7.RELEASE</spring.security.version>

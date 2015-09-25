@@ -12,8 +12,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
 
     selectedEventTypesBinding: null,
 
-    init: function () {
-        this.selectedEventTypesBinding = this.getViewModel().bind('{currentFilterState.selectedEventTypes}', this.applyFilter);
+    initViewModel: function (viewModel) {
+        this.selectedEventTypesBinding = viewModel.bind('{currentFilterState.selectedEventTypes}', this.applyFilter);
     },
 
     destroy: function () {
@@ -73,15 +73,15 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
         eventTypes.removeAll(true);
 
         var eventTypeData = eventHistory
-                .collect('eventType', false, true)
-                .map(function (item) {
-                    return {eventType: item};
-                });
+            .collect('eventType', false, true)
+            .map(function (item) {
+                return {eventType: item};
+            });
 
         eventTypes.loadRawData(eventTypeData);
     },
 
     onEventHistoryFilter: function () {
-        this.getView().add({ xtype: 'filterEventHistoryDialog'}).show();
+        this.getView().add({xtype: 'filterEventHistoryDialog'}).show();
     }
 });

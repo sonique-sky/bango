@@ -84,5 +84,7 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialog', {
                     ]
                 }
             ]
-        }]
+        }
+    ]
+
 });
