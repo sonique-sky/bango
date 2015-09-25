@@ -149,8 +149,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
                 serviceProblemId = me.getViewModel().get('serviceProblemId'),
                 mode = me.getViewModel().get('mode');
 
-            //TODO: Need to check if the form is dirty as well...
-            if (mode === 'Amend') {
+            if (mode === 'Amend' && !troubleReportTemplate.dirty) {
                 Ext.Msg.show({
                     title: 'Error',
                     msg: 'You must amend at least one of the fields',
