@@ -10,8 +10,14 @@
   background: url('images/page-delete.png')
 }
 
-.cell-editing-delete-row:before {
+.queue-routing-row-delete:before {
   font: 16px/1 FontAwesome;
   color: #ae0000;
   content: "\f056";
+}
+
+.queue-routing-row-edit:before {
+  font: 16px/1 FontAwesome;
+  color: #007700;
+  content: "\f044";
 }

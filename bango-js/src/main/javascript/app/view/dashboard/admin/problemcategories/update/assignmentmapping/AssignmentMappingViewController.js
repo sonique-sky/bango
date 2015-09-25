@@ -14,7 +14,26 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         return record.get('serviceTypeDisplayName');
     },
 
+    /** don't copy past this! */
+    filterServiceTypes: function (currentServiceType) {
+        var viewModel = this.getViewModel(),
+            currentAssignmentCode = viewModel.get('assignmentCodeFilter'),
+            serviceTypeStore = viewModel.get('serviceTypes'),
+            allQueueRoutingForSelectedAssignmentCode,
+            serviceTypesToFilter;
+
+        allQueueRoutingForSelectedAssignmentCode = Ext.Array.filter(viewModel.get('problemCategory').get('queueRouting'), function (queueRouteMapping) {
+            return queueRouteMapping.assignmentCode === currentAssignmentCode;
+        });
+        serviceTypesToFilter = Ext.Array.remove(Ext.Array.pluck(allQueueRoutingForSelectedAssignmentCode, 'serviceType'), currentServiceType);
+
+        serviceTypeStore.filterBy(function (item) {
+            return !Ext.Array.contains(serviceTypesToFilter, item.get('name'));
+        });
+    },
+
     onBeforeEdit: function (editor, ctx) {
+        this.filterServiceTypes(ctx.record.get('serviceType'));
         return ctx.colIdx == 0 || ctx.colIdx == 1;
     },
 
@@ -36,6 +55,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         this.getViewModel().get('problemCategory').set('veryDirtyFlag', true);
         this.getViewModel().get('assignmentMappings').load();
         event.stopEvent();
+    },
+
+    startEditing: function (grid, rowIndex, colIndex, item, event, record, row) {
+        grid.up().getPlugin('queueRoutingRowEditingPlugin').startEdit(record);
     },
 
     onNewButtonClick: function () {

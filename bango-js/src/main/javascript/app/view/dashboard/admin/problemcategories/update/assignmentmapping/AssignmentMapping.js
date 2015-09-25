@@ -70,7 +70,18 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
                 sortable: false,
                 menuDisabled: true,
                 items: [{
-                    iconCls: 'cell-editing-delete-row',
+                    iconCls: 'queue-routing-row-edit',
+                    tooltip: 'Edit Routing',
+                    handler: 'startEditing'
+                }]
+            },
+            {
+                xtype: 'actioncolumn',
+                width: 20,
+                sortable: false,
+                menuDisabled: true,
+                items: [{
+                    iconCls: 'queue-routing-row-delete',
                     tooltip: 'Delete Routing',
                     handler: 'deleteRouting'
                 }]
@@ -81,6 +92,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     selType: 'cellmodel',
     plugins: [{
         ptype: 'rowediting',
+        pluginId: 'queueRoutingRowEditingPlugin',
         clicksToEdit: 1,
         listeners: {
             beforeedit: 'onBeforeEdit',

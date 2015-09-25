@@ -15,8 +15,8 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
             }]
         },
         serviceTypes: {
-            autoLoad: true,
             model: 'Spm.model.ServiceType',
+            autoLoad: true,
             proxy: {
                 type: 'ajax',
                 url: 'api/problemCategory/serviceTypes',
