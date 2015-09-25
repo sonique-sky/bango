@@ -267,6 +267,14 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     showClearServiceProblemDialog: function () {
         this.getView().add({xtype: 'clearServiceProblemDialog'}).show();
+    },
+
+    onServiceProblemTabActivated: function () {
+        if (!this.lookupReference('serviceProblemPanel').hidden) {
+            this.getView().lookupReference("serviceProblemButton").setPressed(true);
+        } else {
+            this.getView().lookupReference("troubleReportButton").setPressed(true);
+        }
     }
 
 });
