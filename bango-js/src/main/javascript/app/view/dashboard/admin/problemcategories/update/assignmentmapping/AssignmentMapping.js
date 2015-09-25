@@ -52,6 +52,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
             }
         ]
     },
+    bufferedRenderer: false,
     selType: 'cellmodel',
     plugins: [{
         ptype: 'rowediting',
