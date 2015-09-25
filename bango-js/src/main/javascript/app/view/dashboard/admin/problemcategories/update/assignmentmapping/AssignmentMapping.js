@@ -2,6 +2,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     extend: 'Ext.grid.Panel',
 
     requires: [
+        'Ext.button.Button',
         'Ext.form.field.ComboBox',
         'Ext.grid.column.Action',
         'Ext.grid.plugin.RowEditing',
@@ -21,15 +22,39 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         store: '{assignmentMappings}'
     },
 
+    tbar: {
+        items: [
+            {
+                xtype: 'button',
+                reference: 'newRecordButton',
+                text: 'New',
+                handler: 'onNewButtonClick'
+            }
+        ]
+    },
+
     columns: {
         defaults: {sortable: false, menuDisabled: true},
         items: [
-            {text: 'ServiceType', dataIndex: 'serviceType', flex: 0.4},
+            {
+                text: 'ServiceType',
+                dataIndex: 'serviceType',
+                renderer: 'serviceTypeNameRenderer',
+                flex: 0.5,
+                editor: {
+                    xtype: 'combobox',
+                    displayField: 'displayName',
+                    valueField: 'name',
+                    bind: {
+                        store: '{serviceTypes}'
+                    }
+                }
+            },
             {
                 text: 'Routing',
                 dataIndex: 'queueId',
                 renderer: 'queueNameRenderer',
-                flex: 1,
+                flex: 0.5,
                 editor: {
                     xtype: 'combobox',
                     displayField: 'name',
