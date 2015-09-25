@@ -61,6 +61,17 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         grid.up().getPlugin('queueRoutingRowEditingPlugin').startEdit(record);
     },
 
-    onNewButtonClick: function () {
+    addNewQueueRoutingMapping: function () {
+        var viewModel = this.getViewModel();
+        Ext.Array.push(viewModel.get('problemCategory').get('queueRouting'), {
+            assignmentCode: this.getViewModel().get('assignmentCodeFilter'),
+            queueId: null,
+            queueName: null,
+            serviceType: null,
+            serviceTypeDisplayName: null
+        });
+        viewModel.get('assignmentMappings').load();
+        this.getView().getPlugin('queueRoutingRowEditingPlugin').startEdit(viewModel.get('assignmentMappings').last());
     }
+
 });

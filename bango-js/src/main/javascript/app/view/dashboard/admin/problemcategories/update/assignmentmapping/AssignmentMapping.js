@@ -28,7 +28,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
                 xtype: 'button',
                 reference: 'newRecordButton',
                 text: 'New',
-                handler: 'onNewButtonClick'
+                handler: 'addNewQueueRoutingMapping'
             }
         ]
     },
