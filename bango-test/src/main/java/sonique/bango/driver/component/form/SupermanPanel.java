@@ -15,7 +15,7 @@ public abstract class SupermanPanel extends SupermanComponent {
     }
 
     protected SupermanTextField textField(String label) {
-        return new SupermanTextField(this, By.xpath(String.format(".//label[text() = '%s:']/parent::td/parent::tr/td/input", label)));
+        return new SupermanTextField(this, By.xpath(String.format(".//label/span[text() = '%s:']/parent::label/parent::div/div/div/div/input", label)));
     }
 
     protected SupermanDateField dateField(String label, String dateFormat) {

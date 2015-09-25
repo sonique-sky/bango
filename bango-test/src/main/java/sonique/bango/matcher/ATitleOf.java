@@ -18,12 +18,7 @@ public class ATitleOf< T extends HasTitle> extends AsynchronousMatcher<T> {
 
     @Override
     protected Predicate<T> until() {
-        return new Predicate<T>() {
-            @Override
-            public boolean apply(T element) {
-                return element.title().equals(expectedTitle);
-            }
-        };
+        return element -> element.title().equals(expectedTitle);
     }
 
     @Override

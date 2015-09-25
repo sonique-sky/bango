@@ -18,12 +18,7 @@ public class AMessageOf<T extends HasMessage> extends AsynchronousMatcher<T> {
 
     @Override
     protected Predicate<T> until() {
-        return new Predicate<T>() {
-            @Override
-            public boolean apply(T element) {
-                return element.message().equals(expectedMessage);
-            }
-        };
+        return element -> element.message().equals(expectedMessage);
     }
 
     @Override

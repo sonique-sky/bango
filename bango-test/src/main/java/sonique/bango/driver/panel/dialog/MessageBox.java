@@ -27,6 +27,6 @@ public class MessageBox extends SupermanDialog implements HasMessage {
 
     @Override
     public String message() {
-        return element().findElement(By.cssSelector("div.x-form-display-field")).getText();
+        return element().findElement(By.cssSelector("div.x-window-text")).getText();
     }
 }
