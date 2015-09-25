@@ -1,6 +1,9 @@
 Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.troubleReportDialog',
+    requires: [
+        'Spm.view.troublereport.requestappointment.RequestAppointmentDialog'
+    ],
 
     listen: {
         controller: {

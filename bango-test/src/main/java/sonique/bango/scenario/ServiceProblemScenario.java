@@ -7,6 +7,7 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblemBuilder;
 import sky.sns.spm.domain.model.serviceproblem.DomainWorkItemBuilder;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.app.ScenarioDriver;
 import sonique.bango.service.ServiceProblemApiService;
 import spm.domain.QueueName;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 import static util.SupermanDataFixtures.*;
@@ -60,7 +62,8 @@ public class ServiceProblemScenario extends SupermanScenario {
     }
 
     public ServiceProblemScenario returnsEventHistoryRefreshed(final List<EventHistoryItem> expectedEventHistoryItems) {
-        return addStep(() -> when(services.serviceProblemApiService().eventHistory(any(ServiceProblemId.class))).thenReturn(expectedEventHistoryItems));
+        return addStep(() -> when(services.serviceProblemApiService().eventHistory(any(ServiceProblemId.class), any(SearchParametersDTO.class)))
+                .thenReturn(new PagedSearchResults<>(expectedEventHistoryItems, expectedEventHistoryItems.size())));
     }
 
     private ServiceProblemScenario addStep(ScenarioStep scenarioStep) {
@@ -70,11 +73,11 @@ public class ServiceProblemScenario extends SupermanScenario {
 
     @Override
     public void bindScenario() {
-        PagedSearchResults<DomainServiceProblem> serviceProblems = new PagedSearchResults<>(newArrayList(serviceProblem), 1L);
-
         ServiceProblemApiService serviceProblemApiService = services.serviceProblemApiService();
         when(serviceProblemApiService.serviceProblemWithId(serviceProblem.serviceProblemId())).thenReturn(serviceProblem);
-        when(serviceProblemApiService.eventHistory(serviceProblem.serviceProblemId())).thenReturn(serviceProblem.historyItems());
+        List<EventHistoryItem> eventHistoryItems = serviceProblem.historyItems();
+        when(serviceProblemApiService.eventHistory(serviceProblem.serviceProblemId(), mock(SearchParametersDTO.class)))
+                .thenReturn(new PagedSearchResults<>(eventHistoryItems, eventHistoryItems.size()));
 
         steps.forEach(ServiceProblemScenario.ScenarioStep::doStep);
     }

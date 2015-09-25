@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.asList;
@@ -40,9 +39,9 @@ public class ServiceProblemApiController {
     }
 
     @RequestMapping(value = "/{serviceProblemId}/eventHistory", method = RequestMethod.GET)
-    @ResponseBody
-    public List<EventHistoryItem> eventHistory(@PathVariable Long serviceProblemId) {
-        return serviceProblemApiService.eventHistory(new ServiceProblemId(serviceProblemId));
+    public PagedSearchResults<EventHistoryItem> eventHistory(@PathVariable Long serviceProblemId,
+                                                             @ModelAttribute SearchParametersDTO searchParameters) {
+        return serviceProblemApiService.eventHistory(new ServiceProblemId(serviceProblemId), searchParameters);
     }
 
     @RequestMapping(consumes = "application/json", value = "/{serviceProblemId}/eventHistory", method = RequestMethod.POST)

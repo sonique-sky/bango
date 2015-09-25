@@ -2,11 +2,14 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.eventHistoryPanel',
 
+    requires: [
+        'Spm.model.EventHistoryItem',
+        'Spm.proxy.ServiceProblemEventHistoryProxy'
+    ],
+
     stores: {
         eventHistory: {
-            model: 'Spm.model.EventHistoryItem',
-            proxy: 'serviceProblemEventHistoryProxy',
-            pageSize: 0,
+            type: 'eventHistory',
             listeners: {
                 load: 'onEventHistoryLoaded'
             }
@@ -22,7 +25,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewModel', {
     data: {
         currentFilterState: {
             selectedEventTypes: []
-        }
+        },
+        serviceProblemId: null
     },
 
     formulas: {

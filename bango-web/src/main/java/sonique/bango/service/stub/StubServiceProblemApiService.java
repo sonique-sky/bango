@@ -14,6 +14,7 @@ import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.service.ServiceProblemApiService;
+import sonique.bango.util.PagedSearchResultsCreator;
 import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
 import spm.domain.event.ReassignHistoryEvent;
@@ -57,8 +58,10 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     }
 
     @Override
-    public List<EventHistoryItem> eventHistory(ServiceProblemId serviceProblemId) {
-        return serviceProblemWithId(serviceProblemId).historyItems();
+    public PagedSearchResults<EventHistoryItem> eventHistory(ServiceProblemId serviceProblemId, SearchParametersDTO searchParameters) {
+        List<EventHistoryItem> eventHistoryItems = serviceProblemWithId(serviceProblemId).historyItems();
+
+        return PagedSearchResultsCreator.createPageFor(searchParameters, eventHistoryItems, null);
     }
 
     @Override

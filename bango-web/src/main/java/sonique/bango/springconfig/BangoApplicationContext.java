@@ -29,6 +29,7 @@ import sonique.bango.domain.troublereport.TroubleReportTemplateFactory;
 import sonique.bango.json.*;
 import sonique.bango.service.*;
 import sonique.bango.service.stub.*;
+import sonique.bango.service.stub.StubServiceProblemApiService;
 import sonique.bango.store.*;
 import sonique.types.NumberValue;
 import sonique.types.StringValue;
@@ -206,5 +207,10 @@ public class BangoApplicationContext {
     @Bean
     public MspApiService mspApiService() {
         return new StubMspApiService(mspRepository);
+    }
+
+    @Bean
+    public EventHistoryApiService eventHistoryApiService() {
+        return new StubEventHistoryApiService(serviceProblemRepository);
     }
 }

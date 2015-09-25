@@ -2,6 +2,7 @@ package sonique.bango.store;
 
 import com.google.common.collect.Iterables;
 import sky.sns.spm.domain.model.DomainAgent;
+import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
 import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.Queue;
@@ -20,6 +21,7 @@ import spm.domain.*;
 import spm.domain.model.refdata.DomainAgentBuilder;
 import spm.messages.bt.types.DirectoryNumber;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
@@ -174,6 +176,31 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
     }
 
 
+    @Override
+    public List<DomainServiceProblem> getServiceProblemThatHaveBreachedQueueSla(sky.sns.spm.domain.model.refdata.Queue queue) {
+        throw new UnsupportedOperationException("Method ServiceProblemStore getServiceProblemThatHaveBreachedQueueSla() not yet implemented");
+    }
+
+    @Override
+    public List<DomainServiceProblem> getServiceProblemsForAgent(final DomainAgent agent) {
+        return newArrayList(filter(serviceProblems, serviceProblem -> serviceProblem.isAssignedTo(agent)));
+    }
+
+    @Override
+    public List<DomainServiceProblem> getServiceProblemsThatHaveBreachedWorkReminderSla() {
+        throw new UnsupportedOperationException("Method ServiceProblemStore getServiceProblemsThatHaveBreachedWorkReminderSla() not yet implemented");
+    }
+
+    @Override
+    public Boolean activeItemsExistFor(DomainAgent loggedInAgent) {
+        throw new UnsupportedOperationException("Method ServiceProblemStore activeItemsExistFor() not yet implemented");
+    }
+
+    @Override
+    public void unassignAllWorkItems() {
+        throw new UnsupportedOperationException("Method ServiceProblemStore unassignAllWorkItems() not yet implemented");
+    }
+
     private enum SearchProperty implements Function<Filter, Predicate<DomainServiceProblem>> {
         serviceProblemId(searchParameters -> serviceProblem -> serviceProblem.serviceProblemId().asString().equals(searchParameters.value())),
         serviceId(searchParameters -> serviceProblem -> serviceProblem.serviceId().asString().equals(searchParameters.value())),
@@ -207,11 +234,11 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
         }
     }
 
-    private class ServiceProblemComparators extends Comparators<DomainServiceProblem> {
+    private static class ServiceProblemComparators extends Comparators<DomainServiceProblem> {
         public ServiceProblemComparators() {
-            add("serviceProblemId", (o1,o2) -> o1.serviceProblemId().compareTo(o2.serviceProblemId()));
+            add("serviceProblemId", (o1, o2) -> o1.serviceProblemId().compareTo(o2.serviceProblemId()));
             add("openedDate", (o1, o2) -> o1.openedDate().compareTo(o2.openedDate()));
-            add("status", (o1,o2) -> o1.getStatus().compareTo(o2.getStatus()));
+            add("status", (o1, o2) -> o1.getStatus().compareTo(o2.getStatus()));
             add("queue", nestedStringFieldComparator((DomainServiceProblem sp) -> sp.queue().name().asString()));
             add("problem", nestedStringFieldComparator((DomainServiceProblem sp) -> sp.problem().description()));
             add("workItem.agent", nestedStringFieldComparator((DomainServiceProblem sp) -> sp.workItem().agent().details().getDisplayName()));
@@ -222,28 +249,4 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
         }
     }
 
-    @Override
-    public List<DomainServiceProblem> getServiceProblemThatHaveBreachedQueueSla(sky.sns.spm.domain.model.refdata.Queue queue) {
-        throw new UnsupportedOperationException("Method ServiceProblemStore getServiceProblemThatHaveBreachedQueueSla() not yet implemented");
-    }
-
-    @Override
-    public List<DomainServiceProblem> getServiceProblemsForAgent(final DomainAgent agent) {
-        return newArrayList(filter(serviceProblems, serviceProblem -> serviceProblem.isAssignedTo(agent)));
-    }
-
-    @Override
-    public List<DomainServiceProblem> getServiceProblemsThatHaveBreachedWorkReminderSla() {
-        throw new UnsupportedOperationException("Method ServiceProblemStore getServiceProblemsThatHaveBreachedWorkReminderSla() not yet implemented");
-    }
-
-    @Override
-    public Boolean activeItemsExistFor(DomainAgent loggedInAgent) {
-        throw new UnsupportedOperationException("Method ServiceProblemStore activeItemsExistFor() not yet implemented");
-    }
-
-    @Override
-    public void unassignAllWorkItems() {
-        throw new UnsupportedOperationException("Method ServiceProblemStore unassignAllWorkItems() not yet implemented");
-    }
 }
