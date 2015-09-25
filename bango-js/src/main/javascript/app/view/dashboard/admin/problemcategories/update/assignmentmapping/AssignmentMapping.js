@@ -28,7 +28,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
                 xtype: 'button',
                 reference: 'newRecordButton',
                 text: 'New',
-                handler: 'addNewQueueRoutingMapping'
+                handler: 'addQueueRouting'
             }
         ]
     },
@@ -83,7 +83,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
                 items: [{
                     iconCls: 'queue-routing-row-delete',
                     tooltip: 'Delete Routing',
-                    handler: 'deleteRouting'
+                    handler: 'deleteQueueRouting'
                 }]
             }
         ]

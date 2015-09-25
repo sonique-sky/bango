@@ -45,7 +45,11 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         this.getViewModel().get('problemCategory').set('veryDirtyFlag', true);
     },
 
-    deleteRouting: function (grid, rowIndex, colIndex, item, event, record, row) {
+    startEditing: function (grid, rowIndex, colIndex, item, event, record, row) {
+        grid.up().getPlugin('queueRoutingRowEditingPlugin').startEdit(record);
+    },
+
+    deleteQueueRouting: function (grid, rowIndex, colIndex, item, event, record, row) {
         var queueRouting = this.getViewModel().get('problemCategory').get('queueRouting');
         Ext.Array.remove(queueRouting,
             Ext.Array.findBy(queueRouting, function (item) {
@@ -57,21 +61,22 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         event.stopEvent();
     },
 
-    startEditing: function (grid, rowIndex, colIndex, item, event, record, row) {
-        grid.up().getPlugin('queueRoutingRowEditingPlugin').startEdit(record);
-    },
-
-    addNewQueueRoutingMapping: function () {
-        var viewModel = this.getViewModel();
-        Ext.Array.push(viewModel.get('problemCategory').get('queueRouting'), {
-            assignmentCode: this.getViewModel().get('assignmentCodeFilter'),
+    addQueueRouting: function () {
+        var me = this,
+            queueRouting = me.getViewModel().get('problemCategory').get('queueRouting');
+        Ext.Array.push(queueRouting, {
+            assignmentCode: me.getViewModel().get('assignmentCodeFilter'),
             queueId: null,
             queueName: null,
             serviceType: null,
             serviceTypeDisplayName: null
         });
-        viewModel.get('assignmentMappings').load();
-        this.getView().getPlugin('queueRoutingRowEditingPlugin').startEdit(viewModel.get('assignmentMappings').last());
+        var assignmentMappingsStore = me.getViewModel().get('assignmentMappings');
+        assignmentMappingsStore.load({
+            callback: function () {
+                me.getView().getPlugin('queueRoutingRowEditingPlugin').startEdit(assignmentMappingsStore.last());
+            }
+        });
     }
 
 });
