@@ -165,8 +165,13 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
                             mode: mode
                         },
                         success: function () {
-                            me.fireEvent('troubleReportCreated', serviceProblemId);
-                            me.closeView();
+                            if(mode === 'Amend') {
+                                me.fireEvent('troubleReportAmended', serviceProblemId);
+                                me.closeView();
+                            } else {
+                                me.fireEvent('troubleReportCreated', serviceProblemId);
+                                me.closeView();
+                            }
                         }
                     }
                 );

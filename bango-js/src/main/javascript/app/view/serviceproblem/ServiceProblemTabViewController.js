@@ -12,6 +12,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         controller: {
             'cancelTroubleReportDialog': {
                 troubleReportCancelled: 'loadServiceProblem'
+            },
+            'troubleReportDialog' :{
+                troubleReportAmended: 'loadServiceProblem'
             }
         }
     },
