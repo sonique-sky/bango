@@ -39,7 +39,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         items: [
             {
                 text: 'ServiceType',
-                dataIndex: 'serviceType',
+                dataIndex: 'serviceTypeDisplayName',
                 renderer: 'serviceTypeNameRenderer',
                 flex: 0.5,
                 editor: {

@@ -60,8 +60,8 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     },
 
     updateRouting: function (editor, ctx) {
-        ctx.record.set('serviceType', ctx.newValues.serviceType);
-        ctx.record.set('serviceTypeDisplayName', this.getViewModel().get('serviceTypes').getById(ctx.newValues.serviceType).displayName());
+        ctx.record.set('serviceType', ctx.newValues.serviceTypeDisplayName);
+        ctx.record.set('serviceTypeDisplayName', this.getViewModel().get('serviceTypes').getById(ctx.newValues.serviceTypeDisplayName).displayName());
         ctx.record.set('queueId', ctx.newValues.queueId);
         ctx.record.set('queueName', this.getViewModel().get('queues').getById(ctx.newValues.queueId).queueName());
         this.getViewModel().get('problemCategory').set('veryDirtyFlag', true);
