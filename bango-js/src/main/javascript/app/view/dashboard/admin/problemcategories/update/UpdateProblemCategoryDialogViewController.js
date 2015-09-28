@@ -38,6 +38,12 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
             }
         });
         this.getViewModel().get('problemCategory').set('veryDirtyFlag', false);
+    },
+
+    onCancel: function() {
+        this.getViewModel().get('problemCategories').reload();
+        this.getViewModel().get('problemCategory').set('veryDirtyFlag', false);
+        this.callParent();
     }
 
 });
