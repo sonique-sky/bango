@@ -15,6 +15,7 @@ Ext.define('Spm.proxy.RepairTypeProxy', {
 
     reader: {
         type: 'json',
+        rootProperty: 'data',
         transform: function (data) {
             return data.map(function (val) {
                 return {repairType: val};

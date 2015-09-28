@@ -12,6 +12,10 @@ Ext.define('Spm.view.navigation.state.AgentStateViewModel', {
 
                 proxy: {
                     type: 'ajax',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    },
                     url: 'api/agent/agentState'
                 },
 

@@ -81,6 +81,10 @@ Ext.define('Spm.model.ServiceProblem', {
 
     proxy: {
         type: 'rest',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        },
         url: 'api/serviceProblem'
     },
 

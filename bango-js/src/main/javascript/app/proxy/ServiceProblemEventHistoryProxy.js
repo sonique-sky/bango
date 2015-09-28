@@ -11,6 +11,11 @@ Ext.define('Spm.proxy.ServiceProblemEventHistoryProxy', {
         delete params.serviceProblemId;
 
         return Ext.String.format('api/serviceProblem/{0}/eventHistory', serviceProblemId);
+    },
+
+    reader: {
+        type: 'json',
+        rootProperty: 'data'
     }
 
 });

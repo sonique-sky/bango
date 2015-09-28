@@ -17,6 +17,7 @@ Ext.define('Spm.proxy.TestProductsProxy', {
 
     reader: {
         type: 'json',
+        rootProperty: 'data',
         transform: function (data) {
             return data.map(function (val) {
                 return {code: val};
