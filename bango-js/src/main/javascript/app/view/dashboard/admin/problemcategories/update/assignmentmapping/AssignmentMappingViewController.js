@@ -14,7 +14,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         return record.get('serviceTypeDisplayName');
     },
 
-    /** don't copy past this! */
+    /** don't copy paste this! */
     filterServiceTypes: function (currentServiceType) {
         var viewModel = this.getViewModel(),
             currentAssignmentCode = viewModel.get('assignmentCodeFilter'),
@@ -45,11 +45,17 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         this.getViewModel().get('problemCategory').set('veryDirtyFlag', true);
     },
 
+    cancelRouting: function (editor, ctx) {
+        if (ctx.originalValues.serviceType === null && ctx.originalValues.queueId === null) {
+           this.removeRecord(ctx.record);
+        }
+    },
+
     startEditing: function (grid, rowIndex, colIndex, item, event, record, row) {
         grid.up().getPlugin('queueRoutingRowEditingPlugin').startEdit(record);
     },
 
-    deleteQueueRouting: function (grid, rowIndex, colIndex, item, event, record, row) {
+    removeRecord: function (record) {
         var queueRouting = this.getViewModel().get('problemCategory').get('queueRouting');
         Ext.Array.remove(queueRouting,
             Ext.Array.findBy(queueRouting, function (item) {
@@ -58,6 +64,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         );
         this.getViewModel().get('problemCategory').set('veryDirtyFlag', true);
         this.getViewModel().get('assignmentMappings').load();
+    },
+
+    deleteQueueRouting: function (grid, rowIndex, colIndex, item, event, record, row) {
+        this.removeRecord(record);
         event.stopEvent();
     },
 

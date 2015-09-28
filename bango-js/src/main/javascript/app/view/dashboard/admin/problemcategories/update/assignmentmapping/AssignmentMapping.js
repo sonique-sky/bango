@@ -96,7 +96,8 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         clicksToEdit: 1,
         listeners: {
             beforeedit: 'onBeforeEdit',
-            edit: 'updateRouting'
+            edit: 'updateRouting',
+            canceledit: 'cancelRouting'
         }
     }]
 
