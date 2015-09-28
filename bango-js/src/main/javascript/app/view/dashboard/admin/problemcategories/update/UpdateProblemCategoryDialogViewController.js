@@ -37,6 +37,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
                 me.closeView();
             }
         });
+        this.getViewModel().get('problemCategory').set('veryDirtyFlag', false);
     }
 
 });
