@@ -28,7 +28,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
             {
                 xtype: 'button',
                 reference: 'newRecordButton',
-                iconCls: 'icon-admin-problem-category-create',
+                iconCls: 'queue-routing-row-add',
                 handler: 'addQueueRouting'
             }
         ]
