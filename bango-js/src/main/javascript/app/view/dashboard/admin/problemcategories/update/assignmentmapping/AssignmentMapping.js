@@ -43,6 +43,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
                 flex: 0.5,
                 editor: {
                     xtype: 'combobox',
+                    allowBlank: false,
                     displayField: 'displayName',
                     valueField: 'name',
                     bind: {
@@ -57,6 +58,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
                 flex: 0.5,
                 editor: {
                     xtype: 'combobox',
+                    allowBlank: false,
                     displayField: 'name',
                     valueField: 'id',
                     bind: {
