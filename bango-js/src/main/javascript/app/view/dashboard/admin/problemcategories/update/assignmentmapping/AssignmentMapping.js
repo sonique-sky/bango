@@ -12,6 +12,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
 
     xtype: 'assignmentMapping',
     reference: 'assignmentMappingTab',
+    disableSelection: true,
 
     viewModel: {type: 'assignmentMapping'},
     controller: 'assignmentMapping',
@@ -27,7 +28,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
             {
                 xtype: 'button',
                 reference: 'newRecordButton',
-                text: 'New',
+                iconCls: 'icon-admin-problem-category-create',
                 handler: 'addQueueRouting'
             }
         ]
@@ -95,7 +96,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     plugins: [{
         ptype: 'rowediting',
         pluginId: 'queueRoutingRowEditingPlugin',
-        clicksToEdit: 1,
+        clicksToEdit: 0,
         listeners: {
             beforeedit: 'onBeforeEdit',
             edit: 'updateRouting',
