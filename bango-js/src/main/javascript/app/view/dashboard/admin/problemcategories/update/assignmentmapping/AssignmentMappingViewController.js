@@ -68,7 +68,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     },
 
     cancelRouting: function (editor, ctx) {
-        if (ctx.originalValues.serviceType === null && ctx.originalValues.queueId === null) {
+        if (ctx.originalValues.serviceTypeDisplayName === null && ctx.originalValues.queueId === null) {
             this.removeRecord(ctx.record);
         }
     },
@@ -84,12 +84,12 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
                 return item.id === record.getId()
             })
         );
-        this.getViewModel().get('problemCategory').set('veryDirtyFlag', true);
         this.getViewModel().get('assignmentMappings').load();
     },
 
     deleteQueueRouting: function (grid, rowIndex, colIndex, item, event, record, row) {
         this.removeRecord(record);
+        this.getViewModel().get('problemCategory').set('veryDirtyFlag', true);
         event.stopEvent();
     },
 
