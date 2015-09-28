@@ -1,11 +1,18 @@
 Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.agentAdminTab',
+    itemId: 'agentAdmin',
 
     requires: [
         'Spm.view.dashboard.admin.agents.AgentAdminTabViewController',
         'Spm.view.dashboard.admin.agents.AgentAdminTabViewModel'
     ],
+
+    mixins: {
+        tab: 'Spm.view.component.mixins.RoutableTab'
+    },
+
+    parentTabId: 'adminDashboard',
 
     viewModel: {type: 'agentAdminTab'},
     controller: 'agentAdminTab',

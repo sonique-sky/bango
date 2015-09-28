@@ -1,18 +1,28 @@
 Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.mspDashboard',
+    itemId: 'mspDashboard',
 
     requires: [
+        'Ext.button.Button',
+        'Ext.form.field.Checkbox',
+        'Ext.grid.Panel',
+        'Ext.toolbar.Separator',
+        'Ext.toolbar.Spacer',
         'Spm.view.component.AutoRefreshToolbar',
-        'Spm.view.dashboard.msp.MspDashboardTabModel',
-        'Spm.view.dashboard.msp.MspDashboardTabController'
+        'Spm.view.dashboard.msp.MspDashboardTabController',
+        'Spm.view.dashboard.msp.MspDashboardTabModel'
     ],
+
+    mixins: {
+        tab: 'Spm.view.component.mixins.RoutableTab'
+    },
 
     controller: 'mspDashboard',
     viewModel: {type: 'mspDashboard'},
 
     listeners: {
-        activate: 'loadStore'
+        activate: 'loadMspStore'
     },
 
     title: 'MSP Dashboard',

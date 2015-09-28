@@ -1,6 +1,7 @@
 Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.problemCategoryAdminTab',
+    itemId: 'problemCategoryAdmin',
 
     requires: [
         'Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabViewController',
@@ -9,6 +10,12 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTab',
 
     viewModel: {type: 'problemCategoryAdminTab'},
     controller: 'problemCategoryAdminTab',
+
+    mixins: {
+        tab: 'Spm.view.component.mixins.RoutableTab'
+    },
+
+    parentTabId: 'adminDashboard',
 
     listeners: {
         activate: 'loadStore'

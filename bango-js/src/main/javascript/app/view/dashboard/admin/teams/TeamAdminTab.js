@@ -1,6 +1,7 @@
 Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.teamAdminTab',
+    itemId: 'teamAdmin',
 
     requires: [
         'Ext.toolbar.Paging',
@@ -8,6 +9,11 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTab', {
         'Spm.view.dashboard.admin.teams.TeamAdminTabViewModel'
     ],
 
+    mixins: {
+        tab: 'Spm.view.component.mixins.RoutableTab'
+    },
+
+    parentTabId: 'adminDashboard',
     viewModel: {type:'teamAdminTab'},
     controller: 'teamAdminTab',
 

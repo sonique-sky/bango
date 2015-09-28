@@ -20,6 +20,11 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardViewModel', {
                     type: 'json',
                     rootProperty: 'data'
                 }
+            },
+            listeners: {
+                load: function() {
+                    console.log('sdfoksdofkd')
+                }
             }
         }
     }

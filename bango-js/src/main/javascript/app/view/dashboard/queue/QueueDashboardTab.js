@@ -1,6 +1,7 @@
 Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.queueDashboard',
+    itemId: 'queueDashboard',
 
     requires: [
         'Spm.view.component.AutoRefreshToolbar',
@@ -8,11 +9,15 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
         'Spm.view.dashboard.queue.QueueDashboardTabViewModel'
     ],
 
+    mixins: {
+        tab: 'Spm.view.component.mixins.RoutableTab'
+    },
+
     controller: 'queueDashboard',
     viewModel: {type: 'queueDashboard'},
 
     listeners: {
-        activate: 'loadStore',
+        activate: 'loadQueuesStore',
         cellclick: 'onCellClicked'
     },
 

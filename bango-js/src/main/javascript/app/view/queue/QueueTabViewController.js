@@ -52,6 +52,7 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
     },
 
     onQueueTabActivated: function () {
+        this.redirectTo('');
         this.fireEvent('queueTabSelected', this.queueId());
     },
 

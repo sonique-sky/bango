@@ -1,11 +1,18 @@
 Ext.define('Spm.view.dashboard.admin.queues.QueueAdminTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.queueAdminTab',
+    itemId: 'queueAdmin',
 
     requires: [
         'Spm.view.dashboard.admin.queues.QueueAdminTabViewController',
         'Spm.view.dashboard.admin.queues.QueueAdminTabViewModel'
     ],
+
+    mixins: {
+        tab: 'Spm.view.component.mixins.RoutableTab'
+    },
+
+    parentTabId: 'adminDashboard',
 
     viewModel: {type: 'queueAdminTab'},
     controller: 'queueAdminTab',

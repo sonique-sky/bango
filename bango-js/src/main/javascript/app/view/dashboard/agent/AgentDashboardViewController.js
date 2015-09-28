@@ -2,8 +2,8 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.agentDashboard',
 
-    loadStore: function () {
-        var store = this.getView().getStore();
+    loadAgentsStore: function () {
+        var store = this.getViewModel().getStore('agents');
         if (store && !store.isLoaded()) {
             store.load();
         }
@@ -23,7 +23,7 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardViewController', {
     },
 
     agentStatusRenderer: function (status, meta) {
-        meta.tdCls =  Ext.String.format('user-status-{0}', Ext.util.Format.lowercase(status));
+        meta.tdCls = Ext.String.format('user-status-{0}', Ext.util.Format.lowercase(status));
         return status;
     }
 });

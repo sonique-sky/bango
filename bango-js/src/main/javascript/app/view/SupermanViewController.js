@@ -22,6 +22,13 @@ Ext.define('Spm.view.SupermanViewController', {
         }
     },
 
+    routes: {
+        'tab/:tabIds': {
+            action: 'showTab'
+        }
+
+    },
+
     init: function () {
         Ext.Ajax.on('requestexception', this.onProxyException, this);
         this.callParent();
@@ -102,5 +109,15 @@ Ext.define('Spm.view.SupermanViewController', {
 
     beforeRender: function () {
         this.loadAuthenticatedAgent();
+    },
+
+    showTab: function (tabIds) {
+        var tabArray = tabIds.split('--');
+        var appContainer = this.lookupReference('appContainer');
+        if (appContainer) {
+            appContainer.lookupReference('tabPanel').setActiveTab(tabArray.shift());
+        }
+        this.getViewModel().set('activeTabs', tabArray);
     }
+
 });

@@ -6,8 +6,8 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewController', {
         'Spm.model.Queue'
     ],
 
-    loadStore: function () {
-        var store = this.getView().getStore();
+    loadQueuesStore: function () {
+        var store = this.getViewModel().get('queueDashboardEntries');
         if (store && !store.isLoaded()) {
             store.load();
         }
@@ -21,4 +21,5 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTabViewController', {
             })
         );
     }
+
 });

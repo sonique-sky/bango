@@ -66,7 +66,7 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
     initViewModel: function (viewModel) {
         var me = this,
-            agent = me.getView().authenticatedAgent;
+                agent = me.getView().authenticatedAgent;
 
         me.tabPanel = me.lookupReference('tabPanel');
         me.tabPanel.removeAll(true);
@@ -78,7 +78,13 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         me.addTabIfPermitted(agent, 'AccessMspDashboard', 'Spm.view.dashboard.msp.MspDashboardTab');
         me.addTabIfPermitted(agent, 'AccessAdminDashboard', 'Spm.view.dashboard.admin.AdminDashboardTab');
 
-        me.tabPanel.setActive(0);
+        var activeTabs = this.getViewModel().get('activeTabs');
+        if (activeTabs) {
+            this.tabPanel.setActiveTab(activeTabs.shift());
+            this.getViewModel().set('activeTabs', activeTabs);
+        } else {
+            this.tabPanel.setActiveTab(0);
+        }
     },
 
     addTabIfPermitted: function (agent, requiredPrivilege, tabClass) {
@@ -110,9 +116,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
     onDisplaySearchResults: function (store, params) {
         var me = this,
-            searchKey = me.deriveSearchKey(params),
-            viewModel = me.getViewModel(),
-            searchResultTab = viewModel.searchResultTabForId(searchKey);
+                searchKey = me.deriveSearchKey(params),
+                viewModel = me.getViewModel(),
+                searchResultTab = viewModel.searchResultTabForId(searchKey);
 
         if (searchResultTab === null) {
             searchResultTab = Ext.create('widget.searchResult', {
@@ -135,9 +141,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
     onDisplayServiceProblem: function (serviceProblem) {
         var me = this,
-            serviceProblemId = serviceProblem.serviceProblemId(),
-            viewModel = me.getViewModel(),
-            serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+                serviceProblemId = serviceProblem.serviceProblemId(),
+                viewModel = me.getViewModel(),
+                serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
 
         if (serviceProblemTab === null) {
             serviceProblemTab = Ext.create('Spm.view.serviceproblem.ServiceProblemTab', {
@@ -157,8 +163,8 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
     onServiceProblemSelected: function (serviceProblemId) {
         var me = this,
-            viewModel = me.getViewModel(),
-            serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+                viewModel = me.getViewModel(),
+                serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
 
         if (serviceProblemTab === null) {
             serviceProblemTab = Ext.create('Spm.view.serviceproblem.ServiceProblemTab', {
@@ -190,9 +196,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
     onAgentQueueSelected: function (selectedQueue) {
         var me = this,
-            viewModel = me.getViewModel(),
-            queueId = selectedQueue.queueId(),
-            queueTab = viewModel.queueTabForId(queueId);
+                viewModel = me.getViewModel(),
+                queueId = selectedQueue.queueId(),
+                queueTab = viewModel.queueTabForId(queueId);
 
         if (queueTab === null) {
             queueTab = Ext.create('widget.queueTab', {
@@ -214,8 +220,8 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
     closeServiceProblemAndSetMyItemsActive: function (serviceProblemId) {
         var me = this,
-            viewModel = me.getViewModel(),
-            serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
+                viewModel = me.getViewModel(),
+                serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
 
         if (serviceProblemTab) {
             me.tabPanel.remove(serviceProblemTab);

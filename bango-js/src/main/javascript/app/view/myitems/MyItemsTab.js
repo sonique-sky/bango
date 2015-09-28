@@ -1,19 +1,26 @@
 Ext.define('Spm.view.myitems.MyItemsTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.myItems',
+    itemId: 'myItems',
 
     requires: [
+        'Ext.button.Button',
+        'Ext.grid.column.Widget',
+        'Ext.grid.feature.Grouping',
         'Ext.toolbar.Paging',
         'Spm.view.myitems.MyItemsTabViewController',
         'Spm.view.myitems.MyItemsTabViewModel'
     ],
+
+    mixins: {
+        tab: 'Spm.view.component.mixins.RoutableTab'
+    },
 
     controller: 'myItems',
     viewModel: {type: 'myItems'},
 
     title: 'My Items',
     iconCls: 'icon-my-items',
-    itemId: 'myItems',
 
     bind: {
         store: '{myItems}'
@@ -21,34 +28,21 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
 
     listeners: {
         cellclick: 'onCellClicked',
-        added: 'loadMyItems'
+        activate: 'loadMyItems'
     },
 
     dockedItems: [
         {
-            xtype: 'container',
-            layout: {type: 'hbox', align: 'stretch'},
-            dock: 'top',
-            defaults: {
-                border: 0
+            xtype: 'pagingtoolbar',
+            bind: {
+                store: '{myItems}'
             },
-            items: [
-                {
-                    xtype: 'pagingtoolbar',
-                    flex: 1.0,
-                    bind: {
-                        store: '{myItems}'
-                    },
-                    listeners: {
-                        change : 'refreshMyItems'
-                    }
-                },
-                {
-                    xtype: 'tbspacer'
-                }
-            ]
+            listeners: {
+                change: 'refreshMyItems'
+            }
         }
     ],
+
     columns: {
         defaults: {
             menuDisabled: true,

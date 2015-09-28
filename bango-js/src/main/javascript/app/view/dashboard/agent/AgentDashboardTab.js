@@ -1,8 +1,14 @@
 Ext.define('Spm.view.dashboard.agent.AgentDashboardTab', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.agentDashboard',
+    itemId: 'agentDashboard',
+
+    mixins: {
+        tab: 'Spm.view.component.mixins.RoutableTab'
+    },
 
     requires: [
+        'Ext.grid.feature.Grouping',
         'Spm.view.component.AutoRefreshToolbar',
         'Spm.view.dashboard.agent.AgentDashboardViewController',
         'Spm.view.dashboard.agent.AgentDashboardViewModel'
@@ -12,7 +18,7 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardTab', {
     controller: 'agentDashboard',
 
     listeners: {
-        activate: 'loadStore'
+        activate: 'loadAgentsStore'
     },
 
     bind: {
