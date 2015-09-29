@@ -2,10 +2,6 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     extend: 'Ext.app.ViewController',
     alias: 'controller.assignmentMapping',
 
-    initViewModel: function (viewModel) {
-        viewModel.set('assignmentCodeFilter', this.getView().getTitle());
-    },
-
     queueNameRenderer: function (val, row, record) {
         return record.get('queueName');
     },
@@ -17,7 +13,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     /** don't copy paste this! */
     filterServiceTypes: function (currentServiceType) {
         var viewModel = this.getViewModel(),
-            currentAssignmentCode = viewModel.get('assignmentCodeFilter'),
+            currentAssignmentCode = this.getView().getTitle(),
             serviceTypeStore = viewModel.get('serviceTypes'),
             allQueueRoutingForSelectedAssignmentCode,
             serviceTypesToFilter;
@@ -75,13 +71,15 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     addQueueRouting: function () {
         var me = this,
             queueRouting = me.getViewModel().get('problemCategory').get('queueRouting');
+
         Ext.Array.push(queueRouting, {
-            assignmentCode: me.getViewModel().get('assignmentCodeFilter'),
+            assignmentCode: this.getView().getTitle(),
             queueId: null,
             queueName: null,
             serviceType: null,
             serviceTypeDisplayName: null
         });
+
         var assignmentMappingsStore = me.getViewModel().get('assignmentMappings');
         assignmentMappingsStore.load({
             callback: function () {
