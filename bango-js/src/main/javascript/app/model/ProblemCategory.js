@@ -12,10 +12,12 @@ Ext.define('Spm.model.ProblemCategory', {
     fields: [
         {
             name: 'id',
-            mapping: 'problemCode'
+            mapping: 'problemCode',
+            defaultValue: null
         },
         {
-            name: 'description'
+            name: 'description',
+            defaultValue: null
         },
         {
             name: 'queueRouting',

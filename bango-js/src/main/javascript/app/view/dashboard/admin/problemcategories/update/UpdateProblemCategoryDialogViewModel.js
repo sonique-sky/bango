@@ -21,7 +21,12 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
                 deep: true
             },
             get: function (problemCategory) {
-                return problemCategory !== null && !problemCategory.dirty;
+                return problemCategory === null
+                    || !problemCategory.dirty
+                    || problemCategory.problemCode() === null
+                    || problemCategory.description() === null
+                    || problemCategory.problemCode().length == 0
+                    || problemCategory.description().length == 0;
             }
         },
         titleForMode: {
