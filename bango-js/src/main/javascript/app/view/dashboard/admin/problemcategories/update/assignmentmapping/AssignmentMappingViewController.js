@@ -31,27 +31,6 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
             return !Ext.Array.contains(serviceTypesToFilter, item.get('name'));
         });
 
-        var roiServiceTypes = ['RoiFttc', 'RoiRuralOffnetBroadband', 'RoiOffnetVoice', 'RoiUrbanOffnetBroadband'];
-
-        if (this.getView().title === 'ROI') {
-            serviceTypeStore.filterBy(function (item) {
-                return Ext.Array.contains(roiServiceTypes, item.get('name'));
-            });
-        }
-
-        if (this.getView().title === 'Standard') {
-            serviceTypeStore.filterBy(function (item) {
-                return !Ext.Array.contains(roiServiceTypes, item.get('name'));
-            });
-        }
-
-        if (this.getView().title === 'Pro') {
-            var proServiceTypes = ['NvnVoice_Pro', 'NvnData_Pro', 'OnnetBroadband_Pro', 'WLR3_Pro', 'FTTC_Pro'];
-            serviceTypeStore.filterBy(function (item) {
-                return Ext.Array.contains(proServiceTypes, item.get('name'));
-            });
-        }
-
     },
 
     onBeforeEdit: function (editor, ctx) {

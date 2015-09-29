@@ -27,11 +27,18 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
 
     onAccept: function () {
         var me = this,
-            problemCategoryStore = me.getViewModel().get('problemCategories');
+            problemCategoryStore = me.getViewModel().get('problemCategories'),
+            mode = me.getViewModel().get('mode');
+
+        if(mode === 'Create') {
+            problemCategoryStore.add(me.getViewModel().get('problemCategory'));
+        }
 
         problemCategoryStore.sync({
             scope: me,
-            success: me.closeView,
+            success: function () {
+                me.closeView();
+            },
             failure: function () {
                 problemCategoryStore.reload();
                 me.closeView();
@@ -40,7 +47,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
         this.getViewModel().get('problemCategory').set('veryDirtyFlag', false);
     },
 
-    onCancel: function() {
+    onCancel: function () {
         this.getViewModel().get('problemCategories').reload();
         this.getViewModel().get('problemCategory').set('veryDirtyFlag', false);
         this.callParent();
