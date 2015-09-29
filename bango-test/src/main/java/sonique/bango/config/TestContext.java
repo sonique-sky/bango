@@ -1,36 +1,45 @@
 package sonique.bango.config;
 
-import net.sf.cglib.proxy.InvocationHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sonique.bango.app.ScenarioDriver;
 import sonique.bango.service.ServiceProblemApiService;
+import sonique.bango.service.TroubleReportApiService;
 import sonique.bango.springconfig.BangoApplicationContext;
-import sonique.bango.store.AgentStore;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.Map;
+import java.util.function.Function;
 
-import static net.sf.cglib.proxy.Proxy.newProxyInstance;
 
 @Configuration
 public class TestContext extends BangoApplicationContext {
 
     @Override
     public ServiceProblemApiService serviceProblemApiService() {
-        return (ServiceProblemApiService) newProxyInstance(
-                getClass().getClassLoader(),
-                new Class[]{ServiceProblemApiService.class},
-                new ServiceByAgentInvocationHandler<>(springSecurityAuthorisedActorProvider(), scenarioDriver().serviceProblemApiServices())
-        );
+        return wrapServiceFor(ServiceProblemApiService.class, ScenarioDriver::serviceProblemApiServices);
+    }
+
+    @Override
+    public TroubleReportApiService troubleReportApiService() {
+        return wrapServiceFor(TroubleReportApiService.class, ScenarioDriver::troubleReportApiServices);
     }
 
     @Bean
     public ScenarioDriver scenarioDriver() {
         return new ScenarioDriver(
-                (AgentStore) agentRepository
+                agentRepository
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T wrapServiceFor(Class<T> clazz, Function<ScenarioDriver, Map<DomainAgent, T>> serviceFunction) {
+        return (T) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{clazz},
+                new ServiceByAgentInvocationHandler<>(springSecurityAuthorisedActorProvider(), serviceFunction.apply(scenarioDriver()))
         );
     }
 

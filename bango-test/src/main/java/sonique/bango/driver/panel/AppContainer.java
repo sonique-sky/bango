@@ -1,8 +1,11 @@
 package sonique.bango.driver.panel;
 
 import org.openqa.selenium.By;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.driver.SupermanWebDriver;
+import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.driver.component.SupermanContainer;
+import sonique.bango.driver.component.tab.TabBar;
 import sonique.bango.driver.panel.navigation.AgentStatusPanel;
 import sonique.bango.driver.panel.navigation.HeaderPanel;
 import sonique.bango.driver.panel.navigation.MyQueuesPanel;
@@ -33,11 +36,7 @@ public class AppContainer extends SupermanContainer {
         return new AgentStatusPanel(this);
     }
 
-    public QueueDashboardTab queueDashboardTab() {
-        return new QueueDashboardTab(this);
-    }
-
-    public ServiceProblemTab serviceProblemTab(ServiceProblemId serviceProblemId) {
-        return new ServiceProblemTab(this, serviceProblemId);
+    public TabBar tab() {
+        return new TabBar(this);
     }
 }

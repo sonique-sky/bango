@@ -105,7 +105,7 @@ public class TroubleReportPanelTest extends BangoYatspecTest {
     }
 
     private StateExtractor<TroubleReportPanel> theOpenedTroubleReport() {
-        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().troubleReportPanel();
+        return inputAndOutputs -> supermanApp.appContainer().tab().serviceProblem(serviceProblem).tabContent().troubleReportPanel();
     }
 
     private ActionUnderTest theAgentViewsTheTroubleReport() {
@@ -113,7 +113,7 @@ public class TroubleReportPanelTest extends BangoYatspecTest {
             BangoActionUnderTest openServiceProblemAction = new BangoActionUnderTest(new ViewServiceProblemAction(supermanApp, serviceProblem));
             openServiceProblemAction.execute(givens, capturedInputAndOutputs);
 
-            BangoActionUnderTest viewTroubleReportAction = new BangoActionUnderTest(new ViewTroubleReportAction(supermanApp, serviceProblem.serviceProblemId()));
+            BangoActionUnderTest viewTroubleReportAction = new BangoActionUnderTest(new ViewTroubleReportAction(supermanApp, serviceProblem));
             viewTroubleReportAction.execute(givens, capturedInputAndOutputs);
             return capturedInputAndOutputs;
         };

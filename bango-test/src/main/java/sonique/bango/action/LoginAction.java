@@ -7,7 +7,7 @@ import sonique.bango.driver.panel.dialog.LoginDialog;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static sonique.bango.matcher.IsDisplayed.isDisplayed;
 
-public class LoginAction implements BangoAction{
+public class LoginAction implements BangoAction {
     private final SupermanApp supermanApp;
     private final DomainAgent agent;
     private String password;

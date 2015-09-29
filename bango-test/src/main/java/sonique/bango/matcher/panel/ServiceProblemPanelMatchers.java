@@ -2,13 +2,16 @@ package sonique.bango.matcher.panel;
 
 import org.apache.commons.lang.StringUtils;
 import org.hamcrest.Matcher;
-import sky.sns.spm.domain.model.refdata.ServiceType;
+import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemPanel;
-import spm.domain.*;
+import spm.domain.OperatorReference;
+import spm.domain.QueueName;
+import spm.domain.ServiceProblemId;
+import spm.domain.SnsServiceId;
 import spm.messages.bt.types.DirectoryNumber;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ServiceProblemPanelMatchers {
 
@@ -57,28 +60,28 @@ public class ServiceProblemPanelMatchers {
         };
     }
 
-    public static AbstractPanelMatcher<ServiceProblemPanel, Date> anOpenedDate(Matcher<Date> matcher) {
-        return new AbstractPanelMatcher<ServiceProblemPanel, Date>(matcher) {
+    public static AbstractPanelMatcher<ServiceProblemPanel, LocalDateTime> anOpenedDate(Matcher<LocalDateTime> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, LocalDateTime>(matcher) {
             @Override
-            protected Date actualValue(ServiceProblemPanel item) {
+            protected LocalDateTime actualValue(ServiceProblemPanel item) {
                 return item.openedDate();
             }
         };
     }
 
-    public static AbstractPanelMatcher<ServiceProblemPanel, Date> aClosedDate(Matcher<Date> matcher) {
-        return new AbstractPanelMatcher<ServiceProblemPanel, Date>(matcher) {
+    public static AbstractPanelMatcher<ServiceProblemPanel, LocalDateTime> aClosedDate(Matcher<LocalDateTime> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, LocalDateTime>(matcher) {
             @Override
-            protected Date actualValue(ServiceProblemPanel item) {
+            protected LocalDateTime actualValue(ServiceProblemPanel item) {
                 return item.closedDate();
             }
         };
     }
 
-    public static AbstractPanelMatcher<ServiceProblemPanel, ServiceType> aServiceType(Matcher<ServiceType> matcher) {
-        return new AbstractPanelMatcher<ServiceProblemPanel, ServiceType>(matcher) {
+    public static AbstractPanelMatcher<ServiceProblemPanel, PresentedServiceType> aServiceType(Matcher<PresentedServiceType> matcher) {
+        return new AbstractPanelMatcher<ServiceProblemPanel, PresentedServiceType>(matcher) {
             @Override
-            protected ServiceType actualValue(ServiceProblemPanel item) {
+            protected PresentedServiceType actualValue(ServiceProblemPanel item) {
                 return item.serviceType();
             }
         };

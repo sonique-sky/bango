@@ -12,6 +12,6 @@ public class SupermanRadioGroup extends SupermanComponent {
     }
 
     public void select(HasLabel hasLabel) {
-        new SupermanRadioButton(this, By.xpath(".//td[contains(@class, 'x-form-cb-wrap')]/label[text() = '" + hasLabel.label() + "']")).click();
+        new SupermanRadioButton(this, By.xpath(".//div[contains(concat(' ', @class, ' '), ' x-form-cb-wrap ')]/div/label[text() = '" + hasLabel.label() + "']")).click();
     }
 }
