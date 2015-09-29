@@ -12,13 +12,13 @@ import spm.domain.TroubleReportId;
 import spm.messages.bt.types.Code;
 
 import java.util.List;
-
-import static sonique.datafixtures.PrimitiveDataFixtures.someLongBetween;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class TroubleReportStore implements DomainTroubleReportRepository {
 
     private final DomainServiceProblemRepository serviceProblemRepository;
     private final SymptomStore symptomRepository;
+    private AtomicLong troubleReportIdGenerator = new AtomicLong();
 
     public TroubleReportStore(final DomainServiceProblemRepository serviceProblemRepository, SymptomStore symptomRepository) {
         this.serviceProblemRepository = serviceProblemRepository;
@@ -61,6 +61,6 @@ public class TroubleReportStore implements DomainTroubleReportRepository {
 
     @Override
     public TroubleReportId nextTroubleReportId() {
-        return new TroubleReportId(someLongBetween(0, 1000));
+        return new TroubleReportId(troubleReportIdGenerator.incrementAndGet());
     }
 }

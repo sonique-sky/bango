@@ -8,7 +8,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     listeners: {
         staleData: 'loadServiceProblem',
         close: 'onServiceProblemTabClosed',
-        added: 'onServiceProblemTabAdded'
+        added: 'onServiceProblemTabAdded',
+        show: 'onServiceProblemTabActivated'
     },
 
     bind: {
@@ -31,19 +32,19 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                     defaults: {
                         xtype: 'button',
                         toggleGroup: 'panelToggle',
-                        allowDepress: false,
-                        padding: '5,5,5,5'
+                        padding: '5,5,5,5',
+                        enableToggle: true
                     },
                     items: [
                         {
                             text: 'Service Problem',
-                            itemId: 'serviceProblem',
+                            reference: 'serviceProblemButton',
                             handler: 'showServiceProblemPanel',
                             pressed: true
                         },
                         {
                             text: 'Trouble Report',
-                            itemId: 'troubleReport',
+                            reference: 'troubleReportButton',
                             handler: 'showTroubleReportPanel'
                         }
                     ]

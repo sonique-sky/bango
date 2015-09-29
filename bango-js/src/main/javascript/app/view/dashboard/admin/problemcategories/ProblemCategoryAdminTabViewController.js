@@ -31,10 +31,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabVi
     updateRow: function () {
         this.getView().add({
             xtype: 'updateProblemCategoryDialog',
-            title: 'Edit Problem Category and Routing',
             viewModel: {
                 data: {
-                    problemCategory: this.selectedRow()
+                    problemCategory: this.selectedRow(),
+                    mode: 'Update'
                 }
             }
         }).show();
@@ -43,10 +43,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabVi
     createRow: function () {
         this.getView().add({
             xtype: 'updateProblemCategoryDialog',
-            title: 'Create Problem Category',
             viewModel: {
                 data: {
-                    queue: Ext.create('Spm.model.ProblemCategory')
+                    problemCategory: Ext.create('Spm.model.ProblemCategory'),
+                    mode: 'Create'
                 }
             }
         }).show();

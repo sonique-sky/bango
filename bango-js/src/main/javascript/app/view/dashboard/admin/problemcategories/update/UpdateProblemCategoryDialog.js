@@ -21,6 +21,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
         show: 'loadAssignmentCodeTabs'
     },
 
+    bind: {
+        title: '{titleForMode}'
+    },
+
     items: [{
         xtype: 'fieldcontainer',
         padding: 10,
@@ -41,6 +45,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
                 itemId: 'problemCode',
                 fieldLabel: 'Problem Code:',
                 bind: {
+                    readOnly: '{readOnlyForMode}',
                     value: '{problemCategory.problemCode}'
                 }
             },

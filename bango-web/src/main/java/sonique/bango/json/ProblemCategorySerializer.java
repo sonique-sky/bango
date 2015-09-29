@@ -3,7 +3,10 @@ package sonique.bango.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import sky.sns.spm.domain.model.refdata.*;
+import sky.sns.spm.domain.model.refdata.AssignmentCode;
+import sky.sns.spm.domain.model.refdata.ProblemCategory;
+import sky.sns.spm.domain.model.refdata.Queue;
+import sky.sns.spm.domain.model.refdata.QueueRoutingKey;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,13 +38,15 @@ public class ProblemCategorySerializer extends JsonSerializer<ProblemCategory> {
 
     private static class JsonFriendlyEntry {
         public final AssignmentCode assignmentCode;
-        public final PresentedServiceType serviceType;
+        public final String serviceType;
+        public final String serviceTypeDisplayName;
         public final Integer queueId;
         public final String queueName;
 
         public JsonFriendlyEntry(Map.Entry<QueueRoutingKey, Queue> entry) {
             this.assignmentCode = entry.getKey().assignmentCode();
-            this.serviceType = entry.getKey().serviceType();
+            this.serviceType = entry.getKey().serviceType().name();
+            this.serviceTypeDisplayName = entry.getKey().serviceType().getDisplayName();
             this.queueId = entry.getValue().id().asInteger();
             this.queueName = entry.getValue().name().asString();
         }

@@ -3,13 +3,20 @@ Ext.define('Spm.store.TroubleReports', {
     alias: 'store.troubleReports',
 
     requires: [
+        'Spm.model.TroubleReport',
         'Spm.proxy.TroubleReportProxy'
     ],
 
     autoLoad: false,
     filterOnLoad: false,
     model: 'Spm.model.TroubleReport',
-    sortOnLoad: false,
+    sortOnLoad: true,
+    sorters: [
+        {
+            property: 'troubleReportId',
+            direction: 'DESC'
+        }
+    ],
 
     proxy: {
         type: 'troubleReportProxy'
