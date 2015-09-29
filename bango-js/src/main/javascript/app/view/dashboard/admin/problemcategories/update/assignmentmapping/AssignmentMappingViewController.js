@@ -2,6 +2,10 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     extend: 'Ext.app.ViewController',
     alias: 'controller.assignmentMapping',
 
+    initViewModel: function (viewModel) {
+        viewModel.set('assignmentCodeFilter', this.getView().getTitle());
+    },
+
     queueNameRenderer: function (val, row, record) {
         return record.get('queueName');
     },

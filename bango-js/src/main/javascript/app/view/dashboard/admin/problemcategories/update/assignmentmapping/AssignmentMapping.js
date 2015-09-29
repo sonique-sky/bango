@@ -11,7 +11,6 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     ],
 
     xtype: 'assignmentMapping',
-    reference: 'assignmentMappingTab',
     disableSelection: true,
 
     viewModel: {type: 'assignmentMapping'},
