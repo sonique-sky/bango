@@ -1,21 +1,21 @@
 package sonique.bango.action;
 
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.app.SupermanApp;
 import sonique.bango.driver.panel.serviceproblem.ServiceProblemTab;
-import spm.domain.ServiceProblemId;
 
 public class ViewTroubleReportAction implements BangoAction {
     private final SupermanApp supermanApp;
-    private final ServiceProblemId serviceProblemId;
+    private final DomainServiceProblem serviceProblem;
 
-    public ViewTroubleReportAction(SupermanApp supermanApp, ServiceProblemId serviceProblemId) {
+    public ViewTroubleReportAction(SupermanApp supermanApp, DomainServiceProblem serviceProblem) {
         this.supermanApp = supermanApp;
-        this.serviceProblemId = serviceProblemId;
+        this.serviceProblem = serviceProblem;
     }
 
     @Override
     public void goBango() {
-        ServiceProblemTab serviceProblemTab = supermanApp.appContainer().serviceProblemTab(serviceProblemId);
+        ServiceProblemTab serviceProblemTab = supermanApp.appContainer().tab().serviceProblem(serviceProblem);
         serviceProblemTab.tabContent().viewToolbar().viewTroubleReport().click();
     }
 }

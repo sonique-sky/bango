@@ -2,6 +2,7 @@ package sonique.bango.driver.panel.serviceproblem;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import sky.sns.spm.domain.model.refdata.PresentedServiceType;
 import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.driver.component.HasTitle;
@@ -12,6 +13,7 @@ import spm.domain.ServiceProblemId;
 import spm.domain.SnsServiceId;
 import spm.messages.bt.types.DirectoryNumber;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static sonique.utils.StringUtils.unCamel;
@@ -23,7 +25,7 @@ public class ServiceProblemPanel extends SupermanPanel implements HasTitle {
 
     @Override
     public String title() {
-        WebElement titleElement = element().findElement(By.cssSelector("span.x-header-text"));
+        WebElement titleElement = element().findElement(By.cssSelector("div.x-title-text"));
         return titleElement.getText();
     }
 
@@ -47,15 +49,15 @@ public class ServiceProblemPanel extends SupermanPanel implements HasTitle {
         return new QueueName(textFieldValue("Queue"));
     }
 
-    public Date openedDate() {
+    public LocalDateTime openedDate() {
         return dateField("Opened Date", "dd/MM/yyyy HH:mm").value();
     }
 
-    public Date closedDate() {
+    public LocalDateTime closedDate() {
         return dateField("Closed Date", "dd/MM/yyyy HH:mm").value();
     }
 
-    public ServiceType serviceType() {
+    public PresentedServiceType serviceType() {
         return fromDescription(textFieldValue("Service Type"));
     }
 
@@ -95,8 +97,8 @@ public class ServiceProblemPanel extends SupermanPanel implements HasTitle {
         return textField(label).value();
     }
 
-    private ServiceType fromDescription(String description) {
-        for (ServiceType serviceTypeCode : ServiceType.values()) {
+    private PresentedServiceType fromDescription(String description) {
+        for (PresentedServiceType serviceTypeCode : PresentedServiceType.values()) {
             if (serviceTypeCode.getDisplayName().equals(description)){
                 return serviceTypeCode;
             }

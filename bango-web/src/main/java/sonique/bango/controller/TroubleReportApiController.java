@@ -9,6 +9,7 @@ import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReportSymptom;
 import sky.sns.spm.domain.model.troublereport.TestProduct;
 import sky.sns.spm.web.spmapp.shared.dto.AvailableAppointmentDTO;
+import sonique.bango.domain.ResponseData;
 import sonique.bango.domain.troublereport.ReserveAppointment;
 import sonique.bango.domain.troublereport.TroubleReportTemplate;
 import sonique.bango.service.TroubleReportApiService;
@@ -36,67 +37,72 @@ public class TroubleReportApiController {
     private TroubleReportApiService troubleReportApiService;
 
     @RequestMapping(value = "/troubleReportId/{troubleReportId}", method = GET)
-    public DomainTroubleReport troubleReportFor(@PathVariable TroubleReportId troubleReportId) {
-        return troubleReportApiService.troubleReportWithId(troubleReportId);
+    public ResponseData<DomainTroubleReport> troubleReportFor(@PathVariable TroubleReportId troubleReportId) {
+        return new ResponseData<>(troubleReportApiService.troubleReportWithId(troubleReportId));
     }
 
     @RequestMapping(value = "/serviceProblemId/{serviceProblemId}", method = GET)
-    public Collection<DomainTroubleReport> troubleReportsFor(@PathVariable ServiceProblemId serviceProblemId) {
-        return troubleReportApiService.troubleReportsFor(serviceProblemId);
+    public ResponseData<Collection<DomainTroubleReport>> troubleReportsFor(@PathVariable ServiceProblemId serviceProblemId) {
+        return new ResponseData<>(troubleReportApiService.troubleReportsFor(serviceProblemId));
     }
 
     @RequestMapping(value = "/template/serviceProblemId/{serviceProblemId}", method = GET)
-    public TroubleReportTemplate troubleReportTemplateFor(@PathVariable ServiceProblemId serviceProblemId) {
-        return troubleReportApiService.templateFor(serviceProblemId);
+    public ResponseData<TroubleReportTemplate> troubleReportTemplateFor(@PathVariable ServiceProblemId serviceProblemId) {
+        return new ResponseData<>(troubleReportApiService.templateFor(serviceProblemId));
     }
 
     @RequestMapping(value = "/{troubleReportId}/eventHistory", method = RequestMethod.GET)
     @ResponseBody
-    public List<EventHistoryItem> eventHistory(@PathVariable Long troubleReportId) {
-        return troubleReportApiService.eventHistory(new TroubleReportId(troubleReportId));
+    public ResponseData<List<EventHistoryItem>> eventHistory(@PathVariable Long troubleReportId) {
+        return new ResponseData<>(troubleReportApiService.eventHistory(new TroubleReportId(troubleReportId)));
     }
 
     @RequestMapping(value = "/template/structuredQuestionCodes", method = GET, produces = APPLICATION_JSON_VALUE)
-    public Collection<StructuredQuestionCode> structuredQuestionCodes() {
-        return asList(StructuredQuestionCode.values());
+    public ResponseData<Collection<StructuredQuestionCode>> structuredQuestionCodes() {
+        return new ResponseData<>(asList(StructuredQuestionCode.values()));
     }
 
     @RequestMapping(value = "/template/testProducts/{serviceType}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public Collection<TestProduct> testProducts(@PathVariable ServiceType serviceType) {
-        return TestProduct.allValidFor(serviceType);
+    public ResponseData<Collection<TestProduct>> testProducts(@PathVariable ServiceType serviceType) {
+        return new ResponseData<>(TestProduct.allValidFor(serviceType));
     }
 
     @RequestMapping(value = "/repairTypes/{serviceType}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public Collection<String> repairTypesFor(@PathVariable ServiceType serviceType) {
-        return RepairType.forServiceType(serviceType).stream().map(RepairType::getDescription).collect(toList());
+    public ResponseData<Collection<String>> repairTypesFor(@PathVariable ServiceType serviceType) {
+        return new ResponseData<>(
+                RepairType.forServiceType(serviceType)
+                        .stream()
+                        .map(RepairType::getDescription)
+                        .collect(toList())
+        );
     }
 
     @RequestMapping(value = "/template/symptoms/{serviceType}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public Collection<DomainTroubleReportSymptom> symptomsFor(@PathVariable ServiceType serviceType) {
-        return troubleReportApiService.symptomsFor(serviceType);
+    public ResponseData<Collection<DomainTroubleReportSymptom>> symptomsFor(@PathVariable ServiceType serviceType) {
+        return new ResponseData<>(troubleReportApiService.symptomsFor(serviceType));
     }
 
     @RequestMapping(value = "/appointments/{serviceProblemId}/{stringRepairType}/{appointmentStartDate}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public Collection<AvailableAppointmentDTO> appointmentsFor(
+    public ResponseData<Collection<AvailableAppointmentDTO>> appointmentsFor(
             @PathVariable ServiceProblemId serviceProblemId,
             @PathVariable String stringRepairType,
             @PathVariable Long appointmentStartDate) {
 
-        return troubleReportApiService.availableAppointmentsFor(
+        return new ResponseData<>(troubleReportApiService.availableAppointmentsFor(
                 serviceProblemId,
                 getRepairType(stringRepairType),
                 new Date(appointmentStartDate)
-        );
+        ));
     }
 
     @RequestMapping(value = "/appointment/reserve", method = POST)
-    public String reserveAppointmentFor(@RequestBody ReserveAppointment reserveAppointment) {
-        return troubleReportApiService.reserveAppointmentFor(
+    public ResponseData<String> reserveAppointmentFor(@RequestBody ReserveAppointment reserveAppointment) {
+        return new ResponseData<>(troubleReportApiService.reserveAppointmentFor(
                 reserveAppointment.serviceProblemId(),
                 getRepairType(reserveAppointment.repairType()),
                 new Date(reserveAppointment.date()),
                 valueOf(reserveAppointment.timeSlot())
-        );
+        ));
     }
 
     @RequestMapping(value = "/raise", method = POST, produces = APPLICATION_JSON_VALUE)
@@ -110,9 +116,9 @@ public class TroubleReportApiController {
     }
 
     @RequestMapping(value = "/{troubleReportId}/cancel", method = POST, produces = APPLICATION_JSON_VALUE)
-    public DomainTroubleReport cancelTroubleReport(@PathVariable Long troubleReportId, @RequestBody Map<String, String> payloadMap) {
+    public ResponseData<DomainTroubleReport> cancelTroubleReport(@PathVariable Long troubleReportId, @RequestBody Map<String, String> payloadMap) {
         String cancellationReason = payloadMap.get("cancellationReason");
-        return troubleReportApiService.cancelTroubleReport(new TroubleReportId(troubleReportId), cancellationReason);
+        return new ResponseData<>(troubleReportApiService.cancelTroubleReport(new TroubleReportId(troubleReportId), cancellationReason));
     }
 
     @RequestMapping(value = "/{troubleReportId}/confirmEquipmentDisconnected", method = RequestMethod.POST)

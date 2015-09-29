@@ -43,7 +43,7 @@ public class EventHistoryToolbarTest extends BangoYatspecTest {
     }
 
     private StateExtractor<EventHistoryToolbar> theEventHistoryToolbar() {
-        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar();
+        return inputAndOutputs -> supermanApp.appContainer().tab().serviceProblem(serviceProblem).tabContent().eventHistoryPanel().eventHistoryToolbar();
     }
 
     private GivensBuilder aServiceProblemExists() {

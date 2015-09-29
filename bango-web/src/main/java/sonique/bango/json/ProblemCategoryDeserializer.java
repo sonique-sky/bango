@@ -21,8 +21,8 @@ public class ProblemCategoryDeserializer extends JsonDeserializer<ProblemCategor
     public ProblemCategory deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
-        JsonNode problemIdNode = node.get("problemId");
-        Long problemId = problemIdNode == null ? null : node.get("problemId").asLong();
+        JsonNode problemIdNode = node.get("id");
+        Long problemId = problemIdNode == null ? null : node.get("id").asLong();
         String problemCode = node.get("problemCode").asText();
         String description = node.get("description").asText();
         Boolean forceAutoTroubleReport = node.get("forceAutoTroubleReport").asBoolean();

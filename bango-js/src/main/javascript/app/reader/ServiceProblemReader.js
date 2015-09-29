@@ -10,7 +10,8 @@ Ext.define('Spm.reader.ServiceProblemReader', {
 
     model: 'Spm.model.ServiceProblem',
 
-    fromJsonString: function(jsonString) {
-        return this.read(Ext.JSON.decode(jsonString)).getRecords()[0];
+    fromJsonString: function (jsonString) {
+        return this.read(Ext.JSON.decode(jsonString).data).getRecords()[0];
     }
+
 });

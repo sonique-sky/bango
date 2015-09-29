@@ -2,20 +2,15 @@ package sonique.bango.driver.panel.serviceproblem;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import sonique.bango.driver.panel.AppContainer;
-import sonique.bango.driver.component.SupermanComponent;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.driver.component.HasTitle;
-import spm.domain.ServiceProblemId;
+import sonique.bango.driver.component.tab.SupermanTab;
+import sonique.bango.driver.panel.AppContainer;
 
-import static org.openqa.selenium.By.id;
+public class ServiceProblemTab extends SupermanTab implements HasTitle {
 
-public class ServiceProblemTab extends SupermanComponent implements HasTitle {
-
-    private final ServiceProblemId serviceProblemId;
-
-    public ServiceProblemTab(AppContainer appContainer, ServiceProblemId serviceProblemId) {
-        super(appContainer, id(String.format("service-problem-tab-%d", serviceProblemId.asLong())));
-        this.serviceProblemId = serviceProblemId;
+    public ServiceProblemTab(AppContainer appContainer, DomainServiceProblem serviceProblem) {
+        super(appContainer, String.format("Service Problem [%d]", serviceProblem.serviceProblemId().asInteger()));
     }
 
     @Override
@@ -26,6 +21,6 @@ public class ServiceProblemTab extends SupermanComponent implements HasTitle {
     }
 
     public ServiceProblemTabContent tabContent() {
-        return new ServiceProblemTabContent(parent(), serviceProblemId);
+        return new ServiceProblemTabContent(this);
     }
 }

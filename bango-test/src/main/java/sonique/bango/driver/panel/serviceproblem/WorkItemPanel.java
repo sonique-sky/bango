@@ -9,7 +9,7 @@ import sky.sns.spm.domain.model.serviceproblem.WorkItemStatus;
 import sonique.bango.driver.component.HasTitle;
 import sonique.bango.driver.component.form.SupermanPanel;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class WorkItemPanel extends SupermanPanel implements HasTitle {
     public WorkItemPanel(ServiceProblemTabContent serviceProblemTabContent) {
@@ -24,7 +24,7 @@ public class WorkItemPanel extends SupermanPanel implements HasTitle {
         return WorkItemStatus.valueOf(textField("Status").value());
     }
 
-    public Date createdDate() {
+    public LocalDateTime createdDate() {
         return dateField("Created Date", "dd/MM/yyyy HH:mm").value();
     }
 
@@ -40,7 +40,7 @@ public class WorkItemPanel extends SupermanPanel implements HasTitle {
         return WorkItemAction.getByDescription(textField("Action").value());
     }
 
-    public Date reminder() {
+    public LocalDateTime reminder() {
         return dateField("Reminder", "dd/MM/yyyy HH:mm").value();
     }
 

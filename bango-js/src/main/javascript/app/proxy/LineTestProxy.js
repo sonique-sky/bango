@@ -16,7 +16,8 @@ Ext.define('Spm.proxy.LineTestProxy', {
     },
 
     reader: {
-        type: 'json'
+        type: 'json',
+        rootProperty: 'data'
     }
 
 });

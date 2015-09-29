@@ -124,7 +124,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
 
     private ActionUnderTest theAgentPullsTheServiceProblem() {
         return (givens, capturedInputAndOutputs) -> {
-            ServiceProblemTab serviceProblemTab = supermanApp.appContainer().serviceProblemTab(theServiceProblem.serviceProblemId());
+            ServiceProblemTab serviceProblemTab = supermanApp.appContainer().tab().serviceProblem(theServiceProblem);
 
             serviceProblemTab.tabContent().serviceProblemToolbar().pullButton().click();
 

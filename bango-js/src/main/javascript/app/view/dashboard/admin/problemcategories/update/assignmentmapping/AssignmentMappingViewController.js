@@ -17,7 +17,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     /** don't copy paste this! */
     filterServiceTypes: function (currentServiceType) {
         var viewModel = this.getViewModel(),
-            currentAssignmentCode = viewModel.get('assignmentCodeFilter'),
+            currentAssignmentCode = this.getView().getTitle(),
             serviceTypeStore = viewModel.get('serviceTypes'),
             allQueueRoutingForSelectedAssignmentCode,
             serviceTypesToFilter;
@@ -30,27 +30,6 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         serviceTypeStore.filterBy(function (item) {
             return !Ext.Array.contains(serviceTypesToFilter, item.get('name'));
         });
-
-        var roiServiceTypes = ['RoiFttc', 'RoiRuralOffnetBroadband', 'RoiOffnetVoice', 'RoiUrbanOffnetBroadband'];
-
-        if (this.getView().title === 'ROI') {
-            serviceTypeStore.filterBy(function (item) {
-                return Ext.Array.contains(roiServiceTypes, item.get('name'));
-            });
-        }
-
-        if (this.getView().title === 'Standard') {
-            serviceTypeStore.filterBy(function (item) {
-                return !Ext.Array.contains(roiServiceTypes, item.get('name'));
-            });
-        }
-
-        if (this.getView().title === 'Pro') {
-            var proServiceTypes = ['NvnVoice_Pro', 'NvnData_Pro', 'OnnetBroadband_Pro', 'WLR3_Pro', 'FTTC_Pro'];
-            serviceTypeStore.filterBy(function (item) {
-                return Ext.Array.contains(proServiceTypes, item.get('name'));
-            });
-        }
 
     },
 
@@ -96,13 +75,15 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     addQueueRouting: function () {
         var me = this,
             queueRouting = me.getViewModel().get('problemCategory').get('queueRouting');
+
         Ext.Array.push(queueRouting, {
-            assignmentCode: me.getViewModel().get('assignmentCodeFilter'),
+            assignmentCode: this.getView().getTitle(),
             queueId: null,
             queueName: null,
             serviceType: null,
             serviceTypeDisplayName: null
         });
+
         var assignmentMappingsStore = me.getViewModel().get('assignmentMappings');
         assignmentMappingsStore.load({
             callback: function () {

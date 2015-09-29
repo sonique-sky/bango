@@ -17,7 +17,7 @@ public class AddNoteAgentActions {
 
     public ActionUnderTest clicksTheAddNoteButton() {
         return (givens, capturedInputAndOutputs) -> {
-            supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar().addNoteButton().click();
+            supermanApp.appContainer().tab().serviceProblem(serviceProblem).tabContent().eventHistoryPanel().eventHistoryToolbar().addNoteButton().click();
             return capturedInputAndOutputs;
         };
     }

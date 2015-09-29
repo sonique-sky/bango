@@ -8,6 +8,8 @@ import sky.sns.spm.domain.model.serviceproblem.EndUserInformation;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemResolution;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProblem> {
 
@@ -27,7 +29,7 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
 
         jsonGenerator.writeBooleanField("hasActiveTroubleReport", serviceProblem.hasActiveTroubleReport());
 
-        jsonGenerator.writeObjectField("openedDate", serviceProblem.openedDate());
+        jsonGenerator.writeObjectField("openedDate", LocalDateTime.ofInstant(serviceProblem.openedDate().toInstant(), ZoneId.systemDefault()));
         jsonGenerator.writeObjectField("closedDate", serviceProblem.closedDate());
 
         if (serviceProblem.hasWorkItem()) {

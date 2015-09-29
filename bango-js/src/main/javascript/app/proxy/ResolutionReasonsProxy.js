@@ -18,7 +18,8 @@ Ext.define('Spm.proxy.ResolutionReasonsProxy', {
     },
 
     reader: {
-        type: 'json'
+        type: 'json',
+        rootProperty: 'data'
     }
 
 });

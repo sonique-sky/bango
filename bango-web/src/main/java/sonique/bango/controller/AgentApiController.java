@@ -26,13 +26,13 @@ public class AgentApiController {
     }
 
     @RequestMapping(method = {RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public DomainAgent create(@RequestBody DomainAgent agent) {
-        return agentApiService.createAgent(agent);
+    public ResponseData<DomainAgent> create(@RequestBody DomainAgent agent) {
+        return new ResponseData<>(agentApiService.createAgent(agent));
     }
 
     @RequestMapping(method = {RequestMethod.PUT}, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public DomainAgent update(@RequestBody DomainAgent agent) {
-        return agentApiService.updateAgent(agent);
+    public ResponseData<DomainAgent> update(@RequestBody DomainAgent agent) {
+        return new ResponseData<>(agentApiService.updateAgent(agent));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -41,25 +41,25 @@ public class AgentApiController {
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/authenticatedAgent")
-    public DomainAgent authenticatedAgent() {
-        return agentApiService.authenticatedAgent();
+    public ResponseData<DomainAgent> authenticatedAgent() {
+        return new ResponseData<>(agentApiService.authenticatedAgent());
     }
 
     @RequestMapping(method = {RequestMethod.POST}, value = "/toggleAvailability")
-    public AgentStateDTO toggleAvailability() {
-        return agentApiService.toggleAvailability();
+    public ResponseData<AgentStateDTO> toggleAvailability() {
+        return new ResponseData<>(agentApiService.toggleAvailability());
     }
 
     @RequestMapping(method = {RequestMethod.POST}, value = "/reassign")
-    public DomainAgent reassignAgent(@RequestBody Map<String, String> payloadMap) {
+    public ResponseData<DomainAgent> reassignAgent(@RequestBody Map<String, String> payloadMap) {
         String agentCode = payloadMap.get("agent");
         String currentTeam = payloadMap.get("currentTeam");
         String newTeam = payloadMap.get("newTeam");
-        return agentApiService.reassignAgent(agentCode, currentTeam, newTeam);
+        return new ResponseData<>(agentApiService.reassignAgent(agentCode, currentTeam, newTeam));
     }
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/agentState")
-    public AgentStateDTO agentState() {
-        return agentApiService.agentState();
+    public ResponseData<AgentStateDTO> agentState() {
+        return new ResponseData<>(agentApiService.agentState());
     }
 }
