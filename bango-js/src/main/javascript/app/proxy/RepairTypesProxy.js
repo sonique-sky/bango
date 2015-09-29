@@ -1,6 +1,10 @@
-Ext.define('Spm.proxy.RepairTypeProxy', {
+Ext.define('Spm.proxy.RepairTypesProxy', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.repairTypesProxy',
+
+    requires: [
+        'Ext.data.reader.Json'
+    ],
 
     buildUrl: function (request) {
         var params = request.getParams();
@@ -16,8 +20,8 @@ Ext.define('Spm.proxy.RepairTypeProxy', {
     reader: {
         type: 'json',
         rootProperty: 'data',
-        transform: function (data) {
-            return data.map(function (val) {
+        transform: function (response) {
+            return response.data.map(function (val) {
                 return {repairType: val};
 
             });

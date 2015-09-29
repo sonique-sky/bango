@@ -16,8 +16,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.stream.Collectors.toList;
+import static sonique.datafixtures.DateTimeDataFixtures.someInstantInTheLast24Hours;
+import static sonique.datafixtures.DomainDataFixtures.someForename;
+import static sonique.datafixtures.DomainDataFixtures.someSurname;
+import static sonique.datafixtures.PrimitiveDataFixtures.someNumberBetween;
+import static sonique.datafixtures.PrimitiveDataFixtures.someWords;
+import static util.SupermanDataFixtures.someEventDescription;
 
 public class MspStore implements DomainMajorServiceProblemRepository {
 
@@ -26,13 +33,14 @@ public class MspStore implements DomainMajorServiceProblemRepository {
     public MspStore() {
         for (int i = 1; i < 23; i++) {
             msps.add(new DomainMajorServiceProblemBuilder()
-                    .withId((long) i)
-                    .withDescription(String.format("MSP #%02d", i))
-                    .withStartDate(new MajorServiceProblemDateTime(new Date()))
-                    .withDetailedNote("A big problem")
-                    .withNimOutageId(new OutageId(UUID.randomUUID().toString()))
-                    .withServiceIds(newHashSet())
-                    .build()
+                            .withId((long) i)
+                            .withDescription(String.format("MSP #%02d", i))
+                            .withStartDate(new MajorServiceProblemDateTime(new Date()))
+                            .withDetailedNote("A big problem")
+                            .withNimOutageId(new OutageId(UUID.randomUUID().toString()))
+                            .withServiceIds(newHashSet())
+                            .withHistoryItems(someMajorServiceProblemEventHistoryItem())
+                            .build()
             );
         }
     }
@@ -74,7 +82,6 @@ public class MspStore implements DomainMajorServiceProblemRepository {
 
     @Override
     public List<DomainMajorServiceProblemDashboardEntry> findOpenDashBoardEntries() {
-
         return msps.stream().map(msp ->
                         new DomainMajorServiceProblemDashboardEntry(
                                 msp.id().asLong(),
@@ -97,4 +104,19 @@ public class MspStore implements DomainMajorServiceProblemRepository {
     public List<DomainMajorServiceProblem> findAllClosedSince(LocalDate localDate) {
         throw new UnsupportedOperationException("Method MspStore findAllClosedSince() not yet implemented");
     }
+
+    private static List<DomainMajorServiceProblem.MajorServiceProblemEventHistoryItem> someMajorServiceProblemEventHistoryItem() {
+        List<DomainMajorServiceProblem.MajorServiceProblemEventHistoryItem> list = newArrayList();
+        for (int i = 0; i < someNumberBetween(6, 10); i++) {
+            list.add(new DomainMajorServiceProblem.MajorServiceProblemEventHistoryItem(
+                    someEventDescription(),
+                    Date.from(someInstantInTheLast24Hours()),
+                    someForename() + "." + someSurname(),
+                    someWords(),
+                    null
+            ));
+        }
+        return list;
+    }
+
 }
