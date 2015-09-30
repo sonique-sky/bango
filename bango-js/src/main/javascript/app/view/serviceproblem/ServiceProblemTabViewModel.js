@@ -173,7 +173,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                 deep: true
             },
             get: function (workItem) {
-                var isNotPullable = workItem == null || !workItem.isPullable();
+                if(workItem === null){
+                    return false;
+                }
+                var isNotPullable = !workItem.isPullable();
                 var agentCanPullWorkItems = this.authenticatedAgent().hasPrivilege('PullServiceProblem');
                 return isNotPullable || !agentCanPullWorkItems;
             }
