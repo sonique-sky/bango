@@ -159,7 +159,7 @@ public class BangoApplicationContext {
 
     @Bean
     public ServiceProblemApiService serviceProblemApiService() {
-        return new StubServiceProblemApiService(serviceProblemRepository, springSecurityAuthorisedActorProvider(), queueRepository, agentRepository);
+        return new StubServiceProblemApiService(serviceProblemRepository, springSecurityAuthorisedActorProvider(), queueRepository, agentRepository, mspRepository);
     }
 
     @Bean

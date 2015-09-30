@@ -27,6 +27,9 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
             'reassignServiceProblemDialog': {
                 serviceProblemReassigned: 'loadQueuedServiceProblems'
             },
+            'associateServiceProblemToMspDialog': {
+                serviceProblemAssociatedToMsp: 'loadQueuedServiceProblems'
+            },
             'clearServiceProblemDialog': {
                 serviceProblemCleared: 'loadQueuedServiceProblems'
             }
