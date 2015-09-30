@@ -64,13 +64,15 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
                         "-",
                         {
                             xtype: 'checkbox',
-                            boxLabel: 'Show Recently Closed'
+                            boxLabel: 'Show Recently Closed',
+                            handler: 'showRecentlyClosed'
                         },
                         " ",
                         "-",
                         {
                             xtype: 'checkbox',
-                            boxLabel: 'Hide Manually Created'
+                            boxLabel: 'Hide Manually Created',
+                            handler: 'hideManuallyCreated'
                         }
                     ]
                 }
@@ -86,8 +88,9 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
                     {text: 'Outage Id', dataIndex: 'outageId'},
                     {text: 'Start Date', dataIndex: 'startDate'},
                     {text: 'Expected Resolution Date', dataIndex: 'expectedResolutionDate'},
-                    {text: '# of Services', dataIndex: 'serviceCount'},
-                    {text: '# of SPs', dataIndex: 'serviceProblemCount'}
+                    {text: '# of Services', dataIndex: 'serviceCount', bind: {hidden: '{displayRecentlyClosed}'}},
+                    {text: '# of SPs', dataIndex: 'serviceProblemCount', bind: {hidden: '{displayRecentlyClosed}'}},
+                    {text: 'Closed Date', dataIndex: 'closedDate', bind: {hidden: '{!displayRecentlyClosed}'}}
                 ]
             }
         },

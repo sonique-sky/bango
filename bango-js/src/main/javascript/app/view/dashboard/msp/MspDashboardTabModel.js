@@ -30,7 +30,8 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabModel', {
     },
 
     data: {
-        eventHistoryProxy: Ext.create('Spm.proxy.MajorServiceProblemEventHistoryProxy')
+        eventHistoryProxy: Ext.create('Spm.proxy.MajorServiceProblemEventHistoryProxy'),
+        displayRecentlyClosed: false
     }
 
 });
