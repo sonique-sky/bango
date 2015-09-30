@@ -12,6 +12,12 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabModel', {
         mspDashboardEntries: {
             fields: ['id', 'description', 'startDate', 'outageId', 'expectedResolutionDate', 'serviceProblemCount', 'serviceCount'],
             pageSize: 0,
+
+            remoteSort: true,
+            remoteFilter: true,
+
+            sorters: 'id',
+
             proxy: {
                 type: 'ajax',
                 url: 'api/msp',

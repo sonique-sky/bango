@@ -3,7 +3,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     alias: 'controller.eventHistoryPanel',
 
     requires: [
-        'Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialog'
+        'Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialog',
+        'Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialog'
     ],
 
     listen: {
@@ -69,8 +70,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
             });
             viewModel.setSelectedEvents(filterStateWithoutNotes);
         } else {
-            var noteEventType = viewModel.getStore('eventTypes').findRecord('eventType', 'Note');
-            viewModel.setSelectedEvents([noteEventType]);
+            var noteEvents = viewModel.getStore('eventTypes').findRecord('eventType', 'Note');
+            viewModel.setSelectedEvents([noteEvents]);
         }
     },
 
