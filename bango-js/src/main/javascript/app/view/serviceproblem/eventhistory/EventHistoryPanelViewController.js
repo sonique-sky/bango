@@ -24,7 +24,9 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     },
 
     destroy: function () {
-        this.selectedEventTypesBinding.destroy();
+        if(this.selectedEventTypesBinding !== null) {
+            this.selectedEventTypesBinding.destroy();
+        }
         this.callParent();
     },
 
