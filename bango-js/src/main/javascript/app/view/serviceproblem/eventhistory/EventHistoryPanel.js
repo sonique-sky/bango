@@ -3,7 +3,9 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
     alias: 'widget.eventHistoryPanel',
 
     requires: [
+        'Ext.button.Button',
         'Ext.grid.feature.RowBody',
+        'Ext.util.Format',
         'Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController',
         'Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewModel'
     ],

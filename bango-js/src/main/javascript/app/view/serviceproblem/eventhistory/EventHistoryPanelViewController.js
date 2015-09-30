@@ -2,6 +2,10 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     extend: 'Ext.app.ViewController',
     alias: 'controller.eventHistoryPanel',
 
+    requires: [
+        'Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialog'
+    ],
+
     listen: {
         controller: {
             addNoteDialog: {
@@ -13,6 +17,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     selectedEventTypesBinding: null,
 
     initViewModel: function (viewModel) {
+        var eventHistoryProxy = viewModel.get('eventHistoryProxy')
+        viewModel.getStore('eventHistory').setProxy(eventHistoryProxy);
         this.selectedEventTypesBinding = viewModel.bind('{currentFilterState.selectedEventTypes}', this.applyFilter);
     },
 
@@ -34,10 +40,10 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
         }
     },
 
-    onServiceProblemLoaded: function (serviceProblemId) {
+    onServiceProblemLoaded: function (entityIdentifier) {
         var viewModel = this.getViewModel();
         viewModel.clearSelectedEvents();
-        this.getStore('eventHistory').load({params: {serviceProblemId: serviceProblemId}});
+        this.getStore('eventHistory').load({params: {entityIdentifier: entityIdentifier}});
     },
 
     onEventHistoryNoteAdded: function (response) {

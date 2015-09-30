@@ -11,12 +11,14 @@ import spm.domain.OutageId;
 import spm.domain.SnsServiceId;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.stream.Collectors.toList;
 import static sonique.datafixtures.DateTimeDataFixtures.someInstantInTheLast24Hours;
@@ -28,13 +30,15 @@ import static util.SupermanDataFixtures.someEventDescription;
 
 public class MspStore implements DomainMajorServiceProblemRepository {
 
-    private final List<DomainMajorServiceProblem> msps = new ArrayList<>();
+    private final Map<MajorServiceProblemId, DomainMajorServiceProblem> msps = newHashMap();
+    private final AtomicLong id = new AtomicLong(0);
 
     public MspStore() {
         for (int i = 1; i < 23; i++) {
-            msps.add(new DomainMajorServiceProblemBuilder()
-                            .withId((long) i)
-                            .withDescription(String.format("MSP #%02d", i))
+            MajorServiceProblemId majorServiceProblemId = new MajorServiceProblemId(id.incrementAndGet());
+            msps.put(majorServiceProblemId, new DomainMajorServiceProblemBuilder()
+                            .withId(majorServiceProblemId)
+                            .withDescription(String.format("MSP #%02d", majorServiceProblemId.asLong()))
                             .withStartDate(new MajorServiceProblemDateTime(new Date()))
                             .withDetailedNote("A big problem")
                             .withNimOutageId(new OutageId(UUID.randomUUID().toString()))
@@ -67,7 +71,7 @@ public class MspStore implements DomainMajorServiceProblemRepository {
 
     @Override
     public DomainMajorServiceProblem findByMajorServiceProblemId(MajorServiceProblemId majorServiceProblemId) {
-        throw new UnsupportedOperationException("Method MspStore findByMajorServiceProblemId() not yet implemented");
+        return msps.get(majorServiceProblemId);
     }
 
     @Override
@@ -82,7 +86,7 @@ public class MspStore implements DomainMajorServiceProblemRepository {
 
     @Override
     public List<DomainMajorServiceProblemDashboardEntry> findOpenDashBoardEntries() {
-        return msps.stream().map(msp ->
+        return msps.values().stream().map(msp ->
                         new DomainMajorServiceProblemDashboardEntry(
                                 msp.id().asLong(),
                                 msp.getDescription(),

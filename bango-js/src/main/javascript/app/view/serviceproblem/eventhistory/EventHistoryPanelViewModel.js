@@ -2,10 +2,13 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.eventHistoryPanel',
 
+    requires: [
+        'Spm.model.EventHistoryItem'
+    ],
+
     stores: {
         eventHistory: {
             model: 'Spm.model.EventHistoryItem',
-            proxy: 'serviceProblemEventHistoryProxy',
             pageSize: 0,
             listeners: {
                 load: 'onEventHistoryLoaded'
