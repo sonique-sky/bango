@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MspApiService {
 
-    PagedSearchResults<DomainMajorServiceProblemDashboardEntry> serviceProblems(SearchParametersDTO searchParameters);
+    PagedSearchResults<DomainMajorServiceProblemDashboardEntry> majorServiceProblems(SearchParametersDTO searchParameters);
     List<EventHistoryItem> eventHistory(MajorServiceProblemId majorServiceProblemId);
 
 }

@@ -76,18 +76,24 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
                 }
             ],
 
-            columns: [
-                {text: 'Id', dataIndex: 'id'},
-                {text: 'Description', dataIndex: 'description'},
-                {text: 'Outage Id', dataIndex: 'outageId'},
-                {text: 'Start Date', dataIndex: 'startDate'},
-                {text: 'Expected Resolution Date', dataIndex: 'expectedResolutionDate'},
-                {text: '# of Services', dataIndex: 'serviceCount'},
-                {text: '# of SPs', dataIndex: 'serviceProblemCount'}
-            ]
+            columns: {
+                defaults: {
+                    flex: 1
+                },
+                items: [
+                    {text: 'Id', dataIndex: 'id'},
+                    {text: 'Description', dataIndex: 'description'},
+                    {text: 'Outage Id', dataIndex: 'outageId'},
+                    {text: 'Start Date', dataIndex: 'startDate'},
+                    {text: 'Expected Resolution Date', dataIndex: 'expectedResolutionDate'},
+                    {text: '# of Services', dataIndex: 'serviceCount'},
+                    {text: '# of SPs', dataIndex: 'serviceProblemCount'}
+                ]
+            }
         },
         {
             xtype: 'eventHistoryPanel'
         }
     ]
-});
+})
+;
