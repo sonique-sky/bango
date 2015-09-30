@@ -9,6 +9,7 @@ import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.domain.ResponseData;
 import sonique.bango.service.ServiceProblemApiService;
+import spm.domain.MajorServiceProblemId;
 import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
 
@@ -128,6 +129,17 @@ public class ServiceProblemApiController {
     @ResponseBody
     public ResponseData<Collection<WorkItemAction>> worksItemActions() {
         return new ResponseData<>(asList(WorkItemAction.values()));
+    }
+
+    @RequestMapping(value = "/{serviceProblemId}/associate/msp/{majorServiceProblemId}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<DomainServiceProblem> associateServiceProblemToMsp(@PathVariable Long serviceProblemId, @PathVariable Long majorServiceProblemId) {
+        return new ResponseData<>(
+                serviceProblemApiService.associateServiceProblemToMajorServiceProblem(
+                        new ServiceProblemId(serviceProblemId),
+                        new MajorServiceProblemId(majorServiceProblemId)
+                )
+        );
     }
 
 }

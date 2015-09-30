@@ -20,6 +20,9 @@ Ext.define('Spm.view.myitems.MyItemsTabViewController', {
             'reassignServiceProblemDialog': {
                 serviceProblemReassigned: 'loadMyItems'
             },
+            'associateServiceProblemToMspDialog': {
+                serviceProblemAssociatedToMsp: 'loadMyItems'
+            },
             'clearServiceProblemDialog': {
                 serviceProblemCleared: 'loadMyItems'
             },

@@ -5,6 +5,7 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.TransferType;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
+import spm.domain.MajorServiceProblemId;
 import spm.domain.QueueId;
 import spm.domain.ServiceProblemId;
 
@@ -23,6 +24,7 @@ public interface ServiceProblemApiService {
     DomainServiceProblem clearServiceProblem(ServiceProblemId serviceProblemId, String fault, String cause, String resolution);
     DomainServiceProblem selectNextWorkItem(ServiceProblemId serviceProblemId, String nextWorkItem);
     DomainServiceProblem reassignToAgent(ServiceProblemId serviceProblemId, String agentCode);
+    DomainServiceProblem associateServiceProblemToMajorServiceProblem(ServiceProblemId serviceProblemId, MajorServiceProblemId majorServiceProblemId);
 
     PagedSearchResults<DomainServiceProblem> serviceProblems(SearchParametersDTO searchParameters);
 }
