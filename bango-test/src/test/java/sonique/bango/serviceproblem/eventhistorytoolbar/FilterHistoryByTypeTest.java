@@ -59,7 +59,7 @@ public class FilterHistoryByTypeTest extends BangoYatspecTest {
 
     private ActionUnderTest theAgentClicksTheFilterByEventTypeButton() {
         return (givens, capturedInputAndOutputs) -> {
-            supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar().filterButton().click();
+            supermanApp.appContainer().tab().serviceProblem(serviceProblem).tabContent().eventHistoryPanel().eventHistoryToolbar().filterButton().click();
 
             return capturedInputAndOutputs;
         };

@@ -7,9 +7,10 @@ import sonique.bango.driver.HasDateFormatterSupport;
 import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.driver.component.SupermanElement;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
-public class SupermanDateField extends SupermanComponent implements SupermanField<Date>, HasDateFormatterSupport {
+public class SupermanDateField extends SupermanComponent implements SupermanField<LocalDateTime>, HasDateFormatterSupport {
 
     private final String targetDateFormat;
 
@@ -25,7 +26,7 @@ public class SupermanDateField extends SupermanComponent implements SupermanFiel
     }
 
     @Override
-    public Date value() {
+    public LocalDateTime value() {
         String value = element().getAttribute("value");
 
         if (StringUtils.isEmpty(value)) {

@@ -1,8 +1,6 @@
 package sonique.bango.serviceproblem.eventhistorytoolbar;
 
-import com.googlecode.yatspec.state.givenwhenthen.CapturedInputAndOutputs;
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
-import com.googlecode.yatspec.state.givenwhenthen.InterestingGivens;
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -125,7 +123,7 @@ public class AddNoteTest extends BangoYatspecTest {
     }
 
     private StateExtractor<EventHistoryPanel> theEventHistoryPanel() {
-        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
+        return inputAndOutputs -> supermanApp.appContainer().tab().serviceProblem(serviceProblem).tabContent().eventHistoryPanel();
     }
 
     private AddNoteAgentActions theAgent() {

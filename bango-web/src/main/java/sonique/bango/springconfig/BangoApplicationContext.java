@@ -80,6 +80,7 @@ public class BangoApplicationContext {
 
         module.addSerializer(NumberValue.class, new NumberValueSerializer());
         module.addSerializer(StringValue.class, new StringValueSerializer());
+        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
 
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());

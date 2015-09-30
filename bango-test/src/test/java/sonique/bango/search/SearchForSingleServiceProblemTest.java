@@ -7,17 +7,16 @@ import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
-import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.action.BangoActionUnderTest;
 import sonique.bango.action.ViewServiceProblemAction;
-import sonique.bango.driver.panel.serviceproblem.ServiceProblemTab;
-import sonique.bango.matcher.IsDisplayed;
+import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.matcher.MockieMatcher;
 import sonique.bango.service.ServiceProblemApiService;
-import sonique.testsupport.matchers.AppendableAllOf;
 
-import static sonique.bango.matcher.ATitleOf.aTitleOf;
+import static org.mockito.Matchers.argThat;
+import static sonique.bango.matcher.IsDisplayed.isDisplayed;
+import static sonique.bango.matcher.SearchParametersMatcher.*;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
 
 public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
@@ -37,7 +36,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
 
         when(theAgentSearchesForTheServiceProblemUsingDirectoryNumber());
 
-        then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
+        then(aServiceProblemTab(), isDisplayed());
         and(theServiceProblemApiService(), searchedUsingTheDirectoryNumber());
     }
 
@@ -47,7 +46,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
 
         when(theAgentSearchesForTheServiceProblemUsingServiceProblemId());
 
-        then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
+        then(aServiceProblemTab(), isDisplayed());
         and(theServiceProblemApiService(), searchedUsingTheServiceProblemId());
     }
 
@@ -57,7 +56,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
 
         when(theAgentSearchesForTheServiceProblemUsingAServiceId());
 
-        then(aServiceProblemTab(), isDisplayedForTheExpectedServiceProblem());
+        then(aServiceProblemTab(), isDisplayed());
         and(theServiceProblemApiService(), searchedUsingTheServiceId());
     }
 
@@ -89,25 +88,15 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return capturedInputAndOutputs -> scenarioDriver().servicesFor(agentForTest).serviceProblemApiService();
     }
 
-    private StateExtractor<ServiceProblemTab> aServiceProblemTab() {
-        return capturedInputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId());
-    }
-
-    private AppendableAllOf<ServiceProblemTab> isDisplayed() {
-        return IsDisplayed.isDisplayed();
-    }
-
-    private AppendableAllOf<ServiceProblemTab> isDisplayedForTheExpectedServiceProblem() {
-        String expectedTabTitle = String.format("Service Problem [%d]", serviceProblem.serviceProblemId().asLong());
-
-        return isDisplayed().with(aTitleOf(expectedTabTitle));
+    private StateExtractor<SupermanComponent> aServiceProblemTab() {
+        return capturedInputAndOutputs -> supermanApp.appContainer().tab().serviceProblem(serviceProblem);
     }
 
     private Matcher<ServiceProblemApiService> searchedUsingTheDirectoryNumber() {
         return new MockieMatcher<ServiceProblemApiService>() {
             @Override
             protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
-                serviceProblemApiService.serviceProblems(SearchParametersDTO.withSearchProperties("directoryNumber", serviceProblem.getDirectoryNumber().asString(), 25, 0));
+                serviceProblemApiService.serviceProblems(argThat(directoryNumberSearchFor(serviceProblem)));
             }
         };
     }
@@ -116,7 +105,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new MockieMatcher<ServiceProblemApiService>() {
             @Override
             protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
-                serviceProblemApiService.serviceProblems(SearchParametersDTO.withSearchProperties("serviceProblemId", serviceProblem.serviceProblemId().asString(), 25, 0));
+                serviceProblemApiService.serviceProblems(argThat(serviceProblemIdSearchFor(serviceProblem)));
             }
         };
     }
@@ -125,7 +114,7 @@ public class SearchForSingleServiceProblemTest extends BangoYatspecTest {
         return new MockieMatcher<ServiceProblemApiService>() {
             @Override
             protected void doTheMock(ServiceProblemApiService serviceProblemApiService) {
-                serviceProblemApiService.serviceProblems(SearchParametersDTO.withSearchProperties("serviceId", serviceProblem.serviceId().asString(), 25, 0));
+                serviceProblemApiService.serviceProblems(argThat(serviceIdSearchFor(serviceProblem)));
             }
         };
     }

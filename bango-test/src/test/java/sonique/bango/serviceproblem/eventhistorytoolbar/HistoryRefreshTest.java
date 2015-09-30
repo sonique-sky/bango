@@ -43,7 +43,7 @@ public class HistoryRefreshTest extends BangoYatspecTest {
         return new ActionUnderTest() {
             @Override
             public CapturedInputAndOutputs execute(InterestingGivens givens, CapturedInputAndOutputs capturedInputAndOutputs) throws Exception {
-                supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar().refreshHistoryButton().click();
+                supermanApp.appContainer().tab().serviceProblem(serviceProblem).tabContent().eventHistoryPanel().eventHistoryToolbar().refreshHistoryButton().click();
 
                 return capturedInputAndOutputs;
             }
@@ -73,6 +73,6 @@ public class HistoryRefreshTest extends BangoYatspecTest {
     }
 
     private StateExtractor<EventHistoryPanel> theEventHistoryPanel() {
-        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
+        return inputAndOutputs -> supermanApp.appContainer().tab().serviceProblem(serviceProblem).tabContent().eventHistoryPanel();
     }
 }

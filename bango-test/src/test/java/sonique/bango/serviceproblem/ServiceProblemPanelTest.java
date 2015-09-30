@@ -97,7 +97,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
                 .and(aServiceId(equalTo(serviceProblem.serviceId())))
                 .and(aDirectoryNumber(equalTo(serviceProblem.getDirectoryNumber())))
                 .and(aQueueName(equalTo(serviceProblem.queue().getName())))
-                .and(aServiceType(equalTo(serviceProblem.getServiceType())))
+                .and(aServiceType(equalTo(serviceProblem.getPresentedServiceType())))
                 .and(anOpenedDate(theSameDateAs(serviceProblem.openedDate())))
                 .and(aCustomerName(equalTo(serviceProblem.getEndUserInformation().getName())))
                 .and(aContactNumber(equalTo(serviceProblem.getEndUserInformation().getPreferredContactNumber())))
@@ -112,7 +112,7 @@ public class ServiceProblemPanelTest extends BangoYatspecTest {
     }
 
     private StateExtractor<ServiceProblemPanel> theServiceProblemPanel() {
-        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().serviceProblemPanel();
+        return inputAndOutputs -> supermanApp.appContainer().tab().serviceProblem(serviceProblem).tabContent().serviceProblemPanel();
     }
 
     private GivensBuilder anOpenServiceProblem() {

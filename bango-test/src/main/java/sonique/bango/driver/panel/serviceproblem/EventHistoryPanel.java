@@ -9,6 +9,8 @@ import sonique.bango.driver.HasDateFormatterSupport;
 import sonique.bango.driver.component.HasTitle;
 import sonique.bango.driver.component.form.SupermanPanel;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 public class EventHistoryPanel extends SupermanPanel implements HasTitle, HasDateFormatterSupport {
@@ -32,7 +34,7 @@ public class EventHistoryPanel extends SupermanPanel implements HasTitle, HasDat
             String createdBy = webElement.findElement(By.cssSelector("td.event-created-by > div.x-grid-cell-inner")).getText();
 
             String note = webElement.findElement(By.cssSelector("div.event-note")).getText();
-            return new EventHistoryItem(eventDescription, format(createDateAsString, "dd/MM/yy HH:mm", "dd/MM/yyyy HH:mm"), createdBy, note) {
+            return new EventHistoryItem(eventDescription, Date.from(format(createDateAsString, "dd/MM/yy HH:mm", "dd/MM/yyyy HH:mm").atZone(ZoneId.systemDefault()).toInstant()), createdBy, note) {
             };
         });
     }

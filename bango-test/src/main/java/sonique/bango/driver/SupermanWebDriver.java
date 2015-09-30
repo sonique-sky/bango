@@ -3,6 +3,7 @@ package sonique.bango.driver;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.google.common.base.Function;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -21,14 +22,14 @@ public class SupermanWebDriver {
     }
 
     public WebElement waitUntil(final By by) {
-        return waitUntil(by, 500);
+        return waitUntil(by, 100000);
     }
 
     public WebElement waitUntil(final By by, long milliseconds) {
         Function<WebDriver, WebElement> function = webDriver1 -> {
             try {
                 return webDriver1.findElement(by);
-            } catch (ElementNotFoundException e) {
+            } catch (ElementNotFoundException | NotFoundException e) {
                 return null;
             }
         };

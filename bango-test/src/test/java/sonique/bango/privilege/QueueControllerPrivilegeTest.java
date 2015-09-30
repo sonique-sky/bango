@@ -36,10 +36,13 @@ public class QueueControllerPrivilegeTest extends BangoYatspecTest {
     }
 
     @Test
-    public void queueDashboardIsDisplayed() throws Exception {
+    public void queueControllerTabsAreDisplayed() throws Exception {
         when(theQueueControllerLogsOn());
 
         then(theQueueDashboardTab(), isDisplayed());
+        and(theAgentDashboardTab(), isDisplayed());
+        and(theMspDashboardTab(), isDisplayed());
+        and(theAdminDashboardTab(), isDisplayed());
     }
 
     private Matcher<AgentStatusPanel> isDisplayedAndTheAvailabilityButtonIsDisabled() {
@@ -48,7 +51,7 @@ public class QueueControllerPrivilegeTest extends BangoYatspecTest {
 
     @Override
     protected DomainAgent agentForTest() {
-        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q"), Role.ROLE_QUEUE_CONTROLLER, null);
+        return new DomainAgent("q.q", "Q.Q", new AgentDetails("q", "q"), Role.ROLE_QUEUE_CONTROLLER, null);
     }
 
     private ActionUnderTest theQueueControllerLogsOn() {

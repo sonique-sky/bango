@@ -13,10 +13,10 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.action.LoginAction;
 import sonique.bango.app.ScenarioDriver;
 import sonique.bango.app.SupermanApp;
+import sonique.bango.driver.component.tab.SupermanTab;
 import sonique.bango.driver.panel.navigation.AgentStatusPanel;
 import sonique.bango.driver.panel.navigation.HeaderPanel;
 import sonique.bango.driver.panel.navigation.MyQueuesPanel;
-import sonique.bango.driver.panel.queuedashboard.QueueDashboardTab;
 import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 import sonique.bango.scenario.ScenarioGivensBuilder;
 import sonique.bango.scenario.ServiceProblemScenario;
@@ -29,7 +29,7 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     protected DomainAgent agentForTest;
 
     protected DomainAgent agentForTest() {
-        return new DomainAgent("q.q", "q.q", new AgentDetails("q", "q"), Role.ROLE_USER, null);
+        return new DomainAgent("q.q", "Q.Q", new AgentDetails("q", "q"), Role.ROLE_USER, null);
     }
 
     @Before
@@ -92,8 +92,20 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
         return new ScenarioGivensBuilder(new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem));
     }
 
-    protected StateExtractor<QueueDashboardTab> theQueueDashboardTab() {
-        return inputAndOutputs -> supermanApp.appContainer().queueDashboardTab();
+    protected StateExtractor<SupermanTab> theQueueDashboardTab() {
+        return inputAndOutputs -> supermanApp.appContainer().tab().queueDashboard();
+    }
+
+    protected StateExtractor<SupermanTab> theAgentDashboardTab() {
+        return inputAndOutputs -> supermanApp.appContainer().tab().agentDashboard();
+    }
+
+    protected StateExtractor<SupermanTab> theMspDashboardTab() {
+        return inputAndOutputs -> supermanApp.appContainer().tab().mspDashboard();
+    }
+
+    protected StateExtractor<SupermanTab> theAdminDashboardTab() {
+        return inputAndOutputs -> supermanApp.appContainer().tab().adminDashboard();
     }
 
     protected StateExtractor<AgentStatusPanel> theAgentStatusPanel() {
@@ -105,6 +117,6 @@ public abstract class BangoYatspecTest extends OncePerSuiteBangoTest implements 
     }
 
     protected StateExtractor<WorkItemPanel> theWorkItemPanelFor(final DomainServiceProblem theServiceProblem) {
-        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(theServiceProblem.serviceProblemId()).tabContent().workItemPanel();
+        return inputAndOutputs -> supermanApp.appContainer().tab().serviceProblem(theServiceProblem).tabContent().workItemPanel();
     }
 }
