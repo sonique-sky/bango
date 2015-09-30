@@ -2,6 +2,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.serviceProblemTab',
 
+    requires: [
+        'Spm.proxy.ServiceProblemEventHistoryProxy'
+    ],
+
     stores: {
         troubleReports: {
             type: 'troubleReports',
@@ -15,7 +19,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
         serviceProblemId: null,
         serviceProblem: null,
         workItem: null,
-        troubleReport: null
+        troubleReport: null,
+        eventHistoryProxy: Ext.create('Spm.proxy.ServiceProblemEventHistoryProxy')
     },
 
     formulas: {
@@ -168,7 +173,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                 deep: true
             },
             get: function (workItem) {
-                var isNotPullable = workItem == null || !workItem.isPullable();
+                if(workItem === null){
+                    return false;
+                }
+                var isNotPullable = !workItem.isPullable();
                 var agentCanPullWorkItems = this.authenticatedAgent().hasPrivilege('PullServiceProblem');
                 return isNotPullable || !agentCanPullWorkItems;
             }

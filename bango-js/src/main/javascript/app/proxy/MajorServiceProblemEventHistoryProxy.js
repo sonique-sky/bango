@@ -1,6 +1,6 @@
-Ext.define('Spm.proxy.ServiceProblemEventHistoryProxy', {
+Ext.define('Spm.proxy.MajorServiceProblemEventHistoryProxy', {
     extend: 'Ext.data.proxy.Ajax',
-    alias: 'proxy.serviceProblemEventHistoryProxy',
+    alias: 'proxy.majorServiceProblemEventHistoryProxy',
 
     requires: [
         'Ext.data.reader.Json'
@@ -14,7 +14,7 @@ Ext.define('Spm.proxy.ServiceProblemEventHistoryProxy', {
 
         delete params.entityIdentifier;
 
-        return Ext.String.format('api/serviceProblem/{0}/eventHistory', entityIdentifier);
+        return Ext.String.format('api/msp/{0}/eventHistory', entityIdentifier);
     },
 
     reader: {

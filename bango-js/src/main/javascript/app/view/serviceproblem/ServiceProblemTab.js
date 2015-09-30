@@ -128,6 +128,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-associate-msp',
                             tooltip: 'Associate this service problem to a MSP',
+                            handler: 'associateToMsp',
                             bind: {
                                 disabled: '{!serviceProblemOwned}'
                             }

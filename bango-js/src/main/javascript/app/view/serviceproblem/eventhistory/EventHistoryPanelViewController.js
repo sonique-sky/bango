@@ -2,6 +2,11 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     extend: 'Ext.app.ViewController',
     alias: 'controller.eventHistoryPanel',
 
+    requires: [
+        'Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialog',
+        'Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialog'
+    ],
+
     listen: {
         controller: {
             addNoteDialog: {
@@ -13,11 +18,15 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     selectedEventTypesBinding: null,
 
     initViewModel: function (viewModel) {
+        var eventHistoryProxy = viewModel.get('eventHistoryProxy')
+        viewModel.getStore('eventHistory').setProxy(eventHistoryProxy);
         this.selectedEventTypesBinding = viewModel.bind('{currentFilterState.selectedEventTypes}', this.applyFilter);
     },
 
     destroy: function () {
-        this.selectedEventTypesBinding.destroy();
+        if(this.selectedEventTypesBinding !== null) {
+            this.selectedEventTypesBinding.destroy();
+        }
         this.callParent();
     },
 
@@ -34,10 +43,10 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
         }
     },
 
-    onServiceProblemLoaded: function (serviceProblemId) {
+    onServiceProblemLoaded: function (entityIdentifier) {
         var viewModel = this.getViewModel();
         viewModel.clearSelectedEvents();
-        this.getStore('eventHistory').load({params: {serviceProblemId: serviceProblemId}});
+        this.getStore('eventHistory').load({params: {entityIdentifier: entityIdentifier}});
     },
 
     onEventHistoryNoteAdded: function (response) {
@@ -63,8 +72,8 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
             });
             viewModel.setSelectedEvents(filterStateWithoutNotes);
         } else {
-            var noteEventType = viewModel.getStore('eventTypes').findRecord('eventType', 'Note');
-            viewModel.setSelectedEvents([noteEventType]);
+            var noteEvents = viewModel.getStore('eventTypes').findRecord('eventType', 'Note');
+            viewModel.setSelectedEvents([noteEvents]);
         }
     },
 

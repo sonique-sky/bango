@@ -56,6 +56,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             'reassignServiceProblemDialog': {
                 serviceProblemReassigned: 'closeServiceProblemAndSetMyItemsActive'
             },
+            'associateServiceProblemToMspDialog': {
+                serviceProblemAssociatedToMsp: 'closeServiceProblemAndSetMyItemsActive'
+            },
             'clearServiceProblemDialog': {
                 serviceProblemCleared: 'closeServiceProblemAndSetMyItemsActive'
             }

@@ -4,6 +4,7 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
     itemId: 'queueDashboard',
 
     requires: [
+        'Ext.grid.feature.Summary',
         'Spm.view.component.AutoRefreshToolbar',
         'Spm.view.dashboard.queue.QueueDashboardTabViewController',
         'Spm.view.dashboard.queue.QueueDashboardTabViewModel'
@@ -39,18 +40,26 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
         }
     ],
 
+    features: [{
+        ftype: 'summary',
+        dock: 'bottom'
+    }],
+
     columns: [
         {
             text: 'Queue',
             dataIndex: 'queueName',
             width: 200,
-            hideable: false
+            hideable: false,
+            summaryRenderer: function() {
+                return 'Total';
+            }
         },
         {
             text: 'Service Problem',
             menuDisabled: true,
             columns: [
-                {text: '# of SPs', width: 55, dataIndex: 'serviceProblemCount'},
+                {text: '# of SPs', width: 55, dataIndex: 'serviceProblemCount', summaryType: 'sum'},
                 {text: 'Date', xtype: 'datecolumn', format: 'd/m/y H:i', dataIndex: 'oldestServiceProblemDate'}
             ]
         },
@@ -58,11 +67,11 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
             text: 'Service Level Agreement',
             menuDisabled: true,
             columns: [
-                {text: '< 12h', width: 55, dataIndex: 'slaExpiresInLessThan12Hours'},
-                {text: '12-0h', width: 55, dataIndex: 'slaExpiresInMoreThan12Hours'},
-                {text: '0-24h', width: 55, dataIndex: 'slaExpiredLessThanADayAgo'},
-                {text: ' 1-4d', width: 55, dataIndex: 'slaExpiredBetween1And4DaysAgo'},
-                {text: ' > 4d', width: 55, dataIndex: 'slaExpiredMoreThan4DaysAgo'}
+                {text: '< 12h', width: 55, dataIndex: 'slaExpiresInLessThan12Hours', summaryType: 'sum'},
+                {text: '12-0h', width: 55, dataIndex: 'slaExpiresInMoreThan12Hours', summaryType: 'sum'},
+                {text: '0-24h', width: 55, dataIndex: 'slaExpiredLessThanADayAgo', summaryType: 'sum'},
+                {text: ' 1-4d', width: 55, dataIndex: 'slaExpiredBetween1And4DaysAgo', summaryType: 'sum'},
+                {text: ' > 4d', width: 55, dataIndex: 'slaExpiredMoreThan4DaysAgo', summaryType: 'sum'}
             ]
         },
         {
@@ -73,19 +82,19 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
                     text: 'Assigned',
                     menuDisabled: true,
                     columns: [
-                        {text: 'Assigned Push', dataIndex: 'assignedPush'},
-                        {text: 'Assigned Pull', dataIndex: 'assignedPull'}
+                        {text: 'Assigned Push', dataIndex: 'assignedPush', summaryType: 'sum'},
+                        {text: 'Assigned Pull', dataIndex: 'assignedPull', summaryType: 'sum'}
                     ]
                 },
                 {
                     text: 'Unassigned',
                     menuDisabled: true,
                     columns: [
-                        {text: 'Unassigned Push', dataIndex: 'unassignedPush'},
-                        {text: 'Unassigned Pull', dataIndex: 'unassignedPull'}
+                        {text: 'Unassigned Push', dataIndex: 'unassignedPush', summaryType: 'sum'},
+                        {text: 'Unassigned Pull', dataIndex: 'unassignedPull', summaryType: 'sum'}
                     ]
                 },
-                {text: 'No WI', width: 55, dataIndex: 'noWorkItem'}
+                {text: 'No WI', width: 55, dataIndex: 'noWorkItem', summaryType: 'sum'}
             ]
         }
     ]

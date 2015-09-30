@@ -10,38 +10,56 @@ import spm.domain.MajorServiceProblemId;
 import spm.domain.OutageId;
 import spm.domain.SnsServiceId;
 
+import java.time.Duration;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.stream.Collectors.toList;
-import static sonique.datafixtures.DateTimeDataFixtures.someInstantInTheLast24Hours;
+import static sonique.datafixtures.DateTimeDataFixtures.*;
 import static sonique.datafixtures.DomainDataFixtures.someForename;
 import static sonique.datafixtures.DomainDataFixtures.someSurname;
 import static sonique.datafixtures.PrimitiveDataFixtures.someNumberBetween;
 import static sonique.datafixtures.PrimitiveDataFixtures.someWords;
 import static util.SupermanDataFixtures.someEventDescription;
+import static util.SupermanDataFixtures.someSnsServiceId;
 
 public class MspStore implements DomainMajorServiceProblemRepository {
 
-    private final List<DomainMajorServiceProblem> msps = new ArrayList<>();
+    private final Map<MajorServiceProblemId, DomainMajorServiceProblem> majorServiceProblems = newHashMap();
+    private final AtomicLong id = new AtomicLong(0);
 
     public MspStore() {
         for (int i = 1; i < 23; i++) {
-            msps.add(new DomainMajorServiceProblemBuilder()
-                            .withId((long) i)
-                            .withDescription(String.format("MSP #%02d", i))
-                            .withStartDate(new MajorServiceProblemDateTime(new Date()))
-                            .withDetailedNote("A big problem")
-                            .withNimOutageId(new OutageId(UUID.randomUUID().toString()))
-                            .withServiceIds(newHashSet())
-                            .withHistoryItems(someMajorServiceProblemEventHistoryItem())
-                            .build()
-            );
+            MajorServiceProblemId majorServiceProblemId = new MajorServiceProblemId(id.incrementAndGet());
+            DomainMajorServiceProblemBuilder majorServiceProblemBuilder = new DomainMajorServiceProblemBuilder()
+                    .withId(majorServiceProblemId)
+                    .withDescription(String.format("MSP #%02d", majorServiceProblemId.asLong()))
+                    .withStartDate(new MajorServiceProblemDateTime(someDateTimeInTheLast(Duration.of(3, DAYS)).toInstant()))
+                    .withExpectedResolutionDate(new MajorServiceProblemDateTime(someDateTimeInTheNext24Hours().toInstant()))
+                    .withDetailedNote(someWords())
+                    .withNimOutageId(new OutageId(UUID.randomUUID().toString()))
+                    .withServiceIds(someServiceIds())
+                    .withHistoryItems(someMajorServiceProblemEventHistoryItem());
+
+            if (majorServiceProblemId.asInteger() % 3 == 0) {
+                majorServiceProblemBuilder.withClosedDate(Date.from(
+                                someInstantInTheLast(
+                                        Duration.between(
+                                                now().minus(10, DAYS),
+                                                now().minus(1, DAYS)
+                                        )
+                                )
+                        )
+                );
+            }
+
+            majorServiceProblems.put(majorServiceProblemId, majorServiceProblemBuilder.build());
         }
     }
 
@@ -67,7 +85,7 @@ public class MspStore implements DomainMajorServiceProblemRepository {
 
     @Override
     public DomainMajorServiceProblem findByMajorServiceProblemId(MajorServiceProblemId majorServiceProblemId) {
-        throw new UnsupportedOperationException("Method MspStore findByMajorServiceProblemId() not yet implemented");
+        return majorServiceProblems.get(majorServiceProblemId);
     }
 
     @Override
@@ -82,7 +100,7 @@ public class MspStore implements DomainMajorServiceProblemRepository {
 
     @Override
     public List<DomainMajorServiceProblemDashboardEntry> findOpenDashBoardEntries() {
-        return msps.stream().map(msp ->
+        return majorServiceProblems.values().stream().map(msp ->
                         new DomainMajorServiceProblemDashboardEntry(
                                 msp.id().asLong(),
                                 msp.getDescription(),
@@ -90,7 +108,7 @@ public class MspStore implements DomainMajorServiceProblemRepository {
                                 msp.getExpectedResolutionDate().asDate(),
                                 msp.outageId().asString(),
                                 msp.getServiceIds().size(),
-                                33
+                                someNumberBetween(5, 50)
                         )
         ).collect(toList());
     }
@@ -117,6 +135,14 @@ public class MspStore implements DomainMajorServiceProblemRepository {
             ));
         }
         return list;
+    }
+
+    private HashSet<SnsServiceId> someServiceIds() {
+        HashSet<SnsServiceId> snsServiceIds = newHashSet();
+        for (int i = 0; i < someNumberBetween(1, 3); i++) {
+            snsServiceIds.add(someSnsServiceId());
+        }
+        return snsServiceIds;
     }
 
 }
