@@ -18,17 +18,21 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.UpdateProblemCateg
                 handler: function (btn) {
                     var ed = Ext.create('Ext.Editor', {
                         field: {
-                            xtype: 'textfield'
+                            xtype: 'textfield',
+                            emptyText: 'New Assignment Code'
                         },
                         listeners: {
-                            canceledit: function(){
-                              tabPanel.setActiveTab(0);
+                            canceledit: function () {
+                                tabPanel.setActiveTab(0);
                             },
-                            deactivate: function(){
-                              tabPanel.setActiveTab(0);
+                            deactivate: function () {
+                                tabPanel.setActiveTab(0);
                             },
                             complete: function (ed, newValue, startValue) {
-                                if (newValue !== startValue) {
+                                var existingAssignmentCodes = Ext.Array.map(tabPanel.items.items, function(item) {
+                                    return item.title;
+                                });
+                                if (newValue !== startValue && !Ext.Array.contains(existingAssignmentCodes, newValue)) {
                                     var newAssignmentTab = me.lookupReference('addNewAssignment');
                                     tabPanel.remove(newAssignmentTab);
                                     tabPanel.add(me.createNewTab(newValue)).show();
