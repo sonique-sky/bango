@@ -12,7 +12,7 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
         'Spm.view.component.AutoRefreshToolbar',
         'Spm.view.dashboard.msp.MspDashboardTabController',
         'Spm.view.dashboard.msp.MspDashboardTabModel',
-        'Spm.view.serviceproblem.eventhistory.EventHistoryPanel'
+        'Spm.view.serviceproblem.eventhistory.EventHistoryPanel',
         'Spm.view.dashboard.msp.MspDashboardTabController',
         'Spm.view.dashboard.msp.MspDashboardTabModel'
     ],
@@ -110,5 +110,6 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
             xtype: 'eventHistoryPanel'
         }
     ]
-})
-;
+
+});
+
