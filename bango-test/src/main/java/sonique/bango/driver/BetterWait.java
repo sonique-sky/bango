@@ -2,6 +2,7 @@ package sonique.bango.driver;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import org.openqa.selenium.TimeoutException;
 
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -44,7 +45,7 @@ public class BetterWait {
         future.cancel(true);
 
         if (result == null) {
-            throw new RuntimeException("Timed out waiting for condition");
+            throw new TimeoutException("Timed out waiting for condition");
         }
 
         return result;

@@ -31,6 +31,10 @@ public class LoginDialogTest extends OncePerSuiteBangoTest {
 
     @After
     public void tearDown() throws Exception {
+        MessageBox notificationWindow = supermanApp.dialogs().message();
+        if (notificationWindow.isDisplayed()) {
+            notificationWindow.clickOk();
+        }
         bangoTestEnvironment.releaseSupermanApp(supermanApp);
     }
 
@@ -74,9 +78,7 @@ public class LoginDialogTest extends OncePerSuiteBangoTest {
 
         loginDialog.loginButton().click();
 
-        MessageBox notificationWindow = supermanApp.dialogs().message();
-        assertThat(notificationWindow, isDisplayed().with(aTitleOf("Error")).and(aMessageOf("Bad Credentials")));
-        notificationWindow.clickOk();
+        assertThat(supermanApp.dialogs().message(), isDisplayed().with(aTitleOf("Error")).and(aMessageOf("Bad Credentials")));
     }
 
     private AppendableAllOf<MessageBox> isDisplayed() {

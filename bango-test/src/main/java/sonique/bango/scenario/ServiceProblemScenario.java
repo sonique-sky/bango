@@ -20,6 +20,7 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static sonique.bango.matcher.SearchParametersMatcher.*;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
@@ -81,10 +82,7 @@ public class ServiceProblemScenario extends SupermanScenario {
         ServiceProblemApiService serviceProblemApiService = services.serviceProblemApiService();
         when(serviceProblemApiService.serviceProblems(searchParamsFor(serviceProblem))).thenReturn(serviceProblems);
         List<EventHistoryItem> eventHistoryItems = serviceProblem.historyItems();
-        when(serviceProblemApiService.eventHistory(serviceProblem.serviceProblemId(), any(SearchParametersDTO.class)))
-                .thenReturn(new PagedSearchResults<>(eventHistoryItems, eventHistoryItems.size()));
-        when(serviceProblemApiService.serviceProblems(searchParamsFor(serviceProblem))).thenReturn(serviceProblems);
-        when(serviceProblemApiService.eventHistory(serviceProblem.serviceProblemId(), any(SearchParametersDTO.class)))
+        when(serviceProblemApiService.eventHistory(eq(serviceProblem.serviceProblemId()), any(SearchParametersDTO.class)))
                 .thenReturn(new PagedSearchResults<>(eventHistoryItems, eventHistoryItems.size()));
 
         steps.forEach(ServiceProblemScenario.ScenarioStep::doStep);

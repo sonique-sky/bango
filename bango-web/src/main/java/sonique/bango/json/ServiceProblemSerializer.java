@@ -22,7 +22,7 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
         jsonGenerator.writeStringField("directoryNumber", serviceProblem.getDirectoryNumber().asString());
         jsonGenerator.writeStringField("snsServiceId", serviceProblem.serviceId().asString());
         jsonGenerator.writeObjectField("serviceType", serviceProblem.getServiceType());
-        jsonGenerator.writeStringField("assignmentCode", serviceProblem.problem().getQueueRouting().keySet().stream().map(QueueRoutingKey::assignmentCode).findFirst().get().asString());
+        jsonGenerator.writeObjectField("assignmentCode", serviceProblem.getAssignmentCode());
         writeEndUserInformation(jsonGenerator, serviceProblem.getEndUserInformation());
         jsonGenerator.writeStringField("operatorReference", serviceProblem.operatorReference().asString());
         jsonGenerator.writeStringField("problem", serviceProblem.problem().description());

@@ -3,7 +3,6 @@ package sonique.bango.driver.panel.serviceproblem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import sky.sns.spm.domain.model.refdata.PresentedServiceType;
-import sky.sns.spm.domain.model.refdata.ServiceType;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemStatus;
 import sonique.bango.driver.component.HasTitle;
 import sonique.bango.driver.component.form.SupermanPanel;
@@ -14,7 +13,8 @@ import spm.domain.SnsServiceId;
 import spm.messages.bt.types.DirectoryNumber;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static sonique.utils.StringUtils.unCamel;
 
@@ -98,11 +98,18 @@ public class ServiceProblemPanel extends SupermanPanel implements HasTitle {
     }
 
     private PresentedServiceType fromDescription(String description) {
-        for (PresentedServiceType serviceTypeCode : PresentedServiceType.values()) {
-            if (serviceTypeCode.getDisplayName().equals(description)){
-                return serviceTypeCode;
+        Pattern pattern = Pattern.compile("^(.*) \\(.*\\)$");
+        Matcher matcher = pattern.matcher(description);
+
+        if (matcher.find()) {
+            String serviceType = matcher.group(1);
+
+            for (PresentedServiceType serviceTypeCode : PresentedServiceType.values()) {
+                if (serviceTypeCode.getDisplayName().equals(serviceType)) {
+                    return serviceTypeCode;
+                }
             }
         }
-        throw new IllegalArgumentException(String.format("No %s for [%s]", unCamel(ServiceType.class), description));
+        return null;
     }
 }

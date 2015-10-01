@@ -60,5 +60,4 @@ public class StubTroubleReportRaiser implements TroubleReportRaiser {
         troubleReport.setBtReference(someString());
         troubleReport.updateStatusTo(TroubleReportStatus.Open);
     }
-
 }
