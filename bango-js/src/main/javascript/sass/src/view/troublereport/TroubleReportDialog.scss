@@ -5,3 +5,15 @@
 .trouble-report-panel .x-panel-body {
   background: #F1F1F1;
 }
+
+.response-required-text .x-panel-body{
+  text-align: center;
+  font-size: 15px;
+  border: 1px solid #F0AF00;
+  background: #FFEB00;
+  margin-bottom: 5px;
+  /* Mozilla: ; */
+  background: -moz-linear-gradient(top, #FFEB00, #F0AF00);
+  background: -webkit-gradient(linear, left top, left bottom, from(#FFEB00), to(#F0AF00));
+  filter: progid:DXImageTransform.Microsoft.Gradient(StartColorStr = '#FFEB00', EndColorStr = '#F0AF00', GradientType = 0);
+}

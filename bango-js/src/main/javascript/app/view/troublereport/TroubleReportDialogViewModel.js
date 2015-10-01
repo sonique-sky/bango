@@ -242,6 +242,19 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
             get: function (mode) {
                 return mode === 'Raise' ? 'icon-create-trouble-report' : 'icon-amend-trouble-report';
             }
+        },
+        isResponseRequired: {
+            bind: {
+                troubleReportTemplate: '{troubleReportTemplate}',
+                mode: '{mode}',
+                deep: true
+            },
+            get: function (data) {
+                var troubleReportTemplate = data.troubleReportTemplate;
+                var mode = data.mode;
+
+                return mode == 'Amend' && troubleReportTemplate.isResponseRequired();
+            }
         }
     }
 });

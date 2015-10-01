@@ -39,6 +39,10 @@ Ext.define('Spm.model.TroubleReportTemplate', {
 
     proxy: {
         type: 'troubleReportTemplateProxy'
+    },
+
+    isResponseRequired: function() {
+        return this.get('isResponseRequired');
     }
 
 });

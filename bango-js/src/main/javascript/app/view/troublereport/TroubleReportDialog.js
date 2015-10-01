@@ -41,6 +41,26 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
             reference: 'troubleReportForm',
             items: [
                 {
+                    xtype: 'panel',
+                    bind: {
+                        hidden: '{!isResponseRequired}'
+                    },
+                    cls: 'response-required-text',
+                    margin: '0 0 7 0',
+                    layout: {
+                        type: 'vbox',
+                        align: 'middle'
+                    },
+                    height: 60,
+                    items: [
+                        {
+                            xtype: 'label',
+                            html: '<span>BT Openreach expect a specific amendment for this Trouble Report.<br/> Please review event history for more details.</span>',
+                            margin: '5 0 5 0'
+                        }
+                    ]
+                },
+                {
                     xtype: 'fieldcontainer',
                     layout: {
                         type: 'hbox',

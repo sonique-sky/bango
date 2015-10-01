@@ -52,6 +52,7 @@ public class TroubleReportTemplateFactory {
                     .withSymptom(getSymptom(domainTroubleReport.getSymptom()))
                     .withLineTestSummary(getLineTestSummary(domainTroubleReport))
                     .withServiceType(domainTroubleReport.serviceType())
+                    .withIsResponseRequired(domainTroubleReport.isResponseRequired())
                     .build();
         }
 

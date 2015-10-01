@@ -25,6 +25,7 @@ import java.util.UUID;
 
 import static com.google.common.collect.Sets.newHashSet;
 import static sky.sns.spm.domain.model.refdata.ServiceType.*;
+import static sonique.datafixtures.PrimitiveDataFixtures.someBoolean;
 import static sonique.datafixtures.PrimitiveDataFixtures.someString;
 
 public class StubTroubleReportRaiser implements TroubleReportRaiser {
@@ -47,7 +48,7 @@ public class StubTroubleReportRaiser implements TroubleReportRaiser {
     @Override
     public void raiseFor(DomainServiceProblem serviceProblem, TroubleReportDetail troubleReportDetail, Actor actor, SpmErrorReporter spmErrorReporter) {
         DomainTroubleReport troubleReport = troubleReportFactories.get(serviceProblem.getServiceType()).createTroubleReportFrom(serviceProblem, troubleReportDetail, actor);
-
+        troubleReport.setResponseRequiredIfNecessary(someBoolean());
         Queue openreachQueue = queueRepository.findOpenreachQueueForServiceType(serviceProblem.getPresentedServiceType());
 
         serviceProblem.addTroubleReport(troubleReport);
