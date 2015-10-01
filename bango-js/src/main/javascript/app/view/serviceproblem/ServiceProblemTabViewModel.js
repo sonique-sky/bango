@@ -2,6 +2,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.serviceProblemTab',
 
+    requires: [
+        'Spm.proxy.ServiceProblemEventHistoryProxy'
+    ],
+
     stores: {
         troubleReports: {
             type: 'troubleReports',
@@ -15,7 +19,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
         serviceProblemId: null,
         serviceProblem: null,
         workItem: null,
-        troubleReport: null
+        troubleReport: null,
+        eventHistoryProxy: Ext.create('Spm.proxy.ServiceProblemEventHistoryProxy')
     },
 
     formulas: {
@@ -37,12 +42,10 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
         canRaiseTroubleReport: {
             bind: {
                 serviceProblem: '{serviceProblem}',
-                troubleReport: '{troubleReport}',
                 deep: true
             },
             get: function (data) {
                 var serviceProblem = data.serviceProblem;
-                var troubleReport = data.troubleReport;
                 var applicableServiceTypes = [
                     'NvnData',
                     'NvnVoice',
@@ -73,7 +76,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
             get: function (data) {
                 var serviceProblem = data.serviceProblem;
                 var troubleReport = data.troubleReport;
-                if (this.getView().getLayout().getActiveItem().getLayout().getActiveItem().reference === 'serviceProblemPanel') {
+                if (this.isServiceProblemPanelActive()) {
                     return false;
                 }
                 var applicableServiceTypes = [
@@ -106,7 +109,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
             get: function (data) {
                 var serviceProblem = data.serviceProblem;
                 var troubleReport = data.troubleReport;
-                if (this.getView().getLayout().getActiveItem().getLayout().getActiveItem().reference === 'serviceProblemPanel') {
+                if (this.isServiceProblemPanelActive()) {
                     return false;
                 }
                 var applicableServiceTypes = [
@@ -139,7 +142,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                 var serviceProblem = data.serviceProblem;
                 var troubleReport = data.troubleReport;
 
-                if (this.getView().getLayout().getActiveItem().getLayout().getActiveItem().reference === 'serviceProblemPanel') {
+                if (this.isServiceProblemPanelActive()) {
                     return false;
                 }
                 var applicableServiceTypes = [
@@ -212,5 +215,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
 
     authenticatedAgent: function () {
         return this.get('authenticatedAgent');
+    },
+
+    isServiceProblemPanelActive: function () {
+        return !this.getView().lookupReference('serviceProblemPanel').hidden;
     }
 });

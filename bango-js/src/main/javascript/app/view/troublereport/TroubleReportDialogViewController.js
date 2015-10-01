@@ -5,6 +5,10 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
         'Spm.view.troublereport.requestappointment.RequestAppointmentDialog'
     ],
 
+    uses: [
+        'Spm.view.troublereport.requestappointment.RequestAppointmentDialog'
+    ],
+
     listen: {
         controller: {
             'requestAppointmentDialog': {
@@ -152,8 +156,7 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
                 serviceProblemId = me.getViewModel().get('serviceProblemId'),
                 mode = me.getViewModel().get('mode');
 
-            //TODO: Need to check if the form is dirty as well...
-            if (mode === 'Amend') {
+            if (mode === 'Amend' && !troubleReportTemplate.dirty) {
                 Ext.Msg.show({
                     title: 'Error',
                     msg: 'You must amend at least one of the fields',
@@ -169,8 +172,13 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewController', {
                             mode: mode
                         },
                         success: function () {
-                            me.fireEvent('troubleReportCreated', serviceProblemId);
-                            me.closeView();
+                            if(mode === 'Amend') {
+                                me.fireEvent('troubleReportAmended', serviceProblemId);
+                                me.closeView();
+                            } else {
+                                me.fireEvent('troubleReportCreated', serviceProblemId);
+                                me.closeView();
+                            }
                         }
                     }
                 );

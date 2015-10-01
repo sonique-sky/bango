@@ -9,8 +9,9 @@ Ext.define('Spm.store.StructuredQuestionCodes', {
         url: 'api/troubleReport/template/structuredQuestionCodes',
         reader: {
             type: 'json',
-            transform: function (data) {
-                return data.map(function (val) {
+            rootProperty: 'data',
+            transform: function (response) {
+                return response.data.map(function (val) {
                     return {code: val};
                 });
             }

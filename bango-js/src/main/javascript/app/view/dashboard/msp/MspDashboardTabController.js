@@ -3,7 +3,13 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabController', {
     alias: 'controller.mspDashboard',
 
 
-    loadStore: function( ) {
+    loadStore: function () {
         this.getViewModel().getStore('mspDashboardEntries').load();
+    },
+
+    selectMajorServiceProblem: function (component, td, cellIndex, record, tr, rowIndex, e) {
+        var eventHistoryPanel = this.lookupReference('eventHistoryPanel');
+        eventHistoryPanel.fireEvent('serviceProblemLoaded', record.getId());
     }
+
 });

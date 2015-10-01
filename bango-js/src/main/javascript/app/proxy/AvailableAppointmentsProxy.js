@@ -20,7 +20,8 @@ Ext.define('Spm.proxy.AvailableAppointmentsProxy', {
     },
 
     reader: {
-        type: 'json'
+        type: 'json',
+        rootProperty: 'data'
     }
 
 });

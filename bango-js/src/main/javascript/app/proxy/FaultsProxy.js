@@ -16,7 +16,8 @@ Ext.define('Spm.proxy.FaultsProxy', {
     },
 
     reader: {
-        type: 'json'
+        type: 'json',
+        rootProperty: 'data'
     }
 
 });

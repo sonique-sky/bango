@@ -2,6 +2,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     extend: 'Ext.grid.Panel',
 
     requires: [
+        'Ext.button.Button',
         'Ext.form.field.ComboBox',
         'Ext.grid.column.Action',
         'Ext.grid.plugin.RowEditing',
@@ -10,7 +11,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     ],
 
     xtype: 'assignmentMapping',
-    reference: 'assignmentMappingTab',
+    disableSelection: true,
 
     viewModel: {type: 'assignmentMapping'},
     controller: 'assignmentMapping',
@@ -21,17 +22,43 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
         store: '{assignmentMappings}'
     },
 
+    tbar: {
+        items: [
+            {
+                xtype: 'button',
+                reference: 'newRecordButton',
+                iconCls: 'queue-routing-row-add',
+                handler: 'addQueueRouting'
+            }
+        ]
+    },
+
     columns: {
         defaults: {sortable: false, menuDisabled: true},
         items: [
-            {text: 'ServiceType', dataIndex: 'serviceType', flex: 0.4},
+            {
+                text: 'ServiceType',
+                dataIndex: 'serviceTypeDisplayName',
+                renderer: 'serviceTypeNameRenderer',
+                flex: 0.5,
+                editor: {
+                    xtype: 'combobox',
+                    allowBlank: false,
+                    displayField: 'displayName',
+                    valueField: 'name',
+                    bind: {
+                        store: '{serviceTypes}'
+                    }
+                }
+            },
             {
                 text: 'Routing',
                 dataIndex: 'queueId',
                 renderer: 'queueNameRenderer',
-                flex: 1,
+                flex: 0.5,
                 editor: {
                     xtype: 'combobox',
+                    allowBlank: false,
                     displayField: 'name',
                     valueField: 'id',
                     bind: {
@@ -45,9 +72,20 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
                 sortable: false,
                 menuDisabled: true,
                 items: [{
-                    iconCls: 'cell-editing-delete-row',
+                    iconCls: 'queue-routing-row-edit',
+                    tooltip: 'Edit Routing',
+                    handler: 'startEditing'
+                }]
+            },
+            {
+                xtype: 'actioncolumn',
+                width: 20,
+                sortable: false,
+                menuDisabled: true,
+                items: [{
+                    iconCls: 'queue-routing-row-delete',
                     tooltip: 'Delete Routing',
-                    handler: 'deleteRouting'
+                    handler: 'deleteQueueRouting'
                 }]
             }
         ]
@@ -56,10 +94,12 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.update.assignmentmapping.
     selType: 'cellmodel',
     plugins: [{
         ptype: 'rowediting',
-        clicksToEdit: 1,
+        pluginId: 'queueRoutingRowEditingPlugin',
+        clicksToEdit: 0,
         listeners: {
             beforeedit: 'onBeforeEdit',
-            edit: 'updateRouting'
+            edit: 'updateRouting',
+            canceledit: 'cancelRouting'
         }
     }]
 

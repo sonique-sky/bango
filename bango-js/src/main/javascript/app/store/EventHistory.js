@@ -3,13 +3,30 @@ Ext.define('Spm.store.EventHistory', {
     alias: 'store.eventHistory',
 
     model: 'Spm.model.EventHistoryItem',
-    proxy: 'serviceProblemEventHistoryProxy',
+    proxy: {
+        type: 'ajax',
+        url: 'api/eventHistory',
+        reader: {
+            type: 'json',
+            rootProperty: 'data'
+        }
+    },
     remoteSort: true,
     pageSize: 0,
-    sorters: 'eventType',
+    sorters: [
+        {
+            property: 'createdDate',
+            direction: 'DESC'
+        }
+    ],
+
+    config: {
+        entityIdentifier: undefined
+    },
 
     load: function (options) {
-        this.callParent({params: {serviceProblemId: 2}});
+        var args = Array.from(arguments);
+        args.push({params: {entityIdentifier: this.getEntityIdentifier()}});
+        this.callParent(args);
     }
-
 });

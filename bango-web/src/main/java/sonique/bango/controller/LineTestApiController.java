@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import sky.sns.spm.web.spmapp.shared.dto.LineTestSummaryDTO;
+import sonique.bango.domain.ResponseData;
 import sonique.bango.service.LineTestApiService;
 import spm.domain.SnsServiceId;
 
@@ -19,8 +20,8 @@ public class LineTestApiController {
     private LineTestApiService lineTestApiService;
 
     @RequestMapping(value = "/{serviceId}", method = RequestMethod.GET)
-    public List<LineTestSummaryDTO> troubleReportFor(@PathVariable Long serviceId) {
-        return lineTestApiService.lineTestsFor(new SnsServiceId(serviceId));
+    public ResponseData<List<LineTestSummaryDTO>> troubleReportFor(@PathVariable Long serviceId) {
+        return new ResponseData(lineTestApiService.lineTestsFor(new SnsServiceId(serviceId)));
     }
 
 }

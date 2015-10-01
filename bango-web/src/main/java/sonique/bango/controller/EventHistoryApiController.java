@@ -1,5 +1,6 @@
 package sonique.bango.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
@@ -10,20 +11,21 @@ import spm.domain.ServiceProblemId;
 
 import javax.annotation.Resource;
 
-@RestController
+@Controller
 @RequestMapping("/api/eventHistory")
 public class EventHistoryApiController {
     @Resource
     private EventHistoryApiService eventHistoryService;
 
-    @RequestMapping(value = "/{serviceProblemId}", method = RequestMethod.GET)
-    public PagedSearchResults<EventHistoryItem> eventHistory(@PathVariable Long serviceProblemId,
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public PagedSearchResults<EventHistoryItem> eventHistory(@RequestParam Long entityIdentifier,
                                                              @ModelAttribute SearchParametersDTO searchParameters) {
 
         Reader.Specification<ServiceProblemId> specification = new Reader.Specification<ServiceProblemId>() {
             @Override
             public ServiceProblemId criteria() {
-                return new ServiceProblemId(serviceProblemId);
+                return new ServiceProblemId(entityIdentifier);
             }
 
             @Override

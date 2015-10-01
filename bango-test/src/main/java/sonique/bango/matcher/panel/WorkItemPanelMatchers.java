@@ -7,7 +7,7 @@ import sky.sns.spm.domain.model.serviceproblem.WorkItemPriority;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemStatus;
 import sonique.bango.driver.panel.serviceproblem.WorkItemPanel;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class WorkItemPanelMatchers {
 
@@ -20,10 +20,10 @@ public class WorkItemPanelMatchers {
         };
     }
 
-    public static Matcher<WorkItemPanel> aWorkItemCreatedDate(Matcher<Date> matcher) {
-        return new AbstractPanelMatcher<WorkItemPanel, Date>(matcher) {
+    public static Matcher<WorkItemPanel> aWorkItemCreatedDate(Matcher<LocalDateTime> matcher) {
+        return new AbstractPanelMatcher<WorkItemPanel, LocalDateTime>(matcher) {
             @Override
-            protected Date actualValue(WorkItemPanel item) {
+            protected LocalDateTime actualValue(WorkItemPanel item) {
                 return item.createdDate();
             }
         };
@@ -65,10 +65,10 @@ public class WorkItemPanelMatchers {
         };
     }
 
-    public static Matcher<WorkItemPanel> aWorkItemReminder(Matcher<Date> matcher) {
-        return new AbstractPanelMatcher<WorkItemPanel, Date>(matcher) {
+    public static Matcher<WorkItemPanel> aWorkItemReminder(Matcher<LocalDateTime> matcher) {
+        return new AbstractPanelMatcher<WorkItemPanel, LocalDateTime>(matcher) {
             @Override
-            protected Date actualValue(WorkItemPanel item) {
+            protected LocalDateTime actualValue(WorkItemPanel item) {
                 return item.reminder();
             }
         };

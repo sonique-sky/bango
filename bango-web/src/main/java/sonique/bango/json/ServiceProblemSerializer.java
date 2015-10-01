@@ -3,11 +3,14 @@ package sonique.bango.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import sky.sns.spm.domain.model.refdata.QueueRoutingKey;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.EndUserInformation;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemResolution;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProblem> {
 
@@ -19,6 +22,7 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
         jsonGenerator.writeStringField("directoryNumber", serviceProblem.getDirectoryNumber().asString());
         jsonGenerator.writeStringField("snsServiceId", serviceProblem.serviceId().asString());
         jsonGenerator.writeObjectField("serviceType", serviceProblem.getServiceType());
+        jsonGenerator.writeStringField("assignmentCode", serviceProblem.problem().getQueueRouting().keySet().stream().map(QueueRoutingKey::assignmentCode).findFirst().get().asString());
         writeEndUserInformation(jsonGenerator, serviceProblem.getEndUserInformation());
         jsonGenerator.writeStringField("operatorReference", serviceProblem.operatorReference().asString());
         jsonGenerator.writeStringField("problem", serviceProblem.problem().description());
@@ -27,7 +31,7 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
 
         jsonGenerator.writeBooleanField("hasActiveTroubleReport", serviceProblem.hasActiveTroubleReport());
 
-        jsonGenerator.writeObjectField("openedDate", serviceProblem.openedDate());
+        jsonGenerator.writeObjectField("openedDate", LocalDateTime.ofInstant(serviceProblem.openedDate().toInstant(), ZoneId.systemDefault()));
         jsonGenerator.writeObjectField("closedDate", serviceProblem.closedDate());
 
         if (serviceProblem.hasWorkItem()) {

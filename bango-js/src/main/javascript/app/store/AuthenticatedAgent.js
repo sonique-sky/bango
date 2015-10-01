@@ -12,7 +12,8 @@ Ext.define('Spm.store.AuthenticatedAgent', {
         type: 'ajax',
         url: 'api/agent/authenticatedAgent',
         reader: {
-            type: 'json'
+            type: 'json',
+            rootProperty: 'data'
         }
     }
 });

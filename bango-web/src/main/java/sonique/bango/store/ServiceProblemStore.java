@@ -2,10 +2,11 @@ package sonique.bango.store;
 
 import com.google.common.collect.Iterables;
 import sky.sns.spm.domain.model.DomainAgent;
-import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
 import sky.sns.spm.domain.model.refdata.PresentedServiceType;
+import sky.sns.spm.domain.model.refdata.ProblemCategory;
 import sky.sns.spm.domain.model.refdata.Queue;
+import sky.sns.spm.domain.model.refdata.QueueRoutingKey;
 import sky.sns.spm.domain.model.serviceproblem.*;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
 import sky.sns.spm.domain.model.troublereport.TroubleReportAttributes;
@@ -16,14 +17,16 @@ import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.Filter;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import sonique.bango.domain.sorter.Comparators;
+import sonique.bango.util.BangoDataFixtures;
 import sonique.bango.util.PagedSearchResultsCreator;
 import spm.domain.*;
 import spm.domain.model.refdata.DomainAgentBuilder;
 import spm.messages.bt.types.DirectoryNumber;
 
-import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -80,7 +83,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                         .withOperatorAccountNumber(someString())
                         .withOperatorReference(someOperatorReference())
                         .withServiceType(serviceTypeCode)
-                        .withProblem(someProblemCategoryFor(serviceTypeCode))
+                        .withProblem(problemCategory(serviceTypeCode))
                         .withTroubleReportAttributes(troubleReportAttributesFor(serviceTypeCode))
                         .build();
                 serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(pickOneOf(EventDescription.class), Date.from(someInstantInTheLast24Hours()), someString(), allTheWords(), serviceProblem));
@@ -90,6 +93,14 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                 serviceProblems.add(serviceProblem);
             }
         }
+    }
+
+    private ProblemCategory problemCategory(PresentedServiceType serviceTypeCode) {
+        ProblemCategory problemCategory = someProblemCategoryFor(serviceTypeCode);
+        Map<QueueRoutingKey, Queue> queueRouting = new HashMap<>();
+        queueRouting.put(QueueRoutingKey.routingKeyOf(BangoDataFixtures.someAssignmentCode(), serviceTypeCode), someQueue());
+        problemCategory.setQueueRouting(queueRouting);
+        return problemCategory;
     }
 
     private TroubleReportAttributes troubleReportAttributesFor(PresentedServiceType serviceTypeCode) {

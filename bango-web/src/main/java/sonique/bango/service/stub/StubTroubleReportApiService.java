@@ -165,6 +165,11 @@ public class StubTroubleReportApiService implements TroubleReportApiService {
         troubleReport.applyAmendment(amendmentDto);
 
         troubleReport.getServiceProblem().writeHistoryItem(TroubleReportAmendRequested, authorisedActorProvider.authorisedActor(), new Date());
+
+        troubleReport.writeHistoryItem(EventDescription.TroubleReportAmendPending, SystemActor.Openreach, new Date());
+        troubleReport.writeHistoryItem(EventDescription.TroubleReportAmendAccepted, SystemActor.Openreach, new Date());
+        troubleReport.writeHistoryItem(EventDescription.TroubleReportAmendCompleted, SystemActor.Openreach, new Date());
+        troubleReport.clearAmendRequested();
     }
 
     @Override

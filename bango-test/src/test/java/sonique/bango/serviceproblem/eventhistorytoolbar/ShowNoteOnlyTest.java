@@ -53,12 +53,12 @@ public class ShowNoteOnlyTest extends BangoYatspecTest {
     }
 
     private StateExtractor<EventHistoryPanel> theEventHistoryPanel() {
-        return inputAndOutputs -> supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel();
+        return inputAndOutputs -> supermanApp.appContainer().tab().serviceProblem(serviceProblem).tabContent().eventHistoryPanel();
     }
 
     private ActionUnderTest theAgentClicksTheShowNotesOnlyButton() {
         return (givens, capturedInputAndOutputs) -> {
-            supermanApp.appContainer().serviceProblemTab(serviceProblem.serviceProblemId()).tabContent().eventHistoryPanel().eventHistoryToolbar().showNotesOnlyButton().click();
+            supermanApp.appContainer().tab().serviceProblem(serviceProblem).tabContent().eventHistoryPanel().eventHistoryToolbar().showNotesOnlyButton().click();
 
             return capturedInputAndOutputs;
         };

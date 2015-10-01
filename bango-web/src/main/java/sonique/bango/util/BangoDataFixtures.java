@@ -1,6 +1,7 @@
 package sonique.bango.util;
 
 import sky.sns.spm.domain.model.EventHistoryItem;
+import sky.sns.spm.domain.model.refdata.AssignmentCode;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.EventDescription;
 import sky.sns.spm.domain.model.serviceproblem.ServiceProblemEventHistoryItem;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static sonique.datafixtures.PrimitiveDataFixtures.pickOneOf;
 import static sonique.datafixtures.PrimitiveDataFixtures.someNumberBetween;
 import static util.SupermanDataFixtures.*;
 
@@ -29,5 +31,9 @@ public class BangoDataFixtures {
             list.add(ServiceProblemEventHistoryItem.createEvent(description, new Date(), someAgent().getActorName(), someNoteText(), serviceProblem));
         }
         return list;
+    }
+
+    public static AssignmentCode someAssignmentCode() {
+        return new AssignmentCode(pickOneOf("Standard", "Ethan", "Pro", "ROI"));
     }
 }

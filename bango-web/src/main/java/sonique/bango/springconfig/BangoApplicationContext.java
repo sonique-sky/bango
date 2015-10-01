@@ -12,10 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.domain.model.EventHistoryItem;
-import sky.sns.spm.domain.model.refdata.ProblemCategory;
-import sky.sns.spm.domain.model.refdata.Queue;
-import sky.sns.spm.domain.model.refdata.Role;
-import sky.sns.spm.domain.model.refdata.ServiceType;
+import sky.sns.spm.domain.model.refdata.*;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
 import sky.sns.spm.domain.model.troublereport.DomainTroubleReport;
@@ -84,11 +81,13 @@ public class BangoApplicationContext {
 
         module.addSerializer(NumberValue.class, new NumberValueSerializer());
         module.addSerializer(StringValue.class, new StringValueSerializer());
+        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
 
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
         module.addSerializer(EventHistoryItem.class, new EventHistoryItemSerializer());
         module.addSerializer(LineTestSummaryDTO.class, new LineTestSummaryDTOSerializer());
+        module.addSerializer(PresentedServiceType.class, new PresentedServiceTypeSerializer());
         module.addSerializer(ProblemCategory.class, new ProblemCategorySerializer());
         module.addSerializer(Role.class, new RoleSerializer());
         module.addSerializer(ServiceType.class, new ServiceTypeSerializer());

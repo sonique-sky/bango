@@ -1,7 +1,6 @@
 package sonique.bango.store;
 
 import com.google.common.collect.Maps;
-import sky.sns.spm.domain.model.refdata.AssignmentCode;
 import sky.sns.spm.domain.model.refdata.ProblemCategory;
 import sky.sns.spm.domain.model.refdata.Queue;
 import sky.sns.spm.domain.model.refdata.QueueRoutingKey;
@@ -19,6 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import static java.util.stream.Collectors.toList;
 import static sky.sns.spm.domain.model.refdata.AssignmentCode.standard;
 import static sky.sns.spm.domain.model.refdata.QueueRoutingKey.routingKeyOf;
+import static sonique.bango.util.BangoDataFixtures.someAssignmentCode;
 import static sonique.datafixtures.PrimitiveDataFixtures.*;
 import static util.SupermanDataFixtures.somePresentedServiceType;
 
@@ -43,7 +43,6 @@ public class ProblemCategoryStore implements DomainProblemCategoryRepository {
         }
     }
 
-
     @Override
     public PagedSearchResults<ProblemCategory> findProblemCategoriesSubSet(SearchParametersDTO searchParameters) {
         return PagedSearchResultsCreator.createPageFor(
@@ -52,10 +51,6 @@ public class ProblemCategoryStore implements DomainProblemCategoryRepository {
                 new Comparators<ProblemCategory>() {
                 }
         );
-    }
-
-    private AssignmentCode someAssignmentCode() {
-        return new AssignmentCode(pickOneOf("Standard", "Ethan", "Pro", "ROI"));
     }
 
     @Override

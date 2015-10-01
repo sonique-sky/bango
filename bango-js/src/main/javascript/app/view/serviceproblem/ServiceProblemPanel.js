@@ -79,7 +79,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
                             xtype: 'textfield',
                             fieldLabel: 'Service Type',
                             bind: {
-                                value: '{serviceProblem.serviceType.code}'
+                                value: '{serviceProblem.serviceType.description} ({serviceProblem.assignmentCode})'
                             }
                         },
                         {
