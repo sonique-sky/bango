@@ -5,6 +5,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     requires: [
         'Spm.reader.ServiceProblemReader',
         'Spm.view.serviceproblem.clear.ClearServiceProblemDialog',
+        'Spm.view.serviceproblem.msp.AssociateServiceProblemToMspDialog',
         'Spm.view.serviceproblem.transfer.TransferServiceProblemDialog'
     ],
 
@@ -25,6 +26,34 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     onSetWorkReminder: function () {
         this.doSetWorkReminder(this.getViewModel().serviceProblem(), Ext.emptyFn);
+    },
+
+    associateToMsp: function () {
+        var serviceProblem = this.getViewModel().serviceProblem();
+        var dialog = this.getView().add({
+            xtype: 'associateServiceProblemToMspDialog',
+            viewModel: {
+                type: 'associateServiceProblemToMspDialog',
+                data: {
+                    serviceProblem: serviceProblem
+                }
+            }
+        });
+        dialog.show();
+    },
+
+    requestFeatureCheck: function () {
+        var serviceProblemId = this.getViewModel().serviceProblemId();
+        var dialog = this.getView().add({
+            xtype: 'featureCheckDialog',
+            viewModel: {
+                type: 'featureCheckDialog',
+                data: {
+                    serviceProblemId: serviceProblemId
+                }
+            }
+        });
+        dialog.show();
     },
 
     onTransferServiceProblem: function () {

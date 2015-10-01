@@ -63,6 +63,12 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>sonique</groupId>
+                <artifactId>sonique-bti-messages</artifactId>
+                <version>61</version>
+                <type>test-jar</type>
+            </dependency>
+            <dependency>
                 <groupId>sky.sns</groupId>
                 <artifactId>superman-core</artifactId>
                 <version>${superman.version}</version>

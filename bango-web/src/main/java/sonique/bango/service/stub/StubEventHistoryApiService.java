@@ -26,7 +26,7 @@ public final class StubEventHistoryApiService implements EventHistoryApiService 
         return PagedSearchResultsCreator.createPageFor(specification.searchParameters(), eventHistoryItems, new EventHistoryComparators());
     }
 
-    private static class EventHistoryComparators extends Comparators<EventHistoryItem> {
+    public static class EventHistoryComparators extends Comparators<EventHistoryItem> {
         public EventHistoryComparators() {
             add("eventType", (o1, o2) -> o1.type().compareTo(o2.type()));
             add("createdDate", (o1, o2) -> o1.createdDate().compareTo(o2.createdDate()));

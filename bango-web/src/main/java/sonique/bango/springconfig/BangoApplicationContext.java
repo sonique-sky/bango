@@ -51,13 +51,17 @@ public class BangoApplicationContext {
     private final SymptomStore symptomRepository;
     private final DomainProblemCategoryRepository problemCategoryRepository;
     private final DomainMajorServiceProblemRepository mspRepository;
+    private final FeatureCheckStore featureCheckStore;
 
     public BangoApplicationContext() {
         agentRepository = new AgentStore();
         queueRepository = new QueueStore();
         problemCategoryRepository = new ProblemCategoryStore(queueRepository);
         symptomRepository = new SymptomStore();
-        serviceProblemRepository = new ServiceProblemStore(queueRepository, symptomRepository);
+
+        ServiceDetailsStore serviceDetailsStore = new ServiceDetailsStore();
+        featureCheckStore = new FeatureCheckStore(serviceDetailsStore);
+        serviceProblemRepository = new ServiceProblemStore(queueRepository, symptomRepository, serviceDetailsStore);
         troubleReportRepository = new TroubleReportStore(serviceProblemRepository, symptomRepository);
         teamRepository = new TeamStore();
         mspRepository = new MspStore();
@@ -160,7 +164,7 @@ public class BangoApplicationContext {
 
     @Bean
     public ServiceProblemApiService serviceProblemApiService() {
-        return new StubServiceProblemApiService(serviceProblemRepository, springSecurityAuthorisedActorProvider(), queueRepository, agentRepository);
+        return new StubServiceProblemApiService(serviceProblemRepository, springSecurityAuthorisedActorProvider(), queueRepository, agentRepository, mspRepository);
     }
 
     @Bean
@@ -206,6 +210,11 @@ public class BangoApplicationContext {
     @Bean
     public MspApiService mspApiService() {
         return new StubMspApiService(mspRepository);
+    }
+
+    @Bean
+    public FeatureCheckApiService featureCheckApiService() {
+        return new StubFeatureCheckApiService(featureCheckStore);
     }
 
     @Bean

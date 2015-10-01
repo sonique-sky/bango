@@ -83,6 +83,9 @@ public class ServiceProblemScenario extends SupermanScenario {
         List<EventHistoryItem> eventHistoryItems = serviceProblem.historyItems();
         when(serviceProblemApiService.eventHistory(serviceProblem.serviceProblemId(), any(SearchParametersDTO.class)))
                 .thenReturn(new PagedSearchResults<>(eventHistoryItems, eventHistoryItems.size()));
+        when(serviceProblemApiService.serviceProblems(searchParamsFor(serviceProblem))).thenReturn(serviceProblems);
+        when(serviceProblemApiService.eventHistory(serviceProblem.serviceProblemId(), any(SearchParametersDTO.class)))
+                .thenReturn(new PagedSearchResults<>(eventHistoryItems, eventHistoryItems.size()));
 
         steps.forEach(ServiceProblemScenario.ScenarioStep::doStep);
     }

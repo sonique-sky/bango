@@ -23,6 +23,11 @@
             <type>test-jar</type>
         </dependency>
         <dependency>
+            <groupId>sonique</groupId>
+            <artifactId>sonique-bti-messages</artifactId>
+            <type>test-jar</type>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>

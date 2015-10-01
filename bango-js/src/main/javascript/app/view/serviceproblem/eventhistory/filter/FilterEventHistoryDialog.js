@@ -2,6 +2,13 @@ Ext.define('Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialog
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.filterEventHistoryDialog',
 
+    requires: [
+        'Ext.button.Button',
+        'Ext.grid.Panel',
+        'Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialogViewController',
+        'Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialogViewModel'
+    ],
+
     height: 350,
     width: 600,
     title: 'History Event Filter',

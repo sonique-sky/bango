@@ -113,8 +113,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-feature-check',
                             tooltip: 'Request a feature check for this service',
+                            handler: 'requestFeatureCheck',
                             bind: {
-                                disabled: '{!serviceProblemOwned}'
+                                disabled: '{!canRequestFeatureCheck}'
                             }
                         },
                         {
@@ -128,6 +129,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-associate-msp',
                             tooltip: 'Associate this service problem to a MSP',
+                            handler: 'associateToMsp',
                             bind: {
                                 disabled: '{!serviceProblemOwned}'
                             }

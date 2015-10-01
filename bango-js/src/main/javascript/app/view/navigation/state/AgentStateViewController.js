@@ -21,6 +21,9 @@ Ext.define('Spm.view.navigation.state.AgentStateViewController', {
             'reassignServiceProblemDialog': {
                 serviceProblemReassigned: 'refreshAgentState'
             },
+            'associateServiceProblemToMspDialog': {
+                serviceProblemAssociatedToMsp: 'refreshAgentState'
+            },
             'clearServiceProblemDialog': {
                 serviceProblemCleared: 'refreshAgentState'
             },

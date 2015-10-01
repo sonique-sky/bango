@@ -3,14 +3,7 @@ Ext.define('Spm.store.EventHistory', {
     alias: 'store.eventHistory',
 
     model: 'Spm.model.EventHistoryItem',
-    proxy: {
-        type: 'ajax',
-        url: 'api/eventHistory',
-        reader: {
-            type: 'json',
-            rootProperty: 'data'
-        }
-    },
+    proxy: 'serviceProblemEventHistoryProxy',
     remoteSort: true,
     pageSize: 0,
     sorters: [
@@ -25,8 +18,6 @@ Ext.define('Spm.store.EventHistory', {
     },
 
     load: function (options) {
-        var args = Array.from(arguments);
-        args.push({params: {entityIdentifier: this.getEntityIdentifier()}});
-        this.callParent(args);
+        this.callParent([{params: {entityIdentifier: this.getEntityIdentifier()}}]);
     }
 });

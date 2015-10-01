@@ -21,7 +21,7 @@ public class MspApiController {
 
     @RequestMapping(method = RequestMethod.GET)
     public PagedSearchResults<DomainMajorServiceProblemDashboardEntry> dashboardEntry(@ModelAttribute SearchParametersDTO searchParameters) {
-        return mspApiService.serviceProblems(searchParameters);
+        return mspApiService.majorServiceProblems(searchParameters);
     }
 
     @RequestMapping(value = "/{majorServiceProblemId}/eventHistory", method = RequestMethod.GET)
