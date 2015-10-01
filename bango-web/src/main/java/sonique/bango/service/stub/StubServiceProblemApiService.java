@@ -15,6 +15,7 @@ import sky.sns.spm.infrastructure.repository.QueueRepository;
 import sky.sns.spm.infrastructure.security.SpringSecurityAuthorisedActorProvider;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
+import sonique.bango.domain.sorter.Comparators;
 import sonique.bango.service.ServiceProblemApiService;
 import sonique.bango.util.PagedSearchResultsCreator;
 import spm.domain.MajorServiceProblemId;
@@ -69,7 +70,7 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
     public PagedSearchResults<EventHistoryItem> eventHistory(ServiceProblemId serviceProblemId, SearchParametersDTO searchParameters) {
         List<EventHistoryItem> eventHistoryItems = serviceProblemWithId(serviceProblemId).historyItems();
 
-        return PagedSearchResultsCreator.createPageFor(searchParameters, eventHistoryItems, new StubEventHistoryApiService.EventHistoryComparators());
+        return PagedSearchResultsCreator.createPageFor(searchParameters, eventHistoryItems, new EventHistoryComparators());
     }
 
     @Override
@@ -165,5 +166,14 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
         serviceProblem.associateToMajorServiceProblem(majorServiceProblem, newQueue, authorisedActorProvider.getLoggedInAgent());
         return serviceProblem;
     }
+
+    private static class EventHistoryComparators extends Comparators<EventHistoryItem> {
+        public EventHistoryComparators() {
+            add("eventType", (o1, o2) -> o1.type().compareTo(o2.type()));
+            add("createdDate", (o1, o2) -> o1.createdDate().compareTo(o2.createdDate()));
+            add("createdBy", (o1, o2) -> o1.createdBy().compareTo(o2.createdBy()));
+        }
+    }
+
 
 }
