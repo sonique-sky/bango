@@ -8,12 +8,6 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
         'Spm.view.dashboard.admin.agents.AgentAdminTabViewModel'
     ],
 
-    mixins: {
-        tab: 'Spm.view.component.mixins.RoutableTab'
-    },
-
-    parentTabId: 'adminDashboard',
-
     viewModel: {type: 'agentAdminTab'},
     controller: 'agentAdminTab',
 

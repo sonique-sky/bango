@@ -12,10 +12,6 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
         'Spm.view.myitems.MyItemsTabViewModel'
     ],
 
-    mixins: {
-        tab: 'Spm.view.component.mixins.RoutableTab'
-    },
-
     controller: 'myItems',
     viewModel: {type: 'myItems'},
 

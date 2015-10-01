@@ -3,10 +3,6 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardTab', {
     alias: 'widget.agentDashboard',
     itemId: 'agentDashboard',
 
-    mixins: {
-        tab: 'Spm.view.component.mixins.RoutableTab'
-    },
-
     requires: [
         'Ext.grid.feature.Grouping',
         'Spm.view.component.AutoRefreshToolbar',

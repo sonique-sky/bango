@@ -8,12 +8,6 @@ Ext.define('Spm.view.dashboard.admin.queues.QueueAdminTab', {
         'Spm.view.dashboard.admin.queues.QueueAdminTabViewModel'
     ],
 
-    mixins: {
-        tab: 'Spm.view.component.mixins.RoutableTab'
-    },
-
-    parentTabId: 'adminDashboard',
-
     viewModel: {type: 'queueAdminTab'},
     controller: 'queueAdminTab',
 

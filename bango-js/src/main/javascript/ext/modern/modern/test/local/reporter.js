@@ -2618,7 +2618,7 @@ Test.panel.TabPanel.prototype.add = function(panel) {
  * Adds a tab
  * @param {Object} panel the panel to be added to this tabPanel.
  */
-Test.panel.TabPanel.prototype.addTab = function(cls, name, persist) {
+Test.panel.TabPanel.prototype.onAddTab = function(cls, name, persist) {
     var el = this.toolbar.appendChild(new jasmine.Dom({
         tag: "span",
         cls: "toolbarTab " + cls,

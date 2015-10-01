@@ -17,10 +17,6 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
         'Spm.view.dashboard.msp.MspDashboardTabModel'
     ],
 
-    mixins: {
-        tab: 'Spm.view.component.mixins.RoutableTab'
-    },
-
     controller: 'mspDashboard',
     viewModel: {type: 'mspDashboard'},
 

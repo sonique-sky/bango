@@ -10,10 +10,6 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
         'Spm.view.dashboard.queue.QueueDashboardTabViewModel'
     ],
 
-    mixins: {
-        tab: 'Spm.view.component.mixins.RoutableTab'
-    },
-
     controller: 'queueDashboard',
     viewModel: {type: 'queueDashboard'},
 

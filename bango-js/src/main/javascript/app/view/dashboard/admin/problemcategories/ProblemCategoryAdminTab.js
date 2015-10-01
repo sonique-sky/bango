@@ -11,12 +11,6 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTab',
     viewModel: {type: 'problemCategoryAdminTab'},
     controller: 'problemCategoryAdminTab',
 
-    mixins: {
-        tab: 'Spm.view.component.mixins.RoutableTab'
-    },
-
-    parentTabId: 'adminDashboard',
-
     listeners: {
         activate: 'loadStore'
     },

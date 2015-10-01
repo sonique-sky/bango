@@ -9,11 +9,6 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTab', {
         'Spm.view.dashboard.admin.teams.TeamAdminTabViewModel'
     ],
 
-    mixins: {
-        tab: 'Spm.view.component.mixins.RoutableTab'
-    },
-
-    parentTabId: 'adminDashboard',
     viewModel: {type:'teamAdminTab'},
     controller: 'teamAdminTab',
 

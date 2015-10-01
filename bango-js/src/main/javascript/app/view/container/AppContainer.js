@@ -4,7 +4,7 @@ Ext.define('Spm.view.container.AppContainer', {
 
     requires: [
         'Ext.layout.container.Border',
-        'Ext.tab.Panel',
+        'Spm.view.component.route.RoutingTabPanel',
         'Spm.view.container.AppContainerViewController',
         'Spm.view.container.AppContainerViewModel',
         'Spm.view.header.AppHeader',
@@ -25,7 +25,7 @@ Ext.define('Spm.view.container.AppContainer', {
 
     items: [
         {
-            xtype: 'tabpanel',
+            xtype: 'routingTabPanel',
             reference: 'tabPanel',
             region: 'center',
             id: 'tab-panel',
