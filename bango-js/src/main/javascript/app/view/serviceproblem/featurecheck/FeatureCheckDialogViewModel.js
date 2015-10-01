@@ -4,11 +4,15 @@ Ext.define('Spm.view.serviceproblem.featurecheck.FeatureCheckDialogViewModel', {
 
     stores: {
         featureCheckResults: {
-            //fields: ['id', 'description', 'startDate'],
             autoLoad: false,
             pageSize: 0,
             proxy: 'featureCheckProxy'
         }
+    },
+
+    data: {
+        cancelButtonHidden: true,
+        acceptButtonDefaultDisabled: false
     },
 
     serviceProblemId: function () {

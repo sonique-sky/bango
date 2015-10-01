@@ -36,7 +36,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                 deep: true
             },
             get: function (workItem) {
-                return workItem !== null && workItem.isAssignedTo(this.authenticatedAgent());
+                return this.serviceProblemOwned(workItem);
             }
         },
         canRaiseTroubleReport: {
@@ -62,7 +62,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                     return workItem !== null
                         && workItem.isAssignedTo(this.authenticatedAgent())
                         && serviceProblem.hasActiveTroubleReport() === false
-                        && applicableServiceTypes.indexOf(serviceProblem.serviceType().code) > -1;
+                        && Ext.Array.contains(applicableServiceTypes, serviceProblem.serviceType().code);
                 }
                 return false;
             }
@@ -95,7 +95,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                         && troubleReport.isCancelRequested() === false
                         && troubleReport.isAmendRequested() === false
                         && troubleReport.hasConfirmEquipmentDisconnectRequested() === false
-                        && applicableServiceTypes.indexOf(serviceProblem.serviceType().code) > -1;
+                        && Ext.Array.contains(applicableServiceTypes, serviceProblem.serviceType().code);
                 }
                 return false;
             }
@@ -127,7 +127,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                         && troubleReport.status() === 'Open'
                         && troubleReport.isCancelRequested() === false
                         && troubleReport.isAmendRequested() === false
-                        && applicableServiceTypes.indexOf(serviceProblem.serviceType().code) > -1;
+                        && Ext.Array.contains(applicableServiceTypes, serviceProblem.serviceType().code);
                 }
                 return false;
             }
@@ -158,7 +158,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                         && workItem.isAssignedTo(this.authenticatedAgent())
                         && troubleReport != null
                         && serviceProblem.status() === 'Open'
-                        && applicableServiceTypes.indexOf(serviceProblem.serviceType().code) > -1
+                        && Ext.Array.contains(applicableServiceTypes, serviceProblem.serviceType().code)
                         && troubleReport.status() === 'Open'
                         && troubleReport.isCancelRequested() === false
                         && troubleReport.isAmendRequested() === false
@@ -173,7 +173,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                 deep: true
             },
             get: function (workItem) {
-                if(workItem === null){
+                if (workItem === null) {
                     return false;
                 }
                 var isNotPullable = !workItem.isPullable();
@@ -201,6 +201,26 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
             get: function (serviceProblemOwned) {
                 return serviceProblemOwned ? 'icon-sp-assigned' : 'icon-sp-unassigned';
             }
+        },
+        canRequestFeatureCheck: {
+            bind: {
+                serviceProblem: '{serviceProblem}',
+                workItem: '{workItem}',
+                deep: true
+            },
+            get: function (data) {
+                var workItem = data.workItem;
+                var serviceProblem = data.serviceProblem;
+
+                var applicableServiceTypes = [
+                    'NvnVoice',
+                    'WLR3'
+                ];
+
+                return this.serviceProblemOwned(workItem)
+                    && serviceProblem.status() == 'Open'
+                    && Ext.Array.contains(applicableServiceTypes, serviceProblem.serviceType().code);
+            }
         }
     },
 
@@ -222,5 +242,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
 
     isServiceProblemPanelActive: function () {
         return !this.getView().lookupReference('serviceProblemPanel').hidden;
+    },
+
+    serviceProblemOwned: function (workItem) {
+        return workItem !== null && workItem.isAssignedTo(this.authenticatedAgent());
     }
 });

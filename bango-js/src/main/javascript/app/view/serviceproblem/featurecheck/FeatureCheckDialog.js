@@ -7,20 +7,36 @@ Ext.define('Spm.view.serviceproblem.featurecheck.FeatureCheckDialog', {
 
     title: 'Feature Request Results',
 
-    height: 350,
-    width: 250,
-    bodyPadding: 10,
+    height: 450,
+    width: 400,
+    bodyPadding: 2,
 
     listeners: {
         show: 'onShow'
     },
-
+    closable: true,
+    layout: 'card',
     items: [
+        {
+            xtype: 'panel',
+            cls: 'feature-check-panel',
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            },
+            items: [
+                {
+                    xtype: 'label',
+                    reference: 'noFeaturesFoundLabel',
+                    text: 'No features found for the service',
+                    cls: 'no-features-for-service-text'
+                }
+            ]
+        },
         {
             xtype: 'gridpanel',
             rowLines: false,
-            reference: 'mspGrid',
-            height: 135,
+            reference: 'featureCheckGrid',
             bind: {
                 store: '{featureCheckResults}'
             },
@@ -28,7 +44,7 @@ Ext.define('Spm.view.serviceproblem.featurecheck.FeatureCheckDialog', {
                 {
                     text: 'Feature',
                     dataIndex: 'name',
-                    flex: 1
+                    flex: 2
                 },
                 {
                     text: 'Enabled',

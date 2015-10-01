@@ -21,7 +21,7 @@ public class LineTestApiController {
 
     @RequestMapping(value = "/{serviceId}", method = RequestMethod.GET)
     public ResponseData<List<LineTestSummaryDTO>> troubleReportFor(@PathVariable Long serviceId) {
-        return new ResponseData(lineTestApiService.lineTestsFor(new SnsServiceId(serviceId)));
+        return new ResponseData<>(lineTestApiService.lineTestsFor(new SnsServiceId(serviceId)));
     }
 
 }
