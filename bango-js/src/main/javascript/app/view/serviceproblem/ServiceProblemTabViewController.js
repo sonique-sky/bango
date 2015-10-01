@@ -42,6 +42,20 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         dialog.show();
     },
 
+    requestFeatureCheck: function () {
+        var serviceProblemId = this.getViewModel().serviceProblemId();
+        var dialog = this.getView().add({
+            xtype: 'featureCheckDialog',
+            viewModel: {
+                type: 'featureCheckDialog',
+                data: {
+                    serviceProblemId: serviceProblemId
+                }
+            }
+        });
+        dialog.show();
+    },
+
     onTransferServiceProblem: function () {
         this.getView().add({xtype: 'transferServiceProblemDialog'}).show();
     },

@@ -113,6 +113,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-feature-check',
                             tooltip: 'Request a feature check for this service',
+                            handler: 'requestFeatureCheck',
                             bind: {
                                 disabled: '{!serviceProblemOwned}'
                             }

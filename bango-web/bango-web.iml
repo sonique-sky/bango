@@ -124,6 +124,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.activemq:activemq-openwire-legacy:5.10.1" level="project" />
     <orderEntry type="library" name="Maven: javax.jms:jms:1.1" level="project" />
     <orderEntry type="library" name="Maven: sky.sns:superman-core:test-jar:tests:1215" level="project" />
+    <orderEntry type="library" name="Maven: sonique:sonique-bti-messages:test-jar:tests:61" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.1" level="project" />

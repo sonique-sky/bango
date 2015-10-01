@@ -26,8 +26,8 @@ import spm.messages.bt.types.DirectoryNumber;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -79,7 +79,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
                         .withServiceProblemId(new ServiceProblemId(serviceProblemId))
                         .withServiceId(new SnsServiceId(serviceIdGenerator.incrementAndGet()))
-                        .withDirectoryNumber(new DirectoryNumber("directoryNumber-" + (serviceProblemId % 4)))
+                        .withDirectoryNumber(serviceTypeAwareDirectoryNumber(serviceProblemId, serviceTypeCode))
                         .withQueue(queue)
                         .withOpenDate(Date.from(someDateTimeInTheLastYear().toInstant()))
                         .withWorkItem(workItem)
@@ -99,6 +99,18 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
                 createServiceDetails(serviceProblem);
             }
+        }
+    }
+
+    private DirectoryNumber serviceTypeAwareDirectoryNumber(Long serviceProblemId, PresentedServiceType serviceTypeCode) {
+        switch (serviceTypeCode) {
+            case RoiOffnetVoice:
+            case RoiRuralOffnetBroadband:
+            case RoiUrbanOffnetBroadband:
+            case RoiFttc:
+                return new DirectoryNumber(someRoiServiceDetails().telephoneNumber().asRoiString());
+            default:
+                return new DirectoryNumber("directoryNumber-" + (serviceProblemId % 4));
         }
     }
 
