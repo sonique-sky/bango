@@ -26,6 +26,7 @@ import spm.messages.bt.types.DirectoryNumber;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -45,13 +46,17 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
     private final List<DomainServiceProblem> serviceProblems;
     private final SymptomStore symptomRepository;
+    private final ServiceDetailsStore serviceDetailsStore;
 
-    public ServiceProblemStore(QueueRepository queueStore, SymptomStore symptomRepository) {
+    public ServiceProblemStore(QueueRepository queueStore, SymptomStore symptomRepository, ServiceDetailsStore serviceDetailsStore) {
         this.symptomRepository = symptomRepository;
+        this.serviceDetailsStore = serviceDetailsStore;
         serviceProblems = newArrayList();
 
+        AtomicLong serviceIdGenerator = new AtomicLong();
         List<Queue> queues = queueStore.getAllQueues();
         Long serviceProblemId = 1L;
+
         for (Queue queue : queues) {
             for (int i = 0; i < 40; i++, serviceProblemId++) {
                 DomainWorkItem workItem = null;
@@ -73,7 +78,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
                 DomainServiceProblem serviceProblem = new DomainServiceProblemBuilder()
                         .withServiceProblemId(new ServiceProblemId(serviceProblemId))
-                        .withServiceId(new SnsServiceId(100L))
+                        .withServiceId(new SnsServiceId(serviceIdGenerator.incrementAndGet()))
                         .withDirectoryNumber(new DirectoryNumber("directoryNumber-" + (serviceProblemId % 4)))
                         .withQueue(queue)
                         .withOpenDate(Date.from(someDateTimeInTheLastYear().toInstant()))
@@ -91,6 +96,8 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
                 serviceProblem.historyItems().add(ServiceProblemEventHistoryItem.createEvent(Note, Date.from(someInstantInTheLast24Hours()), someString(), someWords(), serviceProblem));
 
                 serviceProblems.add(serviceProblem);
+
+                createServiceDetails(serviceProblem);
             }
         }
     }
@@ -101,6 +108,10 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
         queueRouting.put(QueueRoutingKey.routingKeyOf(BangoDataFixtures.someAssignmentCode(), serviceTypeCode), someQueue());
         problemCategory.setQueueRouting(queueRouting);
         return problemCategory;
+    }
+
+    private void createServiceDetails(DomainServiceProblem serviceProblem) {
+        serviceDetailsStore.addServiceDetails(serviceProblem.serviceId(), serviceProblem.getPresentedServiceType(), serviceProblem.operator(), serviceProblem.getDirectoryNumber());
     }
 
     private TroubleReportAttributes troubleReportAttributesFor(PresentedServiceType serviceTypeCode) {
