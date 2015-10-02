@@ -93,7 +93,7 @@ public class WorkItemPanelTest extends BangoYatspecTest {
     private Matcher<WorkItemPanel> isPopulatedCorrectly() {
         DomainWorkItem workItem = workItemPanel();
 
-        return thatHas(IsDisplayed.<WorkItemPanel>isDisplayed())
+        return isDisplayed()
                 .and(aWorkItemStatus(equalTo(workItem.status())))
                 .and(aWorkItemCreatedDate(theSameDateAs(workItem.createdDate())))
                 .and(aWorkItemType(equalTo(workItem.assignmentType())))

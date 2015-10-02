@@ -50,7 +50,7 @@ public class WorkItemPanel extends SupermanPanel implements HasTitle {
 
     @Override
     public String title() {
-        WebElement titleElement = element().findElement(By.cssSelector("span.x-header-text"));
+        WebElement titleElement = element().findElement(By.cssSelector("div.x-title-text"));
         return titleElement.getText();
     }
 }

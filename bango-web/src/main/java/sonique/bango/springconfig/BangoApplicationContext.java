@@ -27,6 +27,7 @@ import sonique.bango.json.*;
 import sonique.bango.service.*;
 import sonique.bango.service.stub.*;
 import sonique.bango.store.*;
+import sonique.types.Describable;
 import sonique.types.NumberValue;
 import sonique.types.StringValue;
 import spm.domain.ExceptionThrowingErrorReporter;
@@ -35,6 +36,7 @@ import spm.troublereport.ManualTroubleReportRaiser;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
@@ -85,6 +87,8 @@ public class BangoApplicationContext {
         module.addSerializer(NumberValue.class, new NumberValueSerializer());
         module.addSerializer(StringValue.class, new StringValueSerializer());
         module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
+        module.addSerializer(Describable.class, new DescribableSerializer());
+        module.addSerializer(Date.class, new DateSerializer());
 
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());

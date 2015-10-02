@@ -20,15 +20,15 @@ public class EventHistoryPanel extends SupermanPanel implements HasTitle, HasDat
 
     @Override
     public String title() {
-        WebElement titleElement = element().findElement(By.cssSelector("span.x-header-text"));
+        WebElement titleElement = element().findElement(By.cssSelector("div.x-title-text"));
         return titleElement.getText();
     }
 
     public List<EventHistoryItem> historyItems() {
         WebElement gridView = element().findElement(By.cssSelector("div.x-grid-view"));
-        List<WebElement> elements = gridView.findElements(By.cssSelector("td.x-grid-rowwrap"));
+        List<WebElement> historyItems = gridView.findElements(By.cssSelector("table.x-grid-item"));
 
-        return Lists.transform(elements, webElement -> {
+        return Lists.transform(historyItems, webElement -> {
             EventDescription eventDescription = EventDescription.fromDescription(webElement.findElement(By.cssSelector("td.event-type > div.x-grid-cell-inner")).getText());
             String createDateAsString = webElement.findElement(By.cssSelector("td.event-created-date > div.x-grid-cell-inner")).getText();
             String createdBy = webElement.findElement(By.cssSelector("td.event-created-by > div.x-grid-cell-inner")).getText();

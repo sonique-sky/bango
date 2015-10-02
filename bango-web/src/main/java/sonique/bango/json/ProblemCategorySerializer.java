@@ -17,23 +17,27 @@ import static java.util.stream.Collectors.toList;
 public class ProblemCategorySerializer extends JsonSerializer<ProblemCategory> {
 
     @Override
-    public void serialize(ProblemCategory value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        gen.writeStartObject();
+    public void serialize(ProblemCategory problem, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        if (problem == null) {
+            gen.writeNull();
+        } else {
+            gen.writeStartObject();
 
-        gen.writeNumberField("problemId", value.problemId());
-        gen.writeStringField("problemCode", value.problemCode());
-        gen.writeStringField("description", value.description());
-        gen.writeBooleanField("forceAutoTroubleReport", value.forceAutoTroubleReport());
+            gen.writeNumberField("problemId", problem.problemId() == null ? 0 : problem.problemId());
+            gen.writeStringField("problemCode", problem.problemCode());
+            gen.writeStringField("description", problem.description());
+            gen.writeBooleanField("forceAutoTroubleReport", problem.forceAutoTroubleReport());
 
-        Map<QueueRoutingKey, Queue> queueRouting = value.getQueueRouting();
+            Map<QueueRoutingKey, Queue> queueRouting = problem.getQueueRouting();
 
-        List<JsonFriendlyEntry> collect = queueRouting.entrySet().stream()
-                .map(JsonFriendlyEntry::new)
-                .collect(toList());
+            List<JsonFriendlyEntry> collect = queueRouting.entrySet().stream()
+                    .map(JsonFriendlyEntry::new)
+                    .collect(toList());
 
-        gen.writeObjectField("queueRouting", collect);
+            gen.writeObjectField("queueRouting", collect);
 
-        gen.writeEndObject();
+            gen.writeEndObject();
+        }
     }
 
     private static class JsonFriendlyEntry {
@@ -51,5 +55,4 @@ public class ProblemCategorySerializer extends JsonSerializer<ProblemCategory> {
             this.queueName = entry.getValue().name().asString();
         }
     }
-
 }
