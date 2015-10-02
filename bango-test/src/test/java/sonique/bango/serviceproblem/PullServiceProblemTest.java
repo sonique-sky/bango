@@ -29,7 +29,6 @@ import static sonique.bango.matcher.panel.WorkItemPanelMatchers.aWorkItemStatus;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemBuilder;
 import static sonique.bango.scenario.ServiceProblemScenario.serviceProblemWithWorkItem;
 import static sonique.testsupport.matchers.AppendableAllOf.thatHas;
-import static util.SupermanDataFixtures.someAgent;
 
 public class PullServiceProblemTest extends BangoYatspecTest {
 
@@ -39,7 +38,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
     @Before
     public void setUp() throws Exception {
         loginAgent();
-        workItemAfterPull = DomainWorkItemBuilder.withAllDefaults().withAgent(someAgent()).build();
+        workItemAfterPull = DomainWorkItemBuilder.withAllDefaults().withAgent(agentForTest).build();
     }
 
     @Test
@@ -134,7 +133,7 @@ public class PullServiceProblemTest extends BangoYatspecTest {
 
     private GivensBuilder anOpenServiceProblem() {
         theServiceProblem = serviceProblemWithWorkItem().build();
-        DomainServiceProblem afterPullServiceProblem = serviceProblemBuilder().withWorkItem(workItemAfterPull).build();
+        DomainServiceProblem afterPullServiceProblem = serviceProblemBuilder().with(theServiceProblem.serviceProblemId()).withWorkItem(workItemAfterPull).build();
 
         ServiceProblemScenario supermanScenario = new ServiceProblemScenario(scenarioDriver(), agentForTest, theServiceProblem)
                 .returnsWhenPulled(afterPullServiceProblem);

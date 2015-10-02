@@ -1,6 +1,7 @@
 package sonique.bango.driver.panel.serviceproblem;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import sky.sns.spm.domain.model.EventHistoryItem;

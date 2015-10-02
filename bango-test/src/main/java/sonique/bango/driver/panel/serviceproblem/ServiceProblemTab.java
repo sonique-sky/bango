@@ -6,6 +6,10 @@ import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sonique.bango.driver.component.HasTitle;
 import sonique.bango.driver.component.tab.SupermanTab;
 import sonique.bango.driver.panel.AppContainer;
+import sonique.bango.driver.predicate.IsDisplayedPredicate;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static sonique.bango.driver.BetterWait.dally;
 
 public class ServiceProblemTab extends SupermanTab implements HasTitle {
 
@@ -21,6 +25,7 @@ public class ServiceProblemTab extends SupermanTab implements HasTitle {
     }
 
     public ServiceProblemTabContent tabContent() {
+        dally().withTimeout(5, SECONDS).until(this, IsDisplayedPredicate.isDisplayed());
         return new ServiceProblemTabContent(this);
     }
 }

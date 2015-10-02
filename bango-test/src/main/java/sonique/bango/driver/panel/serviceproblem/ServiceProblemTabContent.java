@@ -14,8 +14,6 @@ public class ServiceProblemTabContent extends SupermanTabBody {
     }
 
     public ServiceProblemToolbar serviceProblemToolbar() {
-        dally().withTimeout(5, SECONDS).until(this, IsDisplayedPredicate.isDisplayed());
-
         return new ServiceProblemToolbar(this);
     }
 

@@ -6,6 +6,8 @@ import org.hamcrest.TypeSafeMatcher;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.EventDescription;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +36,8 @@ public class EventHistoryMatcher extends TypeSafeMatcher<List<EventHistoryItem>>
             EventHistoryItem domainEvent = expectedDomainEvents.get(index++);
 
             if (!eventsMatch(dtoEvent, domainEvent)) {
+                System.out.println("domainEvent = " + domainEvent);
+                System.out.println("dtoEvent = " + dtoEvent);
                 return false;
             }
         }
@@ -82,7 +86,7 @@ public class EventHistoryMatcher extends TypeSafeMatcher<List<EventHistoryItem>>
         return (StringUtils.equals(thisEventHistoryItem.createdBy(), thatEventHistoryItem.createdBy()) &&
                 StringUtils.equals(thisEventHistoryItem.note(), thatEventHistoryItem.note()) &&
                 thisEventHistoryItem.type().equals(thatEventHistoryItem.type()) &&
-                theSameDateAs(thisEventHistoryItem.createdDate()).matches(thatEventHistoryItem.createdDate()));
+                theSameDateAs(thisEventHistoryItem.createdDate()).matches(LocalDateTime.ofInstant(thatEventHistoryItem.createdDate().toInstant(), ZoneId.systemDefault())));
     }
 
     private boolean sameSizeOrBothNull(List<?> list1, List<?> list2) {

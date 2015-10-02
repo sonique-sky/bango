@@ -1,5 +1,6 @@
 package sonique.bango.app;
 
+import org.openqa.selenium.remote.UnreachableBrowserException;
 import sonique.bango.driver.SupermanWebDriver;
 import sonique.bango.driver.panel.AppContainer;
 import sonique.bango.driver.panel.dialog.SupermanDialogs;
@@ -22,6 +23,10 @@ public class SupermanApp {
     }
 
     public void quit() {
-        driver.quit();
+        try {
+            driver.quit();
+        } catch (UnreachableBrowserException e) {
+            //ignore if driver already shutdown;
+        }
     }
 }

@@ -72,14 +72,8 @@ public class BangoApplicationContext {
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(FIELD, ANY);
-        objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
-            @Override
-            public void serialize(Object value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
-                jgen.writeStartObject();
-                jgen.writeEndObject();
-            }
-        });
         objectMapper.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+
         objectMapper.setDateFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"));
 
         SimpleModule module = new SimpleModule("BangoModule");

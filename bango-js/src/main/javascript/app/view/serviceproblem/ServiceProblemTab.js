@@ -63,7 +63,6 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                             handler: 'loadServiceProblem'
                         },
                         {
-                            reference: 'serviceProblemPullButton',
                             iconCls: 'icon-pull',
                             tooltip: 'Pull this item',
                             handler: 'onPullServiceProblem',
