@@ -1,28 +1,26 @@
 package sonique.bango.driver.panel.serviceproblem;
 
-import org.openqa.selenium.By;
 import sonique.bango.driver.component.SupermanComponent;
 import sonique.bango.driver.component.form.SupermanButton;
-import sonique.bango.driver.component.form.SupermanPanel;
 
-public class EventHistoryToolbar extends SupermanPanel {
+public class EventHistoryToolbar extends SupermanToolbar {
     public EventHistoryToolbar(SupermanComponent eventHistoryPanel) {
-        super(eventHistoryPanel, By.cssSelector("[id^='eventHistoryActionToolbar']"));
+        super(eventHistoryPanel);
     }
 
     public SupermanButton addNoteButton() {
-        return button(By.cssSelector("[id^='add-note-']"));
+        return toolbarButton("Add a note to this service problem");
     }
 
     public SupermanButton refreshHistoryButton() {
-        return button(By.cssSelector("[id^='refresh-history-']"));
+        return toolbarButton("Refresh history");
     }
 
     public SupermanButton filterButton() {
-        return button(By.cssSelector("[id^='filter-history-']"));
+        return toolbarButton("Filter history by type");
     }
 
     public SupermanButton showNotesOnlyButton() {
-        return button(By.cssSelector("[id^='show-notes-only-']"));
+        return toolbarButton("Show notes only");
     }
 }

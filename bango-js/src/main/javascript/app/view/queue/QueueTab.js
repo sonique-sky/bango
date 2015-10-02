@@ -84,7 +84,7 @@ Ext.define('Spm.view.queue.QueueTab', {
             text: 'Work Item',
             columns: [
                 {xtype: 'templatecolumn', tpl: '{[values.workItem ? values.workItem.status : ""]}', text: 'Work Item Status'},
-                {xtype: 'templatecolumn', tpl: '{[values.workItem ? values.workItem.agent.displayName: ""]}', text: 'Agent'}
+                {xtype: 'templatecolumn', tpl: '{[values.workItem ? (values.workItem.agent ? values.workItem.agent.displayName: "") : ""]}', text: 'Agent'}
             ]
         }
     ]

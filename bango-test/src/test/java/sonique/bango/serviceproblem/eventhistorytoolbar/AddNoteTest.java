@@ -5,8 +5,9 @@ import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
-import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
+import sky.sns.spm.domain.model.serviceproblem.EventDescription;
+import sky.sns.spm.domain.model.serviceproblem.ServiceProblemEventHistoryItem;
 import sonique.bango.BangoYatspecTest;
 import sonique.bango.action.AddNoteAgentActions;
 import sonique.bango.action.ViewServiceProblemAction;
@@ -14,6 +15,7 @@ import sonique.bango.driver.component.SupermanElement;
 import sonique.bango.driver.component.form.SupermanButton;
 import sonique.bango.driver.panel.dialog.AddNoteDialog;
 import sonique.bango.driver.panel.serviceproblem.EventHistoryPanel;
+import sonique.bango.matcher.EventHistoryItemMatcher;
 import sonique.bango.matcher.IsDisplayed;
 import sonique.bango.matcher.MockieMatcher;
 import sonique.bango.matcher.panel.AbstractPanelMatcher;
@@ -23,29 +25,30 @@ import sonique.bango.service.ServiceProblemApiService;
 import sonique.testsupport.matchers.AppendableAllOf;
 import spm.domain.ServiceProblemId;
 
-import java.util.List;
+import java.util.Date;
 
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static sonique.bango.matcher.ATitleOf.aTitleOf;
-import static sonique.bango.matcher.EventHistoryMatcher.eventHistoryMatches;
 import static sonique.bango.matcher.IsDisabled.isDisabled;
 import static sonique.bango.matcher.IsEnabled.isEnabled;
 import static sonique.bango.matcher.IsNotDisplayed.isNotDisplayed;
 import static sonique.bango.matcher.panel.EventHistoryPanelMatchers.eventHistoryItems;
-import static sonique.bango.util.BangoDataFixtures.someEventHistoryItemsFor;
 import static util.SupermanDataFixtures.someNoteText;
 
 public class AddNoteTest extends BangoYatspecTest {
 
     private DomainServiceProblem serviceProblem;
-    private List<EventHistoryItem> expectedEventHistoryItems;
     private String theNote;
+    private ServiceProblemEventHistoryItem expectedNote;
 
     @Before
     public void setUp() throws Exception {
         loginAgent();
         theNote = someNoteText();
+        serviceProblem = ServiceProblemScenario.serviceProblemBuilder().build();
+        expectedNote = ServiceProblemEventHistoryItem.createEvent(EventDescription.Note, new Date(), agentForTest.getAgentCode(), theNote, serviceProblem);
     }
 
     @Test
@@ -119,7 +122,7 @@ public class AddNoteTest extends BangoYatspecTest {
     }
 
     private Matcher<EventHistoryPanel> showsTheReturnedNotes() {
-        return eventHistoryItems(eventHistoryMatches(expectedEventHistoryItems));
+        return eventHistoryItems(hasItem(new EventHistoryItemMatcher(expectedNote)));
     }
 
     private StateExtractor<EventHistoryPanel> theEventHistoryPanel() {
@@ -159,11 +162,8 @@ public class AddNoteTest extends BangoYatspecTest {
     }
 
     private GivensBuilder aServiceProblemIsOpen() {
-        serviceProblem = ServiceProblemScenario.serviceProblemBuilder().build();
-        expectedEventHistoryItems = someEventHistoryItemsFor(serviceProblem);
         ServiceProblemScenario supermanScenario = new ServiceProblemScenario(scenarioDriver(), agentForTest, serviceProblem)
-//                .returnsWhenNoteAdded(expectedEventHistoryItems);
-        ;
+                .returnsWhenNoteAdded(expectedNote);
         return new ScenarioGivensBuilder(supermanScenario);
     }
 }

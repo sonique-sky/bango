@@ -2,6 +2,7 @@ package sonique.bango.matcher;
 
 import org.apache.commons.lang.StringUtils;
 import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.serviceproblem.EventDescription;
@@ -83,10 +84,7 @@ public class EventHistoryMatcher extends TypeSafeMatcher<List<EventHistoryItem>>
     }
 
     private boolean eventsMatch(EventHistoryItem thisEventHistoryItem, EventHistoryItem thatEventHistoryItem) {
-        return (StringUtils.equals(thisEventHistoryItem.createdBy(), thatEventHistoryItem.createdBy()) &&
-                StringUtils.equals(thisEventHistoryItem.note(), thatEventHistoryItem.note()) &&
-                thisEventHistoryItem.type().equals(thatEventHistoryItem.type()) &&
-                theSameDateAs(thisEventHistoryItem.createdDate()).matches(LocalDateTime.ofInstant(thatEventHistoryItem.createdDate().toInstant(), ZoneId.systemDefault())));
+        return new EventHistoryItemMatcher(thisEventHistoryItem).matches(thatEventHistoryItem);
     }
 
     private boolean sameSizeOrBothNull(List<?> list1, List<?> list2) {

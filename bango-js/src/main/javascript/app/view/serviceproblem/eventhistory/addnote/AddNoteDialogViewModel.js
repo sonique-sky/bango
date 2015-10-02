@@ -3,14 +3,13 @@ Ext.define('Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialogViewModel'
     alias: 'viewmodel.addNoteDialog',
 
     data: {
-        noteContent: null,
-        acceptButtonDefaultDisabled: false
+        noteContent: null
     },
 
     formulas: {
         acceptButtonDefaultDisabled: {
             bind: {
-                bindTo: 'noteContent'
+                bindTo: '{noteContent}'
             },
             get: function (content) {
                 return !content;

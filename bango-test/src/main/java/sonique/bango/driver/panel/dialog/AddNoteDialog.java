@@ -19,7 +19,7 @@ public class AddNoteDialog extends SupermanDialog {
     }
 
     public SupermanButton addNoteButton() {
-        return buttonLabeled("Add Note");
+        return buttonLabeled("OK");
     }
 
     public SupermanButton cancelButton() {
