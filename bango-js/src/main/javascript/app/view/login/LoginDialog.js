@@ -3,8 +3,10 @@ Ext.define('Spm.view.login.LoginDialog', {
     alias: 'widget.loginDialog',
 
     requires: [
-        'Spm.view.login.LoginDialogViewModel',
-        'Spm.view.login.LoginDialogViewController'
+        'Ext.form.Panel',
+        'Ext.form.field.Text',
+        'Spm.view.login.LoginDialogViewController',
+        'Spm.view.login.LoginDialogViewModel'
     ],
 
     height: 135,
@@ -62,4 +64,5 @@ Ext.define('Spm.view.login.LoginDialog', {
             ]
         }
     ]
+
 });

@@ -2,6 +2,10 @@ Ext.define('Spm.proxy.LineTestProxy', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.lineTestProxy',
 
+    requires: [
+        'Ext.data.reader.Json'
+    ],
+
     buildUrl: function (request) {
         var params = request.getParams();
 

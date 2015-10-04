@@ -3,6 +3,7 @@ Ext.define('Spm.store.Queues', {
     alias: 'store.queues',
 
     requires: [
+        'Ext.data.proxy.Rest',
         'Spm.model.Queue'
     ],
     model: 'Spm.model.Queue',

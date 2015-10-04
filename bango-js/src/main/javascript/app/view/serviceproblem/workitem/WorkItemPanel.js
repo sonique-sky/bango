@@ -2,6 +2,18 @@ Ext.define('Spm.view.serviceproblem.workitem.WorkItemPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.workItemPanel',
 
+    requires: [
+        'Ext.container.Container',
+        'Ext.form.Label',
+        'Ext.form.field.Date',
+        'Ext.form.field.Text',
+        'Ext.layout.container.Card',
+        'Ext.layout.container.Form',
+        'Ext.layout.container.HBox',
+        'Ext.layout.container.VBox',
+        'Spm.view.serviceproblem.workitem.WorkItemPanelViewController'
+    ],
+
     controller: 'workItemPanel',
     reference: 'workItemPanel',
 
@@ -138,4 +150,5 @@ Ext.define('Spm.view.serviceproblem.workitem.WorkItemPanel', {
             ]
         }
     ]
+
 });

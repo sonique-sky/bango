@@ -3,13 +3,20 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
     alias: 'widget.serviceProblemPanel',
 
     requires: [
+        'Ext.container.Container',
+        'Ext.form.FieldContainer',
+        'Ext.form.field.Date',
+        'Ext.form.field.Text',
         'Ext.layout.container.Form',
-        'Ext.form.Label'
+        'Ext.layout.container.HBox',
+        'Ext.layout.container.VBox'
     ],
+
     layout: {
         align: 'stretch',
         type: 'vbox'
     },
+
     title: 'Service Problem',
     frame: true,
     fieldDefaults: {
@@ -192,4 +199,5 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
             ]
         }
     ]
+
 });

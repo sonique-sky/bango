@@ -3,7 +3,9 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTab', {
     alias: 'widget.teamAdminTab',
 
     requires: [
+        'Ext.button.Button',
         'Ext.toolbar.Paging',
+        'Ext.toolbar.Spacer',
         'Spm.view.dashboard.admin.teams.TeamAdminTabViewController',
         'Spm.view.dashboard.admin.teams.TeamAdminTabViewModel'
     ],
@@ -47,7 +49,7 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTab', {
                     iconCls: 'icon-admin-teams-delete',
                     handler: 'deleteTeam'
                 },
-                {xtype: 'tbspacer'},
+                " ",
                 {
                     xtype: 'pagingtoolbar',
                     border: 0,
@@ -62,4 +64,5 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTab', {
     columns: [
         {text: 'Name', width: '100%', dataIndex: 'name'}
     ]
+
 });

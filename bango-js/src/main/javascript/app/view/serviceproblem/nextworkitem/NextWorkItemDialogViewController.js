@@ -30,4 +30,5 @@ Ext.define('Spm.view.serviceproblem.nextworkitem.NextWorkItemDialogViewControlle
     onValidityChange: function (form, isValid) {
         this.getViewModel().set('acceptButtonDefaultDisabled', !isValid);
     }
+
 });

@@ -3,6 +3,9 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
     alias: 'widget.myItems',
 
     requires: [
+        'Ext.button.Button',
+        'Ext.grid.column.Widget',
+        'Ext.grid.feature.Grouping',
         'Ext.toolbar.Paging',
         'Spm.view.myitems.MyItemsTabViewController',
         'Spm.view.myitems.MyItemsTabViewModel'
@@ -26,27 +29,14 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
 
     dockedItems: [
         {
-            xtype: 'container',
-            layout: {type: 'hbox', align: 'stretch'},
-            dock: 'top',
-            defaults: {
-                border: 0
+            xtype: 'pagingtoolbar',
+            border: 0,
+            bind: {
+                store: '{myItems}'
             },
-            items: [
-                {
-                    xtype: 'pagingtoolbar',
-                    flex: 1.0,
-                    bind: {
-                        store: '{myItems}'
-                    },
-                    listeners: {
-                        change : 'refreshMyItems'
-                    }
-                },
-                {
-                    xtype: 'tbspacer'
-                }
-            ]
+            listeners: {
+                change: 'refreshMyItems'
+            }
         }
     ],
     columns: {
@@ -56,7 +46,8 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
             hideable: false,
             draggable: false,
             groupable: false
-        },
+        }
+        ,
         items: [
             {
                 xtype: 'widgetcolumn',
@@ -83,7 +74,13 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
                 columns: [
                     {text: 'Service Problem Id', dataIndex: 'serviceProblemId', groupable: false},
                     {text: 'Status', dataIndex: 'status', hidden: true, groupable: true},
-                    {text: 'Opened Date', xtype: 'datecolumn', dataIndex: 'openedDate', format: 'd/m/y H:i', groupable: false},
+                    {
+                        text: 'Opened Date',
+                        xtype: 'datecolumn',
+                        dataIndex: 'openedDate',
+                        format: 'd/m/y H:i',
+                        groupable: false
+                    },
                     {text: 'Queue', dataIndex: 'queue', renderer: 'queueNameRenderer', width: 150},
                     {text: 'Problem Description', dataIndex: 'problem', groupable: false, width: 250}
                 ]
@@ -99,8 +96,11 @@ Ext.define('Spm.view.myitems.MyItemsTab', {
                 ]
             }
         ]
-    },
+    }
+    ,
     features: [
         {ftype: 'grouping', enableNoGroups: false, enableGroupingMenu: false}
     ]
-});
+
+})
+;

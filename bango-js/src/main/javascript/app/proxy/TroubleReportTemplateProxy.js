@@ -2,6 +2,11 @@ Ext.define('Spm.proxy.TroubleReportTemplateProxy', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.troubleReportTemplateProxy',
 
+    requires: [
+        'Ext.data.reader.Json',
+        'Ext.data.writer.Json'
+    ],
+
     idParam: 'troubleReportId',
 
     buildUrl: function (request) {

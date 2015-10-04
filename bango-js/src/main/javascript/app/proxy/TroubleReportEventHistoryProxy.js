@@ -2,6 +2,10 @@ Ext.define('Spm.proxy.TroubleReportEventHistoryProxy', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.troubleReportEventHistoryProxy',
 
+    requires: [
+        'Ext.data.reader.Json'
+    ],
+
     buildUrl: function (request) {
         var params = request.getParams();
 

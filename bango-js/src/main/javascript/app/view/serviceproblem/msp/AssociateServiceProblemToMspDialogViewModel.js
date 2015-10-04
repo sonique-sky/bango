@@ -24,4 +24,5 @@ Ext.define('Spm.view.serviceproblem.msp.AssociateServiceProblemToMspDialogViewMo
     serviceProblemId: function () {
         return this.get('serviceProblem.serviceProblemId');
     }
+
 });

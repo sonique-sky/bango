@@ -2,9 +2,13 @@ Ext.define('Spm.view.navigation.search.Search', {
     extend: 'Ext.form.Panel',
     alias: 'widget.search',
     requires: [
+        'Ext.button.Button',
+        'Ext.container.Container',
         'Ext.form.RadioGroup',
-        'Spm.view.navigation.search.SearchViewModel',
-        'Spm.view.navigation.search.SearchViewController'
+        'Ext.form.field.Text',
+        'Ext.layout.container.VBox',
+        'Spm.view.navigation.search.SearchViewController',
+        'Spm.view.navigation.search.SearchViewModel'
     ],
 
     viewModel: {type: 'search'},

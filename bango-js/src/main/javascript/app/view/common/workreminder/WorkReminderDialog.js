@@ -3,6 +3,9 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialog', {
     alias: 'widget.workReminderDialog',
 
     requires: [
+        'Ext.form.Panel',
+        'Ext.form.field.Date',
+        'Ext.form.field.Time',
         'Spm.view.common.workreminder.WorkReminderDialogViewController',
         'Spm.view.common.workreminder.WorkReminderDialogViewModel'
     ],
@@ -47,5 +50,7 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialog', {
                     formatText: null
                 }
             ]
-        }]
+        }
+    ]
+
 });

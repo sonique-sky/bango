@@ -3,6 +3,8 @@ Ext.define('Spm.view.dashboard.admin.teams.create.CreateTeamDialog', {
     alias: 'widget.createTeamDialog',
 
     requires: [
+        'Ext.form.field.Text',
+        'Ext.layout.container.VBox',
         'Spm.view.dashboard.admin.teams.create.CreateTeamDialogViewController',
         'Spm.view.dashboard.admin.teams.create.CreateTeamDialogViewModel'
     ],
@@ -22,8 +24,6 @@ Ext.define('Spm.view.dashboard.admin.teams.create.CreateTeamDialog', {
         padding: 10
     },
 
-    modal: true,
-
     items: [
         {
             xtype: 'textfield',
@@ -39,4 +39,5 @@ Ext.define('Spm.view.dashboard.admin.teams.create.CreateTeamDialog', {
             }
         }
     ]
+
 });

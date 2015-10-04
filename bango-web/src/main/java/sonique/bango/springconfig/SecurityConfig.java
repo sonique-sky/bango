@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -23,7 +25,10 @@ import sky.sns.spm.infrastructure.security.AuthenticatedUserDetails;
 
 import javax.annotation.Resource;
 import javax.servlet.Filter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 
 @Configuration
@@ -40,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             public Authentication authenticate(Authentication authentication) throws AuthenticationException {
                 DomainAgent agent = agentRepository.findByAgentCode(authentication.getName());
                 if (agent == null) {
-                    throw new UsernameNotFoundException("Invalid username/password");
+                    throw new UsernameNotFoundException("Bad Credentials");
                 }
 
                 agent.login(new Date());
@@ -97,9 +102,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authFilter.setUsernameParameter("username");
         authFilter.setPasswordParameter("password");
         authFilter.setAuthenticationManager(authenticationManagerBean());
-//        authFilter.setAuthenticationFailureHandler((request, response, exception) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Bad Credentials"));
+        authFilter.setAuthenticationFailureHandler(new MyAuthenticationFailureHandler());
 //        authFilter.setAuthenticationSuccessHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK));
         authFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/j_spring_security_check", HttpMethod.POST.name()));
         return authFilter;
+    }
+
+    private static class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {
+        @Override
+        public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Bad Credentials");
+        }
     }
 }

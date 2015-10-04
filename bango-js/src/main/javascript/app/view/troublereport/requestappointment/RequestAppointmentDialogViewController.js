@@ -80,4 +80,5 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialogVi
             reservedAppointment.timeSlot = timeSlot;
         }
     }
+
 });

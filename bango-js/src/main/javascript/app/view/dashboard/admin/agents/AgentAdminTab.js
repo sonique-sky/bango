@@ -3,6 +3,11 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
     alias: 'widget.agentAdminTab',
 
     requires: [
+        'Ext.button.Button',
+        'Ext.grid.column.Template',
+        'Ext.grid.feature.Grouping',
+        'Ext.toolbar.Paging',
+        'Ext.toolbar.Spacer',
         'Spm.view.dashboard.admin.agents.AgentAdminTabViewController',
         'Spm.view.dashboard.admin.agents.AgentAdminTabViewModel'
     ],
@@ -61,7 +66,7 @@ Ext.define('Spm.view.dashboard.admin.agents.AgentAdminTab', {
                     disabled: '{isLoggedInAgent}'
                 }
             },
-            {xtype: 'tbspacer'},
+            " ",
             {
                 xtype: 'pagingtoolbar',
                 border: 0,

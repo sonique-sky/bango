@@ -29,7 +29,7 @@ Ext.define('Spm.view.SupermanViewController', {
 
     onProxyException: function (proxy, response) {
         if (response.status == 403 || response.status == 401) {
-            this.onAuthenticationRequired(response);
+            this.onAuthenticationRequired();
         } else if (response.status == 400) {
             Ext.Msg.alert("Error", Ext.JSON.decode(response.responseText).message);
         } else if (response.status == 500) {
@@ -38,31 +38,26 @@ Ext.define('Spm.view.SupermanViewController', {
     },
 
     onLogout: function () {
-        var me = this;
         Ext.Ajax.request({
             url: 'j_spring_security_logout',
-            success: me.onAuthenticationRequired,
-            scope: me
+            success: this.onAuthenticationRequired,
+            scope: this
         });
     },
 
     onPerformAuthentication: function (credentials) {
-        var me = this;
-
         Ext.Ajax.request({
             url: 'j_spring_security_check',
             params: credentials,
-            success: me.loadAuthenticatedAgent,
-            scope: me,
+            success: this.loadAuthenticatedAgent,
+            scope: this,
             failure: function (response) {
                 Ext.Msg.show({
                     title: 'Error',
-                    msg: response.statusText,
+                    msg: response.responseText,
                     buttons: Ext.Msg.OK,
                     icon: Ext.Msg.WARNING,
-                    closable: false,
-                    callback: me.onAuthenticationRequired,
-                    scope: me
+                    closable: false
                 });
             }
         });
@@ -88,19 +83,13 @@ Ext.define('Spm.view.SupermanViewController', {
 
     onAuthenticatedAgentLoaded: function (store, records, success) {
         if (success) {
-            var authenticatedAgent = records[0];
-            this.getViewModel().set('authenticatedAgent', authenticatedAgent);
-
-            var appContainer = Spm.view.container.AppContainer.create({authenticatedAgent: authenticatedAgent});
-            this.getView().add(appContainer);
+            this.getViewModel().set('authenticatedAgent', records[0]);
+            this.getView().add({xtype: 'appContainer'});
         }
     },
 
     loadAuthenticatedAgent: function () {
         this.getStore('authenticatedAgents').load();
-    },
-
-    beforeRender: function () {
-        this.loadAuthenticatedAgent();
     }
+
 });

@@ -3,16 +3,21 @@ Ext.define('Spm.view.Superman', {
     alias: 'widget.superman',
 
     requires: [
+        'Ext.layout.container.Fit',
         'Spm.view.SupermanViewController',
         'Spm.view.SupermanViewModel'
     ],
 
     controller: 'superman',
     viewModel: {type: 'superman'},
-    reference: 'superman',
+
+    listeners: {
+        beforeRender: 'loadAuthenticatedAgent'
+    },
 
     itemId: 'spmViewport',
     layout: {
         type: 'fit'
     }
+
 });

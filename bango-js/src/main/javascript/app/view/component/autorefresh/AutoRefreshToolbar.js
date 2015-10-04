@@ -1,10 +1,11 @@
-Ext.define('Spm.view.component.AutoRefreshToolbar', {
+Ext.define('Spm.view.component.autorefresh.AutoRefreshToolbar', {
     extend: 'Ext.toolbar.Toolbar',
     alias: ['widget.autorefreshtoolbar', 'widget.autorefresh'],
 
     requires: [
+        'Ext.button.Split',
+        'Ext.menu.Menu',
         'Ext.toolbar.TextItem',
-        'Ext.toolbar.Spacer',
         'Ext.util.TaskManager'
     ],
 
@@ -52,7 +53,7 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
                 menu: {
                     xtype: 'menu',
                     defaults: {
-                        handler: 'refreshPeriodChanged',
+                        handler: this.refreshPeriodChanged,
                         scope: this,
                         group: Ext.id('refresh'),
                         checked: false
@@ -67,7 +68,7 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
                         {text: '30 Minutes', value: 1800000}
                     ]
                 },
-                handler: 'doRefresh',
+                handler: this.doRefresh,
                 scope: this
             },
             "-",
@@ -109,4 +110,5 @@ Ext.define('Spm.view.component.AutoRefreshToolbar', {
         this.bindStore(null);
         this.callParent();
     }
+
 });

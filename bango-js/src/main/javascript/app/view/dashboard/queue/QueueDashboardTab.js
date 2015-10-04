@@ -3,8 +3,9 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
     alias: 'widget.queueDashboard',
 
     requires: [
+        'Ext.grid.column.Date',
         'Ext.grid.feature.Summary',
-        'Spm.view.component.AutoRefreshToolbar',
+        'Spm.view.component.autorefresh.AutoRefreshToolbar',
         'Spm.view.dashboard.queue.QueueDashboardTabViewController',
         'Spm.view.dashboard.queue.QueueDashboardTabViewModel'
     ],
@@ -93,4 +94,5 @@ Ext.define('Spm.view.dashboard.queue.QueueDashboardTab', {
             ]
         }
     ]
+
 });

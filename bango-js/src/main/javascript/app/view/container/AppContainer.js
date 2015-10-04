@@ -41,4 +41,5 @@ Ext.define('Spm.view.container.AppContainer', {
             border: 0
         }
     ]
+
 });

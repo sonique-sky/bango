@@ -3,6 +3,8 @@ Ext.define('Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialog', {
     alias: 'widget.changeAgentRoleDialog',
 
     requires: [
+        'Ext.form.FieldContainer',
+        'Ext.form.field.ComboBox',
         'Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialogViewController',
         'Spm.view.dashboard.admin.agents.role.ChangeAgentRoleDialogViewModel'
     ],

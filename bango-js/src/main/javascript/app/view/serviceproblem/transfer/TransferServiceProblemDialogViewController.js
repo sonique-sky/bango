@@ -50,4 +50,5 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialogViewCon
     selectedQueue: function () {
         return this.lookupReference('queuesGrid').getSelectionModel().getSelection()[0];
     }
+
 });

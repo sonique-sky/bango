@@ -3,9 +3,10 @@ Ext.define('Spm.view.navigation.NavigationPanel', {
     alias: 'widget.navigationPanel',
 
     requires: [
+        'Ext.layout.container.VBox',
         'Spm.view.navigation.NavigationPanelViewController',
-        'Spm.view.navigation.state.AgentState',
-        'Spm.view.navigation.search.Search'
+        'Spm.view.navigation.search.Search',
+        'Spm.view.navigation.state.AgentState'
     ],
 
     controller: 'navigationPanel',

@@ -3,6 +3,7 @@ Ext.define('Spm.view.queue.transfer.BulkTransferDialog', {
     alias: 'widget.bulkTransferDialog',
 
     requires: [
+        'Ext.grid.Panel',
         'Spm.view.queue.transfer.BulkTransferDialogViewController',
         'Spm.view.queue.transfer.BulkTransferDialogViewModel'
     ],

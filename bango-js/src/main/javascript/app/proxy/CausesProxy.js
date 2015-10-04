@@ -2,6 +2,10 @@ Ext.define('Spm.proxy.CausesProxy', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.causesProxy',
 
+    requires: [
+        'Ext.data.reader.Json'
+    ],
+
     buildUrl: function (request) {
         var params = request.getParams();
 

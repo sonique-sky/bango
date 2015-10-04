@@ -69,7 +69,7 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
     initViewModel: function (viewModel) {
         var me = this,
-            agent = me.getView().authenticatedAgent;
+            agent = viewModel.get('authenticatedAgent');
 
         me.tabPanel = me.lookupReference('tabPanel');
         me.tabPanel.removeAll(true);

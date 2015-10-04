@@ -2,6 +2,16 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.transferServiceProblemDialog',
 
+    requires: [
+        'Ext.form.FieldContainer',
+        'Ext.form.Panel',
+        'Ext.form.field.ComboBox',
+        'Ext.grid.Panel',
+        'Ext.layout.container.VBox',
+        'Spm.view.serviceproblem.transfer.TransferServiceProblemDialogViewController',
+        'Spm.view.serviceproblem.transfer.TransferServiceProblemDialogViewModel'
+    ],
+
     viewModel: {type: 'transferServiceProblemDialog'},
     controller: 'transferServiceProblemDialog',
 
@@ -66,5 +76,7 @@ Ext.define('Spm.view.serviceproblem.transfer.TransferServiceProblemDialog', {
                     ]
                 }
             ]
-        }]
+        }
+    ]
+
 });

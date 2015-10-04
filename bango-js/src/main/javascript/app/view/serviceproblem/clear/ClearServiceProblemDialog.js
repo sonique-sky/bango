@@ -3,6 +3,10 @@ Ext.define('Spm.view.serviceproblem.clear.ClearServiceProblemDialog', {
     alias: 'widget.clearServiceProblemDialog',
 
     requires: [
+        'Ext.form.FieldContainer',
+        'Ext.form.Panel',
+        'Ext.form.field.ComboBox',
+        'Ext.layout.container.VBox',
         'Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewController',
         'Spm.view.serviceproblem.clear.ClearServiceProblemDialogViewModel'
     ],

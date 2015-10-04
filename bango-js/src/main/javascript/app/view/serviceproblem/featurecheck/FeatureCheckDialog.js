@@ -2,6 +2,16 @@ Ext.define('Spm.view.serviceproblem.featurecheck.FeatureCheckDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.featureCheckDialog',
 
+    requires: [
+        'Ext.form.Label',
+        'Ext.grid.Panel',
+        'Ext.layout.container.Card',
+        'Ext.layout.container.VBox',
+        'Ext.panel.Panel',
+        'Spm.view.serviceproblem.featurecheck.FeatureCheckDialogViewController',
+        'Spm.view.serviceproblem.featurecheck.FeatureCheckDialogViewModel'
+    ],
+
     viewModel: {type: 'featureCheckDialog'},
     controller: 'featureCheckDialog',
 
@@ -54,4 +64,5 @@ Ext.define('Spm.view.serviceproblem.featurecheck.FeatureCheckDialog', {
             ]
         }
     ]
+
 });

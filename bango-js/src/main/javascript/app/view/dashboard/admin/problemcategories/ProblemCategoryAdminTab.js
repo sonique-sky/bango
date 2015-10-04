@@ -3,6 +3,9 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTab',
     alias: 'widget.problemCategoryAdminTab',
 
     requires: [
+        'Ext.button.Button',
+        'Ext.toolbar.Paging',
+        'Ext.toolbar.Spacer',
         'Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabViewController',
         'Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTabViewModel'
     ],
@@ -46,9 +49,7 @@ Ext.define('Spm.view.dashboard.admin.problemcategories.ProblemCategoryAdminTab',
                 //    iconCls: 'icon-admin-problem-category-delete',
                 //    handler: 'deleteRow'
                 //},
-                {
-                    xtype: 'tbspacer'
-                },
+                " ",
                 {
                     xtype: 'pagingtoolbar',
                     border: 0,

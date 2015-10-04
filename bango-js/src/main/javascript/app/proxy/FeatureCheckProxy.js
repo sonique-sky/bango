@@ -2,6 +2,10 @@ Ext.define('Spm.proxy.FeatureCheckProxy', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.featureCheckProxy',
 
+    requires: [
+        'Ext.data.reader.Json'
+    ],
+
     buildUrl: function (request) {
         var params = request.getParams();
 

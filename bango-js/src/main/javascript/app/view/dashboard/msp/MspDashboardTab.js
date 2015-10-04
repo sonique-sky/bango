@@ -3,7 +3,12 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
     alias: 'widget.mspDashboard',
 
     requires: [
-        'Spm.view.component.AutoRefreshToolbar',
+        'Ext.button.Button',
+        'Ext.form.field.Checkbox',
+        'Ext.grid.Panel',
+        'Ext.toolbar.Separator',
+        'Ext.toolbar.Spacer',
+        'Spm.view.component.autorefresh.AutoRefreshToolbar',
         'Spm.view.dashboard.msp.MspDashboardTabController',
         'Spm.view.dashboard.msp.MspDashboardTabModel',
         'Spm.view.serviceproblem.eventhistory.EventHistoryPanel'
@@ -98,5 +103,5 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
             xtype: 'eventHistoryPanel'
         }
     ]
-})
-;
+
+});

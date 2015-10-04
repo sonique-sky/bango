@@ -2,6 +2,14 @@ Ext.define('Spm.view.troublereport.cancel.CancelTroubleReportDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.cancelTroubleReportDialog',
 
+    requires: [
+        'Ext.form.FieldContainer',
+        'Ext.form.FieldContainer',
+        'Ext.form.Panel',
+        'Ext.form.field.Text',
+        'Ext.layout.container.HBox'
+    ],
+
     viewModel: {type: 'cancelTroubleReportDialog'},
     controller: 'cancelTroubleReportDialog',
 
@@ -49,4 +57,5 @@ Ext.define('Spm.view.troublereport.cancel.CancelTroubleReportDialog', {
             ]
         }
     ]
+
 });

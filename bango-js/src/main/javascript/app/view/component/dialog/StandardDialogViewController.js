@@ -13,6 +13,8 @@ Ext.define('Spm.view.component.dialog.StandardDialogViewController', {
 
     onCancel: function () {
         this.closeView();
-    }
+    },
+
+    onAccept: function() {}
 
 });

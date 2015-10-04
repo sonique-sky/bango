@@ -2,6 +2,23 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.troubleReportDialog',
 
+    requires: [
+        'Ext.button.Button',
+        'Ext.form.FieldContainer',
+        'Ext.form.FieldSet',
+        'Ext.form.Label',
+        'Ext.form.Panel',
+        'Ext.form.field.Checkbox',
+        'Ext.form.field.ComboBox',
+        'Ext.form.field.Date',
+        'Ext.form.field.Text',
+        'Ext.form.field.TextArea',
+        'Ext.form.field.Time',
+        'Ext.layout.container.HBox',
+        'Ext.layout.container.VBox',
+        'Ext.panel.Panel'
+    ],
+
     cls: 'trouble-report-panel',
     controller: 'troubleReportDialog',
     viewModel: {type: 'troubleReportDialog'},
@@ -535,5 +552,5 @@ Ext.define('Spm.view.troublereport.TroubleReportDialog', {
             ]
         }
     ]
-})
-;
+
+});

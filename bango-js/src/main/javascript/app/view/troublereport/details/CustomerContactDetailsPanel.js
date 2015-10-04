@@ -2,6 +2,15 @@ Ext.define('Spm.view.troublereport.details.CustomerContactDetailsPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.customerContactDetailsPanelTab',
 
+    requires: [
+        'Ext.container.Container',
+        'Ext.form.FieldContainer',
+        'Ext.form.field.Text',
+        'Ext.layout.container.Form',
+        'Ext.layout.container.HBox',
+        'Ext.layout.container.VBox'
+    ],
+
     layout: {
         align: 'stretch',
         type: 'vbox'
@@ -119,5 +128,7 @@ Ext.define('Spm.view.troublereport.details.CustomerContactDetailsPanel', {
                     ]
                 }
             ]
-        }]
+        }
+    ]
+
 });

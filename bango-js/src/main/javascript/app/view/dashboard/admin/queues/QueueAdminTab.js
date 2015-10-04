@@ -3,6 +3,9 @@ Ext.define('Spm.view.dashboard.admin.queues.QueueAdminTab', {
     alias: 'widget.queueAdminTab',
 
     requires: [
+        'Ext.button.Button',
+        'Ext.toolbar.Paging',
+        'Ext.toolbar.Spacer',
         'Spm.view.dashboard.admin.queues.QueueAdminTabViewController',
         'Spm.view.dashboard.admin.queues.QueueAdminTabViewModel'
     ],
@@ -46,9 +49,7 @@ Ext.define('Spm.view.dashboard.admin.queues.QueueAdminTab', {
                     iconCls: 'icon-admin-queues-delete',
                     handler: 'deleteQueue'
                 },
-                {
-                    xtype: 'tbspacer'
-                },
+                " ",
                 {
                     xtype: 'pagingtoolbar',
                     border: 0,

@@ -2,6 +2,11 @@ Ext.define('Spm.store.EventHistory', {
     extend: 'Ext.data.Store',
     alias: 'store.eventHistory',
 
+    requires: [
+        'Spm.model.EventHistoryItem',
+        'Spm.proxy.ServiceProblemEventHistoryProxy'
+    ],
+
     model: 'Spm.model.EventHistoryItem',
     proxy: 'serviceProblemEventHistoryProxy',
     remoteSort: true,

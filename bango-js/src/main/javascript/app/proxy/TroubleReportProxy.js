@@ -7,6 +7,7 @@ Ext.define('Spm.proxy.TroubleReportProxy', {
     model: 'Spm.model.TroubleReport',
 
     requires: [
+        'Ext.data.reader.Json',
         'Spm.model.TroubleReport'
     ],
 

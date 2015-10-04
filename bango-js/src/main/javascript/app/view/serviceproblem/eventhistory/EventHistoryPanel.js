@@ -109,4 +109,5 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
             }
         }
     ]
+
 });

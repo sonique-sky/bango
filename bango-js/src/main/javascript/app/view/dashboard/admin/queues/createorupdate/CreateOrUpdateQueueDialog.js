@@ -3,6 +3,10 @@ Ext.define('Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDi
     alias: 'widget.createOrUpdateQueueDialog',
 
     requires: [
+        'Ext.form.FieldContainer',
+        'Ext.form.field.Checkbox',
+        'Ext.form.field.ComboBox',
+        'Ext.form.field.Text',
         'Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDialogViewController',
         'Spm.view.dashboard.admin.queues.createorupdate.CreateOrUpdateQueueDialogViewModel'
     ],

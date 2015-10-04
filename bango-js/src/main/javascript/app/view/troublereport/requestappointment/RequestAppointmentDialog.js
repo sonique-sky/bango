@@ -2,6 +2,24 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.requestAppointmentDialog',
 
+    requires: [
+        'Ext.button.Button',
+        'Ext.container.Container',
+        'Ext.form.FieldContainer',
+        'Ext.form.FieldContainer',
+        'Ext.form.Label',
+        'Ext.form.Panel',
+        'Ext.form.field.ComboBox',
+        'Ext.form.field.Date',
+        'Ext.form.field.Radio',
+        'Ext.grid.Panel',
+        'Ext.grid.column.Date',
+        'Ext.grid.column.Widget',
+        'Ext.layout.container.Card',
+        'Ext.layout.container.VBox',
+        'Ext.layout.container.VBox'
+    ],
+
     viewModel: {type: 'requestAppointmentDialog'},
     controller: 'requestAppointmentDialog',
 
@@ -139,9 +157,8 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                         },
                                         {
                                             text: 'PM',
-                                            flex: 0.2,
                                             xtype: 'widgetcolumn',
-
+                                            flex: 0.2,
                                             widget: {
                                                 xtype: 'radio',
                                                 listeners: {
@@ -155,9 +172,11 @@ Ext.define('Spm.view.troublereport.requestappointment.RequestAppointmentDialog',
                                     ]
                                 }
                             ]
-                        }]
+                        }
+                    ]
                 }
             ]
+        }
+    ]
 
-        }]
 });

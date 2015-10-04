@@ -3,6 +3,10 @@ Ext.define('Spm.view.queue.QueueTab', {
     alias: 'widget.queueTab',
 
     requires: [
+        'Ext.button.Button',
+        'Ext.grid.column.Template',
+        'Ext.toolbar.Paging',
+        'Ext.toolbar.Spacer',
         'Spm.view.queue.QueueTabViewController',
         'Spm.view.queue.QueueTabViewModel'
     ],
@@ -57,7 +61,7 @@ Ext.define('Spm.view.queue.QueueTab', {
                     disabled: '{bulkClearDisabled}'
                 }
             },
-            {xtype: 'tbspacer'},
+            " ",
             {
                 xtype: 'pagingtoolbar',
                 border: 0,

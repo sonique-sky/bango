@@ -257,4 +257,5 @@ Ext.define('Spm.view.troublereport.TroubleReportDialogViewModel', {
             }
         }
     }
+
 });

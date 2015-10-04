@@ -3,8 +3,12 @@ Ext.define('Spm.view.navigation.state.AgentState', {
     alias: 'widget.agentState',
 
     requires: [
-        'Spm.view.navigation.state.AgentStateViewModel',
-        'Spm.view.navigation.state.AgentStateViewController'
+        'Ext.button.Button',
+        'Ext.form.Label',
+        'Ext.layout.container.VBox',
+        'Ext.view.View',
+        'Spm.view.navigation.state.AgentStateViewController',
+        'Spm.view.navigation.state.AgentStateViewModel'
     ],
 
     controller: 'agentState',

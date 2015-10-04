@@ -18,4 +18,5 @@ Ext.define('Spm.view.serviceproblem.featurecheck.FeatureCheckDialogViewModel', {
     serviceProblemId: function () {
         return this.get('serviceProblem.serviceProblemId');
     }
+
 });

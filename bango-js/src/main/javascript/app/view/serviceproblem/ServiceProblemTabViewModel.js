@@ -247,4 +247,5 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
     serviceProblemOwned: function (workItem) {
         return workItem !== null && workItem.isAssignedTo(this.authenticatedAgent());
     }
+
 });

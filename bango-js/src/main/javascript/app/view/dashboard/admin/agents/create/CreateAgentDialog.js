@@ -3,6 +3,10 @@ Ext.define('Spm.view.dashboard.admin.agents.create.CreateAgentDialog', {
     alias: 'widget.createAgentDialog',
 
     requires: [
+        'Ext.form.FieldContainer',
+        'Ext.form.Panel',
+        'Ext.form.field.ComboBox',
+        'Ext.form.field.Text',
         'Spm.view.dashboard.admin.agents.create.CreateAgentDialogViewController',
         'Spm.view.dashboard.admin.agents.create.CreateAgentDialogViewModel'
     ],

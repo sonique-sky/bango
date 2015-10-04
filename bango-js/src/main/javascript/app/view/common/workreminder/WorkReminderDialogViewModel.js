@@ -35,4 +35,5 @@ Ext.define('Spm.view.common.workreminder.WorkReminderDialogViewModel', {
         date.setMilliseconds(0);
         return date;
     }
+
 });

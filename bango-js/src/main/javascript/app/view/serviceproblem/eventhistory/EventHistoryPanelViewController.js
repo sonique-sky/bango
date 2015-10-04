@@ -94,4 +94,5 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     onEventHistoryFilter: function () {
         this.getView().add({xtype: 'filterEventHistoryDialog'}).show();
     }
+
 });

@@ -16,4 +16,5 @@ Ext.define('Spm.view.serviceproblem.reassign.ReassignServiceProblemDialogViewMod
     serviceProblemId: function () {
         return this.get('serviceProblem.serviceProblemId');
     }
+
 });

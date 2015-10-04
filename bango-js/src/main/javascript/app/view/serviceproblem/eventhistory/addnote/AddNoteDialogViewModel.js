@@ -16,4 +16,5 @@ Ext.define('Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialogViewModel'
             }
         }
     }
+
 });

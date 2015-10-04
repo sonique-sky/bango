@@ -3,6 +3,8 @@ Ext.define('Spm.view.search.SearchResultTab', {
     alias: 'widget.searchResult',
 
     requires: [
+        'Ext.grid.column.Template',
+        'Ext.toolbar.Paging',
         'Spm.view.search.SearchResultTabViewController',
         'Spm.view.search.SearchResultTabViewModel'
     ],
@@ -47,7 +49,7 @@ Ext.define('Spm.view.search.SearchResultTab', {
             text: 'Work Item',
             columns: [
                 {xtype: 'templatecolumn', tpl: '{[values.workItem ? values.workItem.status : ""]}', text: 'Work Item Status'},
-                {xtype: 'templatecolumn', tpl: '{[values.workItem ? values.workItem.agent.displayName: ""]}', text: 'Agent'}
+                {xtype: 'templatecolumn', tpl: '{[values.workItem ? values.workItem.agent.displayName : ""]}', text: 'Agent'}
             ]
         }
     ]

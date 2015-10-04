@@ -3,6 +3,7 @@ Ext.define('Spm.store.Teams', {
     alias: 'store.teams',
 
     requires: [
+        'Ext.data.proxy.Rest',
         'Spm.model.Team'
     ],
 

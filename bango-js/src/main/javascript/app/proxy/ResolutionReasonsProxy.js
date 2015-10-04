@@ -2,6 +2,10 @@ Ext.define('Spm.proxy.ResolutionReasonsProxy', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.resolutionReasonsProxy',
 
+    requires: [
+        'Ext.data.reader.Json'
+    ],
+
     buildUrl: function (request) {
         var params = request.getParams();
 

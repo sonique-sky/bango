@@ -11,4 +11,5 @@ Ext.define('Spm.view.serviceproblem.workitem.WorkItemPanelViewController', {
             layout.setActiveItem(0);
         }
     }
+
 });

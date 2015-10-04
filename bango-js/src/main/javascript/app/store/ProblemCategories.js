@@ -3,6 +3,7 @@ Ext.define('Spm.store.ProblemCategories', {
     alias: 'store.problemCategories',
 
     requires: [
+        'Ext.data.proxy.Rest',
         'Spm.model.ProblemCategory'
     ],
     model: 'Spm.model.ProblemCategory',

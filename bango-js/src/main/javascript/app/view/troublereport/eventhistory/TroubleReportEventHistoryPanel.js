@@ -3,7 +3,9 @@ Ext.define('Spm.view.troublereport.eventhistory.TroubleReportEventHistoryPanel',
     alias: 'widget.troubleReportEventHistoryPanel',
 
     requires: [
-        'Ext.grid.feature.RowBody'
+        'Ext.grid.feature.RowBody',
+        'Spm.view.troublereport.eventhistory.TroubleReportEventHistoryPanelViewController',
+        'Spm.view.troublereport.eventhistory.TroubleReportEventHistoryPanelViewModel'
     ],
 
     controller: 'troubleReportEventHistoryPanel',
@@ -65,4 +67,5 @@ Ext.define('Spm.view.troublereport.eventhistory.TroubleReportEventHistoryPanel',
             }
         }
     ]
+
 });

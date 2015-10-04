@@ -16,4 +16,5 @@ Ext.define('Spm.view.SupermanViewModel', {
     data: {
         authenticatedAgent: null
     }
+
 });

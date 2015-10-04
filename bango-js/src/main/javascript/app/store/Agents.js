@@ -3,6 +3,7 @@ Ext.define('Spm.store.Agents', {
     alias: 'store.agents',
 
     requires: [
+        'Ext.data.proxy.Rest',
         'Spm.model.Agent'
     ],
 

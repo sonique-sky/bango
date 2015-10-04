@@ -3,6 +3,7 @@ Ext.define('Spm.view.navigation.queues.MyQueues', {
     alias: 'widget.myQueues',
 
     requires: [
+        'Ext.view.View',
         'Spm.view.navigation.queues.MyQueuesViewController',
         'Spm.view.navigation.queues.MyQueuesViewModel'
     ],

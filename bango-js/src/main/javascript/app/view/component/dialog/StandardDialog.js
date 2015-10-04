@@ -3,8 +3,13 @@ Ext.define('Spm.view.component.dialog.StandardDialog', {
     extend: 'Ext.window.Window',
 
     requires: [
-        'Spm.view.component.dialog.StandardDialogViewModel',
-        'Spm.view.component.dialog.StandardDialogViewController'
+        'Ext.button.Button',
+        'Ext.container.Container',
+        'Ext.layout.container.Fit',
+        'Ext.layout.container.HBox',
+        'Ext.toolbar.Spacer',
+        'Spm.view.component.dialog.StandardDialogViewController',
+        'Spm.view.component.dialog.StandardDialogViewModel'
     ],
 
     initComponent: function () {

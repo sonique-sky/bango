@@ -8,4 +8,5 @@ Ext.define('Spm.view.troublereport.details.TroubleReportDetailsTabPanel', {
         {xtype: 'troubleReportDetailsPanelTab'},
         {xtype: 'customerContactDetailsPanelTab'}
     ]
+
 });

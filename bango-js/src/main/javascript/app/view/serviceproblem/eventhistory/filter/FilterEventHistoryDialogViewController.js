@@ -43,4 +43,4 @@ Ext.define('Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialog
         eventTypeGrid.getSelectionModel().select(selectedEventTypes, false, false);
     }
 
-});
+})

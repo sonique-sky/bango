@@ -2,6 +2,10 @@ Ext.define('Spm.proxy.AvailableAppointmentsProxy', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.availableAppointmentsProxy',
 
+    requires: [
+        'Ext.data.reader.Json'
+    ],
+
     buildUrl: function (request) {
         var params = request.getParams();
 

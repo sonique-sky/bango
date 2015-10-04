@@ -24,4 +24,5 @@ Ext.application({
     launch: function () {
         Ext.create('Spm.view.Superman');
     }
+
 });

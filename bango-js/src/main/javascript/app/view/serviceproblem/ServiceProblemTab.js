@@ -2,6 +2,23 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.serviceProblemTab',
 
+    requires: [
+        'Ext.button.Button',
+        'Ext.container.ButtonGroup',
+        'Ext.container.Container',
+        'Ext.form.Label',
+        'Ext.form.Panel',
+        'Ext.layout.container.Card',
+        'Ext.layout.container.Form',
+        'Ext.layout.container.VBox',
+        'Spm.view.serviceproblem.ServiceProblemPanel',
+        'Spm.view.serviceproblem.eventhistory.EventHistoryPanel',
+        'Spm.view.serviceproblem.workitem.WorkItemPanel',
+        'Spm.view.troublereport.TroubleReportsPanel',
+        'Spm.view.troublereport.details.TroubleReportDetailsTabPanel',
+        'Spm.view.troublereport.eventhistory.TroubleReportEventHistoryPanel'
+    ],
+
     viewModel: {type: 'serviceProblemTab'},
     controller: 'serviceProblemTab',
 
@@ -285,5 +302,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                     ]
                 }
             ]
-        }]
+        }
+    ]
+
 });

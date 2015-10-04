@@ -3,7 +3,8 @@ Ext.define('Spm.view.dashboard.agent.AgentDashboardTab', {
     alias: 'widget.agentDashboard',
 
     requires: [
-        'Spm.view.component.AutoRefreshToolbar',
+        'Ext.grid.feature.Grouping',
+        'Spm.view.component.autorefresh.AutoRefreshToolbar',
         'Spm.view.dashboard.agent.AgentDashboardViewController',
         'Spm.view.dashboard.agent.AgentDashboardViewModel'
     ],

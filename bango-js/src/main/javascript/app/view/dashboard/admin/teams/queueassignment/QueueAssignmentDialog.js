@@ -128,4 +128,5 @@ Ext.define('Spm.view.dashboard.admin.teams.queueassignment.QueueAssignmentDialog
                 ]
             }]
     }]
+
 });

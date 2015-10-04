@@ -2,6 +2,15 @@ Ext.define('Spm.view.serviceproblem.nextworkitem.NextWorkItemDialog', {
         extend: 'Spm.component.StandardDialog',
         alias: 'widget.nextWorkItemDialog',
 
+        requires: [
+            'Ext.form.FieldContainer',
+            'Ext.form.Panel',
+            'Ext.form.field.ComboBox',
+            'Ext.layout.container.VBox',
+            'Spm.view.serviceproblem.nextworkitem.NextWorkItemDialogViewController',
+            'Spm.view.serviceproblem.nextworkitem.NextWorkItemDialogViewModel'
+        ],
+
         viewModel: {type: 'nextWorkItemDialog'},
         controller: 'nextWorkItemDialog',
 
