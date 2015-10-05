@@ -5,6 +5,7 @@ Ext.define('Spm.view.container.AppContainer', {
     requires: [
         'Ext.layout.container.Border',
         'Ext.tab.Panel',
+        'Ext.ux.TabCloseMenu',
         'Spm.view.container.AppContainerViewController',
         'Spm.view.container.AppContainerViewModel',
         'Spm.view.header.AppHeader',
@@ -28,7 +29,8 @@ Ext.define('Spm.view.container.AppContainer', {
             reference: 'tabPanel',
             region: 'center',
             id: 'tab-panel',
-            padding: '0 5 5 5'
+            padding: '0 5 5 5',
+            plugins: 'tabclosemenu'
         },
         {
             xtype: 'navigationPanel',
