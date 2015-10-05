@@ -59,6 +59,7 @@ Ext.define('Spm.view.serviceproblem.workitem.WorkItemPanel', {
                         type: 'hbox'
                     },
                     defaults: {
+                        minWidth: 350,
                         layout: {type: 'form', labelWidth: 110},
                         defaults: {readOnly:true}
                     },
@@ -135,6 +136,7 @@ Ext.define('Spm.view.serviceproblem.workitem.WorkItemPanel', {
                 {
                     xtype: 'container',
                     flex: 1,
+                    minWidth: 1050,
                     layout: {type: 'form', labelWidth: 110},
                     defaults: {readOnly:true},
                     items: [
