@@ -2,6 +2,7 @@ package sonique.bango.controller;
 
 import org.springframework.web.bind.annotation.*;
 import sky.sns.spm.domain.model.EventHistoryItem;
+import sky.sns.spm.domain.model.diagnostic.sqc.SequenceOfAnswers;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.TransferType;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
@@ -140,5 +141,17 @@ public class ServiceProblemApiController {
                 )
         );
     }
+
+    @RequestMapping(value = "/{serviceProblemId}/requestManagedLineTest", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<DomainServiceProblem> requestManagedLineTest(@PathVariable Long serviceProblemId, @RequestBody SequenceOfAnswers sequenceOfAnswers) {
+        return new ResponseData<>(
+                serviceProblemApiService.requestManagedLineTest(
+                        new ServiceProblemId(serviceProblemId),
+                        sequenceOfAnswers
+                )
+        );
+    }
+
 
 }

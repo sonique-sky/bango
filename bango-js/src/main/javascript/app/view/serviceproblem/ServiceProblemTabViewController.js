@@ -56,6 +56,20 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         dialog.show();
     },
 
+    requestManagedLineTest: function () {
+        var serviceProblemId = this.getViewModel().serviceProblemId();
+        var dialog = this.getView().add({
+            xtype: 'managedLineTestDialog',
+            viewModel: {
+                type: 'managedLineTestDialog',
+                data: {
+                    serviceProblemId: serviceProblemId
+                }
+            }
+        });
+        dialog.show();
+    },
+
     onTransferServiceProblem: function () {
         this.getView().add({xtype: 'transferServiceProblemDialog'}).show();
     },

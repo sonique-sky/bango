@@ -1,6 +1,7 @@
 package sonique.bango.service;
 
 import sky.sns.spm.domain.model.EventHistoryItem;
+import sky.sns.spm.domain.model.diagnostic.sqc.SequenceOfAnswers;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.TransferType;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
@@ -33,6 +34,8 @@ public interface ServiceProblemApiService {
     DomainServiceProblem reassignToAgent(ServiceProblemId serviceProblemId, String agentCode);
 
     DomainServiceProblem associateServiceProblemToMajorServiceProblem(ServiceProblemId serviceProblemId, MajorServiceProblemId majorServiceProblemId);
+
+    DomainServiceProblem requestManagedLineTest(ServiceProblemId serviceProblemId, SequenceOfAnswers sequenceOfAnswers);
 
     PagedSearchResults<DomainServiceProblem> serviceProblems(SearchParametersDTO searchParameters);
 

@@ -26,6 +26,7 @@ public class ServiceProblemSerializer extends JsonSerializer<DomainServiceProble
         jsonGenerator.writeBooleanField("hasActiveTroubleReport", serviceProblem.hasActiveTroubleReport());
         jsonGenerator.writeObjectField("openedDate", serviceProblem.openedDate());
         jsonGenerator.writeObjectField("closedDate", serviceProblem.closedDate());
+        jsonGenerator.writeBooleanField("isManagedLineTestRequested", serviceProblem.isManagedLineTestRequested());
 
         if (serviceProblem.hasWorkItem()) {
             jsonGenerator.writeNumberField("workItemId", serviceProblem.serviceProblemId().asLong());

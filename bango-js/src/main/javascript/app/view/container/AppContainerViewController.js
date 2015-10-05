@@ -61,6 +61,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             },
             'clearServiceProblemDialog': {
                 serviceProblemCleared: 'closeServiceProblemAndSetMyItemsActive'
+            },
+            'managedLineTestDialog': {
+                managedLineTestRequested: 'refreshServiceProblem'
             }
         }
     },
@@ -100,6 +103,14 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     },
 
     onWorkItemActionUpdated: function (serviceProblemId) {
+        var serviceProblemTab = this.getViewModel().serviceProblemTabForId(serviceProblemId);
+
+        if (serviceProblemTab) {
+            serviceProblemTab.fireEvent('staleData');
+        }
+    },
+
+    refreshServiceProblem: function (serviceProblemId) {
         var serviceProblemTab = this.getViewModel().serviceProblemTabForId(serviceProblemId);
 
         if (serviceProblemTab) {

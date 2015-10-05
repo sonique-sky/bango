@@ -221,6 +221,34 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewModel', {
                     && serviceProblem.status() == 'Open'
                     && Ext.Array.contains(applicableServiceTypes, serviceProblem.serviceType().code);
             }
+        },
+        canRequestManagedLineTest: {
+            bind: {
+                serviceProblem: '{serviceProblem}',
+                workItem: '{workItem}',
+                deep: true
+            },
+            get: function (data) {
+                var workItem = data.workItem;
+                var serviceProblem = data.serviceProblem;
+
+                var applicableServiceTypes = [
+                    'NvnData',
+                    'NvnVoice',
+                    'FTTC',
+                    'OnnetBroadband',
+                    'WLR3',
+                    'RoiOffnetVoice',
+                    'RoiRuralOffnetBroadband',
+                    'RoiUrbanOffnetBroadband',
+                    'RoiFttc'
+                ];
+
+                return this.serviceProblemOwned(workItem)
+                    && serviceProblem.status() == 'Open'
+                    && !serviceProblem.isManagedLineTestRequested()
+                    && Ext.Array.contains(applicableServiceTypes, serviceProblem.serviceType().code);
+            }
         }
     },
 

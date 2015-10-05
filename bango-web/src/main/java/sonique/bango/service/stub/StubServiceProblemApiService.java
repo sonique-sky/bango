@@ -2,6 +2,7 @@ package sonique.bango.service.stub;
 
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.EventHistoryItem;
+import sky.sns.spm.domain.model.diagnostic.sqc.SequenceOfAnswers;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
 import sky.sns.spm.domain.model.refdata.Cause;
 import sky.sns.spm.domain.model.refdata.Fault;
@@ -24,6 +25,7 @@ import spm.domain.ServiceProblemId;
 import spm.domain.event.ReassignHistoryEvent;
 import spm.domain.event.TransferHistoryEvent;
 import spm.domain.event.UnassignHistoryEvent;
+import util.SupermanDataFixtures;
 
 import java.util.Date;
 import java.util.List;
@@ -164,6 +166,13 @@ public class StubServiceProblemApiService implements ServiceProblemApiService {
         DomainMajorServiceProblem majorServiceProblem = mspRepository.findByMajorServiceProblemId(majorServiceProblemId);
         Queue newQueue = pickOneOf(queueRepository.getAllQueues().stream().filter(queue -> !queue.isDefaultWorkItemCreated()).collect(toList()));
         serviceProblem.associateToMajorServiceProblem(majorServiceProblem, newQueue, authorisedActorProvider.getLoggedInAgent());
+        return serviceProblem;
+    }
+
+    @Override
+    public DomainServiceProblem requestManagedLineTest(ServiceProblemId serviceProblemId, SequenceOfAnswers sequenceOfAnswers) {
+        DomainServiceProblem serviceProblem = serviceProblemRepository.findByServiceProblemId(serviceProblemId);
+        serviceProblem.managedLineTestRequested(authorisedActorProvider.getLoggedInAgent(), SupermanDataFixtures.someLineTestReference());
         return serviceProblem;
     }
 

@@ -122,8 +122,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
                         {
                             iconCls: 'icon-line-test',
                             tooltip: 'Request a managed line test',
+                            handler: 'requestManagedLineTest',
                             bind: {
-                                disabled: '{!serviceProblemOwned}'
+                                disabled: '{!canRequestManagedLineTest}'
                             }
                         },
                         {

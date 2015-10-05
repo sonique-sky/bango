@@ -110,6 +110,10 @@ Ext.define('Spm.model.ServiceProblem', {
 
     status: function () {
         return this.get('status');
+    },
+
+    isManagedLineTestRequested: function() {
+        return this.get('isManagedLineTestRequested');
     }
 
 });

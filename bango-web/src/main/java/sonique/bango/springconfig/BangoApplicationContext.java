@@ -1,10 +1,7 @@
 package sonique.bango.springconfig;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.domain.model.EventHistoryItem;
+import sky.sns.spm.domain.model.diagnostic.sqc.SequenceOfAnswers;
 import sky.sns.spm.domain.model.refdata.*;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
@@ -33,7 +31,6 @@ import sonique.types.StringValue;
 import spm.domain.ExceptionThrowingErrorReporter;
 import spm.troublereport.ManualTroubleReportRaiser;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -100,6 +97,7 @@ public class BangoApplicationContext {
         module.addDeserializer(DomainTeam.class, new TeamDeserializer());
         module.addDeserializer(DomainAgent.class, new AgentDeserializer());
         module.addDeserializer(ProblemCategory.class, new ProblemCategoryDeserializer());
+        module.addDeserializer(SequenceOfAnswers.class, new SequenceOfAnswersDeserializer());
         module.addDeserializer(Queue.class, new QueueDeserializer());
         module.addDeserializer(ReserveAppointment.class, new ReservedAppointmentDeserializer());
         module.addDeserializer(TroubleReportTemplate.class, new TroubleReportTemplateDeserializer());
