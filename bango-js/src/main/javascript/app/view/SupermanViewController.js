@@ -9,15 +9,15 @@ Ext.define('Spm.view.SupermanViewController', {
     ],
 
     listen: {
-        global: {
-            displayNotification: 'onDisplayNotification'
-        },
         controller: {
             'loginDialog': {
                 performAuthentication: 'onPerformAuthentication'
             },
             'appHeader': {
                 logout: 'onLogout'
+            },
+            'serviceProblemTab': {
+                displayNotification: 'onDisplayNotification'
             }
         }
     },
@@ -67,9 +67,10 @@ Ext.define('Spm.view.SupermanViewController', {
         Ext.toast({
             html: params.message,
             title: params.title,
-            width: 200,
+            width: 250,
             align: 'br',
-            header: false
+            header: true,
+            border: false
         });
     },
 

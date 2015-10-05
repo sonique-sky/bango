@@ -223,7 +223,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                             me.displayServiceProblem(serviceProblem);
                             me.fireEvent('serviceProblemPulled');
 
-                            Ext.GlobalEvents.fireEvent('displayNotification', {
+                            me.fireEvent('displayNotification', {
                                 title: 'Service Problem Assigned',
                                 message: Ext.String.format('Service Problem [{0}] has been assigned to you', serviceProblem.serviceProblemId())
                             });
