@@ -15,6 +15,7 @@ Ext.define('Spm.view.search.SearchResultTab', {
     listeners: {
         added: 'onTabAdded',
         close: 'onTabClosed',
+        removed: 'onTabClosed',
         cellclick: 'onCellClicked'
     },
 

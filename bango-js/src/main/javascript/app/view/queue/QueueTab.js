@@ -18,6 +18,7 @@ Ext.define('Spm.view.queue.QueueTab', {
         activate: 'onQueueTabActivated',
         deactivate: 'onQueueTabDeactivated',
         close: 'onQueueTabClosed',
+        removed: 'onQueueTabClosed',
         added: 'loadQueuedServiceProblems',
         cellclick: 'onCellClicked',
         selectionchange: 'onSelectionChanged'

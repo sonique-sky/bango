@@ -1,18 +1,15 @@
 {
-    /**
-     * The Sencha Framework for this application: "ext" or "touch".     */
-    "framework": "ext",
-
-    /**
-     * The toolkit to use. Select either "classic" or "modern".
-     */
-    "toolkit": "classic",
-
-    "name": "Spm",
-
-    "requires": [
-        "font-awesome"
-    ],
-
-    "id": "ea81786d-2728-4e0d-af34-058c1ee8d759"
+  /**
+   * The Sencha Framework for this application: "ext" or "touch".     */
+  "framework": "ext",
+  /**
+   * The toolkit to use. Select either "classic" or "modern".
+   */
+  "toolkit": "classic",
+  "name": "Spm",
+  "requires": [
+    "font-awesome",
+    "ux"
+  ],
+  "id": "ea81786d-2728-4e0d-af34-058c1ee8d759"
 }

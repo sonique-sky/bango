@@ -26,7 +26,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTab', {
         staleData: 'loadServiceProblem',
         close: 'onServiceProblemTabClosed',
         added: 'onServiceProblemTabAdded',
-        show: 'onServiceProblemTabActivated'
+        show: 'onServiceProblemTabActivated',
+        removed: 'onServiceProblemTabClosed'
     },
 
     bind: {
