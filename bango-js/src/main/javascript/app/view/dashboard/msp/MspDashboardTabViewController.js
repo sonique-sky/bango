@@ -26,9 +26,9 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabViewController', {
         view.lookupReference('showRecentlyClosed').setValue(false);
 
         store.load({
-            scope: this,
             callback: function (records, operation, success) {
                 me.selectFirstMsp(store);
+                me.lookupReference('eventHistoryPanel').fireEvent('serviceProblemLoaded', me.selectedMsp().getId());
             }
         });
 
@@ -51,6 +51,7 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabViewController', {
     },
 
     viewAssociatedServiceProblems: function (button, event) {
+
     },
 
     createMsp: function () {
