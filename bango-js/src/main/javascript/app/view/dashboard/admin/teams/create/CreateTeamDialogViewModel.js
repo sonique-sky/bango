@@ -3,7 +3,7 @@ Ext.define('Spm.view.dashboard.admin.teams.create.CreateTeamDialogViewModel', {
     alias: 'viewmodel.createTeamDialog',
 
     data: {
-        team: Ext.create('Spm.model.Team')
+        team: null
     },
 
     formulas: {

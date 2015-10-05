@@ -156,9 +156,9 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemPanel', {
         },
         {
             xtype: 'fieldcontainer',
+            minWidth: 1050,
             fieldDefaults: {
                 labelWidth: 110,
-                minWidth: 1050,
                 readOnly:true
             },
             layout: 'form',

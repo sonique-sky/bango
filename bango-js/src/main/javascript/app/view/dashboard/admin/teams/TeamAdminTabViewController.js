@@ -26,7 +26,7 @@ Ext.define('Spm.view.dashboard.admin.teams.TeamAdminTabViewController', {
     },
 
     createNewTeam: function () {
-        this.getView().add({xtype: 'createTeamDialog'}).show();
+        this.getView().add({xtype: 'createTeamDialog', team: Ext.create('Spm.model.Team')}).show();
     },
 
     assignQueuesToTeam: function () {
