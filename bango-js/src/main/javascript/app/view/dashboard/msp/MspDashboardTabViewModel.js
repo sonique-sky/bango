@@ -1,4 +1,4 @@
-Ext.define('Spm.view.dashboard.msp.MspDashboardTabModel', {
+Ext.define('Spm.view.dashboard.msp.MspDashboardTabViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.mspDashboard',
 

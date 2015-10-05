@@ -9,8 +9,8 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
         'Ext.toolbar.Separator',
         'Ext.toolbar.Spacer',
         'Spm.view.component.autorefresh.AutoRefreshToolbar',
-        'Spm.view.dashboard.msp.MspDashboardTabController',
-        'Spm.view.dashboard.msp.MspDashboardTabModel',
+        'Spm.view.dashboard.msp.MspDashboardTabViewController',
+        'Spm.view.dashboard.msp.MspDashboardTabViewModel',
         'Spm.view.serviceproblem.eventhistory.EventHistoryPanel'
     ],
 
@@ -28,6 +28,7 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
     items: [
         {
             xtype: 'gridpanel',
+            reference: 'mspGridPanel',
             bind: {
                 store: '{mspDashboardEntries}'
             },
@@ -35,7 +36,8 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
             height: 200,
 
             listeners: {
-                cellclick: 'selectMajorServiceProblem'
+                cellclick: 'selectMajorServiceProblem',
+                itemdblclick: 'showAssociatedServiceProblems'
             },
 
             dockedItems: [
@@ -52,23 +54,27 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
                             xtype: 'button',
                             iconCls: 'icon-create-msp',
                             toolTip: 'Create MSP',
-                            padding: '5,5,5,5'
+                            padding: '5,5,5,5',
+                            handler: 'createMsp'
                         },
                         {
                             xtype: 'button',
                             iconCls: 'icon-close-msp',
                             toolTip: 'Close MSP',
-                            padding: '5,5,5,5'
+                            padding: '5,5,5,5',
+                            handler: 'closeMsp'
                         },
                         {
                             xtype: 'button',
                             iconCls: 'icon-view-msp-sps',
                             toolTip: 'View Service Problems associated to the selected MSP',
-                            padding: '5,5,5,5'
+                            padding: '5,5,5,5',
+                            handler: 'viewAssociatedServiceProblems'
                         },
                         "-",
                         {
                             xtype: 'checkbox',
+                            reference: 'showRecentlyClosed',
                             boxLabel: 'Show Recently Closed',
                             handler: 'showRecentlyClosed'
                         },
@@ -76,6 +82,7 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
                         "-",
                         {
                             xtype: 'checkbox',
+                            reference: 'hideManuallyCreated',
                             boxLabel: 'Hide Manually Created',
                             handler: 'hideManuallyCreated'
                         }
@@ -99,6 +106,7 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
                 ]
             }
         },
+
         {
             xtype: 'eventHistoryPanel'
         }

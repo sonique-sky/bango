@@ -10,6 +10,7 @@ import sky.sns.spm.domain.model.DomainAgent;
 import sky.sns.spm.domain.model.DomainTeam;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.diagnostic.sqc.SequenceOfAnswers;
+import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
 import sky.sns.spm.domain.model.refdata.*;
 import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.domain.model.serviceproblem.WorkItemAction;
@@ -74,11 +75,11 @@ public class BangoApplicationContext {
 
         SimpleModule module = new SimpleModule("BangoModule");
 
+        module.addSerializer(Date.class, new DateSerializer());
+        module.addSerializer(Describable.class, new DescribableSerializer());
+        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         module.addSerializer(NumberValue.class, new NumberValueSerializer());
         module.addSerializer(StringValue.class, new StringValueSerializer());
-        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
-        module.addSerializer(Describable.class, new DescribableSerializer());
-        module.addSerializer(Date.class, new DateSerializer());
 
         module.addSerializer(DomainServiceProblem.class, new ServiceProblemSerializer());
         module.addSerializer(DomainTroubleReport.class, new TroubleReportSerializer());
@@ -93,13 +94,15 @@ public class BangoApplicationContext {
         module.addSerializer(WorkItemAction.class, new WorkItemActionSerializer());
 
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
-        module.addDeserializer(DomainTeam.class, new TeamDeserializer());
         module.addDeserializer(DomainAgent.class, new AgentDeserializer());
+        module.addDeserializer(DomainTeam.class, new TeamDeserializer());
+        module.addDeserializer(DomainMajorServiceProblem.class, new MajorServiceProblemDeserializer());
         module.addDeserializer(ProblemCategory.class, new ProblemCategoryDeserializer());
         module.addDeserializer(SequenceOfAnswers.class, new SequenceOfAnswersDeserializer());
         module.addDeserializer(Queue.class, new QueueDeserializer());
         module.addDeserializer(ReserveAppointment.class, new ReservedAppointmentDeserializer());
         module.addDeserializer(TroubleReportTemplate.class, new TroubleReportTemplateDeserializer());
+
         objectMapper.registerModule(module);
 
         return objectMapper;
@@ -203,7 +206,7 @@ public class BangoApplicationContext {
 
     @Bean
     public MspApiService mspApiService() {
-        return new StubMspApiService(mspRepository);
+        return new StubMspApiService(springSecurityAuthorisedActorProvider(), mspRepository);
     }
 
     @Bean

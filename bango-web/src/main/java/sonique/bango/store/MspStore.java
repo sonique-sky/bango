@@ -1,15 +1,17 @@
 package sonique.bango.store;
 
+import com.google.common.base.Throwables;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblemBuilder;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblemDashboardEntry;
 import sky.sns.spm.infrastructure.repository.DomainMajorServiceProblemRepository;
-import sky.sns.spm.interfaces.shared.MajorServiceProblem;
+import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import spm.domain.MajorServiceProblemDateTime;
 import spm.domain.MajorServiceProblemId;
 import spm.domain.OutageId;
 import spm.domain.SnsServiceId;
 
+import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
@@ -35,7 +37,7 @@ public class MspStore implements DomainMajorServiceProblemRepository {
     private final AtomicLong id = new AtomicLong(0);
 
     public MspStore() {
-        for (int i = 1; i < 23; i++) {
+        for (int i = 1; i < 100; i++) {
             MajorServiceProblemId majorServiceProblemId = new MajorServiceProblemId(id.incrementAndGet());
             DomainMajorServiceProblemBuilder majorServiceProblemBuilder = new DomainMajorServiceProblemBuilder()
                     .withId(majorServiceProblemId)
@@ -43,9 +45,12 @@ public class MspStore implements DomainMajorServiceProblemRepository {
                     .withStartDate(new MajorServiceProblemDateTime(someDateTimeInTheLast(Duration.of(3, DAYS)).toInstant()))
                     .withExpectedResolutionDate(new MajorServiceProblemDateTime(someDateTimeInTheNext24Hours().toInstant()))
                     .withDetailedNote(someWords())
-                    .withNimOutageId(new OutageId(UUID.randomUUID().toString()))
                     .withServiceIds(someServiceIds())
                     .withHistoryItems(someMajorServiceProblemEventHistoryItem());
+
+            if (majorServiceProblemId.asInteger() % 2 == 0) {
+                majorServiceProblemBuilder.withNimOutageId(new OutageId(UUID.randomUUID().toString()));
+            }
 
             if (majorServiceProblemId.asInteger() % 3 == 0) {
                 majorServiceProblemBuilder.withClosedDate(Date.from(
@@ -64,8 +69,17 @@ public class MspStore implements DomainMajorServiceProblemRepository {
     }
 
     @Override
-    public DomainMajorServiceProblem insert(DomainMajorServiceProblem domainMajorServiceProblem) {
-        throw new UnsupportedOperationException("Method MspStore insert() not yet implemented");
+    public DomainMajorServiceProblem insert(DomainMajorServiceProblem msp) {
+        MajorServiceProblemId mspId = new MajorServiceProblemId(this.id.incrementAndGet());
+        try {
+            Field idField = DomainMajorServiceProblem.class.getDeclaredField("id");
+            idField.setAccessible(true);
+            idField.set(msp, mspId);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            Throwables.propagate(e);
+        }
+        majorServiceProblems.put(mspId, msp);
+        return msp;
     }
 
     @Override
@@ -94,33 +108,40 @@ public class MspStore implements DomainMajorServiceProblemRepository {
     }
 
     @Override
-    public MajorServiceProblem update(MajorServiceProblem majorServiceProblem) {
-        throw new UnsupportedOperationException("Method MspStore update() not yet implemented");
+    public DomainMajorServiceProblem update(DomainMajorServiceProblem majorServiceProblem) {
+        majorServiceProblems.put(majorServiceProblem.id(), majorServiceProblem);
+        return majorServiceProblem;
     }
 
     @Override
-    public List<DomainMajorServiceProblemDashboardEntry> findOpenDashBoardEntries() {
-        return majorServiceProblems.values().stream().map(msp ->
-                        new DomainMajorServiceProblemDashboardEntry(
+    public List<DomainMajorServiceProblemDashboardEntry> findDashboardEntries(SearchParametersDTO searchParameters) {
+        return majorServiceProblems.values().stream()
+                .map(msp -> new DomainMajorServiceProblemDashboardEntry(
                                 msp.id().asLong(),
                                 msp.getDescription(),
                                 msp.getStartDate().asDate(),
                                 msp.getExpectedResolutionDate().asDate(),
-                                msp.outageId().asString(),
+                                msp.outageId() == null ? null : msp.outageId().asString(),
                                 msp.getServiceIds().size(),
-                                someNumberBetween(5, 50)
+                                someNumberBetween(5, 50),
+                                msp.getClosedDate()
                         )
-        ).collect(toList());
+                ).collect(toList());
+    }
+
+    @Override
+    public List<DomainMajorServiceProblemDashboardEntry> findOpenDashboardEntries() {
+        throw new UnsupportedOperationException("Method MspStore findOpenDashboardEntries() not yet implemented");
+    }
+
+    @Override
+    public List<DomainMajorServiceProblemDashboardEntry> findClosedDashboardEntriesSince(LocalDate date) {
+        throw new UnsupportedOperationException("Method MspStore findClosedDashboardEntriesSince() not yet implemented");
     }
 
     @Override
     public List<DomainMajorServiceProblem> getAllEligibleMajorServiceProblemsForServiceProblem(Long aLong) {
         throw new UnsupportedOperationException("Method MspStore getAllEligibleMajorServiceProblemsForServiceProblem() not yet implemented");
-    }
-
-    @Override
-    public List<DomainMajorServiceProblem> findAllClosedSince(LocalDate localDate) {
-        throw new UnsupportedOperationException("Method MspStore findAllClosedSince() not yet implemented");
     }
 
     private static List<DomainMajorServiceProblem.MajorServiceProblemEventHistoryItem> someMajorServiceProblemEventHistoryItem() {
