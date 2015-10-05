@@ -31,7 +31,8 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             },
             'serviceProblemTab': {
                 serviceProblemTabClosed: 'onServiceProblemTabClosed',
-                serviceProblemHoldToggled: 'onServiceProblemHoldToggled'
+                serviceProblemHoldToggled: 'onServiceProblemHoldToggled',
+                managedLineTestRequested: 'refreshServiceProblem'
             },
             'search': {
                 displayServiceProblem: 'onDisplayServiceProblem',

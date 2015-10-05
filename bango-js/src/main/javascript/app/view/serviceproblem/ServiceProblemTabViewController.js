@@ -57,18 +57,46 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     requestManagedLineTest: function () {
+        var serviceType = this.getViewModel().serviceProblem().serviceType().code;
         var serviceProblemId = this.getViewModel().serviceProblemId();
-        var dialog = this.getView().add({
-            xtype: 'managedLineTestDialog',
-            viewModel: {
-                type: 'managedLineTestDialog',
-                data: {
-                    serviceProblemId: serviceProblemId
+
+        if (serviceType === 'FTTC') {
+            var dialog = this.getView().add({
+                xtype: 'managedLineTestDialog',
+
+                viewModel: {
+                    type: 'managedLineTestDialog',
+                    data: {
+                        serviceProblemId: serviceProblemId
+                    }
+                },
+                controller: {
+                    type: 'managedLineTestDialog',
+                    requestHandler: this.makeManagedLineTestRequest
                 }
-            }
-        });
-        dialog.show();
+            });
+            dialog.show();
+        } else {
+            this.makeManagedLineTestRequest([], serviceProblemId, function () {
+                this.fireEvent('managedLineTestRequested', serviceProblemId);
+            })
+        }
     },
+
+    makeManagedLineTestRequest: function (answeredQuestions, serviceProblemId, successCallback) {
+        Ext.Ajax.request(
+            {
+                scope: this,
+                url: Ext.String.format('api/serviceProblem/{0}/requestManagedLineTest', serviceProblemId),
+                method: 'POST',
+                jsonData: {
+                    questionAndAnswers: answeredQuestions
+                },
+                success: successCallback
+            }
+        );
+    },
+
 
     onTransferServiceProblem: function () {
         this.getView().add({xtype: 'transferServiceProblemDialog'}).show();

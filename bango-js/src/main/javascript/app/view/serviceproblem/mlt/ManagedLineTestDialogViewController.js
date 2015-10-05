@@ -2,6 +2,10 @@ Ext.define('Spm.view.serviceproblem.mlt.ManagedLineTestDialogViewController', {
     extend: 'Spm.component.StandardDialogViewController',
     alias: 'controller.managedLineTestDialog',
 
+    config: {
+        requestHandler: undefined
+    },
+
     onShow: function () {
         var rootQuestion = this.findQuestion('rootQuestion');
         this.createQuestionCard(rootQuestion);
@@ -44,20 +48,14 @@ Ext.define('Spm.view.serviceproblem.mlt.ManagedLineTestDialogViewController', {
     onAccept: function () {
         var viewModel = this.getViewModel();
         var answeredQuestions = viewModel.answeredQuestions();
-        Ext.Ajax.request(
-            {
-                scope: this,
-                url: Ext.String.format('api/serviceProblem/{0}/requestManagedLineTest', viewModel.serviceProblemId()),
-                method: 'POST',
-                jsonData: {
-                    questionAndAnswers: answeredQuestions
-                },
-                success: function () {
-                    this.fireEvent('managedLineTestRequested', viewModel.serviceProblemId());
-                    this.closeView();
-                }
-            }
-        );
+        var serviceProblemId = this.getViewModel().serviceProblemId();
+
+        if (this.getRequestHandler()) {
+            this.getRequestHandler().call(this, answeredQuestions, serviceProblemId, function () {
+                this.fireEvent('managedLineTestRequested', serviceProblemId);
+                this.closeView();
+            });
+        }
     },
 
     onBack: function () {
