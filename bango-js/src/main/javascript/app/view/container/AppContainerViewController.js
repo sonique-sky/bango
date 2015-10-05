@@ -76,16 +76,13 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             agent = viewModel.get('authenticatedAgent');
 
         me.tabPanel = me.lookupReference('tabPanel');
-        me.tabPanel.removeAll(true);
-        viewModel.clearActiveTabs();
-
         me.addTabIfPermitted(agent, 'PullServiceProblem', 'Spm.view.myitems.MyItemsTab');
         me.addTabIfPermitted(agent, 'AccessQueueDashboard', 'Spm.view.dashboard.queue.QueueDashboardTab');
         me.addTabIfPermitted(agent, 'AccessUserDashboard', 'Spm.view.dashboard.agent.AgentDashboardTab');
         me.addTabIfPermitted(agent, 'AccessMspDashboard', 'Spm.view.dashboard.msp.MspDashboardTab');
         me.addTabIfPermitted(agent, 'AccessAdminDashboard', 'Spm.view.dashboard.admin.AdminDashboardTab');
 
-        me.tabPanel.setActive(0);
+        me.tabPanel.setActiveTab(0);
     },
 
     addTabIfPermitted: function (agent, requiredPrivilege, tabClass) {
@@ -130,7 +127,8 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             searchResultTab = viewModel.searchResultTabForId(searchKey);
 
         if (searchResultTab === null) {
-            searchResultTab = Ext.create('widget.searchResult', {
+            searchResultTab = Ext.create({
+                xtype: 'searchResult',
                 viewModel: {
                     stores: {
                         serviceProblems: store
@@ -155,7 +153,8 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
 
         if (serviceProblemTab === null) {
-            serviceProblemTab = Ext.create('Spm.view.serviceproblem.ServiceProblemTab', {
+            serviceProblemTab = Ext.create({
+                xtype: 'serviceProblemTab',
                 viewModel: {
                     data: {
                         serviceProblem: serviceProblem
@@ -176,7 +175,8 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             serviceProblemTab = viewModel.serviceProblemTabForId(serviceProblemId);
 
         if (serviceProblemTab === null) {
-            serviceProblemTab = Ext.create('Spm.view.serviceproblem.ServiceProblemTab', {
+            serviceProblemTab = Ext.create({
+                xtype: 'serviceProblemTab',
                 viewModel: {
                     data: {
                         serviceProblemId: serviceProblemId
@@ -210,7 +210,8 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             queueTab = viewModel.queueTabForId(queueId);
 
         if (queueTab === null) {
-            queueTab = Ext.create('widget.queueTab', {
+            queueTab = Ext.create({
+                xtype: 'queueTab',
                 viewModel: {
                     data: {
                         queue: selectedQueue

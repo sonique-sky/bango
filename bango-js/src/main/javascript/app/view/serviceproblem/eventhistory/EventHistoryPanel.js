@@ -30,6 +30,9 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanel', {
     ui: 'custom-tool',
     overflowY: 'auto',
     disableSelection: true,
+    viewConfig: {
+        enableTextSelection: true
+    },
 
     tools: [
         {

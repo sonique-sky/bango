@@ -112,7 +112,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Bad Credentials");
+            response.getWriter().write(exception.getMessage());
         }
     }
 }

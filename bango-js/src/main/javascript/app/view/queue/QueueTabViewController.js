@@ -50,7 +50,7 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         viewModel.set('bulkClearDisabled', !hasSelected);
     },
 
-    onBulkOperationCompleted: function (rawJsonResponse) {
+    onBulkOperationCompleted: function () {
         this.getStore('queuedServiceProblems').reload();
     },
 
@@ -151,4 +151,5 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         store.filter('queueId', this.queueId());
         store.load();
     }
+
 });

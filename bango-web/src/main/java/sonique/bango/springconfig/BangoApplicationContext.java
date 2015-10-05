@@ -70,7 +70,6 @@ public class BangoApplicationContext {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(FIELD, ANY);
         objectMapper.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
-
         objectMapper.setDateFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"));
 
         SimpleModule module = new SimpleModule("BangoModule");

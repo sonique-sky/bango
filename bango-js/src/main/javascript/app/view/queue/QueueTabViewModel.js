@@ -20,4 +20,5 @@ Ext.define('Spm.view.queue.QueueTabViewModel', {
     queueId: function() {
         return this.get('queue').get('id');
     }
+
 });
