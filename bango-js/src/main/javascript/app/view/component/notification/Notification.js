@@ -1,7 +1,6 @@
 Ext.define('Spm.view.component.notification.Notification', {
+    extend: 'Ext.Base',
     alternateClassName: 'Spm.Notification',
-
-    extend: 'Ext.Container',
 
     statics: {
         notify: function (title, message) {

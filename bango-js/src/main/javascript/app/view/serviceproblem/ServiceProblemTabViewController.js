@@ -31,7 +31,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
 
     associateToMsp: function () {
         var serviceProblem = this.getViewModel().serviceProblem();
-        var dialog = this.getView().add({
+        this.getView().add({
             xtype: 'associateServiceProblemToMspDialog',
             viewModel: {
                 type: 'associateServiceProblemToMspDialog',
@@ -39,13 +39,12 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                     serviceProblem: serviceProblem
                 }
             }
-        });
-        dialog.show();
+        }).show();
     },
 
     requestFeatureCheck: function () {
         var serviceProblemId = this.getViewModel().serviceProblemId();
-        var dialog = this.getView().add({
+        this.getView().add({
             xtype: 'featureCheckDialog',
             viewModel: {
                 type: 'featureCheckDialog',
@@ -53,16 +52,16 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                     serviceProblemId: serviceProblemId
                 }
             }
-        });
-        dialog.show();
+        }).show();
     },
 
     requestManagedLineTest: function () {
-        var serviceType = this.getViewModel().serviceProblem().serviceType().code;
-        var serviceProblemId = this.getViewModel().serviceProblemId();
+        var me = this,
+            serviceType = me.getViewModel().serviceProblem().serviceType().code,
+            serviceProblemId = me.getViewModel().serviceProblemId();
 
         if (serviceType === 'FTTC') {
-            var dialog = this.getView().add({
+            me.getView().add({
                 xtype: 'managedLineTestDialog',
 
                 viewModel: {
@@ -73,13 +72,12 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                 },
                 controller: {
                     type: 'managedLineTestDialog',
-                    requestHandler: this.makeManagedLineTestRequest
+                    requestHandler: me.makeManagedLineTestRequest
                 }
-            });
-            dialog.show();
+            }).show();
         } else {
-            this.makeManagedLineTestRequest([], serviceProblemId, function () {
-                this.fireEvent('managedLineTestRequested', serviceProblemId);
+            me.makeManagedLineTestRequest([], serviceProblemId, function () {
+                me.fireEvent('managedLineTestRequested', serviceProblemId);
             })
         }
     },
@@ -128,7 +126,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         var workItem = this.getViewModel().serviceProblem().getWorkItem();
         var serviceProblemId = this.getViewModel().serviceProblemId();
 
-        var dialog = this.getView().add({
+        this.getView().add({
             xtype: 'nextWorkItemDialog',
             viewModel: {
                 type: 'nextWorkItemDialog',
@@ -137,16 +135,17 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                     serviceProblemId: serviceProblemId
                 }
             }
-        });
-        dialog.show();
+        }).show();
     },
 
     onServiceProblemTabAdded: function () {
-        var serviceProblem = this.getViewModel().serviceProblem();
+        var me = this,
+            serviceProblem = me.getViewModel().serviceProblem();
+
         if (!serviceProblem) {
-            this.loadServiceProblem();
+            me.loadServiceProblem();
         } else {
-            this.displayServiceProblem(serviceProblem);
+            me.displayServiceProblem(serviceProblem);
         }
     },
 
@@ -159,17 +158,19 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     displayServiceProblem: function (serviceProblem) {
-        this.getViewModel().set('serviceProblem', serviceProblem);
-        this.getViewModel().set('serviceProblemId', serviceProblem.serviceProblemId());
-        this.getViewModel().set('workItem', serviceProblem.getWorkItem());
+        var me = this,
+            viewModel = me.getViewModel(),
+            workItemPanel = me.lookupReference('workItemPanel'),
+            eventHistoryPanel = me.lookupReference('eventHistoryPanel');
 
-        var workItemPanel = this.lookupReference('workItemPanel');
+        viewModel.set('serviceProblem', serviceProblem);
+        viewModel.set('serviceProblemId', serviceProblem.serviceProblemId());
+        viewModel.set('workItem', serviceProblem.getWorkItem());
+
         workItemPanel.fireEvent('switchWorkItem', serviceProblem);
-
-        var eventHistoryPanel = this.lookupReference('eventHistoryPanel');
         eventHistoryPanel.fireEvent('serviceProblemLoaded', serviceProblem.serviceProblemId());
 
-        this.getStore('troubleReports').load({
+        me.getStore('troubleReports').load({
             params: {
                 serviceProblemId: serviceProblem.serviceProblemId()
             }
@@ -177,20 +178,22 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     setTroubleReport: function (troubleReport) {
-        this.lookupReference('troubleReportsGrid').setSelection(troubleReport);
-        this.getViewModel().set('troubleReport', troubleReport);
-        this.fireEvent('troubleReportLoaded', troubleReport);
+        var me = this;
+        me.lookupReference('troubleReportsGrid').setSelection(troubleReport);
+        me.getViewModel().set('troubleReport', troubleReport);
+        me.fireEvent('troubleReportLoaded', troubleReport);
     },
 
     showTroubleReportPanel: function () {
-        var servicePanel = this.lookupReference('servicePanel');
-        var troublePanel = this.lookupReference('troublePanel');
-        var troubleReports = this.getStore('troubleReports');
+        var me = this,
+            servicePanel = me.lookupReference('servicePanel'),
+            troublePanel = me.lookupReference('troublePanel'),
+            troubleReports = me.getStore('troubleReports');
 
         troubleReports.totalCount === 0 ? troublePanel.setActiveItem('hasNoTroubleReports') : troublePanel.setActiveItem('hasTroubleReports');
 
         servicePanel.setActiveItem('troubleReportPanel');
-        this.loadServiceProblem();
+        me.loadServiceProblem();
     },
 
     onTroubleReportsLoaded: function (store) {
@@ -242,7 +245,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         troubleReportTemplate.load({
             params: {serviceProblemId: me.getViewModel().serviceProblemId()},
             success: function () {
-                var dialog = me.getView().add({
+                me.getView().add({
                     xtype: 'troubleReportDialog',
                     viewModel: {
                         type: 'troubleReportDialog',
@@ -251,8 +254,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                             mode: 'Raise'
                         }
                     }
-                });
-                dialog.show();
+                }).show();
             }
         });
     },
