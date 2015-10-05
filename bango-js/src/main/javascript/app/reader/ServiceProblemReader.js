@@ -1,6 +1,6 @@
 Ext.define('Spm.reader.ServiceProblemReader', {
     extend: 'Ext.data.reader.Json',
-    alternateClassName: 'ServiceProblemReader',
+    alternateClassName: 'Spm.ServiceProblemReader',
 
     singleton: true,
 

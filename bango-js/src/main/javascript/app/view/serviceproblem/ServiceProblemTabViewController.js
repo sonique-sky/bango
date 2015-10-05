@@ -6,7 +6,8 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         'Spm.reader.ServiceProblemReader',
         'Spm.view.serviceproblem.clear.ClearServiceProblemDialog',
         'Spm.view.serviceproblem.msp.AssociateServiceProblemToMspDialog',
-        'Spm.view.serviceproblem.transfer.TransferServiceProblemDialog'
+        'Spm.view.serviceproblem.transfer.TransferServiceProblemDialog',
+        'Spm.view.component.notification.Notification'
     ],
 
     listen: {
@@ -219,14 +220,14 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                         url: Ext.String.format('api/serviceProblem/{0}/pull', me.getViewModel().serviceProblemId()),
                         method: 'POST',
                         success: function (response) {
-                            var serviceProblem = ServiceProblemReader.fromJsonString(response.responseText);
+                            var serviceProblem = Spm.ServiceProblemReader.fromJsonString(response.responseText);
                             me.displayServiceProblem(serviceProblem);
                             me.fireEvent('serviceProblemPulled');
 
-                            me.fireEvent('displayNotification', {
-                                title: 'Service Problem Assigned',
-                                message: Ext.String.format('Service Problem [{0}] has been assigned to you', serviceProblem.serviceProblemId())
-                            });
+                            Spm.Notification.notify(
+                                'Service Problem Assigned',
+                                Ext.String.format('Service Problem [{0}] has been assigned to you', serviceProblem.serviceProblemId())
+                            );
                         }
                     });
                 }
@@ -257,13 +258,13 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
     },
 
     onAmendTroubleReport: function () {
-        var me = this;
+        var me = this,
+            troubleReportTemplate = Ext.create('Spm.model.TroubleReportTemplate');
 
-        var troubleReportTemplate = Ext.create('Spm.model.TroubleReportTemplate');
         troubleReportTemplate.load({
             params: {serviceProblemId: me.getViewModel().serviceProblemId()},
             success: function () {
-                var dialog = me.getView().add({
+                me.getView().add({
                     xtype: 'troubleReportDialog',
                     viewModel: {
                         type: 'troubleReportDialog',
@@ -272,15 +273,14 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                             mode: 'Amend'
                         }
                     }
-                });
-                dialog.show();
+                }).show();
             }
         });
     },
 
     onCancelTroubleReport: function () {
         var me = this;
-        var dialog = me.getView().add({
+        me.getView().add({
             xtype: 'cancelTroubleReportDialog',
             viewModel: {
                 type: 'cancelTroubleReportDialog',
@@ -289,9 +289,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
                     serviceType: me.getViewModel().serviceProblem().serviceType()
                 }
             }
-        });
-
-        dialog.show();
+        }).show();
     },
 
     onConfirmEquipmentIsDisconnected: function () {
@@ -300,7 +298,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         Ext.Ajax.request({
             url: Ext.String.format('api/troubleReport/{0}/confirmEquipmentDisconnected', me.getViewModel().troubleReport().troubleReportId()),
             method: 'POST',
-            success: function (response) {
+            success: function () {
                 me.loadServiceProblem();
             }
         });
@@ -312,7 +310,7 @@ Ext.define('Spm.view.serviceproblem.ServiceProblemTabViewController', {
         this.doToggleHoldServiceProblem(
             me.getViewModel().serviceProblem(),
             function (response) {
-                var serviceProblem = ServiceProblemReader.fromJsonString(response.responseText);
+                var serviceProblem = Spm.ServiceProblemReader.fromJsonString(response.responseText);
                 me.displayServiceProblem(serviceProblem);
             }
         );

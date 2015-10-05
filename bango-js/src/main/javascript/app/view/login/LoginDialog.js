@@ -33,30 +33,24 @@ Ext.define('Spm.view.login.LoginDialog', {
             frameHeader: false,
             header: false,
             defaults: {
+                xtype: 'textfield',
+                anchor: '100%',
+                allowBlank: false,
                 listeners: {
                     specialkey: 'submitOnEnter'
                 }
             },
             items: [
                 {
-                    xtype: 'textfield',
-                    anchor: '100%',
-                    id: 'username',
                     itemId: 'usernameField',
                     fieldLabel: 'Username:',
-                    allowBlank: false,
                     bind: {
                         value: '{login.username}'
                     }
                 },
                 {
-                    xtype: 'textfield',
-                    anchor: '100%',
-                    id: 'password',
-                    itemId: 'passwordField',
                     fieldLabel: 'Password:',
                     inputType: 'password',
-                    allowBlank: false,
                     bind: {
                         value: '{login.password}'
                     }
