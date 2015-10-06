@@ -6,14 +6,20 @@ Ext.define('Spm.view.serviceproblem.eventhistory.addnote.AddNoteDialogViewContro
         'Spm.model.EventHistoryItem'
     ],
 
+
+    initViewModel: function (viewModel) {
+        viewModel.set('entityIdentifier', this.getView().entityIdentifier);
+    },
+
     onAccept: function () {
         var me = this,
             viewModel = me.getViewModel(),
             store = viewModel.get('eventHistory');
 
         store.add(new Spm.model.EventHistoryItem({note: viewModel.get('noteContent')}));
+
         store.sync({
-            params: {entityIdentifier: viewModel.get('serviceProblem').serviceProblemId()},
+            params: {entityIdentifier: viewModel.get('entityIdentifier')},
             scope: me,
             success: me.closeView
         });

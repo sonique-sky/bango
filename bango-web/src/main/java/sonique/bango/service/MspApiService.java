@@ -14,4 +14,5 @@ public interface MspApiService {
     List<EventHistoryItem> eventHistory(MajorServiceProblemId majorServiceProblemId);
     DomainMajorServiceProblem create(DomainMajorServiceProblem msp);
     DomainMajorServiceProblem close(MajorServiceProblemId majorServiceProblemId);
+    EventHistoryItem addNote(MajorServiceProblemId majorServiceProblemId, String note);
 }

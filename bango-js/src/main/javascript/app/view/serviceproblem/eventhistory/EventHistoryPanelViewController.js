@@ -46,6 +46,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     onServiceProblemLoaded: function (entityIdentifier) {
         var viewModel = this.getViewModel();
         viewModel.clearSelectedEvents();
+        this.getViewModel().set('entityIdentifier', entityIdentifier);
         this.getStore('eventHistory').setEntityIdentifier(entityIdentifier);
         this.getStore('eventHistory').load();
     },
@@ -56,7 +57,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     },
 
     onEventHistoryAddNote: function () {
-        this.getView().add({xtype: 'addNoteDialog'}).show();
+        this.getView().add({xtype: 'addNoteDialog', entityIdentifier: this.getViewModel().get('entityIdentifier')}).show();
     },
 
     onEventHistoryRefresh: function () {
