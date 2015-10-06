@@ -36,8 +36,7 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
             height: 200,
 
             listeners: {
-                cellclick: 'selectMajorServiceProblem',
-                itemdblclick: 'showAssociatedServiceProblems'
+                cellclick: 'selectMajorServiceProblem'
             },
 
             dockedItems: [
@@ -62,7 +61,10 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
                         {
                             iconCls: 'icon-close-msp',
                             toolTip: 'Close MSP',
-                            handler: 'closeMsp'
+                            handler: 'closeMsp',
+                            bind: {
+                                disabled: '{closeButtonDisabled}'
+                            }
                         },
                         {
                             iconCls: 'icon-view-msp-sps',

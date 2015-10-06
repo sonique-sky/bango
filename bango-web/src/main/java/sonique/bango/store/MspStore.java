@@ -4,7 +4,9 @@ import com.google.common.base.Throwables;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblemBuilder;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblemDashboardEntry;
+import sky.sns.spm.domain.model.serviceproblem.DomainServiceProblem;
 import sky.sns.spm.infrastructure.repository.DomainMajorServiceProblemRepository;
+import sky.sns.spm.infrastructure.repository.DomainServiceProblemRepository;
 import sky.sns.spm.web.spmapp.shared.dto.SearchParametersDTO;
 import spm.domain.MajorServiceProblemDateTime;
 import spm.domain.MajorServiceProblemId;
@@ -13,13 +15,19 @@ import spm.domain.SnsServiceId;
 
 import java.lang.reflect.Field;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.stream.Collectors.toList;
@@ -35,8 +43,11 @@ public class MspStore implements DomainMajorServiceProblemRepository {
 
     private final Map<MajorServiceProblemId, DomainMajorServiceProblem> majorServiceProblems = newHashMap();
     private final AtomicLong id = new AtomicLong(0);
+    private DomainServiceProblemRepository serviceProblemRepository;
 
-    public MspStore() {
+    public MspStore(DomainServiceProblemRepository serviceProblemRepository) {
+        this.serviceProblemRepository = serviceProblemRepository;
+
         for (int i = 1; i < 100; i++) {
             MajorServiceProblemId majorServiceProblemId = new MajorServiceProblemId(id.incrementAndGet());
             DomainMajorServiceProblemBuilder majorServiceProblemBuilder = new DomainMajorServiceProblemBuilder()
@@ -45,7 +56,7 @@ public class MspStore implements DomainMajorServiceProblemRepository {
                     .withStartDate(new MajorServiceProblemDateTime(someDateTimeInTheLast(Duration.of(3, DAYS)).toInstant()))
                     .withExpectedResolutionDate(new MajorServiceProblemDateTime(someDateTimeInTheNext24Hours().toInstant()))
                     .withDetailedNote(someWords())
-                    .withServiceIds(someServiceIds())
+                    .withServiceIds(newHashSet())
                     .withHistoryItems(someMajorServiceProblemEventHistoryItem());
 
             if (majorServiceProblemId.asInteger() % 2 == 0) {
@@ -115,17 +126,48 @@ public class MspStore implements DomainMajorServiceProblemRepository {
 
     @Override
     public List<DomainMajorServiceProblemDashboardEntry> findDashboardEntries(SearchParametersDTO searchParameters) {
-        return majorServiceProblems.values().stream()
-                .map(msp -> new DomainMajorServiceProblemDashboardEntry(
-                                msp.id().asLong(),
-                                msp.getDescription(),
-                                msp.getStartDate().asDate(),
-                                msp.getExpectedResolutionDate().asDate(),
-                                msp.outageId() == null ? null : msp.outageId().asString(),
-                                msp.getServiceIds().size(),
-                                someNumberBetween(5, 50),
-                                msp.getClosedDate()
-                        )
+
+        Stream<DomainMajorServiceProblem> mspStream = majorServiceProblems.values().stream();
+
+        boolean showRecentlyClosed = searchParameters.filters() == null
+                ? false
+                : searchParameters.filters().stream().anyMatch(filter -> "showRecentlyClosed".equals(filter.property()) && TRUE.toString().equals(filter.value()));
+
+        boolean showManuallyCreated = searchParameters.filters() == null
+                ? false
+                : searchParameters.filters().stream().anyMatch(filter -> "hideManuallyCreated".equals(filter.property()) && FALSE.toString().equals(filter.value()));
+
+
+        List<DomainMajorServiceProblem> filteredMsp;
+        if (showRecentlyClosed) {
+            Instant fiveDaysAgo = LocalDate.now().minus(5, DAYS).atStartOfDay(ZoneId.systemDefault()).toInstant();
+            filteredMsp = mspStream.filter(msp -> msp.getClosedDate() != null && msp.getClosedDate().after(Date.from(fiveDaysAgo))).collect(toList());
+        } else {
+            filteredMsp = mspStream.filter(msp -> !msp.isClosed()).collect(toList());
+        }
+
+        if (showManuallyCreated) {
+            filteredMsp.stream().filter(msp -> msp.outageId() == null || OutageId.nullOutageId().equals(msp.outageId()));
+        } else {
+            filteredMsp.stream().filter(msp -> msp.outageId() != null && !msp.outageId().isNull());
+        }
+
+        return filteredMsp.stream()
+                .map(msp -> {
+                    List<DomainServiceProblem> associatedServiceProblems = StreamSupport
+                            .stream(serviceProblemRepository.findAssociatedServiceProblems(msp.id()).spliterator(), false)
+                            .collect(toList());
+                    return new DomainMajorServiceProblemDashboardEntry(
+                            msp.id().asLong(),
+                            msp.getDescription(),
+                            msp.getStartDate().asDate(),
+                            msp.getExpectedResolutionDate().asDate(),
+                            msp.outageId() == null ? null : msp.outageId().asString(),
+                            (int) associatedServiceProblems.stream().map(DomainServiceProblem::serviceId).distinct().count(),
+                            associatedServiceProblems.size(),
+                            msp.getClosedDate()
+                    );
+                }
                 ).collect(toList());
     }
 
