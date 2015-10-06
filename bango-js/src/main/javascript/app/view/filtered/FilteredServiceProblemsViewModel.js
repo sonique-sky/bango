@@ -6,12 +6,6 @@ Ext.define('Spm.view.filtered.FilteredServiceProblemsViewModel', {
         'Spm.store.ServiceProblems'
     ],
 
-    stores: {
-        filteredServiceProblems: {
-            type: 'serviceProblems'
-        }
-    },
-
     data: {
         queue: null,
         bulkTransferDisabled: true,

@@ -15,37 +15,17 @@ Ext.define('Spm.view.filtered.FilteredServiceProblems', {
     viewModel: {type: 'filteredServiceProblems'},
 
     listeners: {
-        activate: 'onQueueTabActivated',
-        deactivate: 'onQueueTabDeactivated',
-        close: 'onQueueTabClosed',
-        removed: 'onQueueTabClosed',
-        added: 'loadFilteredServiceProblems',
         cellclick: 'onCellClicked',
         selectionchange: 'onSelectionChanged'
     },
 
     border: 0,
     closable: true,
-    iconCls: 'icon-queue',
     cls: 'queue-tab',
 
-    bind: {
-        title: '{queue.name}',
-        store: '{filteredServiceProblems}'
-    },
     dockedItems: [{
         xtype: 'toolbar',
         items: [
-            {
-                xtype: 'button',
-                text: 'Select All',
-                handler: 'onSelectAll'
-            },
-            {
-                xtype: 'button',
-                text: 'Deselect All',
-                handler: 'onDeselectAll'
-            },
             {
                 xtype: 'button',
                 text: 'Transfer',

@@ -9,7 +9,6 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         'Spm.view.dashboard.queue.QueueDashboardTab',
         'Spm.view.myitems.MyItemsTab',
         'Spm.view.filtered.FilteredServiceProblems',
-        'Spm.view.search.SearchResultTab',
         'Spm.view.serviceproblem.ServiceProblemTab'
     ],
 
@@ -125,16 +124,9 @@ Ext.define('Spm.view.container.AppContainerViewController', {
 
         if (!searchResultTab) {
             searchResultTab = Ext.create({
-                xtype: 'searchResult',
+                xtype: 'filteredServiceProblems',
                 itemId: searchKey,
-                viewModel: {
-                    stores: {
-                        serviceProblems: store
-                    },
-                    data: {
-                        params: params
-                    }
-                }
+                store: store
             });
 
             me.tabPanel.add(searchResultTab);
@@ -199,9 +191,12 @@ Ext.define('Spm.view.container.AppContainerViewController', {
             queueTab = me.tabPanel.getComponent(searchKey);
 
         if (!queueTab) {
+            var store = Ext.create('store.serviceProblems');
+            store.filter('queueId', queueId);
             queueTab = Ext.create({
                 xtype: 'filteredServiceProblems',
                 itemId: searchKey,
+                store: store,
                 viewModel: {
                     data: {
                         queue: selectedQueue

@@ -36,8 +36,28 @@ Ext.define('Spm.view.filtered.FilteredServiceProblemsViewController', {
         }
     },
 
-    initViewModel: function(viewModel) {
+    initViewModel: function (viewModel) {
+        var me = this,
+            myView = me.getView(),
+            myStore = myView.getStore(),
+            params = myView.itemId.split('-');
 
+        viewModel.setStores({filteredServiceProblems: myStore});
+
+        if (params[0] == 'queueId') {
+            myView.setTitle(viewModel.get('queue').queueName());
+            myView.setIconCls('icon-queue');
+            me.mon(myView, 'activate', me.onQueueTabActivated, me);
+            me.mon(myView, 'deactivate', me.onQueueTabDeactivated, me);
+            me.mon(myView, 'close', me.onQueueTabClosed, me);
+            me.mon(myView, 'removed', me.onQueueTabClosed, me);
+        } else {
+            myView.setTitle('Search Results');
+            myView.setIconCls('icon-search')
+        }
+        if (!myStore.isLoaded()) {
+            myStore.load();
+        }
     },
 
     onCellClicked: function (view, td, cellIndex, record) {
@@ -68,14 +88,6 @@ Ext.define('Spm.view.filtered.FilteredServiceProblemsViewController', {
 
     onQueueTabClosed: function () {
         this.fireEvent('queueTabClosed', this.queueId());
-    },
-
-    onSelectAll: function () {
-        this.gridSelectionModel().selectAll(false);
-    },
-
-    onDeselectAll: function () {
-        this.gridSelectionModel().deselectAll(false);
     },
 
     onBulkTransfer: function () {
@@ -148,12 +160,6 @@ Ext.define('Spm.view.filtered.FilteredServiceProblemsViewController', {
                 return serviceProblem.hasActiveTroubleReport();
             }
         );
-    },
-
-    loadFilteredServiceProblems: function () {
-        var store = this.getStore('filteredServiceProblems');
-        store.filter('queueId', this.queueId());
-        store.load();
     },
 
     workItemReminderRenderer: function (value, metadata, record) {
