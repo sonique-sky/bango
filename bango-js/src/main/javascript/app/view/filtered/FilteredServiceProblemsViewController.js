@@ -1,6 +1,6 @@
 Ext.define('Spm.view.filtered.FilteredServiceProblemsViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.queueTab',
+    alias: 'controller.filteredServiceProblems',
 
     requires: [
         'Spm.view.filtered.transfer.BulkTransferDialog'
@@ -9,31 +9,35 @@ Ext.define('Spm.view.filtered.FilteredServiceProblemsViewController', {
     listen: {
         controller: {
             'bulkClearDialog': {
-                bulkOperationCompleted: 'onBulkOperationCompleted'
+                bulkOperationCompleted: 'reloadFilteredServiceProblemStore'
             },
             'bulkTransferDialog': {
-                bulkOperationCompleted: 'onBulkOperationCompleted'
+                bulkOperationCompleted: 'reloadFilteredServiceProblemStore'
             },
             'serviceProblemTab': {
-                serviceProblemPulled: 'loadQueuedServiceProblems',
-                serviceProblemHoldToggled: 'loadQueuedServiceProblems'
+                serviceProblemPulled: 'reloadFilteredServiceProblemStore',
+                serviceProblemHoldToggled: 'reloadFilteredServiceProblemStore'
             },
             'workReminderDialog': {
-                workReminderCreated: 'loadQueuedServiceProblems'
+                workReminderCreated: 'reloadFilteredServiceProblemStore'
             },
             'transferServiceProblemDialog': {
-                serviceProblemTransferred: 'loadQueuedServiceProblems'
+                serviceProblemTransferred: 'reloadFilteredServiceProblemStore'
             },
             'reassignServiceProblemDialog': {
-                serviceProblemReassigned: 'loadQueuedServiceProblems'
+                serviceProblemReassigned: 'reloadFilteredServiceProblemStore'
             },
             'associateServiceProblemToMspDialog': {
-                serviceProblemAssociatedToMsp: 'loadQueuedServiceProblems'
+                serviceProblemAssociatedToMsp: 'reloadFilteredServiceProblemStore'
             },
             'clearServiceProblemDialog': {
-                serviceProblemCleared: 'loadQueuedServiceProblems'
+                serviceProblemCleared: 'reloadFilteredServiceProblemStore'
             }
         }
+    },
+
+    initViewModel: function(viewModel) {
+
     },
 
     onCellClicked: function (view, td, cellIndex, record) {
@@ -50,8 +54,8 @@ Ext.define('Spm.view.filtered.FilteredServiceProblemsViewController', {
         viewModel.set('bulkClearDisabled', !hasSelected);
     },
 
-    onBulkOperationCompleted: function () {
-        this.getStore('queuedServiceProblems').reload();
+    reloadFilteredServiceProblemStore: function () {
+        this.getStore('filteredServiceProblems').reload();
     },
 
     onQueueTabActivated: function () {
@@ -110,7 +114,7 @@ Ext.define('Spm.view.filtered.FilteredServiceProblemsViewController', {
                             originalQueueId: me.queueId(),
                             serviceProblemIds: me.selectedServiceProblemIds()
                         },
-                        success: me.onBulkOperationCompleted,
+                        success: me.reloadFilteredServiceProblemStore,
                         scope: me
                     });
                 }
@@ -146,8 +150,8 @@ Ext.define('Spm.view.filtered.FilteredServiceProblemsViewController', {
         );
     },
 
-    loadQueuedServiceProblems: function () {
-        var store = this.getStore('queuedServiceProblems');
+    loadFilteredServiceProblems: function () {
+        var store = this.getStore('filteredServiceProblems');
         store.filter('queueId', this.queueId());
         store.load();
     },

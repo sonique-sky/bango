@@ -1,6 +1,6 @@
 Ext.define('Spm.view.filtered.FilteredServiceProblems', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.queueTab',
+    alias: 'widget.filteredServiceProblems',
 
     requires: [
         'Ext.button.Button',
@@ -11,15 +11,15 @@ Ext.define('Spm.view.filtered.FilteredServiceProblems', {
         'Spm.view.filtered.FilteredServiceProblemsViewModel'
     ],
 
-    controller: 'queueTab',
-    viewModel: {type: 'queueTab'},
+    controller: 'filteredServiceProblems',
+    viewModel: {type: 'filteredServiceProblems'},
 
     listeners: {
         activate: 'onQueueTabActivated',
         deactivate: 'onQueueTabDeactivated',
         close: 'onQueueTabClosed',
         removed: 'onQueueTabClosed',
-        added: 'loadQueuedServiceProblems',
+        added: 'loadFilteredServiceProblems',
         cellclick: 'onCellClicked',
         selectionchange: 'onSelectionChanged'
     },
@@ -31,7 +31,7 @@ Ext.define('Spm.view.filtered.FilteredServiceProblems', {
 
     bind: {
         title: '{queue.name}',
-        store: '{queuedServiceProblems}'
+        store: '{filteredServiceProblems}'
     },
     dockedItems: [{
         xtype: 'toolbar',
@@ -67,7 +67,7 @@ Ext.define('Spm.view.filtered.FilteredServiceProblems', {
                 xtype: 'pagingtoolbar',
                 border: 0,
                 bind: {
-                    store: '{queuedServiceProblems}'
+                    store: '{filteredServiceProblems}'
                 }
             }
         ]

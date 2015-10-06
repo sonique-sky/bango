@@ -16,13 +16,12 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     listen: {
         controller: {
             'myQueues': {
-                agentQueueSelected: 'onAgentQueueSelected'
+                agentQueueSelected: 'displayQueueTab'
             },
             'queueDashboard': {
-                queueSelected: 'onAgentQueueSelected'
+                queueSelected: 'displayQueueTab'
             },
-            'queueTab': {
-                queueTabClosed: 'onQueueTabClosed',
+            'filteredServiceProblems': {
                 serviceProblemSelected: 'onServiceProblemSelected'
             },
             'myItems': {
@@ -39,7 +38,6 @@ Ext.define('Spm.view.container.AppContainerViewController', {
                 displaySearchResults: 'onDisplaySearchResults'
             },
             'searchResult': {
-                searchResultTabClosed: 'onSearchResultTabClosed',
                 serviceProblemSelected: 'onServiceProblemSelected'
             },
             'workReminderDialog': {
@@ -123,12 +121,12 @@ Ext.define('Spm.view.container.AppContainerViewController', {
     onDisplaySearchResults: function (store, params) {
         var me = this,
             searchKey = me.deriveSearchKey(params),
-            viewModel = me.getViewModel(),
-            searchResultTab = viewModel.searchResultTabForId(searchKey);
+            searchResultTab = me.tabPanel.getComponent(searchKey);
 
-        if (searchResultTab === null) {
+        if (!searchResultTab) {
             searchResultTab = Ext.create({
                 xtype: 'searchResult',
+                itemId: searchKey,
                 viewModel: {
                     stores: {
                         serviceProblems: store
@@ -139,7 +137,6 @@ Ext.define('Spm.view.container.AppContainerViewController', {
                 }
             });
 
-            viewModel.addSearchResultTab(searchKey, searchResultTab);
             me.tabPanel.add(searchResultTab);
         }
 
@@ -191,27 +188,20 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         me.tabPanel.setActiveTab(serviceProblemTab);
     },
 
-    onQueueTabClosed: function (queueId) {
-        this.getViewModel().removeQueueTabForId(queueId);
-    },
-
     onServiceProblemTabClosed: function (serviceProblemId) {
         this.getViewModel().removeServiceProblemTabForId(serviceProblemId);
     },
 
-    onSearchResultTabClosed: function (params) {
-        this.getViewModel().removeSearchResultTabForId(this.deriveSearchKey(params));
-    },
-
-    onAgentQueueSelected: function (selectedQueue) {
+    displayQueueTab: function (selectedQueue) {
         var me = this,
-            viewModel = me.getViewModel(),
             queueId = selectedQueue.queueId(),
-            queueTab = viewModel.queueTabForId(queueId);
+            searchKey = 'queueId-' + queueId,
+            queueTab = me.tabPanel.getComponent(searchKey);
 
-        if (queueTab === null) {
+        if (!queueTab) {
             queueTab = Ext.create({
-                xtype: 'queueTab',
+                xtype: 'filteredServiceProblems',
+                itemId: searchKey,
                 viewModel: {
                     data: {
                         queue: selectedQueue
@@ -219,7 +209,6 @@ Ext.define('Spm.view.container.AppContainerViewController', {
                 }
             });
 
-            viewModel.addQueueTab(queueId, queueTab);
             me.tabPanel.add(queueTab);
         }
 

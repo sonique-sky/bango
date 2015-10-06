@@ -4,7 +4,7 @@ Ext.define('Spm.view.navigation.queues.MyQueuesViewController', {
 
     listen: {
         controller: {
-            'queueTab': {
+            'filteredServiceProblems': {
                 queueTabSelected: 'onQueueTabSelected',
                 queueTabDeselected: 'onQueueTabDeselected',
                 queueTabClosed: 'onQueueTabClosed'

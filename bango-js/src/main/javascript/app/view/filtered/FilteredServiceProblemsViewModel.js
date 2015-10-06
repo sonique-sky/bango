@@ -1,12 +1,13 @@
 Ext.define('Spm.view.filtered.FilteredServiceProblemsViewModel', {
-        extend: 'Ext.app.ViewModel',
-        alias: 'viewmodel.queueTab',
+    extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.filteredServiceProblems',
 
     requires: [
         'Spm.store.ServiceProblems'
     ],
+
     stores: {
-        queuedServiceProblems: {
+        filteredServiceProblems: {
             type: 'serviceProblems'
         }
     },
@@ -17,7 +18,7 @@ Ext.define('Spm.view.filtered.FilteredServiceProblemsViewModel', {
         bulkClearDisabled: true
     },
 
-    queueId: function() {
+    queueId: function () {
         return this.get('queue').get('id');
     }
 
