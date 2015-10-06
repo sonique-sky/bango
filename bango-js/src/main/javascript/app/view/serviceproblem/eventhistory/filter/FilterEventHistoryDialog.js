@@ -3,7 +3,6 @@ Ext.define('Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialog
     alias: 'widget.filterEventHistoryDialog',
 
     requires: [
-        'Ext.button.Button',
         'Ext.grid.Panel',
         'Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialogViewController',
         'Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialogViewModel'

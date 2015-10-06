@@ -6,8 +6,10 @@ Ext.define('Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialog
         var viewModel = this.getViewModel();
         var grid = this.lookupReference('eventTypeGrid');
 
-        viewModel.set('currentFilterState.selectedEventTypes', grid.getSelection());
-
+        viewModel.set('currentFilterState.selectedEventTypes', grid.getSelection().map(function (selection) {
+            var eventType = selection.get('eventType');
+            return eventType;
+        }));
         this.closeView();
     },
 
@@ -34,13 +36,22 @@ Ext.define('Spm.view.serviceproblem.eventhistory.filter.FilterEventHistoryDialog
     },
 
     onGridViewReady: function () {
-        var eventTypeGrid = this.lookupReference('eventTypeGrid');
+        var me = this,
+            selectedRows = [],
+            eventTypeGrid = this.lookupReference('eventTypeGrid'),
+            selectedEventTypes = this.getViewModel().get('currentFilterState.selectedEventTypes');
 
-        var selectedEventTypes = this.getViewModel().get('currentFilterState.selectedEventTypes');
+        me.updateButtonText(selectedEventTypes);
 
-        this.updateButtonText(selectedEventTypes);
+        me.getViewModel().get('eventTypes').queryBy(function (record) {
+            var contains = Ext.Array.contains(selectedEventTypes, record.get('eventType'));
+            if (contains) {
+                selectedRows.push(record);
+            }
+            return contains;
+        });
 
-        eventTypeGrid.getSelectionModel().select(selectedEventTypes, false, false);
+        eventTypeGrid.getSelectionModel().select(selectedRows, false, false);
     }
 
-})
+});
