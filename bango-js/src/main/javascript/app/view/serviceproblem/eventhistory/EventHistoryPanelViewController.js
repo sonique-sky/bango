@@ -24,7 +24,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     },
 
     destroy: function () {
-        if(this.selectedEventTypesBinding !== null) {
+        if (this.selectedEventTypesBinding !== null) {
             this.selectedEventTypesBinding.destroy();
         }
         this.callParent();
@@ -37,7 +37,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
         if (selectedEventTypes.length > 0) {
             store.filterBy(function (record) {
                 return selectedEventTypes.some(function (value) {
-                    return record.get('eventType') === value.get('eventType');
+                    return record.get('eventType') === value;
                 });
             });
         }
@@ -66,15 +66,10 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewController
     onEventHistoryNotesOnly: function () {
         var viewModel = this.getViewModel();
 
-        var filterActive = viewModel.get('notesOnlyFilterActive');
-        if (filterActive) {
-            var filterStateWithoutNotes = viewModel.get('currentFilterState.selectedEventTypes').filter(function (item) {
-                return item.get('eventType') !== 'Note';
-            });
-            viewModel.setSelectedEvents(filterStateWithoutNotes);
+        if (viewModel.get('notesOnlyFilterActive')) {
+            viewModel.clearSelectedEvents();
         } else {
-            var noteEvents = viewModel.getStore('eventTypes').findRecord('eventType', 'Note');
-            viewModel.setSelectedEvents([noteEvents]);
+            viewModel.setSelectedEvents(['Note']);
         }
     },
 

@@ -35,7 +35,7 @@ Ext.define('Spm.view.serviceproblem.eventhistory.EventHistoryPanelViewModel', {
                 deep: true
             },
             get: function (selectedEventTypes) {
-                return selectedEventTypes.length === 1 && selectedEventTypes[0].get('eventType') === 'Note';
+                return selectedEventTypes.length === 1 && selectedEventTypes[0] === 'Note';
             }
         }
     },
