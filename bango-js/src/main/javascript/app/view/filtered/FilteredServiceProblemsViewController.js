@@ -1,9 +1,9 @@
-Ext.define('Spm.view.queue.QueueTabViewController', {
+Ext.define('Spm.view.filtered.FilteredServiceProblemsViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.queueTab',
 
     requires: [
-        'Spm.view.queue.transfer.BulkTransferDialog'
+        'Spm.view.filtered.transfer.BulkTransferDialog'
     ],
 
     listen: {

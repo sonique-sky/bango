@@ -8,7 +8,7 @@ Ext.define('Spm.view.container.AppContainerViewController', {
         'Spm.view.dashboard.msp.MspDashboardTab',
         'Spm.view.dashboard.queue.QueueDashboardTab',
         'Spm.view.myitems.MyItemsTab',
-        'Spm.view.queue.QueueTab',
+        'Spm.view.filtered.FilteredServiceProblems',
         'Spm.view.search.SearchResultTab',
         'Spm.view.serviceproblem.ServiceProblemTab'
     ],

@@ -1,4 +1,4 @@
-Ext.define('Spm.view.queue.QueueTabViewModel', {
+Ext.define('Spm.view.filtered.FilteredServiceProblemsViewModel', {
         extend: 'Ext.app.ViewModel',
         alias: 'viewmodel.queueTab',
 

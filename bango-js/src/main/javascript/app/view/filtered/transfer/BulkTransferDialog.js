@@ -1,11 +1,11 @@
-Ext.define('Spm.view.queue.transfer.BulkTransferDialog', {
+Ext.define('Spm.view.filtered.transfer.BulkTransferDialog', {
     extend: 'Spm.component.StandardDialog',
     alias: 'widget.bulkTransferDialog',
 
     requires: [
         'Ext.grid.Panel',
-        'Spm.view.queue.transfer.BulkTransferDialogViewController',
-        'Spm.view.queue.transfer.BulkTransferDialogViewModel'
+        'Spm.view.filtered.transfer.BulkTransferDialogViewController',
+        'Spm.view.filtered.transfer.BulkTransferDialogViewModel'
     ],
 
     controller: 'bulkTransferDialog',

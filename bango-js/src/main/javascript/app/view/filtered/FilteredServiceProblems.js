@@ -1,4 +1,4 @@
-Ext.define('Spm.view.queue.QueueTab', {
+Ext.define('Spm.view.filtered.FilteredServiceProblems', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.queueTab',
 
@@ -7,8 +7,8 @@ Ext.define('Spm.view.queue.QueueTab', {
         'Ext.grid.column.Template',
         'Ext.toolbar.Paging',
         'Ext.toolbar.Spacer',
-        'Spm.view.queue.QueueTabViewController',
-        'Spm.view.queue.QueueTabViewModel'
+        'Spm.view.filtered.FilteredServiceProblemsViewController',
+        'Spm.view.filtered.FilteredServiceProblemsViewModel'
     ],
 
     controller: 'queueTab',
@@ -27,6 +27,7 @@ Ext.define('Spm.view.queue.QueueTab', {
     border: 0,
     closable: true,
     iconCls: 'icon-queue',
+    cls: 'queue-tab',
 
     bind: {
         title: '{queue.name}',
