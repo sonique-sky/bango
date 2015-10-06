@@ -15,9 +15,6 @@ Ext.define('Spm.view.SupermanViewController', {
             },
             'appHeader': {
                 logout: 'onLogout'
-            },
-            'serviceProblemTab': {
-                displayNotification: 'onDisplayNotification'
             }
         }
     },
@@ -60,17 +57,6 @@ Ext.define('Spm.view.SupermanViewController', {
                     closable: false
                 });
             }
-        });
-    },
-
-    onDisplayNotification: function (params) {
-        Ext.toast({
-            html: params.message,
-            title: params.title,
-            width: 250,
-            align: 'br',
-            header: true,
-            border: false
         });
     },
 

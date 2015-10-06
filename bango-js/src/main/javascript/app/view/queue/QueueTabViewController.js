@@ -150,6 +150,16 @@ Ext.define('Spm.view.queue.QueueTabViewController', {
         var store = this.getStore('queuedServiceProblems');
         store.filter('queueId', this.queueId());
         store.load();
+    },
+
+    workItemReminderRenderer: function (value, metadata, record) {
+        var workItem = record.getWorkItem();
+        return workItem ? Ext.Date.format(workItem.get('reminder'), 'd/m/Y H:i') : "";
+    },
+
+    workItemCreatedDateRenderer: function (value, metadata, record) {
+        var workItem = record.getWorkItem();
+        return workItem ? Ext.Date.format(workItem.get('createdDate'), 'd/m/Y H:i') : "";
     }
 
 });

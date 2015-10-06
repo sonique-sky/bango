@@ -47,30 +47,28 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
                         store: '{mspDashboardEntries}'
                     },
 
+                    defaults: {
+                        xtype: 'button',
+                        padding: '5,5,5,5'
+                    },
                     items: [
                         "-",
                         {
-                            xtype: 'button',
                             iconCls: 'icon-create-msp',
                             toolTip: 'Create MSP',
-                            padding: '5,5,5,5',
                             handler: 'createMsp'
                         },
                         {
-                            xtype: 'button',
                             iconCls: 'icon-close-msp',
                             toolTip: 'Close MSP',
-                            padding: '5,5,5,5',
                             handler: 'closeMsp',
                             bind: {
                                 disabled: '{closeButtonDisabled}'
                             }
                         },
                         {
-                            xtype: 'button',
                             iconCls: 'icon-view-msp-sps',
                             toolTip: 'View Service Problems associated to the selected MSP',
-                            padding: '5,5,5,5',
                             handler: 'viewAssociatedServiceProblems'
                         },
                         "-",
@@ -80,7 +78,6 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTab', {
                             boxLabel: 'Show Recently Closed',
                             handler: 'showRecentlyClosed'
                         },
-                        " ",
                         "-",
                         {
                             xtype: 'checkbox',
