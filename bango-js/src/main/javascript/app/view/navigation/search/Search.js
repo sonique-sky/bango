@@ -48,6 +48,10 @@ Ext.define('Spm.view.navigation.search.Search', {
                 {
                     boxLabel: 'MSP ID',
                     inputValue: 'mspId'
+                },
+                {
+                    boxLabel: 'TTM Case Number',
+                    inputValue: 'operatorReference'
                 }
             ]
         },

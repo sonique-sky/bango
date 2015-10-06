@@ -246,6 +246,7 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
         serviceProblemId(searchParameters -> serviceProblem -> serviceProblem.serviceProblemId().asString().equals(searchParameters.value())),
         serviceId(searchParameters -> serviceProblem -> serviceProblem.serviceId().asString().equals(searchParameters.value())),
         directoryNumber(searchParameters -> serviceProblem -> serviceProblem.getDirectoryNumber().asString().equals(searchParameters.value())),
+        operatorReference(searchParameters -> serviceProblem -> serviceProblem.operatorReference().asString().equals(searchParameters.value())),
         queueId(searchParameters -> serviceProblem -> serviceProblem.getQueue().id().asString().equals(searchParameters.value()) && serviceProblem.getStatus() == ServiceProblemStatus.Open),
         status(searchParameters -> serviceProblem -> serviceProblem.getStatus() == ServiceProblemStatus.valueOf(searchParameters.value())),
         agent(searchParameters -> serviceProblem -> serviceProblem.isAssigned() && serviceProblem.workItem().agent().getAgentCode().equals(searchParameters.value())),
