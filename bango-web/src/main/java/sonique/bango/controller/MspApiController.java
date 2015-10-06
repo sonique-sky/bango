@@ -13,6 +13,7 @@ import spm.domain.MajorServiceProblemId;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/msp")
@@ -41,5 +42,12 @@ public class MspApiController {
     public ResponseData<List<EventHistoryItem>> eventHistory(@PathVariable Long majorServiceProblemId) {
         return new ResponseData<>(mspApiService.eventHistory(new MajorServiceProblemId(majorServiceProblemId)));
     }
+
+    @RequestMapping(consumes = "application/json", value = "/{majorServiceProblemId}/eventHistory", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<EventHistoryItem> addEventHistory(@PathVariable Long majorServiceProblemId, @RequestBody Map<String, String> payloadMap) {
+        return new ResponseData<>(mspApiService.addNote(new MajorServiceProblemId(majorServiceProblemId), payloadMap.get("note")));
+    }
+
 
 }

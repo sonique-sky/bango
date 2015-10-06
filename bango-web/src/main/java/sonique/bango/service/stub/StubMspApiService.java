@@ -3,6 +3,7 @@ package sonique.bango.service.stub;
 import sky.sns.spm.domain.model.EventHistoryItem;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblem;
 import sky.sns.spm.domain.model.majorserviceproblem.DomainMajorServiceProblemDashboardEntry;
+import sky.sns.spm.domain.model.serviceproblem.EventDescription;
 import sky.sns.spm.infrastructure.repository.DomainMajorServiceProblemRepository;
 import sky.sns.spm.infrastructure.security.AuthorisedActorProvider;
 import sky.sns.spm.interfaces.shared.PagedSearchResults;
@@ -75,6 +76,18 @@ public class StubMspApiService implements MspApiService {
         //TODO Superman service should Send SERVICE_PROBLEM_CLEARED event to troll
         //TODO Superman service should Add MajorServiceProblemClosedHistoryEvent to Service Problem
         return repository.update(majorServiceProblem);
+    }
+
+    @Override
+    public EventHistoryItem addNote(MajorServiceProblemId majorServiceProblemId, String note) {
+        DomainMajorServiceProblem majorServiceProblem = repository.findByMajorServiceProblemId(majorServiceProblemId);
+        majorServiceProblem.addNote(
+                note,
+                authorisedActorProvider.authorisedActor(),
+                new Date()
+        );
+
+        return new DomainMajorServiceProblem.MajorServiceProblemEventHistoryItem(EventDescription.Note, new Date(), authorisedActorProvider.getLoggedInAgent().getAgentCode(), note, majorServiceProblem);
     }
 
     private static class MajorServiceProblemDashboardEntryFilterSupplier implements Function<Filter, Predicate<DomainMajorServiceProblemDashboardEntry>> {
