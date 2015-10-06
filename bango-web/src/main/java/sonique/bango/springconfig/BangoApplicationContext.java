@@ -63,7 +63,7 @@ public class BangoApplicationContext {
         serviceProblemRepository = new ServiceProblemStore(queueRepository, symptomRepository, serviceDetailsStore);
         troubleReportRepository = new TroubleReportStore(serviceProblemRepository, symptomRepository);
         teamRepository = new TeamStore();
-        mspRepository = new MspStore();
+        mspRepository = new MspStore(serviceProblemRepository);
     }
 
     @Bean

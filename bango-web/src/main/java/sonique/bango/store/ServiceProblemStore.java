@@ -33,6 +33,7 @@ import java.util.function.Predicate;
 
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 import static sky.sns.spm.domain.model.serviceproblem.EventDescription.Note;
 import static sonique.bango.domain.sorter.NestedFieldComparator.nestedDateFieldComparator;
@@ -196,7 +197,14 @@ public class ServiceProblemStore implements DomainServiceProblemRepository {
 
     @Override
     public Iterable<DomainServiceProblem> findAssociatedServiceProblems(MajorServiceProblemId majorServiceProblemId) {
-        throw new UnsupportedOperationException("Method ServiceProblemStore findAssociatedServiceProblems() not yet implemented");
+        return serviceProblems
+                .stream()
+                .filter(domainServiceProblem -> domainServiceProblem.getMajorServiceProblems()
+                        .stream()
+                        .map(DomainMajorServiceProblem::getId)
+                        .collect(toList())
+                        .contains(majorServiceProblemId.asLong()))
+                .collect(toList());
     }
 
     @Override
