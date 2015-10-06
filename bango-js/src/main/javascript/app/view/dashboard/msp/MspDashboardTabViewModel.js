@@ -8,6 +8,12 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabViewModel', {
         'Spm.proxy.MajorServiceProblemEventHistoryProxy'
     ],
 
+    data: {
+        eventHistoryProxy: Ext.create('Spm.proxy.MajorServiceProblemEventHistoryProxy'),
+        displayRecentlyClosed: false,
+        selectedMsp: null
+    },
+
     stores: {
         mspDashboardEntries: {
             fields: ['id', 'description', 'startDate', 'outageId', 'expectedResolutionDate', 'serviceProblemCount', 'serviceCount'],
@@ -17,6 +23,10 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabViewModel', {
             remoteFilter: true,
 
             sorters: 'id',
+
+            listeners: {
+                load: 'storeLoaded'
+            },
 
             proxy: {
                 type: 'ajax',
@@ -29,9 +39,21 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabViewModel', {
         }
     },
 
-    data: {
-        eventHistoryProxy: Ext.create('Spm.proxy.MajorServiceProblemEventHistoryProxy'),
-        displayRecentlyClosed: false
+    formulas: {
+        closeButtonDisabled: {
+            bind: {
+                bindTo: '{selectedMsp.closedDate}',
+                deep: true
+            },
+            get: function (closedDate) {
+                return closedDate;
+            }
+        }
+    },
+
+
+    selectedMsp: function () {
+        return this.get('selectedMsp');
     }
 
 });

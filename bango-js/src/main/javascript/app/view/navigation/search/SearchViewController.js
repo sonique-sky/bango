@@ -6,6 +6,14 @@ Ext.define('Spm.view.navigation.search.SearchViewController', {
         'Spm.store.ServiceProblems'
     ],
 
+    listen: {
+        controller: {
+            'mspDashboard': {
+                search: 'performSearch'
+            }
+        }
+    },
+
     onSpecialKey: function (field, e) {
         if (e.getKey() === e.ENTER) {
             this.onSearch();
@@ -13,9 +21,14 @@ Ext.define('Spm.view.navigation.search.SearchViewController', {
     },
 
     onSearch: function () {
-        var me = this;
-        var store = Ext.create('Spm.store.ServiceProblems');
-        var filters = me.getViewModel().filter();
+        var me = this,
+            filters = me.getViewModel().filter();
+        me.performSearch(filters);
+    },
+
+    performSearch: function (filters) {
+        var me = this,
+            store = Ext.create('Spm.store.ServiceProblems');
         store.filter(filters);
         store.load({
             callback: function (records) {

@@ -15,8 +15,7 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabViewController', {
     },
 
     loadStore: function () {
-        var me = this,
-            store = this.getViewModel().getStore('mspDashboardEntries'),
+        var store = this.getViewModel().getStore('mspDashboardEntries'),
             view = this.getView();
 
         store.removeFilter('hideManuallyCreated');
@@ -25,57 +24,67 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabViewController', {
         view.lookupReference('hideManuallyCreated').setValue(false);
         view.lookupReference('showRecentlyClosed').setValue(false);
 
-        store.load({
-            callback: function (records, operation, success) {
-                me.selectFirstMsp(store);
-                me.lookupReference('eventHistoryPanel').fireEvent('serviceProblemLoaded', me.selectedMsp().getId());
-            }
-        });
-
+        store.load();
     },
 
-    selectMajorServiceProblem: function (component, td, cellIndex, record) {
-        var eventHistoryPanel = this.lookupReference('eventHistoryPanel');
-        eventHistoryPanel.fireEvent('serviceProblemLoaded', record.getId());
+    storeLoaded: function (store, records) {
+        var me = this;
+        me.selectFirstMajorServiceProblem(store);
+        me.lookupReference('eventHistoryPanel').fireEvent('serviceProblemLoaded', me.getViewModel().selectedMsp().getId());
     },
 
     showRecentlyClosed: function (checkbox, checked) {
-        var store = this.getViewModel().getStore('mspDashboardEntries');
+        var me = this,
+            store = me.getViewModel().getStore('mspDashboardEntries');
+
         store.filter('showRecentlyClosed', checked);
-        this.getViewModel().set('displayRecentlyClosed', checked);
+        me.getViewModel().set('displayRecentlyClosed', checked);
     },
 
     hideManuallyCreated: function (checkbox, checked) {
-        var store = this.getViewModel().getStore('mspDashboardEntries');
+        var me = this,
+            store = me.getViewModel().getStore('mspDashboardEntries');
         checked ? store.filter('hideManuallyCreated', true) : store.removeFilter('hideManuallyCreated');
     },
 
-    viewAssociatedServiceProblems: function (button, event) {
+    selectMajorServiceProblem: function (component, td, cellIndex, record) {
+        this.getViewModel().set('selectedMsp', record);
+        this.lookupReference('eventHistoryPanel').fireEvent('serviceProblemLoaded', record.getId());
+    },
 
+    selectFirstMajorServiceProblem: function (store) {
+        var mspGridPanel = this.lookupReference('mspGridPanel');
+        mspGridPanel.setSelection(store.first());
+        this.getViewModel().set('selectedMsp', store.first());
+    },
+
+    viewAssociatedServiceProblems: function () {
+        var me = this;
+        me.fireEvent('search', {
+            property: 'mspId',
+            value: me.getViewModel().selectedMsp().getId()
+        });
     },
 
     createMsp: function () {
         this.getView().add({xtype: 'createMspDialog'}).show();
     },
 
-    showAssociatedServiceProblems: function (cell, record, item, index, e, eOpts) {
-    },
-
-    closeMsp: function (button, event) {
+    closeMsp: function () {
         var me = this,
-            selectedMsp = me.selectedMsp(),
-            id = selectedMsp.get('id');
+            selectedMsp = me.getViewModel().selectedMsp(),
+            mspId = selectedMsp.get('id');
 
         if (selectedMsp) {
             Ext.Msg.show({
                 title: 'Confirm Close MSP',
-                msg: Ext.String.format('Do you want to close MSP #{0}?', id),
+                msg: Ext.String.format('Do you want to close MSP #{0}?', mspId),
                 buttons: Ext.Msg.YESNO,
                 icon: Ext.Msg.QUESTION,
                 callback: function (buttonId) {
                     if ('yes' == buttonId) {
                         Ext.Ajax.request({
-                            url: Ext.String.format('api/msp/{0}/close', id),
+                            url: Ext.String.format('api/msp/{0}/close', mspId),
                             method: 'PUT',
                             callback: function () {
                                 me.loadStore();
@@ -85,15 +94,6 @@ Ext.define('Spm.view.dashboard.msp.MspDashboardTabViewController', {
                 }
             });
         }
-
-    },
-
-    selectFirstMsp: function (store) {
-        return this.lookupReference('mspGridPanel').setSelection(store.first());
-    },
-
-    selectedMsp: function () {
-        return this.lookupReference('mspGridPanel').getSelectionModel().getSelection()[0];
     }
 
 });
